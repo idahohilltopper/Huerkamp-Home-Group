@@ -1,6 +1,6 @@
 # Huerkamp Home Group — New Website Plan
 
-_Status: Step 3 (design + home page) — first draft built, awaiting review_
+_Status: Step 3 (design + home page) — built with real team, reviews and photo; awaiting review_
 
 ## Decisions so far
 
@@ -94,16 +94,15 @@ _Status: Step 3 (design + home page) — first draft built, awaiting review_
 
 ## Step 3 progress (2026-09-26)
 
-**Built:** Astro project with the home page (`src/pages/index.astro`), styled after nevadarealestategroup.com: espresso `#2B221A`, cream `#F7F4EE`, gold `#D4B27C`; Cormorant Garamond / Fraunces headings, Barlow body, Mulish buttons. Sections: header, skyline hero with search bar and Buy/Sell cards, stats, Buy/Sell/Invest paths, communities, reviews, team, Ramsey ELP, call to action, footer.
+**Built:** Astro home page (`src/pages/index.astro`), styled after nevadarealestategroup.com (espresso `#2B221A`, cream `#F7F4EE`, gold `#D4B27C`; Cormorant Garamond / Fraunces headings, Barlow body, Mulish buttons). Preview: `npm run build`, then `node scripts/make-preview.mjs <dir>`.
 
-- Preview: `npm run build`, then `node scripts/make-preview.mjs <out.html>` makes the claude.ai preview page.
-- Search form shows a "coming in step 7" note until the MLS feed exists.
+**Team (`src/data/team.json`):** all 39 people from /team-page, with name, title, phone, email and license number copied from each profile. 26 bios are verbatim; the other 13 profiles have no bio. Headshots are saved in `public/team/`.
 
-**Team:** all 39 people from /team-page saved in `src/data/team.json` (name, phone, email, photo URL, profile URL). Titles and bios are still missing (except Jason's, from the team page). They are on each `/team/<name>` page, and those pages became unreachable partway through this session.
+**Reviews (`src/data/reviews.json`):**
+- Google: 5.0 stars, 841 reviews (Maps listing, 2026-09-26). Collected 78 verbatim; 55 have full text. The rest were cut off by Google's "More" link and are flagged `textComplete: false`, so they never display.
+- Zillow: 54 verbatim 5-star reviews, taken from huerkamphomegroup.com/testimonials, which imports them from Zillow with each review's URL. zillow.com blocks automated access, so these haven't been re-checked on Zillow directly. The site template adds "…" to every review; that was removed and flagged.
+- The home page shows 4 Google and 2 Zillow reviews: complete text, 5 stars, short enough to fit a card.
 
-**Still blocked (network):**
-- Zillow blocks automated access with a captcha (PerimeterX). This is Zillow's own protection, not our settings. Reviews will need to be copied by hand or pulled through an approved API.
-- Partway through the session the egress proxy began refusing huerkamphomegroup.com, google.com, nevadarealestategroup.com, unsplash.com and images.squarespace-cdn.com (403 on CONNECT). Only images.unsplash.com stayed reachable.
-- So: **no reviews yet** (`src/data/reviews.json` is empty on purpose; the page shows a "pending" box), and **no skyline photo yet**. The hero uses a drawn skyline placeholder until an Unsplash photo's free license can be confirmed on its unsplash.com page.
+**Hero photo:** Unsplash blocks automated browsers (BotStopper at difficulty 16), so its free license couldn't be confirmed. Used instead: "Minneapolis Moonlight Skyline" by Tony Webster, CC BY 2.0, from Wikimedia Commons, credited in the footer (details in `public/hero/CREDITS.md`). To switch to an Unsplash photo, send the photo link or an Unsplash API access key.
 
-**Next:** restore network access, then pull titles/bios, download team photos into `public/`, add verbatim reviews and choose the skyline photo.
+**Open questions:** confirm the stats (2002, 39 people, 15+ years ELP). The Google listing shows phone +1 612-843-9620, while the site uses (612) 502-7653; decide which is correct.

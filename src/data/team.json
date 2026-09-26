@@ -1,358 +1,436 @@
 {
   "source": "https://www.huerkamphomegroup.com/team-page",
   "retrieved": "2026-09-26",
-  "note": "Order matches the team page. title/bio null = not yet pulled from the individual profile page.",
+  "note": "Titles, license numbers and bios copied verbatim from each /team/<name> profile page. bio null = profile has no bio.",
   "members": [
     {
       "name": "Jason Huerkamp",
-      "title": "Founder & Lead REALTOR®",
-      "bio": "Jason, the team’s founder and lead REALTOR®, brings more than two decades of experience and a background in real estate investing. Born and raised in Minnesota, he’s built Huerkamp Home Group on a foundation of market expertise, creative problem-solving, and genuine care for clients. Jason is passionate about mentoring new agents, negotiating win-win deals, and helping buyers and sellers make smart, informed moves that fit their goals.",
+      "title": "REALTOR®",
+      "bio": "Jason is the ambitious founder and co-leader of the Huerkamp Home Group. Since 2002, the Huerkamp Home Group has grown exponentially to become one of the most dominant real estate teams in Minnesota. Jason is a savvy real estate investor and enjoys sharing this aspect of the business with others. Jason was born and raised in Minnesota and enjoys traveling, snowmobiling, boating, and spending time with his wife Brooke, and 2 children Piper and Crosby.",
       "phone": "(612) 324-2357",
       "email": "jason@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1680729519448-U4A14QLPEUL7QZPWX30K/HHGHeadshots2022-327+%286%29.jpg",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/jason-huerkamp"
+      "photo": "/team/jason-huerkamp.jpg",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/jason-huerkamp",
+      "license": "20329835",
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1680729519448-U4A14QLPEUL7QZPWX30K/HHGHeadshots2022-327+%286%29.jpg"
     },
     {
       "name": "Brooke Huerkamp",
-      "title": null,
-      "bio": null,
+      "title": "REALTOR®",
+      "bio": "Brooke is a lifelong resident of the Twin Cities. She was deeply influenced by her family's involvement in the real estate industry. Both her father and grandfather were respected Realtors in Minnesota, with her grandfather even playing a role in the sale of the iconic Foshay Tower in Minneapolis. With over 20 years of experience as a licensed real estate agent, Brooke has established herself as a trusted professional in the field. Her insiders expertise is further enhanced by her own experiences of building, residing in, and selling numerous properties. In addition to her real estate ventures, Brooke also manages rental properties. This firsthand involvement in property management has provided her with valuable insights into the intricacies of the rental market as well. Brooke's deep-rooted passion for real estate is evident in her commitment to ensuring an enjoyable experience for her clients. Whether someone is a first-time buyer embarking on the exciting journey of finding their first home or a seller ready to transition to a new chapter in life, Brooke is the unequivocal go-to resource for all their real estate needs. Her clients can rely on her exceptional market knowledge, honed through years of experience and a keen eye for recommending updates or cosmetic enhancements. Beyond the transactional aspect of real estate, Brooke strives to build lasting relationships with her clients. Her goal is to become a lifelong resource for any real estate related need. Many of her clients have transformed into cherished friendships, a testament to her dedication and personalized approach to serving her clients. In summary, Brooke's biography reflects a seasoned professional with deep roots in the Twin Cities. Her family's legacy in real estate, coupled with her own extensive experience, has provided her with a solid foundation and understanding of the local market. Brooke offers a comprehensive range of services to her clients, ensuring a seamless experience from start to finish. Her passion for real estate and her commitment to building long-term relationships make her the go-to resource for all real estate needs.",
       "phone": "(612) 509-4409",
       "email": "brooke@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1712193536660-VNFHWEY2FIBAH0444Z7K/Brooke+Headshot+TEAM+SHOT.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/brooke-huerkamp"
+      "photo": "/team/brooke-huerkamp.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/brooke-huerkamp",
+      "license": null,
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1712193536660-VNFHWEY2FIBAH0444Z7K/Brooke+Headshot+TEAM+SHOT.png"
     },
     {
       "name": "Olivia Manson",
-      "title": null,
+      "title": "CEO & Regional Director",
       "bio": null,
       "phone": "(651) 615-9334",
       "email": "olivia@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785264370709-UH2IWI63AKODBN8M6W5U/Olivia+Manson.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/olivia-manson"
+      "photo": "/team/olivia-manson.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/olivia-manson",
+      "license": "20416636",
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785264370709-UH2IWI63AKODBN8M6W5U/Olivia+Manson.png"
     },
     {
       "name": "Kat Pap",
-      "title": null,
+      "title": "Operations Manager",
       "bio": null,
       "phone": "(218) 995-4119",
       "email": "kat@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785259842853-YP0AJEP9HZGSC8FUPP4Z/Kat+Pap.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/kat-pap"
+      "photo": "/team/kat-pap.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/kat-pap",
+      "license": "40414189",
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785259842853-YP0AJEP9HZGSC8FUPP4Z/Kat+Pap.png"
     },
     {
       "name": "Nicole Kelly",
-      "title": null,
+      "title": "Transaction Coordinator",
       "bio": null,
       "phone": "(651) 372-8689",
       "email": "sold@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785264289202-MVPVK0YNL2TTDTK4JLD9/Nicole+Kelly.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/nicole-kelly"
+      "photo": "/team/nicole-kelly.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/nicole-kelly",
+      "license": "40612250",
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785264289202-MVPVK0YNL2TTDTK4JLD9/Nicole+Kelly.png"
     },
     {
       "name": "Shyanne Comella",
-      "title": null,
+      "title": "Listing Coordinator",
       "bio": null,
       "phone": "(507) 417-2724",
       "email": "listings@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785263457746-ZR7CRJT5HYZCJ9B0ZJXI/83230156_172430981_3a814b3ca57d4efe9c9c441703095863__shyanne.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/shyanne-comella"
+      "photo": "/team/shyanne-comella.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/shyanne-comella",
+      "license": null,
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785263457746-ZR7CRJT5HYZCJ9B0ZJXI/83230156_172430981_3a814b3ca57d4efe9c9c441703095863__shyanne.png"
     },
     {
       "name": "Leah Petersen",
-      "title": null,
+      "title": "Showing Partner",
       "bio": null,
       "phone": "(612) 324-2206",
       "email": "leah@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785263960596-53P29CX1J3UTIU9MHFCO/83230156_172430981_11e10ce594064a65b5d9cf6428261340__50.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/leah-petersen"
+      "photo": "/team/leah-petersen.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/leah-petersen",
+      "license": "40780230",
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785263960596-53P29CX1J3UTIU9MHFCO/83230156_172430981_11e10ce594064a65b5d9cf6428261340__50.png"
     },
     {
       "name": "Colin Manson",
-      "title": null,
-      "bio": null,
+      "title": "REALTOR®",
+      "bio": "I take pride in utilizing my background as a professional civil engineer to be an advocate, teacher and adviser to my clients. With over two decades of real estate design, development, investment, and sales experience I have a unique skill set that allows me to focus on these three principles when guiding clients through the home buying, selling, or investing process. The most satisfying part of my work is helping a happy and satisfied client to the close of their transaction while knowing I have ensured they make a strong financial decision regarding one of their most valuable assets.",
       "phone": "(651) 504-1081",
       "email": "colin@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1739565951014-CPFOCC8NHL9EFO36Q2O5/83230156_172430979_shelly.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/colin-manson"
+      "photo": "/team/colin-manson.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/colin-manson",
+      "license": "40420478",
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1739565951014-CPFOCC8NHL9EFO36Q2O5/83230156_172430979_shelly.png"
     },
     {
       "name": "Andy Coates",
-      "title": null,
-      "bio": null,
+      "title": "REALTOR®",
+      "bio": "Andy is Minnesota born and raised and has been an indispensable part of the Huerkamp Home Group for several years. Andy fully understands the significance of making a home purchase or sale and prides himself on ensuring that he is there for his clients with his plethora of knowledge to help answer any and every question they may have. In his free time, Andy enjoys spending time at his cabin with his wife Ann and their kids and grandkids.",
       "phone": "(651) 615-9007",
       "email": "andy@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1680729696595-CWGYISGS10FW643T2RNF/Andy.jpg",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/andy-coates"
+      "photo": "/team/andy-coates.jpg",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/andy-coates",
+      "license": "40518947",
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1680729696595-CWGYISGS10FW643T2RNF/Andy.jpg"
     },
     {
       "name": "Jason Oliver",
-      "title": null,
-      "bio": null,
+      "title": "REALTOR®",
+      "bio": "Jason Oliver is Minnesota born and raised with strong ties to the boating community. Having built, designed and managed three separate multi-million dollar boat brokerage houses in two decades. He specialized in advertising, financing, sales, titlework, boating safety & systems. Utilizing his past 20 years of one on one experience with buyers and sellers, it was an easy transition into the Huerkamp Home Group. He strives to learn about his clients, while maintaining a balance of needs versus wants. His fundamental purpose is to seek out the best matching properties for his clients. Be prepared for his questions! Jason and his wife Sharon are long time residents in the Bloomington area with their three children, Evelyn, Rose and Hannah. When not in the office they travel, fish, boat and ski as much as possible. Huerkamp Home Group - Keller Williams Preferred Realty",
       "phone": "(612) 416-0493",
       "email": "joliver@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1771356535486-2B12DQD5U8OXBZLIIKXM/83230156_172430979_jason_o_new_headshot.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/jason-oliver"
+      "photo": "/team/jason-oliver.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/jason-oliver",
+      "license": "40522557",
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1771356535486-2B12DQD5U8OXBZLIIKXM/83230156_172430979_jason_o_new_headshot.png"
     },
     {
       "name": "Jeff Norberg",
-      "title": null,
-      "bio": null,
+      "title": "REALTOR®",
+      "bio": "Jeff, a resident of Prior lake since 2000, has been a licensed Realtor in MN since 2003 and has over 30 years experience in the customer service and real estate sales industry. Jeff enjoys helping his clients achieve their goals whether its with the purchase of their first home, or the sale of their 10th home. When Jeff has personal time, he likes to spend it with his wife Cari playing Pickleball. He also enjoys cooking and grilling for friends and family.",
       "phone": "(952) 232-4040",
       "email": "jeff@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1680729754807-OZUVUOHCEYB8X3MTO3PT/Jeff.jpg",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/jeff-norberg"
+      "photo": "/team/jeff-norberg.jpg",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/jeff-norberg",
+      "license": "20432177",
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1680729754807-OZUVUOHCEYB8X3MTO3PT/Jeff.jpg"
     },
     {
       "name": "Zac Bidelman",
-      "title": null,
-      "bio": null,
+      "title": "REALTOR®",
+      "bio": "I love my job! How many people do you know that can truly say that? The best thing about this job is that I get people solutions to their needs. Whether that is selling, buying or investing in real estate I can get you a solution. I have over 15 years of sales and real estate experience. The best advice that I can give to my clients is to ask me questions! I take pride in the experience I provide to my clients. Communication is key when it comes to real estate. My goal is simple, to provide you the best real estate experience ever so that if you are anyone you know has any real estate needs I am the first person that comes to mind! I look forward to finding the solution to your real estate needs!",
       "phone": "(612) 712-9936",
       "email": "zac@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1680729825422-F9WMJ8HZ8K2K5FE2106R/Zac.jpg",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/zac-bidelman"
+      "photo": "/team/zac-bidelman.jpg",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/zac-bidelman",
+      "license": "40593110",
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1680729825422-F9WMJ8HZ8K2K5FE2106R/Zac.jpg"
     },
     {
       "name": "Kaitlyn Bahl",
-      "title": null,
-      "bio": null,
+      "title": "REALTOR®",
+      "bio": "Kaitlyn is a homegrown Minnesotan with a passion for fun and adventure. After spending 10 years working in the non-profit sector, she decided to follow her desire to become a Realtor. Her background in customer satisfaction and relationship building made her a match for the Huerkamp Home Group. Kaitlyn's dedication to being proactive and to advocate for her clients stands out amongst others. Her role as your Realtor is to guide you through the home buying process with high energy and hard work. Kaitlyn enjoys spending time with her family and friends, traveling, and volunteering in her community.",
       "phone": "(952) 222-7373",
       "email": "kbahl@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1787847610276-8O8G6HBU53V7MV3RN3C5/83230156_172430979_d1ca475289bc4947b0e5023859c2165f__kaitlyn.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/kaitlyn-bahl"
+      "photo": "/team/kaitlyn-bahl.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/kaitlyn-bahl",
+      "license": "40632434",
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1787847610276-8O8G6HBU53V7MV3RN3C5/83230156_172430979_d1ca475289bc4947b0e5023859c2165f__kaitlyn.png"
     },
     {
       "name": "Michele Meredith",
-      "title": null,
-      "bio": null,
+      "title": "REALTOR®",
+      "bio": "Michele was raised in Minnesota, growing up in the northwestern suburbs of the Twin Cities metro. Her background and years of experience in the restaurant service industry have taught her exceptional customer service skills that make her a wonderful real estate agent and addition to the Huerkamp Home Group team. She is able to communicate and relate to all types of personalities and truly works to understand and cater to her client’s needs throughout the entire home buying and selling process. In her spare time, Michele enjoys adventuring outside with her boyfriend Alek and dog Maeby.",
       "phone": "(612) 662-1095",
       "email": "michele@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1790195321477-I2GYJRDHWW8OXZ4VT675/Michele+Meredith.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/michele-meredith"
+      "photo": "/team/michele-meredith.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/michele-meredith",
+      "license": "40738417",
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1790195321477-I2GYJRDHWW8OXZ4VT675/Michele+Meredith.png"
     },
     {
       "name": "Eli Winslow",
-      "title": null,
-      "bio": null,
+      "title": "REALTOR®",
+      "bio": "Eli was born and raised in Farmington, Minnesota, and graduated from Farmington High School. Eli earned his Real Estate license in 2021 - being the ambitious person he is, he always knew he'd end up in real estate. When Eli isn't out selling homes, you can find him cheering on all the Minnesota sport teams and spending time with his family and friends. Eli is so excited to join the Huerkamp Home Group and is ready to open new doors and opportunities for you through real estate!",
       "phone": "(651) 661-3390",
       "email": "eli@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1775785463271-35Q7NLZVG2K30S59XYY2/172430979_img_0173.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/eli-winslow"
+      "photo": "/team/eli-winslow.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/eli-winslow",
+      "license": "40771885",
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1775785463271-35Q7NLZVG2K30S59XYY2/172430979_img_0173.png"
     },
     {
       "name": "Jon Hoffmeister",
-      "title": null,
-      "bio": null,
+      "title": "Broker Associate",
+      "bio": "I have served over 600+ buyers and sellers to date. I am highly relationship base and as a result over 75% of our business comes from repeat clients, and referrals from past clients, friends, and family. We believe every client should have the tools necessary in order to make highly informed decisions. We continue to provide support to our homeowners well beyond closing day and become a trusted advocate and resource to those we serve. I have been a full-time Broker Associate for 18 years and I believe in continual learning so I can properly advise my clients.",
       "phone": "(952) 243-4641",
       "email": "jon@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1680730483375-1ESFS0YY237IBPRSS74P/12.23.2022HHGheadshots-27.jpg",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/jon-hoffmeister"
+      "photo": "/team/jon-hoffmeister.jpg",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/jon-hoffmeister",
+      "license": "40026069",
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1680730483375-1ESFS0YY237IBPRSS74P/12.23.2022HHGheadshots-27.jpg"
     },
     {
       "name": "Candace Johnson",
-      "title": null,
+      "title": "REALTOR®",
       "bio": null,
       "phone": "(651) 358-2665",
       "email": "Candace@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1788377909201-QMX1NOZAX3M6E6FLIBL8/renditionDownload+%282%29.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/candace-johnson"
+      "photo": "/team/candace-johnson.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/candace-johnson",
+      "license": null,
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1788377909201-QMX1NOZAX3M6E6FLIBL8/renditionDownload+%282%29.png"
     },
     {
       "name": "Cheri Topness",
-      "title": null,
-      "bio": null,
+      "title": "Realtor, GRI, SRES, SFR",
+      "bio": "Having relocated to the Twin Cities from the Palm Springs area in 2014, I am excited to share my now combined 18 years of Real Estate experience in Minnesota and California with my clients. I live with my 7 year old son, Zach, in Farmington, MN. I graduated from Santa Clara University with a BA in Finance in 2000. When I am not working, I can be found on the golf course, running or biking on new trail. Zach is very active in Hockey, Soccer and overall keeping me busy! I look forward to many more adventures here in Minnesota and exploring all the little towns and experiences they offer. I have a strong background in negotiating real estate transactions with over $40 Million in closed Real Estate sales under my belt. I hold several Real Estate designations: GRI - Graduate Real Estate Institute, SFR - Short Sale and Foreclosure Resource, & SRES - Senior Real Estate Specialist. I believe that education and knowledge that comes with these designations helps me service my clients to the fullest. I look forward to bringing my knowledge and skills to buyers and sellers here in the Minneapolis market.",
       "phone": "(952) 522-5602",
       "email": "cheri@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1712193956055-KUNHA2RCINEUX3Q2AGAZ/Cheri.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/cheri-topness"
+      "photo": "/team/cheri-topness.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/cheri-topness",
+      "license": "40384516",
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1712193956055-KUNHA2RCINEUX3Q2AGAZ/Cheri.png"
     },
     {
       "name": "Dawn Peterson",
-      "title": null,
-      "bio": null,
+      "title": "REALTOR®",
+      "bio": "Meet Dawn Mangan, your trusted guide in the journey of homeownership in the Twin Cities and surrounding areas. With a passion for real estate and a commitment to your satisfaction, I specialize in assisting first-time homebuyers and home sellers that are ready for their next home. Understanding that your home is more than just a place to live, it's a reflection of your unique story, style, and values, I strive to make the transition between homes as stress-free as possible. Whether you're buying or selling, I'll navigate you through every step of the process with ease and efficiency. My approach is centered on education and setting clear expectations. By providing you with in-depth market insights and thorough explanations of the buying or selling process, I empower you to make informed decisions that align with your goals. Backed by a dedicated team of financing professionals, home inspectors, and closing specialists, I ensure that every aspect of your transaction is handled with care and expertise, leading to a successful closing. But my commitment to you doesn't end there. I believe in building lasting relationships, not just completing transactions. From the moment you become my client, you'll receive ongoing support and guidance to become the best homeowner possible. Whether it's advice on home maintenance, refinancing options, or renovation tips, I'll be there every step of the way. Driven by core values of honesty, integrity, respect, and perseverance, I am dedicated to making your real estate experience as seamless and rewarding as possible. With me by your side, you can trust that your best interests are always at the forefront. Let's embark on this exciting journey together, where your dream home becomes a reality, and your satisfaction is my top priority. Get in touch today and let's make your homeownership dreams come true!",
       "phone": "(952) 243-3585",
       "email": "dawn@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1712194086667-T3QMX3XK83TAP0SH1MMO/Dawn+%281%29.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/dawn-peterson"
+      "photo": "/team/dawn-peterson.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/dawn-peterson",
+      "license": "40430670",
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1712194086667-T3QMX3XK83TAP0SH1MMO/Dawn+%281%29.png"
     },
     {
       "name": "Kim Lindgren",
-      "title": null,
+      "title": "REALTOR®",
       "bio": null,
       "phone": "(651) 661-3028",
       "email": "kim@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1739565806420-6XR7T3YSQNDNUET6GN5S/83230156_172430979_kim_headshot_42024.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/kim-lindgren"
+      "photo": "/team/kim-lindgren.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/kim-lindgren",
+      "license": "40630562",
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1739565806420-6XR7T3YSQNDNUET6GN5S/83230156_172430979_kim_headshot_42024.png"
     },
     {
       "name": "Brian Todd",
-      "title": null,
-      "bio": null,
+      "title": "REALTOR®",
+      "bio": "Brian Todd, a native of the Twin Cities, graduated from Como Park High School and briefly attended McNally Smith College of Music. He now resides in Burnsville with his supportive wife Sasha and their three young children. Brian is passionate about spending quality time with his family, whether it's cooking dinner, hosting movie nights, or playing basketball. Recently, Brian transitioned into a real estate career, fulfilling his long-held dream of guiding individuals and families to their dream homes. His previous professional experience involved addressing people's everyday needs and desires, which sharpened his skills in active listening, appropriate responding, and delivering excellent customer experiences. Brian chose to work with the Huerkamp Home Group at Keller Williams Preferred Realty because their vision and core values align with his personal and professional ethos. He is eager to grow within the company and build a lasting partnership, confident that together with the Keller Williams brand, they will deliver a world-class experience for all clients in their real estate endeavors.",
       "phone": "(651) 369-8082",
       "email": "brian@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1718217212020-6I56NU0TE71KHEAVB3YV/Brian+Todd.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/brian-todd"
+      "photo": "/team/brian-todd.jpg",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/brian-todd",
+      "license": "40791749",
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1718217212020-6I56NU0TE71KHEAVB3YV/Brian+Todd.png"
     },
     {
       "name": "Kelly Jeffers",
-      "title": null,
+      "title": "REALTOR®",
       "bio": null,
       "phone": "(651) 213-9189",
       "email": "kelly@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1719430277253-I7LB3MAR5D3JJ4B6PLPA/KellyJeffers_83230158_KellyJeffers.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/kelly-jeffers"
+      "photo": "/team/kelly-jeffers.jpg",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/kelly-jeffers",
+      "license": "40677463",
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1719430277253-I7LB3MAR5D3JJ4B6PLPA/KellyJeffers_83230158_KellyJeffers.png"
     },
     {
       "name": "Lisa Price",
-      "title": null,
-      "bio": null,
+      "title": "REALTOR®",
+      "bio": "Lisa Price is a licensed residential real estate agent in the State of Minnesota with Keller Williams Preferred Realty and a proud member of the Huerkamp Home Group. With a passion for educating clients and solving complex problems, Lisa brings a calm, structured approach to every transaction, guiding buyers and sellers through the process in a way that feels both manageable and enjoyable. Her attention to detail and creative mindset extend into real estate investing, where she identifies opportunities others might overlook. Known for her approachable demeanor, strong market knowledge, and commitment to lasting relationships, Lisa is a trusted advisor for anyone navigating the residential real estate market.",
       "phone": "(651) 386-3147",
       "email": "lisa@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1723160224183-QDVE0IK0D5EFD82W0N76/Lisa+Price.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/lisa-price"
+      "photo": "/team/lisa-price.jpg",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/lisa-price",
+      "license": "40770511",
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1723160224183-QDVE0IK0D5EFD82W0N76/Lisa+Price.png"
     },
     {
       "name": "Amanda Johnson-White",
-      "title": null,
-      "bio": null,
+      "title": "REALTOR®",
+      "bio": "Amanda White is a dedicated real estate agent with over two years of experience in residential real estate in the Southeastern Twin Cities area. Known for her integrity, kindness, and trustworthiness, Amanda is passionate about helping clients find their ideal homes and creating a seamless real estate experience. With a deep understanding of the local market and a commitment to building lasting relationships, Amanda provides personalized service to meet each client’s unique needs. Outside of real estate, Amanda enjoys cooking, baking, and spending time with her family on adventurous outings. She also volunteers with organizations like Habitat for Humanity and her local church, reflecting her belief in giving back to the community. Whether you’re buying or selling, Amanda is ready to guide you every step of the way with expertise and care!",
       "phone": "(651) 360-1363",
       "email": "amanda@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1736472917787-WH36M3CC4F79T105BBZX/83230156_172430981_quicyamandakatjavier_headshot.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/amanda-johnson-white"
+      "photo": "/team/amanda-johnson-white.jpg",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/amanda-johnson-white",
+      "license": "40919531",
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1736472917787-WH36M3CC4F79T105BBZX/83230156_172430981_quicyamandakatjavier_headshot.png"
     },
     {
       "name": "Freddy Juarez",
-      "title": null,
-      "bio": null,
+      "title": "REALTOR®",
+      "bio": "Freddy, a distinguished resident of Prior Lake, Minnesota, has seamlessly transitioned from a banking career of over three years to pursuing his lifelong passion for real estate. Born and raised in Minnesota, Freddy now serves the Twin Cities area as a bilingual real estate agent. He is renowned for his exceptional ability to build trust and establish strong relationships with his clients. Freddy is committed to leveraging the latest market trends and resources to provide the highest level of service. Above all, he prioritizes his clients' comfort and understanding throughout every step of the transaction process, ensuring a truly exceptional real estate experience. In addition to his professional achievements, Freddy has a deep-rooted passion for billiards, also known as pool. Taught by his father from a young age, Freddy has honed his skills and now plays in two leagues, dedicating three nights a week to this beloved activity. His dedication has led him to compete in the prestigious Las Vegas tournament, and his team has proudly won the state championship for the M8 league in Minnesota. Beyond his love for pool, Freddy is an avid traveler, continually seeking new experiences and adventures.",
       "phone": "(612) 223-6353",
       "email": "freddy@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1742560336167-3R8N8TN9NZ1NQHQ2W2EV/83230156_172430981_freddy_headshot.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/freddy-juarez"
+      "photo": "/team/freddy-juarez.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/freddy-juarez",
+      "license": null,
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1742560336167-3R8N8TN9NZ1NQHQ2W2EV/83230156_172430981_freddy_headshot.png"
     },
     {
       "name": "Vansh Kumar",
-      "title": null,
-      "bio": null,
+      "title": "REALTOR®",
+      "bio": "My name is Vansh Kumar. I’m 25 years old. I was born in New Delhi, India. My family and I came to Minnesota in 2006, I was 6 years old. I grew up in Richfield, MN and graduated from Richfield High School. I have two older brothers. I love to workout, travel and go to concerts. I also love to play tennis and basketball. I’m a dog dad to my Mini Australian Shepherd named Leo. I’m a big foodie and love trying new foods. I worked in student loan collections for 7 years. I’ve also worked as a lifeguard, barista and sports coach. I’m a go-getter, hardworking, trustworthy and kindhearted. I love helping people, which is one of the reasons I chose to start my real estate career.",
       "phone": "(612) 473-3491",
       "email": "vansh@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785791625251-19LLSMLKW7SHNW693NZ8/83230156_172430979_a62562915df1497abd2b4461c408147a__vansh.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/vansh-kumar"
+      "photo": "/team/vansh-kumar.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/vansh-kumar",
+      "license": null,
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785791625251-19LLSMLKW7SHNW693NZ8/83230156_172430979_a62562915df1497abd2b4461c408147a__vansh.png"
     },
     {
       "name": "Bryce Pap",
-      "title": null,
-      "bio": null,
+      "title": "REALTOR®",
+      "bio": "Bryce is a dedicated real estate professional passionate about helping families and individuals find their perfect home or property. When he's not working with clients, he enjoys snowmobiling, traveling, and discovering new places to eat. He cherishes time spent with his wife and their two amazing kids, Liam and Avaya, especially at their horse farm where they love to unwind and enjoy the outdoors.",
       "phone": "(651) 615-3345",
       "email": "bryce@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1746065106614-PUG349JYOAIQ5UFJG4R2/83230156_172430979_freddy_headshot.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/bryce-pap"
+      "photo": "/team/bryce-pap.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/bryce-pap",
+      "license": null,
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1746065106614-PUG349JYOAIQ5UFJG4R2/83230156_172430979_freddy_headshot.png"
     },
     {
       "name": "Hannah Hunter",
-      "title": null,
-      "bio": null,
+      "title": "REALTOR®",
+      "bio": "Minnesota-born and raised, Hannah Hunter brings a diverse background to her role as a real estate agent with Huerkamp Home Group. With three years of experience in transaction coordination and a strong foundation in administrative and executive assistance in the public accounting sector, Hannah’s organizational skills and attention to detail shine through in every transaction. Her friendly and approachable nature ensures a smooth, stress-free experience for her clients throughout the buying and selling process. Outside of real estate, she enjoys reading, snowboarding, riding her motorcycle, practicing Pilates, and spending time with her husband, Orion, their fur babies, and family and friends.",
       "phone": "(651) 661-1739",
       "email": "hhunter@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1744259326932-NJ7WQ1KV8TTOP1RZ2L43/83230156_172430981_bryce.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/hannah-hunter"
+      "photo": "/team/hannah-hunter.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/hannah-hunter",
+      "license": null,
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1744259326932-NJ7WQ1KV8TTOP1RZ2L43/83230156_172430981_bryce.png"
     },
     {
       "name": "Roni Mugaki",
-      "title": null,
-      "bio": null,
+      "title": "REALTOR®",
+      "bio": "With over 25 years of experience in Sales—including more than a decade in real estate both locally and internationally—Roni approaches every client relationship as an act of service, always putting clients’ needs first. In recent years, he has specialized in New Construction homes, developing a deep understanding of this dynamic segment of the market. Known for a positive attitude, attentive listening, and strong negotiation skills, Roni is dedicated to creating win-win outcomes for all parties involved. Clients appreciate his ability to guide them through every step of the process with clarity and care. When not working, Roni enjoys spending time with family or heading out on long motorcycle rides.",
       "phone": "(612) 509-5564",
       "email": "roni@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1744912872286-70KFSMPTY2CRGXLR2P0F/83230156_172430981_screenshot_20250416_at_10.24.31am.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/roni-mugaki"
+      "photo": "/team/roni-mugaki.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/roni-mugaki",
+      "license": "40672955",
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1744912872286-70KFSMPTY2CRGXLR2P0F/83230156_172430981_screenshot_20250416_at_10.24.31am.png"
     },
     {
       "name": "AJ DeBellis",
-      "title": null,
-      "bio": null,
+      "title": "REALTOR®",
+      "bio": "AJ DeBellis is a 26-year-old Minnesota native, originally from Maple Grove. He moved to Bloomington in 2009 and has proudly called it home ever since. Growing up with parents who owned investment properties sparked his early interest in homes, and his four years of experience as a garage door technician gave him firsthand exposure to thousands of residential properties. AJ is a proud dog dad to two sweet Pitbulls and enjoys working out, playing video games, and getting together with friends for Dungeons & Dragons. He’s passionate about real estate and is excited to help clients with all their housing needs.",
       "phone": "(612) 666-8191",
       "email": "aj@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785261863782-6WKG5ILSPMAK2EDVSTL9/83230156_172430979_ea64f2234f134ed699e886655a31eda3__aj.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/aj-debellis"
+      "photo": "/team/aj-debellis.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/aj-debellis",
+      "license": null,
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785261863782-6WKG5ILSPMAK2EDVSTL9/83230156_172430979_ea64f2234f134ed699e886655a31eda3__aj.png"
     },
     {
       "name": "Allie Wetterlin",
-      "title": null,
-      "bio": null,
+      "title": "REALTOR®",
+      "bio": "Allie Wetterlin is a Minnesota native with a passion for helping people find their perfect place to call home. With a background in project coordination, customer service, and marketing, her transition into real estate was a natural fit. Allie’s attention to detail, strong communication skills, and heart for service make her a trusted guide throughout the buying and selling process. She brings a warm, organized, and client-first approach to every transaction. When she's not working, Allie enjoys biking around the city, hiking Minnesota’s scenic trails, kayaking local lakes, reading a good book, and spending time with her boyfriend Matt and their two dogs, Apollo and Finley. A proud North Loop resident, she also loves exploring the neighborhood’s vibrant food scene and discovering new Twin Cities favorites. Allie is proud to be part of the Huerkamp Home Group at Keller Williams Preferred Realty, where she brings energy, empathy, and professionalism to every client experience.",
       "phone": "(612) 567-8999",
       "email": "allie@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1755110614875-I7S089VZ1N3J6M1QHB3G/172430979_allie.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/allie-wetterlin"
+      "photo": "/team/allie-wetterlin.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/allie-wetterlin",
+      "license": null,
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1755110614875-I7S089VZ1N3J6M1QHB3G/172430979_allie.png"
     },
     {
       "name": "Steve Rall",
-      "title": null,
+      "title": "REALTOR",
       "bio": null,
       "phone": "(612) 963-8320",
       "email": "steve@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1759194112438-FKK4P2VB7BNRA952GTOQ/steve+rall.jpg",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/steve-rall"
+      "photo": "/team/steve-rall.jpg",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/steve-rall",
+      "license": null,
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1759194112438-FKK4P2VB7BNRA952GTOQ/steve+rall.jpg"
     },
     {
       "name": "Christie Whitfield",
-      "title": null,
-      "bio": null,
+      "title": "REALTOR",
+      "bio": "I bought my first home over 25 years ago, and that experience sparked my passion for real estate. I started my career by buying investment properties for myself, which gave me firsthand experience in navigating the market and making smart real estate decisions. Over time, I expanded my focus to helping first-time homebuyers, growing families in need of more space, and empty nesters looking to downsize—along with everything in between. As a Lakeville resident, I understand the importance of finding not just a house, but a home that truly fits your lifestyle. I live here with my husband, our three kids, and our two rescue dogs, so I know firsthand what makes the southern metro special. Whether you’re buying, selling, or investing, I’m committed to making the process smooth and stress-free, offering expert guidance, market knowledge, and a personalized approach. Let’s find the perfect home for your next chapter!",
       "phone": "(952) 451-8162",
       "email": "christie@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1759194178034-CIFN2ALPBJR4CP3G36AW/christie+whitfield.jpg",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/christie-whitfield"
+      "photo": "/team/christie-whitfield.jpg",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/christie-whitfield",
+      "license": "506018882",
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1759194178034-CIFN2ALPBJR4CP3G36AW/christie+whitfield.jpg"
     },
     {
       "name": "Kyera Reams",
-      "title": null,
+      "title": "Inside Sales Associate",
       "bio": null,
       "phone": "(612) 482-0902",
       "email": "sales@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1760980285816-CPQUMTR6POMMZM90KKRW/83230156_172430981_kyera.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/kyera-reams"
+      "photo": "/team/kyera-reams.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/kyera-reams",
+      "license": null,
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1760980285816-CPQUMTR6POMMZM90KKRW/83230156_172430981_kyera.png"
     },
     {
       "name": "Kaitlin Makarim",
-      "title": null,
-      "bio": null,
+      "title": "REALTOR®",
+      "bio": "With a strong background in finance and a lifelong passion for homes, Kaitlin Makarim of Huerkamp Home Group at Keller Williams Preferred Realty brings a unique balance of strategy and heart to every Transaction. Her financial expertise ensures clients make informed decisions, while her genuine love for beautiful, functional spaces makes the home buying and selling process both exciting and rewarding as well.",
       "phone": "(952) 522-5711",
       "email": "kaitlin@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1762450013943-B6N0GMUKCHZVZU4NOBZC/172430981_kaitlin.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/kaitlin-makarim"
+      "photo": "/team/kaitlin-makarim.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/kaitlin-makarim",
+      "license": "506021146",
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1762450013943-B6N0GMUKCHZVZU4NOBZC/172430981_kaitlin.png"
     },
     {
       "name": "Todd Johnson",
-      "title": null,
-      "bio": null,
+      "title": "REALTOR®",
+      "bio": "My name is Todd Johnson. With a professional background rooted in leadership and team coaching, I bring a disciplined, client-focused approach to the Twin Cities real estate market. I pride myself on clear communication and a commitment to helping you find a home that perfectly aligns with your lifestyle. Whether you are looking for a property with specific hobby space or navigating a complex sale, I provide the strategic negotiation and local insight necessary for a seamless experience. At a Glance: • Expert Guidance: A coaching mindset that keeps you informed and empowered. • Local Roots: Deep knowledge of Shakopee and the surrounding metro area. • Personal Touch: Dedicated to building lasting relationships through trust and results. Let’s connect and make your next move your best one.",
       "phone": "(651) 412-3138",
       "email": "todd@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1777998591987-RHVQ1WKNAM9MGOZ3SKQ8/83230156_172430981_todd.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/todd-johnson"
+      "photo": "/team/todd-johnson.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/todd-johnson",
+      "license": null,
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1777998591987-RHVQ1WKNAM9MGOZ3SKQ8/83230156_172430981_todd.png"
     },
     {
       "name": "Abhay Kumar",
-      "title": null,
+      "title": "REALTOR®",
       "bio": null,
       "phone": "(612) 482-0973",
       "email": "abhay@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1781630395434-NLID1S6964UEUV87L0WH/Abhay+Kumar.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/abhay-kumar"
+      "photo": "/team/abhay-kumar.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/abhay-kumar",
+      "license": "41029681",
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1781630395434-NLID1S6964UEUV87L0WH/Abhay+Kumar.png"
     },
     {
       "name": "Ella Bovee",
-      "title": null,
+      "title": "Marketing Coordinator",
       "bio": null,
       "phone": "(952) 746-9700",
       "email": "clientcare@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785261159097-KV23UAVW68VB7OKWZVR0/172430981_aa1d96bc-91ae-4586-86e1-17181b0f5f80__ella.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/ella-bovee"
+      "photo": "/team/ella-bovee.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/ella-bovee",
+      "license": null,
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785261159097-KV23UAVW68VB7OKWZVR0/172430981_aa1d96bc-91ae-4586-86e1-17181b0f5f80__ella.png"
     },
     {
       "name": "Heidi Locklear",
-      "title": null,
+      "title": "REALTOR®",
       "bio": null,
       "phone": "(952) 243-3521",
       "email": "heidi@hhgus.com",
-      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1789061635991-TACR91XFQ928PR4K17OR/Heidi+Locklear.png",
-      "profileUrl": "https://www.huerkamphomegroup.com/team/heidi-locklear"
+      "photo": "/team/heidi-locklear.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/heidi-locklear",
+      "license": "40715284",
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1789061635991-TACR91XFQ928PR4K17OR/Heidi+Locklear.png"
     }
   ]
 }
