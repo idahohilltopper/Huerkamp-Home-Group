@@ -105,8 +105,8 @@ _Status: Step 3 (design + home page) — built with real team, reviews and photo
 
 **Hero photo:** Unsplash blocks automated browsers (BotStopper at difficulty 16), so its free license couldn't be confirmed. Used instead: "Minneapolis Moonlight Skyline" by Tony Webster, CC BY 2.0, from Wikimedia Commons, credited in the footer (details in `public/hero/CREDITS.md`). To switch to an Unsplash photo, send the photo link or an Unsplash API access key.
 
-**Confirmed by Jason (2026-09-26):** founding year 2002; main phone (612) 502-7653 (612-502-SOLD); hero photo approved.
+**Confirmed by Jason (2026-09-26):** founding year 2002; main phone (612) 502-7653 (612-502-SOLD); hero photo approved; roster of 39 (32 agents, 7 staff) confirmed accurate.
 
 **Open questions:**
-- Confirm 39 people and 15+ years as a Ramsey ELP.
+- Confirm 15+ years as a Ramsey ELP.
 - The Google Business Profile lists +1 612-843-9620; update it to (612) 502-7653 if that is the main line.
