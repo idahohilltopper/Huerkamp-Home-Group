@@ -64,3 +64,30 @@ _Status: Step 2 (plan) — awaiting approval_
 7. IDX: NorthstarMLS feed, search and listing pages
 8. SEO, speed, accessibility and legal checks (MLS display rules, KW branding, Fair Housing)
 9. Preview review, then decide which domain the new site launches on
+
+## Progress notes (hand-off)
+
+**Step 2 approved.** Jason's answers:
+- Skyline photo: source a free-license stock photo (Unsplash candidates: `HkIS3OvACYM` aerial daytime, `yLUM5exvsMA` night, `xEvtxQrmh-s` fog). Confirm the free Unsplash License (not Unsplash+) before using.
+- Team: pull the full roster (names, titles, photos, bios) from huerkamphomegroup.com/team-page.
+- Reviews: use real, verbatim reviews from Google and Zillow (Huerkamp Home Group). Never paraphrase or invent reviews.
+
+**Team found so far via search (incomplete, since the team is 26–38 people):**
+
+| Name | Phone | Email |
+|---|---|---|
+| Jason Huerkamp (founder) | (612) 324-2357 | jason@hhgus.com |
+| Brooke Huerkamp | (612) 509-4409 | |
+| Kim Lindgren | (651) 661-3028 | kim@hhgus.com |
+| Zac Bidelman | (612) 712-9936 | zac@hhgus.com |
+| Jason Oliver | (612) 416-0493 | joliver@hhgus.com |
+| Michele Meredith | (612) 662-1095 | michele@hhgus.com |
+| Bryce Pap | (651) 615-3345 | bryce@hhgus.com |
+| Hannah Hunter | (651) 661-1739 | hhunter@hhgus.com |
+| Brian Todd | (651) 369-8082 | brian@hhgus.com |
+| Lisa Price | (651) 386-3147 | |
+| Freddy Juarez | | |
+
+**Review counts found (verify):** Google 775+ (their site) vs. 560+ (another listing); Zillow 320+; Birdeye 1,141 at 5.0 stars.
+
+**Next: Step 3.** Study nevadarealestategroup.com's look and feel, then build the home page (skyline hero, search bar, stats, reviews, team) and share a preview link.
