@@ -14,7 +14,7 @@ _Status: Step 3 (design + home page) — built with real team, reviews and photo
 
 ## Business facts (confirm before launch)
 
-- Team founded 2001 by Jason Huerkamp (confirmed by Jason, 2026-09-26); Keller Williams Preferred Realty
+- Use 2002 as the founding year (the year Jason and Brooke joined forces; Jason started in 2001). Confirmed by Jason, 2026-09-26; Keller Williams Preferred Realty
 - 14300 Nicollet Ct, Ste 208, Burnsville, MN 55306 · (612) 502-7653
 - Serves Minneapolis, St. Paul, the 13-county Twin Cities metro and Western Wisconsin
 - Dave Ramsey Endorsed Local Provider (15+ years)
@@ -105,9 +105,8 @@ _Status: Step 3 (design + home page) — built with real team, reviews and photo
 
 **Hero photo:** Unsplash blocks automated browsers (BotStopper at difficulty 16), so its free license couldn't be confirmed. Used instead: "Minneapolis Moonlight Skyline" by Tony Webster, CC BY 2.0, from Wikimedia Commons, credited in the footer (details in `public/hero/CREDITS.md`). To switch to an Unsplash photo, send the photo link or an Unsplash API access key.
 
-**Confirmed by Jason (2026-09-26):** founded 2001; main phone (612) 502-7653 (612-502-SOLD).
+**Confirmed by Jason (2026-09-26):** founding year 2002; main phone (612) 502-7653 (612-502-SOLD); hero photo approved.
 
 **Open questions:**
 - Confirm 39 people and 15+ years as a Ramsey ELP.
-- Jason's profile bio and the current team page both say "Since 2002" / "Founded in 2002". The bio stays verbatim here, so fix it at the source (or approve an edited bio).
 - The Google Business Profile lists +1 612-843-9620; update it to (612) 502-7653 if that is the main line.
