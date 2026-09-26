@@ -1,6 +1,6 @@
 # Huerkamp Home Group — New Website Plan
 
-_Status: Step 2 (plan) — awaiting approval_
+_Status: Step 3 (design + home page) — first draft built, awaiting review_
 
 ## Decisions so far
 
@@ -91,3 +91,19 @@ _Status: Step 2 (plan) — awaiting approval_
 **Review counts found (verify):** Google 775+ (their site) vs. 560+ (another listing); Zillow 320+; Birdeye 1,141 at 5.0 stars.
 
 **Next: Step 3.** Study nevadarealestategroup.com's look and feel, then build the home page (skyline hero, search bar, stats, reviews, team) and share a preview link.
+
+## Step 3 progress (2026-09-26)
+
+**Built:** Astro project with the home page (`src/pages/index.astro`), styled after nevadarealestategroup.com: espresso `#2B221A`, cream `#F7F4EE`, gold `#D4B27C`; Cormorant Garamond / Fraunces headings, Barlow body, Mulish buttons. Sections: header, skyline hero with search bar and Buy/Sell cards, stats, Buy/Sell/Invest paths, communities, reviews, team, Ramsey ELP, call to action, footer.
+
+- Preview: `npm run build`, then `node scripts/make-preview.mjs <out.html>` makes the claude.ai preview page.
+- Search form shows a "coming in step 7" note until the MLS feed exists.
+
+**Team:** all 39 people from /team-page saved in `src/data/team.json` (name, phone, email, photo URL, profile URL). Titles and bios are still missing (except Jason's, from the team page). They are on each `/team/<name>` page, and those pages became unreachable partway through this session.
+
+**Still blocked (network):**
+- Zillow blocks automated access with a captcha (PerimeterX). This is Zillow's own protection, not our settings. Reviews will need to be copied by hand or pulled through an approved API.
+- Partway through the session the egress proxy began refusing huerkamphomegroup.com, google.com, nevadarealestategroup.com, unsplash.com and images.squarespace-cdn.com (403 on CONNECT). Only images.unsplash.com stayed reachable.
+- So: **no reviews yet** (`src/data/reviews.json` is empty on purpose; the page shows a "pending" box), and **no skyline photo yet**. The hero uses a drawn skyline placeholder until an Unsplash photo's free license can be confirmed on its unsplash.com page.
+
+**Next:** restore network access, then pull titles/bios, download team photos into `public/`, add verbatim reviews and choose the skyline photo.

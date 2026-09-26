@@ -1,0 +1,100 @@
+/* Palette and type modeled on nevadarealestategroup.com: espresso, cream, gold. */
+:root {
+  --espresso: #2b221a;
+  --espresso-deep: #1a1410;
+  --espresso-raised: #3a2f25;
+  --cream: #f7f4ee;
+  --paper: #ffffff;
+  --gold: #d4b27c;
+  --bronze: #8a6a3a;
+  --line: #e8e2d6;
+  --ink: #1d1813;
+  --ink-soft: #4d4538;
+  --on-dark: #f7f4ee;
+  --on-dark-soft: #c9bfae;
+
+  --bg: var(--cream);
+  --surface: var(--paper);
+  --text: var(--ink);
+  --text-soft: var(--ink-soft);
+  --eyebrow: var(--bronze);
+
+  --serif-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --sans: "Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ui: "Mulish", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --wrap: 72rem;
+  --gutter: clamp(16px, 4vw, 40px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #15110d;
+    --surface: #211a14;
+    --line: #3a3027;
+    --text: #efe8dc;
+    --text-soft: #bfb4a2;
+    --eyebrow: var(--gold);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #15110d;
+  --surface: #211a14;
+  --line: #3a3027;
+  --text: #efe8dc;
+  --text-soft: #bfb4a2;
+  --eyebrow: var(--gold);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 400 1.0625rem/1.65 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+h1, h2, h3 { text-wrap: balance; margin: 0; font-weight: 500; }
+h2 { font: 500 clamp(2rem, 4.2vw, 3.4rem)/1.08 var(--serif); letter-spacing: -0.01em; }
+h2 em, h1 em { font-style: italic; color: var(--bronze); }
+h3 { font: 500 1.5rem/1.2 var(--serif); }
+p { margin: 0; }
+
+.wrap { max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter); }
+.section { padding-block: clamp(4rem, 9vw, 7rem); }
+.section--paper { background: var(--surface); }
+.section--dark { background: var(--espresso); color: var(--on-dark); }
+.section--dark h2 em { color: var(--gold); }
+
+.eyebrow {
+  font: 700 0.75rem/1 var(--ui);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--eyebrow);
+}
+.section--dark .eyebrow { color: var(--gold); }
+
+.head { display: grid; gap: 1rem; justify-items: center; text-align: center; margin-bottom: clamp(2.5rem, 5vw, 3.5rem); }
+.head p { max-width: 38rem; color: var(--text-soft); font-size: 1.125rem; }
+.section--dark .head p { color: var(--on-dark-soft); }
+
+.btn {
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .9rem 1.6rem; border-radius: 999px; border: 0;
+  background: var(--gold); color: var(--espresso-deep);
+  font: 700 .95rem/1 var(--ui); text-decoration: none; cursor: pointer;
+  transition: background .2s, transform .2s;
+}
+.btn:hover { background: #e2c595; }
+.btn--dark { background: var(--espresso); color: var(--on-dark); }
+.btn--dark:hover { background: var(--espresso-raised); }

@@ -1,0 +1,358 @@
+{
+  "source": "https://www.huerkamphomegroup.com/team-page",
+  "retrieved": "2026-09-26",
+  "note": "Order matches the team page. title/bio null = not yet pulled from the individual profile page.",
+  "members": [
+    {
+      "name": "Jason Huerkamp",
+      "title": "Founder & Lead REALTOR®",
+      "bio": "Jason, the team’s founder and lead REALTOR®, brings more than two decades of experience and a background in real estate investing. Born and raised in Minnesota, he’s built Huerkamp Home Group on a foundation of market expertise, creative problem-solving, and genuine care for clients. Jason is passionate about mentoring new agents, negotiating win-win deals, and helping buyers and sellers make smart, informed moves that fit their goals.",
+      "phone": "(612) 324-2357",
+      "email": "jason@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1680729519448-U4A14QLPEUL7QZPWX30K/HHGHeadshots2022-327+%286%29.jpg",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/jason-huerkamp"
+    },
+    {
+      "name": "Brooke Huerkamp",
+      "title": null,
+      "bio": null,
+      "phone": "(612) 509-4409",
+      "email": "brooke@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1712193536660-VNFHWEY2FIBAH0444Z7K/Brooke+Headshot+TEAM+SHOT.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/brooke-huerkamp"
+    },
+    {
+      "name": "Olivia Manson",
+      "title": null,
+      "bio": null,
+      "phone": "(651) 615-9334",
+      "email": "olivia@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785264370709-UH2IWI63AKODBN8M6W5U/Olivia+Manson.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/olivia-manson"
+    },
+    {
+      "name": "Kat Pap",
+      "title": null,
+      "bio": null,
+      "phone": "(218) 995-4119",
+      "email": "kat@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785259842853-YP0AJEP9HZGSC8FUPP4Z/Kat+Pap.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/kat-pap"
+    },
+    {
+      "name": "Nicole Kelly",
+      "title": null,
+      "bio": null,
+      "phone": "(651) 372-8689",
+      "email": "sold@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785264289202-MVPVK0YNL2TTDTK4JLD9/Nicole+Kelly.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/nicole-kelly"
+    },
+    {
+      "name": "Shyanne Comella",
+      "title": null,
+      "bio": null,
+      "phone": "(507) 417-2724",
+      "email": "listings@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785263457746-ZR7CRJT5HYZCJ9B0ZJXI/83230156_172430981_3a814b3ca57d4efe9c9c441703095863__shyanne.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/shyanne-comella"
+    },
+    {
+      "name": "Leah Petersen",
+      "title": null,
+      "bio": null,
+      "phone": "(612) 324-2206",
+      "email": "leah@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785263960596-53P29CX1J3UTIU9MHFCO/83230156_172430981_11e10ce594064a65b5d9cf6428261340__50.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/leah-petersen"
+    },
+    {
+      "name": "Colin Manson",
+      "title": null,
+      "bio": null,
+      "phone": "(651) 504-1081",
+      "email": "colin@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1739565951014-CPFOCC8NHL9EFO36Q2O5/83230156_172430979_shelly.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/colin-manson"
+    },
+    {
+      "name": "Andy Coates",
+      "title": null,
+      "bio": null,
+      "phone": "(651) 615-9007",
+      "email": "andy@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1680729696595-CWGYISGS10FW643T2RNF/Andy.jpg",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/andy-coates"
+    },
+    {
+      "name": "Jason Oliver",
+      "title": null,
+      "bio": null,
+      "phone": "(612) 416-0493",
+      "email": "joliver@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1771356535486-2B12DQD5U8OXBZLIIKXM/83230156_172430979_jason_o_new_headshot.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/jason-oliver"
+    },
+    {
+      "name": "Jeff Norberg",
+      "title": null,
+      "bio": null,
+      "phone": "(952) 232-4040",
+      "email": "jeff@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1680729754807-OZUVUOHCEYB8X3MTO3PT/Jeff.jpg",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/jeff-norberg"
+    },
+    {
+      "name": "Zac Bidelman",
+      "title": null,
+      "bio": null,
+      "phone": "(612) 712-9936",
+      "email": "zac@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1680729825422-F9WMJ8HZ8K2K5FE2106R/Zac.jpg",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/zac-bidelman"
+    },
+    {
+      "name": "Kaitlyn Bahl",
+      "title": null,
+      "bio": null,
+      "phone": "(952) 222-7373",
+      "email": "kbahl@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1787847610276-8O8G6HBU53V7MV3RN3C5/83230156_172430979_d1ca475289bc4947b0e5023859c2165f__kaitlyn.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/kaitlyn-bahl"
+    },
+    {
+      "name": "Michele Meredith",
+      "title": null,
+      "bio": null,
+      "phone": "(612) 662-1095",
+      "email": "michele@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1790195321477-I2GYJRDHWW8OXZ4VT675/Michele+Meredith.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/michele-meredith"
+    },
+    {
+      "name": "Eli Winslow",
+      "title": null,
+      "bio": null,
+      "phone": "(651) 661-3390",
+      "email": "eli@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1775785463271-35Q7NLZVG2K30S59XYY2/172430979_img_0173.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/eli-winslow"
+    },
+    {
+      "name": "Jon Hoffmeister",
+      "title": null,
+      "bio": null,
+      "phone": "(952) 243-4641",
+      "email": "jon@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1680730483375-1ESFS0YY237IBPRSS74P/12.23.2022HHGheadshots-27.jpg",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/jon-hoffmeister"
+    },
+    {
+      "name": "Candace Johnson",
+      "title": null,
+      "bio": null,
+      "phone": "(651) 358-2665",
+      "email": "Candace@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1788377909201-QMX1NOZAX3M6E6FLIBL8/renditionDownload+%282%29.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/candace-johnson"
+    },
+    {
+      "name": "Cheri Topness",
+      "title": null,
+      "bio": null,
+      "phone": "(952) 522-5602",
+      "email": "cheri@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1712193956055-KUNHA2RCINEUX3Q2AGAZ/Cheri.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/cheri-topness"
+    },
+    {
+      "name": "Dawn Peterson",
+      "title": null,
+      "bio": null,
+      "phone": "(952) 243-3585",
+      "email": "dawn@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1712194086667-T3QMX3XK83TAP0SH1MMO/Dawn+%281%29.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/dawn-peterson"
+    },
+    {
+      "name": "Kim Lindgren",
+      "title": null,
+      "bio": null,
+      "phone": "(651) 661-3028",
+      "email": "kim@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1739565806420-6XR7T3YSQNDNUET6GN5S/83230156_172430979_kim_headshot_42024.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/kim-lindgren"
+    },
+    {
+      "name": "Brian Todd",
+      "title": null,
+      "bio": null,
+      "phone": "(651) 369-8082",
+      "email": "brian@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1718217212020-6I56NU0TE71KHEAVB3YV/Brian+Todd.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/brian-todd"
+    },
+    {
+      "name": "Kelly Jeffers",
+      "title": null,
+      "bio": null,
+      "phone": "(651) 213-9189",
+      "email": "kelly@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1719430277253-I7LB3MAR5D3JJ4B6PLPA/KellyJeffers_83230158_KellyJeffers.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/kelly-jeffers"
+    },
+    {
+      "name": "Lisa Price",
+      "title": null,
+      "bio": null,
+      "phone": "(651) 386-3147",
+      "email": "lisa@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1723160224183-QDVE0IK0D5EFD82W0N76/Lisa+Price.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/lisa-price"
+    },
+    {
+      "name": "Amanda Johnson-White",
+      "title": null,
+      "bio": null,
+      "phone": "(651) 360-1363",
+      "email": "amanda@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1736472917787-WH36M3CC4F79T105BBZX/83230156_172430981_quicyamandakatjavier_headshot.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/amanda-johnson-white"
+    },
+    {
+      "name": "Freddy Juarez",
+      "title": null,
+      "bio": null,
+      "phone": "(612) 223-6353",
+      "email": "freddy@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1742560336167-3R8N8TN9NZ1NQHQ2W2EV/83230156_172430981_freddy_headshot.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/freddy-juarez"
+    },
+    {
+      "name": "Vansh Kumar",
+      "title": null,
+      "bio": null,
+      "phone": "(612) 473-3491",
+      "email": "vansh@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785791625251-19LLSMLKW7SHNW693NZ8/83230156_172430979_a62562915df1497abd2b4461c408147a__vansh.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/vansh-kumar"
+    },
+    {
+      "name": "Bryce Pap",
+      "title": null,
+      "bio": null,
+      "phone": "(651) 615-3345",
+      "email": "bryce@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1746065106614-PUG349JYOAIQ5UFJG4R2/83230156_172430979_freddy_headshot.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/bryce-pap"
+    },
+    {
+      "name": "Hannah Hunter",
+      "title": null,
+      "bio": null,
+      "phone": "(651) 661-1739",
+      "email": "hhunter@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1744259326932-NJ7WQ1KV8TTOP1RZ2L43/83230156_172430981_bryce.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/hannah-hunter"
+    },
+    {
+      "name": "Roni Mugaki",
+      "title": null,
+      "bio": null,
+      "phone": "(612) 509-5564",
+      "email": "roni@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1744912872286-70KFSMPTY2CRGXLR2P0F/83230156_172430981_screenshot_20250416_at_10.24.31am.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/roni-mugaki"
+    },
+    {
+      "name": "AJ DeBellis",
+      "title": null,
+      "bio": null,
+      "phone": "(612) 666-8191",
+      "email": "aj@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785261863782-6WKG5ILSPMAK2EDVSTL9/83230156_172430979_ea64f2234f134ed699e886655a31eda3__aj.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/aj-debellis"
+    },
+    {
+      "name": "Allie Wetterlin",
+      "title": null,
+      "bio": null,
+      "phone": "(612) 567-8999",
+      "email": "allie@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1755110614875-I7S089VZ1N3J6M1QHB3G/172430979_allie.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/allie-wetterlin"
+    },
+    {
+      "name": "Steve Rall",
+      "title": null,
+      "bio": null,
+      "phone": "(612) 963-8320",
+      "email": "steve@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1759194112438-FKK4P2VB7BNRA952GTOQ/steve+rall.jpg",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/steve-rall"
+    },
+    {
+      "name": "Christie Whitfield",
+      "title": null,
+      "bio": null,
+      "phone": "(952) 451-8162",
+      "email": "christie@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1759194178034-CIFN2ALPBJR4CP3G36AW/christie+whitfield.jpg",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/christie-whitfield"
+    },
+    {
+      "name": "Kyera Reams",
+      "title": null,
+      "bio": null,
+      "phone": "(612) 482-0902",
+      "email": "sales@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1760980285816-CPQUMTR6POMMZM90KKRW/83230156_172430981_kyera.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/kyera-reams"
+    },
+    {
+      "name": "Kaitlin Makarim",
+      "title": null,
+      "bio": null,
+      "phone": "(952) 522-5711",
+      "email": "kaitlin@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1762450013943-B6N0GMUKCHZVZU4NOBZC/172430981_kaitlin.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/kaitlin-makarim"
+    },
+    {
+      "name": "Todd Johnson",
+      "title": null,
+      "bio": null,
+      "phone": "(651) 412-3138",
+      "email": "todd@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1777998591987-RHVQ1WKNAM9MGOZ3SKQ8/83230156_172430981_todd.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/todd-johnson"
+    },
+    {
+      "name": "Abhay Kumar",
+      "title": null,
+      "bio": null,
+      "phone": "(612) 482-0973",
+      "email": "abhay@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1781630395434-NLID1S6964UEUV87L0WH/Abhay+Kumar.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/abhay-kumar"
+    },
+    {
+      "name": "Ella Bovee",
+      "title": null,
+      "bio": null,
+      "phone": "(952) 746-9700",
+      "email": "clientcare@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785261159097-KV23UAVW68VB7OKWZVR0/172430981_aa1d96bc-91ae-4586-86e1-17181b0f5f80__ella.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/ella-bovee"
+    },
+    {
+      "name": "Heidi Locklear",
+      "title": null,
+      "bio": null,
+      "phone": "(952) 243-3521",
+      "email": "heidi@hhgus.com",
+      "photo": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1789061635991-TACR91XFQ928PR4K17OR/Heidi+Locklear.png",
+      "profileUrl": "https://www.huerkamphomegroup.com/team/heidi-locklear"
+    }
+  ]
+}
