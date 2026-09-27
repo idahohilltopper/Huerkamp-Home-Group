@@ -1,0 +1,5649 @@
+{
+ "sources": {
+  "acs": "US Census Bureau, American Community Survey 2020-2024 5-year estimates (tables B01002, B01003, B08013, B08301, B08303, B11001, B15003, B19013, B19301, B23025, B25003, B25024, B25035, B25064, B25077, C24050)",
+  "schoolDistricts": "US Census Bureau TIGER/Line 2024 unified school districts; districts covering at least 3% of the city",
+  "zips": "US Census Bureau 2020 ZCTA-to-place relationship file; ZIP areas covering at least 5% of the city",
+  "lakes": "US Census Bureau TIGER/Line 2024 area water; named lakes and reservoirs with at least 10 acres inside the city",
+  "driveTimes": "OSRM routing on OpenStreetMap data (router.project-osrm.org), light-traffic estimates from the Census center point of each city"
+ },
+ "driveDestinations": {
+  "downtownMinneapolis": "Downtown Minneapolis",
+  "downtownSaintPaul": "Downtown Saint Paul",
+  "mspAirport": "MSP Airport",
+  "mallOfAmerica": "Mall of America"
+ },
+ "baselines": {
+  "minnesota": {
+   "population": 5739445.0,
+   "medianAge": 38.8,
+   "households": 2307955.0,
+   "medianHouseholdIncome": 89062.0,
+   "perCapitaIncome": 48237.0,
+   "ownerOccupiedPct": 72.2,
+   "medianHomeValue": 329300.0,
+   "medianGrossRent": 1280.0,
+   "medianYearBuilt": 1979.0,
+   "singleFamilyPct": 73.5,
+   "bachelorsOrHigherPct": 39.4,
+   "meanCommuteMinutes": 22.7,
+   "droveAlonePct": 68.9,
+   "publicTransitPct": 1.8,
+   "workFromHomePct": 17.6,
+   "unemploymentPct": 4.1,
+   "industries": [
+    {
+     "name": "Education, health care and social assistance",
+     "pct": 25.8
+    },
+    {
+     "name": "Manufacturing",
+     "pct": 13.3
+    },
+    {
+     "name": "Retail trade",
+     "pct": 10.7
+    },
+    {
+     "name": "Professional, scientific and management services",
+     "pct": 10.6
+    },
+    {
+     "name": "Finance, insurance and real estate",
+     "pct": 7.2
+    },
+    {
+     "name": "Arts, entertainment, recreation, lodging and food",
+     "pct": 7.1
+    },
+    {
+     "name": "Construction",
+     "pct": 6.4
+    },
+    {
+     "name": "Transportation, warehousing and utilities",
+     "pct": 4.9
+    },
+    {
+     "name": "Other services",
+     "pct": 4.3
+    },
+    {
+     "name": "Public administration",
+     "pct": 3.7
+    },
+    {
+     "name": "Wholesale trade",
+     "pct": 2.5
+    },
+    {
+     "name": "Agriculture, forestry and mining",
+     "pct": 2.1
+    },
+    {
+     "name": "Information",
+     "pct": 1.4
+    }
+   ]
+  },
+  "unitedStates": {
+   "population": 334922499.0,
+   "medianAge": 38.9,
+   "households": 129227496.0,
+   "medianHouseholdIncome": 80734.0,
+   "perCapitaIncome": 44673.0,
+   "ownerOccupiedPct": 65.2,
+   "medianHomeValue": 332700.0,
+   "medianGrossRent": 1413.0,
+   "medianYearBuilt": 1980.0,
+   "singleFamilyPct": 67.5,
+   "bachelorsOrHigherPct": 35.7,
+   "meanCommuteMinutes": 26.4,
+   "droveAlonePct": 68.8,
+   "publicTransitPct": 3.2,
+   "workFromHomePct": 15.1,
+   "unemploymentPct": 5.2,
+   "industries": [
+    {
+     "name": "Education, health care and social assistance",
+     "pct": 23.5
+    },
+    {
+     "name": "Professional, scientific and management services",
+     "pct": 12.6
+    },
+    {
+     "name": "Retail trade",
+     "pct": 10.8
+    },
+    {
+     "name": "Manufacturing",
+     "pct": 9.9
+    },
+    {
+     "name": "Arts, entertainment, recreation, lodging and food",
+     "pct": 8.7
+    },
+    {
+     "name": "Construction",
+     "pct": 6.9
+    },
+    {
+     "name": "Finance, insurance and real estate",
+     "pct": 6.7
+    },
+    {
+     "name": "Transportation, warehousing and utilities",
+     "pct": 5.9
+    },
+    {
+     "name": "Other services",
+     "pct": 4.7
+    },
+    {
+     "name": "Public administration",
+     "pct": 4.7
+    },
+    {
+     "name": "Wholesale trade",
+     "pct": 2.2
+    },
+    {
+     "name": "Information",
+     "pct": 1.9
+    },
+    {
+     "name": "Agriculture, forestry and mining",
+     "pct": 1.6
+    }
+   ]
+  },
+  "counties": {
+   "003": {
+    "name": "Anoka",
+    "population": 370349.0,
+    "medianAge": 38.8,
+    "households": 137432.0,
+    "medianHouseholdIncome": 101869.0,
+    "perCapitaIncome": 45484.0,
+    "ownerOccupiedPct": 80.2,
+    "medianHomeValue": 346500.0,
+    "medianGrossRent": 1464.0,
+    "medianYearBuilt": 1986.0,
+    "singleFamilyPct": 81.4,
+    "bachelorsOrHigherPct": 32.2,
+    "meanCommuteMinutes": 25.6,
+    "droveAlonePct": 72.7,
+    "publicTransitPct": 0.9,
+    "workFromHomePct": 17.2,
+    "unemploymentPct": 4.3,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 22.1
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 15.9
+     },
+     {
+      "name": "Retail trade",
+      "pct": 11.3
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 10.5
+     },
+     {
+      "name": "Construction",
+      "pct": 7.6
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 7.2
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 6.9
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 5.8
+     },
+     {
+      "name": "Other services",
+      "pct": 4.6
+     },
+     {
+      "name": "Public administration",
+      "pct": 3.8
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 2.7
+     },
+     {
+      "name": "Information",
+      "pct": 1.0
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.6
+     }
+    ]
+   },
+   "037": {
+    "name": "Dakota",
+    "population": 445771.0,
+    "medianAge": 38.6,
+    "households": 174362.0,
+    "medianHouseholdIncome": 106318.0,
+    "perCapitaIncome": 52084.0,
+    "ownerOccupiedPct": 74.9,
+    "medianHomeValue": 381000.0,
+    "medianGrossRent": 1548.0,
+    "medianYearBuilt": 1988.0,
+    "singleFamilyPct": 75.5,
+    "bachelorsOrHigherPct": 45.0,
+    "meanCommuteMinutes": 23.6,
+    "droveAlonePct": 67.8,
+    "publicTransitPct": 1.2,
+    "workFromHomePct": 21.3,
+    "unemploymentPct": 3.6,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 22.8
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 12.6
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 11.1
+     },
+     {
+      "name": "Retail trade",
+      "pct": 10.8
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 9.7
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 7.2
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 6.0
+     },
+     {
+      "name": "Construction",
+      "pct": 5.6
+     },
+     {
+      "name": "Other services",
+      "pct": 4.7
+     },
+     {
+      "name": "Public administration",
+      "pct": 4.1
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 2.8
+     },
+     {
+      "name": "Information",
+      "pct": 1.9
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.7
+     }
+    ]
+   },
+   "053": {
+    "name": "Hennepin",
+    "population": 1269496.0,
+    "medianAge": 37.6,
+    "households": 539493.0,
+    "medianHouseholdIncome": 97653.0,
+    "perCapitaIncome": 59401.0,
+    "ownerOccupiedPct": 62.7,
+    "medianHomeValue": 392900.0,
+    "medianGrossRent": 1487.0,
+    "medianYearBuilt": 1973.0,
+    "singleFamilyPct": 60.0,
+    "bachelorsOrHigherPct": 54.1,
+    "meanCommuteMinutes": 21.9,
+    "droveAlonePct": 60.0,
+    "publicTransitPct": 3.5,
+    "workFromHomePct": 25.2,
+    "unemploymentPct": 4.5,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 24.5
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 15.5
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 12.6
+     },
+     {
+      "name": "Retail trade",
+      "pct": 10.5
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 9.9
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 7.5
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 4.2
+     },
+     {
+      "name": "Other services",
+      "pct": 4.0
+     },
+     {
+      "name": "Construction",
+      "pct": 3.7
+     },
+     {
+      "name": "Public administration",
+      "pct": 2.9
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 2.5
+     },
+     {
+      "name": "Information",
+      "pct": 1.8
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.6
+     }
+    ]
+   },
+   "123": {
+    "name": "Ramsey",
+    "population": 542945.0,
+    "medianAge": 36.1,
+    "households": 221327.0,
+    "medianHouseholdIncome": 81568.0,
+    "perCapitaIncome": 46355.0,
+    "ownerOccupiedPct": 60.6,
+    "medianHomeValue": 326600.0,
+    "medianGrossRent": 1329.0,
+    "medianYearBuilt": 1965.0,
+    "singleFamilyPct": 58.9,
+    "bachelorsOrHigherPct": 45.6,
+    "meanCommuteMinutes": 21.4,
+    "droveAlonePct": 62.5,
+    "publicTransitPct": 3.7,
+    "workFromHomePct": 20.5,
+    "unemploymentPct": 4.9,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 28.3
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 13.1
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 12.0
+     },
+     {
+      "name": "Retail trade",
+      "pct": 9.5
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 7.9
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 7.1
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 4.9
+     },
+     {
+      "name": "Construction",
+      "pct": 4.6
+     },
+     {
+      "name": "Other services",
+      "pct": 4.6
+     },
+     {
+      "name": "Public administration",
+      "pct": 4.2
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 2.0
+     },
+     {
+      "name": "Information",
+      "pct": 1.4
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.5
+     }
+    ]
+   },
+   "131": {
+    "name": "Rice",
+    "population": 67917.0,
+    "medianAge": 37.1,
+    "households": 23493.0,
+    "medianHouseholdIncome": 83181.0,
+    "perCapitaIncome": 38682.0,
+    "ownerOccupiedPct": 76.3,
+    "medianHomeValue": 320200.0,
+    "medianGrossRent": 1083.0,
+    "medianYearBuilt": 1978.0,
+    "singleFamilyPct": 77.1,
+    "bachelorsOrHigherPct": 30.2,
+    "meanCommuteMinutes": 21.8,
+    "droveAlonePct": 68.0,
+    "publicTransitPct": 0.3,
+    "workFromHomePct": 12.0,
+    "unemploymentPct": 4.6,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 28.8
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 15.7
+     },
+     {
+      "name": "Retail trade",
+      "pct": 9.4
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 8.5
+     },
+     {
+      "name": "Construction",
+      "pct": 7.0
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 6.1
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 5.3
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 4.3
+     },
+     {
+      "name": "Other services",
+      "pct": 4.2
+     },
+     {
+      "name": "Public administration",
+      "pct": 3.8
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 3.3
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 2.9
+     },
+     {
+      "name": "Information",
+      "pct": 0.7
+     }
+    ]
+   },
+   "139": {
+    "name": "Scott",
+    "population": 154557.0,
+    "medianAge": 37.8,
+    "households": 54971.0,
+    "medianHouseholdIncome": 119314.0,
+    "perCapitaIncome": 54014.0,
+    "ownerOccupiedPct": 83.8,
+    "medianHomeValue": 419400.0,
+    "medianGrossRent": 1568.0,
+    "medianYearBuilt": 1997.0,
+    "singleFamilyPct": 86.8,
+    "bachelorsOrHigherPct": 44.1,
+    "meanCommuteMinutes": 24.8,
+    "droveAlonePct": 70.5,
+    "publicTransitPct": 0.4,
+    "workFromHomePct": 19.7,
+    "unemploymentPct": 3.5,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 21.3
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 15.1
+     },
+     {
+      "name": "Retail trade",
+      "pct": 12.2
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 11.0
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 8.8
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 7.4
+     },
+     {
+      "name": "Construction",
+      "pct": 6.7
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 4.9
+     },
+     {
+      "name": "Other services",
+      "pct": 4.4
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 3.2
+     },
+     {
+      "name": "Public administration",
+      "pct": 3.0
+     },
+     {
+      "name": "Information",
+      "pct": 1.0
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.8
+     }
+    ]
+   },
+   "163": {
+    "name": "Washington",
+    "population": 276238.0,
+    "medianAge": 39.8,
+    "households": 105577.0,
+    "medianHouseholdIncome": 115345.0,
+    "perCapitaIncome": 56954.0,
+    "ownerOccupiedPct": 81.3,
+    "medianHomeValue": 422000.0,
+    "medianGrossRent": 1710.0,
+    "medianYearBuilt": 1992.0,
+    "singleFamilyPct": 83.2,
+    "bachelorsOrHigherPct": 49.1,
+    "meanCommuteMinutes": 24.0,
+    "droveAlonePct": 66.3,
+    "publicTransitPct": 0.6,
+    "workFromHomePct": 23.6,
+    "unemploymentPct": 3.4,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 25.2
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 13.5
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 12.1
+     },
+     {
+      "name": "Retail trade",
+      "pct": 9.7
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 8.1
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 6.5
+     },
+     {
+      "name": "Construction",
+      "pct": 6.1
+     },
+     {
+      "name": "Public administration",
+      "pct": 5.1
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 5.0
+     },
+     {
+      "name": "Other services",
+      "pct": 3.6
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 2.5
+     },
+     {
+      "name": "Information",
+      "pct": 1.4
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 1.0
+     }
+    ]
+   }
+  }
+ },
+ "communities": {
+  "minneapolis": {
+   "acs": {
+    "population": 427246.0,
+    "medianAge": 33.4,
+    "households": 192734.0,
+    "medianHouseholdIncome": 80846.0,
+    "perCapitaIncome": 52692.0,
+    "ownerOccupiedPct": 47.7,
+    "medianHomeValue": 362200.0,
+    "medianGrossRent": 1371.0,
+    "medianYearBuilt": 1951.0,
+    "singleFamilyPct": 43.8,
+    "bachelorsOrHigherPct": 55.5,
+    "meanCommuteMinutes": 22.0,
+    "droveAlonePct": 51.9,
+    "publicTransitPct": 6.8,
+    "workFromHomePct": 26.2,
+    "unemploymentPct": 5.9,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 27.1
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 15.7
+     },
+     {
+      "name": "Retail trade",
+      "pct": 10.4
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 9.8
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 9.3
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 8.0
+     },
+     {
+      "name": "Other services",
+      "pct": 4.4
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 4.2
+     },
+     {
+      "name": "Public administration",
+      "pct": 3.4
+     },
+     {
+      "name": "Construction",
+      "pct": 3.3
+     },
+     {
+      "name": "Information",
+      "pct": 2.1
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 1.8
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.6
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "Minneapolis Public School District",
+     "pctOfCity": 100
+    }
+   ],
+   "lakes": [
+    {
+     "name": "Bde Maka Ska",
+     "acresInCity": 417
+    },
+    {
+     "name": "Lake Harriet",
+     "acresInCity": 340
+    },
+    {
+     "name": "Lake Nokomis",
+     "acresInCity": 201
+    },
+    {
+     "name": "Cedar Lake",
+     "acresInCity": 169
+    },
+    {
+     "name": "Lake of the Isles",
+     "acresInCity": 115
+    },
+    {
+     "name": "Lake Hiawatha",
+     "acresInCity": 54
+    },
+    {
+     "name": "Diamond Lake",
+     "acresInCity": 50
+    },
+    {
+     "name": "Grass Lake",
+     "acresInCity": 22
+    }
+   ],
+   "zips": [
+    {
+     "zip": "55418",
+     "pctOfCityLand": 10,
+     "medianHomeValue": 348700.0,
+     "medianHouseholdIncome": 99397.0,
+     "ownerOccupiedPct": 66.3
+    },
+    {
+     "zip": "55406",
+     "pctOfCityLand": 9,
+     "medianHomeValue": 354100.0,
+     "medianHouseholdIncome": 93910.0,
+     "ownerOccupiedPct": 66.0
+    },
+    {
+     "zip": "55417",
+     "pctOfCityLand": 8,
+     "medianHomeValue": 382900.0,
+     "medianHouseholdIncome": 126261.0,
+     "ownerOccupiedPct": 83.8
+    },
+    {
+     "zip": "55419",
+     "pctOfCityLand": 8,
+     "medianHomeValue": 495000.0,
+     "medianHouseholdIncome": 148350.0,
+     "ownerOccupiedPct": 81.7
+    },
+    {
+     "zip": "55407",
+     "pctOfCityLand": 7,
+     "medianHomeValue": 335400.0,
+     "medianHouseholdIncome": 78464.0,
+     "ownerOccupiedPct": 58.9
+    },
+    {
+     "zip": "55411",
+     "pctOfCityLand": 7,
+     "medianHomeValue": 245400.0,
+     "medianHouseholdIncome": 60225.0,
+     "ownerOccupiedPct": 52.7
+    },
+    {
+     "zip": "55412",
+     "pctOfCityLand": 6,
+     "medianHomeValue": 232100.0,
+     "medianHouseholdIncome": 68682.0,
+     "ownerOccupiedPct": 72.2
+    },
+    {
+     "zip": "55413",
+     "pctOfCityLand": 6,
+     "medianHomeValue": 371600.0,
+     "medianHouseholdIncome": 85282.0,
+     "ownerOccupiedPct": 38.4
+    },
+    {
+     "zip": "55414",
+     "pctOfCityLand": 6,
+     "medianHomeValue": 440500.0,
+     "medianHouseholdIncome": 51966.0,
+     "ownerOccupiedPct": 15.1
+    },
+    {
+     "zip": "55405",
+     "pctOfCityLand": 5,
+     "medianHomeValue": 467700.0,
+     "medianHouseholdIncome": 73053.0,
+     "ownerOccupiedPct": 36.3
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 5,
+    "downtownSaintPaul": 15,
+    "mspAirport": 18,
+    "mallOfAmerica": 19
+   },
+   "driveMinutesToCommunities": {
+    "saint-paul": 14,
+    "bloomington": 21,
+    "brooklyn-park": 22,
+    "woodbury": 31,
+    "plymouth": 22,
+    "lakeville": 34,
+    "blaine": 27,
+    "maple-grove": 30,
+    "eagan": 25,
+    "burnsville": 25,
+    "coon-rapids": 28,
+    "eden-prairie": 27,
+    "apple-valley": 29,
+    "edina": 19,
+    "minnetonka": 24,
+    "st-louis-park": 15,
+    "shakopee": 34,
+    "cottage-grove": 36,
+    "maplewood": 21,
+    "inver-grove-heights": 26,
+    "roseville": 14,
+    "savage": 31,
+    "rosemount": 38,
+    "prior-lake": 36,
+    "farmington": 41,
+    "west-st-paul": 23,
+    "northfield": 55,
+    "south-st-paul": 25,
+    "mendota-heights": 21
+   },
+   "primaryCounty": {
+    "name": "Hennepin",
+    "fips": "053"
+   }
+  },
+  "saint-paul": {
+   "acs": {
+    "population": 307284.0,
+    "medianAge": 33.7,
+    "households": 125249.0,
+    "medianHouseholdIncome": 73394.0,
+    "perCapitaIncome": 42815.0,
+    "ownerOccupiedPct": 52.9,
+    "medianHomeValue": 294500.0,
+    "medianGrossRent": 1281.0,
+    "medianYearBuilt": 1952.0,
+    "singleFamilyPct": 52.5,
+    "bachelorsOrHigherPct": 43.8,
+    "meanCommuteMinutes": 21.1,
+    "droveAlonePct": 58.9,
+    "publicTransitPct": 5.4,
+    "workFromHomePct": 20.2,
+    "unemploymentPct": 5.4,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 28.5
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 12.3
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 12.2
+     },
+     {
+      "name": "Retail trade",
+      "pct": 9.3
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 8.9
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 6.7
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 4.9
+     },
+     {
+      "name": "Other services",
+      "pct": 4.6
+     },
+     {
+      "name": "Public administration",
+      "pct": 4.4
+     },
+     {
+      "name": "Construction",
+      "pct": 4.2
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 2.0
+     },
+     {
+      "name": "Information",
+      "pct": 1.5
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.5
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "St. Paul Public School District",
+     "pctOfCity": 100
+    }
+   ],
+   "lakes": [
+    {
+     "name": "Pigs Eye Lake",
+     "acresInCity": 800
+    },
+    {
+     "name": "Lake Phalen",
+     "acresInCity": 154
+    },
+    {
+     "name": "Crosby Lake",
+     "acresInCity": 76
+    },
+    {
+     "name": "Lake Como",
+     "acresInCity": 71
+    },
+    {
+     "name": "Beaver Lake",
+     "acresInCity": 40
+    }
+   ],
+   "zips": [
+    {
+     "zip": "55106",
+     "pctOfCityLand": 18,
+     "medianHomeValue": 241800.0,
+     "medianHouseholdIncome": 70187.0,
+     "ownerOccupiedPct": 61.1
+    },
+    {
+     "zip": "55119",
+     "pctOfCityLand": 13,
+     "medianHomeValue": 277500.0,
+     "medianHouseholdIncome": 81865.0,
+     "ownerOccupiedPct": 65.4
+    },
+    {
+     "zip": "55104",
+     "pctOfCityLand": 12,
+     "medianHomeValue": 317700.0,
+     "medianHouseholdIncome": 75712.0,
+     "ownerOccupiedPct": 53.1
+    },
+    {
+     "zip": "55116",
+     "pctOfCityLand": 11,
+     "medianHomeValue": 418200.0,
+     "medianHouseholdIncome": 81141.0,
+     "ownerOccupiedPct": 51.0
+    },
+    {
+     "zip": "55107",
+     "pctOfCityLand": 8,
+     "medianHomeValue": 269600.0,
+     "medianHouseholdIncome": 74531.0,
+     "ownerOccupiedPct": 60.6
+    },
+    {
+     "zip": "55117",
+     "pctOfCityLand": 8,
+     "medianHomeValue": 280500.0,
+     "medianHouseholdIncome": 70771.0,
+     "ownerOccupiedPct": 61.3
+    },
+    {
+     "zip": "55105",
+     "pctOfCityLand": 7,
+     "medianHomeValue": 470100.0,
+     "medianHouseholdIncome": 107248.0,
+     "ownerOccupiedPct": 66.6
+    },
+    {
+     "zip": "55102",
+     "pctOfCityLand": 6,
+     "medianHomeValue": 292200.0,
+     "medianHouseholdIncome": 76406.0,
+     "ownerOccupiedPct": 44.9
+    },
+    {
+     "zip": "55108",
+     "pctOfCityLand": 6,
+     "medianHomeValue": 375600.0,
+     "medianHouseholdIncome": 86308.0,
+     "ownerOccupiedPct": 50.9
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 16,
+    "downtownSaintPaul": 3,
+    "mspAirport": 16,
+    "mallOfAmerica": 20
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 16,
+    "bloomington": 28,
+    "brooklyn-park": 32,
+    "woodbury": 21,
+    "plymouth": 33,
+    "lakeville": 34,
+    "blaine": 30,
+    "maple-grove": 39,
+    "eagan": 19,
+    "burnsville": 27,
+    "coon-rapids": 32,
+    "eden-prairie": 35,
+    "apple-valley": 27,
+    "edina": 27,
+    "minnetonka": 34,
+    "st-louis-park": 26,
+    "shakopee": 40,
+    "cottage-grove": 26,
+    "maplewood": 15,
+    "inver-grove-heights": 17,
+    "roseville": 15,
+    "savage": 36,
+    "rosemount": 30,
+    "prior-lake": 41,
+    "farmington": 37,
+    "west-st-paul": 12,
+    "northfield": 55,
+    "south-st-paul": 15,
+    "mendota-heights": 14
+   },
+   "primaryCounty": {
+    "name": "Ramsey",
+    "fips": "123"
+   }
+  },
+  "bloomington": {
+   "acs": {
+    "population": 88665.0,
+    "medianAge": 41.1,
+    "households": 37601.0,
+    "medianHouseholdIncome": 93211.0,
+    "perCapitaIncome": 52173.0,
+    "ownerOccupiedPct": 65.7,
+    "medianHomeValue": 361700.0,
+    "medianGrossRent": 1561.0,
+    "medianYearBuilt": 1972.0,
+    "singleFamilyPct": 62.3,
+    "bachelorsOrHigherPct": 46.2,
+    "meanCommuteMinutes": 21.0,
+    "droveAlonePct": 63.0,
+    "publicTransitPct": 4.2,
+    "workFromHomePct": 22.3,
+    "unemploymentPct": 4.8,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 23.5
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 13.6
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 11.7
+     },
+     {
+      "name": "Retail trade",
+      "pct": 11.2
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 9.0
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 8.5
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 6.1
+     },
+     {
+      "name": "Other services",
+      "pct": 4.9
+     },
+     {
+      "name": "Construction",
+      "pct": 4.2
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 2.6
+     },
+     {
+      "name": "Public administration",
+      "pct": 2.6
+     },
+     {
+      "name": "Information",
+      "pct": 1.6
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.6
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "Bloomington Public School District",
+     "pctOfCity": 99
+    }
+   ],
+   "lakes": [
+    {
+     "name": "Long Meadow Lake",
+     "acresInCity": 1214
+    },
+    {
+     "name": "Bush Lake",
+     "acresInCity": 175
+    },
+    {
+     "name": "Hyland Lake",
+     "acresInCity": 81
+    },
+    {
+     "name": "Anderson Lake",
+     "acresInCity": 72
+    },
+    {
+     "name": "Lower Penn Lake",
+     "acresInCity": 33
+    },
+    {
+     "name": "Oxboro Lake",
+     "acresInCity": 19
+    },
+    {
+     "name": "Coleman Lake",
+     "acresInCity": 16
+    },
+    {
+     "name": "Lake Girard",
+     "acresInCity": 14
+    }
+   ],
+   "zips": [
+    {
+     "zip": "55438",
+     "pctOfCityLand": 24,
+     "medianHomeValue": 414600.0,
+     "medianHouseholdIncome": 106432.0,
+     "ownerOccupiedPct": 78.8
+    },
+    {
+     "zip": "55431",
+     "pctOfCityLand": 23,
+     "medianHomeValue": 373500.0,
+     "medianHouseholdIncome": 101484.0,
+     "ownerOccupiedPct": 67.4
+    },
+    {
+     "zip": "55420",
+     "pctOfCityLand": 19,
+     "medianHomeValue": 328400.0,
+     "medianHouseholdIncome": 82170.0,
+     "ownerOccupiedPct": 67.0
+    },
+    {
+     "zip": "55437",
+     "pctOfCityLand": 19,
+     "medianHomeValue": 381700.0,
+     "medianHouseholdIncome": 95718.0,
+     "ownerOccupiedPct": 68.9
+    },
+    {
+     "zip": "55425",
+     "pctOfCityLand": 13,
+     "medianHomeValue": 339500.0,
+     "medianHouseholdIncome": 76274.0,
+     "ownerOccupiedPct": 33.0
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 21,
+    "downtownSaintPaul": 28,
+    "mspAirport": 16,
+    "mallOfAmerica": 13
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 21,
+    "saint-paul": 29,
+    "brooklyn-park": 37,
+    "woodbury": 37,
+    "plymouth": 30,
+    "lakeville": 21,
+    "blaine": 44,
+    "maple-grove": 40,
+    "eagan": 22,
+    "burnsville": 12,
+    "coon-rapids": 44,
+    "eden-prairie": 19,
+    "apple-valley": 21,
+    "edina": 16,
+    "minnetonka": 24,
+    "st-louis-park": 20,
+    "shakopee": 21,
+    "cottage-grove": 38,
+    "maplewood": 39,
+    "inver-grove-heights": 26,
+    "roseville": 32,
+    "savage": 18,
+    "rosemount": 33,
+    "prior-lake": 23,
+    "farmington": 30,
+    "west-st-paul": 27,
+    "northfield": 42,
+    "south-st-paul": 27,
+    "mendota-heights": 23
+   },
+   "primaryCounty": {
+    "name": "Hennepin",
+    "fips": "053"
+   }
+  },
+  "brooklyn-park": {
+   "acs": {
+    "population": 83876.0,
+    "medianAge": 35.2,
+    "households": 29148.0,
+    "medianHouseholdIncome": 89891.0,
+    "perCapitaIncome": 38978.0,
+    "ownerOccupiedPct": 70.3,
+    "medianHomeValue": 336200.0,
+    "medianGrossRent": 1325.0,
+    "medianYearBuilt": 1980.0,
+    "singleFamilyPct": 72.2,
+    "bachelorsOrHigherPct": 32.7,
+    "meanCommuteMinutes": 21.3,
+    "droveAlonePct": 68.8,
+    "publicTransitPct": 1.9,
+    "workFromHomePct": 14.9,
+    "unemploymentPct": 4.0,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 25.4
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 21.7
+     },
+     {
+      "name": "Retail trade",
+      "pct": 10.9
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 9.7
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 7.4
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 6.1
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 5.5
+     },
+     {
+      "name": "Construction",
+      "pct": 3.7
+     },
+     {
+      "name": "Other services",
+      "pct": 3.5
+     },
+     {
+      "name": "Public administration",
+      "pct": 2.8
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 1.9
+     },
+     {
+      "name": "Information",
+      "pct": 1.3
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.2
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "Osseo Public School District",
+     "pctOfCity": 73
+    },
+    {
+     "name": "Anoka-Hennepin Public School District",
+     "pctOfCity": 23
+    },
+    {
+     "name": "Robbinsdale Public School District",
+     "pctOfCity": 5
+    }
+   ],
+   "lakes": [],
+   "zips": [
+    {
+     "zip": "55443",
+     "pctOfCityLand": 35,
+     "medianHomeValue": 370800.0,
+     "medianHouseholdIncome": 95082.0,
+     "ownerOccupiedPct": 72.6
+    },
+    {
+     "zip": "55445",
+     "pctOfCityLand": 30,
+     "medianHomeValue": 329400.0,
+     "medianHouseholdIncome": 104150.0,
+     "ownerOccupiedPct": 83.2
+    },
+    {
+     "zip": "55444",
+     "pctOfCityLand": 18,
+     "medianHomeValue": 330800.0,
+     "medianHouseholdIncome": 117198.0,
+     "ownerOccupiedPct": 90.3
+    },
+    {
+     "zip": "55428",
+     "pctOfCityLand": 14,
+     "medianHomeValue": 299500.0,
+     "medianHouseholdIncome": 74860.0,
+     "ownerOccupiedPct": 56.2
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 20,
+    "downtownSaintPaul": 31,
+    "mspAirport": 36,
+    "mallOfAmerica": 36
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 23,
+    "saint-paul": 31,
+    "bloomington": 37,
+    "woodbury": 44,
+    "plymouth": 19,
+    "lakeville": 50,
+    "blaine": 17,
+    "maple-grove": 14,
+    "eagan": 43,
+    "burnsville": 41,
+    "coon-rapids": 14,
+    "eden-prairie": 33,
+    "apple-valley": 45,
+    "edina": 27,
+    "minnetonka": 27,
+    "st-louis-park": 23,
+    "shakopee": 40,
+    "cottage-grove": 50,
+    "maplewood": 28,
+    "inver-grove-heights": 40,
+    "roseville": 23,
+    "savage": 41,
+    "rosemount": 54,
+    "prior-lake": 42,
+    "farmington": 57,
+    "west-st-paul": 37,
+    "northfield": 71,
+    "south-st-paul": 39,
+    "mendota-heights": 39
+   },
+   "primaryCounty": {
+    "name": "Hennepin",
+    "fips": "053"
+   }
+  },
+  "woodbury": {
+   "acs": {
+    "population": 78305.0,
+    "medianAge": 38.0,
+    "households": 29312.0,
+    "medianHouseholdIncome": 125310.0,
+    "perCapitaIncome": 60068.0,
+    "ownerOccupiedPct": 77.6,
+    "medianHomeValue": 450200.0,
+    "medianGrossRent": 1908.0,
+    "medianYearBuilt": 1997.0,
+    "singleFamilyPct": 82.1,
+    "bachelorsOrHigherPct": 61.3,
+    "meanCommuteMinutes": 23.9,
+    "droveAlonePct": 60.6,
+    "publicTransitPct": 1.1,
+    "workFromHomePct": 27.4,
+    "unemploymentPct": 3.9,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 25.6
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 16.0
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 11.9
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 9.3
+     },
+     {
+      "name": "Retail trade",
+      "pct": 8.8
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 6.8
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 5.4
+     },
+     {
+      "name": "Public administration",
+      "pct": 5.3
+     },
+     {
+      "name": "Construction",
+      "pct": 3.6
+     },
+     {
+      "name": "Other services",
+      "pct": 2.9
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 2.1
+     },
+     {
+      "name": "Information",
+      "pct": 1.8
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.6
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "South Washington County School District",
+     "pctOfCity": 79
+    },
+    {
+     "name": "Stillwater Area Public School District",
+     "pctOfCity": 14
+    },
+    {
+     "name": "North St. Paul-Maplewood-Oakdale School District",
+     "pctOfCity": 7
+    }
+   ],
+   "lakes": [
+    {
+     "name": "Battle Cr Lake",
+     "acresInCity": 93
+    },
+    {
+     "name": "Colby Lake",
+     "acresInCity": 75
+    },
+    {
+     "name": "Powers Lake",
+     "acresInCity": 50
+    },
+    {
+     "name": "Markgrafs Lake",
+     "acresInCity": 45
+    },
+    {
+     "name": "Carver Lake",
+     "acresInCity": 37
+    },
+    {
+     "name": "Wilmes Lake",
+     "acresInCity": 31
+    },
+    {
+     "name": "Fish Lake",
+     "acresInCity": 11
+    }
+   ],
+   "zips": [
+    {
+     "zip": "55129",
+     "pctOfCityLand": 56,
+     "medianHomeValue": 534900.0,
+     "medianHouseholdIncome": 143795.0,
+     "ownerOccupiedPct": 77.7
+    },
+    {
+     "zip": "55125",
+     "pctOfCityLand": 44,
+     "medianHomeValue": 416100.0,
+     "medianHouseholdIncome": 119260.0,
+     "ownerOccupiedPct": 77.6
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 33,
+    "downtownSaintPaul": 21,
+    "mspAirport": 28,
+    "mallOfAmerica": 29
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 33,
+    "saint-paul": 22,
+    "bloomington": 37,
+    "brooklyn-park": 45,
+    "plymouth": 50,
+    "lakeville": 43,
+    "blaine": 43,
+    "maple-grove": 52,
+    "eagan": 28,
+    "burnsville": 36,
+    "coon-rapids": 45,
+    "eden-prairie": 44,
+    "apple-valley": 36,
+    "edina": 38,
+    "minnetonka": 48,
+    "st-louis-park": 43,
+    "shakopee": 49,
+    "cottage-grove": 15,
+    "maplewood": 24,
+    "inver-grove-heights": 20,
+    "roseville": 30,
+    "savage": 45,
+    "rosemount": 34,
+    "prior-lake": 50,
+    "farmington": 45,
+    "west-st-paul": 21,
+    "northfield": 61,
+    "south-st-paul": 16,
+    "mendota-heights": 22
+   },
+   "primaryCounty": {
+    "name": "Washington",
+    "fips": "163"
+   }
+  },
+  "plymouth": {
+   "acs": {
+    "population": 79220.0,
+    "medianAge": 40.3,
+    "households": 32253.0,
+    "medianHouseholdIncome": 136534.0,
+    "perCapitaIncome": 71865.0,
+    "ownerOccupiedPct": 75.1,
+    "medianHomeValue": 491200.0,
+    "medianGrossRent": 1766.0,
+    "medianYearBuilt": 1988.0,
+    "singleFamilyPct": 74.5,
+    "bachelorsOrHigherPct": 65.9,
+    "meanCommuteMinutes": 21.7,
+    "droveAlonePct": 62.7,
+    "publicTransitPct": 1.0,
+    "workFromHomePct": 28.8,
+    "unemploymentPct": 2.3,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 24.5
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 17.5
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 13.4
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 11.6
+     },
+     {
+      "name": "Retail trade",
+      "pct": 9.9
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 5.1
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 3.7
+     },
+     {
+      "name": "Construction",
+      "pct": 3.3
+     },
+     {
+      "name": "Other services",
+      "pct": 3.2
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 2.9
+     },
+     {
+      "name": "Public administration",
+      "pct": 2.4
+     },
+     {
+      "name": "Information",
+      "pct": 1.7
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.9
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "Wayzata Public School District",
+     "pctOfCity": 64
+    },
+    {
+     "name": "Robbinsdale Public School District",
+     "pctOfCity": 21
+    },
+    {
+     "name": "Osseo Public School District",
+     "pctOfCity": 13
+    }
+   ],
+   "lakes": [
+    {
+     "name": "Medicine Lake",
+     "acresInCity": 778
+    },
+    {
+     "name": "Bass Lake",
+     "acresInCity": 182
+    },
+    {
+     "name": "Gleason Lake",
+     "acresInCity": 101
+    },
+    {
+     "name": "Parkers Lake",
+     "acresInCity": 93
+    },
+    {
+     "name": "Mooney Lake",
+     "acresInCity": 72
+    },
+    {
+     "name": "Schmidt Lake",
+     "acresInCity": 42
+    },
+    {
+     "name": "Pomerleau Lake",
+     "acresInCity": 28
+    },
+    {
+     "name": "Pike Lake",
+     "acresInCity": 23
+    }
+   ],
+   "zips": [
+    {
+     "zip": "55446",
+     "pctOfCityLand": 31,
+     "medianHomeValue": 583500.0,
+     "medianHouseholdIncome": 170625.0,
+     "ownerOccupiedPct": 82.6
+    },
+    {
+     "zip": "55447",
+     "pctOfCityLand": 27,
+     "medianHomeValue": 471000.0,
+     "medianHouseholdIncome": 133555.0,
+     "ownerOccupiedPct": 77.0
+    },
+    {
+     "zip": "55441",
+     "pctOfCityLand": 26,
+     "medianHomeValue": 470100.0,
+     "medianHouseholdIncome": 101981.0,
+     "ownerOccupiedPct": 60.0
+    },
+    {
+     "zip": "55442",
+     "pctOfCityLand": 16,
+     "medianHomeValue": 460100.0,
+     "medianHouseholdIncome": 123859.0,
+     "ownerOccupiedPct": 79.6
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 20,
+    "downtownSaintPaul": 33,
+    "mspAirport": 33,
+    "mallOfAmerica": 30
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 23,
+    "saint-paul": 33,
+    "bloomington": 29,
+    "brooklyn-park": 19,
+    "woodbury": 50,
+    "lakeville": 44,
+    "blaine": 34,
+    "maple-grove": 15,
+    "eagan": 39,
+    "burnsville": 35,
+    "coon-rapids": 30,
+    "eden-prairie": 21,
+    "apple-valley": 40,
+    "edina": 22,
+    "minnetonka": 13,
+    "st-louis-park": 16,
+    "shakopee": 31,
+    "cottage-grove": 55,
+    "maplewood": 37,
+    "inver-grove-heights": 42,
+    "roseville": 32,
+    "savage": 32,
+    "rosemount": 54,
+    "prior-lake": 33,
+    "farmington": 52,
+    "west-st-paul": 41,
+    "northfield": 65,
+    "south-st-paul": 43,
+    "mendota-heights": 37
+   },
+   "primaryCounty": {
+    "name": "Hennepin",
+    "fips": "053"
+   }
+  },
+  "lakeville": {
+   "acs": {
+    "population": 74354.0,
+    "medianAge": 36.8,
+    "households": 25685.0,
+    "medianHouseholdIncome": 139041.0,
+    "perCapitaIncome": 57291.0,
+    "ownerOccupiedPct": 87.8,
+    "medianHomeValue": 452500.0,
+    "medianGrossRent": 1806.0,
+    "medianYearBuilt": 1999.0,
+    "singleFamilyPct": 88.0,
+    "bachelorsOrHigherPct": 50.6,
+    "meanCommuteMinutes": 23.6,
+    "droveAlonePct": 66.1,
+    "publicTransitPct": 1.0,
+    "workFromHomePct": 23.4,
+    "unemploymentPct": 2.0,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 23.3
+     },
+     {
+      "name": "Retail trade",
+      "pct": 12.1
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 11.8
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 11.5
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 10.6
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 6.5
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 5.6
+     },
+     {
+      "name": "Construction",
+      "pct": 5.1
+     },
+     {
+      "name": "Public administration",
+      "pct": 3.8
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 3.7
+     },
+     {
+      "name": "Other services",
+      "pct": 3.5
+     },
+     {
+      "name": "Information",
+      "pct": 2.3
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.3
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "Lakeville Public School District",
+     "pctOfCity": 81
+    },
+    {
+     "name": "Farmington Public School District",
+     "pctOfCity": 10
+    },
+    {
+     "name": "Rosemount-Apple Valley-Eagan",
+     "pctOfCity": 10
+    }
+   ],
+   "lakes": [
+    {
+     "name": "Marion Lake",
+     "acresInCity": 185
+    },
+    {
+     "name": "Orchard Lake",
+     "acresInCity": 95
+    },
+    {
+     "name": "Kingsley Lake",
+     "acresInCity": 64
+    },
+    {
+     "name": "Lee Lake",
+     "acresInCity": 20
+    },
+    {
+     "name": "Goose Lake",
+     "acresInCity": 16
+    }
+   ],
+   "zips": [
+    {
+     "zip": "55044",
+     "pctOfCityLand": 91,
+     "medianHomeValue": 488600.0,
+     "medianHouseholdIncome": 141551.0,
+     "ownerOccupiedPct": 88.0
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 33,
+    "downtownSaintPaul": 34,
+    "mspAirport": 28,
+    "mallOfAmerica": 23
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 33,
+    "saint-paul": 34,
+    "bloomington": 21,
+    "brooklyn-park": 50,
+    "woodbury": 43,
+    "plymouth": 45,
+    "blaine": 56,
+    "maple-grove": 55,
+    "eagan": 21,
+    "burnsville": 14,
+    "coon-rapids": 56,
+    "eden-prairie": 34,
+    "apple-valley": 13,
+    "edina": 29,
+    "minnetonka": 39,
+    "st-louis-park": 34,
+    "shakopee": 27,
+    "cottage-grove": 44,
+    "maplewood": 45,
+    "inver-grove-heights": 28,
+    "roseville": 44,
+    "savage": 20,
+    "rosemount": 23,
+    "prior-lake": 19,
+    "farmington": 11,
+    "west-st-paul": 32,
+    "northfield": 30,
+    "south-st-paul": 32,
+    "mendota-heights": 27
+   },
+   "primaryCounty": {
+    "name": "Dakota",
+    "fips": "037"
+   }
+  },
+  "blaine": {
+   "acs": {
+    "population": 72488.0,
+    "medianAge": 37.5,
+    "households": 25794.0,
+    "medianHouseholdIncome": 106801.0,
+    "perCapitaIncome": 46842.0,
+    "ownerOccupiedPct": 85.3,
+    "medianHomeValue": 352400.0,
+    "medianGrossRent": 1705.0,
+    "medianYearBuilt": 1996.0,
+    "singleFamilyPct": 83.3,
+    "bachelorsOrHigherPct": 36.9,
+    "meanCommuteMinutes": 24.5,
+    "droveAlonePct": 69.0,
+    "publicTransitPct": 0.6,
+    "workFromHomePct": 20.6,
+    "unemploymentPct": 4.2,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 22.5
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 16.9
+     },
+     {
+      "name": "Retail trade",
+      "pct": 12.3
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 10.3
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 7.7
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 6.5
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 6.2
+     },
+     {
+      "name": "Construction",
+      "pct": 5.6
+     },
+     {
+      "name": "Other services",
+      "pct": 4.0
+     },
+     {
+      "name": "Public administration",
+      "pct": 3.8
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 2.2
+     },
+     {
+      "name": "Information",
+      "pct": 1.2
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.6
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "Spring Lake Park Public Schools",
+     "pctOfCity": 42
+    },
+    {
+     "name": "Anoka-Hennepin Public School District",
+     "pctOfCity": 41
+    },
+    {
+     "name": "Centennial Public School District",
+     "pctOfCity": 16
+    }
+   ],
+   "lakes": [
+    {
+     "name": "Central Lake",
+     "acresInCity": 85
+    },
+    {
+     "name": "Laddie Lake",
+     "acresInCity": 31
+    },
+    {
+     "name": "Northwest Lake",
+     "acresInCity": 29
+    },
+    {
+     "name": "Southwest Lake",
+     "acresInCity": 23
+    },
+    {
+     "name": "Lake Rauchle",
+     "acresInCity": 16
+    },
+    {
+     "name": "Southeast Lake",
+     "acresInCity": 14
+    },
+    {
+     "name": "Lochness Lake",
+     "acresInCity": 13
+    }
+   ],
+   "zips": [
+    {
+     "zip": "55449",
+     "pctOfCityLand": 65,
+     "medianHomeValue": 438300.0,
+     "medianHouseholdIncome": 131832.0,
+     "ownerOccupiedPct": 87.9
+    },
+    {
+     "zip": "55434",
+     "pctOfCityLand": 27,
+     "medianHomeValue": 301100.0,
+     "medianHouseholdIncome": 90336.0,
+     "ownerOccupiedPct": 82.2
+    },
+    {
+     "zip": "55014",
+     "pctOfCityLand": 8,
+     "medianHomeValue": 337400.0,
+     "medianHouseholdIncome": 103658.0,
+     "ownerOccupiedPct": 85.8
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 28,
+    "downtownSaintPaul": 29,
+    "mspAirport": 40,
+    "mallOfAmerica": 42
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 28,
+    "saint-paul": 29,
+    "bloomington": 44,
+    "brooklyn-park": 17,
+    "woodbury": 42,
+    "plymouth": 33,
+    "lakeville": 56,
+    "maple-grove": 25,
+    "eagan": 44,
+    "burnsville": 47,
+    "coon-rapids": 13,
+    "eden-prairie": 46,
+    "apple-valley": 51,
+    "edina": 37,
+    "minnetonka": 41,
+    "st-louis-park": 32,
+    "shakopee": 54,
+    "cottage-grove": 48,
+    "maplewood": 26,
+    "inver-grove-heights": 38,
+    "roseville": 21,
+    "savage": 53,
+    "rosemount": 52,
+    "prior-lake": 56,
+    "farmington": 62,
+    "west-st-paul": 35,
+    "northfield": 77,
+    "south-st-paul": 37,
+    "mendota-heights": 39
+   },
+   "primaryCounty": {
+    "name": "Anoka",
+    "fips": "003"
+   }
+  },
+  "maple-grove": {
+   "acs": {
+    "population": 71173.0,
+    "medianAge": 40.9,
+    "households": 27811.0,
+    "medianHouseholdIncome": 132731.0,
+    "perCapitaIncome": 65261.0,
+    "ownerOccupiedPct": 82.3,
+    "medianHomeValue": 418300.0,
+    "medianGrossRent": 1868.0,
+    "medianYearBuilt": 1991.0,
+    "singleFamilyPct": 84.9,
+    "bachelorsOrHigherPct": 57.1,
+    "meanCommuteMinutes": 24.0,
+    "droveAlonePct": 63.4,
+    "publicTransitPct": 1.0,
+    "workFromHomePct": 29.1,
+    "unemploymentPct": 3.5,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 23.7
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 14.9
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 14.2
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 12.4
+     },
+     {
+      "name": "Retail trade",
+      "pct": 11.1
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 5.6
+     },
+     {
+      "name": "Other services",
+      "pct": 3.7
+     },
+     {
+      "name": "Construction",
+      "pct": 3.6
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 2.7
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 2.7
+     },
+     {
+      "name": "Public administration",
+      "pct": 2.7
+     },
+     {
+      "name": "Information",
+      "pct": 2.3
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.5
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "Osseo Public School District",
+     "pctOfCity": 95
+    },
+    {
+     "name": "Wayzata Public School District",
+     "pctOfCity": 5
+    }
+   ],
+   "lakes": [
+    {
+     "name": "Rice Lake",
+     "acresInCity": 387
+    },
+    {
+     "name": "Eagle Lake",
+     "acresInCity": 282
+    },
+    {
+     "name": "Fish Lake",
+     "acresInCity": 230
+    },
+    {
+     "name": "Weaver Lake",
+     "acresInCity": 144
+    },
+    {
+     "name": "Cedar Island Lake",
+     "acresInCity": 77
+    },
+    {
+     "name": "Mud Lake",
+     "acresInCity": 72
+    },
+    {
+     "name": "Pike Lake",
+     "acresInCity": 32
+    },
+    {
+     "name": "Edward Lake",
+     "acresInCity": 28
+    }
+   ],
+   "zips": [
+    {
+     "zip": "55369",
+     "pctOfCityLand": 54,
+     "medianHomeValue": 376400.0,
+     "medianHouseholdIncome": 112144.0,
+     "ownerOccupiedPct": 75.9
+    },
+    {
+     "zip": "55311",
+     "pctOfCityLand": 46,
+     "medianHomeValue": 487300.0,
+     "medianHouseholdIncome": 153568.0,
+     "ownerOccupiedPct": 86.7
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 28,
+    "downtownSaintPaul": 39,
+    "mspAirport": 44,
+    "mallOfAmerica": 41
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 31,
+    "saint-paul": 39,
+    "bloomington": 41,
+    "brooklyn-park": 13,
+    "woodbury": 52,
+    "plymouth": 15,
+    "lakeville": 55,
+    "blaine": 25,
+    "eagan": 50,
+    "burnsville": 46,
+    "coon-rapids": 22,
+    "eden-prairie": 32,
+    "apple-valley": 52,
+    "edina": 32,
+    "minnetonka": 24,
+    "st-louis-park": 27,
+    "shakopee": 42,
+    "cottage-grove": 57,
+    "maplewood": 36,
+    "inver-grove-heights": 48,
+    "roseville": 31,
+    "savage": 43,
+    "rosemount": 62,
+    "prior-lake": 45,
+    "farmington": 63,
+    "west-st-paul": 44,
+    "northfield": 76,
+    "south-st-paul": 46,
+    "mendota-heights": 47
+   },
+   "primaryCounty": {
+    "name": "Hennepin",
+    "fips": "053"
+   }
+  },
+  "eagan": {
+   "acs": {
+    "population": 68000.0,
+    "medianAge": 39.3,
+    "households": 28264.0,
+    "medianHouseholdIncome": 108690.0,
+    "perCapitaIncome": 57112.0,
+    "ownerOccupiedPct": 67.7,
+    "medianHomeValue": 397100.0,
+    "medianGrossRent": 1679.0,
+    "medianYearBuilt": 1988.0,
+    "singleFamilyPct": 70.0,
+    "bachelorsOrHigherPct": 54.7,
+    "meanCommuteMinutes": 21.2,
+    "droveAlonePct": 66.5,
+    "publicTransitPct": 1.6,
+    "workFromHomePct": 23.9,
+    "unemploymentPct": 3.7,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 24.4
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 15.6
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 10.8
+     },
+     {
+      "name": "Retail trade",
+      "pct": 9.9
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 9.7
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 6.8
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 6.7
+     },
+     {
+      "name": "Other services",
+      "pct": 4.3
+     },
+     {
+      "name": "Construction",
+      "pct": 4.1
+     },
+     {
+      "name": "Public administration",
+      "pct": 2.9
+     },
+     {
+      "name": "Information",
+      "pct": 2.2
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 2.0
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.6
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "Rosemount-Apple Valley-Eagan",
+     "pctOfCity": 60
+    },
+    {
+     "name": "West St. Paul-Mendota Heights-Eagan",
+     "pctOfCity": 26
+    },
+    {
+     "name": "Burnsville-Eagan-Savage School District",
+     "pctOfCity": 14
+    }
+   ],
+   "lakes": [
+    {
+     "name": "Gun Club Lake",
+     "acresInCity": 205
+    },
+    {
+     "name": "Blackhawk Lake",
+     "acresInCity": 43
+    },
+    {
+     "name": "Jenson Lake",
+     "acresInCity": 37
+    },
+    {
+     "name": "Lemays Lake",
+     "acresInCity": 36
+    },
+    {
+     "name": "O Brien Lake",
+     "acresInCity": 35
+    },
+    {
+     "name": "Thomas Lake",
+     "acresInCity": 32
+    },
+    {
+     "name": "Fish Lake",
+     "acresInCity": 31
+    },
+    {
+     "name": "Quigley Lake",
+     "acresInCity": 15
+    }
+   ],
+   "zips": [
+    {
+     "zip": "55122",
+     "pctOfCityLand": 35,
+     "medianHomeValue": 356600.0,
+     "medianHouseholdIncome": 96823.0,
+     "ownerOccupiedPct": 68.3
+    },
+    {
+     "zip": "55123",
+     "pctOfCityLand": 35,
+     "medianHomeValue": 461200.0,
+     "medianHouseholdIncome": 139215.0,
+     "ownerOccupiedPct": 77.9
+    },
+    {
+     "zip": "55121",
+     "pctOfCityLand": 31,
+     "medianHomeValue": 301400.0,
+     "medianHouseholdIncome": 87152.0,
+     "ownerOccupiedPct": 41.1
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 26,
+    "downtownSaintPaul": 18,
+    "mspAirport": 15,
+    "mallOfAmerica": 14
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 26,
+    "saint-paul": 19,
+    "bloomington": 21,
+    "brooklyn-park": 43,
+    "woodbury": 27,
+    "plymouth": 39,
+    "lakeville": 21,
+    "blaine": 45,
+    "maple-grove": 50,
+    "burnsville": 14,
+    "coon-rapids": 47,
+    "eden-prairie": 29,
+    "apple-valley": 12,
+    "edina": 25,
+    "minnetonka": 34,
+    "st-louis-park": 29,
+    "shakopee": 29,
+    "cottage-grove": 28,
+    "maplewood": 30,
+    "inver-grove-heights": 13,
+    "roseville": 30,
+    "savage": 22,
+    "rosemount": 19,
+    "prior-lake": 28,
+    "farmington": 20,
+    "west-st-paul": 16,
+    "northfield": 42,
+    "south-st-paul": 17,
+    "mendota-heights": 12
+   },
+   "primaryCounty": {
+    "name": "Dakota",
+    "fips": "037"
+   }
+  },
+  "burnsville": {
+   "acs": {
+    "population": 64463.0,
+    "medianAge": 36.7,
+    "households": 25891.0,
+    "medianHouseholdIncome": 87024.0,
+    "perCapitaIncome": 43192.0,
+    "ownerOccupiedPct": 64.7,
+    "medianHomeValue": 355200.0,
+    "medianGrossRent": 1513.0,
+    "medianYearBuilt": 1982.0,
+    "singleFamilyPct": 63.9,
+    "bachelorsOrHigherPct": 39.8,
+    "meanCommuteMinutes": 23.3,
+    "droveAlonePct": 68.7,
+    "publicTransitPct": 1.4,
+    "workFromHomePct": 17.0,
+    "unemploymentPct": 5.0,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 21.7
+     },
+     {
+      "name": "Retail trade",
+      "pct": 12.5
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 11.3
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 11.1
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 9.7
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 8.8
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 6.4
+     },
+     {
+      "name": "Construction",
+      "pct": 5.7
+     },
+     {
+      "name": "Other services",
+      "pct": 4.8
+     },
+     {
+      "name": "Public administration",
+      "pct": 4.0
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 1.9
+     },
+     {
+      "name": "Information",
+      "pct": 1.5
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.5
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "Burnsville-Eagan-Savage School District",
+     "pctOfCity": 73
+    },
+    {
+     "name": "Rosemount-Apple Valley-Eagan",
+     "pctOfCity": 19
+    },
+    {
+     "name": "Lakeville Public School District",
+     "pctOfCity": 8
+    }
+   ],
+   "lakes": [
+    {
+     "name": "Black Dog Lake",
+     "acresInCity": 310
+    },
+    {
+     "name": "Crystal Lake",
+     "acresInCity": 282
+    },
+    {
+     "name": "Alimagnet Lake",
+     "acresInCity": 73
+    },
+    {
+     "name": "Keller Lake",
+     "acresInCity": 55
+    }
+   ],
+   "zips": [
+    {
+     "zip": "55337",
+     "pctOfCityLand": 75,
+     "medianHomeValue": 349100.0,
+     "medianHouseholdIncome": 84110.0,
+     "ownerOccupiedPct": 64.0
+    },
+    {
+     "zip": "55306",
+     "pctOfCityLand": 25,
+     "medianHomeValue": 374700.0,
+     "medianHouseholdIncome": 100515.0,
+     "ownerOccupiedPct": 66.5
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 24,
+    "downtownSaintPaul": 28,
+    "mspAirport": 20,
+    "mallOfAmerica": 15
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 24,
+    "saint-paul": 28,
+    "bloomington": 12,
+    "brooklyn-park": 41,
+    "woodbury": 36,
+    "plymouth": 36,
+    "lakeville": 14,
+    "blaine": 48,
+    "maple-grove": 46,
+    "eagan": 15,
+    "coon-rapids": 47,
+    "eden-prairie": 25,
+    "apple-valley": 10,
+    "edina": 21,
+    "minnetonka": 30,
+    "st-louis-park": 26,
+    "shakopee": 18,
+    "cottage-grove": 38,
+    "maplewood": 39,
+    "inver-grove-heights": 22,
+    "roseville": 35,
+    "savage": 12,
+    "rosemount": 24,
+    "prior-lake": 18,
+    "farmington": 22,
+    "west-st-paul": 26,
+    "northfield": 35,
+    "south-st-paul": 26,
+    "mendota-heights": 21
+   },
+   "primaryCounty": {
+    "name": "Dakota",
+    "fips": "037"
+   }
+  },
+  "coon-rapids": {
+   "acs": {
+    "population": 63468.0,
+    "medianAge": 39.0,
+    "households": 24858.0,
+    "medianHouseholdIncome": 88251.0,
+    "perCapitaIncome": 41400.0,
+    "ownerOccupiedPct": 74.8,
+    "medianHomeValue": 305800.0,
+    "medianGrossRent": 1494.0,
+    "medianYearBuilt": 1983.0,
+    "singleFamilyPct": 79.1,
+    "bachelorsOrHigherPct": 25.7,
+    "meanCommuteMinutes": 23.2,
+    "droveAlonePct": 75.2,
+    "publicTransitPct": 1.2,
+    "workFromHomePct": 13.7,
+    "unemploymentPct": 4.5,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 22.6
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 16.7
+     },
+     {
+      "name": "Retail trade",
+      "pct": 11.6
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 8.2
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 8.1
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 7.6
+     },
+     {
+      "name": "Construction",
+      "pct": 5.8
+     },
+     {
+      "name": "Other services",
+      "pct": 5.7
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 5.6
+     },
+     {
+      "name": "Public administration",
+      "pct": 3.3
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 3.2
+     },
+     {
+      "name": "Information",
+      "pct": 1.2
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.3
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "Anoka-Hennepin Public School District",
+     "pctOfCity": 100
+    }
+   ],
+   "lakes": [
+    {
+     "name": "Crooked Lake",
+     "acresInCity": 85
+    },
+    {
+     "name": "Epiphany Pond",
+     "acresInCity": 13
+    }
+   ],
+   "zips": [
+    {
+     "zip": "55433",
+     "pctOfCityLand": 51,
+     "medianHomeValue": 296900.0,
+     "medianHouseholdIncome": 78054.0,
+     "ownerOccupiedPct": 68.0
+    },
+    {
+     "zip": "55448",
+     "pctOfCityLand": 48,
+     "medianHomeValue": 315900.0,
+     "medianHouseholdIncome": 103461.0,
+     "ownerOccupiedPct": 84.1
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 27,
+    "downtownSaintPaul": 31,
+    "mspAirport": 42,
+    "mallOfAmerica": 42
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 30,
+    "saint-paul": 32,
+    "bloomington": 44,
+    "brooklyn-park": 14,
+    "woodbury": 45,
+    "plymouth": 30,
+    "lakeville": 56,
+    "blaine": 13,
+    "maple-grove": 22,
+    "eagan": 46,
+    "burnsville": 47,
+    "eden-prairie": 44,
+    "apple-valley": 52,
+    "edina": 35,
+    "minnetonka": 38,
+    "st-louis-park": 31,
+    "shakopee": 51,
+    "cottage-grove": 50,
+    "maplewood": 28,
+    "inver-grove-heights": 41,
+    "roseville": 23,
+    "savage": 52,
+    "rosemount": 54,
+    "prior-lake": 54,
+    "farmington": 63,
+    "west-st-paul": 37,
+    "northfield": 77,
+    "south-st-paul": 39,
+    "mendota-heights": 42
+   },
+   "primaryCounty": {
+    "name": "Anoka",
+    "fips": "003"
+   }
+  },
+  "eden-prairie": {
+   "acs": {
+    "population": 63051.0,
+    "medianAge": 41.3,
+    "households": 25665.0,
+    "medianHouseholdIncome": 130489.0,
+    "perCapitaIncome": 71657.0,
+    "ownerOccupiedPct": 76.1,
+    "medianHomeValue": 473900.0,
+    "medianGrossRent": 1833.0,
+    "medianYearBuilt": 1988.0,
+    "singleFamilyPct": 75.9,
+    "bachelorsOrHigherPct": 64.9,
+    "meanCommuteMinutes": 21.4,
+    "droveAlonePct": 59.1,
+    "publicTransitPct": 2.1,
+    "workFromHomePct": 31.7,
+    "unemploymentPct": 3.6,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 18.6
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 17.6
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 14.7
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 12.7
+     },
+     {
+      "name": "Retail trade",
+      "pct": 11.2
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 5.6
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 3.4
+     },
+     {
+      "name": "Other services",
+      "pct": 3.4
+     },
+     {
+      "name": "Construction",
+      "pct": 3.1
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 3.1
+     },
+     {
+      "name": "Public administration",
+      "pct": 3.1
+     },
+     {
+      "name": "Information",
+      "pct": 2.6
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.9
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "Eden Prairie Public School District",
+     "pctOfCity": 93
+    },
+    {
+     "name": "Hopkins Public School District",
+     "pctOfCity": 4
+    }
+   ],
+   "lakes": [
+    {
+     "name": "Rice Lake",
+     "acresInCity": 184
+    },
+    {
+     "name": "Bryant Lake",
+     "acresInCity": 173
+    },
+    {
+     "name": "Staring Lake",
+     "acresInCity": 157
+    },
+    {
+     "name": "Grass Lake",
+     "acresInCity": 153
+    },
+    {
+     "name": "Anderson Lake",
+     "acresInCity": 150
+    },
+    {
+     "name": "Lake Riley",
+     "acresInCity": 122
+    },
+    {
+     "name": "Mitchell Lake",
+     "acresInCity": 90
+    },
+    {
+     "name": "Red Rock Lake",
+     "acresInCity": 72
+    }
+   ],
+   "zips": [
+    {
+     "zip": "55347",
+     "pctOfCityLand": 52,
+     "medianHomeValue": 499500.0,
+     "medianHouseholdIncome": 155430.0,
+     "ownerOccupiedPct": 91.7
+    },
+    {
+     "zip": "55344",
+     "pctOfCityLand": 27,
+     "medianHomeValue": 363500.0,
+     "medianHouseholdIncome": 89565.0,
+     "ownerOccupiedPct": 40.1
+    },
+    {
+     "zip": "55346",
+     "pctOfCityLand": 21,
+     "medianHomeValue": 480100.0,
+     "medianHouseholdIncome": 135000.0,
+     "ownerOccupiedPct": 86.6
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 26,
+    "downtownSaintPaul": 34,
+    "mspAirport": 22,
+    "mallOfAmerica": 18
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 25,
+    "saint-paul": 34,
+    "bloomington": 18,
+    "brooklyn-park": 33,
+    "woodbury": 43,
+    "plymouth": 21,
+    "lakeville": 33,
+    "blaine": 46,
+    "maple-grove": 31,
+    "eagan": 28,
+    "burnsville": 24,
+    "coon-rapids": 44,
+    "apple-valley": 29,
+    "edina": 14,
+    "minnetonka": 15,
+    "st-louis-park": 18,
+    "shakopee": 20,
+    "cottage-grove": 44,
+    "maplewood": 43,
+    "inver-grove-heights": 31,
+    "roseville": 36,
+    "savage": 20,
+    "rosemount": 43,
+    "prior-lake": 22,
+    "farmington": 41,
+    "west-st-paul": 33,
+    "northfield": 54,
+    "south-st-paul": 33,
+    "mendota-heights": 28
+   },
+   "primaryCounty": {
+    "name": "Hennepin",
+    "fips": "053"
+   }
+  },
+  "apple-valley": {
+   "acs": {
+    "population": 55679.0,
+    "medianAge": 39.0,
+    "households": 21627.0,
+    "medianHouseholdIncome": 97673.0,
+    "perCapitaIncome": 50382.0,
+    "ownerOccupiedPct": 73.4,
+    "medianHomeValue": 370400.0,
+    "medianGrossRent": 1738.0,
+    "medianYearBuilt": 1990.0,
+    "singleFamilyPct": 78.0,
+    "bachelorsOrHigherPct": 45.9,
+    "meanCommuteMinutes": 24.6,
+    "droveAlonePct": 65.5,
+    "publicTransitPct": 2.0,
+    "workFromHomePct": 22.4,
+    "unemploymentPct": 3.1,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 24.4
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 13.9
+     },
+     {
+      "name": "Retail trade",
+      "pct": 11.2
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 10.3
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 10.2
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 6.2
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 5.7
+     },
+     {
+      "name": "Construction",
+      "pct": 4.4
+     },
+     {
+      "name": "Other services",
+      "pct": 4.3
+     },
+     {
+      "name": "Public administration",
+      "pct": 3.5
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 2.8
+     },
+     {
+      "name": "Information",
+      "pct": 2.6
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.5
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "Rosemount-Apple Valley-Eagan",
+     "pctOfCity": 99
+    }
+   ],
+   "lakes": [
+    {
+     "name": "Lac Lavon Lake",
+     "acresInCity": 60
+    },
+    {
+     "name": "Farquar Lake",
+     "acresInCity": 53
+    },
+    {
+     "name": "Long Lake",
+     "acresInCity": 28
+    },
+    {
+     "name": "Alimagnet Lake",
+     "acresInCity": 12
+    }
+   ],
+   "zips": [
+    {
+     "zip": "55124",
+     "pctOfCityLand": 100,
+     "medianHomeValue": 370400.0,
+     "medianHouseholdIncome": 97727.0,
+     "ownerOccupiedPct": 73.5
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 28,
+    "downtownSaintPaul": 26,
+    "mspAirport": 19,
+    "mallOfAmerica": 14
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 27,
+    "saint-paul": 26,
+    "bloomington": 21,
+    "brooklyn-park": 45,
+    "woodbury": 35,
+    "plymouth": 40,
+    "lakeville": 13,
+    "blaine": 51,
+    "maple-grove": 50,
+    "eagan": 12,
+    "burnsville": 10,
+    "coon-rapids": 51,
+    "eden-prairie": 30,
+    "edina": 26,
+    "minnetonka": 34,
+    "st-louis-park": 30,
+    "shakopee": 27,
+    "cottage-grove": 36,
+    "maplewood": 37,
+    "inver-grove-heights": 20,
+    "roseville": 38,
+    "savage": 19,
+    "rosemount": 16,
+    "prior-lake": 25,
+    "farmington": 14,
+    "west-st-paul": 24,
+    "northfield": 36,
+    "south-st-paul": 25,
+    "mendota-heights": 19
+   },
+   "primaryCounty": {
+    "name": "Dakota",
+    "fips": "037"
+   }
+  },
+  "edina": {
+   "acs": {
+    "population": 53262.0,
+    "medianAge": 44.9,
+    "households": 22914.0,
+    "medianHouseholdIncome": 128767.0,
+    "perCapitaIncome": 93210.0,
+    "ownerOccupiedPct": 72.4,
+    "medianHomeValue": 646300.0,
+    "medianGrossRent": 1844.0,
+    "medianYearBuilt": 1971.0,
+    "singleFamilyPct": 59.1,
+    "bachelorsOrHigherPct": 72.7,
+    "meanCommuteMinutes": 20.4,
+    "droveAlonePct": 64.3,
+    "publicTransitPct": 0.3,
+    "workFromHomePct": 29.2,
+    "unemploymentPct": 3.9,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 24.5
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 19.6
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 14.7
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 9.4
+     },
+     {
+      "name": "Retail trade",
+      "pct": 8.6
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 6.4
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 3.5
+     },
+     {
+      "name": "Other services",
+      "pct": 3.1
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 3.0
+     },
+     {
+      "name": "Construction",
+      "pct": 2.7
+     },
+     {
+      "name": "Information",
+      "pct": 2.0
+     },
+     {
+      "name": "Public administration",
+      "pct": 2.0
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.3
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "Edina Public School District",
+     "pctOfCity": 80
+    },
+    {
+     "name": "Hopkins Public School District",
+     "pctOfCity": 9
+    },
+    {
+     "name": "Eden Prairie Public School District",
+     "pctOfCity": 5
+    },
+    {
+     "name": "Richfield Public School District",
+     "pctOfCity": 5
+    }
+   ],
+   "lakes": [
+    {
+     "name": "Lake Cornelia",
+     "acresInCity": 52
+    },
+    {
+     "name": "Mirror Lake",
+     "acresInCity": 21
+    },
+    {
+     "name": "Arrowhead Lake",
+     "acresInCity": 21
+    },
+    {
+     "name": "Indian Head Lake",
+     "acresInCity": 12
+    }
+   ],
+   "zips": [
+    {
+     "zip": "55436",
+     "pctOfCityLand": 30,
+     "medianHomeValue": 643400.0,
+     "medianHouseholdIncome": 144129.0,
+     "ownerOccupiedPct": 75.7
+    },
+    {
+     "zip": "55439",
+     "pctOfCityLand": 28,
+     "medianHomeValue": 649800.0,
+     "medianHouseholdIncome": 168693.0,
+     "ownerOccupiedPct": 90.2
+    },
+    {
+     "zip": "55435",
+     "pctOfCityLand": 17,
+     "medianHomeValue": 361300.0,
+     "medianHouseholdIncome": 79884.0,
+     "ownerOccupiedPct": 47.6
+    },
+    {
+     "zip": "55424",
+     "pctOfCityLand": 15,
+     "medianHomeValue": 992600.0,
+     "medianHouseholdIncome": 250001.0,
+     "ownerOccupiedPct": 91.5
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 16,
+    "downtownSaintPaul": 28,
+    "mspAirport": 18,
+    "mallOfAmerica": 15
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 18,
+    "saint-paul": 28,
+    "bloomington": 15,
+    "brooklyn-park": 28,
+    "woodbury": 38,
+    "plymouth": 21,
+    "lakeville": 30,
+    "blaine": 36,
+    "maple-grove": 31,
+    "eagan": 25,
+    "burnsville": 21,
+    "coon-rapids": 36,
+    "eden-prairie": 12,
+    "apple-valley": 26,
+    "minnetonka": 15,
+    "st-louis-park": 10,
+    "shakopee": 20,
+    "cottage-grove": 39,
+    "maplewood": 36,
+    "inver-grove-heights": 26,
+    "roseville": 29,
+    "savage": 21,
+    "rosemount": 39,
+    "prior-lake": 23,
+    "farmington": 38,
+    "west-st-paul": 26,
+    "northfield": 51,
+    "south-st-paul": 28,
+    "mendota-heights": 21
+   },
+   "primaryCounty": {
+    "name": "Hennepin",
+    "fips": "053"
+   }
+  },
+  "minnetonka": {
+   "acs": {
+    "population": 53064.0,
+    "medianAge": 42.9,
+    "households": 23515.0,
+    "medianHouseholdIncome": 119517.0,
+    "perCapitaIncome": 75502.0,
+    "ownerOccupiedPct": 71.6,
+    "medianHomeValue": 475800.0,
+    "medianGrossRent": 1779.0,
+    "medianYearBuilt": 1981.0,
+    "singleFamilyPct": 64.3,
+    "bachelorsOrHigherPct": 65.0,
+    "meanCommuteMinutes": 19.3,
+    "droveAlonePct": 65.1,
+    "publicTransitPct": 0.5,
+    "workFromHomePct": 27.4,
+    "unemploymentPct": 3.0,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 22.9
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 17.6
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 13.2
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 11.4
+     },
+     {
+      "name": "Retail trade",
+      "pct": 11.0
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 7.1
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 3.6
+     },
+     {
+      "name": "Construction",
+      "pct": 3.2
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 3.1
+     },
+     {
+      "name": "Other services",
+      "pct": 2.9
+     },
+     {
+      "name": "Public administration",
+      "pct": 2.5
+     },
+     {
+      "name": "Information",
+      "pct": 1.3
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.4
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "Hopkins Public School District",
+     "pctOfCity": 57
+    },
+    {
+     "name": "Minnetonka Public School District",
+     "pctOfCity": 27
+    },
+    {
+     "name": "Wayzata Public School District",
+     "pctOfCity": 16
+    }
+   ],
+   "lakes": [
+    {
+     "name": "Grays Bay",
+     "acresInCity": 103
+    },
+    {
+     "name": "Glen Lake",
+     "acresInCity": 58
+    },
+    {
+     "name": "Crane Lake",
+     "acresInCity": 39
+    },
+    {
+     "name": "Gleason Lake",
+     "acresInCity": 29
+    },
+    {
+     "name": "Lake Rose",
+     "acresInCity": 23
+    },
+    {
+     "name": "Libbs Lake",
+     "acresInCity": 20
+    },
+    {
+     "name": "Lake Minnetonka Bay",
+     "acresInCity": 18
+    },
+    {
+     "name": "Lone Lake",
+     "acresInCity": 16
+    }
+   ],
+   "zips": [
+    {
+     "zip": "55345",
+     "pctOfCityLand": 42,
+     "medianHomeValue": 504000.0,
+     "medianHouseholdIncome": 145332.0,
+     "ownerOccupiedPct": 85.3
+    },
+    {
+     "zip": "55305",
+     "pctOfCityLand": 32,
+     "medianHomeValue": 451800.0,
+     "medianHouseholdIncome": 104914.0,
+     "ownerOccupiedPct": 57.5
+    },
+    {
+     "zip": "55343",
+     "pctOfCityLand": 14,
+     "medianHomeValue": 381500.0,
+     "medianHouseholdIncome": 83143.0,
+     "ownerOccupiedPct": 46.5
+    },
+    {
+     "zip": "55391",
+     "pctOfCityLand": 12,
+     "medianHomeValue": 923400.0,
+     "medianHouseholdIncome": 174301.0,
+     "ownerOccupiedPct": 81.8
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 20,
+    "downtownSaintPaul": 34,
+    "mspAirport": 28,
+    "mallOfAmerica": 25
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 23,
+    "saint-paul": 33,
+    "bloomington": 25,
+    "brooklyn-park": 27,
+    "woodbury": 49,
+    "plymouth": 13,
+    "lakeville": 39,
+    "blaine": 41,
+    "maple-grove": 23,
+    "eagan": 34,
+    "burnsville": 30,
+    "coon-rapids": 39,
+    "eden-prairie": 16,
+    "apple-valley": 36,
+    "edina": 17,
+    "st-louis-park": 12,
+    "shakopee": 26,
+    "cottage-grove": 50,
+    "maplewood": 40,
+    "inver-grove-heights": 37,
+    "roseville": 33,
+    "savage": 27,
+    "rosemount": 49,
+    "prior-lake": 29,
+    "farmington": 47,
+    "west-st-paul": 37,
+    "northfield": 60,
+    "south-st-paul": 39,
+    "mendota-heights": 32
+   },
+   "primaryCounty": {
+    "name": "Hennepin",
+    "fips": "053"
+   }
+  },
+  "st-louis-park": {
+   "acs": {
+    "population": 49594.0,
+    "medianAge": 36.1,
+    "households": 24515.0,
+    "medianHouseholdIncome": 101648.0,
+    "perCapitaIncome": 64370.0,
+    "ownerOccupiedPct": 57.8,
+    "medianHomeValue": 386800.0,
+    "medianGrossRent": 1644.0,
+    "medianYearBuilt": 1965.0,
+    "singleFamilyPct": 52.9,
+    "bachelorsOrHigherPct": 64.2,
+    "meanCommuteMinutes": 20.2,
+    "droveAlonePct": 60.7,
+    "publicTransitPct": 2.0,
+    "workFromHomePct": 28.1,
+    "unemploymentPct": 3.2,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 24.5
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 17.2
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 11.9
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 11.3
+     },
+     {
+      "name": "Retail trade",
+      "pct": 10.3
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 7.4
+     },
+     {
+      "name": "Construction",
+      "pct": 4.3
+     },
+     {
+      "name": "Other services",
+      "pct": 2.9
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 2.6
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 2.6
+     },
+     {
+      "name": "Public administration",
+      "pct": 2.2
+     },
+     {
+      "name": "Information",
+      "pct": 2.0
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.8
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "St. Louis Park Public School District",
+     "pctOfCity": 96
+    },
+    {
+     "name": "Hopkins Public School District",
+     "pctOfCity": 3
+    }
+   ],
+   "lakes": [
+    {
+     "name": "Hannan Lake",
+     "acresInCity": 14
+    }
+   ],
+   "zips": [
+    {
+     "zip": "55426",
+     "pctOfCityLand": 52,
+     "medianHomeValue": 364600.0,
+     "medianHouseholdIncome": 99347.0,
+     "ownerOccupiedPct": 64.3
+    },
+    {
+     "zip": "55416",
+     "pctOfCityLand": 47,
+     "medianHomeValue": 461500.0,
+     "medianHouseholdIncome": 105958.0,
+     "ownerOccupiedPct": 49.9
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 12,
+    "downtownSaintPaul": 25,
+    "mspAirport": 23,
+    "mallOfAmerica": 20
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 14,
+    "saint-paul": 25,
+    "bloomington": 20,
+    "brooklyn-park": 23,
+    "woodbury": 42,
+    "plymouth": 16,
+    "lakeville": 34,
+    "blaine": 32,
+    "maple-grove": 26,
+    "eagan": 29,
+    "burnsville": 25,
+    "coon-rapids": 31,
+    "eden-prairie": 19,
+    "apple-valley": 31,
+    "edina": 10,
+    "minnetonka": 13,
+    "shakopee": 26,
+    "cottage-grove": 44,
+    "maplewood": 32,
+    "inver-grove-heights": 31,
+    "roseville": 25,
+    "savage": 27,
+    "rosemount": 43,
+    "prior-lake": 28,
+    "farmington": 43,
+    "west-st-paul": 30,
+    "northfield": 55,
+    "south-st-paul": 32,
+    "mendota-heights": 26
+   },
+   "primaryCounty": {
+    "name": "Hennepin",
+    "fips": "053"
+   }
+  },
+  "shakopee": {
+   "acs": {
+    "population": 46012.0,
+    "medianAge": 36.6,
+    "households": 16655.0,
+    "medianHouseholdIncome": 107223.0,
+    "perCapitaIncome": 47444.0,
+    "ownerOccupiedPct": 74.8,
+    "medianHomeValue": 374800.0,
+    "medianGrossRent": 1531.0,
+    "medianYearBuilt": 1999.0,
+    "singleFamilyPct": 80.4,
+    "bachelorsOrHigherPct": 40.4,
+    "meanCommuteMinutes": 22.4,
+    "droveAlonePct": 71.0,
+    "publicTransitPct": 0.3,
+    "workFromHomePct": 18.3,
+    "unemploymentPct": 3.7,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 19.0
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 16.3
+     },
+     {
+      "name": "Retail trade",
+      "pct": 14.2
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 11.6
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 10.0
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 8.1
+     },
+     {
+      "name": "Construction",
+      "pct": 5.5
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 4.8
+     },
+     {
+      "name": "Other services",
+      "pct": 3.7
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 2.3
+     },
+     {
+      "name": "Public administration",
+      "pct": 2.3
+     },
+     {
+      "name": "Information",
+      "pct": 1.2
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 1.0
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "Shakopee Public School District",
+     "pctOfCity": 86
+    },
+    {
+     "name": "Burnsville-Eagan-Savage School District",
+     "pctOfCity": 14
+    }
+   ],
+   "lakes": [
+    {
+     "name": "Blue Lake",
+     "acresInCity": 252
+    },
+    {
+     "name": "O Dowd Lake",
+     "acresInCity": 234
+    },
+    {
+     "name": "Deans Lake",
+     "acresInCity": 167
+    },
+    {
+     "name": "Rice Lake",
+     "acresInCity": 14
+    }
+   ],
+   "zips": [
+    {
+     "zip": "55379",
+     "pctOfCityLand": 99,
+     "medianHomeValue": 379700.0,
+     "medianHouseholdIncome": 106312.0,
+     "ownerOccupiedPct": 74.7
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 33,
+    "downtownSaintPaul": 40,
+    "mspAirport": 28,
+    "mallOfAmerica": 25
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 33,
+    "saint-paul": 41,
+    "bloomington": 20,
+    "brooklyn-park": 40,
+    "woodbury": 49,
+    "plymouth": 32,
+    "lakeville": 26,
+    "blaine": 53,
+    "maple-grove": 42,
+    "eagan": 31,
+    "burnsville": 20,
+    "coon-rapids": 51,
+    "eden-prairie": 20,
+    "apple-valley": 28,
+    "edina": 21,
+    "minnetonka": 26,
+    "st-louis-park": 25,
+    "cottage-grove": 50,
+    "maplewood": 51,
+    "inver-grove-heights": 38,
+    "roseville": 44,
+    "savage": 11,
+    "rosemount": 39,
+    "prior-lake": 10,
+    "farmington": 35,
+    "west-st-paul": 39,
+    "northfield": 48,
+    "south-st-paul": 39,
+    "mendota-heights": 34
+   },
+   "primaryCounty": {
+    "name": "Scott",
+    "fips": "139"
+   }
+  },
+  "cottage-grove": {
+   "acs": {
+    "population": 40992.0,
+    "medianAge": 36.5,
+    "households": 14395.0,
+    "medianHouseholdIncome": 120791.0,
+    "perCapitaIncome": 49540.0,
+    "ownerOccupiedPct": 88.2,
+    "medianHomeValue": 378800.0,
+    "medianGrossRent": 1783.0,
+    "medianYearBuilt": 1990.0,
+    "singleFamilyPct": 91.1,
+    "bachelorsOrHigherPct": 40.8,
+    "meanCommuteMinutes": 23.9,
+    "droveAlonePct": 69.2,
+    "publicTransitPct": 0.3,
+    "workFromHomePct": 21.1,
+    "unemploymentPct": 3.7,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 25.6
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 15.3
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 10.6
+     },
+     {
+      "name": "Retail trade",
+      "pct": 10.4
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 8.0
+     },
+     {
+      "name": "Construction",
+      "pct": 6.7
+     },
+     {
+      "name": "Public administration",
+      "pct": 6.2
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 5.7
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 4.6
+     },
+     {
+      "name": "Other services",
+      "pct": 3.8
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 1.4
+     },
+     {
+      "name": "Information",
+      "pct": 0.9
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.8
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "South Washington County School District",
+     "pctOfCity": 92
+    },
+    {
+     "name": "Hastings Public School District",
+     "pctOfCity": 8
+    }
+   ],
+   "lakes": [
+    {
+     "name": "Mississippi Riv",
+     "acresInCity": 697
+    }
+   ],
+   "zips": [
+    {
+     "zip": "55016",
+     "pctOfCityLand": 89,
+     "medianHomeValue": 377700.0,
+     "medianHouseholdIncome": 120715.0,
+     "ownerOccupiedPct": 88.2
+    },
+    {
+     "zip": "55033",
+     "pctOfCityLand": 11,
+     "medianHomeValue": 358700.0,
+     "medianHouseholdIncome": 103988.0,
+     "ownerOccupiedPct": 80.4
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 37,
+    "downtownSaintPaul": 25,
+    "mspAirport": 29,
+    "mallOfAmerica": 31
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 37,
+    "saint-paul": 26,
+    "bloomington": 39,
+    "brooklyn-park": 51,
+    "woodbury": 15,
+    "plymouth": 54,
+    "lakeville": 45,
+    "blaine": 49,
+    "maple-grove": 58,
+    "eagan": 30,
+    "burnsville": 38,
+    "coon-rapids": 51,
+    "eden-prairie": 46,
+    "apple-valley": 38,
+    "edina": 40,
+    "minnetonka": 50,
+    "st-louis-park": 45,
+    "shakopee": 51,
+    "maplewood": 33,
+    "inver-grove-heights": 22,
+    "roseville": 34,
+    "savage": 46,
+    "rosemount": 34,
+    "prior-lake": 52,
+    "farmington": 45,
+    "west-st-paul": 23,
+    "northfield": 54,
+    "south-st-paul": 18,
+    "mendota-heights": 24
+   },
+   "primaryCounty": {
+    "name": "Washington",
+    "fips": "163"
+   }
+  },
+  "maplewood": {
+   "acs": {
+    "population": 40695.0,
+    "medianAge": 39.5,
+    "households": 15210.0,
+    "medianHouseholdIncome": 91394.0,
+    "perCapitaIncome": 43481.0,
+    "ownerOccupiedPct": 71.8,
+    "medianHomeValue": 323200.0,
+    "medianGrossRent": 1406.0,
+    "medianYearBuilt": 1979.0,
+    "singleFamilyPct": 68.8,
+    "bachelorsOrHigherPct": 35.3,
+    "meanCommuteMinutes": 22.0,
+    "droveAlonePct": 71.4,
+    "publicTransitPct": 1.2,
+    "workFromHomePct": 17.0,
+    "unemploymentPct": 4.0,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 25.1
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 17.9
+     },
+     {
+      "name": "Retail trade",
+      "pct": 10.0
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 9.4
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 7.9
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 7.5
+     },
+     {
+      "name": "Construction",
+      "pct": 5.5
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 4.8
+     },
+     {
+      "name": "Other services",
+      "pct": 4.7
+     },
+     {
+      "name": "Public administration",
+      "pct": 3.6
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 1.5
+     },
+     {
+      "name": "Information",
+      "pct": 1.5
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.6
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "North St. Paul-Maplewood-Oakdale School District",
+     "pctOfCity": 86
+    },
+    {
+     "name": "Roseville Public School District",
+     "pctOfCity": 13
+    }
+   ],
+   "lakes": [
+    {
+     "name": "Kohlman Lake",
+     "acresInCity": 87
+    },
+    {
+     "name": "Keller Lake",
+     "acresInCity": 72
+    },
+    {
+     "name": "Lake Phalen",
+     "acresInCity": 45
+    },
+    {
+     "name": "Beaver Lake",
+     "acresInCity": 44
+    },
+    {
+     "name": "Sandy Lake",
+     "acresInCity": 29
+    },
+    {
+     "name": "Wakefield Lake",
+     "acresInCity": 23
+    },
+    {
+     "name": "Three M Lake",
+     "acresInCity": 22
+    },
+    {
+     "name": "Round Lake",
+     "acresInCity": 21
+    }
+   ],
+   "zips": [
+    {
+     "zip": "55109",
+     "pctOfCityLand": 49,
+     "medianHomeValue": 315600.0,
+     "medianHouseholdIncome": 86776.0,
+     "ownerOccupiedPct": 65.7
+    },
+    {
+     "zip": "55119",
+     "pctOfCityLand": 39,
+     "medianHomeValue": 277500.0,
+     "medianHouseholdIncome": 81865.0,
+     "ownerOccupiedPct": 65.4
+    },
+    {
+     "zip": "55117",
+     "pctOfCityLand": 10,
+     "medianHomeValue": 280500.0,
+     "medianHouseholdIncome": 70771.0,
+     "ownerOccupiedPct": 61.3
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 23,
+    "downtownSaintPaul": 15,
+    "mspAirport": 27,
+    "mallOfAmerica": 31
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 22,
+    "saint-paul": 16,
+    "bloomington": 38,
+    "brooklyn-park": 30,
+    "woodbury": 24,
+    "plymouth": 39,
+    "lakeville": 45,
+    "blaine": 28,
+    "maple-grove": 37,
+    "eagan": 30,
+    "burnsville": 38,
+    "coon-rapids": 30,
+    "eden-prairie": 44,
+    "apple-valley": 38,
+    "edina": 36,
+    "minnetonka": 41,
+    "st-louis-park": 33,
+    "shakopee": 51,
+    "cottage-grove": 34,
+    "inver-grove-heights": 25,
+    "roseville": 12,
+    "savage": 47,
+    "rosemount": 38,
+    "prior-lake": 52,
+    "farmington": 48,
+    "west-st-paul": 21,
+    "northfield": 65,
+    "south-st-paul": 23,
+    "mendota-heights": 26
+   },
+   "primaryCounty": {
+    "name": "Ramsey",
+    "fips": "123"
+   }
+  },
+  "inver-grove-heights": {
+   "acs": {
+    "population": 35906.0,
+    "medianAge": 41.6,
+    "households": 15158.0,
+    "medianHouseholdIncome": 101316.0,
+    "perCapitaIncome": 55446.0,
+    "ownerOccupiedPct": 76.9,
+    "medianHomeValue": 363400.0,
+    "medianGrossRent": 1465.0,
+    "medianYearBuilt": 1990.0,
+    "singleFamilyPct": 75.8,
+    "bachelorsOrHigherPct": 43.5,
+    "meanCommuteMinutes": 22.3,
+    "droveAlonePct": 65.7,
+    "publicTransitPct": 2.0,
+    "workFromHomePct": 23.5,
+    "unemploymentPct": 3.6,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 19.0
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 14.6
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 11.3
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 9.9
+     },
+     {
+      "name": "Retail trade",
+      "pct": 8.5
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 7.2
+     },
+     {
+      "name": "Other services",
+      "pct": 7.0
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 6.9
+     },
+     {
+      "name": "Public administration",
+      "pct": 4.9
+     },
+     {
+      "name": "Construction",
+      "pct": 4.8
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 3.1
+     },
+     {
+      "name": "Information",
+      "pct": 2.1
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.5
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "Inver Grove Heights Schools",
+     "pctOfCity": 63
+    },
+    {
+     "name": "Rosemount-Apple Valley-Eagan",
+     "pctOfCity": 37
+    }
+   ],
+   "lakes": [
+    {
+     "name": "Schmidtt Lake",
+     "acresInCity": 61
+    },
+    {
+     "name": "Unmd Lake 309",
+     "acresInCity": 17
+    },
+    {
+     "name": "Mississippi Riv",
+     "acresInCity": 16
+    },
+    {
+     "name": "Marcott Lake 1",
+     "acresInCity": 15
+    },
+    {
+     "name": "Marcott Lake 2",
+     "acresInCity": 12
+    }
+   ],
+   "zips": [
+    {
+     "zip": "55077",
+     "pctOfCityLand": 65,
+     "medianHomeValue": 540900.0,
+     "medianHouseholdIncome": 111967.0,
+     "ownerOccupiedPct": 61.4
+    },
+    {
+     "zip": "55076",
+     "pctOfCityLand": 35,
+     "medianHomeValue": 323000.0,
+     "medianHouseholdIncome": 93847.0,
+     "ownerOccupiedPct": 86.0
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 27,
+    "downtownSaintPaul": 18,
+    "mspAirport": 15,
+    "mallOfAmerica": 17
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 27,
+    "saint-paul": 19,
+    "bloomington": 26,
+    "brooklyn-park": 43,
+    "woodbury": 20,
+    "plymouth": 42,
+    "lakeville": 28,
+    "blaine": 41,
+    "maple-grove": 51,
+    "eagan": 13,
+    "burnsville": 22,
+    "coon-rapids": 43,
+    "eden-prairie": 32,
+    "apple-valley": 20,
+    "edina": 26,
+    "minnetonka": 36,
+    "st-louis-park": 30,
+    "shakopee": 36,
+    "cottage-grove": 21,
+    "maplewood": 26,
+    "roseville": 26,
+    "savage": 30,
+    "rosemount": 16,
+    "prior-lake": 35,
+    "farmington": 27,
+    "west-st-paul": 12,
+    "northfield": 43,
+    "south-st-paul": 10,
+    "mendota-heights": 11
+   },
+   "primaryCounty": {
+    "name": "Dakota",
+    "fips": "037"
+   }
+  },
+  "roseville": {
+   "acs": {
+    "population": 35802.0,
+    "medianAge": 41.1,
+    "households": 15570.0,
+    "medianHouseholdIncome": 86930.0,
+    "perCapitaIncome": 55478.0,
+    "ownerOccupiedPct": 66.4,
+    "medianHomeValue": 352100.0,
+    "medianGrossRent": 1374.0,
+    "medianYearBuilt": 1969.0,
+    "singleFamilyPct": 61.5,
+    "bachelorsOrHigherPct": 55.0,
+    "meanCommuteMinutes": 20.7,
+    "droveAlonePct": 65.1,
+    "publicTransitPct": 0.7,
+    "workFromHomePct": 22.6,
+    "unemploymentPct": 5.9,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 29.7
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 15.3
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 13.5
+     },
+     {
+      "name": "Retail trade",
+      "pct": 9.4
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 6.2
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 5.6
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 5.2
+     },
+     {
+      "name": "Other services",
+      "pct": 4.2
+     },
+     {
+      "name": "Public administration",
+      "pct": 4.1
+     },
+     {
+      "name": "Construction",
+      "pct": 3.8
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 1.3
+     },
+     {
+      "name": "Information",
+      "pct": 1.2
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.5
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "Roseville Public School District",
+     "pctOfCity": 82
+    },
+    {
+     "name": "Mounds View Public School District",
+     "pctOfCity": 18
+    }
+   ],
+   "lakes": [
+    {
+     "name": "Lake Owasso",
+     "acresInCity": 169
+    },
+    {
+     "name": "Mc Carrons Lake",
+     "acresInCity": 74
+    },
+    {
+     "name": "Lake Josephine",
+     "acresInCity": 56
+    },
+    {
+     "name": "Bennett Lake",
+     "acresInCity": 29
+    },
+    {
+     "name": "Langton Lake",
+     "acresInCity": 23
+    },
+    {
+     "name": "Lake Zimmerman",
+     "acresInCity": 13
+    }
+   ],
+   "zips": [
+    {
+     "zip": "55113",
+     "pctOfCityLand": 98,
+     "medianHomeValue": 350200.0,
+     "medianHouseholdIncome": 86792.0,
+     "ownerOccupiedPct": 65.6
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 16,
+    "downtownSaintPaul": 15,
+    "mspAirport": 26,
+    "mallOfAmerica": 29
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 15,
+    "saint-paul": 15,
+    "bloomington": 31,
+    "brooklyn-park": 24,
+    "woodbury": 29,
+    "plymouth": 32,
+    "lakeville": 43,
+    "blaine": 23,
+    "maple-grove": 32,
+    "eagan": 30,
+    "burnsville": 34,
+    "coon-rapids": 25,
+    "eden-prairie": 37,
+    "apple-valley": 37,
+    "edina": 29,
+    "minnetonka": 33,
+    "st-louis-park": 25,
+    "shakopee": 44,
+    "cottage-grove": 34,
+    "maplewood": 13,
+    "inver-grove-heights": 24,
+    "savage": 40,
+    "rosemount": 38,
+    "prior-lake": 46,
+    "farmington": 48,
+    "west-st-paul": 21,
+    "northfield": 64,
+    "south-st-paul": 23,
+    "mendota-heights": 25
+   },
+   "primaryCounty": {
+    "name": "Ramsey",
+    "fips": "123"
+   }
+  },
+  "savage": {
+   "acs": {
+    "population": 32889.0,
+    "medianAge": 37.5,
+    "households": 12021.0,
+    "medianHouseholdIncome": 125513.0,
+    "perCapitaIncome": 55451.0,
+    "ownerOccupiedPct": 85.8,
+    "medianHomeValue": 432300.0,
+    "medianGrossRent": 1766.0,
+    "medianYearBuilt": 1997.0,
+    "singleFamilyPct": 90.3,
+    "bachelorsOrHigherPct": 53.7,
+    "meanCommuteMinutes": 25.1,
+    "droveAlonePct": 69.6,
+    "publicTransitPct": 0.5,
+    "workFromHomePct": 22.3,
+    "unemploymentPct": 5.3,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 23.4
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 14.5
+     },
+     {
+      "name": "Retail trade",
+      "pct": 12.1
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 11.7
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 9.9
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 7.1
+     },
+     {
+      "name": "Construction",
+      "pct": 5.2
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 4.6
+     },
+     {
+      "name": "Other services",
+      "pct": 4.0
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 3.2
+     },
+     {
+      "name": "Public administration",
+      "pct": 2.7
+     },
+     {
+      "name": "Information",
+      "pct": 0.9
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.8
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "Burnsville-Eagan-Savage School District",
+     "pctOfCity": 51
+    },
+    {
+     "name": "Prior Lake-Savage Area Schools",
+     "pctOfCity": 43
+    },
+    {
+     "name": "Shakopee Public School District",
+     "pctOfCity": 4
+    }
+   ],
+   "lakes": [
+    {
+     "name": "Rice Lake",
+     "acresInCity": 303
+    },
+    {
+     "name": "Hanrehan Lake",
+     "acresInCity": 72
+    }
+   ],
+   "zips": [
+    {
+     "zip": "55378",
+     "pctOfCityLand": 92,
+     "medianHomeValue": 430900.0,
+     "medianHouseholdIncome": 124871.0,
+     "ownerOccupiedPct": 85.5
+    },
+    {
+     "zip": "55372",
+     "pctOfCityLand": 7,
+     "medianHomeValue": 467400.0,
+     "medianHouseholdIncome": 145499.0,
+     "ownerOccupiedPct": 90.7
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 30,
+    "downtownSaintPaul": 35,
+    "mspAirport": 26,
+    "mallOfAmerica": 22
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 30,
+    "saint-paul": 35,
+    "bloomington": 18,
+    "brooklyn-park": 39,
+    "woodbury": 44,
+    "plymouth": 32,
+    "lakeville": 19,
+    "blaine": 53,
+    "maple-grove": 41,
+    "eagan": 22,
+    "burnsville": 12,
+    "coon-rapids": 51,
+    "eden-prairie": 20,
+    "apple-valley": 19,
+    "edina": 21,
+    "minnetonka": 26,
+    "st-louis-park": 25,
+    "shakopee": 11,
+    "cottage-grove": 45,
+    "maplewood": 46,
+    "inver-grove-heights": 29,
+    "roseville": 41,
+    "rosemount": 30,
+    "prior-lake": 11,
+    "farmington": 29,
+    "west-st-paul": 33,
+    "northfield": 41,
+    "south-st-paul": 33,
+    "mendota-heights": 28
+   },
+   "primaryCounty": {
+    "name": "Scott",
+    "fips": "139"
+   }
+  },
+  "rosemount": {
+   "acs": {
+    "population": 27562.0,
+    "medianAge": 38.9,
+    "households": 9924.0,
+    "medianHouseholdIncome": 129625.0,
+    "perCapitaIncome": 59464.0,
+    "ownerOccupiedPct": 87.4,
+    "medianHomeValue": 424100.0,
+    "medianGrossRent": 1640.0,
+    "medianYearBuilt": 2000.0,
+    "singleFamilyPct": 87.9,
+    "bachelorsOrHigherPct": 51.6,
+    "meanCommuteMinutes": 28.1,
+    "droveAlonePct": 66.1,
+    "publicTransitPct": 1.0,
+    "workFromHomePct": 25.1,
+    "unemploymentPct": 3.5,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 24.1
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 13.3
+     },
+     {
+      "name": "Retail trade",
+      "pct": 12.1
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 10.1
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 9.7
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 6.0
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 5.6
+     },
+     {
+      "name": "Construction",
+      "pct": 4.7
+     },
+     {
+      "name": "Public administration",
+      "pct": 4.0
+     },
+     {
+      "name": "Other services",
+      "pct": 3.7
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 3.2
+     },
+     {
+      "name": "Information",
+      "pct": 2.7
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.7
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "Rosemount-Apple Valley-Eagan",
+     "pctOfCity": 90
+    },
+    {
+     "name": "Inver Grove Heights Schools",
+     "pctOfCity": 8
+    }
+   ],
+   "lakes": [
+    {
+     "name": "Kegan Lake",
+     "acresInCity": 31
+    }
+   ],
+   "zips": [
+    {
+     "zip": "55068",
+     "pctOfCityLand": 100,
+     "medianHomeValue": 395900.0,
+     "medianHouseholdIncome": 127798.0,
+     "ownerOccupiedPct": 87.1
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 39,
+    "downtownSaintPaul": 32,
+    "mspAirport": 28,
+    "mallOfAmerica": 27
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 39,
+    "saint-paul": 33,
+    "bloomington": 32,
+    "brooklyn-park": 56,
+    "woodbury": 34,
+    "plymouth": 53,
+    "lakeville": 23,
+    "blaine": 55,
+    "maple-grove": 63,
+    "eagan": 18,
+    "burnsville": 24,
+    "coon-rapids": 58,
+    "eden-prairie": 43,
+    "apple-valley": 16,
+    "edina": 38,
+    "minnetonka": 47,
+    "st-louis-park": 43,
+    "shakopee": 39,
+    "cottage-grove": 35,
+    "maplewood": 40,
+    "inver-grove-heights": 18,
+    "roseville": 41,
+    "savage": 31,
+    "prior-lake": 36,
+    "farmington": 19,
+    "west-st-paul": 26,
+    "northfield": 37,
+    "south-st-paul": 24,
+    "mendota-heights": 24
+   },
+   "primaryCounty": {
+    "name": "Dakota",
+    "fips": "037"
+   }
+  },
+  "prior-lake": {
+   "acs": {
+    "population": 28016.0,
+    "medianAge": 39.6,
+    "households": 9976.0,
+    "medianHouseholdIncome": 134255.0,
+    "perCapitaIncome": 62573.0,
+    "ownerOccupiedPct": 86.2,
+    "medianHomeValue": 450700.0,
+    "medianGrossRent": 1654.0,
+    "medianYearBuilt": 1998.0,
+    "singleFamilyPct": 87.3,
+    "bachelorsOrHigherPct": 52.4,
+    "meanCommuteMinutes": 24.7,
+    "droveAlonePct": 63.9,
+    "publicTransitPct": 0.8,
+    "workFromHomePct": 24.6,
+    "unemploymentPct": 1.5,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 20.1
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 15.2
+     },
+     {
+      "name": "Retail trade",
+      "pct": 12.6
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 11.3
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 9.4
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 7.7
+     },
+     {
+      "name": "Construction",
+      "pct": 6.2
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 4.3
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 4.3
+     },
+     {
+      "name": "Other services",
+      "pct": 4.1
+     },
+     {
+      "name": "Public administration",
+      "pct": 3.5
+     },
+     {
+      "name": "Information",
+      "pct": 1.1
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.3
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "Prior Lake-Savage Area Schools",
+     "pctOfCity": 83
+    },
+    {
+     "name": "Shakopee Public School District",
+     "pctOfCity": 17
+    }
+   ],
+   "lakes": [
+    {
+     "name": "Prior Lake",
+     "acresInCity": 1309
+    },
+    {
+     "name": "Spring Lake",
+     "acresInCity": 384
+    },
+    {
+     "name": "Howard Lake",
+     "acresInCity": 57
+    },
+    {
+     "name": "Pike Lake",
+     "acresInCity": 45
+    },
+    {
+     "name": "Campbell Lake",
+     "acresInCity": 40
+    },
+    {
+     "name": "Jeffers Pond",
+     "acresInCity": 31
+    },
+    {
+     "name": "Crystal Lake",
+     "acresInCity": 31
+    }
+   ],
+   "zips": [
+    {
+     "zip": "55372",
+     "pctOfCityLand": 81,
+     "medianHomeValue": 467400.0,
+     "medianHouseholdIncome": 145499.0,
+     "ownerOccupiedPct": 90.7
+    },
+    {
+     "zip": "55379",
+     "pctOfCityLand": 18,
+     "medianHomeValue": 379700.0,
+     "medianHouseholdIncome": 106312.0,
+     "ownerOccupiedPct": 74.7
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 36,
+    "downtownSaintPaul": 42,
+    "mspAirport": 31,
+    "mallOfAmerica": 28
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 36,
+    "saint-paul": 42,
+    "bloomington": 24,
+    "brooklyn-park": 43,
+    "woodbury": 51,
+    "plymouth": 35,
+    "lakeville": 19,
+    "blaine": 56,
+    "maple-grove": 45,
+    "eagan": 29,
+    "burnsville": 19,
+    "coon-rapids": 54,
+    "eden-prairie": 23,
+    "apple-valley": 26,
+    "edina": 25,
+    "minnetonka": 29,
+    "st-louis-park": 28,
+    "shakopee": 10,
+    "cottage-grove": 52,
+    "maplewood": 53,
+    "inver-grove-heights": 36,
+    "roseville": 47,
+    "savage": 12,
+    "rosemount": 37,
+    "farmington": 28,
+    "west-st-paul": 40,
+    "northfield": 40,
+    "south-st-paul": 40,
+    "mendota-heights": 35
+   },
+   "primaryCounty": {
+    "name": "Scott",
+    "fips": "139"
+   }
+  },
+  "farmington": {
+   "acs": {
+    "population": 23902.0,
+    "medianAge": 35.4,
+    "households": 8313.0,
+    "medianHouseholdIncome": 123673.0,
+    "perCapitaIncome": 48512.0,
+    "ownerOccupiedPct": 86.5,
+    "medianHomeValue": 366200.0,
+    "medianGrossRent": 1241.0,
+    "medianYearBuilt": 1998.0,
+    "singleFamilyPct": 88.8,
+    "bachelorsOrHigherPct": 38.7,
+    "meanCommuteMinutes": 27.7,
+    "droveAlonePct": 71.7,
+    "publicTransitPct": 0.3,
+    "workFromHomePct": 20.4,
+    "unemploymentPct": 3.4,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 20.0
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 14.4
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 11.2
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 9.9
+     },
+     {
+      "name": "Retail trade",
+      "pct": 8.7
+     },
+     {
+      "name": "Construction",
+      "pct": 7.4
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 7.3
+     },
+     {
+      "name": "Other services",
+      "pct": 6.1
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 5.6
+     },
+     {
+      "name": "Public administration",
+      "pct": 4.4
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 3.0
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 1.1
+     },
+     {
+      "name": "Information",
+      "pct": 1.0
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "Farmington Public School District",
+     "pctOfCity": 99
+    }
+   ],
+   "lakes": [],
+   "zips": [
+    {
+     "zip": "55024",
+     "pctOfCityLand": 100,
+     "medianHomeValue": 378700.0,
+     "medianHouseholdIncome": 127280.0,
+     "ownerOccupiedPct": 88.7
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 41,
+    "downtownSaintPaul": 38,
+    "mspAirport": 32,
+    "mallOfAmerica": 27
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 41,
+    "saint-paul": 38,
+    "bloomington": 30,
+    "brooklyn-park": 58,
+    "woodbury": 45,
+    "plymouth": 53,
+    "lakeville": 11,
+    "blaine": 64,
+    "maple-grove": 63,
+    "eagan": 21,
+    "burnsville": 23,
+    "coon-rapids": 64,
+    "eden-prairie": 43,
+    "apple-valley": 15,
+    "edina": 39,
+    "minnetonka": 47,
+    "st-louis-park": 43,
+    "shakopee": 36,
+    "cottage-grove": 45,
+    "maplewood": 49,
+    "inver-grove-heights": 27,
+    "roseville": 49,
+    "savage": 30,
+    "rosemount": 19,
+    "prior-lake": 28,
+    "west-st-paul": 35,
+    "northfield": 25,
+    "south-st-paul": 34,
+    "mendota-heights": 31
+   },
+   "primaryCounty": {
+    "name": "Dakota",
+    "fips": "037"
+   }
+  },
+  "west-st-paul": {
+   "acs": {
+    "population": 21382.0,
+    "medianAge": 39.8,
+    "households": 9780.0,
+    "medianHouseholdIncome": 68464.0,
+    "perCapitaIncome": 44887.0,
+    "ownerOccupiedPct": 57.2,
+    "medianHomeValue": 301300.0,
+    "medianGrossRent": 1282.0,
+    "medianYearBuilt": 1970.0,
+    "singleFamilyPct": 54.5,
+    "bachelorsOrHigherPct": 35.5,
+    "meanCommuteMinutes": 22.4,
+    "droveAlonePct": 68.0,
+    "publicTransitPct": 1.3,
+    "workFromHomePct": 19.6,
+    "unemploymentPct": 4.5,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 27.4
+     },
+     {
+      "name": "Retail trade",
+      "pct": 12.3
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 11.2
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 10.4
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 10.0
+     },
+     {
+      "name": "Construction",
+      "pct": 6.6
+     },
+     {
+      "name": "Other services",
+      "pct": 6.6
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 4.8
+     },
+     {
+      "name": "Public administration",
+      "pct": 4.0
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 3.6
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 2.3
+     },
+     {
+      "name": "Information",
+      "pct": 0.8
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.1
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "West St. Paul-Mendota Heights-Eagan",
+     "pctOfCity": 100
+    }
+   ],
+   "lakes": [],
+   "zips": [
+    {
+     "zip": "55118",
+     "pctOfCityLand": 100,
+     "medianHomeValue": 350600.0,
+     "medianHouseholdIncome": 87340.0,
+     "ownerOccupiedPct": 65.1
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 25,
+    "downtownSaintPaul": 10,
+    "mspAirport": 15,
+    "mallOfAmerica": 19
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 25,
+    "saint-paul": 12,
+    "bloomington": 28,
+    "brooklyn-park": 38,
+    "woodbury": 22,
+    "plymouth": 42,
+    "lakeville": 32,
+    "blaine": 37,
+    "maple-grove": 46,
+    "eagan": 17,
+    "burnsville": 25,
+    "coon-rapids": 39,
+    "eden-prairie": 33,
+    "apple-valley": 24,
+    "edina": 26,
+    "minnetonka": 36,
+    "st-louis-park": 30,
+    "shakopee": 39,
+    "cottage-grove": 23,
+    "maplewood": 22,
+    "inver-grove-heights": 11,
+    "roseville": 22,
+    "savage": 33,
+    "rosemount": 25,
+    "prior-lake": 39,
+    "farmington": 35,
+    "northfield": 51,
+    "south-st-paul": 9,
+    "mendota-heights": 9
+   },
+   "primaryCounty": {
+    "name": "Dakota",
+    "fips": "037"
+   }
+  },
+  "northfield": {
+   "acs": {
+    "population": 20742.0,
+    "medianAge": 28.2,
+    "households": 6380.0,
+    "medianHouseholdIncome": 84895.0,
+    "perCapitaIncome": 36703.0,
+    "ownerOccupiedPct": 69.3,
+    "medianHomeValue": 329400.0,
+    "medianGrossRent": 1103.0,
+    "medianYearBuilt": 1986.0,
+    "singleFamilyPct": 64.0,
+    "bachelorsOrHigherPct": 53.3,
+    "meanCommuteMinutes": 17.7,
+    "droveAlonePct": 54.9,
+    "publicTransitPct": 0.6,
+    "workFromHomePct": 16.2,
+    "unemploymentPct": 4.9,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 42.1
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 13.1
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 10.5
+     },
+     {
+      "name": "Retail trade",
+      "pct": 7.2
+     },
+     {
+      "name": "Construction",
+      "pct": 5.5
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 4.6
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 4.3
+     },
+     {
+      "name": "Other services",
+      "pct": 3.8
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 3.1
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 2.3
+     },
+     {
+      "name": "Public administration",
+      "pct": 2.0
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.7
+     },
+     {
+      "name": "Information",
+      "pct": 0.7
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "Northfield Public School District",
+     "pctOfCity": 100
+    }
+   ],
+   "lakes": [],
+   "zips": [
+    {
+     "zip": "55057",
+     "pctOfCityLand": 100,
+     "medianHomeValue": 363600.0,
+     "medianHouseholdIncome": 92622.0,
+     "ownerOccupiedPct": 74.3
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 54,
+    "downtownSaintPaul": 55,
+    "mspAirport": 49,
+    "mallOfAmerica": 45
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 53,
+    "saint-paul": 55,
+    "bloomington": 42,
+    "brooklyn-park": 71,
+    "woodbury": 60,
+    "plymouth": 66,
+    "lakeville": 30,
+    "blaine": 77,
+    "maple-grove": 76,
+    "eagan": 42,
+    "burnsville": 34,
+    "coon-rapids": 77,
+    "eden-prairie": 55,
+    "apple-valley": 36,
+    "edina": 50,
+    "minnetonka": 60,
+    "st-louis-park": 55,
+    "shakopee": 48,
+    "cottage-grove": 54,
+    "maplewood": 66,
+    "inver-grove-heights": 44,
+    "roseville": 65,
+    "savage": 42,
+    "rosemount": 37,
+    "prior-lake": 40,
+    "farmington": 25,
+    "west-st-paul": 52,
+    "south-st-paul": 50,
+    "mendota-heights": 48
+   },
+   "primaryCounty": {
+    "name": "Rice",
+    "fips": "131"
+   }
+  },
+  "south-st-paul": {
+   "acs": {
+    "population": 20611.0,
+    "medianAge": 37.2,
+    "households": 8425.0,
+    "medianHouseholdIncome": 87994.0,
+    "perCapitaIncome": 40011.0,
+    "ownerOccupiedPct": 69.7,
+    "medianHomeValue": 281600.0,
+    "medianGrossRent": 1199.0,
+    "medianYearBuilt": 1958.0,
+    "singleFamilyPct": 71.9,
+    "bachelorsOrHigherPct": 32.5,
+    "meanCommuteMinutes": 21.3,
+    "droveAlonePct": 69.0,
+    "publicTransitPct": 0.7,
+    "workFromHomePct": 14.5,
+    "unemploymentPct": 5.9,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 23.0
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 12.7
+     },
+     {
+      "name": "Retail trade",
+      "pct": 10.7
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 9.4
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 9.1
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 7.2
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 6.2
+     },
+     {
+      "name": "Construction",
+      "pct": 5.6
+     },
+     {
+      "name": "Public administration",
+      "pct": 5.5
+     },
+     {
+      "name": "Other services",
+      "pct": 5.2
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 4.0
+     },
+     {
+      "name": "Information",
+      "pct": 1.0
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.2
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "South St. Paul Public School District",
+     "pctOfCity": 98
+    }
+   ],
+   "lakes": [
+    {
+     "name": "Mississippi Riv",
+     "acresInCity": 245
+    }
+   ],
+   "zips": [
+    {
+     "zip": "55075",
+     "pctOfCityLand": 98,
+     "medianHomeValue": 281700.0,
+     "medianHouseholdIncome": 88386.0,
+     "ownerOccupiedPct": 69.8
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 27,
+    "downtownSaintPaul": 16,
+    "mspAirport": 17,
+    "mallOfAmerica": 18
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 27,
+    "saint-paul": 16,
+    "bloomington": 27,
+    "brooklyn-park": 41,
+    "woodbury": 17,
+    "plymouth": 44,
+    "lakeville": 33,
+    "blaine": 39,
+    "maple-grove": 48,
+    "eagan": 18,
+    "burnsville": 26,
+    "coon-rapids": 41,
+    "eden-prairie": 33,
+    "apple-valley": 25,
+    "edina": 28,
+    "minnetonka": 38,
+    "st-louis-park": 32,
+    "shakopee": 39,
+    "cottage-grove": 18,
+    "maplewood": 24,
+    "inver-grove-heights": 10,
+    "roseville": 24,
+    "savage": 34,
+    "rosemount": 23,
+    "prior-lake": 39,
+    "farmington": 35,
+    "west-st-paul": 9,
+    "northfield": 50,
+    "mendota-heights": 11
+   },
+   "primaryCounty": {
+    "name": "Dakota",
+    "fips": "037"
+   }
+  },
+  "mendota-heights": {
+   "acs": {
+    "population": 11612.0,
+    "medianAge": 47.0,
+    "households": 4785.0,
+    "medianHouseholdIncome": 132768.0,
+    "perCapitaIncome": 72329.0,
+    "ownerOccupiedPct": 78.7,
+    "medianHomeValue": 520300.0,
+    "medianGrossRent": 1631.0,
+    "medianYearBuilt": 1983.0,
+    "singleFamilyPct": 76.8,
+    "bachelorsOrHigherPct": 67.5,
+    "meanCommuteMinutes": 19.6,
+    "droveAlonePct": 65.5,
+    "publicTransitPct": 0.4,
+    "workFromHomePct": 30.3,
+    "unemploymentPct": 1.4,
+    "industries": [
+     {
+      "name": "Education, health care and social assistance",
+      "pct": 21.0
+     },
+     {
+      "name": "Finance, insurance and real estate",
+      "pct": 14.4
+     },
+     {
+      "name": "Professional, scientific and management services",
+      "pct": 14.2
+     },
+     {
+      "name": "Manufacturing",
+      "pct": 11.8
+     },
+     {
+      "name": "Retail trade",
+      "pct": 7.8
+     },
+     {
+      "name": "Arts, entertainment, recreation, lodging and food",
+      "pct": 7.8
+     },
+     {
+      "name": "Public administration",
+      "pct": 6.4
+     },
+     {
+      "name": "Other services",
+      "pct": 4.3
+     },
+     {
+      "name": "Transportation, warehousing and utilities",
+      "pct": 4.0
+     },
+     {
+      "name": "Construction",
+      "pct": 3.1
+     },
+     {
+      "name": "Information",
+      "pct": 2.4
+     },
+     {
+      "name": "Wholesale trade",
+      "pct": 1.7
+     },
+     {
+      "name": "Agriculture, forestry and mining",
+      "pct": 0.9
+     }
+    ]
+   },
+   "schoolDistricts": [
+    {
+     "name": "West St. Paul-Mendota Heights-Eagan",
+     "pctOfCity": 100
+    }
+   ],
+   "lakes": [
+    {
+     "name": "Gun Club Lake",
+     "acresInCity": 198
+    },
+    {
+     "name": "Rogers Lake",
+     "acresInCity": 102
+    },
+    {
+     "name": "Lake Augusta",
+     "acresInCity": 41
+    },
+    {
+     "name": "Lake Lemay",
+     "acresInCity": 29
+    }
+   ],
+   "zips": [
+    {
+     "zip": "55120",
+     "pctOfCityLand": 60,
+     "medianHomeValue": 515600.0,
+     "medianHouseholdIncome": 116346.0,
+     "ownerOccupiedPct": 61.3
+    },
+    {
+     "zip": "55118",
+     "pctOfCityLand": 40,
+     "medianHomeValue": 350600.0,
+     "medianHouseholdIncome": 87340.0,
+     "ownerOccupiedPct": 65.1
+    }
+   ],
+   "driveMinutes": {
+    "downtownMinneapolis": 22,
+    "downtownSaintPaul": 13,
+    "mspAirport": 11,
+    "mallOfAmerica": 14
+   },
+   "driveMinutesToCommunities": {
+    "minneapolis": 22,
+    "saint-paul": 14,
+    "bloomington": 22,
+    "brooklyn-park": 39,
+    "woodbury": 21,
+    "plymouth": 37,
+    "lakeville": 28,
+    "blaine": 40,
+    "maple-grove": 46,
+    "eagan": 12,
+    "burnsville": 21,
+    "coon-rapids": 42,
+    "eden-prairie": 29,
+    "apple-valley": 20,
+    "edina": 21,
+    "minnetonka": 32,
+    "st-louis-park": 26,
+    "shakopee": 34,
+    "cottage-grove": 22,
+    "maplewood": 25,
+    "inver-grove-heights": 11,
+    "roseville": 25,
+    "savage": 29,
+    "rosemount": 23,
+    "prior-lake": 34,
+    "farmington": 31,
+    "west-st-paul": 9,
+    "northfield": 49,
+    "south-st-paul": 11
+   },
+   "primaryCounty": {
+    "name": "Dakota",
+    "fips": "037"
+   }
+  }
+ }
+}

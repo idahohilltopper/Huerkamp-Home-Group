@@ -18,6 +18,7 @@
   --text: var(--ink);
   --text-soft: var(--ink-soft);
   --eyebrow: var(--bronze);
+  --chart-1: #a36c16; /* validated vs #fff (dataviz validator) */
 
   --serif-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
   --serif: "Fraunces", Georgia, "Times New Roman", serif;
@@ -37,6 +38,7 @@
     --text: #efe8dc;
     --text-soft: #bfb4a2;
     --eyebrow: var(--gold);
+    --chart-1: #bd8730; /* validated vs #211a14 */
   }
 }
 :root[data-theme="dark"] {
@@ -47,6 +49,7 @@
   --text: #efe8dc;
   --text-soft: #bfb4a2;
   --eyebrow: var(--gold);
+  --chart-1: #bd8730;
 }
 
 * { box-sizing: border-box; }

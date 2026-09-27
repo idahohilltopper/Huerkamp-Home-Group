@@ -16,6 +16,13 @@
       "population2024": 428579,
       "population2020": 429983,
       "growthPct": -0.3,
+      "populationByYear": {
+        "2020": 430738,
+        "2021": 427853,
+        "2022": 422613,
+        "2023": 426569,
+        "2024": 428579
+      },
       "landSqMi": 54.0,
       "waterSqMi": 3.5,
       "center": [
@@ -37,6 +44,13 @@
       "population2024": 307465,
       "population2020": 311483,
       "growthPct": -1.3,
+      "populationByYear": {
+        "2020": 311127,
+        "2021": 307666,
+        "2022": 305034,
+        "2023": 305147,
+        "2024": 307465
+      },
       "landSqMi": 52.0,
       "waterSqMi": 4.1,
       "center": [
@@ -58,6 +72,13 @@
       "population2024": 88344,
       "population2020": 89978,
       "growthPct": -1.8,
+      "populationByYear": {
+        "2020": 89853,
+        "2021": 89457,
+        "2022": 87899,
+        "2023": 87718,
+        "2024": 88344
+      },
       "landSqMi": 34.7,
       "waterSqMi": 3.7,
       "center": [
@@ -79,6 +100,13 @@
       "population2024": 82893,
       "population2020": 86460,
       "growthPct": -4.1,
+      "populationByYear": {
+        "2020": 86216,
+        "2021": 84505,
+        "2022": 83481,
+        "2023": 82333,
+        "2024": 82893
+      },
       "landSqMi": 26.1,
       "waterSqMi": 0.5,
       "center": [
@@ -100,6 +128,13 @@
       "population2024": 80596,
       "population2020": 75105,
       "growthPct": 7.3,
+      "populationByYear": {
+        "2020": 75480,
+        "2021": 77109,
+        "2022": 78685,
+        "2023": 79658,
+        "2024": 80596
+      },
       "landSqMi": 34.9,
       "waterSqMi": 0.8,
       "center": [
@@ -121,6 +156,13 @@
       "population2024": 78551,
       "population2020": 81020,
       "growthPct": -3.0,
+      "populationByYear": {
+        "2020": 80960,
+        "2021": 79852,
+        "2022": 78828,
+        "2023": 77940,
+        "2024": 78551
+      },
       "landSqMi": 32.7,
       "waterSqMi": 2.6,
       "center": [
@@ -142,6 +184,13 @@
       "population2024": 77971,
       "population2020": 69495,
       "growthPct": 12.2,
+      "populationByYear": {
+        "2020": 70030,
+        "2021": 72732,
+        "2022": 74615,
+        "2023": 76393,
+        "2024": 77971
+      },
       "landSqMi": 36.9,
       "waterSqMi": 1.8,
       "center": [
@@ -164,6 +213,13 @@
       "population2024": 75172,
       "population2020": 70216,
       "growthPct": 7.1,
+      "populationByYear": {
+        "2020": 70469,
+        "2021": 71033,
+        "2022": 71847,
+        "2023": 73909,
+        "2024": 75172
+      },
       "landSqMi": 32.9,
       "waterSqMi": 1.1,
       "center": [
@@ -185,6 +241,13 @@
       "population2024": 72739,
       "population2020": 70268,
       "growthPct": 3.5,
+      "populationByYear": {
+        "2020": 70302,
+        "2021": 70625,
+        "2022": 70687,
+        "2023": 71541,
+        "2024": 72739
+      },
       "landSqMi": 32.6,
       "waterSqMi": 2.5,
       "center": [
@@ -206,6 +269,13 @@
       "population2024": 67240,
       "population2020": 68862,
       "growthPct": -2.4,
+      "populationByYear": {
+        "2020": 68745,
+        "2021": 68729,
+        "2022": 67658,
+        "2023": 67574,
+        "2024": 67240
+      },
       "landSqMi": 31.2,
       "waterSqMi": 2.3,
       "center": [
@@ -227,6 +297,13 @@
       "population2024": 64864,
       "population2020": 64324,
       "growthPct": 0.8,
+      "populationByYear": {
+        "2020": 64519,
+        "2021": 64036,
+        "2022": 64039,
+        "2023": 64928,
+        "2024": 64864
+      },
       "landSqMi": 24.9,
       "waterSqMi": 2.0,
       "center": [
@@ -248,6 +325,13 @@
       "population2024": 63807,
       "population2020": 63636,
       "growthPct": 0.3,
+      "populationByYear": {
+        "2020": 63601,
+        "2021": 63509,
+        "2022": 62909,
+        "2023": 63501,
+        "2024": 63807
+      },
       "landSqMi": 22.6,
       "waterSqMi": 0.7,
       "center": [
@@ -269,6 +353,13 @@
       "population2024": 62905,
       "population2020": 64198,
       "growthPct": -2.0,
+      "populationByYear": {
+        "2020": 64180,
+        "2021": 63131,
+        "2022": 62584,
+        "2023": 62392,
+        "2024": 62905
+      },
       "landSqMi": 32.5,
       "waterSqMi": 2.7,
       "center": [
@@ -290,6 +381,13 @@
       "population2024": 55272,
       "population2020": 56367,
       "growthPct": -1.9,
+      "populationByYear": {
+        "2020": 56273,
+        "2021": 55873,
+        "2022": 55516,
+        "2023": 55482,
+        "2024": 55272
+      },
       "landSqMi": 16.9,
       "waterSqMi": 0.7,
       "center": [
@@ -311,6 +409,13 @@
       "population2024": 53564,
       "population2020": 53480,
       "growthPct": 0.2,
+      "populationByYear": {
+        "2020": 53368,
+        "2021": 53341,
+        "2022": 52517,
+        "2023": 53533,
+        "2024": 53564
+      },
       "landSqMi": 15.5,
       "waterSqMi": 0.5,
       "center": [
@@ -332,6 +437,13 @@
       "population2024": 52651,
       "population2020": 53812,
       "growthPct": -2.2,
+      "populationByYear": {
+        "2020": 54107,
+        "2021": 53237,
+        "2022": 52657,
+        "2023": 52678,
+        "2024": 52651
+      },
       "landSqMi": 26.9,
       "waterSqMi": 1.0,
       "center": [
@@ -353,6 +465,13 @@
       "population2024": 49899,
       "population2020": 50010,
       "growthPct": -0.2,
+      "populationByYear": {
+        "2020": 50031,
+        "2021": 49264,
+        "2022": 48914,
+        "2023": 49877,
+        "2024": 49899
+      },
       "landSqMi": 10.6,
       "waterSqMi": 0.2,
       "center": [
@@ -374,6 +493,13 @@
       "population2024": 48401,
       "population2020": 43710,
       "growthPct": 10.7,
+      "populationByYear": {
+        "2020": 44073,
+        "2021": 44723,
+        "2022": 45678,
+        "2023": 47211,
+        "2024": 48401
+      },
       "landSqMi": 29.5,
       "waterSqMi": 1.3,
       "center": [
@@ -395,6 +521,13 @@
       "population2024": 42760,
       "population2020": 38835,
       "growthPct": 10.1,
+      "populationByYear": {
+        "2020": 38990,
+        "2021": 39966,
+        "2022": 41085,
+        "2023": 42108,
+        "2024": 42760
+      },
       "landSqMi": 33.6,
       "waterSqMi": 3.9,
       "center": [
@@ -416,6 +549,13 @@
       "population2024": 40142,
       "population2020": 42086,
       "growthPct": -4.6,
+      "populationByYear": {
+        "2020": 42026,
+        "2021": 40994,
+        "2022": 40080,
+        "2023": 40147,
+        "2024": 40142
+      },
       "landSqMi": 17.0,
       "waterSqMi": 1.0,
       "center": [
@@ -437,6 +577,13 @@
       "population2024": 36226,
       "population2020": 35813,
       "growthPct": 1.2,
+      "populationByYear": {
+        "2020": 35826,
+        "2021": 35629,
+        "2022": 35750,
+        "2023": 36196,
+        "2024": 36226
+      },
       "landSqMi": 27.9,
       "waterSqMi": 2.4,
       "center": [
@@ -458,6 +605,13 @@
       "population2024": 35637,
       "population2020": 36270,
       "growthPct": -1.7,
+      "populationByYear": {
+        "2020": 36225,
+        "2021": 35943,
+        "2022": 35665,
+        "2023": 35616,
+        "2024": 35637
+      },
       "landSqMi": 13.0,
       "waterSqMi": 0.8,
       "center": [
@@ -479,6 +633,13 @@
       "population2024": 32896,
       "population2020": 32453,
       "growthPct": 1.4,
+      "populationByYear": {
+        "2020": 32578,
+        "2021": 33023,
+        "2022": 32935,
+        "2023": 33031,
+        "2024": 32896
+      },
       "landSqMi": 15.6,
       "waterSqMi": 0.8,
       "center": [
@@ -500,6 +661,13 @@
       "population2024": 30581,
       "population2020": 25648,
       "growthPct": 19.2,
+      "populationByYear": {
+        "2020": 25785,
+        "2021": 26644,
+        "2022": 27112,
+        "2023": 27654,
+        "2024": 30581
+      },
       "landSqMi": 33.3,
       "waterSqMi": 2.0,
       "center": [
@@ -521,6 +689,13 @@
       "population2024": 28018,
       "population2020": 27613,
       "growthPct": 1.5,
+      "populationByYear": {
+        "2020": 27628,
+        "2021": 28141,
+        "2022": 28171,
+        "2023": 28056,
+        "2024": 28018
+      },
       "landSqMi": 16.3,
       "waterSqMi": 3.2,
       "center": [
@@ -542,6 +717,13 @@
       "population2024": 24464,
       "population2020": 23676,
       "growthPct": 3.3,
+      "populationByYear": {
+        "2020": 23656,
+        "2021": 23709,
+        "2022": 23642,
+        "2023": 23970,
+        "2024": 24464
+      },
       "landSqMi": 15.5,
       "waterSqMi": 0.3,
       "center": [
@@ -563,6 +745,13 @@
       "population2024": 21920,
       "population2020": 20600,
       "growthPct": 6.4,
+      "populationByYear": {
+        "2020": 20558,
+        "2021": 20873,
+        "2022": 21807,
+        "2023": 21766,
+        "2024": 21920
+      },
       "landSqMi": 4.9,
       "waterSqMi": 0.1,
       "center": [
@@ -585,6 +774,13 @@
       "population2024": 21316,
       "population2020": 20815,
       "growthPct": 2.4,
+      "populationByYear": {
+        "2020": 20820,
+        "2021": 20832,
+        "2022": 20972,
+        "2023": 21176,
+        "2024": 21316
+      },
       "landSqMi": 8.5,
       "waterSqMi": 0.0,
       "center": [
@@ -606,6 +802,13 @@
       "population2024": 20590,
       "population2020": 20757,
       "growthPct": -0.8,
+      "populationByYear": {
+        "2020": 20714,
+        "2021": 20550,
+        "2022": 20539,
+        "2023": 20717,
+        "2024": 20590
+      },
       "landSqMi": 5.6,
       "waterSqMi": 0.4,
       "center": [
@@ -627,6 +830,13 @@
       "population2024": 11542,
       "population2020": 11738,
       "growthPct": -1.7,
+      "populationByYear": {
+        "2020": 11756,
+        "2021": 11676,
+        "2022": 11512,
+        "2023": 11593,
+        "2024": 11542
+      },
       "landSqMi": 9.1,
       "waterSqMi": 1.0,
       "center": [

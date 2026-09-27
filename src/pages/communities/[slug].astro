@@ -1,136 +1,479 @@
 ---
+// Community page, modeled section by section on nevadarealestategroup.com's city pages.
+// Every figure comes from src/data (Census, TIGER, OSRM); MLS-based figures show a
+// pending state until the NorthstarMLS feed is connected (build step 7).
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import AreaMap from '../../components/AreaMap.astro';
-import { communities, communityGeo, communityInfo, lakes, nearby, fmt, type Community } from '../../data/areas';
+import LineChart from '../../components/LineChart.astro';
+import BarList from '../../components/BarList.astro';
+import { communities, communityGeo, communityInfo, lakes, fmt, type Community } from '../../data/areas';
+import detailData from '../../data/community-details.json';
 import reviewData from '../../data/reviews.json';
+import team from '../../data/team.json';
 import { site } from '../../data/site';
 
 export function getStaticPaths() {
   return communities.map((c) => ({ params: { slug: c.slug }, props: { c } }));
 }
 const { c } = Astro.props as { c: Community };
+const d = (detailData.communities as any)[c.slug];
+const a = d.acs;
+const county = (detailData.baselines.counties as any)[d.primaryCounty.fips];
+const mn = detailData.baselines.minnesota;
+const dests = detailData.driveDestinations as Record<string, string>;
+const bySlug = Object.fromEntries(communities.map((x) => [x.slug, x]));
 
-const county = `${c.counties.join(' & ')} County`;
-const change = c.growthPct === 0 ? 'about the same as' : `${Math.abs(c.growthPct)}% ${c.growthPct > 0 ? 'more than' : 'fewer than'}`;
+// ---------- formatting ----------
+const money = (n: number | null) => (n == null ? '—' : `$${fmt(Math.round(n))}`);
+const moneyK = (n: number | null) => (n == null ? '—' : `$${fmt(Math.round(n / 1000))}K`);
+const pctS = (n: number | null) => (n == null ? '—' : `${n}%`);
+const vs = (city: number | null, other: number | null, higher = 'higher', lower = 'lower') => {
+  if (city == null || other == null) return '';
+  const diff = Math.round((100 * (city - other)) / other);
+  return Math.abs(diff) < 2 ? 'about the same as' : `${Math.abs(diff)}% ${diff > 0 ? higher : lower} than`;
+};
+const list = (items: string[]) => items.length < 2 ? items.join('') : `${items.slice(0, -1).join(', ')} and ${items.at(-1)}`;
+const countyName = `${d.primaryCounty.name} County`;
+const regionPhrase = c.region === 'Minneapolis & Saint Paul' ? "one of the Twin Cities' two core cities" : `a ${c.region.toLowerCase()} city`;
+const distancePhrase = c.slug === 'minneapolis' ? `downtown Saint Paul is about ${d.driveMinutes.downtownSaintPaul} minutes away`
+  : c.slug === 'saint-paul' ? `downtown Minneapolis is about ${d.driveMinutes.downtownMinneapolis} minutes away`
+  : `it's about ${d.driveMinutes.downtownMinneapolis} minutes from downtown Minneapolis and ${d.driveMinutes.downtownSaintPaul} minutes from downtown Saint Paul`;
+const updated = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+// ---------- derived content ----------
+const mainDistrict = d.schoolDistricts[0];
 const cityLakes = lakes.filter((l) => l.shorelineCities.includes(c.censusName));
-const near = nearby(c);
+const nearest = Object.entries(d.driveMinutesToCommunities as Record<string, number>)
+  .sort((x, y) => x[1] - y[1]).slice(0, 4)
+  .map(([slug, min]) => ({ ...bySlug[slug], min, value: (detailData.communities as any)[slug].acs.medianHomeValue }));
+const compareSet = [
+  { name: c.name, acs: a, pop: c.population2024, growth: c.growthPct, drive: d.driveMinutes.downtownMinneapolis, href: '' },
+  ...nearest.slice(0, 3).map((n) => {
+    const nd = (detailData.communities as any)[n.slug];
+    return { name: n.name, acs: nd.acs, pop: n.population2024, growth: n.growthPct, drive: nd.driveMinutes.downtownMinneapolis, href: `/communities/${n.slug}` };
+  }),
+];
+const years = Object.entries(c.populationByYear).map(([y, v]) => ({ label: y, value: v as number, display: fmt(v as number) }));
+const industries = a.industries.slice(0, 6).map((i: any) => ({ label: i.name, value: i.pct, display: `${i.pct}%` }));
+const growthWord = c.growthPct > 0.5 ? 'grew' : c.growthPct < -0.5 ? 'shrank' : 'held steady';
 
-// Verbatim, complete 5-star reviews that name this city.
-const nameRe = new RegExp(`\\b${c.name.replace('.', '\\.')}\\b|\\b${c.censusName.replace('.', '\\.')}\\b`, 'i');
-const cityReviews = reviewData.reviews
-  .filter((r: any) => r.textComplete && r.rating === 5 && nameRe.test(r.text))
-  .slice(0, 3);
+const nameRe = new RegExp(`\\b(${[c.name, c.censusName].map((n) => n.replace('.', '\\.')).join('|')})\\b`, 'i');
+const cityReviews = reviewData.reviews.filter((r: any) => r.textComplete && r.rating === 5 && nameRe.test(r.text)).slice(0, 3);
+const jason = team.members.find((m) => m.name === 'Jason Huerkamp')!;
+const googleSummary = reviewData.summary.google;
 
+const takeaways = [
+  `Population: ${fmt(c.population2024)} (Census 2024 estimate; ${c.growthPct > 0 ? '+' : ''}${c.growthPct}% since 2020)`,
+  `Median home value: ${money(a.medianHomeValue)}, ${vs(a.medianHomeValue, county.medianHomeValue)} the ${countyName} median (owner estimates, Census ACS)`,
+  `Median household income: ${money(a.medianHouseholdIncome)}, ${vs(a.medianHouseholdIncome, county.medianHouseholdIncome)} ${countyName}`,
+  `Homeownership: ${pctS(a.ownerOccupiedPct)} of households own their home (Minnesota: ${pctS(mn.ownerOccupiedPct)})`,
+  `Getting around: about ${d.driveMinutes.downtownMinneapolis} minutes to downtown Minneapolis and ${d.driveMinutes.mspAirport} minutes to MSP Airport in light traffic`,
+  ...(mainDistrict ? [`Schools: ${mainDistrict.name} covers about ${mainDistrict.pctOfCity}% of the city`] : []),
+];
+
+const faqs = [
+  { q: `What is the median home value in ${c.name}?`,
+    a: `The Census Bureau's 2020–2024 American Community Survey puts the median value of owner-occupied homes in ${c.name} at ${money(a.medianHomeValue)}, ${vs(a.medianHomeValue, county.medianHomeValue)} the ${countyName} median of ${money(county.medianHomeValue)}. These are owner estimates; current list prices come from the MLS and will appear on this page once our listing feed is connected.` },
+  { q: `How many people live in ${c.name}, MN?`,
+    a: `About ${fmt(c.population2024)} people, according to the Census Bureau's 2024 estimate. The city ${growthWord} ${c.growthPct === 0 ? '' : `by ${Math.abs(c.growthPct)}% `}between 2020 and 2024.` },
+  { q: `Which school district serves ${c.name}?`,
+    a: d.schoolDistricts.length
+      ? `${list(d.schoolDistricts.map((s: any) => `${s.name} (about ${s.pctOfCity}% of the city)`))}. School assignment depends on the exact address, so confirm it with the district before you buy.`
+      : `Confirm the school district for the exact address with the Minnesota Department of Education.` },
+  { q: `How far is ${c.name} from downtown Minneapolis?`,
+    a: `About ${d.driveMinutes.downtownMinneapolis} minutes by car in light traffic, and about ${d.driveMinutes.downtownSaintPaul} minutes to downtown Saint Paul. Residents' average one-way commute is ${a.meanCommuteMinutes} minutes (Census ACS).` },
+  { q: `Is ${c.name} a good place to live?`,
+    a: `It depends on what you need. ${c.name} has a median household income of ${money(a.medianHouseholdIncome)}, ${pctS(a.ownerOccupiedPct)} homeownership and a ${a.meanCommuteMinutes}-minute average commute. Visit at the times you'd normally drive, check the school assignment for the address, and compare total ownership costs before you decide.` },
+  { q: `What does it cost to rent in ${c.name}?`,
+    a: `The median gross rent (rent plus utilities) is ${money(a.medianGrossRent)} a month, compared with ${money(county.medianGrossRent)} in ${countyName} (Census ACS 2020–2024).` },
+  { q: `What ZIP codes are in ${c.name}?`,
+    a: `${list(d.zips.map((z: any) => z.zip))}${d.zips.length ? '' : 'See the ZIP code table above'} cover most of the city. ZIP code areas and city limits don't match exactly, so check the city on the property record.` },
+  ...(d.lakes.length ? [{ q: `What lakes are in ${c.name}?`,
+    a: `The largest named lakes inside the city are ${list(d.lakes.slice(0, 4).map((l: any) => `${l.name} (about ${fmt(l.acresInCity)} acres)`))}, based on Census water maps.` }] : []),
+  { q: `How long does it take to close on a home in ${c.name}?`,
+    a: `Most financed purchases close about 30 to 45 days after an accepted offer, and cash purchases can close sooner. Your lender, the appraisal and the title company set the actual timeline.` },
+];
+const faqLd = JSON.stringify({
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+});
+
+const priceBands = ['Under $300K', '$300K – $450K', '$450K – $650K', '$650K – $1M', 'Over $1M'];
+const browse = ['Single-family homes', 'Townhomes', 'Condos', 'New construction', 'Lake homes', 'One-level living', 'Under $400K', 'Luxury', 'Open houses', 'Price reduced'];
 const pending = `Thanks! Online forms are still being connected. For now, call ${site.phone} or email ${site.email}.`;
-const mlsNote = 'Available when MLS data is connected';
+const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 1000 : 400000;
 ---
 <Base
-  title={`${c.name}, MN Homes for Sale & Real Estate | Huerkamp Home Group`}
-  description={`${c.name} real estate: homes for sale, local facts and a map of ${c.name}, ${county}, Minnesota, from Huerkamp Home Group.`}>
-  <PageHero eyebrow={c.region} title={`${c.name} Homes for Sale & Real Estate`}
-    lede={`${c.name} is in ${county}, about ${c.milesToMinneapolis} miles from downtown Minneapolis and ${c.milesToSaintPaul} miles from downtown Saint Paul.`}>
-    <form class="search" action="/search" method="get" role="search" data-pending="Home search launches with the NorthstarMLS feed in a later build step.">
-      <label class="visually-hidden" for="city-search">Search homes in {c.name}</label>
-      <input id="city-search" name="q" type="search" value={`${c.name}, MN`} autocomplete="off" />
-      <button class="btn" type="submit">Search homes</button>
-    </form>
-    <p class="search__status" role="status" aria-live="polite"></p>
+  title={`${c.name}, MN Real Estate & Homes for Sale | Huerkamp Home Group`}
+  description={`${c.name}, Minnesota real estate guide: homes for sale, median home values, schools, commute times, ZIP codes and neighborhoods near ${c.name}, from Huerkamp Home Group.`}>
+  <script type="application/ld+json" set:html={faqLd} />
+
+  <PageHero eyebrow={`${c.name}, Minnesota`} title={`${c.name} Real Estate`}
+    lede={`Homes for sale, local facts and advice for buying or selling in ${c.name}, ${countyName}, from Huerkamp Home Group.`}>
+    <p class="hero-meta">Updated {updated} · By {jason.name}, {jason.title}</p>
+    <div class="hero-actions">
+      <a class="btn" href="#listings">Browse {c.name} homes</a>
+      <a class="btn btn--ghost" href="#contact">Talk to an expert</a>
+    </div>
   </PageHero>
 
-  <section class="section section--paper" aria-labelledby="where-title">
+  <!-- 1. Key takeaways -->
+  <section class="section section--paper" aria-labelledby="glance-title">
+    <div class="wrap narrow">
+      <p class="eyebrow">Key takeaways</p>
+      <h2 id="glance-title">What should you know about <em>{c.name} at a glance?</em></h2>
+      <p class="lede">{c.name} is {regionPhrase} in {countyName}, home to {fmt(c.population2024)} people. Here's what the public numbers say.</p>
+      <ul class="takeaways">{takeaways.map((t) => <li>{t}</li>)}</ul>
+      <p class="source">Sources: US Census Bureau 2024 population estimates and 2020–2024 American Community Survey; drive times from OpenStreetMap routing.</p>
+    </div>
+  </section>
+
+  <!-- 2. Homes for sale (MLS) -->
+  <section class="section" id="listings" aria-labelledby="listings-title">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow">Location</p>
-        <h2 id="where-title">Where is <em>{c.name}?</em></h2>
+        <p class="eyebrow">For sale now</p>
+        <h2 id="listings-title">Where can I find <em>{c.name} homes for sale?</em></h2>
+        <p>The newest {c.name} listings, with photos, prices and monthly payment estimates, appear here once our NorthstarMLS feed is connected.</p>
+      </div>
+      <div class="mls-pending" role="note"><strong>Live listings coming soon.</strong> Until then, <a href="#alerts">sign up for alerts</a> or <a href={site.phoneHref}>call {site.phone}</a> and we'll send you every new {c.name} listing.</div>
+
+      <h3 class="subhead">How many {c.name} homes are for sale in each price range?</h3>
+      <div class="bands">
+        {priceBands.map((b) => <div class="band"><span>{b}</span><strong>—</strong><span>active listings</span></div>)}
+      </div>
+
+      <h3 class="subhead">Find a {c.name} home by type, lifestyle and price</h3>
+      <ul class="chips">{browse.map((b) => <li><span class="chip" aria-disabled="true">{b}</span></li>)}</ul>
+      <p class="source">Counts and search links go live with the MLS feed.</p>
+    </div>
+  </section>
+
+  <!-- 3. Listing alerts -->
+  <section class="section section--dark" id="alerts" aria-labelledby="alerts-title">
+    <div class="wrap split-2">
+      <div class="prose">
+        <p class="eyebrow">Stay ahead of the market</p>
+        <h2 id="alerts-title">How can you get new {c.name} <em>listings first?</em></h2>
+        <p>Tell us your price range and we'll email new {c.name} listings that match. No spam, and you can unsubscribe anytime.</p>
+        <ul class="ticks"><li>Pick your price, beds and home type</li><li>New listings emailed as they come on the market</li><li>Questions answered by a local agent</li></ul>
+      </div>
+      <form class="form" data-pending={pending}>
+        <div class="form__row">
+          <div class="field"><label for="al-first">First name</label><input id="al-first" name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for="al-last">Last name</label><input id="al-last" name="lastName" autocomplete="family-name" /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="al-email">Email</label><input id="al-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="al-phone">Phone</label><input id="al-phone" name="phone" type="tel" autocomplete="tel" /></div>
+        </div>
+        <div class="field">
+          <label for="al-price">Max price</label>
+          <select id="al-price" name="maxPrice"><option value="">Any</option>{priceBands.map((b) => <option>{b}</option>)}</select>
+        </div>
+        <input type="hidden" name="community" value={c.name} />
+        <button class="btn" type="submit">Create my alert</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- 4. Living in: answer, map, at a glance -->
+  <section class="section section--paper" aria-labelledby="living-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Living in</p>
+        <h2 id="living-title">What's it like living in <em>{c.name}, MN?</em></h2>
+      </div>
+      <div class="answer">
+        <p class="eyebrow">The answer</p>
+        <p>{c.name} is {regionPhrase}, and {distancePhrase} in light traffic. {a.singleFamilyPct}% of its homes are single-family houses, the typical home was built around {a.medianYearBuilt}, and {pctS(a.ownerOccupiedPct)} of households own their home.</p>
       </div>
       <div class="tiles">
-        <div class="tile"><span>Downtown Minneapolis</span><strong>{c.milesToMinneapolis}</strong><span>miles</span></div>
-        <div class="tile"><span>Downtown Saint Paul</span><strong>{c.milesToSaintPaul}</strong><span>miles</span></div>
-        <div class="tile"><span>Land area</span><strong>{c.landSqMi}</strong><span>sq miles</span></div>
-        <div class="tile"><span>Water area</span><strong>{c.waterSqMi}</strong><span>sq miles</span></div>
+        {Object.entries(d.driveMinutes as Record<string, number>).map(([k, m]) => (
+          <div class="tile"><span>{dests[k]}</span><strong>{m}</strong><span>min</span></div>
+        ))}
       </div>
       <div class="glance-grid">
         <AreaMap geojson={communityGeo} info={communityInfo} mode="focus" focus={c.slug} label="Hover a community" height="560px" />
-        <aside class="glance" aria-labelledby="glance-title">
-          <h3 id="glance-title">{c.name} <span>at a glance</span></h3>
+        <aside class="glance" aria-labelledby="glance-panel">
+          <h3 id="glance-panel">{c.name} <span>at a glance</span></h3>
           <div class="glance__market">
             <div><strong>—</strong><span>Median list price</span></div>
             <div><strong>—</strong><span>Active listings</span></div>
             <div><strong>—</strong><span>Price / sq ft</span></div>
             <div><strong>—</strong><span>Days on market</span></div>
           </div>
-          <p class="glance__note">Market figures: {mlsNote}.</p>
+          <p class="glance__note">Market figures appear when MLS data is connected.</p>
           <dl class="glance__facts">
             <div><dt>Population (2024)</dt><dd>{fmt(c.population2024)}</dd></div>
-            <div><dt>Since 2020</dt><dd>{c.growthPct > 0 ? '+' : ''}{c.growthPct}%</dd></div>
+            <div><dt>Median home value</dt><dd>{money(a.medianHomeValue)}</dd></div>
+            <div><dt>Median household income</dt><dd>{money(a.medianHouseholdIncome)}</dd></div>
+            <div><dt>Median age</dt><dd>{a.medianAge}</dd></div>
             <div><dt>County</dt><dd>{c.counties.join(', ')}</dd></div>
-            <div><dt>Area</dt><dd>{c.region}</dd></div>
-            <div><dt>Land</dt><dd>{c.landSqMi} sq mi</dd></div>
-            {cityLakes.length > 0 && <div><dt>Lakes we cover</dt><dd>{cityLakes.map((l) => l.name).join(', ')}</dd></div>}
+            <div><dt>Land area</dt><dd>{c.landSqMi} sq mi</dd></div>
+            <div><dt>Water area</dt><dd>{c.waterSqMi} sq mi</dd></div>
+            {mainDistrict && <div><dt>Main school district</dt><dd>{mainDistrict.name}</dd></div>}
           </dl>
-          <p class="glance__source">Sources: US Census Bureau 2024 estimates and 2024 boundaries. Distances are straight-line.</p>
+          <p class="source">Census 2024 estimates, ACS 2020–2024 and 2024 boundaries. Drive times: OpenStreetMap routing, light traffic.</p>
         </aside>
       </div>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="listings-title">
+  <!-- 5. Who lives here -->
+  <section class="section" aria-labelledby="who-title">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow">For sale now</p>
-        <h2 id="listings-title">{c.name} homes <em>for sale.</em></h2>
-        <p>Live {c.name} listings, with photos, prices and a map, appear here once the NorthstarMLS feed is connected.</p>
+        <p class="eyebrow">Demographics · {c.name}, MN</p>
+        <h2 id="who-title">Who lives in <em>{c.name}?</em></h2>
+        <p>According to the Census Bureau, {c.name}'s median household income of {money(a.medianHouseholdIncome)} is {vs(a.medianHouseholdIncome, county.medianHouseholdIncome)} the {countyName} median of {money(county.medianHouseholdIncome)}. The median age is {a.medianAge}, {pctS(a.ownerOccupiedPct)} of households own their home and {pctS(a.bachelorsOrHigherPct)} of adults hold a bachelor's degree or higher.</p>
       </div>
-      <form class="form alert" data-pending={pending}>
-        <h3>Get new {c.name} listings first</h3>
-        <div class="form__row">
-          <div class="field"><label for="alert-email">Email</label><input id="alert-email" name="email" type="email" autocomplete="email" required /></div>
-          <div class="field">
-            <label for="alert-price">Price range</label>
-            <select id="alert-price" name="priceRange">
-              <option value="">Any price</option>
-              <option>Under $300,000</option>
-              <option>$300,000 – $450,000</option>
-              <option>$450,000 – $650,000</option>
-              <option>$650,000 – $1,000,000</option>
-              <option>Over $1,000,000</option>
-            </select>
-          </div>
+      <div class="stats">
+        {[
+          ['Population', fmt(c.population2024), `${fmt(Math.round(a.households))} households`],
+          ['Median household income', money(a.medianHouseholdIncome), `${d.primaryCounty.name} Co. ${money(county.medianHouseholdIncome)} · MN ${money(mn.medianHouseholdIncome)}`],
+          ['Median home value', money(a.medianHomeValue), `${d.primaryCounty.name} Co. ${money(county.medianHomeValue)} · MN ${money(mn.medianHomeValue)}`],
+          ['Median gross rent', money(a.medianGrossRent), `${d.primaryCounty.name} Co. ${money(county.medianGrossRent)} · MN ${money(mn.medianGrossRent)}`],
+          ['Homeowners', pctS(a.ownerOccupiedPct), `${d.primaryCounty.name} Co. ${pctS(county.ownerOccupiedPct)} · MN ${pctS(mn.ownerOccupiedPct)}`],
+          ["Bachelor's degree or higher", pctS(a.bachelorsOrHigherPct), `${d.primaryCounty.name} Co. ${pctS(county.bachelorsOrHigherPct)} · MN ${pctS(mn.bachelorsOrHigherPct)}`],
+          ['Median age', String(a.medianAge), `${d.primaryCounty.name} Co. ${county.medianAge} · MN ${mn.medianAge}`],
+          ['Single-family homes', pctS(a.singleFamilyPct), `Median year built: ${a.medianYearBuilt}`],
+        ].map(([label, value, note]) => (
+          <div class="stat"><span class="stat__label">{label}</span><strong>{value}</strong><span class="stat__note">{note}</span></div>
+        ))}
+      </div>
+      <p class="source">US Census Bureau, American Community Survey 2020–2024 5-year estimates; population from 2024 estimates. Home values are owner estimates.</p>
+    </div>
+  </section>
+
+  <!-- 6. Growth -->
+  <section class="section section--paper" aria-labelledby="growth-title">
+    <div class="wrap split-2">
+      <div class="prose">
+        <p class="eyebrow">Population trend</p>
+        <h2 id="growth-title">How fast is <em>{c.name} growing?</em></h2>
+        <p>{c.name}'s population {growthWord}{c.growthPct === 0 ? '' : ` ${Math.abs(c.growthPct)}%`} between 2020 and 2024, from {fmt(c.population2020)} to {fmt(c.population2024)} residents, according to Census Bureau estimates.</p>
+      </div>
+      <LineChart points={years} title={`${c.name} population, 2020–2024`} valueName="Residents" caption="US Census Bureau Vintage 2024 population estimates." />
+    </div>
+  </section>
+
+  <!-- 7. Schools and 8. crime -->
+  <section class="section" aria-labelledby="schools-title">
+    <div class="wrap split-2">
+      <div class="prose">
+        <p class="eyebrow">School planning</p>
+        <h2 id="schools-title">Which schools serve a <em>{c.name} address?</em></h2>
+        {d.schoolDistricts.length > 0 && (
+          <ul class="districts">{d.schoolDistricts.map((s: any) => <li><strong>{s.name}</strong><span>about {s.pctOfCity}% of the city</span></li>)}</ul>
+        )}
+        <p>Ask the district for the school assignment of the exact address for the year you'll enroll, since boundaries can change. Being near a school doesn't guarantee a spot, and charter and private schools set their own rules.</p>
+        <p><a href="https://rc.education.mn.gov/">Minnesota Report Card (Department of Education)</a></p>
+        <p class="source">District coverage: US Census Bureau 2024 school district boundaries.</p>
+      </div>
+      <div class="prose">
+        <p class="eyebrow">Crime data</p>
+        <h3>How can you check reported crime near a home?</h3>
+        <p>Ask the police department that serves the address for its current reports, and compare places only across the same time period and offense definitions. Missing data doesn't mean zero crime, and a citywide number doesn't describe a particular street.</p>
+        <p><a href="https://cde.ucr.cjis.gov/">FBI Crime Data Explorer</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. ZIP codes -->
+  {d.zips.length > 0 && (
+    <section class="section section--paper" aria-labelledby="zip-title">
+      <div class="wrap">
+        <div class="head">
+          <p class="eyebrow">By ZIP code</p>
+          <h2 id="zip-title">What does {c.name} look like <em>by ZIP code?</em></h2>
+          <p>{d.zips.length === 1 ? `ZIP ${d.zips[0].zip} covers most of ${c.name}.` : `${d.zips.length} ZIP codes cover most of ${c.name}.`} Median list prices and days on market by ZIP will be added from the MLS.</p>
         </div>
-        <input type="hidden" name="community" value={c.name} />
-        <button class="btn" type="submit">Email me new listings</button>
-        <p class="form__status" role="status" aria-live="polite"></p>
+        <div class="table-scroll">
+          <table class="data">
+            <thead><tr><th scope="col">ZIP</th><th scope="col" class="num">Share of city</th><th scope="col" class="num">Median home value</th><th scope="col" class="num">Median household income</th><th scope="col" class="num">Homeowners</th><th scope="col" class="num">Median list price</th><th scope="col" class="num">Days on market</th></tr></thead>
+            <tbody>
+              {d.zips.map((z: any) => (
+                <tr><th scope="row">{z.zip}</th><td class="num">{z.pctOfCityLand}%</td><td class="num">{money(z.medianHomeValue)}</td><td class="num">{money(z.medianHouseholdIncome)}</td><td class="num">{pctS(z.ownerOccupiedPct)}</td><td class="num muted">MLS</td><td class="num muted">MLS</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="source">ZIP code areas (ZCTAs) covering at least 5% of the city; values for the whole ZIP area, Census ACS 2020–2024.</p>
+      </div>
+    </section>
+  )}
+
+  <!-- 10. Outdoors: lakes -->
+  <section class="section section--dark" aria-labelledby="outdoors-title">
+    <div class="wrap split-2">
+      <div class="prose">
+        <p class="eyebrow">Outdoor living</p>
+        <h2 id="outdoors-title">What lakes and water are in <em>{c.name}?</em></h2>
+        <p>{c.waterSqMi >= 0.5 ? `${c.name} has about ${c.waterSqMi} square miles of water inside city limits.` : `${c.name} has little open water inside city limits, but lakes and regional parks are a short drive away.`}{cityLakes.length ? ` It borders ${list(cityLakes.map((l) => l.name))}, one of the lakes on our Lake Homes page.` : ''}</p>
+        {cityLakes.length > 0 && <p><a class="btn" href="/lake-homes">See lake homes</a></p>}
+      </div>
+      {d.lakes.length > 0 ? (
+        <ul class="lakes-list">
+          {d.lakes.map((l: any) => <li><span>{l.name}</span><strong>{fmt(l.acresInCity)} acres</strong></li>)}
+        </ul>
+      ) : <p class="prose">No named lakes of 10 acres or more lie inside the city on Census maps.</p>}
+    </div>
+  </section>
+
+  <!-- 11. Getting around -->
+  <section class="section" aria-labelledby="commute-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Commute & transportation</p>
+        <h2 id="commute-title">How easy is getting around <em>{c.name}?</em></h2>
+        <p>{c.name} residents' average one-way commute is {a.meanCommuteMinutes} minutes (Census ACS). {pctS(a.droveAlonePct)} drive alone, {pctS(a.publicTransitPct)} take public transit and {pctS(a.workFromHomePct)} work from home.</p>
+      </div>
+      <div class="stats stats--4">
+        <div class="stat"><span class="stat__label">Average commute</span><strong>{a.meanCommuteMinutes} min</strong><span class="stat__note">MN average {mn.meanCommuteMinutes} min</span></div>
+        <div class="stat"><span class="stat__label">Drive alone</span><strong>{pctS(a.droveAlonePct)}</strong><span class="stat__note">of workers</span></div>
+        <div class="stat"><span class="stat__label">Public transit</span><strong>{pctS(a.publicTransitPct)}</strong><span class="stat__note">of workers</span></div>
+        <div class="stat"><span class="stat__label">Work from home</span><strong>{pctS(a.workFromHomePct)}</strong><span class="stat__note">of workers</span></div>
+      </div>
+      <h3 class="subhead">Drive times from {c.name}</h3>
+      <ul class="drives">
+        {Object.entries(d.driveMinutes as Record<string, number>).map(([k, m]) => <li><strong>{m} min</strong><span>{dests[k]}</span></li>)}
+      </ul>
+      <p class="source">Drive times: OSRM routing on OpenStreetMap data from the city's Census center point, light traffic. Rush hour takes longer.</p>
+    </div>
+  </section>
+
+  <!-- 12. Economy -->
+  <section class="section section--paper" aria-labelledby="econ-title">
+    <div class="wrap split-2">
+      <div class="prose">
+        <p class="eyebrow">Economy & jobs</p>
+        <h2 id="econ-title">Where do {c.name} <em>residents work?</em></h2>
+        <p>The largest share of employed {c.name} residents work in {a.industries[0].name.toLowerCase()} ({a.industries[0].pct}%), followed by {a.industries[1].name.toLowerCase()} ({a.industries[1].pct}%). The unemployment rate averaged {pctS(a.unemploymentPct)} over 2020–2024 (Minnesota: {pctS(mn.unemploymentPct)}).</p>
+        <p class="source">Census ACS 2020–2024, industry of employed residents 16 and older (C24050) and employment status (B23025).</p>
+      </div>
+      <BarList rows={industries} title={`Industries ${c.name} residents work in`} />
+    </div>
+  </section>
+
+  <!-- 13. Comparison -->
+  <section class="section" aria-labelledby="compare-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">City comparison</p>
+        <h2 id="compare-title">How does {c.name} compare to <em>{list(compareSet.slice(1).map((x) => x.name))}?</em></h2>
+        <p>The three communities with the shortest drive from {c.name}, side by side. Market figures (list price, days on market) will be added from the MLS.</p>
+      </div>
+      <div class="table-scroll">
+        <table class="data compare">
+          <thead><tr><th scope="col">Metric</th>{compareSet.map((x) => <th scope="col" class="num">{x.href ? <a href={x.href}>{x.name}</a> : x.name}</th>)}</tr></thead>
+          <tbody>
+            <tr><th scope="row">Population (2024)</th>{compareSet.map((x) => <td class="num">{fmt(x.pop)}</td>)}</tr>
+            <tr><th scope="row">Change since 2020</th>{compareSet.map((x) => <td class="num">{x.growth > 0 ? '+' : ''}{x.growth}%</td>)}</tr>
+            <tr><th scope="row">Median home value</th>{compareSet.map((x) => <td class="num">{moneyK(x.acs.medianHomeValue)}</td>)}</tr>
+            <tr><th scope="row">Median household income</th>{compareSet.map((x) => <td class="num">{moneyK(x.acs.medianHouseholdIncome)}</td>)}</tr>
+            <tr><th scope="row">Median gross rent</th>{compareSet.map((x) => <td class="num">{money(x.acs.medianGrossRent)}</td>)}</tr>
+            <tr><th scope="row">Homeowners</th>{compareSet.map((x) => <td class="num">{pctS(x.acs.ownerOccupiedPct)}</td>)}</tr>
+            <tr><th scope="row">Median age</th>{compareSet.map((x) => <td class="num">{x.acs.medianAge}</td>)}</tr>
+            <tr><th scope="row">Average commute</th>{compareSet.map((x) => <td class="num">{x.acs.meanCommuteMinutes} min</td>)}</tr>
+            <tr><th scope="row">Drive to downtown Minneapolis</th>{compareSet.map((x) => <td class="num">{x.drive} min</td>)}</tr>
+            <tr><th scope="row">Median list price</th>{compareSet.map(() => <td class="num muted">MLS</td>)}</tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="source">Census 2024 estimates and ACS 2020–2024; drive times from OpenStreetMap routing.</p>
+    </div>
+  </section>
+
+  <!-- 14. Monthly cost -->
+  <section class="section section--paper" aria-labelledby="cost-title">
+    <div class="wrap split-2">
+      <div class="prose">
+        <p class="eyebrow">Cost of ownership</p>
+        <h2 id="cost-title">What will a {c.name} home <em>cost you each month?</em></h2>
+        <p>Enter the numbers for a specific home. The price starts at {c.name}'s Census median home value; the interest rate, property tax and insurance are yours to fill in from a lender quote, the county's tax statement and an insurance quote. This is an illustration, not a loan estimate.</p>
+      </div>
+      <form class="form calc" id="calc" aria-describedby="calc-out">
+        <div class="form__row">
+          <div class="field"><label for="calc-price">Home price ($)</label><input id="calc-price" type="number" min="0" step="1000" value={priceDefault} /></div>
+          <div class="field"><label for="calc-down">Down payment (%)</label><input id="calc-down" type="number" min="0" max="100" step="1" value="20" /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="calc-rate">Interest rate (%)</label><input id="calc-rate" type="number" min="0" step="0.01" placeholder="From your lender" /></div>
+          <div class="field"><label for="calc-term">Loan term (years)</label><select id="calc-term"><option>30</option><option>20</option><option>15</option></select></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="calc-tax">Property tax ($ / year)</label><input id="calc-tax" type="number" min="0" step="100" placeholder="From the county" /></div>
+          <div class="field"><label for="calc-ins">Insurance ($ / year)</label><input id="calc-ins" type="number" min="0" step="100" placeholder="From your agent" /></div>
+        </div>
+        <div class="field"><label for="calc-hoa">HOA ($ / month)</label><input id="calc-hoa" type="number" min="0" step="10" value="0" /></div>
+        <output id="calc-out" class="calc__out" for="calc-price calc-down calc-rate calc-term calc-tax calc-ins calc-hoa">Enter an interest rate to see a monthly estimate.</output>
       </form>
     </div>
   </section>
 
-  <section class="section section--dark" aria-labelledby="about-title">
+  <!-- 15. Who should buy + verify before moving -->
+  <section class="section" aria-labelledby="fit-title">
     <div class="wrap split-2">
       <div class="prose">
-        <p class="eyebrow">Living in {c.name}</p>
-        <h2 id="about-title">{c.name} <em>by the numbers.</em></h2>
-        <p>The Census Bureau estimates {fmt(c.population2024)} people lived in {c.name} in 2024, {change} in 2020. The city covers {c.landSqMi} square miles of land{c.waterSqMi >= 0.5 ? ` and ${c.waterSqMi} square miles of water` : ''}.</p>
-        {cityLakes.length > 0 && <p>{c.name} borders {cityLakes.map((l) => l.name).join(', ').replace(/, ([^,]*)$/, ' and $1')}. See <a href="/lake-homes">lake homes</a>.</p>}
+        <p class="eyebrow">Is {c.name} right for you?</p>
+        <h2 id="fit-title">Who should buy a home <em>in {c.name}?</em></h2>
+        <ul class="ticks">
+          <li><strong>Compare homes, not averages.</strong> Choose the space, layout and condition you need, and confirm it with an inspection.</li>
+          <li><strong>Try the drive.</strong> Test your commute at the times you'd actually travel.</li>
+          <li><strong>Check the schools for the address.</strong> {mainDistrict ? `${mainDistrict.name} covers most of the city, but not all of it.` : 'Confirm the district for the exact address.'}</li>
+          <li><strong>Budget the whole payment.</strong> Include taxes, insurance, association dues and upkeep.</li>
+        </ul>
       </div>
       <div class="prose">
-        <p class="eyebrow">Nearby</p>
-        <h3>Communities near {c.name}</h3>
-        <ul class="near">
-          {near.map((n) => (
-            <li><a href={`/communities/${n.slug}`}>{n.name}</a><span>{Math.round(n.miles)} mi</span></li>
-          ))}
+        <p class="eyebrow">Planning a move</p>
+        <h3>What should I verify before moving to {c.name}?</h3>
+        <ul class="ticks">
+          <li>The property's current tax statement and homestead status from {countyName}.</li>
+          <li>Lender, insurance and utility quotes for the exact address, plus any association documents and special assessments.</li>
+          <li>The seller's disclosures, including Minnesota's required radon and well disclosures.</li>
+          <li>Whether the city requires a point-of-sale inspection or certificate (Minneapolis and Saint Paul, for example, require Truth-in-Sale-of-Housing reports).</li>
+          <li>The school assignment for your enrollment year, confirmed with the district.</li>
         </ul>
       </div>
     </div>
   </section>
 
+  <!-- 16. Open houses -->
+  <section class="section section--dark" aria-labelledby="open-title">
+    <div class="wrap cta-row">
+      <div class="prose">
+        <p class="eyebrow">This weekend's open houses</p>
+        <h2 id="open-title">Can you tour {c.name} homes <em>this weekend?</em></h2>
+        <p>Open houses from the MLS will be listed here. Until then, ask us for a private showing of any {c.name} home.</p>
+      </div>
+      <div class="cta-row__actions"><a class="btn" href="#contact">Request a showing</a><a class="btn btn--ghost" href="#alerts">Get open-house alerts</a></div>
+    </div>
+  </section>
+
+  <!-- 17. FAQ -->
+  <section class="section" aria-labelledby="faq-title">
+    <div class="wrap narrow">
+      <p class="eyebrow">{c.name} FAQ</p>
+      <h2 id="faq-title">What do {c.name} buyers <em>most often ask?</em></h2>
+      <div class="faq">
+        {faqs.map((f, i) => (
+          <details open={i === 0}><summary>{f.q}</summary><p>{f.a}</p></details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 18. Reviews -->
   {cityReviews.length > 0 && (
-    <section class="section section--paper" aria-labelledby="city-reviews-title">
+    <section class="section section--paper" aria-labelledby="reviews-title">
       <div class="wrap">
         <div class="head">
-          <p class="eyebrow">Client reviews</p>
-          <h2 id="city-reviews-title">Clients who mentioned <em>{c.name}.</em></h2>
+          <p class="eyebrow">Client stories</p>
+          <h2 id="reviews-title">What do {c.name} clients say about <em>Huerkamp Home Group?</em></h2>
+          <p>{googleSummary.rating.toFixed(1)} stars from {googleSummary.count} Google reviews. These reviews mention {c.name}, quoted word for word.</p>
         </div>
         <div class="quotes">
           {cityReviews.map((r: any) => (
@@ -145,43 +488,145 @@ const mlsNote = 'Available when MLS data is connected';
     </section>
   )}
 
-  <section class="section" aria-labelledby="specialist-title">
+  <!-- 19. Why us -->
+  <section class="section section--dark" aria-labelledby="why-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Why Huerkamp Home Group</p>
+        <h2 id="why-title">Why work with <em>Huerkamp Home Group?</em></h2>
+      </div>
+      <div class="why">
+        <div><strong>2002</strong><span>Founded by Jason &amp; Brooke Huerkamp</span></div>
+        <div><strong>{team.members.length}</strong><span>Agents and staff</span></div>
+        <div><strong>{googleSummary.rating.toFixed(1)}</strong><span>Stars from {googleSummary.count} Google reviews</span></div>
+        <div><strong>15+</strong><span>Years as a Ramsey ELP</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 20. Talk to an expert -->
+  <section class="section" id="contact" aria-labelledby="contact-title">
     <div class="wrap split-2">
       <div class="prose">
-        <p class="eyebrow">Talk to a local agent</p>
-        <h2 id="specialist-title">Buying or selling <em>in {c.name}?</em></h2>
-        <p>Tell us what you're planning and we'll connect you with an agent who works in {c.name}.</p>
-        <p>Call <a href={site.phoneHref}>{site.phone}</a> or send a message.</p>
+        <p class="eyebrow">Ready to make a move?</p>
+        <h2 id="contact-title">Want to talk to a {c.name} <em>real estate expert?</em></h2>
+        <p>Tell us your area, budget, timing and must-haves. We'll share current listings and recent sales, and explain how we'd represent you before you decide anything.</p>
+        <div class="agent-card">
+          <img src={jason.photo} alt={jason.name} width="96" height="96" loading="lazy" />
+          <div>
+            <strong>{jason.name}</strong>
+            <span>Founder, Huerkamp Home Group</span>
+            <span>MN license {jason.license}</span>
+            <a href={site.phoneHref}>{site.phone}</a>
+            <span>{site.street}, {site.cityStateZip}</span>
+          </div>
+        </div>
       </div>
       <form class="form" data-pending={pending}>
+        <h3>Ready to find your {c.name} home?</h3>
         <div class="form__row">
-          <div class="field"><label for="sp-first">First name</label><input id="sp-first" name="firstName" autocomplete="given-name" required /></div>
-          <div class="field"><label for="sp-last">Last name</label><input id="sp-last" name="lastName" autocomplete="family-name" required /></div>
+          <div class="field"><label for="ct-first">First name</label><input id="ct-first" name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for="ct-last">Last name</label><input id="ct-last" name="lastName" autocomplete="family-name" required /></div>
         </div>
         <div class="form__row">
-          <div class="field"><label for="sp-email">Email</label><input id="sp-email" name="email" type="email" autocomplete="email" required /></div>
-          <div class="field"><label for="sp-phone">Phone</label><input id="sp-phone" name="phone" type="tel" autocomplete="tel" /></div>
+          <div class="field"><label for="ct-email">Email</label><input id="ct-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="ct-phone">Phone</label><input id="ct-phone" name="phone" type="tel" autocomplete="tel" /></div>
         </div>
         <div class="field">
-          <label for="sp-goal">I want to</label>
-          <select id="sp-goal" name="goal"><option value="">Choose one</option><option>Buy in {c.name}</option><option>Sell in {c.name}</option><option>Buy and sell</option></select>
+          <label for="ct-goal">I want to</label>
+          <select id="ct-goal" name="goal"><option value="">Choose one</option><option>Buy in {c.name}</option><option>Sell in {c.name}</option><option>Buy and sell</option></select>
         </div>
+        <div class="field"><label for="ct-msg">Anything else?</label><textarea id="ct-msg" name="message"></textarea></div>
         <input type="hidden" name="community" value={c.name} />
         <button class="btn" type="submit">Send</button>
         <p class="form__status" role="status" aria-live="polite"></p>
       </form>
     </div>
   </section>
+
+  <!-- 21. Nearby communities -->
+  <section class="section section--paper" aria-labelledby="nearby-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Explore nearby communities</p>
+        <h2 id="nearby-title">Which communities are <em>close to {c.name}?</em></h2>
+        <p>Drive times from {c.name} in light traffic, with each community's Census median home value.</p>
+      </div>
+      <div class="nearby">
+        {nearest.map((n) => (
+          <a class="near-card" href={`/communities/${n.slug}`}>
+            <span class="near-card__min">{n.min} min</span>
+            <strong>{n.name}</strong>
+            <span>Median home value {moneyK(n.value)}</span>
+            <span class="near-card__link">View {n.name} →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
 </Base>
 
-<style>
-  .search { display: flex; gap: .5rem; width: min(100%, 40rem); padding: .45rem; border-radius: 999px; background: rgba(255,255,255,.96); }
-  .search input { flex: 1; min-width: 0; border: 0; background: transparent; padding: .6rem 1rem; font: 500 1rem var(--sans); color: #1d1813; }
-  .search input:focus { outline: none; }
-  .search:focus-within { outline: 2px solid var(--gold); outline-offset: 3px; }
-  .search__status { min-height: 1.4em; color: var(--gold); }
-  @media (max-width: 700px) { .search { flex-direction: column; border-radius: 16px; } .search .btn { justify-content: center; } }
+<script>
+  // Monthly payment illustration: principal & interest plus the costs the visitor enters.
+  const form = document.getElementById('calc') as HTMLFormElement | null;
+  if (form) {
+    const $ = (id: string) => document.getElementById(id) as HTMLInputElement;
+    const out = document.getElementById('calc-out')!;
+    const usd = (n: number) => '$' + Math.round(n).toLocaleString('en-US');
+    const update = () => {
+      const price = +$('calc-price').value || 0;
+      const down = Math.min(Math.max(+$('calc-down').value || 0, 0), 100);
+      const rate = parseFloat($('calc-rate').value);
+      const years = +$('calc-term').value;
+      const tax = (+$('calc-tax').value || 0) / 12;
+      const ins = (+$('calc-ins').value || 0) / 12;
+      const hoa = +$('calc-hoa').value || 0;
+      const loan = price * (1 - down / 100);
+      if (!(rate >= 0) || !$('calc-rate').value) { out.textContent = 'Enter an interest rate to see a monthly estimate.'; return; }
+      const r = rate / 100 / 12, n = years * 12;
+      const pi = r === 0 ? loan / n : (loan * r) / (1 - Math.pow(1 + r, -n));
+      const total = pi + tax + ins + hoa;
+      out.innerHTML = `<strong>${usd(total)} / month</strong><span>Principal &amp; interest ${usd(pi)} · Taxes ${usd(tax)} · Insurance ${usd(ins)} · HOA ${usd(hoa)}</span><span>Loan amount ${usd(loan)}. Mortgage insurance may apply below 20% down.</span>`;
+    };
+    form.addEventListener('input', update);
+    form.addEventListener('submit', (e) => e.preventDefault());
+    update();
+  }
+</script>
 
+<style>
+  .narrow { max-width: 52rem; display: grid; gap: 1rem; }
+  .lede { font-size: 1.15rem; color: var(--text-soft); }
+  .source { font-size: .82rem; color: var(--text-soft); }
+  .section--dark .source { color: var(--on-dark-soft); }
+  .subhead { margin: 2.5rem 0 1rem; }
+  .muted { color: var(--text-soft); }
+  .hero-meta { font-size: .9rem !important; color: #d8cdbb !important; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; justify-content: center; }
+  .btn--ghost { background: transparent; color: inherit; box-shadow: inset 0 0 0 1px var(--gold); }
+  .btn--ghost:hover { background: rgba(212,178,124,.15); }
+
+  .takeaways { margin: .5rem 0; padding-left: 1.2rem; display: grid; gap: .6rem; color: var(--text); font-size: 1.05rem; }
+  .takeaways li::marker { color: var(--gold); }
+
+  .mls-pending { padding: 1.25rem 1.5rem; border: 1px dashed var(--gold); background: var(--surface); color: var(--text-soft); }
+  .mls-pending strong { color: var(--text); }
+  .mls-pending a { color: var(--eyebrow); }
+  .bands { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 1rem; }
+  .band { display: grid; gap: .25rem; padding: 1.1rem 1.25rem; background: var(--surface); border: 1px solid var(--line); }
+  .band span:first-child { font: 700 .75rem/1.2 var(--ui); letter-spacing: .08em; text-transform: uppercase; color: var(--eyebrow); }
+  .band strong { font: 400 2rem/1 var(--serif-display); color: var(--text); }
+  .band span:last-child { font-size: .85rem; color: var(--text-soft); }
+  .chips { list-style: none; padding: 0; margin: 0 0 .75rem; display: flex; flex-wrap: wrap; gap: .5rem; }
+  .chip { display: inline-block; padding: .5rem .95rem; border: 1px solid var(--line); border-radius: 999px; font-size: .92rem; color: var(--text-soft); background: var(--surface); }
+
+  .ticks { list-style: none; padding: 0; display: grid; gap: .6rem; }
+  .ticks li { position: relative; padding-left: 1.5rem; }
+  .ticks li::before { content: "✓"; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
+
+  .answer { max-width: 52rem; margin: 0 auto 2rem; padding: 1.75rem 2rem; background: var(--espresso); color: var(--on-dark); display: grid; gap: .6rem; }
+  .answer .eyebrow { color: var(--gold); }
+  .answer p:last-child { font-size: 1.15rem; line-height: 1.55; }
   .tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; max-width: 52rem; margin: 0 auto 2rem; }
   .tile { display: grid; gap: .3rem; justify-items: center; padding: 1.1rem .5rem; border: 1px solid var(--gold); text-align: center; }
   .tile span { font: 700 .7rem/1.2 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--eyebrow); }
@@ -196,17 +641,75 @@ const mlsNote = 'Available when MLS data is connected';
   .glance__market div { display: grid; gap: .25rem; padding: .9rem 1rem; background: var(--bg); }
   .glance__market strong { font: 600 1.4rem/1 var(--sans); color: var(--text); }
   .glance__market span { font: 700 .68rem/1.2 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--text-soft); }
-  .glance__note, .glance__source { font-size: .82rem; color: var(--text-soft); }
+  .glance__note { font-size: .82rem; color: var(--text-soft); }
   .glance__facts { margin: 0; display: grid; }
   .glance__facts div { display: flex; justify-content: space-between; gap: 1rem; padding: .7rem 0; border-bottom: 1px solid var(--line); }
   .glance__facts dt { font: 700 .72rem/1.4 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--text-soft); }
   .glance__facts dd { margin: 0; text-align: right; color: var(--text); font-variant-numeric: tabular-nums; }
 
-  .alert { max-width: 44rem; margin-inline: auto; }
-  .near { list-style: none; padding: 0; display: grid; gap: 0; }
-  .near li { display: flex; justify-content: space-between; padding: .8rem 0; border-bottom: 1px solid rgba(212,178,124,.25); }
-  .near a { color: var(--on-dark); font: 400 1.25rem/1.2 var(--serif); text-decoration: none; }
-  .near a:hover { color: var(--gold); }
-  .near span { color: var(--on-dark-soft); font-variant-numeric: tabular-nums; }
-  .section--dark .prose a { color: var(--gold); }
+  .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+  @media (max-width: 900px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 480px) { .stats { grid-template-columns: 1fr; } }
+  .stat { display: grid; gap: .35rem; align-content: start; padding: 1.25rem; background: var(--surface); border: 1px solid var(--line); }
+  .stat__label { font: 700 .72rem/1.3 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--eyebrow); }
+  .stat strong { font: 400 2.1rem/1.05 var(--serif-display); color: var(--text); font-variant-numeric: tabular-nums; }
+  .stat__note { font-size: .85rem; color: var(--text-soft); font-variant-numeric: tabular-nums; }
+  .stats + .source { margin-top: 1rem; }
+
+  .districts { list-style: none; padding: 0; display: grid; gap: .5rem; }
+  .districts li { display: flex; justify-content: space-between; gap: 1rem; padding: .75rem 1rem; background: var(--surface); border: 1px solid var(--line); }
+  .districts strong { color: var(--text); font-weight: 600; }
+  .districts span { color: var(--text-soft); white-space: nowrap; }
+  .prose a:not(.btn) { color: var(--eyebrow); }
+
+  .table-scroll { overflow-x: auto; }
+  .data { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  .data th, .data td { padding: .8rem .9rem; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; color: var(--text); }
+  .data thead th { font: 700 .72rem/1.2 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--eyebrow); }
+  .data tbody th { font-weight: 600; }
+  .data .num { text-align: right; }
+  .data .muted { color: var(--text-soft); }
+  .data a { color: var(--eyebrow); }
+  .compare thead th:nth-child(2), .compare td:nth-child(2) { background: var(--surface); }
+  .table-scroll + .source { margin-top: 1rem; }
+
+  .lakes-list { list-style: none; padding: 0; margin: 0; display: grid; }
+  .lakes-list li { display: flex; justify-content: space-between; gap: 1rem; padding: .85rem 0; border-bottom: 1px solid rgba(212,178,124,.25); }
+  .lakes-list span { font: 400 1.25rem/1.2 var(--serif); color: var(--on-dark); }
+  .lakes-list strong { color: var(--on-dark-soft); font-weight: 500; font-variant-numeric: tabular-nums; }
+
+  .stats--4 { margin-bottom: 1rem; }
+  .drives { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 1rem; }
+  .drives li { display: grid; gap: .2rem; padding: 1rem 1.25rem; border-left: 3px solid var(--gold); background: var(--surface); }
+  .drives strong { font: 400 1.8rem/1 var(--serif-display); color: var(--text); }
+  .drives span { color: var(--text-soft); }
+
+  .calc__out { display: grid; gap: .3rem; padding: 1rem 1.25rem; background: var(--bg); color: var(--text-soft); }
+  .calc__out :global(strong) { font: 400 2rem/1.1 var(--serif-display); color: var(--text); }
+
+  .cta-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2rem; }
+  .cta-row__actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+
+  .faq { display: grid; gap: .75rem; }
+  .faq details { background: var(--surface); border: 1px solid var(--line); padding: 1rem 1.25rem; }
+  .faq summary { cursor: pointer; font: 500 1.15rem/1.35 var(--serif); color: var(--text); }
+  .faq details p { margin-top: .75rem; color: var(--text-soft); }
+
+  .why { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+  @media (max-width: 800px) { .why { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .why div { display: grid; gap: .4rem; padding: 1.75rem 1rem; text-align: center; background: var(--espresso-raised); border: 1px solid rgba(212,178,124,.18); }
+  .why strong { font: 400 2.8rem/1 var(--serif-display); color: #f0dfc2; }
+  .why span { font: 600 .72rem/1.3 var(--ui); letter-spacing: .14em; text-transform: uppercase; color: var(--on-dark-soft); }
+
+  .agent-card { display: flex; gap: 1rem; align-items: center; padding: 1.25rem; background: var(--surface); border: 1px solid var(--line); }
+  .agent-card img { width: 6rem; height: 6rem; object-fit: cover; border-radius: 50%; }
+  .agent-card div { display: grid; gap: .1rem; font-size: .95rem; }
+  .agent-card strong { font: 500 1.25rem/1.2 var(--serif); color: var(--text); }
+
+  .nearby { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1rem; }
+  .near-card { display: grid; gap: .35rem; padding: 1.5rem; background: var(--surface); border: 1px solid var(--line); text-decoration: none; color: var(--text-soft); transition: border-color .2s; }
+  .near-card:hover { border-color: var(--gold); }
+  .near-card__min { font: 700 .75rem/1 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--eyebrow); }
+  .near-card strong { font: 500 1.4rem/1.2 var(--serif); color: var(--text); }
+  .near-card__link { margin-top: .4rem; color: var(--eyebrow); font-weight: 600; }
 </style>

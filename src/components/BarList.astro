@@ -1,0 +1,38 @@
+---
+// Ranked horizontal bars for one series (shares of a whole). Bars start at zero,
+// one hue, rounded data ends, a 2px gap between rows, value labels in text ink.
+interface Row { label: string; value: number; display: string; note?: string }
+interface Props { rows: Row[]; title: string; caption?: string }
+const { rows, title, caption } = Astro.props;
+const max = Math.max(...rows.map((r) => r.value)) || 1;
+---
+<figure class="bl">
+  <figcaption class="bl__title">{title}</figcaption>
+  <ol class="bl__rows">
+    {rows.map((r) => (
+      <li class="bl__row" tabindex="0" title={`${r.label}: ${r.display}${r.note ? ` (${r.note})` : ''}`}>
+        <span class="bl__label">{r.label}</span>
+        <span class="bl__track" aria-hidden="true"><span class="bl__bar" style={`width:${(100 * r.value) / max}%`}></span></span>
+        <span class="bl__value">{r.display}</span>
+      </li>
+    ))}
+  </ol>
+  {caption && <p class="bl__caption">{caption}</p>}
+</figure>
+
+<style>
+  .bl { margin: 0; display: grid; gap: .9rem; padding: 1.5rem; background: var(--surface); border: 1px solid var(--line); }
+  .bl__title { font: 700 .75rem/1.2 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--text-soft); }
+  .bl__rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+  .bl__row { display: grid; grid-template-columns: minmax(8rem, 15rem) minmax(0, 1fr) 3.5rem; gap: .9rem; align-items: center; padding: .45rem .4rem; border-radius: 4px; outline: none; }
+  .bl__row:hover, .bl__row:focus-visible { background: var(--bg); }
+  .bl__label { font-size: .92rem; color: var(--text); line-height: 1.3; }
+  .bl__track { height: 12px; }
+  .bl__bar { display: block; height: 100%; background: var(--chart-1); border-radius: 0 4px 4px 0; min-width: 2px; }
+  .bl__value { text-align: right; font-weight: 600; color: var(--text); font-variant-numeric: tabular-nums; }
+  .bl__caption { font-size: .85rem; color: var(--text-soft); }
+  @media (max-width: 560px) {
+    .bl__row { grid-template-columns: minmax(0, 1fr) 3.5rem; row-gap: .35rem; }
+    .bl__track { grid-column: 1 / -1; grid-row: 2; }
+  }
+</style>

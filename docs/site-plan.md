@@ -138,3 +138,35 @@ Jason asked for the top 30 Twin Cities communities and a Lake Homes page that wo
 - MLS feed (step 7) for median price, active listings, price per square foot, days on market and live listings.
 - The rest of Nevada's sections (schools, crime, builders, ZIP-code market tables) need data providers; decide which to pay for.
 - The DNR LakeFinder site is blocked from this build environment, so lake depth and official DNR acreage are linked, not shown.
+
+## Community pages rebuilt to match Nevada's city pages (2026-09-27)
+
+Nevada's Henderson page has 30 sections. Ours now follows the same order:
+
+| Nevada section | Ours | Data |
+|---|---|---|
+| Hero with byline and update date | Yes | — |
+| Key takeaways | Yes | Census |
+| Homes for sale, price ranges, browse by type | Layout built, waiting on MLS | MLS (step 7) |
+| New-listing alerts | Yes (form) | — |
+| Living in: answer, map, at a glance, drive tiles | Yes | Census, OSRM |
+| Who lives here (vs county and state) | Yes | ACS 2020–2024 |
+| How fast is it growing | Yes (chart) | Census estimates 2020–2024 |
+| Schools, crime | Yes | TIGER school districts; MDE and FBI links |
+| Market by ZIP code | Yes (MLS columns pending) | Census ZCTA, ACS |
+| Outdoor amenities | Lakes only | TIGER water |
+| Getting around | Yes | ACS, OSRM |
+| Economy | Yes (where residents work) | ACS C24050, B23025 |
+| Compare with nearby cities | Yes (3 nearest by drive) | Census, OSRM |
+| Monthly cost | Yes (calculator; visitor enters rate, tax, insurance) | ACS median value as starting price |
+| Who should buy, verify before moving | Yes | Minnesota disclosure and point-of-sale items |
+| Open houses | Call-to-action until MLS | MLS |
+| Closing time, FAQ, people also ask | Combined FAQ with schema.org markup | Census and general guidance |
+| Client reviews | Yes, when a review names the city | Verbatim Google and Zillow |
+| Why us, talk to an expert, nearby communities | Yes | Team data, OSRM |
+
+**Not built, and why:** submarket comparison, top builders, weekend guide, and neighborhoods A–Z need MLS data or local knowledge we don't have verified. Parks and trail totals were left out because the Census landmark files are too incomplete (for example, no parks listed for Burnsville).
+
+**For Jason to review:** the FAQ answer on closing time (30–45 days financed) and the "verify before moving" list.
+
+Data build: `scripts/build-community-details.py` (ACS 2024 5-year, TIGER 2024, 2020 ZCTA relationship file, OSRM). Chart color validated with the dataviz palette checker: #a36c16 light, #bd8730 dark.

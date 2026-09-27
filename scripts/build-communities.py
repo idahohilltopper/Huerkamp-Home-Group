@@ -69,6 +69,7 @@ for census_name, region in REGIONS.items():
         'counties': [county_names[r['COUNTY']] for r in parts],
         'population2024': pop24, 'population2020': pop20,
         'growthPct': round((pop24 - pop20) / pop20 * 100, 1),
+        'populationByYear': {str(y): int(p[f'POPESTIMATE{y}']) for y in range(2020, 2025)},
         'landSqMi': round(int(a['ALAND']) / 2589988.11, 1),
         'waterSqMi': round(int(a['AWATER']) / 2589988.11, 1),
         'center': [round(lon, 5), round(lat, 5)],
