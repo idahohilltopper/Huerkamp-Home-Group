@@ -1,0 +1,24 @@
+---
+// Verbatim reviews picked by reviewer name from src/data/reviews.json.
+import reviewData from '../data/reviews.json';
+
+interface Props { reviewers: string[]; }
+const { reviewers } = Astro.props;
+const picks = reviewers.map((name) => {
+  const r: any = reviewData.reviews.find((x: any) => x.reviewer === name && x.textComplete);
+  if (!r) throw new Error(`No complete review from ${name}`);
+  return r;
+});
+---
+<div class="quotes">
+  {picks.map((r) => (
+    <figure class="quote">
+      <p class="quote__stars" aria-label={`${r.rating} out of 5 stars`}>{'★'.repeat(r.rating)}</p>
+      <blockquote>{r.text}</blockquote>
+      <figcaption>
+        <strong>{r.reviewer}</strong>
+        <span>{r.source === 'Zillow' ? `Zillow review · worked with ${r.agent}` : 'Google review'}</span>
+      </figcaption>
+    </figure>
+  ))}
+</div>

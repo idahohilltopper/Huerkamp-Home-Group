@@ -1,0 +1,72 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site';
+
+const pending = `Thanks! Online forms are still being connected. For now, call ${site.phone} or email ${site.email}.`;
+---
+<Base
+  title="Ramsey Endorsed Local Provider | Huerkamp Home Group"
+  description="Huerkamp Home Group has been a Ramsey Endorsed Local Provider for more than 15 years, helping Ramsey listeners buy and sell in the Twin Cities.">
+  <PageHero eyebrow="Ramsey Endorsed Local Provider" title="Buy or Sell the Ramsey Way"
+    lede="We've been a Ramsey Endorsed Local Provider in the Twin Cities for more than 15 years." />
+
+  <section class="section" aria-labelledby="elp-title">
+    <div class="wrap split-2">
+      <div class="prose">
+        <p class="eyebrow">What an ELP is</p>
+        <h2 id="elp-title">Agents Ramsey <em>recommends.</em></h2>
+        <p>Ramsey's Endorsed Local Provider program connects people who follow Ramsey's approach to money with local real estate agents Ramsey recommends.</p>
+        <p>If Ramsey referred you to us, you'll work with an agent who knows how you think about debt, budgets and your home.</p>
+      </div>
+      <div class="prose">
+        <p class="eyebrow">How we work with you</p>
+        <h3>Buying</h3>
+        <p>We help you shop for a home whose payment fits your budget, not just the most a lender will approve. We'll talk through your down payment and monthly costs before you tour.</p>
+        <h3>Selling</h3>
+        <p>We price your home from recent local sales, so you know what to expect and can plan your next move with confidence.</p>
+        <h3>Straight answers</h3>
+        <p>Plain advice and no pressure, from the first call through closing.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper" aria-labelledby="ramsey-contact-title">
+    <div class="wrap narrow">
+      <form class="form" data-pending={pending}>
+        <h2 id="ramsey-contact-title">Talk with a Ramsey ELP agent</h2>
+        <div class="form__row">
+          <div class="field"><label for="elp-first">First name</label><input id="elp-first" name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for="elp-last">Last name</label><input id="elp-last" name="lastName" autocomplete="family-name" required /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="elp-email">Email</label><input id="elp-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="elp-phone">Phone</label><input id="elp-phone" name="phone" type="tel" autocomplete="tel" /></div>
+        </div>
+        <div class="field">
+          <label for="elp-goal">I want to</label>
+          <select id="elp-goal" name="goal">
+            <option value="">Choose one</option>
+            <option>Buy a home</option>
+            <option>Sell a home</option>
+            <option>Buy and sell</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="elp-referred">Did Ramsey refer you to us?</label>
+          <select id="elp-referred" name="ramseyReferral">
+            <option value="">Choose one</option>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+        </div>
+        <button class="btn" type="submit">Send</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .narrow { max-width: 44rem; }
+</style>

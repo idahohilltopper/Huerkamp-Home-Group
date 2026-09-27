@@ -1,0 +1,93 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import team from '../data/team.json';
+import { site } from '../data/site';
+
+const pending = `Thanks! Online forms are still being connected. For now, call ${site.phone} or email ${site.email}.`;
+const byName = (n: string) => team.members.find((m) => m.name === n)!;
+const leads = [
+  { m: byName('Jason Huerkamp'), note: 'Founder and real estate investor' },
+  { m: byName('Brooke Huerkamp'), note: 'Manages her own rental properties' },
+];
+
+const services = [
+  { title: 'Rental properties', body: 'Single-family homes, duplexes and small multifamily buildings, with local rents and costs checked before you make an offer.' },
+  { title: 'Fix and flip', body: 'Help finding homes with room to add value, a realistic look at resale prices, and a listing plan when the work is done.' },
+  { title: 'Selling investment property', body: 'Pricing, marketing and showings for tenant-occupied or vacant properties, coordinated around your current lease.' },
+  { title: 'Your own team', body: 'We work alongside your lender, accountant and property manager so every part of the deal lines up.' },
+];
+---
+<Base
+  title="Invest in Twin Cities Real Estate | Huerkamp Home Group"
+  description="Buy and sell rental and fix-and-flip properties in the Twin Cities with agents who invest in real estate themselves.">
+  <PageHero eyebrow="Investing" title="Invest in Twin Cities Real Estate"
+    lede="Work with agents who own and manage investment property themselves." />
+
+  <section class="section" aria-labelledby="services-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">How we help investors</p>
+        <h2 id="services-title">Buy, hold, <em>or flip.</em></h2>
+      </div>
+      <div class="services">
+        {services.map((s) => (
+          <article class="service"><h3>{s.title}</h3><p>{s.body}</p></article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper" aria-labelledby="investors-title">
+    <div class="wrap split-2">
+      <div class="prose">
+        <p class="eyebrow">Investors on our team</p>
+        <h2 id="investors-title">We invest <em>here too.</em></h2>
+        <p>Jason Huerkamp founded the team with a background in real estate investing, and Brooke Huerkamp manages rental properties of her own. They know what a property has to earn to be worth buying.</p>
+        <ul class="leads">
+          {leads.map(({ m, note }) => (
+            <li>
+              <img src={m.photo} alt={m.name} width="96" height="96" loading="lazy" />
+              <div><strong>{m.name}</strong><span>{note}</span><span>{m.phone}</span></div>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <form class="form" data-pending={pending}>
+        <h3>Tell us about your plans</h3>
+        <div class="form__row">
+          <div class="field"><label for="inv-first">First name</label><input id="inv-first" name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for="inv-last">Last name</label><input id="inv-last" name="lastName" autocomplete="family-name" required /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="inv-email">Email</label><input id="inv-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="inv-phone">Phone</label><input id="inv-phone" name="phone" type="tel" autocomplete="tel" /></div>
+        </div>
+        <div class="field">
+          <label for="inv-goal">I'm interested in</label>
+          <select id="inv-goal" name="goal">
+            <option value="">Choose one</option>
+            <option>Buying a rental property</option>
+            <option>Fix and flip</option>
+            <option>Selling an investment property</option>
+            <option>Something else</option>
+          </select>
+        </div>
+        <div class="field"><label for="inv-notes">Anything else we should know?</label><textarea id="inv-notes" name="notes"></textarea></div>
+        <button class="btn" type="submit">Send</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1.5rem; }
+  .service { display: grid; gap: .6rem; align-content: start; padding: 1.75rem; background: var(--surface); border: 1px solid var(--line); }
+  .service p { color: var(--text-soft); }
+  .leads { list-style: none; padding: 0; display: grid; gap: 1rem; }
+  .leads li { display: flex; gap: 1rem; align-items: center; }
+  .leads img { width: 4.5rem; height: 4.5rem; object-fit: cover; border-radius: 50%; }
+  .leads div { display: grid; gap: .1rem; }
+  .leads strong { color: var(--text); font-family: var(--serif); font-weight: 500; font-size: 1.15rem; }
+</style>

@@ -1,0 +1,65 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site';
+
+const pending = `Thanks! Online forms are still being connected. For now, call ${site.phone} or email ${site.email}.`;
+---
+<Base
+  title="Contact Huerkamp Home Group | Burnsville, MN"
+  description="Call, email or visit Huerkamp Home Group at 14300 Nicollet Ct, Ste 208, Burnsville, MN 55306.">
+  <PageHero eyebrow="Contact" title="Talk With Our Team"
+    lede="Questions about buying, selling or investing in the Twin Cities? We're glad to help." />
+
+  <section class="section" aria-labelledby="office-title">
+    <div class="wrap split-2">
+      <div class="prose">
+        <p class="eyebrow">Our office</p>
+        <h2 id="office-title">{site.name}</h2>
+        <dl class="details">
+          <div><dt>Phone</dt><dd><a href={site.phoneHref}>{site.phone}</a></dd></div>
+          <div><dt>Email</dt><dd><a href={`mailto:${site.email}`}>{site.email}</a></dd></div>
+          <div><dt>Address</dt><dd>{site.street}<br />{site.cityStateZip}</dd></div>
+          <div><dt>Brokerage</dt><dd>{site.brokerage}</dd></div>
+        </dl>
+        <a class="btn btn--dark" href={site.mapsUrl}>Get directions</a>
+      </div>
+      <form class="form" data-pending={pending}>
+        <h3>Send us a message</h3>
+        <div class="form__row">
+          <div class="field"><label for="c-first">First name</label><input id="c-first" name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for="c-last">Last name</label><input id="c-last" name="lastName" autocomplete="family-name" required /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="c-email">Email</label><input id="c-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="c-phone">Phone</label><input id="c-phone" name="phone" type="tel" autocomplete="tel" /></div>
+        </div>
+        <div class="field">
+          <label for="c-topic">I'm interested in</label>
+          <select id="c-topic" name="topic">
+            <option value="">Choose one</option>
+            <option>Buying</option>
+            <option>Selling</option>
+            <option>Buying and selling</option>
+            <option>Investing</option>
+            <option>Joining the team</option>
+            <option>Something else</option>
+          </select>
+        </div>
+        <div class="field"><label for="c-message">Message</label><textarea id="c-message" name="message"></textarea></div>
+        <button class="btn" type="submit">Send message</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .details { display: grid; gap: 1rem; margin: .5rem 0 1rem; }
+  .details div { display: grid; gap: .15rem; }
+  .details dt { font: 700 .75rem/1.2 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--eyebrow); }
+  .details dd { margin: 0; color: var(--text); font-size: 1.1rem; }
+  .details a { text-decoration: none; }
+  .details a:hover { text-decoration: underline; }
+  .prose .btn { justify-self: start; }
+</style>

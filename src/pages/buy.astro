@@ -1,0 +1,109 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Quotes from '../components/Quotes.astro';
+import { site } from '../data/site';
+
+const pending = `Thanks! Online forms are still being connected. For now, call ${site.phone} or email ${site.email}.`;
+---
+<Base
+  title="Buy a Home in the Twin Cities | Huerkamp Home Group"
+  description="Buy a home in Minneapolis, St. Paul and the Twin Cities metro with Huerkamp Home Group: pre-approval, showings, offers and closing.">
+  <PageHero eyebrow="Buying" title="Buy a Home in the Twin Cities"
+    lede="From your first showing to closing day, an agent who knows the neighborhood is with you at every step.">
+    <form class="search search--light" action="/search" method="get" role="search" data-pending="Home search launches with the NorthstarMLS feed in a later build step.">
+      <label class="visually-hidden" for="buy-search">City, neighborhood, ZIP or address</label>
+      <input id="buy-search" name="q" type="search" placeholder="City, neighborhood, ZIP or address" autocomplete="off" />
+      <button class="btn" type="submit">Search homes</button>
+    </form>
+    <p class="search__status" role="status" aria-live="polite"></p>
+  </PageHero>
+
+  <section class="section" aria-labelledby="process-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">How buying works</p>
+        <h2 id="process-title">Four steps to <em>your keys.</em></h2>
+      </div>
+      <ol class="steps">
+        <li><h3>Get pre-approved</h3><p>Know your budget before you tour. A pre-approval letter also shows sellers your offer is serious.</p></li>
+        <li><h3>Tour homes</h3><p>Your agent sets up showings, points out what to look for, and sends new listings the moment they hit the market.</p></li>
+        <li><h3>Make an offer</h3><p>We look at recent sales to price your offer, then negotiate terms, inspections and closing dates for you.</p></li>
+        <li><h3>Close</h3><p>We coordinate the inspection, appraisal and paperwork with your lender and title company through closing day.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--paper" aria-labelledby="lender-title">
+    <div class="wrap split-2">
+      <div class="prose">
+        <p class="eyebrow">Financing partner</p>
+        <h2 id="lender-title">Ken Rife, <em>your mortgage partner.</em></h2>
+        <!-- Verbatim from huerkamphomegroup.com/financing -->
+        <p>Ken Rife, Regional Vice President at Mutual of Omaha Mortgage, is dedicated to helping clients achieve their homeownership goals. With a deep understanding of various loan programs—including conventional, FHA, VA, USDA, and jumbo loans—Ken works closely with each client to identify mortgage solutions that align with their financial objectives.</p>
+        <p>Throughout the borrowing process, clients can rely on Ken to provide clear guidance and ensure a thorough and efficient loan experience.</p>
+        <p class="lender-card">
+          <strong>Ken Rife</strong> · Lender · NMLS #784496<br />
+          Mutual of Omaha Mortgage<br />
+          800 South Plaza Drive, Mendota Heights, MN 55120<br />
+          (651) 272-7232 · krife@mutualmortgage.com
+        </p>
+      </div>
+      <form class="form" data-pending={pending}>
+        <h3>Have Ken Rife contact me</h3>
+        <div class="form__row">
+          <div class="field"><label for="lender-first">First name</label><input id="lender-first" name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for="lender-last">Last name</label><input id="lender-last" name="lastName" autocomplete="family-name" required /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="lender-email">Email</label><input id="lender-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="lender-phone">Phone</label><input id="lender-phone" name="phone" type="tel" autocomplete="tel" /></div>
+        </div>
+        <div class="field">
+          <label for="lender-price">Price range</label>
+          <select id="lender-price" name="priceRange">
+            <option value="">Choose a range</option>
+            <option>Under $300,000</option>
+            <option>$300,000 – $450,000</option>
+            <option>$450,000 – $650,000</option>
+            <option>$650,000 – $1,000,000</option>
+            <option>Over $1,000,000</option>
+          </select>
+        </div>
+        <button class="btn" type="submit">Request a call</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="buyer-reviews-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">From our buyers</p>
+        <h2 id="buyer-reviews-title">First-time buyers, <em>in their words.</em></h2>
+      </div>
+      <Quotes reviewers={['Wenel Vasquez', 'skt vansanto', 'Diane Collins']} />
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="wrap cta-band">
+      <h2>Ready to start <em>your search?</em></h2>
+      <p>Tell us what you're looking for and we'll match you with an agent who works in that area.</p>
+      <div class="cta-band__actions">
+        <a class="btn btn--dark" href="/contact">Talk to an agent</a>
+        <a class="btn" href={site.phoneHref}>Call {site.phone}</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .search { display: flex; gap: .5rem; width: min(100%, 40rem); padding: .45rem; border-radius: 999px; background: rgba(255,255,255,.96); }
+  .search input { flex: 1; min-width: 0; border: 0; background: transparent; padding: .6rem 1rem; font: 500 1rem var(--sans); color: #1d1813; }
+  .search input:focus { outline: none; }
+  .search:focus-within { outline: 2px solid var(--gold); outline-offset: 3px; }
+  .search__status { min-height: 1.4em; color: var(--gold); }
+  @media (max-width: 700px) { .search { flex-direction: column; border-radius: 16px; } .search .btn { justify-content: center; } }
+  .lender-card { padding: 1.25rem 1.5rem; border-left: 3px solid var(--gold); background: var(--bg); color: var(--text); line-height: 1.7; }
+</style>

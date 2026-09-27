@@ -1,0 +1,104 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Quotes from '../components/Quotes.astro';
+import { site } from '../data/site';
+
+const pending = `Thanks! Online forms are still being connected. For now, call ${site.phone} or email ${site.email}.`;
+---
+<Base
+  title="Sell Your Home in the Twin Cities | Huerkamp Home Group"
+  description="Find out what your Twin Cities home is worth and how Huerkamp Home Group markets it to buyers.">
+  <PageHero eyebrow="Selling" title="Sell Your Twin Cities Home"
+    lede="Start with a free, local estimate of what your home is worth, then get a plan to sell it." />
+
+  <section class="section" aria-labelledby="value-title">
+    <div class="wrap split-2">
+      <div class="prose">
+        <p class="eyebrow">Home value</p>
+        <h2 id="value-title">What is your home <em>worth today?</em></h2>
+        <p>An online estimate can't see your kitchen update or the new roof. One of our agents will compare your home with recent sales nearby and send you a price range you can plan around.</p>
+        <p>There's no cost and no obligation to list with us.</p>
+      </div>
+      <form class="form" data-pending={pending}>
+        <h3>Request your home value</h3>
+        <div class="field"><label for="val-address">Home address</label><input id="val-address" name="address" autocomplete="street-address" required /></div>
+        <div class="form__row">
+          <div class="field"><label for="val-first">First name</label><input id="val-first" name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for="val-last">Last name</label><input id="val-last" name="lastName" autocomplete="family-name" required /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="val-email">Email</label><input id="val-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="val-phone">Phone</label><input id="val-phone" name="phone" type="tel" autocomplete="tel" /></div>
+        </div>
+        <div class="field">
+          <label for="val-timeline">When might you sell?</label>
+          <select id="val-timeline" name="timeline">
+            <option value="">Choose one</option>
+            <option>Within 3 months</option>
+            <option>3 to 6 months</option>
+            <option>6 to 12 months</option>
+            <option>Just curious</option>
+          </select>
+        </div>
+        <button class="btn" type="submit">Get my home value</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Section copy below is verbatim from huerkamphomegroup.com/why-list-with-us -->
+  <section class="section section--dark" aria-labelledby="why-list-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Why list with us</p>
+        <h2 id="why-list-title">A complete <em>marketing solution.</em></h2>
+      </div>
+      <div class="why-grid">
+        <div class="prose">
+          <p>We offer a comprehensive marketing solution designed to help our clients achieve their real estate goals. We are dedicated to providing personalized support and guidance throughout the entire process and understand the importance of building solid relationships with clients in the real estate industry. Our customized approach allows us to connect with our desired clients, increase brand awareness, drive sales, and boost engagement. Our comprehensive marketing solution is designed to help our clients succeed in a competitive real estate market by providing tailored strategies, proactive support, and effective marketing. Our expertise and dedication help our clients achieve their real estate goals.</p>
+          <ul>
+            <li>Aggressive marketing and re-marketing across the entire digital landscape</li>
+            <li>Precise demographic targeting</li>
+            <li>Highly advanced and proactive customer support</li>
+          </ul>
+        </div>
+        <div class="prose">
+          <h3>Outstanding service</h3>
+          <p>We know that your property means a lot to you, and this is why you can trust our team of dedicated agents to have your best interests at heart. Our agents are some of the best and most thoroughly trained in the industry – and they have built their careers doing whatever it takes to find the right buyers and land the best deals for each and every one of our clients. More than that, our agents are hardworking researchers who are always prepared to leverage relevant information to raise the demand of your property – regardless of price, type, and location.</p>
+          <h3>Transparency and integrity</h3>
+          <p>Our agents are committed to keeping you informed about all relevant aspects of the sales process – from lead generation to actual sale. Simply put, our agents will keep you posted every step of the way.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="cash-title">
+    <div class="wrap cash">
+      <div class="prose">
+        <p class="eyebrow">Another option</p>
+        <!-- Heading and paragraph verbatim from huerkamphomegroup.com/sell -->
+        <h2 id="cash-title">Get a Cash Offer for Your Home in Just 24 Hours!</h2>
+        <p>Sell your home fast and hassle-free with our team of experienced agents. No repairs, no staging, no open houses. Just a fair, all-cash offer.</p>
+      </div>
+      <a class="btn btn--dark" href="/contact">Ask about a cash offer</a>
+    </div>
+  </section>
+
+  <section class="section section--paper" aria-labelledby="seller-reviews-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">From our sellers</p>
+        <h2 id="seller-reviews-title">Sold, <em>in their words.</em></h2>
+      </div>
+      <Quotes reviewers={['Erin Johnson', 'Stephanie Peterson', 'Lauren Hughes']} />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .why-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); }
+  .why-grid .prose { max-width: none; }
+  @media (max-width: 860px) { .why-grid { grid-template-columns: 1fr; } }
+  .cash { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2rem; }
+</style>

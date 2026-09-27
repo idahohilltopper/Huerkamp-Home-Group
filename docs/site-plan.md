@@ -1,6 +1,6 @@
 # Huerkamp Home Group — New Website Plan
 
-_Status: Step 3 (design + home page) — approved by Jason 2026-09-26. Next: rest of step 3 core pages (buy, sell, invest, ELP, contact)._
+_Status: Step 3 — home page approved 2026-09-26; Buy, Sell, Invest, Ramsey ELP and Contact pages built 2026-09-27, awaiting review._
 
 ## Decisions so far
 
@@ -107,3 +107,15 @@ _Status: Step 3 (design + home page) — approved by Jason 2026-09-26. Next: res
 
 **Confirmed by Jason (2026-09-26):** founding year 2002; main phone (612) 843-9620, the Google listing number (2026-09-27; replaces 612-502-SOLD on the new site); hero photo approved; roster of 39 (32 agents, 7 staff) confirmed accurate; Ramsey ELP 15+ years confirmed.
 
+
+## Step 3 core pages (2026-09-27)
+
+- Shared layout `src/layouts/Base.astro` (header, footer, form handling) and business details in `src/data/site.ts`.
+- Pages: `/buy`, `/sell`, `/invest`, `/ramsey`, `/contact`. Text sources are listed in `docs/content-sources.md`.
+- Every form shows "Online forms are still being connected" plus the phone and email until step 4 connects Follow Up Boss.
+
+**Questions for Jason:**
+- Ken Rife's "Learn More" link on the current site goes to mutualmortgage.com/loan-officer/jhuerkamp/. Which link should the new site use?
+- Office hours for the Contact page (blank on the current site).
+- Ramsey may have rules for how Endorsed Local Providers describe the program; please have the Ramsey page checked against them.
+- Review the new text on Invest and Ramsey ELP.
