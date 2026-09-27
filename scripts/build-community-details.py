@@ -8,7 +8,7 @@ Run after build-communities.py. Inputs live in one download folder (argument 1):
   geo/water/wCCC/        TIGER 2024 area water for counties 003 019 037 053 123 131 139 163
   geo2/unsd/             TIGER 2024 unified school districts (tl_2024_27_unsd)
   geo2/zcta_place.txt    2020 ZCTA-to-place relationship file, Minnesota rows
-  geo2/osrm.json         OSRM table response (see docs/site-plan.md for the request)
+  geo2/osrm.json         drive times from scripts/fetch-drive-times.py
 
 Usage: python3 scripts/build-community-details.py <download-folder>
 """
@@ -149,14 +149,10 @@ with open(SRC / 'geo2/zcta_place.txt', encoding='utf-8-sig') as f:
 
 # ---------- drive times ----------
 osrm = json.load(open(SRC / 'geo2/osrm.json'))
-slugs = osrm['slugs']
-dur = osrm['response']['durations']
-n = len(slugs)
 
 details = {}
 for c in communities:
     city = places[c['geoid']]
-    i = slugs.index(c['slug'])
     district_rows = []
     for rec, g in districts:
         if g.intersects(city):
@@ -180,14 +176,13 @@ for c in communities:
                          'medianHouseholdIncome': num('b19013', geo, '001'),
                          'ownerOccupiedPct': pct(num('b25003', geo, '002'), num('b25003', geo, '001'))})
 
-    to_places = {slugs[j]: round(dur[i][j] / 60) for j in range(n) if j != i and dur[i][j] is not None}
     details[c['slug']] = {
         'acs': acs_profile(f"1600000US{c['geoid']}"),
         'schoolDistricts': district_rows,
         'lakes': lake_rows[:8],
         'zips': zip_rows,
-        'driveMinutes': {name: round(dur[i][n + k] / 60) for k, name in enumerate(osrm['destinations'])},
-        'driveMinutesToCommunities': to_places,
+        'driveMinutes': osrm['toDestinations'][c['slug']],
+        'driveMinutesToCommunities': osrm['toCommunities'][c['slug']],
     }
 
 # County, state and nation profiles for comparisons. Each city's first county holds most of its people.

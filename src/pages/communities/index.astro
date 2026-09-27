@@ -2,13 +2,13 @@
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import AreaMap from '../../components/AreaMap.astro';
-import { communities, communityGeo, communityInfo, regions, fmt } from '../../data/areas';
+import { communities, communityGeoUrl, communityInfo, regions, fmt } from '../../data/areas';
 ---
 <Base
   title="Twin Cities Communities | Huerkamp Home Group"
-  description="Explore 30 Twin Cities communities on an interactive map: Minneapolis, Saint Paul and the south, west, north and east metro.">
+  description="Explore every city in the seven-county Twin Cities metro, plus Northfield, Dundas, Faribault, Owatonna and Le Sueur, on an interactive map.">
   <PageHero eyebrow="Explore the Twin Cities" title="Twin Cities Communities & Neighborhoods"
-    lede={`${communities.length} communities across Minneapolis, Saint Paul and the metro. Hover the map to compare, then open a community for homes, local facts and nearby areas.`} />
+    lede={`Every city in the seven-county Twin Cities metro, plus Northfield, Dundas, Faribault, Owatonna and Le Sueur: ${communities.length} communities in all. Hover the map to compare, then open a city for homes, local facts and nearby areas.`} />
 
   <section class="section section--paper" aria-labelledby="map-title">
     <div class="wrap">
@@ -16,7 +16,7 @@ import { communities, communityGeo, communityInfo, regions, fmt } from '../../da
         <p class="eyebrow">Community map</p>
         <h2 id="map-title">Find your <em>community.</em></h2>
       </div>
-      <AreaMap geojson={communityGeo} info={communityInfo} label="Hover a community" height="560px" />
+      <AreaMap src={communityGeoUrl} info={communityInfo} label="Hover a community" height="560px" />
     </div>
   </section>
 

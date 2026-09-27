@@ -18,20 +18,25 @@ from pathlib import Path
 
 SRC = Path(sys.argv[1])
 
-# Census names of the 30 communities, and the region each is grouped under.
-REGIONS = {
-    'Minneapolis': 'Minneapolis & Saint Paul', 'St. Paul': 'Minneapolis & Saint Paul',
-    'Apple Valley': 'South Metro', 'Burnsville': 'South Metro', 'Eagan': 'South Metro',
-    'Farmington': 'South Metro', 'Inver Grove Heights': 'South Metro', 'Lakeville': 'South Metro',
-    'Mendota Heights': 'South Metro', 'Northfield': 'South Metro', 'Rosemount': 'South Metro',
-    'South St. Paul': 'South Metro', 'West St. Paul': 'South Metro', 'Shakopee': 'South Metro',
-    'Prior Lake': 'South Metro', 'Savage': 'South Metro',
-    'Bloomington': 'West Metro', 'Plymouth': 'West Metro', 'Eden Prairie': 'West Metro',
-    'Edina': 'West Metro', 'Minnetonka': 'West Metro', 'St. Louis Park': 'West Metro',
-    'Brooklyn Park': 'North Metro', 'Maple Grove': 'North Metro', 'Blaine': 'North Metro',
-    'Coon Rapids': 'North Metro', 'Roseville': 'North Metro',
-    'Woodbury': 'East Metro', 'Cottage Grove': 'East Metro', 'Maplewood': 'East Metro',
-}
+# Every incorporated city with any part in the seven-county metro, plus these southern Minnesota cities.
+METRO_COUNTIES = {'003', '019', '037', '053', '123', '139', '163'}  # Anoka Carver Dakota Hennepin Ramsey Scott Washington
+SOUTHERN_MN = ['Northfield', 'Dundas', 'Faribault', 'Owatonna', 'Le Sueur']
+CORE = ['Minneapolis', 'St. Paul']
+METRO_CENTER = (44.965, -93.18)  # between the two downtowns; regions are the compass quadrant from here
+
+
+def region_for(name, lat, lon):
+    if name in CORE:
+        return 'Minneapolis & Saint Paul'
+    if name in SOUTHERN_MN:
+        return 'Southern Minnesota'
+    dy = lat - METRO_CENTER[0]
+    dx = (lon - METRO_CENTER[1]) * math.cos(math.radians(lat))
+    bearing = (math.degrees(math.atan2(dx, dy)) + 360) % 360
+    return ('North Metro' if bearing < 45 or bearing >= 315 else 'East Metro' if bearing < 135
+            else 'South Metro' if bearing < 225 else 'West Metro')
+
+
 DISPLAY = {'St. Paul': 'Saint Paul'}
 DOWNTOWN_MPLS = (44.9778, -93.2650)
 DOWNTOWN_STP = (44.9537, -93.0900)
@@ -48,21 +53,29 @@ def slugify(name):
 
 
 rows = [r for r in csv.DictReader(open(SRC / 'sub.csv', encoding='latin-1')) if r['STATE'] == '27']
-places = {r['NAME'].removesuffix(' city'): r for r in rows if r['SUMLEV'] == '162'}
+# Keyed by Census place code: city names repeat across the state (there are two St. Anthonys).
+places = {r['PLACE']: r for r in rows if r['SUMLEV'] == '162' and r['FUNCSTAT'] == 'A'}
+metro_place_codes = {r['PLACE'] for r in rows if r['SUMLEV'] == '157' and r['COUNTY'] in METRO_COUNTIES}
+selected = sorted((code for code, r in places.items()
+                   if code in metro_place_codes or r['NAME'].removesuffix(' city') in SOUTHERN_MN),
+                  key=lambda code: places[code]['NAME'])
 county_names = {r['COUNTY']: r['NAME'].removesuffix(' County') for r in rows if r['SUMLEV'] == '050'}
 
 attrs_path = SRC / 'attrs.json'
 subprocess.run(['npx', 'mapshaper', str(SRC / 'place/tl_2024_27_place.shp'), '-o', 'format=json', str(attrs_path)],
                check=True, capture_output=True)
-attrs = {a['NAME']: a for a in json.load(open(attrs_path))}
+attrs = {a['GEOID']: a for a in json.load(open(attrs_path))}
 
 communities = []
-for census_name, region in REGIONS.items():
-    p, a = places[census_name], attrs[census_name]
+for code in selected:
+    p = places[code]
+    census_name = p['NAME'].removesuffix(' city')
+    a = attrs['27' + code]
     parts = sorted((r for r in rows if r['SUMLEV'] == '157' and r['PLACE'] == p['PLACE']),
                    key=lambda r: -int(r['POPESTIMATE2024']))
     lat, lon = float(a['INTPTLAT']), float(a['INTPTLON'])
-    name = DISPLAY.get(census_name, census_name)
+    region = region_for(census_name, lat, lon)
+    name = DISPLAY.get(census_name, census_name.removeprefix('Village of '))
     pop24, pop20 = int(p['POPESTIMATE2024']), int(p['ESTIMATESBASE2020'])
     communities.append({
         'slug': slugify(name), 'name': name, 'censusName': census_name, 'region': region,
@@ -83,6 +96,7 @@ json.dump({
     'sources': {
         'boundaries': 'US Census Bureau TIGER/Line 2024 places (public domain)',
         'population': 'US Census Bureau Vintage 2024 city population estimates (sub-est2024); 2020 is the estimates base',
+        'regions': 'Compass quadrant from a point between the two downtowns; Northfield, Dundas, Faribault, Owatonna and Le Sueur grouped as Southern Minnesota',
         'distances': "Straight-line miles from the city's Census center point to downtown Minneapolis / Saint Paul",
     },
     'communities': communities,

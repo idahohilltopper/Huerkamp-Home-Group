@@ -5,31 +5,28 @@
 // Map imagery: MapTiler when PUBLIC_MAPTILER_KEY is set at build time, otherwise OpenFreeMap.
 interface Feature { type: 'Feature'; properties: { slug: string; [k: string]: unknown }; geometry: unknown }
 interface Props {
-  geojson: { type: 'FeatureCollection'; features: Feature[] };
+  geojson?: { type: 'FeatureCollection'; features: Feature[] };  // inline outlines (small sets)
+  src?: string;                                                    // or a URL to a GeoJSON file (large sets)
   info: Record<string, { name: string; detail: string; href: string }>;
   mode?: 'hub' | 'focus';
   focus?: string;
   label?: string;
   height?: string;
 }
-const { geojson, info, mode = 'hub', focus = '', label = 'Hover an area', height = '520px' } = Astro.props;
+const { geojson, src = '', info, mode = 'hub', focus = '', label = 'Hover an area', height = '520px' } = Astro.props;
 const key = import.meta.env.PUBLIC_MAPTILER_KEY ?? '';
 const style = key
   ? `https://api.maptiler.com/maps/dataviz-light/style.json?key=${key}`
   : 'https://tiles.openfreemap.org/styles/positron';
 
-// Attach display info to each feature so the map can show it on hover.
-const data = {
-  ...geojson,
-  features: geojson.features.map((f) => ({ ...f, properties: { ...f.properties, ...info[f.properties.slug] } })),
-};
 ---
 <div class="area-map" style={`--map-h:${height}`}>
-  <div class="area-map__canvas" data-map data-style={style} data-mode={mode} data-focus={focus} data-geojson={JSON.stringify(data)}></div>
+  <div class="area-map__canvas" data-map data-style={style} data-mode={mode} data-focus={focus} data-src={src} data-info={JSON.stringify(info)}
+    data-geojson={geojson ? JSON.stringify(geojson) : undefined}></div>
   <div class="area-map__panel" aria-live="polite">
-    <span class="area-map__hint" data-hint>{label} —</span>
-    <strong data-name></strong>
-    <span data-detail></span>
+    <span class="area-map__hint" data-hint hidden={!!info[focus]}>{label} —</span>
+    <strong data-name>{info[focus]?.name}</strong>
+    <span data-detail>{info[focus]?.detail}</span>
   </div>
   <noscript><p class="area-map__noscript">Turn on JavaScript to use the map.</p></noscript>
 </div>
@@ -51,15 +48,20 @@ const data = {
     return b;
   }
 
-  document.querySelectorAll<HTMLElement>('[data-map]').forEach((el) => {
-    const data = JSON.parse(el.dataset.geojson!);
+  document.querySelectorAll<HTMLElement>('[data-map]').forEach(async (el) => {
+    const data = el.dataset.geojson ? JSON.parse(el.dataset.geojson) : await (await fetch(el.dataset.src!)).json();
+    const info = JSON.parse(el.dataset.info!);
     const mode = el.dataset.mode;
     const focus = el.dataset.focus;
     const root = el.parentElement!;
     const nameEl = root.querySelector<HTMLElement>('[data-name]')!;
     const detailEl = root.querySelector<HTMLElement>('[data-detail]')!;
     const hintEl = root.querySelector<HTMLElement>('[data-hint]')!;
-    data.features.forEach((f: any, i: number) => { f.id = i; f.properties.isFocus = f.properties.slug === focus; });
+    // Attach display info to each outline so the map can show it on hover.
+    data.features.forEach((f: any, i: number) => {
+      f.id = i;
+      Object.assign(f.properties, info[f.properties.slug], { isFocus: f.properties.slug === focus });
+    });
 
     const focusFeatures = data.features.filter((f: any) => f.properties.isFocus);
     const map = new maplibregl.Map({

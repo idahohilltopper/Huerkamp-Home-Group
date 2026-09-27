@@ -1,7 +1,7 @@
 // Community and lake data plus the hover text the maps show.
 import communityData from './communities.json';
 import lakeData from './lakes.json';
-import communityShapes from './geo/communities.geojson?raw';
+import communityShapesUrl from './geo/communities.geojson?url';
 import lakeShapes from './geo/lakes.geojson?raw';
 
 export type Community = (typeof communityData.communities)[number];
@@ -9,10 +9,11 @@ export type Lake = (typeof lakeData.lakes)[number];
 
 export const communities: Community[] = communityData.communities;
 export const lakes: Lake[] = lakeData.lakes;
-export const communityGeo = JSON.parse(communityShapes);
+// 149 outlines: served as one cached file rather than inlined into every page.
+export const communityGeoUrl: string = communityShapesUrl;
 export const lakeGeo = JSON.parse(lakeShapes);
 
-export const regions = ['Minneapolis & Saint Paul', 'South Metro', 'West Metro', 'North Metro', 'East Metro'];
+export const regions = ['Minneapolis & Saint Paul', 'North Metro', 'East Metro', 'South Metro', 'West Metro', 'Southern Minnesota'];
 
 const num = new Intl.NumberFormat('en-US');
 export const fmt = (n: number) => num.format(n);

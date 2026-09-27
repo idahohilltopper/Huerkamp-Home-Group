@@ -7,7 +7,7 @@ import PageHero from '../../components/PageHero.astro';
 import AreaMap from '../../components/AreaMap.astro';
 import LineChart from '../../components/LineChart.astro';
 import BarList from '../../components/BarList.astro';
-import { communities, communityGeo, communityInfo, lakes, fmt, type Community } from '../../data/areas';
+import { communities, communityGeoUrl, communityInfo, lakes, fmt, type Community } from '../../data/areas';
 import detailData from '../../data/community-details.json';
 import reviewData from '../../data/reviews.json';
 import team from '../../data/team.json';
@@ -25,17 +25,27 @@ const dests = detailData.driveDestinations as Record<string, string>;
 const bySlug = Object.fromEntries(communities.map((x) => [x.slug, x]));
 
 // ---------- formatting ----------
-const money = (n: number | null) => (n == null ? '—' : `$${fmt(Math.round(n))}`);
-const moneyK = (n: number | null) => (n == null ? '—' : `$${fmt(Math.round(n / 1000))}K`);
+// The ACS publishes capped medians as cap + 1 (e.g. 2,000,001 means "$2,000,000 or more").
+const TOP_CODES: Record<number, number> = { 2000001: 2000000, 250001: 250000, 3501: 3500 };
+const capped = (n: number | null) => n != null && n in TOP_CODES;
+const money = (n: number | null) => (n == null ? '—' : capped(n) ? `$${fmt(TOP_CODES[n])}+` : `$${fmt(Math.round(n))}`);
+const moneyK = (n: number | null) => (n == null ? '—' : capped(n) ? `$${fmt(TOP_CODES[n] / 1000)}K+` : `$${fmt(Math.round(n / 1000))}K`);
 const pctS = (n: number | null) => (n == null ? '—' : `${n}%`);
 const vs = (city: number | null, other: number | null, higher = 'higher', lower = 'lower') => {
-  if (city == null || other == null) return '';
+  if (city == null || other == null || capped(city) || capped(other)) return '';
   const diff = Math.round((100 * (city - other)) / other);
   return Math.abs(diff) < 2 ? 'about the same as' : `${Math.abs(diff)}% ${diff > 0 ? higher : lower} than`;
 };
+// ", 7% lower than X" or nothing when the comparison isn't meaningful.
+const cmp = (city: number | null, other: number | null, label: string) => {
+  const v = vs(city, other);
+  return v ? `, ${v} ${label}` : '';
+};
+const smallPlace = c.population2024 < 2500;
 const list = (items: string[]) => items.length < 2 ? items.join('') : `${items.slice(0, -1).join(', ')} and ${items.at(-1)}`;
 const countyName = `${d.primaryCounty.name} County`;
-const regionPhrase = c.region === 'Minneapolis & Saint Paul' ? "one of the Twin Cities' two core cities" : `a ${c.region.toLowerCase()} city`;
+const regionPhrase = c.region === 'Minneapolis & Saint Paul' ? "one of the Twin Cities' two core cities"
+  : c.region === 'Southern Minnesota' ? 'a city in southern Minnesota' : `a ${c.region.toLowerCase()} city`;
 const distancePhrase = c.slug === 'minneapolis' ? `downtown Saint Paul is about ${d.driveMinutes.downtownSaintPaul} minutes away`
   : c.slug === 'saint-paul' ? `downtown Minneapolis is about ${d.driveMinutes.downtownMinneapolis} minutes away`
   : `it's about ${d.driveMinutes.downtownMinneapolis} minutes from downtown Minneapolis and ${d.driveMinutes.downtownSaintPaul} minutes from downtown Saint Paul`;
@@ -65,8 +75,8 @@ const googleSummary = reviewData.summary.google;
 
 const takeaways = [
   `Population: ${fmt(c.population2024)} (Census 2024 estimate; ${c.growthPct > 0 ? '+' : ''}${c.growthPct}% since 2020)`,
-  `Median home value: ${money(a.medianHomeValue)}, ${vs(a.medianHomeValue, county.medianHomeValue)} the ${countyName} median (owner estimates, Census ACS)`,
-  `Median household income: ${money(a.medianHouseholdIncome)}, ${vs(a.medianHouseholdIncome, county.medianHouseholdIncome)} ${countyName}`,
+  `Median home value: ${money(a.medianHomeValue)}${cmp(a.medianHomeValue, county.medianHomeValue, `the ${countyName} median`)} (owner estimates, Census ACS)`,
+  `Median household income: ${money(a.medianHouseholdIncome)}${cmp(a.medianHouseholdIncome, county.medianHouseholdIncome, countyName)}`,
   `Homeownership: ${pctS(a.ownerOccupiedPct)} of households own their home (Minnesota: ${pctS(mn.ownerOccupiedPct)})`,
   `Getting around: about ${d.driveMinutes.downtownMinneapolis} minutes to downtown Minneapolis and ${d.driveMinutes.mspAirport} minutes to MSP Airport in light traffic`,
   ...(mainDistrict ? [`Schools: ${mainDistrict.name} covers about ${mainDistrict.pctOfCity}% of the city`] : []),
@@ -74,7 +84,7 @@ const takeaways = [
 
 const faqs = [
   { q: `What is the median home value in ${c.name}?`,
-    a: `The Census Bureau's 2020–2024 American Community Survey puts the median value of owner-occupied homes in ${c.name} at ${money(a.medianHomeValue)}, ${vs(a.medianHomeValue, county.medianHomeValue)} the ${countyName} median of ${money(county.medianHomeValue)}. These are owner estimates; current list prices come from the MLS and will appear on this page once our listing feed is connected.` },
+    a: `The Census Bureau's 2020–2024 American Community Survey puts the median value of owner-occupied homes in ${c.name} at ${money(a.medianHomeValue)}${cmp(a.medianHomeValue, county.medianHomeValue, `the ${countyName} median`)} (${countyName}: ${money(county.medianHomeValue)}). These are owner estimates; current list prices come from the MLS and will appear on this page once our listing feed is connected.` },
   { q: `How many people live in ${c.name}, MN?`,
     a: `About ${fmt(c.population2024)} people, according to the Census Bureau's 2024 estimate. The city ${growthWord} ${c.growthPct === 0 ? '' : `by ${Math.abs(c.growthPct)}% `}between 2020 and 2024.` },
   { q: `Which school district serves ${c.name}?`,
@@ -87,8 +97,8 @@ const faqs = [
     a: `It depends on what you need. ${c.name} has a median household income of ${money(a.medianHouseholdIncome)}, ${pctS(a.ownerOccupiedPct)} homeownership and a ${a.meanCommuteMinutes}-minute average commute. Visit at the times you'd normally drive, check the school assignment for the address, and compare total ownership costs before you decide.` },
   { q: `What does it cost to rent in ${c.name}?`,
     a: `The median gross rent (rent plus utilities) is ${money(a.medianGrossRent)} a month, compared with ${money(county.medianGrossRent)} in ${countyName} (Census ACS 2020–2024).` },
-  { q: `What ZIP codes are in ${c.name}?`,
-    a: `${list(d.zips.map((z: any) => z.zip))}${d.zips.length ? '' : 'See the ZIP code table above'} cover most of the city. ZIP code areas and city limits don't match exactly, so check the city on the property record.` },
+  ...(d.zips.length ? [{ q: `What ZIP codes are in ${c.name}?`,
+    a: `${list(d.zips.map((z: any) => z.zip))} ${d.zips.length === 1 ? 'covers' : 'cover'} most of the city. ZIP code areas and city limits don't match exactly, so check the city on the property record.` }] : []),
   ...(d.lakes.length ? [{ q: `What lakes are in ${c.name}?`,
     a: `The largest named lakes inside the city are ${list(d.lakes.slice(0, 4).map((l: any) => `${l.name} (about ${fmt(l.acresInCity)} acres)`))}, based on Census water maps.` }] : []),
   { q: `How long does it take to close on a home in ${c.name}?`,
@@ -196,7 +206,7 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
         ))}
       </div>
       <div class="glance-grid">
-        <AreaMap geojson={communityGeo} info={communityInfo} mode="focus" focus={c.slug} label="Hover a community" height="560px" />
+        <AreaMap src={communityGeoUrl} info={communityInfo} mode="focus" focus={c.slug} label="Hover a community" height="560px" />
         <aside class="glance" aria-labelledby="glance-panel">
           <h3 id="glance-panel">{c.name} <span>at a glance</span></h3>
           <div class="glance__market">
@@ -228,7 +238,7 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
       <div class="head">
         <p class="eyebrow">Demographics · {c.name}, MN</p>
         <h2 id="who-title">Who lives in <em>{c.name}?</em></h2>
-        <p>According to the Census Bureau, {c.name}'s median household income of {money(a.medianHouseholdIncome)} is {vs(a.medianHouseholdIncome, county.medianHouseholdIncome)} the {countyName} median of {money(county.medianHouseholdIncome)}. The median age is {a.medianAge}, {pctS(a.ownerOccupiedPct)} of households own their home and {pctS(a.bachelorsOrHigherPct)} of adults hold a bachelor's degree or higher.</p>
+        <p>According to the Census Bureau, {c.name}'s median household income is {money(a.medianHouseholdIncome)}{cmp(a.medianHouseholdIncome, county.medianHouseholdIncome, `the ${countyName} median`)} ({countyName}: {money(county.medianHouseholdIncome)}). The median age is {a.medianAge}, {pctS(a.ownerOccupiedPct)} of households own their home and {pctS(a.bachelorsOrHigherPct)} of adults hold a bachelor's degree or higher.</p>
       </div>
       <div class="stats">
         {[
@@ -244,7 +254,7 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
           <div class="stat"><span class="stat__label">{label}</span><strong>{value}</strong><span class="stat__note">{note}</span></div>
         ))}
       </div>
-      <p class="source">US Census Bureau, American Community Survey 2020–2024 5-year estimates; population from 2024 estimates. Home values are owner estimates.</p>
+      <p class="source">US Census Bureau, American Community Survey 2020–2024 5-year estimates; population from 2024 estimates. Home values are owner estimates; values shown with “+” are the Census reporting cap.{smallPlace && ` ${c.name} is small, so these survey figures rest on few responses and can have wide margins of error.`}</p>
     </div>
   </section>
 

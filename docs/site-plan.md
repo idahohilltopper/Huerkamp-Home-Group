@@ -170,3 +170,16 @@ Nevada's Henderson page has 30 sections. Ours now follows the same order:
 **For Jason to review:** the FAQ answer on closing time (30–45 days financed) and the "verify before moving" list.
 
 Data build: `scripts/build-community-details.py` (ACS 2024 5-year, TIGER 2024, 2020 ZCTA relationship file, OSRM). Chart color validated with the dataviz palette checker: #a36c16 light, #bd8730 dark.
+
+## All metro cities plus southern Minnesota (2026-09-27)
+
+Jason asked for every city in the seven-county metro plus Owatonna, Dundas, Le Sueur, Faribault and Northfield.
+
+- **149 community pages**: every incorporated city (not townships) with any part in Anoka, Carver, Dakota, Hennepin, Ramsey, Scott or Washington County (145, including Northfield), plus Owatonna, Dundas, Faribault and Le Sueur. The list comes straight from Census data in `scripts/build-communities.py`, so none are hand-picked.
+- **Areas**: Minneapolis & Saint Paul; North, East, South and West Metro by compass direction from a point between the downtowns; Southern Minnesota for Northfield, Dundas, Faribault, Owatonna and Le Sueur.
+- **Drive times**: `scripts/fetch-drive-times.py` (light-traffic times to the four landmarks, and to each city's six closest cities).
+- **Census reporting caps** shown as "+" (e.g. Minnetonka Beach median home value $2,000,000+), with no percentage comparison. Cities under 2,500 people carry a note that survey figures have wide margins of error.
+- Credit River and Empire became cities after 2020, so the 2020 ZIP relationship file doesn't cover them; their ZIP section is hidden.
+- The map outlines load from one shared file so the 149 pages stay light.
+
+Rebuild order: `build-communities.py` → `fetch-drive-times.py` → `build-community-details.py` → `npm run build`.

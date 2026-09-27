@@ -7,7 +7,7 @@ import { site } from '../data/site';
 
 const pending = `Thanks! Online forms are still being connected. For now, call ${site.phone} or email ${site.email}.`;
 // Link shoreline cities that have their own community page.
-const pageFor = (city: string) => communities.find((c) => c.censusName === city);
+const pageFor = (city: string) => communities.find((c) => c.censusName === city || c.name === city);
 ---
 <Base
   title="Twin Cities Lake Homes for Sale | Huerkamp Home Group"

@@ -2,6 +2,7 @@
   "sources": {
     "boundaries": "US Census Bureau TIGER/Line 2024 places (public domain)",
     "population": "US Census Bureau Vintage 2024 city population estimates (sub-est2024); 2020 is the estimates base",
+    "regions": "Compass quadrant from a point between the two downtowns; Northfield, Dundas, Faribault, Owatonna and Le Sueur grouped as Southern Minnesota",
     "distances": "Straight-line miles from the city's Census center point to downtown Minneapolis / Saint Paul"
   },
   "communities": [
@@ -65,7 +66,7 @@
       "slug": "bloomington",
       "name": "Bloomington",
       "censusName": "Bloomington",
-      "region": "West Metro",
+      "region": "South Metro",
       "counties": [
         "Hennepin"
       ],
@@ -234,7 +235,7 @@
       "slug": "maple-grove",
       "name": "Maple Grove",
       "censusName": "Maple Grove",
-      "region": "North Metro",
+      "region": "West Metro",
       "counties": [
         "Hennepin"
       ],
@@ -486,7 +487,7 @@
       "slug": "shakopee",
       "name": "Shakopee",
       "censusName": "Shakopee",
-      "region": "South Metro",
+      "region": "West Metro",
       "counties": [
         "Scott"
       ],
@@ -567,6 +568,34 @@
       "geoid": "2740382"
     },
     {
+      "slug": "richfield",
+      "name": "Richfield",
+      "censusName": "Richfield",
+      "region": "South Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 36491,
+      "population2020": 37002,
+      "growthPct": -1.4,
+      "populationByYear": {
+        "2020": 36925,
+        "2021": 36538,
+        "2022": 36759,
+        "2023": 36567,
+        "2024": 36491
+      },
+      "landSqMi": 6.8,
+      "waterSqMi": 0.1,
+      "center": [
+        -93.28245,
+        44.87435
+      ],
+      "milesToMinneapolis": 7,
+      "milesToSaintPaul": 11,
+      "geoid": "2754214"
+    },
+    {
       "slug": "inver-grove-heights",
       "name": "Inver Grove Heights",
       "censusName": "Inver Grove Heights",
@@ -623,6 +652,34 @@
       "geoid": "2755852"
     },
     {
+      "slug": "andover",
+      "name": "Andover",
+      "censusName": "Andover",
+      "region": "North Metro",
+      "counties": [
+        "Anoka"
+      ],
+      "population2024": 33426,
+      "population2020": 32598,
+      "growthPct": 2.5,
+      "populationByYear": {
+        "2020": 32661,
+        "2021": 32968,
+        "2022": 32982,
+        "2023": 33151,
+        "2024": 33426
+      },
+      "landSqMi": 33.9,
+      "waterSqMi": 1.0,
+      "center": [
+        -93.3374,
+        45.25242
+      ],
+      "milesToMinneapolis": 19,
+      "milesToSaintPaul": 24,
+      "geoid": "2701486"
+    },
+    {
       "slug": "savage",
       "name": "Savage",
       "censusName": "Savage",
@@ -649,6 +706,62 @@
       "milesToMinneapolis": 16,
       "milesToSaintPaul": 19,
       "geoid": "2758738"
+    },
+    {
+      "slug": "brooklyn-center",
+      "name": "Brooklyn Center",
+      "censusName": "Brooklyn Center",
+      "region": "North Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 31755,
+      "population2020": 33782,
+      "growthPct": -6.0,
+      "populationByYear": {
+        "2020": 33660,
+        "2021": 32920,
+        "2022": 32286,
+        "2023": 31814,
+        "2024": 31755
+      },
+      "landSqMi": 8.0,
+      "waterSqMi": 0.4,
+      "center": [
+        -93.31783,
+        45.06797
+      ],
+      "milesToMinneapolis": 7,
+      "milesToSaintPaul": 14,
+      "geoid": "2707948"
+    },
+    {
+      "slug": "fridley",
+      "name": "Fridley",
+      "censusName": "Fridley",
+      "region": "North Metro",
+      "counties": [
+        "Anoka"
+      ],
+      "population2024": 30679,
+      "population2020": 29580,
+      "growthPct": 3.7,
+      "populationByYear": {
+        "2020": 29579,
+        "2021": 30378,
+        "2022": 30333,
+        "2023": 30212,
+        "2024": 30679
+      },
+      "landSqMi": 10.2,
+      "waterSqMi": 0.7,
+      "center": [
+        -93.26005,
+        45.08425
+      ],
+      "milesToMinneapolis": 7,
+      "milesToSaintPaul": 12,
+      "geoid": "2722814"
     },
     {
       "slug": "rosemount",
@@ -679,6 +792,90 @@
       "geoid": "2755726"
     },
     {
+      "slug": "oakdale",
+      "name": "Oakdale",
+      "censusName": "Oakdale",
+      "region": "East Metro",
+      "counties": [
+        "Washington"
+      ],
+      "population2024": 30441,
+      "population2020": 28298,
+      "growthPct": 7.6,
+      "populationByYear": {
+        "2020": 28270,
+        "2021": 28032,
+        "2022": 27857,
+        "2023": 28276,
+        "2024": 30441
+      },
+      "landSqMi": 11.0,
+      "waterSqMi": 0.3,
+      "center": [
+        -92.96355,
+        44.98755
+      ],
+      "milesToMinneapolis": 15,
+      "milesToSaintPaul": 7,
+      "geoid": "2747680"
+    },
+    {
+      "slug": "chaska",
+      "name": "Chaska",
+      "censusName": "Chaska",
+      "region": "West Metro",
+      "counties": [
+        "Carver"
+      ],
+      "population2024": 30167,
+      "population2020": 27807,
+      "growthPct": 8.5,
+      "populationByYear": {
+        "2020": 27875,
+        "2021": 28094,
+        "2022": 28306,
+        "2023": 29064,
+        "2024": 30167
+      },
+      "landSqMi": 17.1,
+      "waterSqMi": 0.8,
+      "center": [
+        -93.61002,
+        44.81636
+      ],
+      "milesToMinneapolis": 20,
+      "milesToSaintPaul": 27,
+      "geoid": "2710972"
+    },
+    {
+      "slug": "ramsey",
+      "name": "Ramsey",
+      "censusName": "Ramsey",
+      "region": "North Metro",
+      "counties": [
+        "Anoka"
+      ],
+      "population2024": 28999,
+      "population2020": 27636,
+      "growthPct": 4.9,
+      "populationByYear": {
+        "2020": 27813,
+        "2021": 28213,
+        "2022": 28378,
+        "2023": 28610,
+        "2024": 28999
+      },
+      "landSqMi": 28.9,
+      "waterSqMi": 1.0,
+      "center": [
+        -93.45223,
+        45.26002
+      ],
+      "milesToMinneapolis": 22,
+      "milesToSaintPaul": 28,
+      "geoid": "2753026"
+    },
+    {
       "slug": "prior-lake",
       "name": "Prior Lake",
       "censusName": "Prior Lake",
@@ -705,6 +902,119 @@
       "milesToMinneapolis": 19,
       "milesToSaintPaul": 23,
       "geoid": "2752594"
+    },
+    {
+      "slug": "shoreview",
+      "name": "Shoreview",
+      "censusName": "Shoreview",
+      "region": "North Metro",
+      "counties": [
+        "Ramsey"
+      ],
+      "population2024": 26939,
+      "population2020": 26931,
+      "growthPct": 0.0,
+      "populationByYear": {
+        "2020": 26920,
+        "2021": 26688,
+        "2022": 26675,
+        "2023": 26497,
+        "2024": 26939
+      },
+      "landSqMi": 10.8,
+      "waterSqMi": 1.9,
+      "center": [
+        -93.14049,
+        45.08299
+      ],
+      "milesToMinneapolis": 9,
+      "milesToSaintPaul": 9,
+      "geoid": "2759998"
+    },
+    {
+      "slug": "owatonna",
+      "name": "Owatonna",
+      "censusName": "Owatonna",
+      "region": "Southern Minnesota",
+      "counties": [
+        "Steele"
+      ],
+      "population2024": 26626,
+      "population2020": 26424,
+      "growthPct": 0.8,
+      "populationByYear": {
+        "2020": 26412,
+        "2021": 26445,
+        "2022": 26522,
+        "2023": 26570,
+        "2024": 26626
+      },
+      "landSqMi": 15.2,
+      "waterSqMi": 0.1,
+      "center": [
+        -93.23172,
+        44.0919
+      ],
+      "milesToMinneapolis": 61,
+      "milesToSaintPaul": 60,
+      "geoid": "2749300"
+    },
+    {
+      "slug": "chanhassen",
+      "name": "Chanhassen",
+      "censusName": "Chanhassen",
+      "region": "West Metro",
+      "counties": [
+        "Carver",
+        "Hennepin"
+      ],
+      "population2024": 25746,
+      "population2020": 25950,
+      "growthPct": -0.8,
+      "populationByYear": {
+        "2020": 25982,
+        "2021": 26079,
+        "2022": 26262,
+        "2023": 25964,
+        "2024": 25746
+      },
+      "landSqMi": 20.4,
+      "waterSqMi": 2.4,
+      "center": [
+        -93.56238,
+        44.85429
+      ],
+      "milesToMinneapolis": 17,
+      "milesToSaintPaul": 24,
+      "geoid": "2710918"
+    },
+    {
+      "slug": "faribault",
+      "name": "Faribault",
+      "censusName": "Faribault",
+      "region": "Southern Minnesota",
+      "counties": [
+        "Rice"
+      ],
+      "population2024": 24983,
+      "population2020": 24463,
+      "growthPct": 2.1,
+      "populationByYear": {
+        "2020": 24454,
+        "2021": 24454,
+        "2022": 24463,
+        "2023": 24808,
+        "2024": 24983
+      },
+      "landSqMi": 15.7,
+      "waterSqMi": 0.3,
+      "center": [
+        -93.27895,
+        44.29971
+      ],
+      "milesToMinneapolis": 47,
+      "milesToSaintPaul": 46,
+      "geoid": "2720546"
     },
     {
       "slug": "farmington",
@@ -735,10 +1045,208 @@
       "geoid": "2720618"
     },
     {
+      "slug": "white-bear-lake",
+      "name": "White Bear Lake",
+      "censusName": "White Bear Lake",
+      "region": "East Metro",
+      "counties": [
+        "Ramsey",
+        "Washington"
+      ],
+      "population2024": 23479,
+      "population2020": 24876,
+      "growthPct": -5.6,
+      "populationByYear": {
+        "2020": 24790,
+        "2021": 24170,
+        "2022": 23643,
+        "2023": 23476,
+        "2024": 23479
+      },
+      "landSqMi": 8.0,
+      "waterSqMi": 0.6,
+      "center": [
+        -93.01287,
+        45.06521
+      ],
+      "milesToMinneapolis": 14,
+      "milesToSaintPaul": 9,
+      "geoid": "2769970"
+    },
+    {
+      "slug": "champlin",
+      "name": "Champlin",
+      "censusName": "Champlin",
+      "region": "North Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 23045,
+      "population2020": 23913,
+      "growthPct": -3.6,
+      "populationByYear": {
+        "2020": 23855,
+        "2021": 23454,
+        "2022": 23154,
+        "2023": 22939,
+        "2024": 23045
+      },
+      "landSqMi": 8.2,
+      "waterSqMi": 0.6,
+      "center": [
+        -93.38683,
+        45.17293
+      ],
+      "milesToMinneapolis": 15,
+      "milesToSaintPaul": 21,
+      "geoid": "2710846"
+    },
+    {
+      "slug": "lino-lakes",
+      "name": "Lino Lakes",
+      "censusName": "Lino Lakes",
+      "region": "North Metro",
+      "counties": [
+        "Anoka"
+      ],
+      "population2024": 22774,
+      "population2020": 21410,
+      "growthPct": 6.4,
+      "populationByYear": {
+        "2020": 21475,
+        "2021": 21885,
+        "2022": 22055,
+        "2023": 22409,
+        "2024": 22774
+      },
+      "landSqMi": 28.2,
+      "waterSqMi": 5.0,
+      "center": [
+        -93.10686,
+        45.15546
+      ],
+      "milesToMinneapolis": 14,
+      "milesToSaintPaul": 14,
+      "geoid": "2737322"
+    },
+    {
+      "slug": "hastings",
+      "name": "Hastings",
+      "censusName": "Hastings",
+      "region": "South Metro",
+      "counties": [
+        "Dakota",
+        "Washington"
+      ],
+      "population2024": 22502,
+      "population2020": 22159,
+      "growthPct": 1.5,
+      "populationByYear": {
+        "2020": 22156,
+        "2021": 22032,
+        "2022": 21738,
+        "2023": 22165,
+        "2024": 22502
+      },
+      "landSqMi": 10.4,
+      "waterSqMi": 0.9,
+      "center": [
+        -92.85451,
+        44.73178
+      ],
+      "milesToMinneapolis": 26,
+      "milesToSaintPaul": 19,
+      "geoid": "2727530"
+    },
+    {
+      "slug": "new-brighton",
+      "name": "New Brighton",
+      "censusName": "New Brighton",
+      "region": "North Metro",
+      "counties": [
+        "Ramsey"
+      ],
+      "population2024": 22374,
+      "population2020": 23457,
+      "growthPct": -4.6,
+      "populationByYear": {
+        "2020": 23467,
+        "2021": 22926,
+        "2022": 22468,
+        "2023": 22343,
+        "2024": 22374
+      },
+      "landSqMi": 6.5,
+      "waterSqMi": 0.6,
+      "center": [
+        -93.20578,
+        45.06723
+      ],
+      "milesToMinneapolis": 7,
+      "milesToSaintPaul": 10,
+      "geoid": "2745430"
+    },
+    {
+      "slug": "columbia-heights",
+      "name": "Columbia Heights",
+      "censusName": "Columbia Heights",
+      "region": "North Metro",
+      "counties": [
+        "Anoka"
+      ],
+      "population2024": 22358,
+      "population2020": 21963,
+      "growthPct": 1.8,
+      "populationByYear": {
+        "2020": 21944,
+        "2021": 21874,
+        "2022": 22275,
+        "2023": 22316,
+        "2024": 22358
+      },
+      "landSqMi": 3.4,
+      "waterSqMi": 0.1,
+      "center": [
+        -93.24675,
+        45.0491
+      ],
+      "milesToMinneapolis": 5,
+      "milesToSaintPaul": 10,
+      "geoid": "2712700"
+    },
+    {
+      "slug": "crystal",
+      "name": "Crystal",
+      "censusName": "Crystal",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 22082,
+      "population2020": 23328,
+      "growthPct": -5.3,
+      "populationByYear": {
+        "2020": 23246,
+        "2021": 22744,
+        "2022": 22309,
+        "2023": 21989,
+        "2024": 22082
+      },
+      "landSqMi": 5.8,
+      "waterSqMi": 0.1,
+      "center": [
+        -93.35948,
+        45.03731
+      ],
+      "milesToMinneapolis": 6,
+      "milesToSaintPaul": 14,
+      "geoid": "2714158"
+    },
+    {
       "slug": "west-st-paul",
       "name": "West St. Paul",
       "censusName": "West St. Paul",
-      "region": "South Metro",
+      "region": "East Metro",
       "counties": [
         "Dakota"
       ],
@@ -766,7 +1274,7 @@
       "slug": "northfield",
       "name": "Northfield",
       "censusName": "Northfield",
-      "region": "South Metro",
+      "region": "Southern Minnesota",
       "counties": [
         "Rice",
         "Dakota"
@@ -792,10 +1300,94 @@
       "geoid": "2746924"
     },
     {
+      "slug": "golden-valley",
+      "name": "Golden Valley",
+      "censusName": "Golden Valley",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 21263,
+      "population2020": 22556,
+      "growthPct": -5.7,
+      "populationByYear": {
+        "2020": 22478,
+        "2021": 21995,
+        "2022": 21586,
+        "2023": 21293,
+        "2024": 21263
+      },
+      "landSqMi": 10.2,
+      "waterSqMi": 0.3,
+      "center": [
+        -93.35874,
+        44.99023
+      ],
+      "milesToMinneapolis": 5,
+      "milesToSaintPaul": 13,
+      "geoid": "2724308"
+    },
+    {
+      "slug": "new-hope",
+      "name": "New Hope",
+      "censusName": "New Hope",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 20745,
+      "population2020": 21981,
+      "growthPct": -5.6,
+      "populationByYear": {
+        "2020": 21906,
+        "2021": 21460,
+        "2022": 21073,
+        "2023": 20778,
+        "2024": 20745
+      },
+      "landSqMi": 5.1,
+      "waterSqMi": 0.1,
+      "center": [
+        -93.38689,
+        45.03594
+      ],
+      "milesToMinneapolis": 7,
+      "milesToSaintPaul": 16,
+      "geoid": "2745628"
+    },
+    {
+      "slug": "forest-lake",
+      "name": "Forest Lake",
+      "censusName": "Forest Lake",
+      "region": "North Metro",
+      "counties": [
+        "Washington"
+      ],
+      "population2024": 20700,
+      "population2020": 20612,
+      "growthPct": 0.4,
+      "populationByYear": {
+        "2020": 20702,
+        "2021": 20646,
+        "2022": 20897,
+        "2023": 20723,
+        "2024": 20700
+      },
+      "landSqMi": 30.5,
+      "waterSqMi": 5.0,
+      "center": [
+        -92.96692,
+        45.25083
+      ],
+      "milesToMinneapolis": 24,
+      "milesToSaintPaul": 21,
+      "geoid": "2721770"
+    },
+    {
       "slug": "south-st-paul",
       "name": "South St. Paul",
       "censusName": "South St. Paul",
-      "region": "South Metro",
+      "region": "East Metro",
       "counties": [
         "Dakota"
       ],
@@ -818,6 +1410,398 @@
       "milesToMinneapolis": 13,
       "milesToSaintPaul": 5,
       "geoid": "2761492"
+    },
+    {
+      "slug": "hopkins",
+      "name": "Hopkins",
+      "censusName": "Hopkins",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 19462,
+      "population2020": 19079,
+      "growthPct": 2.0,
+      "populationByYear": {
+        "2020": 19009,
+        "2021": 18588,
+        "2022": 18304,
+        "2023": 18656,
+        "2024": 19462
+      },
+      "landSqMi": 4.1,
+      "waterSqMi": 0.0,
+      "center": [
+        -93.40449,
+        44.92511
+      ],
+      "milesToMinneapolis": 8,
+      "milesToSaintPaul": 16,
+      "geoid": "2730140"
+    },
+    {
+      "slug": "stillwater",
+      "name": "Stillwater",
+      "censusName": "Stillwater",
+      "region": "East Metro",
+      "counties": [
+        "Washington"
+      ],
+      "population2024": 19386,
+      "population2020": 19383,
+      "growthPct": 0.0,
+      "populationByYear": {
+        "2020": 19404,
+        "2021": 19437,
+        "2022": 19317,
+        "2023": 19274,
+        "2024": 19386
+      },
+      "landSqMi": 8.0,
+      "waterSqMi": 1.0,
+      "center": [
+        -92.83041,
+        45.05861
+      ],
+      "milesToMinneapolis": 22,
+      "milesToSaintPaul": 15,
+      "geoid": "2762824"
+    },
+    {
+      "slug": "anoka",
+      "name": "Anoka",
+      "censusName": "Anoka",
+      "region": "North Metro",
+      "counties": [
+        "Anoka"
+      ],
+      "population2024": 18068,
+      "population2020": 17915,
+      "growthPct": 0.9,
+      "populationByYear": {
+        "2020": 17902,
+        "2021": 17947,
+        "2022": 18004,
+        "2023": 18011,
+        "2024": 18068
+      },
+      "landSqMi": 6.7,
+      "waterSqMi": 0.5,
+      "center": [
+        -93.39164,
+        45.2144
+      ],
+      "milesToMinneapolis": 17,
+      "milesToSaintPaul": 23,
+      "geoid": "2701720"
+    },
+    {
+      "slug": "ham-lake",
+      "name": "Ham Lake",
+      "censusName": "Ham Lake",
+      "region": "North Metro",
+      "counties": [
+        "Anoka"
+      ],
+      "population2024": 16905,
+      "population2020": 16471,
+      "growthPct": 2.6,
+      "populationByYear": {
+        "2020": 16505,
+        "2021": 16645,
+        "2022": 16641,
+        "2023": 16757,
+        "2024": 16905
+      },
+      "landSqMi": 34.4,
+      "waterSqMi": 1.4,
+      "center": [
+        -93.19484,
+        45.25393
+      ],
+      "milesToMinneapolis": 19,
+      "milesToSaintPaul": 21,
+      "geoid": "2726738"
+    },
+    {
+      "slug": "hugo",
+      "name": "Hugo",
+      "censusName": "Hugo",
+      "region": "North Metro",
+      "counties": [
+        "Washington"
+      ],
+      "population2024": 16765,
+      "population2020": 15757,
+      "growthPct": 6.4,
+      "populationByYear": {
+        "2020": 15808,
+        "2021": 16129,
+        "2022": 16444,
+        "2023": 16537,
+        "2024": 16765
+      },
+      "landSqMi": 33.5,
+      "waterSqMi": 2.6,
+      "center": [
+        -92.96011,
+        45.16422
+      ],
+      "milesToMinneapolis": 20,
+      "milesToSaintPaul": 16,
+      "geoid": "2730392"
+    },
+    {
+      "slug": "rogers",
+      "name": "Rogers",
+      "censusName": "Rogers",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 14493,
+      "population2020": 13298,
+      "growthPct": 9.0,
+      "populationByYear": {
+        "2020": 13324,
+        "2021": 13383,
+        "2022": 13522,
+        "2023": 13662,
+        "2024": 14493
+      },
+      "landSqMi": 25.4,
+      "waterSqMi": 0.8,
+      "center": [
+        -93.57167,
+        45.18385
+      ],
+      "milesToMinneapolis": 21,
+      "milesToSaintPaul": 28,
+      "geoid": "2755186"
+    },
+    {
+      "slug": "lake-elmo",
+      "name": "Lake Elmo",
+      "censusName": "Lake Elmo",
+      "region": "East Metro",
+      "counties": [
+        "Washington"
+      ],
+      "population2024": 14161,
+      "population2020": 11334,
+      "growthPct": 24.9,
+      "populationByYear": {
+        "2020": 11351,
+        "2021": 12900,
+        "2022": 13462,
+        "2023": 13775,
+        "2024": 14161
+      },
+      "landSqMi": 22.1,
+      "waterSqMi": 2.1,
+      "center": [
+        -92.90965,
+        44.98785
+      ],
+      "milesToMinneapolis": 17,
+      "milesToSaintPaul": 9,
+      "geoid": "2734244"
+    },
+    {
+      "slug": "robbinsdale",
+      "name": "Robbinsdale",
+      "censusName": "Robbinsdale",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 13993,
+      "population2020": 14639,
+      "growthPct": -4.4,
+      "populationByYear": {
+        "2020": 14583,
+        "2021": 14267,
+        "2022": 14233,
+        "2023": 14022,
+        "2024": 13993
+      },
+      "landSqMi": 2.8,
+      "waterSqMi": 0.2,
+      "center": [
+        -93.33064,
+        45.02453
+      ],
+      "milesToMinneapolis": 5,
+      "milesToSaintPaul": 13,
+      "geoid": "2754808"
+    },
+    {
+      "slug": "waconia",
+      "name": "Waconia",
+      "censusName": "Waconia",
+      "region": "West Metro",
+      "counties": [
+        "Carver"
+      ],
+      "population2024": 13831,
+      "population2020": 13031,
+      "growthPct": 6.1,
+      "populationByYear": {
+        "2020": 13041,
+        "2021": 13114,
+        "2022": 13398,
+        "2023": 13756,
+        "2024": 13831
+      },
+      "landSqMi": 5.6,
+      "waterSqMi": 0.0,
+      "center": [
+        -93.79009,
+        44.84153
+      ],
+      "milesToMinneapolis": 27,
+      "milesToSaintPaul": 35,
+      "geoid": "2767432"
+    },
+    {
+      "slug": "vadnais-heights",
+      "name": "Vadnais Heights",
+      "censusName": "Vadnais Heights",
+      "region": "North Metro",
+      "counties": [
+        "Ramsey"
+      ],
+      "population2024": 13108,
+      "population2020": 12921,
+      "growthPct": 1.4,
+      "populationByYear": {
+        "2020": 12962,
+        "2021": 12635,
+        "2022": 12740,
+        "2023": 12695,
+        "2024": 13108
+      },
+      "landSqMi": 7.0,
+      "waterSqMi": 1.2,
+      "center": [
+        -93.06645,
+        45.05794
+      ],
+      "milesToMinneapolis": 11,
+      "milesToSaintPaul": 7,
+      "geoid": "2766460"
+    },
+    {
+      "slug": "mounds-view",
+      "name": "Mounds View",
+      "censusName": "Mounds View",
+      "region": "North Metro",
+      "counties": [
+        "Ramsey"
+      ],
+      "population2024": 12841,
+      "population2020": 13254,
+      "growthPct": -3.1,
+      "populationByYear": {
+        "2020": 13285,
+        "2021": 12954,
+        "2022": 12661,
+        "2023": 12839,
+        "2024": 12841
+      },
+      "landSqMi": 4.1,
+      "waterSqMi": 0.1,
+      "center": [
+        -93.20683,
+        45.10674
+      ],
+      "milesToMinneapolis": 9,
+      "milesToSaintPaul": 12,
+      "geoid": "2744530"
+    },
+    {
+      "slug": "north-st-paul",
+      "name": "North St. Paul",
+      "censusName": "North St. Paul",
+      "region": "East Metro",
+      "counties": [
+        "Ramsey"
+      ],
+      "population2024": 12644,
+      "population2020": 12365,
+      "growthPct": 2.3,
+      "populationByYear": {
+        "2020": 12343,
+        "2021": 12604,
+        "2022": 12671,
+        "2023": 12627,
+        "2024": 12644
+      },
+      "landSqMi": 2.9,
+      "waterSqMi": 0.2,
+      "center": [
+        -93.00184,
+        45.01352
+      ],
+      "milesToMinneapolis": 13,
+      "milesToSaintPaul": 6,
+      "geoid": "2747221"
+    },
+    {
+      "slug": "east-bethel",
+      "name": "East Bethel",
+      "censusName": "East Bethel",
+      "region": "North Metro",
+      "counties": [
+        "Anoka"
+      ],
+      "population2024": 12288,
+      "population2020": 11784,
+      "growthPct": 4.3,
+      "populationByYear": {
+        "2020": 11794,
+        "2021": 12048,
+        "2022": 12206,
+        "2023": 12214,
+        "2024": 12288
+      },
+      "landSqMi": 44.6,
+      "waterSqMi": 3.1,
+      "center": [
+        -93.21766,
+        45.3532
+      ],
+      "milesToMinneapolis": 26,
+      "milesToSaintPaul": 28,
+      "geoid": "2717486"
+    },
+    {
+      "slug": "victoria",
+      "name": "Victoria",
+      "censusName": "Victoria",
+      "region": "West Metro",
+      "counties": [
+        "Carver"
+      ],
+      "population2024": 11937,
+      "population2020": 10561,
+      "growthPct": 13.0,
+      "populationByYear": {
+        "2020": 10671,
+        "2021": 11065,
+        "2022": 11311,
+        "2023": 11506,
+        "2024": 11937
+      },
+      "landSqMi": 9.1,
+      "waterSqMi": 2.0,
+      "center": [
+        -93.65843,
+        44.86212
+      ],
+      "milesToMinneapolis": 21,
+      "milesToSaintPaul": 29,
+      "geoid": "2767036"
     },
     {
       "slug": "mendota-heights",
@@ -846,6 +1830,2367 @@
       "milesToMinneapolis": 9,
       "milesToSaintPaul": 6,
       "geoid": "2741696"
+    },
+    {
+      "slug": "dayton",
+      "name": "Dayton",
+      "censusName": "Dayton",
+      "region": "North Metro",
+      "counties": [
+        "Hennepin",
+        "Wright"
+      ],
+      "population2024": 10744,
+      "population2020": 7264,
+      "growthPct": 47.9,
+      "populationByYear": {
+        "2020": 7434,
+        "2021": 8211,
+        "2022": 9244,
+        "2023": 10196,
+        "2024": 10744
+      },
+      "landSqMi": 23.4,
+      "waterSqMi": 1.8,
+      "center": [
+        -93.47158,
+        45.18909
+      ],
+      "milesToMinneapolis": 18,
+      "milesToSaintPaul": 25,
+      "geoid": "2715022"
+    },
+    {
+      "slug": "little-canada",
+      "name": "Little Canada",
+      "censusName": "Little Canada",
+      "region": "East Metro",
+      "counties": [
+        "Ramsey"
+      ],
+      "population2024": 10590,
+      "population2020": 10835,
+      "growthPct": -2.3,
+      "populationByYear": {
+        "2020": 10794,
+        "2021": 10526,
+        "2022": 10291,
+        "2023": 10348,
+        "2024": 10590
+      },
+      "landSqMi": 3.9,
+      "waterSqMi": 0.6,
+      "center": [
+        -93.08365,
+        45.02327
+      ],
+      "milesToMinneapolis": 9,
+      "milesToSaintPaul": 5,
+      "geoid": "2737502"
+    },
+    {
+      "slug": "st-anthony",
+      "name": "St. Anthony",
+      "censusName": "St. Anthony",
+      "region": "North Metro",
+      "counties": [
+        "Hennepin",
+        "Ramsey"
+      ],
+      "population2024": 9993,
+      "population2020": 9264,
+      "growthPct": 7.9,
+      "populationByYear": {
+        "2020": 9230,
+        "2021": 9018,
+        "2022": 10120,
+        "2023": 10004,
+        "2024": 9993
+      },
+      "landSqMi": 2.2,
+      "waterSqMi": 0.1,
+      "center": [
+        -93.21542,
+        45.03033
+      ],
+      "milesToMinneapolis": 4,
+      "milesToSaintPaul": 8,
+      "geoid": "2756680"
+    },
+    {
+      "slug": "arden-hills",
+      "name": "Arden Hills",
+      "censusName": "Arden Hills",
+      "region": "North Metro",
+      "counties": [
+        "Ramsey"
+      ],
+      "population2024": 9490,
+      "population2020": 9935,
+      "growthPct": -4.5,
+      "populationByYear": {
+        "2020": 9906,
+        "2021": 9703,
+        "2022": 9670,
+        "2023": 9489,
+        "2024": 9490
+      },
+      "landSqMi": 8.5,
+      "waterSqMi": 1.1,
+      "center": [
+        -93.16547,
+        45.07116
+      ],
+      "milesToMinneapolis": 8,
+      "milesToSaintPaul": 9,
+      "geoid": "2702026"
+    },
+    {
+      "slug": "oak-grove",
+      "name": "Oak Grove",
+      "censusName": "Oak Grove",
+      "region": "North Metro",
+      "counties": [
+        "Anoka"
+      ],
+      "population2024": 9327,
+      "population2020": 8926,
+      "growthPct": 4.5,
+      "populationByYear": {
+        "2020": 8950,
+        "2021": 9061,
+        "2022": 9141,
+        "2023": 9210,
+        "2024": 9327
+      },
+      "landSqMi": 33.9,
+      "waterSqMi": 1.3,
+      "center": [
+        -93.32727,
+        45.34835
+      ],
+      "milesToMinneapolis": 26,
+      "milesToSaintPaul": 30,
+      "geoid": "2747690"
+    },
+    {
+      "slug": "minnetrista",
+      "name": "Minnetrista",
+      "censusName": "Minnetrista",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 9091,
+      "population2020": 8259,
+      "growthPct": 10.1,
+      "populationByYear": {
+        "2020": 8325,
+        "2021": 8536,
+        "2022": 8672,
+        "2023": 8821,
+        "2024": 9091
+      },
+      "landSqMi": 26.1,
+      "waterSqMi": 4.9,
+      "center": [
+        -93.71239,
+        44.93862
+      ],
+      "milesToMinneapolis": 22,
+      "milesToSaintPaul": 30,
+      "geoid": "2743306"
+    },
+    {
+      "slug": "mound",
+      "name": "Mound",
+      "censusName": "Mound",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 9031,
+      "population2020": 9397,
+      "growthPct": -3.9,
+      "populationByYear": {
+        "2020": 9369,
+        "2021": 9173,
+        "2022": 9040,
+        "2023": 8930,
+        "2024": 9031
+      },
+      "landSqMi": 2.9,
+      "waterSqMi": 2.2,
+      "center": [
+        -93.6583,
+        44.93196
+      ],
+      "milesToMinneapolis": 19,
+      "milesToSaintPaul": 28,
+      "geoid": "2744476"
+    },
+    {
+      "slug": "st-francis",
+      "name": "St. Francis",
+      "censusName": "St. Francis",
+      "region": "North Metro",
+      "counties": [
+        "Anoka",
+        "Isanti"
+      ],
+      "population2024": 8523,
+      "population2020": 8140,
+      "growthPct": 4.7,
+      "populationByYear": {
+        "2020": 8174,
+        "2021": 8344,
+        "2022": 8395,
+        "2023": 8452,
+        "2024": 8523
+      },
+      "landSqMi": 23.3,
+      "waterSqMi": 0.4,
+      "center": [
+        -93.39412,
+        45.39403
+      ],
+      "milesToMinneapolis": 29,
+      "milesToSaintPaul": 34,
+      "geoid": "2756950"
+    },
+    {
+      "slug": "corcoran",
+      "name": "Corcoran",
+      "censusName": "Corcoran",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 8378,
+      "population2020": 6185,
+      "growthPct": 35.5,
+      "populationByYear": {
+        "2020": 6265,
+        "2021": 6751,
+        "2022": 7375,
+        "2023": 7734,
+        "2024": 8378
+      },
+      "landSqMi": 35.8,
+      "waterSqMi": 0.3,
+      "center": [
+        -93.57798,
+        45.1069
+      ],
+      "milesToMinneapolis": 18,
+      "milesToSaintPaul": 26,
+      "geoid": "2713168"
+    },
+    {
+      "slug": "new-prague",
+      "name": "New Prague",
+      "censusName": "New Prague",
+      "region": "South Metro",
+      "counties": [
+        "Scott",
+        "Le Sueur"
+      ],
+      "population2024": 8235,
+      "population2020": 8168,
+      "growthPct": 0.8,
+      "populationByYear": {
+        "2020": 8155,
+        "2021": 8276,
+        "2022": 8282,
+        "2023": 8248,
+        "2024": 8235
+      },
+      "landSqMi": 3.9,
+      "waterSqMi": 0.0,
+      "center": [
+        -93.57559,
+        44.54574
+      ],
+      "milesToMinneapolis": 34,
+      "milesToSaintPaul": 37,
+      "geoid": "2745808"
+    },
+    {
+      "slug": "orono",
+      "name": "Orono",
+      "censusName": "Orono",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 8228,
+      "population2020": 8304,
+      "growthPct": -0.9,
+      "populationByYear": {
+        "2020": 8302,
+        "2021": 8193,
+        "2022": 8140,
+        "2023": 8144,
+        "2024": 8228
+      },
+      "landSqMi": 15.9,
+      "waterSqMi": 8.1,
+      "center": [
+        -93.58773,
+        44.96098
+      ],
+      "milesToMinneapolis": 16,
+      "milesToSaintPaul": 24,
+      "geoid": "2748580"
+    },
+    {
+      "slug": "mahtomedi",
+      "name": "Mahtomedi",
+      "censusName": "Mahtomedi",
+      "region": "East Metro",
+      "counties": [
+        "Washington"
+      ],
+      "population2024": 8199,
+      "population2020": 8145,
+      "growthPct": 0.7,
+      "populationByYear": {
+        "2020": 8143,
+        "2021": 8095,
+        "2022": 8026,
+        "2023": 8196,
+        "2024": 8199
+      },
+      "landSqMi": 3.5,
+      "waterSqMi": 2.2,
+      "center": [
+        -92.97019,
+        45.05829
+      ],
+      "milesToMinneapolis": 15,
+      "milesToSaintPaul": 9,
+      "geoid": "2739428"
+    },
+    {
+      "slug": "shorewood",
+      "name": "Shorewood",
+      "censusName": "Shorewood",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin",
+        "Carver"
+      ],
+      "population2024": 7557,
+      "population2020": 7779,
+      "growthPct": -2.9,
+      "populationByYear": {
+        "2020": 7783,
+        "2021": 7717,
+        "2022": 7636,
+        "2023": 7556,
+        "2024": 7557
+      },
+      "landSqMi": 5.3,
+      "waterSqMi": 2.8,
+      "center": [
+        -93.59533,
+        44.90244
+      ],
+      "milesToMinneapolis": 17,
+      "milesToSaintPaul": 25,
+      "geoid": "2760016"
+    },
+    {
+      "slug": "belle-plaine",
+      "name": "Belle Plaine",
+      "censusName": "Belle Plaine",
+      "region": "West Metro",
+      "counties": [
+        "Scott"
+      ],
+      "population2024": 7444,
+      "population2020": 7382,
+      "growthPct": 0.8,
+      "populationByYear": {
+        "2020": 7368,
+        "2021": 7426,
+        "2022": 7457,
+        "2023": 7427,
+        "2024": 7444
+      },
+      "landSqMi": 6.0,
+      "waterSqMi": 0.2,
+      "center": [
+        -93.7646,
+        44.61978
+      ],
+      "milesToMinneapolis": 35,
+      "milesToSaintPaul": 40,
+      "geoid": "2704834"
+    },
+    {
+      "slug": "medina",
+      "name": "Medina",
+      "censusName": "Medina",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 7209,
+      "population2020": 6846,
+      "growthPct": 5.3,
+      "populationByYear": {
+        "2020": 6851,
+        "2021": 6809,
+        "2022": 6900,
+        "2023": 7066,
+        "2024": 7209
+      },
+      "landSqMi": 25.6,
+      "waterSqMi": 1.6,
+      "center": [
+        -93.5756,
+        45.03452
+      ],
+      "milesToMinneapolis": 16,
+      "milesToSaintPaul": 24,
+      "geoid": "2741480"
+    },
+    {
+      "slug": "spring-lake-park",
+      "name": "Spring Lake Park",
+      "censusName": "Spring Lake Park",
+      "region": "North Metro",
+      "counties": [
+        "Anoka",
+        "Ramsey"
+      ],
+      "population2024": 7083,
+      "population2020": 7189,
+      "growthPct": -1.5,
+      "populationByYear": {
+        "2020": 7184,
+        "2021": 7165,
+        "2022": 7094,
+        "2023": 7066,
+        "2024": 7083
+      },
+      "landSqMi": 2.0,
+      "waterSqMi": 0.1,
+      "center": [
+        -93.24516,
+        45.11593
+      ],
+      "milesToMinneapolis": 10,
+      "milesToSaintPaul": 14,
+      "geoid": "2761996"
+    },
+    {
+      "slug": "jordan",
+      "name": "Jordan",
+      "censusName": "Jordan",
+      "region": "West Metro",
+      "counties": [
+        "Scott"
+      ],
+      "population2024": 6831,
+      "population2020": 6664,
+      "growthPct": 2.5,
+      "populationByYear": {
+        "2020": 6668,
+        "2021": 6792,
+        "2022": 6794,
+        "2023": 6770,
+        "2024": 6831
+      },
+      "landSqMi": 3.6,
+      "waterSqMi": 0.0,
+      "center": [
+        -93.64022,
+        44.66463
+      ],
+      "milesToMinneapolis": 28,
+      "milesToSaintPaul": 34,
+      "geoid": "2732174"
+    },
+    {
+      "slug": "carver",
+      "name": "Carver",
+      "censusName": "Carver",
+      "region": "West Metro",
+      "counties": [
+        "Carver"
+      ],
+      "population2024": 6810,
+      "population2020": 5339,
+      "growthPct": 27.6,
+      "populationByYear": {
+        "2020": 5437,
+        "2021": 5919,
+        "2022": 6397,
+        "2023": 6615,
+        "2024": 6810
+      },
+      "landSqMi": 4.8,
+      "waterSqMi": 0.2,
+      "center": [
+        -93.63254,
+        44.76148
+      ],
+      "milesToMinneapolis": 23,
+      "milesToSaintPaul": 30,
+      "geoid": "2710144"
+    },
+    {
+      "slug": "credit-river",
+      "name": "Credit River",
+      "censusName": "Credit River",
+      "region": "South Metro",
+      "counties": [
+        "Scott"
+      ],
+      "population2024": 5589,
+      "population2020": 5507,
+      "growthPct": 1.5,
+      "populationByYear": {
+        "2020": 5498,
+        "2021": 5573,
+        "2022": 5550,
+        "2023": 5581,
+        "2024": 5589
+      },
+      "landSqMi": 23.4,
+      "waterSqMi": 0.4,
+      "center": [
+        -93.36112,
+        44.67078
+      ],
+      "milesToMinneapolis": 22,
+      "milesToSaintPaul": 24,
+      "geoid": "2713708"
+    },
+    {
+      "slug": "newport",
+      "name": "Newport",
+      "censusName": "Newport",
+      "region": "East Metro",
+      "counties": [
+        "Washington"
+      ],
+      "population2024": 5415,
+      "population2020": 3796,
+      "growthPct": 42.7,
+      "populationByYear": {
+        "2020": 3940,
+        "2021": 4328,
+        "2022": 4815,
+        "2023": 5322,
+        "2024": 5415
+      },
+      "landSqMi": 3.6,
+      "waterSqMi": 0.2,
+      "center": [
+        -92.99865,
+        44.8744
+      ],
+      "milesToMinneapolis": 15,
+      "milesToSaintPaul": 7,
+      "geoid": "2745790"
+    },
+    {
+      "slug": "st-paul-park",
+      "name": "St. Paul Park",
+      "censusName": "St. Paul Park",
+      "region": "East Metro",
+      "counties": [
+        "Washington"
+      ],
+      "population2024": 5381,
+      "population2020": 5544,
+      "growthPct": -2.9,
+      "populationByYear": {
+        "2020": 5545,
+        "2021": 5498,
+        "2022": 5448,
+        "2023": 5387,
+        "2024": 5381
+      },
+      "landSqMi": 3.0,
+      "waterSqMi": 0.6,
+      "center": [
+        -92.99413,
+        44.83568
+      ],
+      "milesToMinneapolis": 16,
+      "milesToSaintPaul": 9,
+      "geoid": "2758018"
+    },
+    {
+      "slug": "north-oaks",
+      "name": "North Oaks",
+      "censusName": "North Oaks",
+      "region": "North Metro",
+      "counties": [
+        "Ramsey"
+      ],
+      "population2024": 5232,
+      "population2020": 5272,
+      "growthPct": -0.8,
+      "populationByYear": {
+        "2020": 5271,
+        "2021": 5169,
+        "2022": 5090,
+        "2023": 5184,
+        "2024": 5232
+      },
+      "landSqMi": 6.9,
+      "waterSqMi": 1.7,
+      "center": [
+        -93.10106,
+        45.10484
+      ],
+      "milesToMinneapolis": 12,
+      "milesToSaintPaul": 10,
+      "geoid": "2747104"
+    },
+    {
+      "slug": "elko-new-market",
+      "name": "Elko New Market",
+      "censusName": "Elko New Market",
+      "region": "South Metro",
+      "counties": [
+        "Scott"
+      ],
+      "population2024": 5193,
+      "population2020": 4834,
+      "growthPct": 7.4,
+      "populationByYear": {
+        "2020": 4822,
+        "2021": 4906,
+        "2022": 5026,
+        "2023": 5052,
+        "2024": 5193
+      },
+      "landSqMi": 3.8,
+      "waterSqMi": 0.0,
+      "center": [
+        -93.33432,
+        44.56707
+      ],
+      "milesToMinneapolis": 29,
+      "milesToSaintPaul": 29,
+      "geoid": "2718662"
+    },
+    {
+      "slug": "falcon-heights",
+      "name": "Falcon Heights",
+      "censusName": "Falcon Heights",
+      "region": "North Metro",
+      "counties": [
+        "Ramsey"
+      ],
+      "population2024": 5002,
+      "population2020": 5361,
+      "growthPct": -6.7,
+      "populationByYear": {
+        "2020": 5375,
+        "2021": 5241,
+        "2022": 4756,
+        "2023": 5007,
+        "2024": 5002
+      },
+      "landSqMi": 2.2,
+      "waterSqMi": 0.0,
+      "center": [
+        -93.17466,
+        44.98805
+      ],
+      "milesToMinneapolis": 4,
+      "milesToSaintPaul": 5,
+      "geoid": "2720420"
+    },
+    {
+      "slug": "circle-pines",
+      "name": "Circle Pines",
+      "censusName": "Circle Pines",
+      "region": "North Metro",
+      "counties": [
+        "Anoka"
+      ],
+      "population2024": 4944,
+      "population2020": 5028,
+      "growthPct": -1.7,
+      "populationByYear": {
+        "2020": 5025,
+        "2021": 5010,
+        "2022": 4950,
+        "2023": 4930,
+        "2024": 4944
+      },
+      "landSqMi": 1.7,
+      "waterSqMi": 0.2,
+      "center": [
+        -93.14752,
+        45.14375
+      ],
+      "milesToMinneapolis": 13,
+      "milesToSaintPaul": 13,
+      "geoid": "2711494"
+    },
+    {
+      "slug": "rockford",
+      "name": "Rockford",
+      "censusName": "Rockford",
+      "region": "West Metro",
+      "counties": [
+        "Wright",
+        "Hennepin"
+      ],
+      "population2024": 4796,
+      "population2020": 4496,
+      "growthPct": 6.7,
+      "populationByYear": {
+        "2020": 4500,
+        "2021": 4597,
+        "2022": 4674,
+        "2023": 4745,
+        "2024": 4796
+      },
+      "landSqMi": 2.5,
+      "waterSqMi": 0.1,
+      "center": [
+        -93.74522,
+        45.09084
+      ],
+      "milesToMinneapolis": 25,
+      "milesToSaintPaul": 33,
+      "geoid": "2755006"
+    },
+    {
+      "slug": "watertown",
+      "name": "Watertown",
+      "censusName": "Watertown",
+      "region": "West Metro",
+      "counties": [
+        "Carver"
+      ],
+      "population2024": 4774,
+      "population2020": 4664,
+      "growthPct": 2.4,
+      "populationByYear": {
+        "2020": 4685,
+        "2021": 4819,
+        "2022": 4853,
+        "2023": 4800,
+        "2024": 4774
+      },
+      "landSqMi": 2.6,
+      "waterSqMi": 0.0,
+      "center": [
+        -93.84392,
+        44.96021
+      ],
+      "milesToMinneapolis": 28,
+      "milesToSaintPaul": 37,
+      "geoid": "2768548"
+    },
+    {
+      "slug": "oak-park-heights",
+      "name": "Oak Park Heights",
+      "censusName": "Oak Park Heights",
+      "region": "East Metro",
+      "counties": [
+        "Washington"
+      ],
+      "population2024": 4674,
+      "population2020": 4847,
+      "growthPct": -3.6,
+      "populationByYear": {
+        "2020": 4843,
+        "2021": 4823,
+        "2022": 4791,
+        "2023": 4689,
+        "2024": 4674
+      },
+      "landSqMi": 2.9,
+      "waterSqMi": 0.4,
+      "center": [
+        -92.81019,
+        45.03343
+      ],
+      "milesToMinneapolis": 23,
+      "milesToSaintPaul": 15,
+      "geoid": "2747914"
+    },
+    {
+      "slug": "nowthen",
+      "name": "Nowthen",
+      "censusName": "Nowthen",
+      "region": "North Metro",
+      "counties": [
+        "Anoka"
+      ],
+      "population2024": 4565,
+      "population2020": 4534,
+      "growthPct": 0.7,
+      "populationByYear": {
+        "2020": 4532,
+        "2021": 4543,
+        "2022": 4516,
+        "2023": 4527,
+        "2024": 4565
+      },
+      "landSqMi": 33.7,
+      "waterSqMi": 1.5,
+      "center": [
+        -93.44955,
+        45.34312
+      ],
+      "milesToMinneapolis": 27,
+      "milesToSaintPaul": 32,
+      "geoid": "2747536"
+    },
+    {
+      "slug": "wayzata",
+      "name": "Wayzata",
+      "censusName": "Wayzata",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 4308,
+      "population2020": 4432,
+      "growthPct": -2.8,
+      "populationByYear": {
+        "2020": 4420,
+        "2021": 4367,
+        "2022": 4341,
+        "2023": 4296,
+        "2024": 4308
+      },
+      "landSqMi": 3.1,
+      "waterSqMi": 1.6,
+      "center": [
+        -93.51821,
+        44.96998
+      ],
+      "milesToMinneapolis": 12,
+      "milesToSaintPaul": 21,
+      "geoid": "2768818"
+    },
+    {
+      "slug": "columbus",
+      "name": "Columbus",
+      "censusName": "Columbus",
+      "region": "North Metro",
+      "counties": [
+        "Anoka"
+      ],
+      "population2024": 4307,
+      "population2020": 4155,
+      "growthPct": 3.7,
+      "populationByYear": {
+        "2020": 4174,
+        "2021": 4230,
+        "2022": 4235,
+        "2023": 4273,
+        "2024": 4307
+      },
+      "landSqMi": 44.8,
+      "waterSqMi": 2.8,
+      "center": [
+        -93.10768,
+        45.25491
+      ],
+      "milesToMinneapolis": 21,
+      "milesToSaintPaul": 21,
+      "geoid": "2712718"
+    },
+    {
+      "slug": "le-sueur",
+      "name": "Le Sueur",
+      "censusName": "Le Sueur",
+      "region": "Southern Minnesota",
+      "counties": [
+        "Le Sueur",
+        "Sibley"
+      ],
+      "population2024": 4230,
+      "population2020": 4209,
+      "growthPct": 0.5,
+      "populationByYear": {
+        "2020": 4201,
+        "2021": 4208,
+        "2022": 4224,
+        "2023": 4230,
+        "2024": 4230
+      },
+      "landSqMi": 5.2,
+      "waterSqMi": 0.2,
+      "center": [
+        -93.90177,
+        44.47051
+      ],
+      "milesToMinneapolis": 47,
+      "milesToSaintPaul": 52,
+      "geoid": "2736746"
+    },
+    {
+      "slug": "hanover",
+      "name": "Hanover",
+      "censusName": "Hanover",
+      "region": "West Metro",
+      "counties": [
+        "Wright",
+        "Hennepin"
+      ],
+      "population2024": 4229,
+      "population2020": 3549,
+      "growthPct": 19.2,
+      "populationByYear": {
+        "2020": 3556,
+        "2021": 3599,
+        "2022": 3770,
+        "2023": 3984,
+        "2024": 4229
+      },
+      "landSqMi": 5.5,
+      "waterSqMi": 0.2,
+      "center": [
+        -93.66275,
+        45.15776
+      ],
+      "milesToMinneapolis": 23,
+      "milesToSaintPaul": 31,
+      "geoid": "2726990"
+    },
+    {
+      "slug": "centerville",
+      "name": "Centerville",
+      "censusName": "Centerville",
+      "region": "North Metro",
+      "counties": [
+        "Anoka"
+      ],
+      "population2024": 3956,
+      "population2020": 3898,
+      "growthPct": 1.5,
+      "populationByYear": {
+        "2020": 3904,
+        "2021": 3951,
+        "2022": 3939,
+        "2023": 3935,
+        "2024": 3956
+      },
+      "landSqMi": 2.1,
+      "waterSqMi": 0.3,
+      "center": [
+        -93.05517,
+        45.16746
+      ],
+      "milesToMinneapolis": 17,
+      "milesToSaintPaul": 15,
+      "geoid": "2710648"
+    },
+    {
+      "slug": "scandia",
+      "name": "Scandia",
+      "censusName": "Scandia",
+      "region": "North Metro",
+      "counties": [
+        "Washington"
+      ],
+      "population2024": 3951,
+      "population2020": 3988,
+      "growthPct": -0.9,
+      "populationByYear": {
+        "2020": 3987,
+        "2021": 3969,
+        "2022": 3965,
+        "2023": 3950,
+        "2024": 3951
+      },
+      "landSqMi": 34.9,
+      "waterSqMi": 5.0,
+      "center": [
+        -92.83341,
+        45.25154
+      ],
+      "milesToMinneapolis": 28,
+      "milesToSaintPaul": 24,
+      "geoid": "2758900"
+    },
+    {
+      "slug": "grant",
+      "name": "Grant",
+      "censusName": "Grant",
+      "region": "East Metro",
+      "counties": [
+        "Washington"
+      ],
+      "population2024": 3942,
+      "population2020": 3962,
+      "growthPct": -0.5,
+      "populationByYear": {
+        "2020": 3961,
+        "2021": 3965,
+        "2022": 3963,
+        "2023": 3937,
+        "2024": 3942
+      },
+      "landSqMi": 25.1,
+      "waterSqMi": 1.4,
+      "center": [
+        -92.91095,
+        45.08208
+      ],
+      "milesToMinneapolis": 19,
+      "milesToSaintPaul": 12,
+      "geoid": "2725334"
+    },
+    {
+      "slug": "bayport",
+      "name": "Bayport",
+      "censusName": "Bayport",
+      "region": "East Metro",
+      "counties": [
+        "Washington"
+      ],
+      "population2024": 3785,
+      "population2020": 4017,
+      "growthPct": -5.8,
+      "populationByYear": {
+        "2020": 4030,
+        "2021": 4061,
+        "2022": 3844,
+        "2023": 3799,
+        "2024": 3785
+      },
+      "landSqMi": 1.7,
+      "waterSqMi": 0.9,
+      "center": [
+        -92.77891,
+        45.01484
+      ],
+      "milesToMinneapolis": 24,
+      "milesToSaintPaul": 16,
+      "geoid": "2704114"
+    },
+    {
+      "slug": "norwood-young-america",
+      "name": "Norwood Young America",
+      "censusName": "Norwood Young America",
+      "region": "West Metro",
+      "counties": [
+        "Carver"
+      ],
+      "population2024": 3774,
+      "population2020": 3863,
+      "growthPct": -2.3,
+      "populationByYear": {
+        "2020": 3868,
+        "2021": 3908,
+        "2022": 3875,
+        "2023": 3818,
+        "2024": 3774
+      },
+      "landSqMi": 2.5,
+      "waterSqMi": 0.0,
+      "center": [
+        -93.91729,
+        44.77211
+      ],
+      "milesToMinneapolis": 35,
+      "milesToSaintPaul": 42,
+      "geoid": "2747520"
+    },
+    {
+      "slug": "deephaven",
+      "name": "Deephaven",
+      "censusName": "Deephaven",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 3762,
+      "population2020": 3885,
+      "growthPct": -3.2,
+      "populationByYear": {
+        "2020": 3877,
+        "2021": 3820,
+        "2022": 3792,
+        "2023": 3744,
+        "2024": 3762
+      },
+      "landSqMi": 2.3,
+      "waterSqMi": 1.6,
+      "center": [
+        -93.5291,
+        44.93197
+      ],
+      "milesToMinneapolis": 13,
+      "milesToSaintPaul": 22,
+      "geoid": "2715148"
+    },
+    {
+      "slug": "independence",
+      "name": "Independence",
+      "censusName": "Independence",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 3710,
+      "population2020": 3754,
+      "growthPct": -1.2,
+      "populationByYear": {
+        "2020": 3749,
+        "2021": 3700,
+        "2022": 3659,
+        "2023": 3654,
+        "2024": 3710
+      },
+      "landSqMi": 32.4,
+      "waterSqMi": 2.1,
+      "center": [
+        -93.71975,
+        45.01859
+      ],
+      "milesToMinneapolis": 22,
+      "milesToSaintPaul": 31,
+      "geoid": "2730842"
+    },
+    {
+      "slug": "empire",
+      "name": "Empire",
+      "censusName": "Empire",
+      "region": "South Metro",
+      "counties": [
+        "Dakota"
+      ],
+      "population2024": 3068,
+      "population2020": 3138,
+      "growthPct": -2.2,
+      "populationByYear": {
+        "2020": 3132,
+        "2021": 3116,
+        "2022": 3090,
+        "2023": 3083,
+        "2024": 3068
+      },
+      "landSqMi": 30.5,
+      "waterSqMi": 0.1,
+      "center": [
+        -93.09224,
+        44.67989
+      ],
+      "milesToMinneapolis": 22,
+      "milesToSaintPaul": 19,
+      "geoid": "2719358"
+    },
+    {
+      "slug": "lexington",
+      "name": "Lexington",
+      "censusName": "Lexington",
+      "region": "North Metro",
+      "counties": [
+        "Anoka"
+      ],
+      "population2024": 3062,
+      "population2020": 2257,
+      "growthPct": 35.7,
+      "populationByYear": {
+        "2020": 2256,
+        "2021": 2459,
+        "2022": 3064,
+        "2023": 3054,
+        "2024": 3062
+      },
+      "landSqMi": 0.7,
+      "waterSqMi": 0.0,
+      "center": [
+        -93.17137,
+        45.13815
+      ],
+      "milesToMinneapolis": 12,
+      "milesToSaintPaul": 13,
+      "geoid": "2736836"
+    },
+    {
+      "slug": "afton",
+      "name": "Afton",
+      "censusName": "Afton",
+      "region": "East Metro",
+      "counties": [
+        "Washington"
+      ],
+      "population2024": 2949,
+      "population2020": 2950,
+      "growthPct": -0.0,
+      "populationByYear": {
+        "2020": 2953,
+        "2021": 2949,
+        "2022": 2958,
+        "2023": 2942,
+        "2024": 2949
+      },
+      "landSqMi": 25.1,
+      "waterSqMi": 1.4,
+      "center": [
+        -92.81911,
+        44.89878
+      ],
+      "milesToMinneapolis": 22,
+      "milesToSaintPaul": 14,
+      "geoid": "2700316"
+    },
+    {
+      "slug": "greenfield",
+      "name": "Greenfield",
+      "censusName": "Greenfield",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 2908,
+      "population2020": 2904,
+      "growthPct": 0.1,
+      "populationByYear": {
+        "2020": 2908,
+        "2021": 2887,
+        "2022": 2901,
+        "2023": 2875,
+        "2024": 2908
+      },
+      "landSqMi": 20.4,
+      "waterSqMi": 1.1,
+      "center": [
+        -93.69077,
+        45.09407
+      ],
+      "milesToMinneapolis": 22,
+      "milesToSaintPaul": 31,
+      "geoid": "2725622"
+    },
+    {
+      "slug": "mayer",
+      "name": "Mayer",
+      "censusName": "Mayer",
+      "region": "West Metro",
+      "counties": [
+        "Carver"
+      ],
+      "population2024": 2534,
+      "population2020": 2453,
+      "growthPct": 3.3,
+      "populationByYear": {
+        "2020": 2468,
+        "2021": 2552,
+        "2022": 2553,
+        "2023": 2531,
+        "2024": 2534
+      },
+      "landSqMi": 1.4,
+      "waterSqMi": 0.0,
+      "center": [
+        -93.89454,
+        44.88892
+      ],
+      "milesToMinneapolis": 31,
+      "milesToSaintPaul": 40,
+      "geoid": "2741138"
+    },
+    {
+      "slug": "osseo",
+      "name": "Osseo",
+      "censusName": "Osseo",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 2526,
+      "population2020": 2683,
+      "growthPct": -5.9,
+      "populationByYear": {
+        "2020": 2674,
+        "2021": 2617,
+        "2022": 2568,
+        "2023": 2531,
+        "2024": 2526
+      },
+      "landSqMi": 0.7,
+      "waterSqMi": 0.0,
+      "center": [
+        -93.3992,
+        45.11787
+      ],
+      "milesToMinneapolis": 12,
+      "milesToSaintPaul": 19,
+      "geoid": "2749012"
+    },
+    {
+      "slug": "lauderdale",
+      "name": "Lauderdale",
+      "censusName": "Lauderdale",
+      "region": "North Metro",
+      "counties": [
+        "Ramsey"
+      ],
+      "population2024": 2341,
+      "population2020": 2270,
+      "growthPct": 3.1,
+      "populationByYear": {
+        "2020": 2262,
+        "2021": 2209,
+        "2022": 2157,
+        "2023": 2338,
+        "2024": 2341
+      },
+      "landSqMi": 0.4,
+      "waterSqMi": 0.0,
+      "center": [
+        -93.20313,
+        44.99441
+      ],
+      "milesToMinneapolis": 3,
+      "milesToSaintPaul": 6,
+      "geoid": "2735738"
+    },
+    {
+      "slug": "excelsior",
+      "name": "Excelsior",
+      "censusName": "Excelsior",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 2296,
+      "population2020": 2360,
+      "growthPct": -2.7,
+      "populationByYear": {
+        "2020": 2356,
+        "2021": 2325,
+        "2022": 2299,
+        "2023": 2285,
+        "2024": 2296
+      },
+      "landSqMi": 0.6,
+      "waterSqMi": 0.2,
+      "center": [
+        -93.56643,
+        44.90269
+      ],
+      "milesToMinneapolis": 16,
+      "milesToSaintPaul": 24,
+      "geoid": "2720078"
+    },
+    {
+      "slug": "st-bonifacius",
+      "name": "St. Bonifacius",
+      "censusName": "St. Bonifacius",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 2169,
+      "population2020": 2305,
+      "growthPct": -5.9,
+      "populationByYear": {
+        "2020": 2297,
+        "2021": 2246,
+        "2022": 2202,
+        "2023": 2170,
+        "2024": 2169
+      },
+      "landSqMi": 1.0,
+      "waterSqMi": 0.0,
+      "center": [
+        -93.74829,
+        44.90507
+      ],
+      "milesToMinneapolis": 24,
+      "milesToSaintPaul": 32,
+      "geoid": "2756770"
+    },
+    {
+      "slug": "cologne",
+      "name": "Cologne",
+      "censusName": "Cologne",
+      "region": "West Metro",
+      "counties": [
+        "Carver"
+      ],
+      "population2024": 2097,
+      "population2020": 2047,
+      "growthPct": 2.4,
+      "populationByYear": {
+        "2020": 2060,
+        "2021": 2078,
+        "2022": 2076,
+        "2023": 2078,
+        "2024": 2097
+      },
+      "landSqMi": 1.8,
+      "waterSqMi": 0.1,
+      "center": [
+        -93.79243,
+        44.76982
+      ],
+      "milesToMinneapolis": 30,
+      "milesToSaintPaul": 37,
+      "geoid": "2712664"
+    },
+    {
+      "slug": "long-lake",
+      "name": "Long Lake",
+      "censusName": "Long Lake",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 1937,
+      "population2020": 1746,
+      "growthPct": 10.9,
+      "populationByYear": {
+        "2020": 1740,
+        "2021": 1705,
+        "2022": 1676,
+        "2023": 1929,
+        "2024": 1937
+      },
+      "landSqMi": 0.9,
+      "waterSqMi": 0.1,
+      "center": [
+        -93.57005,
+        44.98325
+      ],
+      "milesToMinneapolis": 15,
+      "milesToSaintPaul": 24,
+      "geoid": "2738006"
+    },
+    {
+      "slug": "dundas",
+      "name": "Dundas",
+      "censusName": "Dundas",
+      "region": "Southern Minnesota",
+      "counties": [
+        "Rice"
+      ],
+      "population2024": 1806,
+      "population2020": 1711,
+      "growthPct": 5.6,
+      "populationByYear": {
+        "2020": 1711,
+        "2021": 1732,
+        "2022": 1748,
+        "2023": 1769,
+        "2024": 1806
+      },
+      "landSqMi": 1.8,
+      "waterSqMi": 0.0,
+      "center": [
+        -93.20379,
+        44.42769
+      ],
+      "milesToMinneapolis": 38,
+      "milesToSaintPaul": 37,
+      "geoid": "2717126"
+    },
+    {
+      "slug": "lakeland",
+      "name": "Lakeland",
+      "censusName": "Lakeland",
+      "region": "East Metro",
+      "counties": [
+        "Washington"
+      ],
+      "population2024": 1664,
+      "population2020": 1714,
+      "growthPct": -2.9,
+      "populationByYear": {
+        "2020": 1713,
+        "2021": 1703,
+        "2022": 1687,
+        "2023": 1668,
+        "2024": 1664
+      },
+      "landSqMi": 2.1,
+      "waterSqMi": 0.8,
+      "center": [
+        -92.76663,
+        44.95317
+      ],
+      "milesToMinneapolis": 24,
+      "milesToSaintPaul": 16,
+      "geoid": "2734622"
+    },
+    {
+      "slug": "maple-plain",
+      "name": "Maple Plain",
+      "censusName": "Maple Plain",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 1648,
+      "population2020": 1742,
+      "growthPct": -5.4,
+      "populationByYear": {
+        "2020": 1738,
+        "2021": 1707,
+        "2022": 1675,
+        "2023": 1651,
+        "2024": 1648
+      },
+      "landSqMi": 1.1,
+      "waterSqMi": 0.0,
+      "center": [
+        -93.66237,
+        45.00863
+      ],
+      "milesToMinneapolis": 20,
+      "milesToSaintPaul": 28,
+      "geoid": "2740256"
+    },
+    {
+      "slug": "spring-park",
+      "name": "Spring Park",
+      "censusName": "Spring Park",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 1641,
+      "population2020": 1736,
+      "growthPct": -5.5,
+      "populationByYear": {
+        "2020": 1730,
+        "2021": 1693,
+        "2022": 1664,
+        "2023": 1644,
+        "2024": 1641
+      },
+      "landSqMi": 0.4,
+      "waterSqMi": 0.3,
+      "center": [
+        -93.63011,
+        44.93593
+      ],
+      "milesToMinneapolis": 18,
+      "milesToSaintPaul": 26,
+      "geoid": "2762014"
+    },
+    {
+      "slug": "tonka-bay",
+      "name": "Tonka Bay",
+      "censusName": "Tonka Bay",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 1540,
+      "population2020": 1439,
+      "growthPct": 7.0,
+      "populationByYear": {
+        "2020": 1434,
+        "2021": 1594,
+        "2022": 1566,
+        "2023": 1543,
+        "2024": 1540
+      },
+      "landSqMi": 0.9,
+      "waterSqMi": 1.2,
+      "center": [
+        -93.58554,
+        44.9144
+      ],
+      "milesToMinneapolis": 16,
+      "milesToSaintPaul": 24,
+      "geoid": "2765164"
+    },
+    {
+      "slug": "medicine-lake",
+      "name": "Medicine Lake",
+      "censusName": "Medicine Lake",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 1343,
+      "population2020": 338,
+      "growthPct": 297.3,
+      "populationByYear": {
+        "2020": 337,
+        "2021": 330,
+        "2022": 324,
+        "2023": 319,
+        "2024": 1343
+      },
+      "landSqMi": 0.2,
+      "waterSqMi": 0.2,
+      "center": [
+        -93.41807,
+        44.99579
+      ],
+      "milesToMinneapolis": 8,
+      "milesToSaintPaul": 16,
+      "geoid": "2741462"
+    },
+    {
+      "slug": "dellwood",
+      "name": "Dellwood",
+      "censusName": "Dellwood",
+      "region": "East Metro",
+      "counties": [
+        "Washington"
+      ],
+      "population2024": 1147,
+      "population2020": 1171,
+      "growthPct": -2.0,
+      "populationByYear": {
+        "2020": 1170,
+        "2021": 1169,
+        "2022": 1163,
+        "2023": 1153,
+        "2024": 1147
+      },
+      "landSqMi": 2.7,
+      "waterSqMi": 0.1,
+      "center": [
+        -92.96762,
+        45.09881
+      ],
+      "milesToMinneapolis": 17,
+      "milesToSaintPaul": 12,
+      "geoid": "2715616"
+    },
+    {
+      "slug": "lake-st-croix-beach",
+      "name": "Lake St. Croix Beach",
+      "censusName": "Lake St. Croix Beach",
+      "region": "East Metro",
+      "counties": [
+        "Washington"
+      ],
+      "population2024": 1005,
+      "population2020": 1042,
+      "growthPct": -3.6,
+      "populationByYear": {
+        "2020": 1041,
+        "2021": 1033,
+        "2022": 1021,
+        "2023": 1010,
+        "2024": 1005
+      },
+      "landSqMi": 0.6,
+      "waterSqMi": 0.4,
+      "center": [
+        -92.76612,
+        44.92449
+      ],
+      "milesToMinneapolis": 25,
+      "milesToSaintPaul": 16,
+      "geoid": "2734865"
+    },
+    {
+      "slug": "hilltop",
+      "name": "Hilltop",
+      "censusName": "Hilltop",
+      "region": "North Metro",
+      "counties": [
+        "Anoka"
+      ],
+      "population2024": 956,
+      "population2020": 955,
+      "growthPct": 0.1,
+      "populationByYear": {
+        "2020": 954,
+        "2021": 957,
+        "2022": 951,
+        "2023": 950,
+        "2024": 956
+      },
+      "landSqMi": 0.1,
+      "waterSqMi": 0.0,
+      "center": [
+        -93.25013,
+        45.05358
+      ],
+      "milesToMinneapolis": 5,
+      "milesToSaintPaul": 10,
+      "geoid": "2729258"
+    },
+    {
+      "slug": "landfall",
+      "name": "Landfall",
+      "censusName": "Landfall",
+      "region": "East Metro",
+      "counties": [
+        "Washington"
+      ],
+      "population2024": 843,
+      "population2020": 846,
+      "growthPct": -0.4,
+      "populationByYear": {
+        "2020": 845,
+        "2021": 847,
+        "2022": 847,
+        "2023": 840,
+        "2024": 843
+      },
+      "landSqMi": 0.1,
+      "waterSqMi": 0.0,
+      "center": [
+        -92.97695,
+        44.95003
+      ],
+      "milesToMinneapolis": 14,
+      "milesToSaintPaul": 6,
+      "geoid": "2735414"
+    },
+    {
+      "slug": "birchwood-village",
+      "name": "Birchwood Village",
+      "censusName": "Birchwood Village",
+      "region": "East Metro",
+      "counties": [
+        "Washington"
+      ],
+      "population2024": 838,
+      "population2020": 861,
+      "growthPct": -2.7,
+      "populationByYear": {
+        "2020": 860,
+        "2021": 856,
+        "2022": 847,
+        "2023": 836,
+        "2024": 838
+      },
+      "landSqMi": 0.3,
+      "waterSqMi": 0.0,
+      "center": [
+        -92.97802,
+        45.05998
+      ],
+      "milesToMinneapolis": 15,
+      "milesToSaintPaul": 9,
+      "geoid": "2706058"
+    },
+    {
+      "slug": "lilydale",
+      "name": "Lilydale",
+      "censusName": "Lilydale",
+      "region": "South Metro",
+      "counties": [
+        "Dakota"
+      ],
+      "population2024": 779,
+      "population2020": 807,
+      "growthPct": -3.5,
+      "populationByYear": {
+        "2020": 805,
+        "2021": 798,
+        "2022": 786,
+        "2023": 784,
+        "2024": 779
+      },
+      "landSqMi": 0.6,
+      "waterSqMi": 0.3,
+      "center": [
+        -93.13075,
+        44.90879
+      ],
+      "milesToMinneapolis": 8,
+      "milesToSaintPaul": 4,
+      "geoid": "2737016"
+    },
+    {
+      "slug": "hampton",
+      "name": "Hampton",
+      "censusName": "Hampton",
+      "region": "South Metro",
+      "counties": [
+        "Dakota"
+      ],
+      "population2024": 714,
+      "population2020": 742,
+      "growthPct": -3.8,
+      "populationByYear": {
+        "2020": 741,
+        "2021": 733,
+        "2022": 721,
+        "2023": 719,
+        "2024": 714
+      },
+      "landSqMi": 1.2,
+      "waterSqMi": 0.0,
+      "center": [
+        -93.00262,
+        44.60885
+      ],
+      "milesToMinneapolis": 29,
+      "milesToSaintPaul": 24,
+      "geoid": "2726864"
+    },
+    {
+      "slug": "greenwood",
+      "name": "Greenwood",
+      "censusName": "Greenwood",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 713,
+      "population2020": 733,
+      "growthPct": -2.7,
+      "populationByYear": {
+        "2020": 733,
+        "2021": 724,
+        "2022": 717,
+        "2023": 712,
+        "2024": 713
+      },
+      "landSqMi": 0.4,
+      "waterSqMi": 0.7,
+      "center": [
+        -93.554,
+        44.91296
+      ],
+      "milesToMinneapolis": 15,
+      "milesToSaintPaul": 23,
+      "geoid": "2725918"
+    },
+    {
+      "slug": "marine-on-st-croix",
+      "name": "Marine on St. Croix",
+      "censusName": "Marine on St. Croix",
+      "region": "East Metro",
+      "counties": [
+        "Washington"
+      ],
+      "population2024": 658,
+      "population2020": 664,
+      "growthPct": -0.9,
+      "populationByYear": {
+        "2020": 663,
+        "2021": 656,
+        "2022": 656,
+        "2023": 658,
+        "2024": 658
+      },
+      "landSqMi": 3.9,
+      "waterSqMi": 0.3,
+      "center": [
+        -92.77843,
+        45.19093
+      ],
+      "milesToMinneapolis": 28,
+      "milesToSaintPaul": 22,
+      "geoid": "2740562"
+    },
+    {
+      "slug": "loretto",
+      "name": "Loretto",
+      "censusName": "Loretto",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 610,
+      "population2020": 644,
+      "growthPct": -5.3,
+      "populationByYear": {
+        "2020": 642,
+        "2021": 633,
+        "2022": 621,
+        "2023": 611,
+        "2024": 610
+      },
+      "landSqMi": 0.3,
+      "waterSqMi": 0.0,
+      "center": [
+        -93.63534,
+        45.05477
+      ],
+      "milesToMinneapolis": 19,
+      "milesToSaintPaul": 28,
+      "geoid": "2738222"
+    },
+    {
+      "slug": "hamburg",
+      "name": "Hamburg",
+      "censusName": "Hamburg",
+      "region": "West Metro",
+      "counties": [
+        "Carver"
+      ],
+      "population2024": 548,
+      "population2020": 566,
+      "growthPct": -3.2,
+      "populationByYear": {
+        "2020": 568,
+        "2021": 570,
+        "2022": 563,
+        "2023": 554,
+        "2024": 548
+      },
+      "landSqMi": 0.2,
+      "waterSqMi": 0.0,
+      "center": [
+        -93.9632,
+        44.73249
+      ],
+      "milesToMinneapolis": 38,
+      "milesToSaintPaul": 45,
+      "geoid": "2726666"
+    },
+    {
+      "slug": "minnetonka-beach",
+      "name": "Minnetonka Beach",
+      "censusName": "Village of Minnetonka Beach",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 537,
+      "population2020": 545,
+      "growthPct": -1.5,
+      "populationByYear": {
+        "2020": 546,
+        "2021": 539,
+        "2022": 536,
+        "2023": 538,
+        "2024": 537
+      },
+      "landSqMi": 0.5,
+      "waterSqMi": 1.1,
+      "center": [
+        -93.58713,
+        44.93963
+      ],
+      "milesToMinneapolis": 16,
+      "milesToSaintPaul": 24,
+      "geoid": "2767130"
+    },
+    {
+      "slug": "sunfish-lake",
+      "name": "Sunfish Lake",
+      "censusName": "Sunfish Lake",
+      "region": "South Metro",
+      "counties": [
+        "Dakota"
+      ],
+      "population2024": 522,
+      "population2020": 523,
+      "growthPct": -0.2,
+      "populationByYear": {
+        "2020": 525,
+        "2021": 524,
+        "2022": 515,
+        "2023": 517,
+        "2024": 522
+      },
+      "landSqMi": 1.5,
+      "waterSqMi": 0.2,
+      "center": [
+        -93.08696,
+        44.87267
+      ],
+      "milesToMinneapolis": 11,
+      "milesToSaintPaul": 6,
+      "geoid": "2763544"
+    },
+    {
+      "slug": "gem-lake",
+      "name": "Gem Lake",
+      "censusName": "Gem Lake",
+      "region": "East Metro",
+      "counties": [
+        "Ramsey"
+      ],
+      "population2024": 515,
+      "population2020": 525,
+      "growthPct": -1.9,
+      "populationByYear": {
+        "2020": 533,
+        "2021": 530,
+        "2022": 518,
+        "2023": 512,
+        "2024": 515
+      },
+      "landSqMi": 1.0,
+      "waterSqMi": 0.1,
+      "center": [
+        -93.03807,
+        45.06107
+      ],
+      "milesToMinneapolis": 12,
+      "milesToSaintPaul": 8,
+      "geoid": "2723318"
+    },
+    {
+      "slug": "willernie",
+      "name": "Willernie",
+      "censusName": "Willernie",
+      "region": "East Metro",
+      "counties": [
+        "Washington"
+      ],
+      "population2024": 512,
+      "population2020": 520,
+      "growthPct": -1.5,
+      "populationByYear": {
+        "2020": 519,
+        "2021": 520,
+        "2022": 521,
+        "2023": 513,
+        "2024": 512
+      },
+      "landSqMi": 0.1,
+      "waterSqMi": 0.0,
+      "center": [
+        -92.95799,
+        45.05373
+      ],
+      "milesToMinneapolis": 16,
+      "milesToSaintPaul": 9,
+      "geoid": "2770366"
+    },
+    {
+      "slug": "bethel",
+      "name": "Bethel",
+      "censusName": "Bethel",
+      "region": "North Metro",
+      "counties": [
+        "Anoka"
+      ],
+      "population2024": 480,
+      "population2020": 474,
+      "growthPct": 1.3,
+      "populationByYear": {
+        "2020": 474,
+        "2021": 473,
+        "2022": 472,
+        "2023": 476,
+        "2024": 480
+      },
+      "landSqMi": 1.0,
+      "waterSqMi": 0.1,
+      "center": [
+        -93.2749,
+        45.40442
+      ],
+      "milesToMinneapolis": 29,
+      "milesToSaintPaul": 32,
+      "geoid": "2705554"
+    },
+    {
+      "slug": "randolph",
+      "name": "Randolph",
+      "censusName": "Randolph",
+      "region": "South Metro",
+      "counties": [
+        "Dakota"
+      ],
+      "population2024": 458,
+      "population2020": 465,
+      "growthPct": -1.5,
+      "populationByYear": {
+        "2020": 464,
+        "2021": 463,
+        "2022": 459,
+        "2023": 458,
+        "2024": 458
+      },
+      "landSqMi": 1.0,
+      "waterSqMi": 0.0,
+      "center": [
+        -93.02064,
+        44.52662
+      ],
+      "milesToMinneapolis": 33,
+      "milesToSaintPaul": 30,
+      "geoid": "2753098"
+    },
+    {
+      "slug": "new-germany",
+      "name": "New Germany",
+      "censusName": "New Germany",
+      "region": "West Metro",
+      "counties": [
+        "Carver"
+      ],
+      "population2024": 448,
+      "population2020": 469,
+      "growthPct": -4.5,
+      "populationByYear": {
+        "2020": 469,
+        "2021": 468,
+        "2022": 462,
+        "2023": 453,
+        "2024": 448
+      },
+      "landSqMi": 1.0,
+      "waterSqMi": 0.0,
+      "center": [
+        -93.97809,
+        44.8802
+      ],
+      "milesToMinneapolis": 36,
+      "milesToSaintPaul": 44,
+      "geoid": "2745556"
+    },
+    {
+      "slug": "vermillion",
+      "name": "Vermillion",
+      "censusName": "Vermillion",
+      "region": "South Metro",
+      "counties": [
+        "Dakota"
+      ],
+      "population2024": 429,
+      "population2020": 446,
+      "growthPct": -3.8,
+      "populationByYear": {
+        "2020": 445,
+        "2021": 442,
+        "2022": 435,
+        "2023": 432,
+        "2024": 429
+      },
+      "landSqMi": 1.0,
+      "waterSqMi": 0.0,
+      "center": [
+        -92.96343,
+        44.66969
+      ],
+      "milesToMinneapolis": 26,
+      "milesToSaintPaul": 21,
+      "geoid": "2766802"
+    },
+    {
+      "slug": "pine-springs",
+      "name": "Pine Springs",
+      "censusName": "Pine Springs",
+      "region": "East Metro",
+      "counties": [
+        "Washington"
+      ],
+      "population2024": 384,
+      "population2020": 391,
+      "growthPct": -1.8,
+      "populationByYear": {
+        "2020": 391,
+        "2021": 393,
+        "2022": 392,
+        "2023": 385,
+        "2024": 384
+      },
+      "landSqMi": 0.8,
+      "waterSqMi": 0.1,
+      "center": [
+        -92.95594,
+        45.03803
+      ],
+      "milesToMinneapolis": 16,
+      "milesToSaintPaul": 9,
+      "geoid": "2751316"
+    },
+    {
+      "slug": "woodland",
+      "name": "Woodland",
+      "censusName": "Woodland",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 377,
+      "population2020": 381,
+      "growthPct": -1.0,
+      "populationByYear": {
+        "2020": 382,
+        "2021": 386,
+        "2022": 380,
+        "2023": 379,
+        "2024": 377
+      },
+      "landSqMi": 0.6,
+      "waterSqMi": 0.6,
+      "center": [
+        -93.52137,
+        44.94976
+      ],
+      "milesToMinneapolis": 13,
+      "milesToSaintPaul": 21,
+      "geoid": "2771500"
+    },
+    {
+      "slug": "st-marys-point",
+      "name": "St. Marys Point",
+      "censusName": "St. Marys Point",
+      "region": "East Metro",
+      "counties": [
+        "Washington"
+      ],
+      "population2024": 342,
+      "population2020": 351,
+      "growthPct": -2.6,
+      "populationByYear": {
+        "2020": 351,
+        "2021": 348,
+        "2022": 347,
+        "2023": 343,
+        "2024": 342
+      },
+      "landSqMi": 0.4,
+      "waterSqMi": 0.0,
+      "center": [
+        -92.77016,
+        44.91055
+      ],
+      "milesToMinneapolis": 25,
+      "milesToSaintPaul": 16,
+      "geoid": "2757292"
+    },
+    {
+      "slug": "lakeland-shores",
+      "name": "Lakeland Shores",
+      "censusName": "Lakeland Shores",
+      "region": "East Metro",
+      "counties": [
+        "Washington"
+      ],
+      "population2024": 330,
+      "population2020": 341,
+      "growthPct": -3.2,
+      "populationByYear": {
+        "2020": 341,
+        "2021": 338,
+        "2022": 335,
+        "2023": 331,
+        "2024": 330
+      },
+      "landSqMi": 0.3,
+      "waterSqMi": 0.4,
+      "center": [
+        -92.76243,
+        44.94947
+      ],
+      "milesToMinneapolis": 25,
+      "milesToSaintPaul": 16,
+      "geoid": "2734658"
+    },
+    {
+      "slug": "mendota",
+      "name": "Mendota",
+      "censusName": "Mendota",
+      "region": "South Metro",
+      "counties": [
+        "Dakota"
+      ],
+      "population2024": 185,
+      "population2020": 187,
+      "growthPct": -1.1,
+      "populationByYear": {
+        "2020": 187,
+        "2021": 187,
+        "2022": 184,
+        "2023": 184,
+        "2024": 185
+      },
+      "landSqMi": 0.3,
+      "waterSqMi": 0.0,
+      "center": [
+        -93.16172,
+        44.88749
+      ],
+      "milesToMinneapolis": 8,
+      "milesToSaintPaul": 6,
+      "geoid": "2741678"
+    },
+    {
+      "slug": "coates",
+      "name": "Coates",
+      "censusName": "Coates",
+      "region": "South Metro",
+      "counties": [
+        "Dakota"
+      ],
+      "population2024": 136,
+      "population2020": 143,
+      "growthPct": -4.9,
+      "populationByYear": {
+        "2020": 143,
+        "2021": 142,
+        "2022": 139,
+        "2023": 139,
+        "2024": 136
+      },
+      "landSqMi": 1.5,
+      "waterSqMi": 0.0,
+      "center": [
+        -93.03206,
+        44.71511
+      ],
+      "milesToMinneapolis": 21,
+      "milesToSaintPaul": 17,
+      "geoid": "2712376"
+    },
+    {
+      "slug": "miesville",
+      "name": "Miesville",
+      "censusName": "Miesville",
+      "region": "South Metro",
+      "counties": [
+        "Dakota"
+      ],
+      "population2024": 132,
+      "population2020": 136,
+      "growthPct": -2.9,
+      "populationByYear": {
+        "2020": 136,
+        "2021": 135,
+        "2022": 133,
+        "2023": 132,
+        "2024": 132
+      },
+      "landSqMi": 1.7,
+      "waterSqMi": 0.0,
+      "center": [
+        -92.81961,
+        44.59898
+      ],
+      "milesToMinneapolis": 34,
+      "milesToSaintPaul": 28,
+      "geoid": "2742092"
+    },
+    {
+      "slug": "new-trier",
+      "name": "New Trier",
+      "censusName": "New Trier",
+      "region": "South Metro",
+      "counties": [
+        "Dakota"
+      ],
+      "population2024": 80,
+      "population2020": 83,
+      "growthPct": -3.6,
+      "populationByYear": {
+        "2020": 83,
+        "2021": 82,
+        "2022": 81,
+        "2023": 81,
+        "2024": 80
+      },
+      "landSqMi": 0.2,
+      "waterSqMi": 0.0,
+      "center": [
+        -92.93284,
+        44.6038
+      ],
+      "milesToMinneapolis": 31,
+      "milesToSaintPaul": 25,
+      "geoid": "2746024"
     }
   ]
 }
