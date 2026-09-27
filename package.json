@@ -8,6 +8,10 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "astro": "^7.3.5"
+    "astro": "^7.3.5",
+    "maplibre-gl": "^6.11.2"
+  },
+  "devDependencies": {
+    "mapshaper": "^0.7.68"
   }
 }

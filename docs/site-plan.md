@@ -1,6 +1,6 @@
 # Huerkamp Home Group — New Website Plan
 
-_Status: Step 3 — home page approved 2026-09-26; Buy, Sell, Invest, Ramsey ELP and Contact pages built 2026-09-27, awaiting review._
+_Status: Step 3 — home page approved 2026-09-26; Buy, Sell, Invest, Ramsey ELP, Contact, 30 community pages and Lake Homes built 2026-09-27, awaiting review._
 
 ## Decisions so far
 
@@ -119,3 +119,22 @@ _Status: Step 3 — home page approved 2026-09-26; Buy, Sell, Invest, Ramsey ELP
 - Office hours for the Contact page (blank on the current site).
 - Ramsey may have rules for how Endorsed Local Providers describe the program; please have the Ramsey page checked against them.
 - Review the new text on Invest and Ramsey ELP.
+
+## Communities and Lake Homes (2026-09-27)
+
+Jason asked for the top 30 Twin Cities communities and a Lake Homes page that work like nevadarealestategroup.com, with the same mapping. Decisions: the proposed 30 (his 12 current community pages plus the 18 largest remaining metro cities), MapTiler maps, Netlify previews.
+
+**How Nevada does it (studied 2026-09-27):** MapLibre GL maps with MapTiler imagery. The communities hub has a hover-to-highlight map plus a full directory. Each community page has a location map beside an "at a glance" panel (MLS market numbers and local facts), followed by about 25 data sections. We rebuilt the same features with our own code and text.
+
+**Built:**
+- `/communities`: hover map of all 30 (click opens the city), directory by area with a name filter, and a Lake Homes band.
+- `/communities/<city>` × 30: map zoomed to the city (others clickable), at-a-glance panel, distance tiles, new-listing alert form, "by the numbers", nearby communities, verbatim reviews that name the city, and a contact form.
+- `/lake-homes`: map of 8 lakes (Minnetonka, White Bear, Waconia, Forest, Prior, Crystal, Marion, Orchard), a card per lake (acres, county, shoreline cities linked to community pages), and a lake-listing form.
+- Data (public domain, rebuildable): `scripts/build-communities.py`, `scripts/build-lakes.sh`. Census 2024 boundaries, water areas and population estimates.
+
+**Waiting on:**
+- MapTiler key: the Flex plan (about $30/month; the free plan is non-commercial only). Until then maps use free OpenFreeMap imagery. Set `PUBLIC_MAPTILER_KEY` in Netlify.
+- Netlify: connect the GitHub repo (`netlify.toml` is ready). Maps don't show in the claude.ai preview, which blocks outside map imagery.
+- MLS feed (step 7) for median price, active listings, price per square foot, days on market and live listings.
+- The rest of Nevada's sections (schools, crime, builders, ZIP-code market tables) need data providers; decide which to pay for.
+- The DNR LakeFinder site is blocked from this build environment, so lake depth and official DNR acreage are linked, not shown.

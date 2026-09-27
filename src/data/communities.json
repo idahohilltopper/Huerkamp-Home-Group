@@ -1,0 +1,641 @@
+{
+  "sources": {
+    "boundaries": "US Census Bureau TIGER/Line 2024 places (public domain)",
+    "population": "US Census Bureau Vintage 2024 city population estimates (sub-est2024); 2020 is the estimates base",
+    "distances": "Straight-line miles from the city's Census center point to downtown Minneapolis / Saint Paul"
+  },
+  "communities": [
+    {
+      "slug": "minneapolis",
+      "name": "Minneapolis",
+      "censusName": "Minneapolis",
+      "region": "Minneapolis & Saint Paul",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 428579,
+      "population2020": 429983,
+      "growthPct": -0.3,
+      "landSqMi": 54.0,
+      "waterSqMi": 3.5,
+      "center": [
+        -93.26832,
+        44.96332
+      ],
+      "milesToMinneapolis": 1,
+      "milesToSaintPaul": 9,
+      "geoid": "2743000"
+    },
+    {
+      "slug": "saint-paul",
+      "name": "Saint Paul",
+      "censusName": "St. Paul",
+      "region": "Minneapolis & Saint Paul",
+      "counties": [
+        "Ramsey"
+      ],
+      "population2024": 307465,
+      "population2020": 311483,
+      "growthPct": -1.3,
+      "landSqMi": 52.0,
+      "waterSqMi": 4.1,
+      "center": [
+        -93.10406,
+        44.9489
+      ],
+      "milesToMinneapolis": 8,
+      "milesToSaintPaul": 1,
+      "geoid": "2758000"
+    },
+    {
+      "slug": "bloomington",
+      "name": "Bloomington",
+      "censusName": "Bloomington",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 88344,
+      "population2020": 89978,
+      "growthPct": -1.8,
+      "landSqMi": 34.7,
+      "waterSqMi": 3.7,
+      "center": [
+        -93.31522,
+        44.82967
+      ],
+      "milesToMinneapolis": 11,
+      "milesToSaintPaul": 14,
+      "geoid": "2706616"
+    },
+    {
+      "slug": "brooklyn-park",
+      "name": "Brooklyn Park",
+      "censusName": "Brooklyn Park",
+      "region": "North Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 82893,
+      "population2020": 86460,
+      "growthPct": -4.1,
+      "landSqMi": 26.1,
+      "waterSqMi": 0.5,
+      "center": [
+        -93.34909,
+        45.11091
+      ],
+      "milesToMinneapolis": 10,
+      "milesToSaintPaul": 17,
+      "geoid": "2707966"
+    },
+    {
+      "slug": "woodbury",
+      "name": "Woodbury",
+      "censusName": "Woodbury",
+      "region": "East Metro",
+      "counties": [
+        "Washington"
+      ],
+      "population2024": 80596,
+      "population2020": 75105,
+      "growthPct": 7.3,
+      "landSqMi": 34.9,
+      "waterSqMi": 0.8,
+      "center": [
+        -92.9237,
+        44.90628
+      ],
+      "milesToMinneapolis": 17,
+      "milesToSaintPaul": 9,
+      "geoid": "2771428"
+    },
+    {
+      "slug": "plymouth",
+      "name": "Plymouth",
+      "censusName": "Plymouth",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 78551,
+      "population2020": 81020,
+      "growthPct": -3.0,
+      "landSqMi": 32.7,
+      "waterSqMi": 2.6,
+      "center": [
+        -93.46288,
+        45.02231
+      ],
+      "milesToMinneapolis": 10,
+      "milesToSaintPaul": 19,
+      "geoid": "2751730"
+    },
+    {
+      "slug": "lakeville",
+      "name": "Lakeville",
+      "censusName": "Lakeville",
+      "region": "South Metro",
+      "counties": [
+        "Dakota"
+      ],
+      "population2024": 77971,
+      "population2020": 69495,
+      "growthPct": 12.2,
+      "landSqMi": 36.9,
+      "waterSqMi": 1.8,
+      "center": [
+        -93.25174,
+        44.67613
+      ],
+      "milesToMinneapolis": 21,
+      "milesToSaintPaul": 21,
+      "geoid": "2735180"
+    },
+    {
+      "slug": "blaine",
+      "name": "Blaine",
+      "censusName": "Blaine",
+      "region": "North Metro",
+      "counties": [
+        "Anoka",
+        "Ramsey"
+      ],
+      "population2024": 75172,
+      "population2020": 70216,
+      "growthPct": 7.1,
+      "landSqMi": 32.9,
+      "waterSqMi": 1.1,
+      "center": [
+        -93.20609,
+        45.17052
+      ],
+      "milesToMinneapolis": 14,
+      "milesToSaintPaul": 16,
+      "geoid": "2706382"
+    },
+    {
+      "slug": "maple-grove",
+      "name": "Maple Grove",
+      "censusName": "Maple Grove",
+      "region": "North Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 72739,
+      "population2020": 70268,
+      "growthPct": 3.5,
+      "landSqMi": 32.6,
+      "waterSqMi": 2.5,
+      "center": [
+        -93.46298,
+        45.11276
+      ],
+      "milesToMinneapolis": 13,
+      "milesToSaintPaul": 21,
+      "geoid": "2740166"
+    },
+    {
+      "slug": "eagan",
+      "name": "Eagan",
+      "censusName": "Eagan",
+      "region": "South Metro",
+      "counties": [
+        "Dakota"
+      ],
+      "population2024": 67240,
+      "population2020": 68862,
+      "growthPct": -2.4,
+      "landSqMi": 31.2,
+      "waterSqMi": 2.3,
+      "center": [
+        -93.16282,
+        44.81522
+      ],
+      "milesToMinneapolis": 12,
+      "milesToSaintPaul": 10,
+      "geoid": "2717288"
+    },
+    {
+      "slug": "burnsville",
+      "name": "Burnsville",
+      "censusName": "Burnsville",
+      "region": "South Metro",
+      "counties": [
+        "Dakota"
+      ],
+      "population2024": 64864,
+      "population2020": 64324,
+      "growthPct": 0.8,
+      "landSqMi": 24.9,
+      "waterSqMi": 2.0,
+      "center": [
+        -93.27937,
+        44.76441
+      ],
+      "milesToMinneapolis": 15,
+      "milesToSaintPaul": 16,
+      "geoid": "2708794"
+    },
+    {
+      "slug": "coon-rapids",
+      "name": "Coon Rapids",
+      "censusName": "Coon Rapids",
+      "region": "North Metro",
+      "counties": [
+        "Anoka"
+      ],
+      "population2024": 63807,
+      "population2020": 63636,
+      "growthPct": 0.3,
+      "landSqMi": 22.6,
+      "waterSqMi": 0.7,
+      "center": [
+        -93.31145,
+        45.17641
+      ],
+      "milesToMinneapolis": 14,
+      "milesToSaintPaul": 19,
+      "geoid": "2713114"
+    },
+    {
+      "slug": "eden-prairie",
+      "name": "Eden Prairie",
+      "censusName": "Eden Prairie",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 62905,
+      "population2020": 64198,
+      "growthPct": -2.0,
+      "landSqMi": 32.5,
+      "waterSqMi": 2.7,
+      "center": [
+        -93.45872,
+        44.8496
+      ],
+      "milesToMinneapolis": 13,
+      "milesToSaintPaul": 19,
+      "geoid": "2718116"
+    },
+    {
+      "slug": "apple-valley",
+      "name": "Apple Valley",
+      "censusName": "Apple Valley",
+      "region": "South Metro",
+      "counties": [
+        "Dakota"
+      ],
+      "population2024": 55272,
+      "population2020": 56367,
+      "growthPct": -1.9,
+      "landSqMi": 16.9,
+      "waterSqMi": 0.7,
+      "center": [
+        -93.19941,
+        44.7453
+      ],
+      "milesToMinneapolis": 16,
+      "milesToSaintPaul": 15,
+      "geoid": "2701900"
+    },
+    {
+      "slug": "edina",
+      "name": "Edina",
+      "censusName": "Edina",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 53564,
+      "population2020": 53480,
+      "growthPct": 0.2,
+      "landSqMi": 15.5,
+      "waterSqMi": 0.5,
+      "center": [
+        -93.35975,
+        44.89112
+      ],
+      "milesToMinneapolis": 8,
+      "milesToSaintPaul": 14,
+      "geoid": "2718188"
+    },
+    {
+      "slug": "minnetonka",
+      "name": "Minnetonka",
+      "censusName": "Minnetonka",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 52651,
+      "population2020": 53812,
+      "growthPct": -2.2,
+      "landSqMi": 26.9,
+      "waterSqMi": 1.0,
+      "center": [
+        -93.4567,
+        44.93256
+      ],
+      "milesToMinneapolis": 10,
+      "milesToSaintPaul": 18,
+      "geoid": "2743252"
+    },
+    {
+      "slug": "st-louis-park",
+      "name": "St. Louis Park",
+      "censusName": "St. Louis Park",
+      "region": "West Metro",
+      "counties": [
+        "Hennepin"
+      ],
+      "population2024": 49899,
+      "population2020": 50010,
+      "growthPct": -0.2,
+      "landSqMi": 10.6,
+      "waterSqMi": 0.2,
+      "center": [
+        -93.36504,
+        44.94868
+      ],
+      "milesToMinneapolis": 5,
+      "milesToSaintPaul": 13,
+      "geoid": "2757220"
+    },
+    {
+      "slug": "shakopee",
+      "name": "Shakopee",
+      "censusName": "Shakopee",
+      "region": "South Metro",
+      "counties": [
+        "Scott"
+      ],
+      "population2024": 48401,
+      "population2020": 43710,
+      "growthPct": 10.7,
+      "landSqMi": 29.5,
+      "waterSqMi": 1.3,
+      "center": [
+        -93.4757,
+        44.77191
+      ],
+      "milesToMinneapolis": 18,
+      "milesToSaintPaul": 23,
+      "geoid": "2759350"
+    },
+    {
+      "slug": "cottage-grove",
+      "name": "Cottage Grove",
+      "censusName": "Cottage Grove",
+      "region": "East Metro",
+      "counties": [
+        "Washington"
+      ],
+      "population2024": 42760,
+      "population2020": 38835,
+      "growthPct": 10.1,
+      "landSqMi": 33.6,
+      "waterSqMi": 3.9,
+      "center": [
+        -92.91432,
+        44.81333
+      ],
+      "milesToMinneapolis": 21,
+      "milesToSaintPaul": 13,
+      "geoid": "2713456"
+    },
+    {
+      "slug": "maplewood",
+      "name": "Maplewood",
+      "censusName": "Maplewood",
+      "region": "East Metro",
+      "counties": [
+        "Ramsey"
+      ],
+      "population2024": 40142,
+      "population2020": 42086,
+      "growthPct": -4.6,
+      "landSqMi": 17.0,
+      "waterSqMi": 1.0,
+      "center": [
+        -93.03106,
+        45.01901
+      ],
+      "milesToMinneapolis": 12,
+      "milesToSaintPaul": 5,
+      "geoid": "2740382"
+    },
+    {
+      "slug": "inver-grove-heights",
+      "name": "Inver Grove Heights",
+      "censusName": "Inver Grove Heights",
+      "region": "South Metro",
+      "counties": [
+        "Dakota"
+      ],
+      "population2024": 36226,
+      "population2020": 35813,
+      "growthPct": 1.2,
+      "landSqMi": 27.9,
+      "waterSqMi": 2.4,
+      "center": [
+        -93.06007,
+        44.82901
+      ],
+      "milesToMinneapolis": 14,
+      "milesToSaintPaul": 9,
+      "geoid": "2731076"
+    },
+    {
+      "slug": "roseville",
+      "name": "Roseville",
+      "censusName": "Roseville",
+      "region": "North Metro",
+      "counties": [
+        "Ramsey"
+      ],
+      "population2024": 35637,
+      "population2020": 36270,
+      "growthPct": -1.7,
+      "landSqMi": 13.0,
+      "waterSqMi": 0.8,
+      "center": [
+        -93.15381,
+        45.01562
+      ],
+      "milesToMinneapolis": 6,
+      "milesToSaintPaul": 5,
+      "geoid": "2755852"
+    },
+    {
+      "slug": "savage",
+      "name": "Savage",
+      "censusName": "Savage",
+      "region": "South Metro",
+      "counties": [
+        "Scott"
+      ],
+      "population2024": 32896,
+      "population2020": 32453,
+      "growthPct": 1.4,
+      "landSqMi": 15.6,
+      "waterSqMi": 0.8,
+      "center": [
+        -93.36421,
+        44.75906
+      ],
+      "milesToMinneapolis": 16,
+      "milesToSaintPaul": 19,
+      "geoid": "2758738"
+    },
+    {
+      "slug": "rosemount",
+      "name": "Rosemount",
+      "censusName": "Rosemount",
+      "region": "South Metro",
+      "counties": [
+        "Dakota"
+      ],
+      "population2024": 30581,
+      "population2020": 25648,
+      "growthPct": 19.2,
+      "landSqMi": 33.3,
+      "waterSqMi": 2.0,
+      "center": [
+        -93.06886,
+        44.74581
+      ],
+      "milesToMinneapolis": 19,
+      "milesToSaintPaul": 14,
+      "geoid": "2755726"
+    },
+    {
+      "slug": "prior-lake",
+      "name": "Prior Lake",
+      "censusName": "Prior Lake",
+      "region": "South Metro",
+      "counties": [
+        "Scott"
+      ],
+      "population2024": 28018,
+      "population2020": 27613,
+      "growthPct": 1.5,
+      "landSqMi": 16.3,
+      "waterSqMi": 3.2,
+      "center": [
+        -93.44088,
+        44.72559
+      ],
+      "milesToMinneapolis": 19,
+      "milesToSaintPaul": 23,
+      "geoid": "2752594"
+    },
+    {
+      "slug": "farmington",
+      "name": "Farmington",
+      "censusName": "Farmington",
+      "region": "South Metro",
+      "counties": [
+        "Dakota"
+      ],
+      "population2024": 24464,
+      "population2020": 23676,
+      "growthPct": 3.3,
+      "landSqMi": 15.5,
+      "waterSqMi": 0.3,
+      "center": [
+        -93.1687,
+        44.65916
+      ],
+      "milesToMinneapolis": 23,
+      "milesToSaintPaul": 21,
+      "geoid": "2720618"
+    },
+    {
+      "slug": "west-st-paul",
+      "name": "West St. Paul",
+      "censusName": "West St. Paul",
+      "region": "South Metro",
+      "counties": [
+        "Dakota"
+      ],
+      "population2024": 21920,
+      "population2020": 20600,
+      "growthPct": 6.4,
+      "landSqMi": 4.9,
+      "waterSqMi": 0.1,
+      "center": [
+        -93.08533,
+        44.90241
+      ],
+      "milesToMinneapolis": 10,
+      "milesToSaintPaul": 4,
+      "geoid": "2769700"
+    },
+    {
+      "slug": "northfield",
+      "name": "Northfield",
+      "censusName": "Northfield",
+      "region": "South Metro",
+      "counties": [
+        "Rice",
+        "Dakota"
+      ],
+      "population2024": 21316,
+      "population2020": 20815,
+      "growthPct": 2.4,
+      "landSqMi": 8.5,
+      "waterSqMi": 0.0,
+      "center": [
+        -93.17031,
+        44.45564
+      ],
+      "milesToMinneapolis": 36,
+      "milesToSaintPaul": 35,
+      "geoid": "2746924"
+    },
+    {
+      "slug": "south-st-paul",
+      "name": "South St. Paul",
+      "censusName": "South St. Paul",
+      "region": "South Metro",
+      "counties": [
+        "Dakota"
+      ],
+      "population2024": 20590,
+      "population2020": 20757,
+      "growthPct": -0.8,
+      "landSqMi": 5.6,
+      "waterSqMi": 0.4,
+      "center": [
+        -93.0405,
+        44.88803
+      ],
+      "milesToMinneapolis": 13,
+      "milesToSaintPaul": 5,
+      "geoid": "2761492"
+    },
+    {
+      "slug": "mendota-heights",
+      "name": "Mendota Heights",
+      "censusName": "Mendota Heights",
+      "region": "South Metro",
+      "counties": [
+        "Dakota"
+      ],
+      "population2024": 11542,
+      "population2020": 11738,
+      "growthPct": -1.7,
+      "landSqMi": 9.1,
+      "waterSqMi": 1.0,
+      "center": [
+        -93.13393,
+        44.87893
+      ],
+      "milesToMinneapolis": 9,
+      "milesToSaintPaul": 6,
+      "geoid": "2741696"
+    }
+  ]
+}

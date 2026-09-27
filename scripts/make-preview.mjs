@@ -9,9 +9,12 @@ import { readFileSync, writeFileSync, cpSync, mkdirSync, readdirSync, existsSync
 const out = process.argv[2];
 mkdirSync(out, { recursive: true });
 
-const pages = readdirSync('dist', { withFileTypes: true })
-  .filter((d) => d.isDirectory() && existsSync(`dist/${d.name}/index.html`))
-  .map((d) => d.name);
+// Every page folder under dist/, nested ones included: 'buy', 'communities', 'communities/burnsville', ...
+const pages = readdirSync('dist', { recursive: true })
+  .filter((f) => f.endsWith('/index.html'))
+  .map((f) => f.slice(0, -'/index.html'.length))
+  .sort((a, b) => b.length - a.length);
+const file = (p) => `${p.replace(/\//g, '-')}.html`;
 
 // Site paths -> preview files. Images become relative; page links point at <name>.html.
 const rewrite = (html) =>
@@ -19,11 +22,11 @@ const rewrite = (html) =>
     .replace(/, \/hero\/minneapolis-skyline-3840.jpg 3840w/g, '')
     .replace(/(["\s,])\/(team|hero)\//g, '$1$2/')
     .replace(/href="\/(#[\w-]+)?"/g, (_, hash = '') => `href="home.html${hash}"`)
-    .replace(new RegExp(`href="/(${pages.join('|')})"`, 'g'), 'href="$1.html"');
+    .replace(new RegExp(`href="/(${pages.join('|')})/?(#[\\w-]+)?"`, 'g'), (_, p, hash = '') => `href="${file(p)}${hash}"`);
 
 const home = rewrite(readFileSync('dist/index.html', 'utf8'));
 writeFileSync(`${out}/home.html`, home);
-for (const p of pages) writeFileSync(`${out}/${p}.html`, rewrite(readFileSync(`dist/${p}/index.html`, 'utf8')));
+for (const p of pages) writeFileSync(`${out}/${file(p)}`, rewrite(readFileSync(`dist/${p}/index.html`, 'utf8')));
 
 const head = home.match(/<head>([\s\S]*?)<\/head>/)[1];
 const body = home.match(/<body[^>]*>([\s\S]*?)<\/body>/)[1];
@@ -33,4 +36,4 @@ writeFileSync(`${out}/index.html`, `${keep}\n${body}\n`);
 cpSync('dist/team', `${out}/team`, { recursive: true });
 mkdirSync(`${out}/hero`, { recursive: true });
 cpSync('dist/hero/minneapolis-skyline-1920.jpg', `${out}/hero/minneapolis-skyline-1920.jpg`);
-console.log(['index.html', 'home.html', ...pages.map((p) => `${p}.html`)].join('\n'));
+console.log(['index.html', 'home.html', ...pages.map(file)].join('\n'));

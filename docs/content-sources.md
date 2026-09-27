@@ -18,6 +18,10 @@
 | Ramsey ELP | All text | New |
 | Contact | Address, phone, email | Current site and Google listing |
 | Contact | Everything else | New |
+| Communities hub and 30 community pages | Facts and figures | US Census Bureau (2024 boundaries and population estimates); sentences are built from those numbers |
+| Communities pages | Reviews | Verbatim (Google, Zillow), shown only when the review names the city |
+| Lake Homes | Acres, counties, shoreline cities | US Census Bureau 2024 water areas and boundaries |
+| Lake Homes | Other text | New |
 
 Left out on purpose:
 - The Facebook and Google usage figures on /why-list-with-us (1.9 billion, 3.5 billion); they are out of date.

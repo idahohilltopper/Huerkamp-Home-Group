@@ -1,0 +1,11 @@
+# Netlify builds the site from this repo. Every push to a branch or pull request
+# gets its own preview address; the main branch becomes the live site.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# The MapTiler key is NOT stored here. Add it in Netlify:
+# Site configuration > Environment variables > PUBLIC_MAPTILER_KEY

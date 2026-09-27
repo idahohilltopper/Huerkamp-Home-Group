@@ -1,0 +1,11 @@
+var MT = ['Lk Minnetonka','Lafayette Bay','Crystal Bay','West Arm','Halsted Bay','North Arm','Maxwell Bay','Jennings Bay','Harrison Bay','Phelps Bay','Stubbs Bay','Grays Bay','St Albans Bay','Carson Bay','Lake Minnetonka Bay','Shore Lake Minnetonka'];
+var cx = this.centroidX, cy = this.centroidY;
+lake = null;
+if (COUNTYFP == '053' && MT.indexOf(FULLNAME) > -1 && cx > -93.72 && cx < -93.47 && cy > 44.87 && cy < 45.0) lake = 'lake-minnetonka';
+else if (FULLNAME == 'White Bear Lk') lake = 'white-bear-lake';
+else if (COUNTYFP == '139' && FULLNAME == 'Prior Lk') lake = 'prior-lake';
+else if (COUNTYFP == '163' && FULLNAME == 'Forest Lk') lake = 'forest-lake';
+else if (COUNTYFP == '037' && FULLNAME == 'Marion Lk') lake = 'lake-marion';
+else if (COUNTYFP == '037' && FULLNAME == 'Orchard Lk') lake = 'orchard-lake';
+else if (COUNTYFP == '037' && FULLNAME == 'Crystal Lk') lake = 'crystal-lake';
+else if (COUNTYFP == '019' && FULLNAME == 'Lk Waconia') lake = 'lake-waconia';

@@ -1,0 +1,212 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import AreaMap from '../../components/AreaMap.astro';
+import { communities, communityGeo, communityInfo, lakes, nearby, fmt, type Community } from '../../data/areas';
+import reviewData from '../../data/reviews.json';
+import { site } from '../../data/site';
+
+export function getStaticPaths() {
+  return communities.map((c) => ({ params: { slug: c.slug }, props: { c } }));
+}
+const { c } = Astro.props as { c: Community };
+
+const county = `${c.counties.join(' & ')} County`;
+const change = c.growthPct === 0 ? 'about the same as' : `${Math.abs(c.growthPct)}% ${c.growthPct > 0 ? 'more than' : 'fewer than'}`;
+const cityLakes = lakes.filter((l) => l.shorelineCities.includes(c.censusName));
+const near = nearby(c);
+
+// Verbatim, complete 5-star reviews that name this city.
+const nameRe = new RegExp(`\\b${c.name.replace('.', '\\.')}\\b|\\b${c.censusName.replace('.', '\\.')}\\b`, 'i');
+const cityReviews = reviewData.reviews
+  .filter((r: any) => r.textComplete && r.rating === 5 && nameRe.test(r.text))
+  .slice(0, 3);
+
+const pending = `Thanks! Online forms are still being connected. For now, call ${site.phone} or email ${site.email}.`;
+const mlsNote = 'Available when MLS data is connected';
+---
+<Base
+  title={`${c.name}, MN Homes for Sale & Real Estate | Huerkamp Home Group`}
+  description={`${c.name} real estate: homes for sale, local facts and a map of ${c.name}, ${county}, Minnesota, from Huerkamp Home Group.`}>
+  <PageHero eyebrow={c.region} title={`${c.name} Homes for Sale & Real Estate`}
+    lede={`${c.name} is in ${county}, about ${c.milesToMinneapolis} miles from downtown Minneapolis and ${c.milesToSaintPaul} miles from downtown Saint Paul.`}>
+    <form class="search" action="/search" method="get" role="search" data-pending="Home search launches with the NorthstarMLS feed in a later build step.">
+      <label class="visually-hidden" for="city-search">Search homes in {c.name}</label>
+      <input id="city-search" name="q" type="search" value={`${c.name}, MN`} autocomplete="off" />
+      <button class="btn" type="submit">Search homes</button>
+    </form>
+    <p class="search__status" role="status" aria-live="polite"></p>
+  </PageHero>
+
+  <section class="section section--paper" aria-labelledby="where-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Location</p>
+        <h2 id="where-title">Where is <em>{c.name}?</em></h2>
+      </div>
+      <div class="tiles">
+        <div class="tile"><span>Downtown Minneapolis</span><strong>{c.milesToMinneapolis}</strong><span>miles</span></div>
+        <div class="tile"><span>Downtown Saint Paul</span><strong>{c.milesToSaintPaul}</strong><span>miles</span></div>
+        <div class="tile"><span>Land area</span><strong>{c.landSqMi}</strong><span>sq miles</span></div>
+        <div class="tile"><span>Water area</span><strong>{c.waterSqMi}</strong><span>sq miles</span></div>
+      </div>
+      <div class="glance-grid">
+        <AreaMap geojson={communityGeo} info={communityInfo} mode="focus" focus={c.slug} label="Hover a community" height="560px" />
+        <aside class="glance" aria-labelledby="glance-title">
+          <h3 id="glance-title">{c.name} <span>at a glance</span></h3>
+          <div class="glance__market">
+            <div><strong>—</strong><span>Median list price</span></div>
+            <div><strong>—</strong><span>Active listings</span></div>
+            <div><strong>—</strong><span>Price / sq ft</span></div>
+            <div><strong>—</strong><span>Days on market</span></div>
+          </div>
+          <p class="glance__note">Market figures: {mlsNote}.</p>
+          <dl class="glance__facts">
+            <div><dt>Population (2024)</dt><dd>{fmt(c.population2024)}</dd></div>
+            <div><dt>Since 2020</dt><dd>{c.growthPct > 0 ? '+' : ''}{c.growthPct}%</dd></div>
+            <div><dt>County</dt><dd>{c.counties.join(', ')}</dd></div>
+            <div><dt>Area</dt><dd>{c.region}</dd></div>
+            <div><dt>Land</dt><dd>{c.landSqMi} sq mi</dd></div>
+            {cityLakes.length > 0 && <div><dt>Lakes we cover</dt><dd>{cityLakes.map((l) => l.name).join(', ')}</dd></div>}
+          </dl>
+          <p class="glance__source">Sources: US Census Bureau 2024 estimates and 2024 boundaries. Distances are straight-line.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="listings-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">For sale now</p>
+        <h2 id="listings-title">{c.name} homes <em>for sale.</em></h2>
+        <p>Live {c.name} listings, with photos, prices and a map, appear here once the NorthstarMLS feed is connected.</p>
+      </div>
+      <form class="form alert" data-pending={pending}>
+        <h3>Get new {c.name} listings first</h3>
+        <div class="form__row">
+          <div class="field"><label for="alert-email">Email</label><input id="alert-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field">
+            <label for="alert-price">Price range</label>
+            <select id="alert-price" name="priceRange">
+              <option value="">Any price</option>
+              <option>Under $300,000</option>
+              <option>$300,000 – $450,000</option>
+              <option>$450,000 – $650,000</option>
+              <option>$650,000 – $1,000,000</option>
+              <option>Over $1,000,000</option>
+            </select>
+          </div>
+        </div>
+        <input type="hidden" name="community" value={c.name} />
+        <button class="btn" type="submit">Email me new listings</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section section--dark" aria-labelledby="about-title">
+    <div class="wrap split-2">
+      <div class="prose">
+        <p class="eyebrow">Living in {c.name}</p>
+        <h2 id="about-title">{c.name} <em>by the numbers.</em></h2>
+        <p>The Census Bureau estimates {fmt(c.population2024)} people lived in {c.name} in 2024, {change} in 2020. The city covers {c.landSqMi} square miles of land{c.waterSqMi >= 0.5 ? ` and ${c.waterSqMi} square miles of water` : ''}.</p>
+        {cityLakes.length > 0 && <p>{c.name} borders {cityLakes.map((l) => l.name).join(', ').replace(/, ([^,]*)$/, ' and $1')}. See <a href="/lake-homes">lake homes</a>.</p>}
+      </div>
+      <div class="prose">
+        <p class="eyebrow">Nearby</p>
+        <h3>Communities near {c.name}</h3>
+        <ul class="near">
+          {near.map((n) => (
+            <li><a href={`/communities/${n.slug}`}>{n.name}</a><span>{Math.round(n.miles)} mi</span></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {cityReviews.length > 0 && (
+    <section class="section section--paper" aria-labelledby="city-reviews-title">
+      <div class="wrap">
+        <div class="head">
+          <p class="eyebrow">Client reviews</p>
+          <h2 id="city-reviews-title">Clients who mentioned <em>{c.name}.</em></h2>
+        </div>
+        <div class="quotes">
+          {cityReviews.map((r: any) => (
+            <figure class="quote">
+              <p class="quote__stars" aria-label={`${r.rating} out of 5 stars`}>{'★'.repeat(r.rating)}</p>
+              <blockquote>{r.text}</blockquote>
+              <figcaption><strong>{r.reviewer}</strong><span>{r.source === 'Zillow' ? `Zillow review · worked with ${r.agent}` : 'Google review'}</span></figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section" aria-labelledby="specialist-title">
+    <div class="wrap split-2">
+      <div class="prose">
+        <p class="eyebrow">Talk to a local agent</p>
+        <h2 id="specialist-title">Buying or selling <em>in {c.name}?</em></h2>
+        <p>Tell us what you're planning and we'll connect you with an agent who works in {c.name}.</p>
+        <p>Call <a href={site.phoneHref}>{site.phone}</a> or send a message.</p>
+      </div>
+      <form class="form" data-pending={pending}>
+        <div class="form__row">
+          <div class="field"><label for="sp-first">First name</label><input id="sp-first" name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for="sp-last">Last name</label><input id="sp-last" name="lastName" autocomplete="family-name" required /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="sp-email">Email</label><input id="sp-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="sp-phone">Phone</label><input id="sp-phone" name="phone" type="tel" autocomplete="tel" /></div>
+        </div>
+        <div class="field">
+          <label for="sp-goal">I want to</label>
+          <select id="sp-goal" name="goal"><option value="">Choose one</option><option>Buy in {c.name}</option><option>Sell in {c.name}</option><option>Buy and sell</option></select>
+        </div>
+        <input type="hidden" name="community" value={c.name} />
+        <button class="btn" type="submit">Send</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .search { display: flex; gap: .5rem; width: min(100%, 40rem); padding: .45rem; border-radius: 999px; background: rgba(255,255,255,.96); }
+  .search input { flex: 1; min-width: 0; border: 0; background: transparent; padding: .6rem 1rem; font: 500 1rem var(--sans); color: #1d1813; }
+  .search input:focus { outline: none; }
+  .search:focus-within { outline: 2px solid var(--gold); outline-offset: 3px; }
+  .search__status { min-height: 1.4em; color: var(--gold); }
+  @media (max-width: 700px) { .search { flex-direction: column; border-radius: 16px; } .search .btn { justify-content: center; } }
+
+  .tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; max-width: 52rem; margin: 0 auto 2rem; }
+  .tile { display: grid; gap: .3rem; justify-items: center; padding: 1.1rem .5rem; border: 1px solid var(--gold); text-align: center; }
+  .tile span { font: 700 .7rem/1.2 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--eyebrow); }
+  .tile strong { font: 400 2.4rem/1 var(--serif-display); color: var(--text); font-variant-numeric: tabular-nums; }
+  @media (max-width: 640px) { .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+  .glance-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 1.5rem; align-items: start; }
+  @media (max-width: 900px) { .glance-grid { grid-template-columns: 1fr; } }
+  .glance { display: grid; gap: 1rem; padding: 1.75rem; background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--gold); }
+  .glance h3 span { font: 700 .75rem/1 var(--ui); letter-spacing: .14em; text-transform: uppercase; color: var(--eyebrow); margin-left: .35rem; }
+  .glance__market { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+  .glance__market div { display: grid; gap: .25rem; padding: .9rem 1rem; background: var(--bg); }
+  .glance__market strong { font: 600 1.4rem/1 var(--sans); color: var(--text); }
+  .glance__market span { font: 700 .68rem/1.2 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--text-soft); }
+  .glance__note, .glance__source { font-size: .82rem; color: var(--text-soft); }
+  .glance__facts { margin: 0; display: grid; }
+  .glance__facts div { display: flex; justify-content: space-between; gap: 1rem; padding: .7rem 0; border-bottom: 1px solid var(--line); }
+  .glance__facts dt { font: 700 .72rem/1.4 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--text-soft); }
+  .glance__facts dd { margin: 0; text-align: right; color: var(--text); font-variant-numeric: tabular-nums; }
+
+  .alert { max-width: 44rem; margin-inline: auto; }
+  .near { list-style: none; padding: 0; display: grid; gap: 0; }
+  .near li { display: flex; justify-content: space-between; padding: .8rem 0; border-bottom: 1px solid rgba(212,178,124,.25); }
+  .near a { color: var(--on-dark); font: 400 1.25rem/1.2 var(--serif); text-decoration: none; }
+  .near a:hover { color: var(--gold); }
+  .near span { color: var(--on-dark-soft); font-variant-numeric: tabular-nums; }
+  .section--dark .prose a { color: var(--gold); }
+</style>

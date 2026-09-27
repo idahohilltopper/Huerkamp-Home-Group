@@ -1,0 +1,112 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import AreaMap from '../components/AreaMap.astro';
+import { lakes, lakeGeo, lakeInfo, communities, fmt } from '../data/areas';
+import { site } from '../data/site';
+
+const pending = `Thanks! Online forms are still being connected. For now, call ${site.phone} or email ${site.email}.`;
+// Link shoreline cities that have their own community page.
+const pageFor = (city: string) => communities.find((c) => c.censusName === city);
+---
+<Base
+  title="Twin Cities Lake Homes for Sale | Huerkamp Home Group"
+  description="Lake homes on Lake Minnetonka, White Bear Lake, Prior Lake, Forest Lake, Lake Waconia and more Twin Cities lakes.">
+  <PageHero eyebrow="Lake homes" title="Twin Cities Lake Homes for Sale"
+    lede="Lakeshore homes and cabins-in-the-city on eight of the metro's favorite lakes, from Lake Minnetonka to Prior Lake." />
+
+  <section class="section section--paper" aria-labelledby="lake-map-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Lake map</p>
+        <h2 id="lake-map-title">Pick <em>your lake.</em></h2>
+      </div>
+      <AreaMap geojson={lakeGeo} info={lakeInfo} label="Hover a lake" height="560px" />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="lakes-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">The lakes</p>
+        <h2 id="lakes-title">Eight lakes, <em>one team.</em></h2>
+        <p>Lakeshore listings for each lake appear here once the NorthstarMLS feed is connected.</p>
+      </div>
+      <div class="lakes">
+        {lakes.map((l) => (
+          <article class="lake" id={l.slug}>
+            <div class="lake__top">
+              <h3>{l.name}</h3>
+              <p class="lake__acres"><strong>{fmt(l.acres)}</strong> acres</p>
+            </div>
+            <dl>
+              <div><dt>County</dt><dd>{l.counties.join(', ')}</dd></div>
+              <div>
+                <dt>{l.shorelineCities.length ? 'Shoreline cities' : 'Location'}</dt>
+                <dd>
+                  {l.shorelineCities.length
+                    ? l.shorelineCities.map((city, i) => {
+                        const page = pageFor(city);
+                        return <>{i > 0 && ', '}{page ? <a href={`/communities/${page.slug}`}>{page.name}</a> : city}</>;
+                      })
+                    : l.areaNote}
+                </dd>
+              </div>
+            </dl>
+            <a class="lake__link" href={`/contact`}>Ask about {l.name} homes <span aria-hidden="true">→</span></a>
+          </article>
+        ))}
+      </div>
+      <p class="source-note">Lake outlines and acreage: US Census Bureau 2024 water areas, rounded. Lake Minnetonka includes its named bays. For depth, water quality and official DNR acreage, see the <a href="https://www.dnr.state.mn.us/lakefind/index.html">Minnesota DNR LakeFinder</a>.</p>
+    </div>
+  </section>
+
+  <section class="section section--dark" aria-labelledby="lake-contact-title">
+    <div class="wrap split-2">
+      <div class="prose">
+        <p class="eyebrow">Buying or selling on the water</p>
+        <h2 id="lake-contact-title">Lake homes <em>are different.</em></h2>
+        <p>Shoreline, dock rights, water depth and lake rules all affect what a lake home is worth. Tell us which lake you're interested in and we'll send new lakeshore listings as soon as they come on the market.</p>
+      </div>
+      <form class="form" data-pending={pending}>
+        <div class="form__row">
+          <div class="field"><label for="lk-first">First name</label><input id="lk-first" name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for="lk-last">Last name</label><input id="lk-last" name="lastName" autocomplete="family-name" required /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="lk-email">Email</label><input id="lk-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="lk-phone">Phone</label><input id="lk-phone" name="phone" type="tel" autocomplete="tel" /></div>
+        </div>
+        <div class="field">
+          <label for="lk-lake">Lake</label>
+          <select id="lk-lake" name="lake">
+            <option value="">Any lake</option>
+            {lakes.map((l) => <option>{l.name}</option>)}
+          </select>
+        </div>
+        <div class="field">
+          <label for="lk-goal">I want to</label>
+          <select id="lk-goal" name="goal"><option value="">Choose one</option><option>Buy a lake home</option><option>Sell a lake home</option></select>
+        </div>
+        <button class="btn" type="submit">Send me lake listings</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .lakes { display: grid; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); gap: 1.5rem; }
+  .lake { display: grid; grid-template-rows: auto 1fr auto; gap: 1rem; padding: 1.75rem; background: var(--surface); border: 1px solid var(--line); scroll-margin-top: 6rem; }
+  .lake:target { outline: 2px solid var(--gold); }
+  .lake__top { display: grid; gap: .3rem; }
+  .lake__acres { color: var(--text-soft); }
+  .lake__acres strong { font: 400 1.8rem/1 var(--serif-display); color: var(--eyebrow); font-variant-numeric: tabular-nums; }
+  .lake dl { margin: 0; display: grid; gap: .6rem; align-content: start; }
+  .lake dt { font: 700 .7rem/1.2 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--text-soft); }
+  .lake dd { margin: .15rem 0 0; color: var(--text); }
+  .lake dd a { color: var(--eyebrow); }
+  .lake__link { font: 700 .92rem/1 var(--ui); color: var(--eyebrow); text-decoration: none; }
+  .lake__link:hover { text-decoration: underline; }
+  .source-note { margin-top: 1.5rem; font-size: .85rem; color: var(--text-soft); }
+</style>

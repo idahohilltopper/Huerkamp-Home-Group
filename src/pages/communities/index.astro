@@ -1,0 +1,117 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import AreaMap from '../../components/AreaMap.astro';
+import { communities, communityGeo, communityInfo, regions, fmt } from '../../data/areas';
+---
+<Base
+  title="Twin Cities Communities | Huerkamp Home Group"
+  description="Explore 30 Twin Cities communities on an interactive map: Minneapolis, Saint Paul and the south, west, north and east metro.">
+  <PageHero eyebrow="Explore the Twin Cities" title="Twin Cities Communities & Neighborhoods"
+    lede={`${communities.length} communities across Minneapolis, Saint Paul and the metro. Hover the map to compare, then open a community for homes, local facts and nearby areas.`} />
+
+  <section class="section section--paper" aria-labelledby="map-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Community map</p>
+        <h2 id="map-title">Find your <em>community.</em></h2>
+      </div>
+      <AreaMap geojson={communityGeo} info={communityInfo} label="Hover a community" height="560px" />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="dir-title">
+    <div class="wrap">
+      <div class="dir-head">
+        <div>
+          <p class="eyebrow">Directory</p>
+          <h2 id="dir-title">All {communities.length} <em>communities.</em></h2>
+        </div>
+        <div class="field dir-filter">
+          <label for="community-filter">Find a community</label>
+          <input id="community-filter" type="search" placeholder="Type a city name" autocomplete="off" />
+        </div>
+      </div>
+      {regions.map((region) => {
+        const list = communities.filter((c) => c.region === region).sort((a, b) => a.name.localeCompare(b.name));
+        return (
+          <div class="dir-group" data-group>
+            <h3>{region}</h3>
+            <div class="table-scroll">
+              <table class="dir">
+                <thead><tr><th scope="col">Community</th><th scope="col">County</th><th scope="col" class="num">Population</th><th scope="col" class="num">Miles to Mpls</th><th scope="col" class="num">Miles to St. Paul</th></tr></thead>
+                <tbody>
+                  {list.map((c) => (
+                    <tr data-name={c.name.toLowerCase()}>
+                      <th scope="row"><a href={`/communities/${c.slug}`}>{c.name}</a></th>
+                      <td>{c.counties.join(', ')}</td>
+                      <td class="num">{fmt(c.population2024)}</td>
+                      <td class="num">{c.milesToMinneapolis}</td>
+                      <td class="num">{c.milesToSaintPaul}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        );
+      })}
+      <p class="dir-empty" data-empty hidden>No community matches that name. Try another spelling, or <a href="/contact">ask our team</a>.</p>
+      <p class="source-note">Population: US Census Bureau 2024 estimates. Miles are straight-line distances from each city's center to downtown.</p>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="wrap lake-band">
+      <div>
+        <p class="eyebrow">Lake homes</p>
+        <h2>Living on the <em>water?</em></h2>
+        <p>See lake homes on Lake Minnetonka, White Bear Lake, Prior Lake and more.</p>
+      </div>
+      <a class="btn" href="/lake-homes">Explore lake homes</a>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const input = document.querySelector<HTMLInputElement>('#community-filter')!;
+  const empty = document.querySelector<HTMLElement>('[data-empty]')!;
+  input.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+    let shown = 0;
+    document.querySelectorAll<HTMLElement>('[data-group]').forEach((g) => {
+      let groupShown = 0;
+      g.querySelectorAll<HTMLElement>('tr[data-name]').forEach((row) => {
+        const match = !q || row.dataset.name!.includes(q);
+        row.hidden = !match;
+        if (match) groupShown++;
+      });
+      g.hidden = groupShown === 0;
+      shown += groupShown;
+    });
+    empty.hidden = shown > 0;
+  });
+</script>
+
+<style>
+  [hidden] { display: none !important; }
+  .dir-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1.5rem; margin-bottom: 2rem; }
+  .dir-head > div:first-child { display: grid; gap: 1rem; }
+  .dir-filter { width: min(100%, 20rem); }
+  .dir-group { margin-bottom: 2.5rem; }
+  .dir-group h3 { margin-bottom: .75rem; }
+  .table-scroll { overflow-x: auto; }
+  .dir { width: 100%; border-collapse: collapse; font-size: 1rem; }
+  .dir th, .dir td { padding: .75rem .9rem; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+  .dir thead th { font: 700 .72rem/1.2 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--eyebrow); }
+  .dir tbody th { font: 500 1.1rem/1.3 var(--serif); }
+  .dir tbody th a { text-decoration: none; }
+  .dir tbody th a:hover { text-decoration: underline; color: var(--eyebrow); }
+  .dir .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .dir tbody tr:hover { background: var(--surface); }
+  .dir-empty { color: var(--text-soft); }
+  .source-note { margin-top: 1rem; font-size: .85rem; color: var(--text-soft); }
+  .lake-band { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2rem; }
+  .lake-band > div { display: grid; gap: .8rem; }
+  .lake-band p:not(.eyebrow) { color: var(--on-dark-soft); }
+</style>

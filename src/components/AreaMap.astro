@@ -1,0 +1,138 @@
+---
+// Interactive MapLibre map of community or lake outlines.
+//   mode="hub"   all areas; hover highlights, click opens the area's page
+//   mode="focus" zooms to one area (focus=slug); others shown faintly and still clickable
+// Map imagery: MapTiler when PUBLIC_MAPTILER_KEY is set at build time, otherwise OpenFreeMap.
+interface Feature { type: 'Feature'; properties: { slug: string; [k: string]: unknown }; geometry: unknown }
+interface Props {
+  geojson: { type: 'FeatureCollection'; features: Feature[] };
+  info: Record<string, { name: string; detail: string; href: string }>;
+  mode?: 'hub' | 'focus';
+  focus?: string;
+  label?: string;
+  height?: string;
+}
+const { geojson, info, mode = 'hub', focus = '', label = 'Hover an area', height = '520px' } = Astro.props;
+const key = import.meta.env.PUBLIC_MAPTILER_KEY ?? '';
+const style = key
+  ? `https://api.maptiler.com/maps/dataviz-light/style.json?key=${key}`
+  : 'https://tiles.openfreemap.org/styles/positron';
+
+// Attach display info to each feature so the map can show it on hover.
+const data = {
+  ...geojson,
+  features: geojson.features.map((f) => ({ ...f, properties: { ...f.properties, ...info[f.properties.slug] } })),
+};
+---
+<div class="area-map" style={`--map-h:${height}`}>
+  <div class="area-map__canvas" data-map data-style={style} data-mode={mode} data-focus={focus} data-geojson={JSON.stringify(data)}></div>
+  <div class="area-map__panel" aria-live="polite">
+    <span class="area-map__hint" data-hint>{label} —</span>
+    <strong data-name></strong>
+    <span data-detail></span>
+  </div>
+  <noscript><p class="area-map__noscript">Turn on JavaScript to use the map.</p></noscript>
+</div>
+
+<script>
+  import * as maplibregl from 'maplibre-gl';
+  import 'maplibre-gl/dist/maplibre-gl.css';
+  // MapLibre 6 runs its tile processing in a separate worker file; bundle it and point MapLibre at it.
+  import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
+  maplibregl.setWorkerUrl(workerUrl);
+
+  const GOLD = '#b8914f';
+  const INK = '#2b221a';
+
+  function bounds(features: any[]) {
+    const b = new maplibregl.LngLatBounds();
+    const walk = (c: any) => (typeof c[0] === 'number' ? b.extend(c as [number, number]) : c.forEach(walk));
+    features.forEach((f) => walk(f.geometry.coordinates));
+    return b;
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-map]').forEach((el) => {
+    const data = JSON.parse(el.dataset.geojson!);
+    const mode = el.dataset.mode;
+    const focus = el.dataset.focus;
+    const root = el.parentElement!;
+    const nameEl = root.querySelector<HTMLElement>('[data-name]')!;
+    const detailEl = root.querySelector<HTMLElement>('[data-detail]')!;
+    const hintEl = root.querySelector<HTMLElement>('[data-hint]')!;
+    data.features.forEach((f: any, i: number) => { f.id = i; f.properties.isFocus = f.properties.slug === focus; });
+
+    const focusFeatures = data.features.filter((f: any) => f.properties.isFocus);
+    const map = new maplibregl.Map({
+      container: el,
+      style: el.dataset.style!,
+      bounds: bounds(focusFeatures.length ? focusFeatures : data.features),
+      fitBoundsOptions: { padding: 40 },
+      cooperativeGestures: true,
+      attributionControl: { compact: true },
+    });
+    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
+
+    const show = (p: any) => {
+      hintEl.hidden = !!p;
+      nameEl.textContent = p ? p.name : '';
+      detailEl.textContent = p ? p.detail : '';
+    };
+    if (focusFeatures.length) show(focusFeatures[0].properties);
+
+    map.on('load', () => {
+      map.addSource('areas', { type: 'geojson', data });
+      map.addLayer({
+        id: 'areas-fill', type: 'fill', source: 'areas',
+        paint: {
+          'fill-color': GOLD,
+          'fill-opacity': ['case',
+            ['boolean', ['feature-state', 'hover'], false], 0.5,
+            ['get', 'isFocus'], 0.4,
+            mode === 'focus' ? 0.08 : 0.22],
+        },
+      });
+      map.addLayer({
+        id: 'areas-line', type: 'line', source: 'areas',
+        paint: {
+          'line-color': ['case', ['get', 'isFocus'], INK, GOLD],
+          'line-width': ['case', ['get', 'isFocus'], 2.5, ['boolean', ['feature-state', 'hover'], false], 2, 1],
+        },
+      });
+
+      let hovered: number | null = null;
+      map.on('mousemove', 'areas-fill', (e) => {
+        const f = e.features?.[0];
+        if (!f) return;
+        if (hovered !== null) map.setFeatureState({ source: 'areas', id: hovered }, { hover: false });
+        hovered = f.id as number;
+        map.setFeatureState({ source: 'areas', id: hovered }, { hover: true });
+        map.getCanvas().style.cursor = 'pointer';
+        show(f.properties);
+      });
+      map.on('mouseleave', 'areas-fill', () => {
+        if (hovered !== null) map.setFeatureState({ source: 'areas', id: hovered }, { hover: false });
+        hovered = null;
+        map.getCanvas().style.cursor = '';
+        show(focusFeatures[0]?.properties ?? null);
+      });
+      map.on('click', 'areas-fill', (e) => {
+        const href = e.features?.[0]?.properties?.href;
+        if (href) window.location.href = href;
+      });
+    });
+  });
+</script>
+
+<style>
+  .area-map { position: relative; border: 1px solid var(--line); background: #eeeae3; }
+  .area-map__canvas { width: 100%; height: var(--map-h); }
+  .area-map__panel {
+    position: absolute; left: 12px; bottom: 12px; z-index: 2; max-width: calc(100% - 24px);
+    display: grid; gap: .1rem; padding: .7rem 1rem; background: rgba(255,255,255,.95); color: #1d1813;
+    border: 1px solid #e8e2d6; box-shadow: 0 6px 20px rgba(0,0,0,.08); pointer-events: none;
+  }
+  .area-map__panel strong { font: 500 1.2rem/1.2 var(--serif); }
+  .area-map__panel span { font-size: .9rem; color: #4d4538; }
+  .area-map__hint { font: 700 .75rem/1.2 var(--ui) !important; letter-spacing: .12em; text-transform: uppercase; color: #8a6a3a !important; }
+  .area-map__noscript { padding: 1rem; }
+</style>

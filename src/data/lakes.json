@@ -1,0 +1,17 @@
+{
+  "sources": {
+    "outlines": "US Census Bureau TIGER/Line 2024 area water (public domain). Lake Minnetonka combines its named bays.",
+    "acres": "Census water area, rounded. Official DNR acreage can differ slightly.",
+    "shorelineCities": "Cities whose Census boundary overlaps the lake outline (scripts/build-lakes.sh)."
+  },
+  "lakes": [
+    { "slug": "lake-minnetonka", "name": "Lake Minnetonka", "counties": ["Hennepin"], "acres": 13733, "shorelineCities": ["Deephaven", "Excelsior", "Greenwood", "Minnetonka", "Minnetrista", "Mound", "Orono", "Shorewood", "Spring Park", "Tonka Bay", "Minnetonka Beach", "Wayzata", "Woodland"] },
+    { "slug": "white-bear-lake", "name": "White Bear Lake", "counties": ["Ramsey", "Washington"], "acres": 2400, "shorelineCities": ["White Bear Lake", "Mahtomedi", "Birchwood Village"] },
+    { "slug": "lake-waconia", "name": "Lake Waconia", "counties": ["Carver"], "acres": 3068, "shorelineCities": [], "areaNote": "Near the city of Waconia" },
+    { "slug": "forest-lake", "name": "Forest Lake", "counties": ["Washington"], "acres": 2251, "shorelineCities": ["Forest Lake"] },
+    { "slug": "prior-lake", "name": "Prior Lake", "counties": ["Scott"], "acres": 1310, "shorelineCities": ["Prior Lake"] },
+    { "slug": "crystal-lake", "name": "Crystal Lake", "counties": ["Dakota"], "acres": 291, "shorelineCities": ["Burnsville", "Lakeville"] },
+    { "slug": "lake-marion", "name": "Lake Marion", "counties": ["Dakota"], "acres": 185, "shorelineCities": ["Lakeville"] },
+    { "slug": "orchard-lake", "name": "Orchard Lake", "counties": ["Dakota"], "acres": 96, "shorelineCities": ["Lakeville"] }
+  ]
+}
