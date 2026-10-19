@@ -2,12 +2,13 @@ import Link from 'next/link';
 import SiteHeader from './SiteHeader';
 import SiteFooter from './SiteFooter';
 import ApplySection from './ApplySection';
+import Stats from './Stats';
 
 const badges = ['#1 realtor.com lead purchaser in the Twin Cities', 'Zillow Preferred team', '100% free to apply', 'Reply within 1 business day', 'Confidential conversation'];
 
 const matchCards = [
   { who: 'You', tag: 'Ambitious agent', rows: [['Looking for', 'Leads · Training · Culture'], ['Goal', 'Close more deals'], ['Style', 'Collaborative']] },
-  { who: 'Huerkamp Home Group', tag: 'Keller Williams team', rows: [['Founded', '2002'], ['Team', '~30 agents'], ['Volume', '~500 homes / year']] },
+  { who: 'Huerkamp Home Group', tag: 'Keller Williams team', rows: [['Founded', '2002'], ['Volume', '$190M / year'], ['Units', '520 / year']] },
 ];
 
 const explore = [
@@ -46,6 +47,24 @@ export default function Home() {
       </section>
 
       <div className="strip">Keller Williams Preferred Realty · Burnsville, MN · Serving the Twin Cities since 2002</div>
+
+      <Stats />
+
+      <section className="section proof">
+        <p className="eyebrow dark">Productive. And fun.</p>
+        <h2>We get things done, and we enjoy every minute</h2>
+        <p className="sub">$190 million in volume and 520 units a year, with a team that plans together, works together, and celebrates together.</p>
+        <div className="gallery">
+          {[
+            ['/team-photo.jpg', 'Our team at our annual planning retreat', 'tall'],
+            ['/life-lake.jpg', 'Team getaway at the lake', ''],
+            ['/life-night.jpg', 'Team night out', ''],
+          ].map(([src, cap, cls]) => (
+            <figure key={src} className={cls}><img src={src} alt={cap} loading="lazy" /><figcaption>{cap}</figcaption></figure>
+          ))}
+        </div>
+        <Link href="/our-team" className="btn">See more of the team</Link>
+      </section>
 
       <section className="section">
         <p className="eyebrow dark">Explore</p>

@@ -2,6 +2,7 @@ import SiteHeader from '../SiteHeader';
 import SiteFooter from '../SiteFooter';
 import PageHero from '../PageHero';
 import ApplySection from '../ApplySection';
+import Stats from '../Stats';
 
 export const metadata = { title: 'Our Team | Huerkamp Home Group', description: 'Meet the Huerkamp Home Group team: how we work, give back, and have fun together.' };
 
@@ -10,8 +11,9 @@ export default function OurTeam() {
     <>
       <SiteHeader />
       <PageHero eyebrow="Our team" title="People who want you to win">
-        We plan together, train together, give back together, and enjoy it.
+        We plan together, train together, give back together, and enjoy it, while closing $190 million in volume and 520 units a year.
       </PageHero>
+      <Stats />
       <section className="section split team" id="team">
         <img src="/team-photo.jpg" alt="The Huerkamp Home Group team at our annual planning retreat" className="team-img" />
         <div>
