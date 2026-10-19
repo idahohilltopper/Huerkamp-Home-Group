@@ -9,7 +9,7 @@ const faqs = [
   ['Do I need to be licensed?', 'No. We talk with licensed agents, agents in the licensing process, and people curious about the career.'],
   ['Is it really free to apply?', 'Yes. Applying and talking with us costs nothing and carries no obligation.'],
   ['Where is HHG located?', 'We are a Keller Williams Preferred Realty team based in Burnsville, MN.'],
-  ['Is there an agent recruiting bonus?', 'Yes. We have an agent recruiting bonus that encourages referrals and introductions to people who would be a great fit for the team.'],
+  ['Is there an agent recruiting bonus?', 'Yes. We pay a $5,000 bonus if you close two team leads in your first 120 days. It applies to people you bring onto the team, and it also applies to you when you join the team yourself.'],
   ['How fast will I hear back?', 'Within one business day.'],
 ];
 

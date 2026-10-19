@@ -3,6 +3,7 @@ import SiteHeader from './SiteHeader';
 import SiteFooter from './SiteFooter';
 import ApplySection from './ApplySection';
 import Stats from './Stats';
+import YouTubeBanner from './YouTubeBanner';
 
 const badges = ['#1 realtor.com lead purchaser in the Twin Cities', 'Zillow Preferred team', '100% free to apply', 'Reply within 1 business day', 'Confidential conversation'];
 
@@ -49,6 +50,8 @@ export default function Home() {
       <div className="strip">Keller Williams Preferred Realty · Burnsville, MN · Serving the Twin Cities since 2002</div>
 
       <Stats />
+
+      <YouTubeBanner />
 
       <section className="section proof">
         <p className="eyebrow dark">Productive. And fun.</p>

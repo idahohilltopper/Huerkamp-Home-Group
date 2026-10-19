@@ -223,3 +223,17 @@ input, select, textarea { border:1px solid #9a9ca0; border-radius:6px; }
 .coach .coach-link { display:inline-block; margin-top:.9rem; color:var(--red); font-weight:700; font-size:.92rem; text-decoration:none; border-bottom:2px solid var(--red); }
 .coach .coach-link:hover { color:#000; border-color:#000; }
 .coach p:nth-of-type(2) { margin:0; }
+
+.yt { max-width:1200px; margin:2.5rem auto 0; padding:0 1.25rem; }
+.yt-inner { display:flex; align-items:center; gap:1.75rem; background:var(--red); color:#fff; text-decoration:none; border-radius:8px; padding:2rem 2.25rem; border:3px solid #000; transition:background .15s, transform .15s; }
+.yt-inner:hover { background:#000; border-color:var(--red); }
+.yt-inner:hover .yt-btn { background:var(--red); color:#fff; }
+.yt-play { flex:none; line-height:0; }
+.yt-text { flex:1; display:block; }
+.yt-eyebrow { display:block; font-size:.78rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase; opacity:.95; }
+.yt-text strong { display:block; font-size:clamp(1.6rem,3.4vw,2.4rem); line-height:1.1; letter-spacing:-.02em; margin:.25rem 0 .5rem; }
+.yt-sub { display:block; font-size:1rem; max-width:640px; color:#fff; }
+.yt-btn { flex:none; background:#fff; color:#000; font-weight:800; padding:.9rem 1.5rem; border-radius:6px; white-space:nowrap; }
+@media (max-width:800px){ .yt-inner { flex-direction:column; align-items:flex-start; padding:1.5rem; } .yt-btn { align-self:stretch; text-align:center; } }
+.footer a { color:var(--red); font-weight:700; }
+.gicon { flex:none; display:grid; place-items:center; width:3rem; height:3rem; border-radius:8px; background:var(--red); color:#fff; }
