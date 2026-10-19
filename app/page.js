@@ -8,13 +8,31 @@ const matchCards = [
 ];
 
 const perks = [
-  ['Warm leads, every week', 'Company-generated leads routed to agents who show up and follow up.'],
-  ['Training that sticks', 'Scripts, role-play, and a structured first 90 days. You are never guessing.'],
-  ['Real mentorship', 'Work alongside experienced agents on listings, offers, and negotiations.'],
-  ['Tech & marketing built in', 'CRM, listing marketing, social content, and transaction support.'],
-  ['Culture that wins together', 'Collaborative, not cutthroat. We celebrate every closing.'],
-  ['Room to grow', 'Clear paths from new agent to top producer to team leader.'],
+  ['Focus on the 20% that pays', 'Organized processes, systems, scripts, and manpower so you spend your time on the activities that make money, not the 80% that doesn\u2019t.'],
+  ['Weekly MAPS coaching', 'One-on-one coaching every week to keep you accountable and growing.'],
+  ['Client Care Manager', 'A dedicated manager handles client care and keeps your deals moving.'],
+  ['Buyer leads provided', 'Paid lead sources feed the team so you spend time working leads, not buying them.'],
+  ['Marketing handled', 'Marketing assistance, signs, cards, and quarterly client events. No marketing expenses.'],
+  ['Cover while you\u2019re away', 'We care for your business while you are on vacation.'],
 ];
+
+const valueRows = [
+  ['Reduced company split', 9750, 1],
+  ['Weekly coaching by MAPS coach', 1000, 52],
+  ['Marketing assistance', 250, 12],
+  ['Client Care Manager', 3000, 12],
+  ['DocuSign', 20, 12],
+  ['Commissions Inc website', 2000, 12],
+  ['Open house signs', 30, 15],
+  ['Business cards', 100, 1],
+  ['Copy machine, toner, paper', 100, 12],
+  ['Care for business while on vacation', 2500, 1],
+  ['Buyer leads', 1000, 12],
+  ['Office space / rent', 250, 12],
+  ['Quarterly client events', 2500, 4],
+];
+const money = (n) => '$' + n.toLocaleString('en-US');
+const valueTotal = valueRows.reduce((t, [, v, f]) => t + v * f, 0);
 
 const steps = [
   ['Tell us what you want', 'Pick what matters most: leads, training, culture, split.'],
@@ -24,7 +42,7 @@ const steps = [
   ['Start closing', 'Work leads, build your pipeline, and grow with the group.'],
 ];
 
-const free = ['Free to apply', 'Confidential conversation', 'Honest look at how we work', 'Shadow the team before you decide', 'Mentor assigned from day one', 'Lead flow, CRM and marketing tools'];
+const free = ['Free to apply', 'Confidential conversation', 'Honest look at how we work', 'Shadow the team before you decide', 'Weekly MAPS coaching', 'Buyer leads, marketing and a Client Care Manager'];
 
 const faqs = [
   ['Do I need to be licensed?', 'No. We talk with licensed agents, agents in the licensing process, and people curious about the career.'],
@@ -40,6 +58,7 @@ export default function Home() {
         <img src="/hhg-logo.png" alt="Huerkamp Home Group" className="logo-img" />
         <nav>
           <a href="#why">Why HHG</a>
+          <a href="#value">Your value</a>
           <a href="#how">How it works</a>
           <a href="#faq">FAQ</a>
           <a href="#apply" className="btn small">Join</a>
@@ -78,6 +97,26 @@ export default function Home() {
           {perks.map(([t, d]) => (
             <div className="card" key={t}><h3>{t}</h3><p>{d}</p></div>
           ))}
+        </div>
+      </section>
+
+      <section className="section" id="value">
+        <p className="eyebrow dark">Team value proposition</p>
+        <h2>What does this mean for you?</h2>
+        <p className="sub">We have the processes, systems, scripts, experience and manpower to let you focus on the 20% of activities that make you money, not the 80% that doesn&apos;t.</p>
+        <div className="tablewrap">
+          <table className="value">
+            <thead><tr><th>Team benefit</th><th>Value</th><th>Frequency</th><th>Annual value</th></tr></thead>
+            <tbody>
+              {valueRows.map(([n, v, f]) => (
+                <tr key={n}><td>{n}</td><td>{money(v)}</td><td>{f}</td><td>{money(v * f)}</td></tr>
+              ))}
+              {['No marketing expenses', 'Reputation of a demonstrably successful team', 'Time'].map((n) => (
+                <tr key={n}><td>{n}</td><td></td><td></td><td className="pl">Priceless</td></tr>
+              ))}
+            </tbody>
+            <tfoot><tr><td colSpan="3">To try to recreate what we provide you</td><td>{money(valueTotal)}</td></tr></tfoot>
+          </table>
         </div>
       </section>
 
