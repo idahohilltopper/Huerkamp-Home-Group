@@ -4,6 +4,7 @@ const links = [
   ['/why-hhg', 'Why HHG'],
   ['/our-team', 'Our team'],
   ['/value', 'Your value'],
+  ['/agent-plus', 'Agent+'],
   ['/how-it-works', 'How it works'],
   ['/faq', 'FAQ'],
 ];

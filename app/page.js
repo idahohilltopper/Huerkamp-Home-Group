@@ -4,8 +4,9 @@ import SiteFooter from './SiteFooter';
 import ApplySection from './ApplySection';
 import Stats from './Stats';
 import YouTubeBanner from './YouTubeBanner';
+import AgentPlusBand from './AgentPlusBand';
 
-const badges = ['#1 Keller Williams team in the North Central region', '#1 realtor.com lead purchaser in the Twin Cities', 'Zillow Preferred team', '100% free to apply', 'Reply within 1 business day', 'Confidential conversation'];
+const badges = ['Earn up to $4,000 per file on top of your commission', 'Matching 401(k)', '#1 Keller Williams team in the North Central region', '#1 realtor.com lead purchaser in the Twin Cities', 'Zillow Preferred team', '100% free to apply', 'Reply within 1 business day', 'Confidential conversation'];
 
 const matchCards = [
   { who: 'You', tag: 'Ambitious agent', rows: [['Looking for', 'Leads · Training · Culture'], ['Goal', 'Close more deals'], ['Style', 'Collaborative']] },
@@ -16,6 +17,7 @@ const explore = [
   ['/why-hhg', 'Why HHG', 'Leads, coaching, a Client Care Manager, a showing partner and more.'],
   ['/our-team', 'Our team', 'Meet the people, the community work, and life at HHG.'],
   ['/value', 'Your value', 'See what the team provides and what it is worth.'],
+  ['/agent-plus', 'Agent+', 'Up to $4,000 more per file and a matching 401(k).'],
   ['/how-it-works', 'How it works', 'From hello to closing in five steps.'],
   ['/faq', 'FAQ', 'Licensing, cost, location, and how fast we reply.'],
 ];
@@ -50,6 +52,8 @@ export default function Home() {
       <div className="strip">#1 Keller Williams team in the North Central region · Burnsville, MN · Serving the Twin Cities since 2002</div>
 
       <Stats />
+
+      <AgentPlusBand />
 
       <YouTubeBanner />
 

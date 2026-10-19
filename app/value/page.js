@@ -2,6 +2,7 @@ import SiteHeader from '../SiteHeader';
 import SiteFooter from '../SiteFooter';
 import PageHero from '../PageHero';
 import ApplySection from '../ApplySection';
+import AgentPlusBand from '../AgentPlusBand';
 
 export const metadata = { title: 'Your Value | Huerkamp Home Group', description: 'What the Huerkamp Home Group team value proposition means for you.' };
 
@@ -37,6 +38,7 @@ export default function Value() {
       <PageHero eyebrow="Team value proposition" title="What does this mean for you?">
         Everything the team provides, and what it would cost you to try to recreate it on your own.
       </PageHero>
+      <AgentPlusBand />
       <section className="section" id="value">
         <p className="sub">We have the processes, systems, scripts, experience and manpower to let you focus on the 20% of activities that make you money, not the 80% that doesn&apos;t.</p>
         <div className="tablewrap">
