@@ -89,3 +89,6 @@ fieldset.chips { border:0; padding:0; margin:0; display:flex; flex-wrap:wrap; ga
 .value tfoot td:last-child { color:#ff7d9a; }
 
 .team-img { width:100%; max-height:620px; object-fit:cover; object-position:center 55%; border-radius:20px; box-shadow:0 14px 34px rgba(0,0,0,.18); }
+
+.team-img.wide { object-position:center; max-height:520px; }
+@media (min-width:801px){ .section.rev > :first-child { order:2; } }

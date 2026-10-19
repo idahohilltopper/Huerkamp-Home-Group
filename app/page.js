@@ -111,6 +111,15 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="section split rev" id="community">
+        <div>
+          <p className="eyebrow dark">Community</p>
+          <h2>We give back together</h2>
+          <p className="sub left">Every year the team rolls up its sleeves for Keller Williams Red Day, a day of service for neighbors in our community. Work hard, make a difference, and have fun doing it.</p>
+        </div>
+        <img src="/red-day.jpg" alt="HHG team members in red shirts volunteering on Keller Williams Red Day" className="team-img wide" />
+      </section>
+
       <section className="section" id="value">
         <p className="eyebrow dark">Team value proposition</p>
         <h2>What does this mean for you?</h2>
