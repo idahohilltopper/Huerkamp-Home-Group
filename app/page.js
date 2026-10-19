@@ -59,9 +59,9 @@ export default function Home() {
         <p className="sub">$190 million in volume and 520 units a year, with a team that plans together, works together, and celebrates together.</p>
         <div className="gallery">
           {[
-            ['/team-photo.jpg', 'Our team at our annual planning retreat', 'tall'],
             ['/life-lake.jpg', 'Team getaway at the lake', ''],
-            ['/life-night.jpg', 'Team night out', ''],
+            ['/life-fair.jpg', 'Cookie run at the State Fair', ''],
+            ['/life-night.jpg', 'Night out with business partners', ''],
           ].map(([src, cap, cls]) => (
             <figure key={src} className={cls}><img src={src} alt={cap} loading="lazy" /><figcaption>{cap}</figcaption></figure>
           ))}

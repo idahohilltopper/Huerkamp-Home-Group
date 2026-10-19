@@ -43,7 +43,7 @@ export default function OurTeam() {
           {[
             ['/life-lake.jpg', 'Team getaway at the lake'],
             ['/life-fair.jpg', 'Cookie run at the State Fair'],
-            ['/life-night.jpg', 'Team night out'],
+            ['/life-night.jpg', 'Night out with business partners'],
           ].map(([src, cap]) => (
             <figure key={src}><img src={src} alt={cap} loading="lazy" /><figcaption>{cap}</figcaption></figure>
           ))}
