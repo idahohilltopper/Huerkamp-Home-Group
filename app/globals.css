@@ -242,3 +242,10 @@ input, select, textarea { border:1px solid #9a9ca0; border-radius:6px; }
 .gallery { align-items:start; }
 .gallery img, .proof .gallery img, .proof .gallery figure.tall img { aspect-ratio:auto; height:auto; object-fit:initial; }
 @media (max-width:800px){ .proof .gallery img { aspect-ratio:auto; } }
+
+/* equal-size gallery frames, photos uncropped */
+.gallery { align-items:stretch; }
+.gallery figure { display:flex; flex-direction:column; }
+.gallery img, .proof .gallery img, .proof .gallery figure.tall img { width:100%; aspect-ratio:3/2; height:auto; object-fit:contain; background:#000; }
+.gallery figcaption { margin-top:auto; }
+@media (max-width:800px){ .proof .gallery img { aspect-ratio:3/2; } }
