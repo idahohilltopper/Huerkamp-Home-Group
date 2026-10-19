@@ -32,6 +32,7 @@ export async function POST(req) {
   if (process.env.FUB_SYSTEM_KEY) headers['X-System-Key'] = process.env.FUB_SYSTEM_KEY;
 
   const description = [
+    Array.isArray(b.looking) && b.looking.length ? `Looking for: ${b.looking.slice(0, 12).map((x) => String(x).slice(0, 40)).join(', ')}` : '',
     `Licensed: ${b.licensed || 'n/a'}`,
     `Experience: ${b.experience || 'n/a'}`,
     b.message ? `Message: ${String(b.message).slice(0, 2000)}` : '',
