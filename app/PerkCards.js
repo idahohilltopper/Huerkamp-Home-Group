@@ -16,6 +16,18 @@ const perks = [
     note: 'By being a team member, you earn more and have more freedom than you could on your own.',
   },
   {
+    title: 'Agent+ income and a matching 401(k)',
+    blurb: 'Earn up to $4,000 per file on top of your commission, plus a matching 401(k), through Agent+ with Mutual of Omaha Mortgage.',
+    points: [
+      'Earn half a point (50 basis points) of the loan amount on loans up to $800,000, up to $4,000 per file',
+      'Income above and beyond your real estate commission',
+      'A matching 401(k) to build real wealth',
+      'A support team that handles the mortgage details',
+    ],
+    note: 'Participation requires mortgage licensing and is subject to program terms. \u201cUp to\u201d is a maximum, not a guarantee.',
+    link: ['See how Agent+ works', '/agent-plus'],
+  },
+  {
     title: 'Weekly coaching',
     blurb: 'Coaching 46 weeks a year from national coach Jeff Glover and team coaches Olivia Manson and Jason Huerkamp.',
     points: [
@@ -102,6 +114,7 @@ export default function PerkCards() {
             <div id={'perk-' + i} className="perk-body" hidden={!on}>
               <ul>{p.points.map((x) => <li key={x}>{x}</li>)}</ul>
               <p className="note">{p.note}</p>
+              {p.link && <a href={p.link[1]} className="btn small ghost-dark">{p.link[0]}</a>}
               <a href="/apply" className="btn small">Join the team</a>
             </div>
           </div>

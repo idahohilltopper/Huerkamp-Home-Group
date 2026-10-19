@@ -269,3 +269,4 @@ input, select, textarea { border:1px solid #9a9ca0; border-radius:6px; }
   .nav nav a { flex:none; }
   .logo-img { height:48px; }
 }
+.phero + .ap-band { margin-top:0; border-top-color:#000; }
