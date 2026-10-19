@@ -219,3 +219,7 @@ input, select, textarea { border:1px solid #9a9ca0; border-radius:6px; }
 .proof .gallery figure.tall img { aspect-ratio:3/4; }
 .proof .gallery img { aspect-ratio:3/4; object-position:center 35%; }
 @media (max-width:800px){ .proof .gallery { grid-template-columns:1fr; } .proof .gallery img { aspect-ratio:4/3; } }
+
+.coach .coach-link { display:inline-block; margin-top:.9rem; color:var(--red); font-weight:700; font-size:.92rem; text-decoration:none; border-bottom:2px solid var(--red); }
+.coach .coach-link:hover { color:#000; border-color:#000; }
+.coach p:nth-of-type(2) { margin:0; }
