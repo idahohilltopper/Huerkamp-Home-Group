@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <>
       <header className="nav">
-        <span className="logo">Huerkamp Home Group</span>
+        <img src="/hhg-logo.png" alt="Huerkamp Home Group" className="logo-img" />
         <a href="#apply" className="btn small">Apply</a>
       </header>
 

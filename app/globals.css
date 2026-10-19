@@ -29,3 +29,5 @@ input,select,textarea { font:inherit; padding:.7rem; border:1px solid #c9d0db; b
 .err { color:#b3261e; margin:0; }
 .thanks { background:var(--alt); border-radius:12px; padding:2rem; margin-top:1.5rem; }
 .footer { text-align:center; padding:2rem; color:var(--muted); font-size:.85rem; }
+
+.logo-img { height:72px; width:auto; display:block; margin:-.5rem 0; }
