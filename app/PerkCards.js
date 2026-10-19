@@ -10,7 +10,7 @@ const perks = [
       'Organized processes and systems already in place',
       'Scripts and experience from a team that has served the Twin Cities since 2002',
       'Team members who handle the day-to-day so you can sell',
-      'Office space, copier and supplies, DocuSign, and business cards covered',
+      'Office space, copier and supplies, Click Contracts, and business cards covered',
       'The reputation of a demonstrably successful team behind your name',
     ],
     note: 'By being a team member, you earn more and have more freedom than you could on your own.',
@@ -64,7 +64,7 @@ const perks = [
     blurb: 'Marketing assistance, signs, cards, and quarterly client events. No marketing expenses.',
     points: [
       'Marketing assistance on your listings and your brand',
-      'CINC (Commissions Inc) website included for every agent',
+      'Commissions Inc website included',
       'Open house signs and business cards',
       'Quarterly client events to keep your database warm',
       'No marketing expenses for you',

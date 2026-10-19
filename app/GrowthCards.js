@@ -89,14 +89,14 @@ const items = [
   },
   {
     icon: 'laptop',
-    title: 'A CINC website for every agent',
-    blurb: 'All of our agents get a CINC (Commissions Inc) website as part of what they do, and work the lead information it captures.',
+    title: 'Click Contracts for every agent',
+    blurb: 'Every agent gets Click Contracts as part of what they do, and takes information from the Click Contracts website to create and send real estate contracts fast.',
     points: [
-      'Every agent gets their own CINC (Commissions Inc) website',
-      'Lead information from the CINC website goes to work for you',
-      'Built into the team’s systems, so you do not have to set it up on your own',
+      'Click Contracts is included for every agent on the team',
+      'Create and send real estate contracts in minutes',
+      'Built into the way the team works, so you do not set it up on your own',
     ],
-    link: ['Visit CINC', 'https://www.cincpro.com'],
+    link: ['Visit Click Contracts', 'https://clickcontracts.com'],
   },
   {
     icon: 'calendar',
