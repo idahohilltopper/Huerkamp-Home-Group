@@ -3,6 +3,7 @@ import SiteFooter from '../SiteFooter';
 import PageHero from '../PageHero';
 import ApplySection from '../ApplySection';
 import PerkCards from '../PerkCards';
+import GrowthCards from '../GrowthCards';
 
 export const metadata = { title: 'Why HHG | Huerkamp Home Group', description: 'Everything you need to build a real estate business with Huerkamp Home Group.' };
 
@@ -13,10 +14,16 @@ export default function WhyHHG() {
     <>
       <SiteHeader />
       <PageHero eyebrow="Why HHG" title="Everything you need to build a business">
-        No searching. No cold calls. Just a team built to help you win. Tap any benefit to see what it means for you.
+        A team built to help you win, with real systems behind it. Tap any benefit to see what it means for you.
       </PageHero>
       <section className="section">
         <PerkCards />
+      </section>
+      <section className="section alt">
+        <p className="eyebrow dark">The engine behind the team</p>
+        <h2>How we keep the pipeline full and the team growing</h2>
+        <p className="sub">Seven things we do every week so there is always momentum. Tap any one to see more.</p>
+        <GrowthCards />
       </section>
       <section className="section split">
         <div>

@@ -50,7 +50,7 @@ export default function Home() {
       <section className="section">
         <p className="eyebrow dark">Explore</p>
         <h2>Everything you need to build a business</h2>
-        <p className="sub">No searching. No cold calls. Just a team built to help you win.</p>
+        <p className="sub">A team built to help you win, with real systems behind it.</p>
         <div className="grid">
           {explore.map(([href, t, d]) => (
             <Link className="card tile" key={href} href={href}><h3>{t}</h3><p>{d}</p><span className="more">Learn more →</span></Link>

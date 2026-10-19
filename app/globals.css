@@ -195,3 +195,10 @@ input, select, textarea { border:1px solid #9a9ca0; border-radius:6px; }
 .group-coach p { margin:0; color:#e6e6e8; max-width:640px; }
 .group-coach .eyebrow { color:#ff4d4d; margin-bottom:.5rem; }
 .group-coach .btn { white-space:nowrap; }
+
+.growth .perk-h { align-items:flex-start; }
+.gnum { flex:none; display:grid; place-items:center; width:2.2rem; height:2.2rem; border-radius:50%; background:var(--red); color:#fff; font-weight:700; }
+.gtext { flex:1; }
+.gtext h3 { margin:0 0 .3rem; }
+.gtext p { margin:0; color:var(--char); }
+.grid.growth { grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr)); }
