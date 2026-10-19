@@ -21,6 +21,7 @@ const perks = [
     points: [
       'Coaching every single week, 52 times a year, from national coach Jeff Glover and team coaches Olivia Manson and Jason Huerkamp',
       'Group coaching led personally by national coach Jeff Glover, limited to 10 people in the United States',
+      'A weekly accountability meeting (WAM) from The 12 Week Year, so your plan turns into action',
       'Accountability on your goals and your pipeline',
       'Practical help on what to do next, not just theory',
     ],
@@ -63,7 +64,7 @@ const perks = [
     blurb: 'Marketing assistance, signs, cards, and quarterly client events. No marketing expenses.',
     points: [
       'Marketing assistance on your listings and your brand',
-      'Commissions Inc website included',
+      'CINC (Commissions Inc) website included for every agent',
       'Open house signs and business cards',
       'Quarterly client events to keep your database warm',
       'No marketing expenses for you',

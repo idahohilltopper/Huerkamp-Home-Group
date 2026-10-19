@@ -5,9 +5,9 @@ import { useState } from 'react';
 const items = [
   {
     title: 'Targeted lists and ads',
-    blurb: 'We use Owldoor to identify high-potential homeowners and run targeted ads that put HHG in front of the right people in our market.',
+    blurb: 'We identify high-potential homeowners and run targeted ads that put HHG in front of the right people in our market.',
     points: [
-      'Owldoor helps us identify high-potential homeowners',
+      'Targeted lists help us identify high-potential homeowners',
       'Targeted ads put HHG in front of the right people in our market',
       'More of the right conversations, with less guesswork',
     ],
@@ -36,7 +36,7 @@ const items = [
     blurb: 'We have an agent recruiting bonus and actively pitch it to our agents to encourage referrals and introductions.',
     points: [
       'A recruiting bonus for agents who bring great people to the team',
-      'Highlighted regularly and actively pitched to the team',
+      'Highlighted and actively pitched in our weekly accountability meeting (WAM)',
       'Built to encourage referrals and introductions',
     ],
   },
@@ -51,7 +51,7 @@ const items = [
   },
   {
     title: 'Targeted recruiting with Ylopo',
-    blurb: 'We use Ylopo to run targeted recruiting ads that connect with high-producing agents who may be a fit for HHG.',
+    blurb: 'We have Ylopo and use it to run targeted recruiting ads that connect with high-producing agents who may be a fit for HHG.',
     points: [
       'Targeted recruiting ads, powered by Ylopo',
       'Built to reach high-producing agents who may be a fit',
@@ -65,6 +65,26 @@ const items = [
       'Dedicated recruiting websites led by Jason Huerkamp',
       'Attract top talent and showcase our opportunity',
       'Make it easy for agents to learn more about joining HHG',
+    ],
+  },
+  {
+    title: 'A CINC website for every agent',
+    blurb: 'All of our agents get a CINC (Commissions Inc) website as part of what they do, and work the lead information it captures.',
+    points: [
+      'Every agent gets their own CINC (Commissions Inc) website',
+      'Lead information from the CINC website goes to work for you',
+      'Built into the team\u2019s systems, so you do not have to set it up on your own',
+    ],
+    link: ['Visit CINC', 'https://www.cincpro.com'],
+  },
+  {
+    title: 'Weekly accountability meeting (WAM)',
+    blurb: 'Every week the team holds WAM, the weekly accountability meeting from the book The 12 Week Year, to keep everyone on plan.',
+    points: [
+      'WAM is the weekly accountability meeting, a core practice of The 12 Week Year',
+      'Review last week\u2019s results against your plan',
+      'Commit to the specific actions for the week ahead',
+      'Pairs with weekly coaching, so goals turn into daily habits',
     ],
   },
 ];
@@ -88,6 +108,7 @@ export default function GrowthCards() {
             </button>
             <div id={'growth-' + i} className="perk-body" hidden={!on}>
               <ul>{p.points.map((x) => <li key={x}>{x}</li>)}</ul>
+              {p.link && <a href={p.link[1]} target="_blank" rel="noopener noreferrer" className="btn small ghost-dark">{p.link[0]} ↗</a>}
               <a href="/apply" className="btn small">Join the team</a>
             </div>
           </div>

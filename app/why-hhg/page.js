@@ -22,7 +22,7 @@ export default function WhyHHG() {
       <section className="section alt">
         <p className="eyebrow dark">The engine behind the team</p>
         <h2>How we keep the pipeline full and the team growing</h2>
-        <p className="sub">Seven things we do every week so there is always momentum. Tap any one to see more.</p>
+        <p className="sub">Everything we do every week so there is always momentum. Tap any one to see more.</p>
         <GrowthCards />
       </section>
       <section className="section split">

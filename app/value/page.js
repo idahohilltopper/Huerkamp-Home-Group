@@ -11,7 +11,7 @@ const valueRows = [
   ['Marketing assistance', 250, 12],
   ['Client Care Manager', 3000, 12],
   ['DocuSign', 20, 12],
-  ['Commissions Inc website', 2000, 12],
+  ['CINC (Commissions Inc) website', 2000, 12],
   ['Open house signs', 30, 15],
   ['Business cards', 100, 1],
   ['Copy machine, toner, paper', 100, 12],
@@ -73,6 +73,10 @@ export default function Value() {
             <p>Jeff Glover personally leads group coaching, and he does it for only 10 people in the United States. Learn more about his coaching platform, Glover U.</p>
           </div>
           <a href="https://www.gloveru.com" target="_blank" rel="noopener noreferrer" className="btn">Visit Glover U ↗</a>
+        </div>
+        <div className="wam">
+          <h3>Plus a weekly accountability meeting</h3>
+          <p>Every week the team also holds WAM, our weekly accountability meeting, a core practice from the book <em>The 12 Week Year</em>. You review last week against your plan, commit to the specific actions for the week ahead, and keep each other accountable. Coaching shows you what to do. WAM makes sure it gets done.</p>
         </div>
         <p className="fine-print">Coaching is valued at $1,000 a month ($12,000 a year) and is included with the team.</p>
       </section>
