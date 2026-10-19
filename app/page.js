@@ -1,6 +1,6 @@
 import ApplyForm from './ApplyForm';
 
-const badges = ['100% free to apply', 'Reply within 1 business day', 'Confidential conversation'];
+const badges = ['#1 realtor.com lead purchaser in the Twin Cities', 'Zillow Preferred team', '100% free to apply', 'Reply within 1 business day', 'Confidential conversation'];
 
 const matchCards = [
   { who: 'You', tag: 'Ambitious agent', rows: [['Looking for', 'Leads · Training · Culture'], ['Goal', 'Close more deals'], ['Style', 'Collaborative']] },
@@ -11,7 +11,7 @@ const perks = [
   ['Focus on the 20% that pays', 'Organized processes, systems, scripts, and manpower so you spend your time on the activities that make money, not the 80% that doesn\u2019t.'],
   ['Weekly MAPS coaching', 'One-on-one coaching every week to keep you accountable and growing.'],
   ['Client Care Manager', 'A dedicated manager handles client care and keeps your deals moving.'],
-  ['Buyer leads provided', 'Paid lead sources feed the team so you spend time working leads, not buying them.'],
+  ['Leads, provided', 'We are the #1 purchaser of realtor.com leads in the Twin Cities and a Zillow Preferred team, so you spend your time working leads, not buying them.'],
   ['Marketing handled', 'Marketing assistance, signs, cards, and quarterly client events. No marketing expenses.'],
   ['Cover while you\u2019re away', 'We care for your business while you are on vacation.'],
 ];
@@ -42,7 +42,7 @@ const steps = [
   ['Start closing', 'Work leads, build your pipeline, and grow with the group.'],
 ];
 
-const free = ['Free to apply', 'Confidential conversation', 'Honest look at how we work', 'Shadow the team before you decide', 'Weekly MAPS coaching', 'Buyer leads, marketing and a Client Care Manager'];
+const free = ['Free to apply', 'Confidential conversation', 'Honest look at how we work', 'Shadow the team before you decide', 'Weekly MAPS coaching', 'Leads, marketing and a Client Care Manager'];
 
 const faqs = [
   ['Do I need to be licensed?', 'No. We talk with licensed agents, agents in the licensing process, and people curious about the career.'],
