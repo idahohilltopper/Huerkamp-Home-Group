@@ -120,6 +120,21 @@ export default function Home() {
         <img src="/red-day.jpg" alt="HHG team members in red shirts volunteering on Keller Williams Red Day" className="team-img wide" />
       </section>
 
+      <section className="section" id="life">
+        <p className="eyebrow dark">Life at HHG</p>
+        <h2>Work hard. Have fun.</h2>
+        <p className="sub">The best teams enjoy each other. From retreats to fair days to nights out, this is what being part of HHG looks like.</p>
+        <div className="gallery">
+          {[
+            ['/life-lake.jpg', 'Team getaway at the lake'],
+            ['/life-fair.jpg', 'Cookie run at the State Fair'],
+            ['/life-night.jpg', 'Team night out'],
+          ].map(([src, cap]) => (
+            <figure key={src}><img src={src} alt={cap} loading="lazy" /><figcaption>{cap}</figcaption></figure>
+          ))}
+        </div>
+      </section>
+
       <section className="section" id="value">
         <p className="eyebrow dark">Team value proposition</p>
         <h2>What does this mean for you?</h2>

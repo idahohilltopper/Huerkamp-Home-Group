@@ -92,3 +92,8 @@ fieldset.chips { border:0; padding:0; margin:0; display:flex; flex-wrap:wrap; ga
 
 .team-img.wide { object-position:center; max-height:520px; }
 @media (min-width:801px){ .section.rev > :first-child { order:2; } }
+
+.gallery { display:grid; gap:1.25rem; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); margin-top:2rem; }
+.gallery figure { margin:0; border-radius:16px; overflow:hidden; border:1px solid var(--line); background:#fff; text-align:left; }
+.gallery img { width:100%; aspect-ratio:4/3; object-fit:cover; display:block; }
+.gallery figcaption { padding:.7rem 1rem; font-weight:600; font-size:.9rem; color:var(--char); }
