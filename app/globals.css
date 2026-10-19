@@ -189,3 +189,9 @@ input, select, textarea { border:1px solid #9a9ca0; border-radius:6px; }
 .coach .role { color:var(--red); font-weight:700; font-size:.82rem; text-transform:uppercase; letter-spacing:.08em; margin:0 0 .75rem; }
 .coach p:last-child { margin:0; color:var(--char); }
 .fine-print { color:var(--char); font-size:.9rem; margin:1.5rem 0 0; }
+
+.group-coach { display:flex; gap:1.5rem; align-items:center; justify-content:space-between; flex-wrap:wrap; margin-top:1.5rem; padding:1.75rem; border:1px solid #000; border-radius:8px; background:#000; color:#fff; text-align:left; }
+.group-coach h3 { margin:0 0 .5rem; font-size:1.4rem; }
+.group-coach p { margin:0; color:#e6e6e8; max-width:640px; }
+.group-coach .eyebrow { color:#ff4d4d; margin-bottom:.5rem; }
+.group-coach .btn { white-space:nowrap; }

@@ -24,7 +24,7 @@ const money = (n) => '$' + n.toLocaleString('en-US');
 const valueTotal = valueRows.reduce((t, [, v, f]) => t + v * f, 0);
 
 const coaches = [
-  ['Jeff Glover', 'National coach', 'Weekly coaching from a national coach to keep you on track.'],
+  ['Jeff Glover', 'National coach', 'Weekly coaching from a national coach to keep you on track, plus his personal group coaching.'],
   ['Olivia Manson', 'Coach', 'Weekly coaching to keep you on track.'],
   ['Jason Huerkamp', 'Coach and co-founder', 'Weekly coaching from the team\u2019s co-founder.'],
 ];
@@ -65,6 +65,14 @@ export default function Value() {
               <p>{blurb}</p>
             </div>
           ))}
+        </div>
+        <div className="group-coach">
+          <div>
+            <p className="eyebrow dark">Group coaching</p>
+            <h3>Group coaching with Jeff Glover himself</h3>
+            <p>Jeff Glover personally leads group coaching, and he does it for only 10 people in the United States. Learn more about his coaching platform, Glover U.</p>
+          </div>
+          <a href="https://www.gloveru.com" target="_blank" rel="noopener noreferrer" className="btn">Visit Glover U ↗</a>
         </div>
         <p className="fine-print">Coaching is valued at $1,000 a month ($12,000 a year) and is included with the team.</p>
       </section>
