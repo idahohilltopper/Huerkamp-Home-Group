@@ -27,7 +27,7 @@ const valueRows = [
   ['Business cards', 100, 1],
   ['Copy machine, toner, paper', 100, 12],
   ['Care for business while on vacation', 2500, 1],
-  ['Buyer leads', 1000, 12],
+  ['Buyer and seller leads', 5000, 12],
   ['Office space / rent', 250, 12],
   ['Quarterly client events', 2500, 4],
 ];
