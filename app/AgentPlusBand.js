@@ -19,7 +19,7 @@ export default function AgentPlusBand({ compact = false }) {
           </div>
         </div>
         {!compact && <Link href="/agent-plus" className="btn ap-btn">See how Agent+ works</Link>}
-        <p className="ap-fine">Through the Agent+ dual licensing program from Mutual of Omaha Mortgage. Participation requires mortgage licensing and is subject to program terms. &ldquo;Up to $4,000&rdquo; is the maximum, based on 0.50% of an $800,000 loan, and is not a guarantee. <Link href="/terms" className="ap-terms">Terms and conditions apply.</Link></p>
+        <p className="ap-fine">Through the Agent+ dual licensing program from Mutual of Omaha Mortgage. Participation requires being a licensed loan officer in good standing and is subject to program terms. &ldquo;Up to $4,000&rdquo; is the maximum, based on 0.50% of an $800,000 loan, and is not a guarantee. <Link href="/terms" className="ap-terms">Terms and conditions apply.</Link></p>
       </div>
     </section>
   );
