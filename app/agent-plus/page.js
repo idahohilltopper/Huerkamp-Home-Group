@@ -51,7 +51,7 @@ export default function AgentPlus() {
         <ul className="checks">{support.map((f) => <li key={f}>{f}</li>)}</ul>
       </section>
       <section className="section" id="terms">
-        <p className="fine-print">Agent+ is offered by Mutual of Omaha Mortgage, Inc. (NMLS ID 1025894). Participation requires mortgage loan originator licensing and is subject to program terms and eligibility. Loans are subject to credit approval. Earnings vary; &ldquo;up to $4,000 per buy-side file&rdquo; is the maximum, based on 0.50% of an $800,000 loan amount, and is not a guarantee or a typical result. For licensing information, visit <a href="https://www.nmlsconsumeraccess.org" target="_blank" rel="noopener noreferrer">nmlsconsumeraccess.org</a>.</p>
+        <p className="fine-print">Agent+ is offered by Mutual of Omaha Mortgage, Inc. (NMLS ID 1025894). Participation requires mortgage loan originator licensing and is subject to program terms and eligibility. Loans are subject to credit approval. Earnings vary; &ldquo;up to $4,000 per buy-side file&rdquo; is the maximum, based on 0.50% of an $800,000 loan amount, and is not a guarantee or a typical result. See our full <a href="/terms">terms and conditions</a>. For licensing information, visit <a href="https://www.nmlsconsumeraccess.org" target="_blank" rel="noopener noreferrer">nmlsconsumeraccess.org</a>.</p>
       </section>
       <ApplySection />
       <SiteFooter />

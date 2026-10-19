@@ -12,7 +12,7 @@ export default function TopPerks() {
       <ul>
         {perks.map((p) => <li key={p}>{p}</li>)}
       </ul>
-      <p>* <Link href="/agent-plus#terms">Terms and conditions apply.</Link></p>
+      <p>* <Link href="/terms">Terms and conditions apply.</Link></p>
     </div>
   );
 }
