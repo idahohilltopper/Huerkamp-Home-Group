@@ -36,6 +36,17 @@ const perks = [
     note: 'Valued at $36,000 a year, and included.',
   },
   {
+    title: 'Showing Partner',
+    blurb: 'A showing partner helps you get time back while working with buyers.',
+    points: [
+      'A showing partner supports you with buyer showings',
+      'Get hours back every week that would otherwise go to driving and unlocking doors',
+      'Use that time for listings, new leads, and following up with your clients',
+      'Buyers still get a prompt, professional experience',
+    ],
+    note: 'More time for the work that grows your business.',
+  },
+  {
     title: 'Leads, provided',
     blurb: 'We are the #1 purchaser of realtor.com leads in the Twin Cities and a Zillow Preferred team, so you spend your time working leads, not buying them.',
     points: [
@@ -89,7 +100,7 @@ export default function PerkCards() {
             <div id={'perk-' + i} className="perk-body" hidden={!on}>
               <ul>{p.points.map((x) => <li key={x}>{x}</li>)}</ul>
               <p className="note">{p.note}</p>
-              <a href="#apply" className="btn small">Join the team</a>
+              <a href="/apply" className="btn small">Join the team</a>
             </div>
           </div>
         );

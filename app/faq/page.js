@@ -1,0 +1,31 @@
+import SiteHeader from '../SiteHeader';
+import SiteFooter from '../SiteFooter';
+import PageHero from '../PageHero';
+import ApplySection from '../ApplySection';
+
+export const metadata = { title: 'FAQ | Huerkamp Home Group', description: 'Answers to common questions about joining Huerkamp Home Group.' };
+
+const faqs = [
+  ['Do I need to be licensed?', 'No. We talk with licensed agents, agents in the licensing process, and people curious about the career.'],
+  ['Is it really free to apply?', 'Yes. Applying and talking with us costs nothing and carries no obligation.'],
+  ['Where is HHG located?', 'We are a Keller Williams Preferred Realty team based in Burnsville, MN.'],
+  ['How fast will I hear back?', 'Within one business day.'],
+];
+
+export default function FAQ() {
+  return (
+    <>
+      <SiteHeader />
+      <PageHero eyebrow="FAQ" title="Questions, answered" />
+      <section className="section">
+        <div className="faq">
+          {faqs.map(([q, a]) => (
+            <details key={q}><summary>{q}</summary><p>{a}</p></details>
+          ))}
+        </div>
+      </section>
+      <ApplySection />
+      <SiteFooter />
+    </>
+  );
+}

@@ -1,5 +1,7 @@
-import ApplyForm from './ApplyForm';
-import PerkCards from './PerkCards';
+import Link from 'next/link';
+import SiteHeader from './SiteHeader';
+import SiteFooter from './SiteFooter';
+import ApplySection from './ApplySection';
 
 const badges = ['#1 realtor.com lead purchaser in the Twin Cities', 'Zillow Preferred team', '100% free to apply', 'Reply within 1 business day', 'Confidential conversation'];
 
@@ -8,55 +10,18 @@ const matchCards = [
   { who: 'Huerkamp Home Group', tag: 'Keller Williams team', rows: [['Founded', '2002'], ['Team', '~30 agents'], ['Volume', '~500 homes / year']] },
 ];
 
-const valueRows = [
-  ['Reduced company split', 9750, 1],
-  ['Weekly coaching by MAPS coach', 1000, 52],
-  ['Marketing assistance', 250, 12],
-  ['Client Care Manager', 3000, 12],
-  ['DocuSign', 20, 12],
-  ['Commissions Inc website', 2000, 12],
-  ['Open house signs', 30, 15],
-  ['Business cards', 100, 1],
-  ['Copy machine, toner, paper', 100, 12],
-  ['Care for business while on vacation', 2500, 1],
-  ['Buyer and seller leads', 5000, 12],
-  ['Office space / rent', 250, 12],
-  ['Quarterly client events', 2500, 4],
-];
-const money = (n) => '$' + n.toLocaleString('en-US');
-const valueTotal = valueRows.reduce((t, [, v, f]) => t + v * f, 0);
-
-const steps = [
-  ['Tell us what you want', 'Pick what matters most: leads, training, culture, split.'],
-  ['Get matched', 'We review your goals and tell you honestly if HHG is the right fit.'],
-  ['Meet the team', 'Coffee, a team meeting, or a day shadowing. See how we really work.'],
-  ['Onboard & train', 'Get your CRM, scripts, and mentor lined up.'],
-  ['Start closing', 'Work leads, build your pipeline, and grow with the group.'],
-];
-
-const free = ['Free to apply', 'Confidential conversation', 'Honest look at how we work', 'Shadow the team before you decide', 'Weekly MAPS coaching', 'Leads, marketing and a Client Care Manager'];
-
-const faqs = [
-  ['Do I need to be licensed?', 'No. We talk with licensed agents, agents in the licensing process, and people curious about the career.'],
-  ['Is it really free to apply?', 'Yes. Applying and talking with us costs nothing and carries no obligation.'],
-  ['Where is HHG located?', 'We are a Keller Williams Preferred Realty team based in Burnsville, MN.'],
-  ['How fast will I hear back?', 'Within one business day.'],
+const explore = [
+  ['/why-hhg', 'Why HHG', 'Leads, coaching, a Client Care Manager, a showing partner and more.'],
+  ['/our-team', 'Our team', 'Meet the people, the community work, and life at HHG.'],
+  ['/value', 'Your value', 'See what the team provides and what it is worth.'],
+  ['/how-it-works', 'How it works', 'From hello to closing in five steps.'],
+  ['/faq', 'FAQ', 'Licensing, cost, location, and how fast we reply.'],
 ];
 
 export default function Home() {
   return (
     <>
-      <header className="nav">
-        <img src="/hhg-logo.png" alt="Huerkamp Home Group" className="logo-img" />
-        <nav>
-          <a href="#why">Why HHG</a>
-          <a href="#team">Our team</a>
-          <a href="#value">Your value</a>
-          <a href="#how">How it works</a>
-          <a href="#faq">FAQ</a>
-          <a href="#apply" className="btn small">Join</a>
-        </nav>
-      </header>
+      <SiteHeader />
 
       <section className="hero">
         <div className="hero-copy">
@@ -64,8 +29,8 @@ export default function Home() {
           <h1>Get matched with <em>a team</em> that helps you close more deals.</h1>
           <p className="sub">Tell us what you want in a team: leads, training, culture, support. We&apos;ll show you how Huerkamp Home Group delivers it.</p>
           <div className="cta-row">
-            <a href="#apply" className="btn">See my match</a>
-            <a href="#how" className="btn ghost">How it works</a>
+            <a href="/apply" className="btn">See my match</a>
+            <a href="/how-it-works" className="btn ghost">How it works</a>
           </div>
           <ul className="badges">{badges.map((b) => <li key={b}>✓ {b}</li>)}</ul>
         </div>
@@ -82,107 +47,19 @@ export default function Home() {
 
       <div className="strip">Keller Williams Preferred Realty · Burnsville, MN · Serving the Twin Cities since 2002</div>
 
-      <section className="section" id="why">
-        <p className="eyebrow dark">Why HHG</p>
+      <section className="section">
+        <p className="eyebrow dark">Explore</p>
         <h2>Everything you need to build a business</h2>
         <p className="sub">No searching. No cold calls. Just a team built to help you win.</p>
-        <PerkCards />
-      </section>
-
-      <section className="section split team" id="team">
-        <img src="/team-photo.jpg" alt="The Huerkamp Home Group team at our annual planning retreat" className="team-img" />
-        <div>
-          <p className="eyebrow dark">Meet the team</p>
-          <h2>People who want you to win</h2>
-          <p className="sub left">We plan together, train together, and celebrate together. This is our crew at our annual planning retreat, where we map out the year ahead as one team.</p>
-          <a href="#apply" className="btn">Come meet us</a>
-        </div>
-      </section>
-
-      <section className="section split rev" id="community">
-        <div>
-          <p className="eyebrow dark">Community</p>
-          <h2>We give back together</h2>
-          <p className="sub left">Every year the team rolls up its sleeves for Keller Williams Red Day, a day of service for neighbors in our community. Work hard, make a difference, and have fun doing it.</p>
-        </div>
-        <img src="/red-day.jpg" alt="HHG team members in red shirts volunteering on Keller Williams Red Day" className="team-img wide" />
-      </section>
-
-      <section className="section" id="life">
-        <p className="eyebrow dark">Life at HHG</p>
-        <h2>Work hard. Have fun.</h2>
-        <p className="sub">The best teams enjoy each other. From retreats to fair days to nights out, this is what being part of HHG looks like.</p>
-        <div className="gallery">
-          {[
-            ['/life-lake.jpg', 'Team getaway at the lake'],
-            ['/life-fair.jpg', 'Cookie run at the State Fair'],
-            ['/life-night.jpg', 'Team night out'],
-          ].map(([src, cap]) => (
-            <figure key={src}><img src={src} alt={cap} loading="lazy" /><figcaption>{cap}</figcaption></figure>
+        <div className="grid">
+          {explore.map(([href, t, d]) => (
+            <Link className="card tile" key={href} href={href}><h3>{t}</h3><p>{d}</p><span className="more">Learn more →</span></Link>
           ))}
         </div>
       </section>
 
-      <section className="section" id="value">
-        <p className="eyebrow dark">Team value proposition</p>
-        <h2>What does this mean for you?</h2>
-        <p className="sub">We have the processes, systems, scripts, experience and manpower to let you focus on the 20% of activities that make you money, not the 80% that doesn&apos;t.</p>
-        <div className="tablewrap">
-          <table className="value">
-            <thead><tr><th>Team benefit</th><th>Value</th><th>Frequency</th><th>Annual value</th></tr></thead>
-            <tbody>
-              {valueRows.map(([n, v, f]) => (
-                <tr key={n}><td>{n}</td><td>{money(v)}</td><td>{f}</td><td>{money(v * f)}</td></tr>
-              ))}
-              {['No marketing expenses', 'Reputation of a demonstrably successful team', 'Time'].map((n) => (
-                <tr key={n}><td>{n}</td><td></td><td></td><td className="pl">Priceless</td></tr>
-              ))}
-            </tbody>
-            <tfoot><tr><td colSpan="3">To try to recreate what we provide you</td><td>{money(valueTotal)}</td></tr></tfoot>
-          </table>
-        </div>
-      </section>
-
-      <section className="section alt" id="how">
-        <p className="eyebrow dark">How it works</p>
-        <h2>From hello to closing in five steps</h2>
-        <ol className="steps">
-          {steps.map(([t, d], i) => (
-            <li key={t}><span>{i + 1}</span><h3>{t}</h3><p>{d}</p></li>
-          ))}
-        </ol>
-      </section>
-
-      <section className="section split">
-        <div>
-          <p className="eyebrow dark">For agents</p>
-          <h2>Free for agents. Always.</h2>
-          <p className="sub left">Joining the conversation costs nothing. Here&apos;s what you get from day one.</p>
-          <a href="#apply" className="btn">Get started, it&apos;s free</a>
-        </div>
-        <ul className="checks">{free.map((f) => <li key={f}>{f}</li>)}</ul>
-      </section>
-
-      <section className="section alt" id="faq">
-        <h2>Questions, answered</h2>
-        <div className="faq">
-          {faqs.map(([q, a]) => (
-            <details key={q}><summary>{q}</summary><p>{a}</p></details>
-          ))}
-        </div>
-      </section>
-
-      <section className="final" id="apply">
-        <h2>Ready for new opportunities?</h2>
-        <p className="sub">Tell us what you&apos;re looking for. We&apos;ll take it from there.</p>
-        <div className="formwrap"><ApplyForm /></div>
-      </section>
-
-      <footer className="footer">
-        <img src="/hhg-logo.png" alt="" className="logo-img foot" />
-        <p>Huerkamp Home Group · Keller Williams Preferred Realty · 14300 Nicollet Ct, Burnsville, MN 55306</p>
-        <p>© {new Date().getFullYear()} Huerkamp Home Group. All rights reserved. Equal Housing Opportunity.</p>
-      </footer>
+      <ApplySection />
+      <SiteFooter />
     </>
   );
 }
