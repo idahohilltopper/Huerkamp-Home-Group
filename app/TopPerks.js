@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const perks = [
   '401(k)*',
-  'Up to a $5,000 recruiting bonus per agent*',
+  '$5,000 recruiting bonus per agent*',
   'Up to $4,000 in bonuses on every buy-side file*',
 ];
 
