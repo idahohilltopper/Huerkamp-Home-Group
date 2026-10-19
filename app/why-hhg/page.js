@@ -4,6 +4,7 @@ import PageHero from '../PageHero';
 import ApplySection from '../ApplySection';
 import PerkCards from '../PerkCards';
 import GrowthCards from '../GrowthCards';
+import FlashList from '../FlashList';
 import AgentPlusBand from '../AgentPlusBand';
 
 export const metadata = { title: 'Why HHG | Huerkamp Home Group', description: 'Everything you need to build a real estate business with Huerkamp Home Group.' };
@@ -34,7 +35,7 @@ export default function WhyHHG() {
           <p className="sub left">Joining the conversation costs nothing. Here&apos;s what you get from day one.</p>
           <a href="/apply" className="btn">Get started, it&apos;s free</a>
         </div>
-        <ul className="checks">{free.map((f) => <li key={f}>{f}</li>)}</ul>
+        <FlashList className="checks" items={free} />
       </section>
       <ApplySection />
       <SiteFooter />

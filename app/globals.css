@@ -290,35 +290,27 @@ input, select, textarea { border:1px solid #9a9ca0; border-radius:6px; }
 
 .ap-terms { color:#fff; text-decoration:underline; }
 
-/* flashing check-marked items */
-@keyframes flash-dark {
-  0%, 55%, 100% { color:#e6e6e8; text-shadow:none; }
-  70%, 85% { color:#fff; text-shadow:0 0 12px rgba(255,255,255,.9), 0 0 24px rgba(227,27,35,.9); }
+/* flashing check-marked items: double flash, one item at a time */
+@keyframes dflash-dark {
+  0%, 100% { color:#e6e6e8; background:transparent; text-shadow:none; transform:scale(1); }
+  10%, 28% { color:#fff; background:#e31b23; text-shadow:none; transform:scale(1.04); }
+  38% { color:#e6e6e8; background:transparent; transform:scale(1); }
+  52%, 74% { color:#fff; background:#e31b23; transform:scale(1.04); }
+  86% { color:#e6e6e8; background:transparent; transform:scale(1); }
 }
-@keyframes flash-light {
-  0%, 55%, 100% { background:#fff; border-color:var(--line); box-shadow:none; }
-  70%, 85% { background:#fde7e8; border-color:var(--red); box-shadow:0 0 0 3px rgba(227,27,35,.18); }
+@keyframes dflash-light {
+  0%, 100% { background:#fff; color:#111; border-color:var(--line); transform:scale(1); }
+  10%, 28% { background:var(--red); color:#fff; border-color:var(--red); transform:scale(1.02); }
+  38% { background:#fff; color:#111; border-color:var(--line); transform:scale(1); }
+  52%, 74% { background:var(--red); color:#fff; border-color:var(--red); transform:scale(1.02); }
+  86% { background:#fff; color:#111; border-color:var(--line); transform:scale(1); }
 }
-@keyframes flash-check {
-  0%, 55%, 100% { transform:scale(1); }
-  70%, 85% { transform:scale(1.5); }
+@keyframes dflash-check {
+  0%, 100%, 38%, 86% { color:var(--red); }
+  10%, 28%, 52%, 74% { color:#fff; }
 }
-.badges li { animation:flash-dark 2.4s ease-in-out infinite; font-weight:600; }
-.badges li:nth-child(2) { animation-delay:.3s; }
-.badges li:nth-child(3) { animation-delay:.6s; }
-.badges li:nth-child(4) { animation-delay:.9s; }
-.badges li:nth-child(5) { animation-delay:1.2s; }
-.badges li:nth-child(6) { animation-delay:1.5s; }
-.badges li:nth-child(7) { animation-delay:1.8s; }
-.checks li { animation:flash-light 2.4s ease-in-out infinite; }
-.checks li::before { display:inline-block; animation:flash-check 2.4s ease-in-out infinite; }
-.checks li:nth-child(2), .checks li:nth-child(2)::before { animation-delay:.3s; }
-.checks li:nth-child(3), .checks li:nth-child(3)::before { animation-delay:.6s; }
-.checks li:nth-child(4), .checks li:nth-child(4)::before { animation-delay:.9s; }
-.checks li:nth-child(5), .checks li:nth-child(5)::before { animation-delay:1.2s; }
-.checks li:nth-child(6), .checks li:nth-child(6)::before { animation-delay:1.5s; }
-.checks li:nth-child(7), .checks li:nth-child(7)::before { animation-delay:1.8s; }
-.checks li::before { top:50%; margin-top:-.7em; line-height:1.4; }
-@media (prefers-reduced-motion: reduce) {
-  .badges li, .checks li, .checks li::before { animation:none; }
-}
+.flash-list li { transition:none; border-radius:6px; }
+.badges.flash-list li { padding:.15rem .5rem; margin-left:-.5rem; }
+.flash-list li.flash { animation:dflash-dark .9s ease-in-out 1; }
+.checks.flash-list li.flash { animation:dflash-light .9s ease-in-out 1; }
+.checks.flash-list li.flash::before { animation:dflash-check .9s ease-in-out 1; }

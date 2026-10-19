@@ -3,6 +3,7 @@ import SiteHeader from './SiteHeader';
 import SiteFooter from './SiteFooter';
 import ApplySection from './ApplySection';
 import Stats from './Stats';
+import FlashList from './FlashList';
 import YouTubeBanner from './YouTubeBanner';
 import AgentPlusBand from './AgentPlusBand';
 
@@ -36,7 +37,7 @@ export default function Home() {
             <a href="/apply" className="btn">See my match</a>
             <a href="/how-it-works" className="btn ghost">How it works</a>
           </div>
-          <ul className="badges">{badges.map((b) => <li key={b}>✓ {b}</li>)}</ul>
+          <FlashList className="badges" prefix="✓ " items={badges} />
         </div>
         <div className="hero-cards" aria-hidden="true">
           {matchCards.map((c, i) => (

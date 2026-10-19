@@ -3,6 +3,7 @@ import SiteFooter from '../SiteFooter';
 import PageHero from '../PageHero';
 import ApplySection from '../ApplySection';
 import AgentPlusBand from '../AgentPlusBand';
+import FlashList from '../FlashList';
 
 export const metadata = {
   title: 'Agent+ | Huerkamp Home Group',
@@ -48,7 +49,7 @@ export default function AgentPlus() {
           <p className="sub left">The Agent+ program comes with a team that handles the mortgage details, so you can keep selling.</p>
           <a href="https://www.mutualmortgage.com/agent-plus/" target="_blank" rel="noopener noreferrer" className="btn">Learn more about Agent+ ↗</a>
         </div>
-        <ul className="checks">{support.map((f) => <li key={f}>{f}</li>)}</ul>
+        <FlashList className="checks" items={support} />
       </section>
       <section className="section" id="terms">
         <p className="fine-print">Agent+ is offered by Mutual of Omaha Mortgage, Inc. (NMLS ID 1025894). Participation requires mortgage loan originator licensing and is subject to program terms and eligibility. Loans are subject to credit approval. Earnings vary; &ldquo;up to $4,000 per buy-side file&rdquo; is the maximum, based on 0.50% of an $800,000 loan amount, and is not a guarantee or a typical result. See our full <a href="/terms">terms and conditions</a>. For licensing information, visit <a href="https://www.nmlsconsumeraccess.org" target="_blank" rel="noopener noreferrer">nmlsconsumeraccess.org</a>.</p>
