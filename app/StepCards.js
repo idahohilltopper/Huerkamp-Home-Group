@@ -38,7 +38,7 @@ const steps = [
     blurb: 'Get your CRM, scripts, and mentor lined up.',
     points: [
       'Get set up with the team’s systems, scripts, and processes.',
-      'Start weekly coaching with national coach Jeff Glover and former MAPS coaches Olivia Manson and Jason Huerkamp.',
+      'Start weekly coaching with national coach Jeff Glover and team coaches Olivia Manson and Jason Huerkamp.',
       'Meet your Client Care Manager and learn how the team supports your clients.',
     ],
     note: 'You will never be left guessing about what to do next.',

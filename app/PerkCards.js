@@ -17,9 +17,9 @@ const perks = [
   },
   {
     title: 'Weekly coaching',
-    blurb: 'Coaching every week from national coach Jeff Glover and former MAPS coaches Olivia Manson and Jason Huerkamp.',
+    blurb: 'Coaching every week from national coach Jeff Glover and team coaches Olivia Manson and Jason Huerkamp.',
     points: [
-      'Coaching every single week, 52 times a year, from national coach Jeff Glover and former MAPS coaches Olivia Manson and Jason Huerkamp',
+      'Coaching every single week, 52 times a year, from national coach Jeff Glover and team coaches Olivia Manson and Jason Huerkamp',
       'Accountability on your goals and your pipeline',
       'Practical help on what to do next, not just theory',
     ],

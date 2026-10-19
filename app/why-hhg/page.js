@@ -6,7 +6,7 @@ import PerkCards from '../PerkCards';
 
 export const metadata = { title: 'Why HHG | Huerkamp Home Group', description: 'Everything you need to build a real estate business with Huerkamp Home Group.' };
 
-const free = ['Free to apply', 'Confidential conversation', 'Honest look at how we work', 'Shadow the team before you decide', 'Weekly coaching from former MAPS coaches', 'A showing partner to give you time back with buyers', 'Leads, marketing and a Client Care Manager'];
+const free = ['Free to apply', 'Confidential conversation', 'Honest look at how we work', 'Shadow the team before you decide', 'Weekly coaching from a national coach and our team', 'A showing partner to give you time back with buyers', 'Leads, marketing and a Client Care Manager'];
 
 export default function WhyHHG() {
   return (
