@@ -1,8 +1,8 @@
 const stats = [
+  ['#1', 'Keller Williams team in the North Central region'],
   ['$190M', 'in volume every year'],
   ['520', 'units every year'],
   ['#1', 'realtor.com lead purchaser in the Twin Cities'],
-  ['2002', 'serving the Twin Cities since'],
 ];
 
 export default function Stats() {

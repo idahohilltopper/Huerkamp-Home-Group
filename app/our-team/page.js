@@ -12,7 +12,7 @@ export default function OurTeam() {
     <>
       <SiteHeader />
       <PageHero eyebrow="Our team" title="People who want you to win">
-        We plan together, train together, give back together, and enjoy it, while closing $190 million in volume and 520 units a year.
+        We plan together, train together, give back together, and enjoy it, as the #1 Keller Williams team in the North Central region, closing $190 million in volume and 520 units a year.
       </PageHero>
       <Stats />
       <YouTubeBanner />

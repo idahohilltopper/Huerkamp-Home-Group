@@ -17,9 +17,9 @@ const perks = [
   },
   {
     title: 'Weekly coaching',
-    blurb: 'Coaching every week from national coach Jeff Glover and team coaches Olivia Manson and Jason Huerkamp.',
+    blurb: 'Coaching 46 weeks a year from national coach Jeff Glover and team coaches Olivia Manson and Jason Huerkamp.',
     points: [
-      'Coaching every single week, 52 times a year, from national coach Jeff Glover and team coaches Olivia Manson and Jason Huerkamp',
+      'Coaching 46 weeks a year, from national coach Jeff Glover and team coaches Olivia Manson and Jason Huerkamp',
       'Group coaching led personally by national coach Jeff Glover, limited to 10 people in the United States',
       'A weekly accountability meeting (WAM) from The 12 Week Year, so your plan turns into action',
       'Accountability on your goals and your pipeline',

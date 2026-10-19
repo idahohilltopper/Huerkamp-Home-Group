@@ -5,7 +5,7 @@ import ApplySection from './ApplySection';
 import Stats from './Stats';
 import YouTubeBanner from './YouTubeBanner';
 
-const badges = ['#1 realtor.com lead purchaser in the Twin Cities', 'Zillow Preferred team', '100% free to apply', 'Reply within 1 business day', 'Confidential conversation'];
+const badges = ['#1 Keller Williams team in the North Central region', '#1 realtor.com lead purchaser in the Twin Cities', 'Zillow Preferred team', '100% free to apply', 'Reply within 1 business day', 'Confidential conversation'];
 
 const matchCards = [
   { who: 'You', tag: 'Ambitious agent', rows: [['Looking for', 'Leads · Training · Culture'], ['Goal', 'Close more deals'], ['Style', 'Collaborative']] },
@@ -47,7 +47,7 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="strip">Keller Williams Preferred Realty · Burnsville, MN · Serving the Twin Cities since 2002</div>
+      <div className="strip">#1 Keller Williams team in the North Central region · Burnsville, MN · Serving the Twin Cities since 2002</div>
 
       <Stats />
 

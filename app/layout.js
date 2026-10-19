@@ -4,7 +4,7 @@ export const metadata = {
   metadataBase: new URL('https://joinhhg.com'),
   openGraph: {
     title: 'Join Huerkamp Home Group | Real Estate Careers',
-    description: 'Productive, fun, and built for producers. $190M in volume and 520 units a year. Join the Huerkamp Home Group team in the Twin Cities.',
+    description: 'The #1 Keller Williams team in the North Central region. $190M in volume and 520 units a year. Join the Huerkamp Home Group team in the Twin Cities.',
     url: 'https://joinhhg.com',
     siteName: 'Huerkamp Home Group',
     images: [{ url: '/og.jpg', width: 1200, height: 630, alt: 'The Huerkamp Home Group team' }],

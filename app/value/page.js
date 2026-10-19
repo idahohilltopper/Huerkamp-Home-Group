@@ -25,7 +25,7 @@ const money = (n) => '$' + n.toLocaleString('en-US');
 const valueTotal = valueRows.reduce((t, [, v, f]) => t + v * f, 0);
 
 const coaches = [
-  ['Jeff Glover', 'National coach', 'Jeff Glover is a national real estate coach and the founder of Glover U. He coaches the team every week and also leads his own group coaching.', 'https://www.gloveru.com/meet-jeff'],
+  ['Jeff Glover', 'National coach', 'Jeff Glover is a national real estate coach and the founder of Glover U. He coaches the team and also leads his own group coaching.', 'https://www.gloveru.com/meet-jeff'],
   ['Olivia Manson', 'Coach', 'Weekly coaching to keep you on track.'],
   ['Jason Huerkamp', 'Coach and co-founder', 'Weekly coaching from the team\u2019s co-founder.'],
 ];
@@ -56,8 +56,8 @@ export default function Value() {
       </section>
       <section className="section coaching">
         <p className="eyebrow dark">Weekly coaching</p>
-        <h2>Coaching every week, from people who&apos;ve done it</h2>
-        <p className="sub">Weekly coaching is built into the team, with a national coach and two team coaches.</p>
+        <h2>Coaching 46 weeks a year, from people who&apos;ve done it</h2>
+        <p className="sub">Weekly coaching, 46 weeks a year, is built into the team, with a national coach and two team coaches.</p>
         <div className="coaches">
           {coaches.map(([name, role, blurb, link]) => (
             <div className="card coach" key={name}>
