@@ -7,7 +7,7 @@ export const metadata = { title: 'Your Value | Huerkamp Home Group', description
 
 const valueRows = [
   ['Reduced company split', 9750, 1],
-  ['Weekly coaching from former MAPS coaches', 1000, 12],
+  ['Weekly coaching (national coach and former MAPS coaches)', 1000, 12],
   ['Marketing assistance', 250, 12],
   ['Client Care Manager', 3000, 12],
   ['DocuSign', 20, 12],
@@ -22,6 +22,12 @@ const valueRows = [
 ];
 const money = (n) => '$' + n.toLocaleString('en-US');
 const valueTotal = valueRows.reduce((t, [, v, f]) => t + v * f, 0);
+
+const coaches = [
+  ['Jeff Glover', 'National coach', 'Weekly coaching from a national coach.'],
+  ['Olivia Manson', 'Former MAPS coach', 'Weekly coaching from a former MAPS coach.'],
+  ['Jason Huerkamp', 'Former MAPS coach', 'Weekly coaching from a former MAPS coach and the team\u2019s co-founder.'],
+];
 
 export default function Value() {
   return (
@@ -47,6 +53,22 @@ export default function Value() {
           </table>
         </div>
       </section>
+      <section className="section coaching">
+        <p className="eyebrow dark">Weekly coaching</p>
+        <h2>Coaching every week, from people who&apos;ve done it</h2>
+        <p className="sub">Weekly coaching is built into the team, with a national coach and two former MAPS coaches.</p>
+        <div className="coaches">
+          {coaches.map(([name, role, blurb]) => (
+            <div className="card coach" key={name}>
+              <h3>{name}</h3>
+              <p className="role">{role}</p>
+              <p>{blurb}</p>
+            </div>
+          ))}
+        </div>
+        <p className="fine-print">Coaching is valued at $1,000 a month ($12,000 a year) and is included with the team.</p>
+      </section>
+
       <ApplySection />
       <SiteFooter />
     </>

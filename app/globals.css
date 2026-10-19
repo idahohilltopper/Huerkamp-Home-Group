@@ -183,3 +183,9 @@ input, select, textarea { border:1px solid #9a9ca0; border-radius:6px; }
 .hero-cards .pcard.b { order:3; }
 .hero-cards .match { order:2; position:static; transform:none; justify-self:center; margin:1rem 0; z-index:2; border-width:0; }
 @media (max-width:900px){ .hero-cards { gap:0; } }
+
+.coaches { display:grid; gap:1.25rem; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); margin-top:2rem; text-align:left; }
+.coach h3 { margin:0 0 .15rem; font-size:1.25rem; }
+.coach .role { color:var(--red); font-weight:700; font-size:.82rem; text-transform:uppercase; letter-spacing:.08em; margin:0 0 .75rem; }
+.coach p:last-child { margin:0; color:var(--char); }
+.fine-print { color:var(--char); font-size:.9rem; margin:1.5rem 0 0; }
