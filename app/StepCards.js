@@ -38,7 +38,7 @@ const steps = [
     blurb: 'Get your CRM, scripts, and mentor lined up.',
     points: [
       'Get set up with the team’s systems, scripts, and processes.',
-      'Start weekly one-on-one coaching with a MAPS coach.',
+      'Start weekly coaching with former MAPS coaches.',
       'Meet your Client Care Manager and learn how the team supports your clients.',
     ],
     note: 'You will never be left guessing about what to do next.',

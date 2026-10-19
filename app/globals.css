@@ -165,3 +165,21 @@ input, select, textarea { border:1px solid #9a9ca0; border-radius:6px; }
 .sub { color:#2b2d30; }
 .hero .sub, .phero .sub, .final .sub { color:#e6e6e8; }
 .gallery img, .team-img { image-rendering:auto; }
+
+/* hero match cards spacing */
+.hero-cards { gap:3.25rem; padding:0; position:relative; }
+.pcard, .pcard.b { margin-left:0; padding:1.5rem 1.75rem; }
+.pcard-h { align-items:center; gap:1rem; margin-bottom:.9rem; }
+.pcard-h strong { font-size:1.1rem; }
+.pcard-h span { background:#fff; border:1px solid var(--line); color:var(--char); padding:.25rem .75rem; border-radius:6px; font-size:.75rem; font-weight:600; white-space:nowrap; }
+.pcard p { padding:.7rem 0; margin:0; font-size:.95rem; }
+.pcard p:last-child { padding-bottom:0; }
+.match { right:auto; left:50%; top:50%; transform:translate(-50%,-50%); z-index:2; border:3px solid #000; padding:.5rem 1.25rem; white-space:nowrap; }
+@media (max-width:900px){ .hero-cards { gap:3.25rem; } }
+
+/* badge as an in-flow row between the cards */
+.hero-cards { gap:0; }
+.hero-cards .pcard { order:1; }
+.hero-cards .pcard.b { order:3; }
+.hero-cards .match { order:2; position:static; transform:none; justify-self:center; margin:1rem 0; z-index:2; border-width:0; }
+@media (max-width:900px){ .hero-cards { gap:0; } }

@@ -7,7 +7,7 @@ export const metadata = { title: 'Your Value | Huerkamp Home Group', description
 
 const valueRows = [
   ['Reduced company split', 9750, 1],
-  ['Weekly coaching by MAPS coach', 1000, 12],
+  ['Weekly coaching from former MAPS coaches', 1000, 12],
   ['Marketing assistance', 250, 12],
   ['Client Care Manager', 3000, 12],
   ['DocuSign', 20, 12],

@@ -16,10 +16,10 @@ const perks = [
     note: 'By being a team member, you earn more and have more freedom than you could on your own.',
   },
   {
-    title: 'Weekly MAPS coaching',
-    blurb: 'One-on-one coaching every week to keep you accountable and growing.',
+    title: 'Weekly coaching',
+    blurb: 'Coaching every week from former MAPS coaches to keep you accountable and growing.',
     points: [
-      'Coaching with a MAPS coach every single week, 52 times a year',
+      'Coaching every single week from former MAPS coaches, 52 times a year',
       'Accountability on your goals and your pipeline',
       'Practical help on what to do next, not just theory',
     ],
