@@ -58,6 +58,7 @@ export default function Home() {
         <img src="/hhg-logo.png" alt="Huerkamp Home Group" className="logo-img" />
         <nav>
           <a href="#why">Why HHG</a>
+          <a href="#team">Our team</a>
           <a href="#value">Your value</a>
           <a href="#how">How it works</a>
           <a href="#faq">FAQ</a>
@@ -97,6 +98,16 @@ export default function Home() {
           {perks.map(([t, d]) => (
             <div className="card" key={t}><h3>{t}</h3><p>{d}</p></div>
           ))}
+        </div>
+      </section>
+
+      <section className="section split team" id="team">
+        <img src="/team-photo.jpg" alt="The Huerkamp Home Group team at our annual planning retreat" className="team-img" />
+        <div>
+          <p className="eyebrow dark">Meet the team</p>
+          <h2>People who want you to win</h2>
+          <p className="sub left">We plan together, train together, and celebrate together. This is our crew at our annual planning retreat, where we map out the year ahead as one team.</p>
+          <a href="#apply" className="btn">Come meet us</a>
         </div>
       </section>
 
