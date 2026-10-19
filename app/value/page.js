@@ -46,7 +46,7 @@ export default function Value() {
               {valueRows.map(([n, v, f]) => (
                 <tr key={n}><td>{n}</td><td>{money(v)}</td><td>{f}</td><td>{money(v * f)}</td></tr>
               ))}
-              {['No marketing expenses', 'Reputation of a demonstrably successful team', 'Time'].map((n) => (
+              {['Showing partner', 'No marketing expenses', 'Reputation of a demonstrably successful team', 'Time'].map((n) => (
                 <tr key={n}><td>{n}</td><td></td><td></td><td className="pl">Priceless</td></tr>
               ))}
             </tbody>
