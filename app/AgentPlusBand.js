@@ -9,8 +9,8 @@ export default function AgentPlusBand({ compact = false }) {
         <div className="ap-grid">
           <div className="ap-card">
             <strong>Up to $4,000</strong>
-            <span className="ap-label">per file</span>
-            <p>Earn half a point, 50 basis points (0.50%), of the loan amount on loans up to $800,000, above and beyond your real estate commission.</p>
+            <span className="ap-label">per buy-side file</span>
+            <p>Earn half a point, 50 basis points (0.50%), of the loan amount on every buy-side file, on loans up to $800,000, above and beyond your real estate commission.</p>
           </div>
           <div className="ap-card">
             <strong>Matching 401(k)</strong>

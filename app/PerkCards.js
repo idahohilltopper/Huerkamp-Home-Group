@@ -17,9 +17,9 @@ const perks = [
   },
   {
     title: 'Agent+ income and a matching 401(k)',
-    blurb: 'Earn up to $4,000 per file on top of your commission, plus a matching 401(k), through Agent+ with Mutual of Omaha Mortgage.',
+    blurb: 'Earn up to $4,000 per buy-side file on top of your commission, plus a matching 401(k), through Agent+ with Mutual of Omaha Mortgage.',
     points: [
-      'Earn half a point (50 basis points) of the loan amount on loans up to $800,000, up to $4,000 per file',
+      'Earn half a point (50 basis points) of the loan amount on loans up to $800,000, up to $4,000 per buy-side file',
       'Income above and beyond your real estate commission',
       'A matching 401(k) to build real wealth',
       'A support team that handles the mortgage details',

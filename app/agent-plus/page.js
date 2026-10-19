@@ -6,7 +6,7 @@ import AgentPlusBand from '../AgentPlusBand';
 
 export const metadata = {
   title: 'Agent+ | Huerkamp Home Group',
-  description: 'Earn up to $4,000 per file on top of your commission, plus a matching 401(k), through the Agent+ program with Mutual of Omaha Mortgage.',
+  description: 'Earn up to $4,000 per buy-side file on top of your commission, plus a matching 401(k), through the Agent+ program with Mutual of Omaha Mortgage.',
 };
 
 const steps = [
@@ -28,8 +28,8 @@ export default function AgentPlus() {
   return (
     <>
       <SiteHeader />
-      <PageHero eyebrow="Agent+" title="Earn up to $4,000 more per file, plus a matching 401(k)">
-        Agent+ with Mutual of Omaha Mortgage is a big part of what you get at HHG: more income on every file, and a way to build lasting wealth.
+      <PageHero eyebrow="Agent+" title="Earn up to $4,000 more per buy-side file, plus a matching 401(k)">
+        Agent+ with Mutual of Omaha Mortgage is a big part of what you get at HHG: more income on every buy-side file, and a way to build lasting wealth.
       </PageHero>
       <AgentPlusBand compact />
       <section className="section">
@@ -50,8 +50,8 @@ export default function AgentPlus() {
         </div>
         <ul className="checks">{support.map((f) => <li key={f}>{f}</li>)}</ul>
       </section>
-      <section className="section">
-        <p className="fine-print">Agent+ is offered by Mutual of Omaha Mortgage, Inc. (NMLS ID 1025894). Participation requires mortgage loan originator licensing and is subject to program terms and eligibility. Loans are subject to credit approval. Earnings vary; &ldquo;up to $4,000 per file&rdquo; is the maximum, based on 0.50% of an $800,000 loan amount, and is not a guarantee or a typical result. For licensing information, visit <a href="https://www.nmlsconsumeraccess.org" target="_blank" rel="noopener noreferrer">nmlsconsumeraccess.org</a>.</p>
+      <section className="section" id="terms">
+        <p className="fine-print">Agent+ is offered by Mutual of Omaha Mortgage, Inc. (NMLS ID 1025894). Participation requires mortgage loan originator licensing and is subject to program terms and eligibility. Loans are subject to credit approval. Earnings vary; &ldquo;up to $4,000 per buy-side file&rdquo; is the maximum, based on 0.50% of an $800,000 loan amount, and is not a guarantee or a typical result. For licensing information, visit <a href="https://www.nmlsconsumeraccess.org" target="_blank" rel="noopener noreferrer">nmlsconsumeraccess.org</a>.</p>
       </section>
       <ApplySection />
       <SiteFooter />

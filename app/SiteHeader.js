@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import TopPerks from './TopPerks';
 
 const links = [
   ['/why-hhg', 'Why HHG'],
@@ -11,6 +12,7 @@ const links = [
 
 export default function SiteHeader() {
   return (
+    <>
     <header className="nav">
       <Link href="/"><img src="/hhg-logo.png" alt="Huerkamp Home Group" className="logo-img" /></Link>
       <nav>
@@ -18,5 +20,7 @@ export default function SiteHeader() {
         <Link href="/apply" className="btn small">Join</Link>
       </nav>
     </header>
+    <TopPerks />
+    </>
   );
 }
