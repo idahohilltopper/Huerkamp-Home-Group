@@ -97,3 +97,16 @@ fieldset.chips { border:0; padding:0; margin:0; display:flex; flex-wrap:wrap; ga
 .gallery figure { margin:0; border-radius:16px; overflow:hidden; border:1px solid var(--line); background:#fff; text-align:left; }
 .gallery img { width:100%; aspect-ratio:4/3; object-fit:cover; display:block; }
 .gallery figcaption { padding:.7rem 1rem; font-weight:600; font-size:.9rem; color:var(--char); }
+
+.perks { align-items:start; }
+.card.perk { padding:0; }
+.perk-h { all:unset; box-sizing:border-box; display:flex; gap:1rem; justify-content:space-between; align-items:flex-start; width:100%; padding:1.6rem; cursor:pointer; }
+.perk-h:focus-visible { outline:2px solid var(--red); outline-offset:-2px; border-radius:12px; }
+.perk-h p { color:var(--char); margin:0; }
+.plus { flex:none; width:2rem; height:2rem; border-radius:50%; background:var(--alt); color:var(--red); display:grid; place-items:center; font-weight:800; font-size:1.2rem; }
+.card.perk.open .plus { background:var(--red); color:#fff; }
+.perk-body { padding:0 1.6rem 1.6rem; border-top:1px solid var(--line); margin:0 1.6rem; padding:1rem 0 1.6rem; }
+.perk-body[hidden] { display:none; }
+.perk-body ul { margin:0 0 1rem; padding-left:1.2rem; color:var(--ink); }
+.perk-body li { margin:.35rem 0; }
+.perk-body .note { color:var(--red); font-weight:600; font-size:.92rem; margin:0 0 1rem; }

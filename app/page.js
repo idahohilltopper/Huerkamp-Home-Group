@@ -1,19 +1,11 @@
 import ApplyForm from './ApplyForm';
+import PerkCards from './PerkCards';
 
 const badges = ['#1 realtor.com lead purchaser in the Twin Cities', 'Zillow Preferred team', '100% free to apply', 'Reply within 1 business day', 'Confidential conversation'];
 
 const matchCards = [
   { who: 'You', tag: 'Ambitious agent', rows: [['Looking for', 'Leads · Training · Culture'], ['Goal', 'Close more deals'], ['Style', 'Collaborative']] },
   { who: 'Huerkamp Home Group', tag: 'Keller Williams team', rows: [['Founded', '2002'], ['Team', '~30 agents'], ['Volume', '~500 homes / year']] },
-];
-
-const perks = [
-  ['Focus on the 20% that pays', 'Organized processes, systems, scripts, and manpower so you spend your time on the activities that make money, not the 80% that doesn\u2019t.'],
-  ['Weekly MAPS coaching', 'One-on-one coaching every week to keep you accountable and growing.'],
-  ['Client Care Manager', 'A dedicated manager handles client care and keeps your deals moving.'],
-  ['Leads, provided', 'We are the #1 purchaser of realtor.com leads in the Twin Cities and a Zillow Preferred team, so you spend your time working leads, not buying them.'],
-  ['Marketing handled', 'Marketing assistance, signs, cards, and quarterly client events. No marketing expenses.'],
-  ['Cover while you\u2019re away', 'We care for your business while you are on vacation.'],
 ];
 
 const valueRows = [
@@ -94,11 +86,7 @@ export default function Home() {
         <p className="eyebrow dark">Why HHG</p>
         <h2>Everything you need to build a business</h2>
         <p className="sub">No searching. No cold calls. Just a team built to help you win.</p>
-        <div className="grid">
-          {perks.map(([t, d]) => (
-            <div className="card" key={t}><h3>{t}</h3><p>{d}</p></div>
-          ))}
-        </div>
+        <PerkCards />
       </section>
 
       <section className="section split team" id="team">
