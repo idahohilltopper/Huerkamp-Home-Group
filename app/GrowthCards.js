@@ -67,12 +67,12 @@ const items = [
   },
   {
     icon: 'laptop',
-    title: 'Ylopo targeted recruiting',
-    blurb: 'We use Ylopo to run targeted recruiting ads that connect with high-producing agents who may be a fit for HHG.',
+    title: 'Ylopo CRM',
+    blurb: 'Ylopo is our CRM. We use it to specifically target and retarget the leads that come in through our various lead sources, so our agents convert leads at a higher rate.',
     points: [
-      'Targeted recruiting ads, powered by Ylopo',
-      'Built to reach high-producing agents who may be a fit',
-      'A steady stream of talented people joining the conversation',
+      'Ylopo is the team\u2019s CRM',
+      'Targets and retargets leads that come in through our various lead sources',
+      'Helps our agents convert leads at a higher rate',
     ],
     link: ['Visit Ylopo', 'https://www.ylopo.com'],
   },
