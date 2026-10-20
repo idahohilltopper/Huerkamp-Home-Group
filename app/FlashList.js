@@ -9,7 +9,7 @@ export default function FlashList({ items, className, prefix = '' }) {
     let i = 0;
     const tick = () => { setActive(i % items.length); i += 1; };
     const first = setTimeout(tick, 600);
-    const id = setInterval(tick, 1500);
+    const id = setInterval(tick, 2200);
     return () => { clearTimeout(first); clearInterval(id); };
   }, [items.length]);
   return (
