@@ -222,3 +222,7 @@ Jason asked to model the site on markzproperties.com, replace that team's brandi
 - **Blog**: the current site has 382 posts at `/blog/YYYY/MM/DD/slug`. They must be migrated at the same addresses before launch or they'll 404. This is the next step.
 - Submit `https://www.huerkamphomegroup.com/sitemap-index.xml` in Google Search Console and Bing Webmaster Tools.
 - Update the website link on the Google Business Profile if it changes.
+
+## Blog (2026-10-22)
+
+All 361 Squarespace posts imported at their exact old addresses with 2,339 images (WebP, 80 MB in `public/blog/`). New blog: list with categories and page numbers, post pages with author box, call-to-action and related posts, RSS feed, BlogPosting/VideoObject structured data, fast YouTube players, newest posts on the home page, "Blog" in the menu. Every one of the 406 addresses in the old sitemap now resolves (page or 301). Lighthouse (phone): blog list 97, posts 97–100. How to add posts: `docs/blog-guide.md`.

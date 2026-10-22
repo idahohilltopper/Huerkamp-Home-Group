@@ -1,0 +1,34 @@
+---
+import { postUrl, formatDate, type Post } from '../data/blog';
+interface Props { post: Post; eager?: boolean }
+const { post, eager = false } = Astro.props;
+const { title, description, date, cover, categories } = post.data;
+---
+<article class="post-card">
+  <a class="post-card__img" href={postUrl(post)} tabindex="-1" aria-hidden="true">
+    {cover
+      ? <img src={cover.thumb ?? cover.src} alt="" width={cover.thumb ? 640 : cover.width} height={cover.thumb ? 360 : cover.height}
+          loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} decoding="async" />
+      : <span class="post-card__blank"></span>}
+  </a>
+  <div class="post-card__body">
+    <p class="post-card__meta">{categories[0] && <span>{categories[0]}</span>}<time datetime={date.toISOString()}>{formatDate(date)}</time></p>
+    <h3><a href={postUrl(post)}>{title}</a></h3>
+    <p class="post-card__desc">{description}</p>
+  </div>
+</article>
+
+<style>
+  .post-card { display: grid; grid-template-rows: auto 1fr; background: var(--paper); border: 1px solid var(--line); height: 100%; }
+  .post-card__img { display: block; aspect-ratio: 16 / 9; overflow: hidden; background: var(--sand); }
+  .post-card__img img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .3s; }
+  .post-card:hover .post-card__img img { transform: scale(1.03); }
+  .post-card__blank { display: block; height: 100%; background: linear-gradient(135deg, var(--night), var(--crimson-deep)); }
+  .post-card__body { display: grid; gap: .6rem; align-content: start; padding: 1.25rem 1.4rem 1.5rem; }
+  .post-card__meta { display: flex; flex-wrap: wrap; gap: .3rem 1rem; font: 700 .7rem/1.3 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--text-soft); }
+  .post-card__meta span { color: var(--crimson); }
+  .post-card h3 { font-size: 1.4rem; line-height: 1.2; }
+  .post-card h3 a { text-decoration: none; color: var(--text); }
+  .post-card h3 a:hover { color: var(--crimson); }
+  .post-card__desc { font-size: .95rem; color: var(--text-soft); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+</style>

@@ -1,0 +1,53 @@
+---
+// A page of blog post cards with category links and page numbers.
+import PostCard from './PostCard.astro';
+import type { Post } from '../data/blog';
+interface Props {
+  posts: Post[];
+  categories: { name: string; count: number; href: string }[];
+  current?: string;          // active category name
+  page: number;
+  pages: number;
+  pageHref: (n: number) => string;
+}
+const { posts, categories, current, page, pages, pageHref } = Astro.props;
+const nums = [...new Set([1, page - 1, page, page + 1, pages])].filter((n) => n >= 1 && n <= pages).sort((a, b) => a - b);
+---
+<section class="section">
+  <div class="wrap blog">
+    <nav class="cats" aria-label="Blog categories">
+      <a href="/blog" aria-current={!current ? 'page' : undefined}>All posts</a>
+      {categories.map((c) => <a href={c.href} aria-current={c.name === current ? 'page' : undefined}>{c.name} <span>{c.count}</span></a>)}
+    </nav>
+    <h2 class="visually-hidden">{current ? `${current} articles` : 'Latest articles'}</h2>
+    <ul class="grid">
+      {posts.map((p, i) => <li><PostCard post={p} eager={page === 1 && i < 3} /></li>)}
+    </ul>
+    {pages > 1 && (
+      <nav class="pager" aria-label="Pages">
+        {page > 1 && <a href={pageHref(page - 1)} rel="prev">← Newer</a>}
+        {nums.map((n, i) => (
+          <>
+            {i > 0 && n - nums[i - 1] > 1 && <span aria-hidden="true">…</span>}
+            {n === page ? <span aria-current="page">{n}</span> : <a href={pageHref(n)}>{n}</a>}
+          </>
+        ))}
+        {page < pages && <a href={pageHref(page + 1)} rel="next">Older →</a>}
+      </nav>
+    )}
+  </div>
+</section>
+
+<style>
+  .blog { display: grid; gap: 2.5rem; }
+  .cats { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .cats a { padding: .5rem .9rem; border: 1px solid var(--line); background: var(--paper); font: 600 .85rem/1 var(--ui); text-decoration: none; color: var(--text); }
+  .cats a span { color: var(--text-soft); font-weight: 500; margin-left: .2rem; }
+  .cats a:hover, .cats a[aria-current] { border-color: var(--crimson); color: var(--crimson); }
+  .grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); gap: 1.75rem; }
+  .pager { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: .4rem; font: 600 .95rem/1 var(--ui); }
+  .pager a, .pager span { padding: .65rem .9rem; border: 1px solid var(--line); text-decoration: none; color: var(--text); background: var(--paper); }
+  .pager span[aria-hidden] { border: 0; background: none; }
+  .pager [aria-current] { background: var(--crimson); border-color: var(--crimson); color: #fff; }
+  .pager a:hover { border-color: var(--crimson); color: var(--crimson); }
+</style>

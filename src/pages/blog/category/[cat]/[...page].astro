@@ -1,0 +1,33 @@
+---
+// /blog/category/buyer, /blog/category/buyer/2, ...
+import type { GetStaticPaths } from 'astro';
+import Base from '../../../../layouts/Base.astro';
+import PageHero from '../../../../components/PageHero.astro';
+import BlogList from '../../../../components/BlogList.astro';
+import { getPosts, categoriesOf, catSlug, catUrl, PAGE_SIZE } from '../../../../data/blog';
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = await getPosts();
+  const cats = categoriesOf(posts);
+  return cats.flatMap((c) =>
+    paginate(posts.filter((p) => p.data.categories.includes(c.name)), { params: { cat: catSlug(c.name) }, props: { name: c.name, cats }, pageSize: PAGE_SIZE }));
+}) satisfies GetStaticPaths;
+
+const { page, name, cats } = Astro.props;
+const base = catUrl(name);
+const n = page.currentPage;
+const audience: Record<string, string> = {
+  Buyer: 'home buyers', Seller: 'home sellers', Homeowner: 'homeowners', 'New Homeowner': 'new homeowners',
+  'Empty Nester': 'empty nesters', Renter: 'renters', Parents: 'parents', Retiree: 'retirees', Military: 'military families',
+  Veterans: 'veterans', 'Vacation Home': 'vacation home buyers', 'Luxury Home': 'luxury home buyers and sellers', Freelancers: 'freelancers',
+};
+const who = audience[name] ?? 'Twin Cities buyers, sellers and homeowners';
+---
+<Base
+  breadcrumbs={[{ name: 'Blog', href: '/blog' }, { name, href: base }, ...(n > 1 ? [{ name: `Page ${n}`, href: `${base}/${n}` }] : [])]}
+  title={`${name} Articles${n > 1 ? `, Page ${n}` : ''} | Huerkamp Home Group Blog`}
+  description={`Real estate advice for ${who} in the Twin Cities from Huerkamp Home Group. ${page.total} articles.`}>
+  <PageHero eyebrow="Blog" title={`Advice for ${who}.`} lede={`${page.total} articles${n > 1 ? `, page ${n} of ${page.lastPage}` : ''}.`} />
+  <BlogList posts={page.data} categories={cats} current={name} page={n} pages={page.lastPage}
+    pageHref={(k) => (k === 1 ? base : `${base}/${k}`)} />
+</Base>

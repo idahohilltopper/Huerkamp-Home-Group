@@ -1,0 +1,19 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import BlogList from '../../components/BlogList.astro';
+import { getPosts, categoriesOf, PAGE_SIZE } from '../../data/blog';
+
+const posts = await getPosts();
+const pages = Math.ceil(posts.length / PAGE_SIZE);
+---
+<Base
+  breadcrumbs={[{ name: 'Blog', href: '/blog' }]}
+  title="Twin Cities Real Estate Blog | Huerkamp Home Group"
+  description="Advice for Twin Cities home buyers, sellers and homeowners from Huerkamp Home Group: pricing, preparing to sell, first-time buying, moving and more.">
+  <link slot="head" rel="alternate" type="application/rss+xml" title="Huerkamp Home Group blog" href="/blog/rss.xml" />
+  <PageHero eyebrow="Blog" title="Real estate advice for the Twin Cities."
+    lede="Guides for buying, selling and owning a home in Minneapolis, Saint Paul and the metro." />
+  <BlogList posts={posts.slice(0, PAGE_SIZE)} categories={categoriesOf(posts)} page={1} pages={pages}
+    pageHref={(n) => (n === 1 ? '/blog' : `/blog/page/${n}`)} />
+</Base>

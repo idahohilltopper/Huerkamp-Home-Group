@@ -4,12 +4,15 @@
 import Base from '../layouts/Base.astro';
 import AreaMap from '../components/AreaMap.astro';
 import TeamPhoto from '../components/TeamPhoto.astro';
+import PostCard from '../components/PostCard.astro';
+import { getPosts } from '../data/blog';
 import { site } from '../data/site';
 import team from '../data/team.json';
 import reviewData from '../data/reviews.json';
 import { communities, communityGeoUrl, communityInfo, regions } from '../data/areas';
 
 const google = reviewData.summary.google;
+const latest = (await getPosts()).slice(0, 3);
 const members = team.members;
 const founders = members.filter((m) => m.name === 'Jason Huerkamp' || m.name === 'Brooke Huerkamp');
 
@@ -279,6 +282,18 @@ const pending = `Thanks! Online forms are still being connected. For now, call $
     </div>
   </section>
 
+  <!-- Blog -->
+  <section class="section section--paper" aria-labelledby="blog-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">From the blog</p>
+        <h2 id="blog-title">Advice for buyers, sellers <em>and homeowners.</em></h2>
+      </div>
+      <ul class="latest">{latest.map((p) => <li><PostCard post={p} /></li>)}</ul>
+      <p class="latest__more"><a class="link-arrow" href="/blog">All articles</a></p>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section class="section section--dark" aria-labelledby="cta-title">
     <div class="wrap cta">
@@ -310,6 +325,8 @@ const pending = `Thanks! Online forms are still being connected. For now, call $
 </Base>
 
 <style>
+  .latest { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); gap: 1.5rem; }
+  .latest__more { margin-top: 2rem; }
   /* Hero */
   .hero { position: relative; overflow: hidden; background: var(--night-deep); color: #fff; padding-block: clamp(3.5rem, 7vw, 6rem) clamp(2.5rem, 5vw, 4rem); }
   .hero__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 55% 70%; }

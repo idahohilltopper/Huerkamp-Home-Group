@@ -134,5 +134,89 @@
  {
   "from": "/communities/west-saint-paul-real-estate",
   "to": "/communities/west-st-paul"
+ },
+ {
+  "from": "/blog/category/Buyer",
+  "to": "/blog/category/buyer"
+ },
+ {
+  "from": "/blog/category/Empty+Nester",
+  "to": "/blog/category/empty-nester"
+ },
+ {
+  "from": "/blog/category/Freelancers",
+  "to": "/blog/category/freelancers"
+ },
+ {
+  "from": "/blog/category/General",
+  "to": "/blog/category/general"
+ },
+ {
+  "from": "/blog/category/Homeowner",
+  "to": "/blog/category/homeowner"
+ },
+ {
+  "from": "/blog/category/Luxury+Home",
+  "to": "/blog/category/luxury-home"
+ },
+ {
+  "from": "/blog/category/Military",
+  "to": "/blog/category/military"
+ },
+ {
+  "from": "/blog/category/New+Homeowner",
+  "to": "/blog/category/new-homeowner"
+ },
+ {
+  "from": "/blog/category/Parents",
+  "to": "/blog/category/parents"
+ },
+ {
+  "from": "/blog/category/Renter",
+  "to": "/blog/category/renter"
+ },
+ {
+  "from": "/blog/category/Retiree",
+  "to": "/blog/category/retiree"
+ },
+ {
+  "from": "/blog/category/Seller",
+  "to": "/blog/category/seller"
+ },
+ {
+  "from": "/blog/category/Vacation+Home",
+  "to": "/blog/category/vacation-home"
+ },
+ {
+  "from": "/blog/category/Veterans",
+  "to": "/blog/category/veterans"
+ },
+ {
+  "from": "/blog/tag/5+Bedroom+Homes+Minnesota",
+  "to": "/blog"
+ },
+ {
+  "from": "/blog/tag/Homes+with+Pools+Minnesota",
+  "to": "/blog"
+ },
+ {
+  "from": "/blog/tag/Montrose+MN+Homes+for+Sale",
+  "to": "/blog"
+ },
+ {
+  "from": "/blog/tag/Twin+Cities+Real+Estate",
+  "to": "/blog"
+ },
+ {
+  "from": "/blog/tag/Walkout+Basement+Homes+MN",
+  "to": "/blog"
+ },
+ {
+  "from": "/blog/tag/Waterfront+Homes+MN",
+  "to": "/blog"
+ },
+ {
+  "from": "/blog/tag/fade-blog-header-image",
+  "to": "/blog"
  }
 ]

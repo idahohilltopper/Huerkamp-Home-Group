@@ -1,5 +1,7 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import { unified } from '@astrojs/markdown-remark';
+import { remarkYoutube } from './src/lib/youtube.mjs';
 
 export default defineConfig({
   site: 'https://www.huerkamphomegroup.com',
@@ -8,4 +10,6 @@ export default defineConfig({
   trailingSlash: 'never',
   build: { format: 'file' },
   integrations: [sitemap()],
+  // Blog posts are Markdown; a YouTube link on its own line becomes a fast video player.
+  markdown: { processor: unified({ remarkPlugins: [remarkYoutube] }) },
 });

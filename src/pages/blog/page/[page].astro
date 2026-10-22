@@ -1,0 +1,22 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import BlogList from '../../../components/BlogList.astro';
+import { getPosts, categoriesOf, PAGE_SIZE } from '../../../data/blog';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  const pages = Math.ceil(posts.length / PAGE_SIZE);
+  return Array.from({ length: pages - 1 }, (_, i) => ({ params: { page: String(i + 2) }, props: { posts, pages } }));
+}
+const { posts, pages } = Astro.props;
+const page = Number(Astro.params.page);
+---
+<Base
+  breadcrumbs={[{ name: 'Blog', href: '/blog' }, { name: `Page ${page}`, href: `/blog/page/${page}` }]}
+  title={`Twin Cities Real Estate Blog, Page ${page} | Huerkamp Home Group`}
+  description={`Page ${page} of Huerkamp Home Group's real estate advice for Twin Cities buyers, sellers and homeowners.`}>
+  <PageHero eyebrow="Blog" title={`Real estate advice, page ${page}.`} />
+  <BlogList posts={posts.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)} categories={categoriesOf(posts)} page={page} pages={pages}
+    pageHref={(n) => (n === 1 ? '/blog' : `/blog/page/${n}`)} />
+</Base>

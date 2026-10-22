@@ -236,6 +236,61 @@
       "source": "/communities/west-saint-paul-real-estate",
       "destination": "/communities/west-st-paul",
       "permanent": true
+    },
+    {
+      "source": "/blog/category/Empty+Nester",
+      "destination": "/blog/category/empty-nester",
+      "permanent": true
+    },
+    {
+      "source": "/blog/category/Luxury+Home",
+      "destination": "/blog/category/luxury-home",
+      "permanent": true
+    },
+    {
+      "source": "/blog/category/New+Homeowner",
+      "destination": "/blog/category/new-homeowner",
+      "permanent": true
+    },
+    {
+      "source": "/blog/category/Vacation+Home",
+      "destination": "/blog/category/vacation-home",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tag/5+Bedroom+Homes+Minnesota",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tag/Homes+with+Pools+Minnesota",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tag/Montrose+MN+Homes+for+Sale",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tag/Twin+Cities+Real+Estate",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tag/Walkout+Basement+Homes+MN",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tag/Waterfront+Homes+MN",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tag/fade-blog-header-image",
+      "destination": "/blog",
+      "permanent": true
     }
   ]
 }

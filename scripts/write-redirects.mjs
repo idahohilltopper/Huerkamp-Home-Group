@@ -10,6 +10,8 @@ const netlify = ['# Generated from redirects.json by scripts/write-redirects.mjs
 writeFileSync('public/_redirects', netlify);
 
 const vercel = JSON.parse(readFileSync('vercel.json', 'utf8'));
-vercel.redirects = list.map((r) => ({ source: r.from, destination: r.to, permanent: true }));
+// Vercel may match paths without regard to case, so a rule that only changes case (/Buyer -> /buyer)
+// could loop there; Vercel gets the rest.
+vercel.redirects = list.filter((r) => r.from.toLowerCase() !== r.to.toLowerCase()).map((r) => ({ source: r.from, destination: r.to, permanent: true }));
 writeFileSync('vercel.json', JSON.stringify(vercel, null, 2) + '\n');
 console.log(`Wrote ${list.length} redirects to public/_redirects and vercel.json`);
