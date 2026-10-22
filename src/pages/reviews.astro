@@ -1,0 +1,82 @@
+---
+// Every complete review we have on file, word for word, newest Google reviews first.
+// Replaces the old site's /testimonials page (redirected here).
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import reviewData from '../data/reviews.json';
+import { site } from '../data/site';
+
+const google = reviewData.summary.google;
+const complete = reviewData.reviews.filter((r: any) => r.textComplete);
+const groups = [
+  { id: 'google', title: 'Google reviews', list: complete.filter((r: any) => r.source === 'Google') },
+  { id: 'zillow', title: 'Zillow reviews', list: complete.filter((r: any) => r.source === 'Zillow') },
+];
+const https = (u: string) => u.replace(/^http:/, 'https:');
+---
+<Base
+  title="Reviews | Huerkamp Home Group"
+  description={`Read ${complete.length} verbatim Google and Zillow reviews of Huerkamp Home Group. ${google.rating.toFixed(1)} stars across ${google.count} Google reviews from Twin Cities buyers and sellers.`}
+  breadcrumbs={[{ name: 'Reviews', href: '/reviews' }]}>
+  <PageHero eyebrow="Reviews" title="In our clients' words."
+    lede={`${google.rating.toFixed(1)} stars across ${google.count} Google reviews. Every review below is copied word for word from Google or Zillow.`}>
+    <div class="actions">
+      <a class="btn" href={google.url} rel="noopener">See all {google.count} on Google</a>
+      <a class="btn btn--ghost" href="#zillow">Zillow reviews</a>
+    </div>
+  </PageHero>
+
+  {groups.map((g, i) => (
+    <section class:list={['section', i % 2 && 'section--paper']} id={g.id} aria-labelledby={`${g.id}-title`}>
+      <div class="wrap">
+        <div class="head">
+          <p class="eyebrow">{g.list.length} reviews</p>
+          <h2 id={`${g.id}-title`}>{g.title}</h2>
+        </div>
+        <ul class="wall">
+          {g.list.map((r: any) => (
+            <li>
+              <figure class="quote">
+                <p class="quote__stars" aria-label={`${r.rating} out of 5 stars`}>{'★'.repeat(r.rating)}</p>
+                <div>
+                  {r.headline && <h3>{r.headline}</h3>}
+                  <blockquote>{r.text}</blockquote>
+                </div>
+                <figcaption>
+                  <strong>{r.reviewer}</strong>
+                  {r.source === 'Zillow'
+                    ? <span>Worked with {r.agent} · <a href={https(r.sourceUrl)} rel="noopener">View on Zillow</a></span>
+                    : <span>Google review</span>}
+                </figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  ))}
+
+  <section class="section section--dark">
+    <div class="wrap closer">
+      <div class="prose">
+        <p class="eyebrow">Worked with us?</p>
+        <h2>We'd love to <em>hear from you.</em></h2>
+        <p>Reviews help other Twin Cities families find a team they can trust.</p>
+      </div>
+      <div class="actions">
+        <a class="btn" href={google.url} rel="noopener">Leave a Google review</a>
+        <a class="btn btn--ghost" href={site.phoneHref}>Call {site.phone}</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: .5rem; }
+  .wall { list-style: none; margin: 0; padding: 0; columns: 3 20rem; column-gap: 1.5rem; }
+  .wall li { break-inside: avoid; margin-bottom: 1.5rem; }
+  .wall .quote { grid-template-rows: auto; }
+  .wall h3 { font-size: 1.3rem; margin-bottom: .5rem; }
+  .wall figcaption a { color: var(--crimson); }
+  .closer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2rem; }
+</style>

@@ -199,3 +199,26 @@ Jason asked to model the site on markzproperties.com, replace that team's brandi
 **Still needed from Jason:** hero-quality photos (Jason/Brooke, office, team), real homes-sold and sales-volume figures and any rankings (with sources), which seller programs HHG offers (cash offer confirmed on the current site; guaranteed sale?), YouTube channel link, IDX decision.
 
 **Next steps:** IDX hookup, technical SEO (sitemap, robots, structured data everywhere, 301 redirect map from the current site), speed work, blog (with migration of current posts), YouTube section.
+
+## SEO and speed (2026-10-22)
+
+**Speed** (Lighthouse, phone settings, local build): home 55 → 98, Burnsville 79 → 98, Team 88 → 99; layout shift 0 on all three. Accessibility, best practices and SEO all 100.
+- Skyline photo served as WebP at 640–2560 px wide, so a phone downloads ~25 KB instead of 400 KB (`src/components/Skyline.astro`).
+- Team headshots served as 320/500 px WebP (`src/components/TeamPhoto.astro`; originals kept as fallback).
+- Map library (~1 MB plus its stylesheet) now loads only when a map scrolls near the screen (`src/scripts/area-map.ts`).
+- Fonts self-hosted from npm (@fontsource) instead of Google Fonts; the four used at the top of pages are preloaded so headings don't jump.
+- Page CSS is now a cached file instead of copied into all 159 pages (pages dropped from ~210 KB to ~100 KB).
+- Long-term caching headers for built files and photos (`public/_headers` for Netlify, `headers` in `vercel.json`).
+
+**SEO**
+- **Same addresses as the current site**: pages build as `team.html` and are served at `/team` (no trailing slash), matching Squarespace, so existing rankings carry over. Canonical tags use that form.
+- `sitemap-index.xml` (all 159 pages) and `robots.txt` (everyone, including AI assistants, may read the site).
+- **301 redirects** for every old page that changed address, e.g. `/testimonials` → `/reviews`, `/team-page` → `/team`, `/communities/burnsville-real-estate` → `/communities/burnsville`. The list lives in `redirects.json`; after editing it run `node scripts/write-redirects.mjs` to update `public/_redirects` (Netlify) and `vercel.json`.
+- Structured data on every page: business (RealEstateAgent with address, phone, logo, Google listing, Facebook) and WebSite; breadcrumb trail on every inner page; FAQ on home and community pages; team members on /team. No review-star markup: Google ignores (and can penalize) star ratings a business publishes about itself.
+- New `/reviews` page: all 109 complete reviews (55 Google, 54 Zillow), verbatim.
+- Branded share image (`public/brand/og-default.jpg`, 1200×630) for Facebook, texts and LinkedIn.
+
+**Before launch (DNS switch):**
+- **Blog**: the current site has 382 posts at `/blog/YYYY/MM/DD/slug`. They must be migrated at the same addresses before launch or they'll 404. This is the next step.
+- Submit `https://www.huerkamphomegroup.com/sitemap-index.xml` in Google Search Console and Bing Webmaster Tools.
+- Update the website link on the Google Business Profile if it changes.

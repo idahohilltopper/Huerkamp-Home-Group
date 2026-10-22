@@ -1,14 +1,45 @@
 ---
 // Site shell: utility bar, header with drop-down menus (and a phone menu), footer.
 // Layout after markzproperties.com; branding, text and code are Huerkamp Home Group's own.
+// Fonts are self-hosted (no request to Google); the ones used at the top of most pages are preloaded
+// so headings don't jump when the font arrives.
+import '@fontsource-variable/figtree/wght.css';
+import '@fontsource/cormorant-garamond/latin-400.css';
+import '@fontsource/cormorant-garamond/latin-500.css';
+import '@fontsource/cormorant-garamond/latin-600.css';
+import '@fontsource/cormorant-garamond/latin-400-italic.css';
+import '@fontsource/cormorant-garamond/latin-500-italic.css';
+import figtreeFont from '@fontsource-variable/figtree/files/figtree-latin-wght-normal.woff2?url';
+import cormorantFont from '@fontsource/cormorant-garamond/files/cormorant-garamond-latin-400-normal.woff2?url';
+import cormorantItalic from '@fontsource/cormorant-garamond/files/cormorant-garamond-latin-500-italic.woff2?url';
+import cormorantMedium from '@fontsource/cormorant-garamond/files/cormorant-garamond-latin-500-normal.woff2?url';
 import '../styles/global.css';
 import { site } from '../data/site';
+import { business, website } from '../data/schema';
 
-interface Props { title: string; description: string; image?: string }
-const { title, description, image = '/hero/minneapolis-skyline-1920.jpg' } = Astro.props;
+interface Crumb { name: string; href: string }
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  /** Trail from the home page to this page, e.g. [{ name: 'Communities', href: '/communities' }, { name: 'Edina', href: '/communities/edina' }] */
+  breadcrumbs?: Crumb[];
+  noindex?: boolean;
+}
+const { title, description, image = '/brand/og-default.jpg', breadcrumbs = [], noindex = false } = Astro.props;
 const { phone, phoneHref } = site;
-const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://www.huerkamphomegroup.com').href;
-const ogImage = new URL(image, Astro.site ?? 'https://www.huerkamphomegroup.com').href;
+const origin = Astro.site ?? 'https://www.huerkamphomegroup.com';
+// Pages build to /team.html but are served at /team, so drop the .html (and /index) from the address.
+const canonical = new URL(Astro.url.pathname.replace(/(\/index)?\.html$/, '').replace(/(.)\/$/, '$1') || '/', origin).href;
+const ogImage = new URL(image, origin).href;
+const siteLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': [website, business] });
+const crumbLd = breadcrumbs.length > 0 && JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [{ name: 'Home', href: '/' }, ...breadcrumbs].map((c, i) => ({
+    '@type': 'ListItem', position: i + 1, name: c.name, item: new URL(c.href, origin).href,
+  })),
+});
 const year = new Date().getFullYear();
 
 const menu = [
@@ -26,7 +57,7 @@ const menu = [
   ] },
   { label: 'Team', href: '/team' },
   { label: 'Ramsey ELP', href: '/ramsey' },
-  { label: 'Reviews', href: '/#reviews' },
+  { label: 'Reviews', href: '/reviews' },
   { label: 'Contact', href: '/contact' },
 ] as { label: string; href: string; items?: [string, string][] }[];
 
@@ -34,7 +65,7 @@ const footerCols = [
   { title: 'Communities', links: [['Minneapolis', '/communities/minneapolis'], ['Saint Paul', '/communities/saint-paul'], ['Burnsville', '/communities/burnsville'], ['Lakeville', '/communities/lakeville'], ['Eagan', '/communities/eagan'], ['Apple Valley', '/communities/apple-valley'], ['Edina', '/communities/edina'], ['All communities', '/communities']] },
   { title: 'Homes', links: [['Search all homes', site.searchUrl], ['Buy a home', '/buy'], ['Lake homes', '/lake-homes'], ['Investment property', '/invest']] },
   { title: 'Sell', links: [['Sell your home', '/sell'], ['Free home valuation', '/sell#value'], ['Get a cash offer', '/sell#cash']] },
-  { title: 'Company', links: [['Our team', '/team'], ['Ramsey ELP', '/ramsey'], ['Reviews', '/#reviews'], ['Contact', '/contact']] },
+  { title: 'Company', links: [['Our team', '/team'], ['Ramsey ELP', '/ramsey'], ['Reviews', '/reviews'], ['Contact', '/contact']] },
 ];
 const isExternal = (href: string) => href.startsWith('http');
 ---
@@ -46,19 +77,25 @@ const isExternal = (href: string) => href.startsWith('http');
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex" />}
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content={site.name} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
   <meta property="og:image" content={ogImage} />
+  <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="theme-color" content="#1f1b1c" />
-  <link rel="icon" type="image/png" href="/brand/favicon.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/brand/favicon-48.png" />
   <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Figtree:wght@400;500;600;700&display=swap" />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+  <link rel="preload" href={figtreeFont} as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href={cormorantFont} as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href={cormorantItalic} as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href={cormorantMedium} as="font" type="font/woff2" crossorigin />
+  <script type="application/ld+json" set:html={siteLd} />
+  {crumbLd && <script type="application/ld+json" set:html={crumbLd} />}
   <slot name="head" />
 </head>
 <body>

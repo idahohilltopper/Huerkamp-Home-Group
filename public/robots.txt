@@ -1,0 +1,5 @@
+# Huerkamp Home Group. All search engines and AI assistants are welcome to read this site.
+User-agent: *
+Allow: /
+
+Sitemap: https://www.huerkamphomegroup.com/sitemap-index.xml

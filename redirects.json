@@ -1,0 +1,138 @@
+[
+ {
+  "from": "/home",
+  "to": "/"
+ },
+ {
+  "from": "/new-index",
+  "to": "/"
+ },
+ {
+  "from": "/lightning",
+  "to": "/"
+ },
+ {
+  "from": "/banner-tab",
+  "to": "/"
+ },
+ {
+  "from": "/hhg-events",
+  "to": "/"
+ },
+ {
+  "from": "/home-valuation",
+  "to": "/sell#value"
+ },
+ {
+  "from": "/why-list-with-us",
+  "to": "/sell"
+ },
+ {
+  "from": "/virtual-home-sellers",
+  "to": "/sell"
+ },
+ {
+  "from": "/home-sale-calculator",
+  "to": "/sell"
+ },
+ {
+  "from": "/offers",
+  "to": "/sell#cash"
+ },
+ {
+  "from": "/hhg-offers-copy",
+  "to": "/sell#cash"
+ },
+ {
+  "from": "/virtual-home-buying",
+  "to": "/buy"
+ },
+ {
+  "from": "/financing",
+  "to": "/buy"
+ },
+ {
+  "from": "/mortgage-calculator",
+  "to": "/buy"
+ },
+ {
+  "from": "/affordability-calculator",
+  "to": "/buy"
+ },
+ {
+  "from": "/featured-listings",
+  "to": "https://search.huerkamphomegroup.com"
+ },
+ {
+  "from": "/team-page",
+  "to": "/team"
+ },
+ {
+  "from": "/careers-page",
+  "to": "/team#careers"
+ },
+ {
+  "from": "/contact-us",
+  "to": "/contact"
+ },
+ {
+  "from": "/contact-us-1",
+  "to": "/contact"
+ },
+ {
+  "from": "/testimonials",
+  "to": "/reviews"
+ },
+ {
+  "from": "/communities-1",
+  "to": "/communities"
+ },
+ {
+  "from": "/communities/apple-valley-real-estate",
+  "to": "/communities/apple-valley"
+ },
+ {
+  "from": "/communities/burnsville-real-estate",
+  "to": "/communities/burnsville"
+ },
+ {
+  "from": "/communities/eagan-real-estate",
+  "to": "/communities/eagan"
+ },
+ {
+  "from": "/communities/farmington-real-estate",
+  "to": "/communities/farmington"
+ },
+ {
+  "from": "/communities/inver-grove-heights-real-estate",
+  "to": "/communities/inver-grove-heights"
+ },
+ {
+  "from": "/communities/lakeville-real-estate",
+  "to": "/communities/lakeville"
+ },
+ {
+  "from": "/communities/mendota-heights-real-estate",
+  "to": "/communities/mendota-heights"
+ },
+ {
+  "from": "/communities/northfield-real-estate",
+  "to": "/communities/northfield"
+ },
+ {
+  "from": "/communities/rosemount-real-estate",
+  "to": "/communities/rosemount"
+ },
+ {
+  "from": "/communities/saint-paul-real-estate",
+  "to": "/communities/saint-paul"
+ },
+ {
+  "from": "/communities/south-saint-paul-real-estate",
+  "to": "/communities/south-st-paul"
+ },
+ {
+  "from": "/communities/west-saint-paul-real-estate",
+  "to": "/communities/west-st-paul"
+ }
+]

@@ -10,6 +10,7 @@ const pending = `Thanks! Online forms are still being connected. For now, call $
 const pageFor = (city: string) => communities.find((c) => c.censusName === city || c.name === city);
 ---
 <Base
+  breadcrumbs={[{ name: 'Lake homes', href: '/lake-homes' }]}
   title="Twin Cities Lake Homes for Sale | Huerkamp Home Group"
   description="Lake homes on Lake Minnetonka, White Bear Lake, Prior Lake, Forest Lake, Lake Waconia and more Twin Cities lakes.">
   <PageHero eyebrow="Lake homes" title="Twin Cities Lake Homes for Sale"

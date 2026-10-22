@@ -1,0 +1,11 @@
+---
+// The Minneapolis skyline hero photo, sized for each screen (a phone downloads ~25 KB, not 400 KB).
+// It is the largest thing on screen when a page opens, so it loads first.
+interface Props { class?: string }
+const { class: cls } = Astro.props;
+const widths = [640, 960, 1280, 1920, 2560];
+---
+<picture>
+  <source type="image/webp" srcset={widths.map((w) => `/hero/minneapolis-skyline-${w}.webp ${w}w`).join(', ')} sizes="100vw" />
+  <img class={cls} src="/hero/minneapolis-skyline-1920.jpg" alt="" width="1920" height="895" fetchpriority="high" decoding="async" />
+</picture>

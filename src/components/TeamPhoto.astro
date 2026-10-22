@@ -1,0 +1,10 @@
+---
+// A team member's headshot as WebP (with the original as fallback for very old browsers).
+interface Props { photo: string; alt: string; size: number; sizes?: string; loading?: 'lazy' | 'eager' }
+const { photo, alt, size, sizes = `${size}px`, loading = 'lazy' } = Astro.props;
+const base = photo.replace(/\.(png|jpg)$/, '');
+---
+<picture>
+  <source type="image/webp" srcset={`${base}-320.webp 320w, ${base}-500.webp 500w`} sizes={sizes} />
+  <img src={photo} alt={alt} width={size} height={size} loading={loading} decoding="async" />
+</picture>

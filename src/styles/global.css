@@ -35,8 +35,8 @@
   /* Garamond to match the logo's serif; Figtree as a clean Avenir-style sans. */
   --serif-display: "Cormorant Garamond", Garamond, Georgia, "Times New Roman", serif;
   --serif: "Cormorant Garamond", Garamond, Georgia, "Times New Roman", serif;
-  --sans: "Figtree", "Avenir Next", Avenir, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --ui: "Figtree", "Avenir Next", Avenir, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --sans: "Figtree Variable", "Figtree", "Avenir Next", Avenir, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ui: "Figtree Variable", "Figtree", "Avenir Next", Avenir, system-ui, -apple-system, "Segoe UI", sans-serif;
 
   --wrap: 72rem;
   --gutter: clamp(16px, 4vw, 40px);
@@ -54,6 +54,8 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 img { max-width: 100%; display: block; }
+/* <picture> only picks the image file; let the <img> inside lay out as if it stood alone. */
+picture { display: contents; }
 a { color: inherit; }
 :focus-visible { outline: 2px solid var(--crimson); outline-offset: 3px; }
 

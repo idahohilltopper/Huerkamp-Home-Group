@@ -3,6 +3,7 @@
 // Every number here has a source; homes-sold and sales-volume cards wait on Jason's figures.
 import Base from '../layouts/Base.astro';
 import AreaMap from '../components/AreaMap.astro';
+import TeamPhoto from '../components/TeamPhoto.astro';
 import { site } from '../data/site';
 import team from '../data/team.json';
 import reviewData from '../data/reviews.json';
@@ -43,15 +44,6 @@ const faqs = [
 const ld = JSON.stringify({
   '@context': 'https://schema.org',
   '@graph': [
-    {
-      '@type': 'RealEstateAgent', '@id': 'https://www.huerkamphomegroup.com/#business',
-      name: site.name, url: 'https://www.huerkamphomegroup.com/', logo: 'https://www.huerkamphomegroup.com/brand/hhg-logo.png',
-      image: 'https://www.huerkamphomegroup.com/hero/minneapolis-skyline-1920.jpg', telephone: '+1-612-843-9620', email: site.email,
-      address: { '@type': 'PostalAddress', streetAddress: '14300 Nicollet Ct, Ste 208', addressLocality: 'Burnsville', addressRegion: 'MN', postalCode: '55306', addressCountry: 'US' },
-      areaServed: ['Minneapolis', 'Saint Paul', 'Twin Cities metro'], foundingDate: '2002',
-      founder: [{ '@type': 'Person', name: 'Jason Huerkamp' }, { '@type': 'Person', name: 'Brooke Huerkamp' }],
-      parentOrganization: { '@type': 'Organization', name: site.brokerage }, sameAs: [site.facebookUrl],
-    },
     { '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
   ],
 });
@@ -64,7 +56,10 @@ const pending = `Thanks! Online forms are still being connected. For now, call $
 
   <!-- Hero -->
   <section class="hero">
-    <img class="hero__bg" src="/hero/minneapolis-skyline-1920.jpg" srcset="/hero/minneapolis-skyline-1920.jpg 1920w, /hero/minneapolis-skyline-3840.jpg 3840w" sizes="100vw" alt="" fetchpriority="high" />
+    <picture>
+      <source type="image/webp" srcset="/hero/minneapolis-skyline-640.webp 640w, /hero/minneapolis-skyline-960.webp 960w, /hero/minneapolis-skyline-1280.webp 1280w, /hero/minneapolis-skyline-1920.webp 1920w, /hero/minneapolis-skyline-2560.webp 2560w" sizes="100vw" />
+      <img class="hero__bg" src="/hero/minneapolis-skyline-1920.jpg" alt="" width="1920" height="895" fetchpriority="high" />
+    </picture>
     <div class="hero__shade" aria-hidden="true"></div>
     <div class="wrap hero__grid">
       <div class="hero__copy">
@@ -251,7 +246,7 @@ const pending = `Thanks! Online forms are still being connected. For now, call $
       </div>
       <ul class="faces">
         {members.slice(0, 12).map((m) => (
-          <li><img src={m.photo} alt={m.name} width="160" height="160" loading="lazy" /><span>{m.name}</span></li>
+          <li><TeamPhoto photo={m.photo} alt={m.name} size={160} /><span>{m.name}</span></li>
         ))}
       </ul>
     </div>
@@ -417,7 +412,7 @@ const pending = `Thanks! Online forms are still being connected. For now, call $
   .faces { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .75rem; }
   @media (max-width: 560px) { .faces { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   .faces li { display: grid; gap: .35rem; }
-  .faces img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; background: var(--night); }
+  .faces :global(img) { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; background: var(--night); }
   .faces span { font-size: .82rem; color: var(--text-soft); line-height: 1.25; }
 
   /* Ramsey */

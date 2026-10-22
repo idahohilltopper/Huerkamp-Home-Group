@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
+import TeamPhoto from '../components/TeamPhoto.astro';
 import team from '../data/team.json';
 import { site } from '../data/site';
 
@@ -19,6 +20,7 @@ const services = [
 ];
 ---
 <Base
+  breadcrumbs={[{ name: 'Investment property', href: '/invest' }]}
   title="Invest in Twin Cities Real Estate | Huerkamp Home Group"
   description="Buy and sell rental and fix-and-flip properties in the Twin Cities with agents who invest in real estate themselves.">
   <PageHero eyebrow="Investing" title="Invest in Twin Cities Real Estate"
@@ -47,7 +49,7 @@ const services = [
         <ul class="leads">
           {leads.map(({ m, note }) => (
             <li>
-              <img src={m.photo} alt={m.name} width="96" height="96" loading="lazy" />
+              <TeamPhoto photo={m.photo} alt={m.name} size={96} />
               <div><strong>{m.name}</strong><span>{note}</span><span>{m.phone}</span></div>
             </li>
           ))}
@@ -87,7 +89,7 @@ const services = [
   .service p { color: var(--text-soft); }
   .leads { list-style: none; padding: 0; display: grid; gap: 1rem; }
   .leads li { display: flex; gap: 1rem; align-items: center; }
-  .leads img { width: 4.5rem; height: 4.5rem; object-fit: cover; border-radius: 50%; }
+  .leads :global(img) { width: 4.5rem; height: 4.5rem; object-fit: cover; border-radius: 50%; }
   .leads div { display: grid; gap: .1rem; }
   .leads strong { color: var(--text); font-family: var(--serif); font-weight: 500; font-size: 1.15rem; }
 </style>

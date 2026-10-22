@@ -2,6 +2,7 @@
 // Team page: everyone on huerkamphomegroup.com/team-page, titles and bios verbatim from their profiles.
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
+import TeamPhoto from '../components/TeamPhoto.astro';
 import team from '../data/team.json';
 import { site } from '../data/site';
 
@@ -22,7 +23,8 @@ const ld = JSON.stringify({
   })),
 });
 ---
-<Base title="Our Team | Huerkamp Home Group" description={`Meet the ${members.length} agents and staff of Huerkamp Home Group, a Twin Cities real estate team at ${site.brokerage} since 2002.`}>
+<Base
+  breadcrumbs={[{ name: 'Our team', href: '/team' }]} title="Our Team | Huerkamp Home Group" description={`Meet the ${members.length} agents and staff of Huerkamp Home Group, a Twin Cities real estate team at ${site.brokerage} since 2002.`}>
   <script slot="head" type="application/ld+json" set:html={ld} />
   <PageHero eyebrow="Meet the team" title={`${members.length} people. One team.`}
     lede={`Licensed REALTORS® and client-care staff at ${site.brokerage} in Burnsville, led by founders Jason and Brooke Huerkamp since 2002.`} />
@@ -62,7 +64,7 @@ const ld = JSON.stringify({
         <ul class="people">
           {group.list.map((m) => (
             <li class="person">
-              <img src={m.photo} alt={m.name} width="320" height="320" loading="lazy" />
+              <TeamPhoto photo={m.photo} alt={m.name} size={320} sizes="(max-width: 480px) 45vw, 16rem" />
               <h3>{m.name}</h3>
               <p class="role">{m.title}</p>
               <p class="contact"><a href={`tel:+1${m.phone.replace(/\D/g, '')}`}>{m.phone}</a></p>
@@ -74,7 +76,7 @@ const ld = JSON.stringify({
     </section>
   ))}
 
-  <section class="section section--dark">
+  <section class="section section--dark" id="careers">
     <div class="wrap join">
       <div class="prose">
         <p class="eyebrow">Careers</p>
@@ -102,7 +104,7 @@ const ld = JSON.stringify({
 
   .people { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); gap: 2rem 1.5rem; }
   .person { display: grid; gap: .35rem; align-content: start; }
-  .person img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; margin-bottom: .5rem; background: var(--night); }
+  .person :global(img) { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; margin-bottom: .5rem; background: var(--night); }
   .person h3 { font-size: 1.35rem; }
 
   .join { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2rem; }
