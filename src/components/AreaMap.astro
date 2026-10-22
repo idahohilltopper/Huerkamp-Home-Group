@@ -38,8 +38,8 @@ const style = key
   import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
   maplibregl.setWorkerUrl(workerUrl);
 
-  const GOLD = '#b8914f';
-  const INK = '#2b221a';
+  const GOLD = '#d11241'; // brand crimson
+  const INK = '#1b1819';
 
   function bounds(features: any[]) {
     const b = new maplibregl.LngLatBounds();
@@ -135,6 +135,6 @@ const style = key
   }
   .area-map__panel strong { font: 500 1.2rem/1.2 var(--serif); }
   .area-map__panel span { font-size: .9rem; color: #4d4538; }
-  .area-map__hint { font: 700 .75rem/1.2 var(--ui) !important; letter-spacing: .12em; text-transform: uppercase; color: #8a6a3a !important; }
+  .area-map__hint { font: 700 .75rem/1.2 var(--ui) !important; letter-spacing: .12em; text-transform: uppercase; color: #d11241 !important; }
   .area-map__noscript { padding: 1rem; }
 </style>

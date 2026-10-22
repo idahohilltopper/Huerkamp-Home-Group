@@ -1,285 +1,436 @@
 ---
+// Home page, laid out after markzproperties.com with Huerkamp Home Group's own facts.
+// Every number here has a source; homes-sold and sales-volume cards wait on Jason's figures.
 import Base from '../layouts/Base.astro';
+import AreaMap from '../components/AreaMap.astro';
 import { site } from '../data/site';
 import team from '../data/team.json';
 import reviewData from '../data/reviews.json';
+import { communities, communityGeoUrl, communityInfo, regions } from '../data/areas';
 
-const { phone, phoneHref } = site;
+const google = reviewData.summary.google;
 const members = team.members;
-const googleSummary = reviewData.summary.google;
+const founders = members.filter((m) => m.name === 'Jason Huerkamp' || m.name === 'Brooke Huerkamp');
 
-// Home page shows a few complete 5-star reviews that fit a card without cutting text.
-const fits = (r: any) => r.textComplete && r.rating === 5 && r.text.length >= 150 && r.text.length <= 420;
-const featured = [
-  ...reviewData.reviews.filter((r: any) => r.source === 'Google' && fits(r)).slice(0, 4),
-  ...reviewData.reviews.filter((r: any) => r.source === 'Zillow' && fits(r)).slice(0, 2),
+// Complete 5-star reviews short enough for a card; the first is the featured quote.
+const fits = (r: any) => r.textComplete && r.rating === 5 && r.text.length >= 150 && r.text.length <= 380;
+const pool = reviewData.reviews.filter(fits);
+const featured = pool.find((r: any) => r.reviewer === 'Sam Brownell')!;
+const cards = [
+  ...pool.filter((r: any) => r.source === 'Google' && r !== featured).slice(0, 4),
+  ...pool.filter((r: any) => r.source === 'Zillow').slice(0, 2),
 ];
 
-const initials = (name: string) =>
-  name.split(/[\s-]+/).filter(Boolean).map((w) => w[0]).slice(0, 2).join('');
-
-// Communities listed in the current site's navigation, plus the two core cities.
-const communities = [
-  'Minneapolis', 'Saint Paul', 'Apple Valley', 'Burnsville', 'Eagan', 'Farmington',
-  'Inver Grove Heights', 'Lakeville', 'Mendota Heights', 'Northfield', 'Rosemount',
+const record = [
+  { value: google.rating.toFixed(1), unit: '★', label: 'Google rating', note: `Across ${google.count} reviews from Twin Cities buyers and sellers.`, source: `Google Business Profile, ${google.asOf.slice(0, 7)}` },
+  { value: '2002', label: 'Founded', note: 'Jason and Brooke Huerkamp joined forces and started the team.', source: 'Huerkamp Home Group' },
+  { value: String(members.length), label: 'Agents and staff', note: 'Licensed REALTORS® plus listing, transaction and client-care staff.', source: 'Team roster' },
+  { value: '15', unit: '+', label: 'Years as a Ramsey ELP', note: 'Recommended to Ramsey listeners as an Endorsed Local Provider.', source: 'Ramsey Endorsed Local Provider program' },
+  { value: String(communities.length), label: 'Communities covered', note: 'Every city in the seven-county metro, plus southern Minnesota.', source: 'Community guides on this site' },
 ];
 
-// Figures below come from docs/site-plan.md and the team page; confirm before launch.
-const stats = [
-  { value: '2002', label: 'Founded by Jason & Brooke Huerkamp' },
-  { value: String(members.length), label: 'Agents and staff on the team' },
-  { value: googleSummary.rating.toFixed(1), label: `Stars from ${googleSummary.count} Google reviews` },
-  { value: '15+', label: 'Years as a Ramsey ELP' },
-];
+const regionCounts = regions.map((r) => ({ name: r, count: communities.filter((c) => c.region === r).length }));
+const popular = ['minneapolis', 'saint-paul', 'burnsville', 'lakeville', 'eagan', 'apple-valley', 'edina', 'woodbury', 'prior-lake', 'northfield']
+  .map((s) => communities.find((c) => c.slug === s)!).filter(Boolean);
 
-const paths = [
-  { eyebrow: 'Buy', title: 'Find the right home', body: 'Search every NorthstarMLS listing, get pre-approved, and tour with an agent who knows the neighborhood.', cta: 'Start your search', href: '/buy' },
-  { eyebrow: 'Sell', title: 'Sell for top dollar', body: 'Pricing backed by local data, professional photography and targeted marketing for your listing.', cta: 'What is my home worth?', href: '/sell' },
-  { eyebrow: 'Invest', title: 'Build a portfolio', body: 'Rental and fix-and-flip guidance from a team with its own background in real estate investing.', cta: 'Talk investing', href: '/invest' },
+const faqs = [
+  { q: 'How do I find out what my home is worth?', a: 'Request a free home valuation. One of our agents compares your home with recent sales nearby and sends you a price range you can plan around. There is no cost and no obligation to list with us.' },
+  { q: 'Can you make a cash offer on my home?', a: 'Yes. If you want speed and certainty more than top dollar, ask about a cash offer: no repairs, no staging and no open houses. We will also show you what a traditional sale could bring so you can compare.' },
+  { q: 'What does it mean that you are a Ramsey ELP?', a: 'We have been a Dave Ramsey Endorsed Local Provider for more than 15 years. Ramsey recommends us to listeners in the Twin Cities, and we work the way they expect: plain advice, no pressure and a plan that fits your budget.' },
+  { q: 'Which areas do you serve?', a: 'Minneapolis, Saint Paul and every city in the seven-county Twin Cities metro, plus Northfield, Dundas, Faribault, Owatonna and Le Sueur. Our community guides cover each one.' },
+  { q: 'Do you work with first-time buyers?', a: 'All the time. We walk you through pre-approval, showings, offers and closing, and we can introduce you to our lender partner, Ken Rife at Mutual of Omaha Mortgage.' },
 ];
+const ld = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'RealEstateAgent', '@id': 'https://www.huerkamphomegroup.com/#business',
+      name: site.name, url: 'https://www.huerkamphomegroup.com/', logo: 'https://www.huerkamphomegroup.com/brand/hhg-logo.png',
+      image: 'https://www.huerkamphomegroup.com/hero/minneapolis-skyline-1920.jpg', telephone: '+1-612-843-9620', email: site.email,
+      address: { '@type': 'PostalAddress', streetAddress: '14300 Nicollet Ct, Ste 208', addressLocality: 'Burnsville', addressRegion: 'MN', postalCode: '55306', addressCountry: 'US' },
+      areaServed: ['Minneapolis', 'Saint Paul', 'Twin Cities metro'], foundingDate: '2002',
+      founder: [{ '@type': 'Person', name: 'Jason Huerkamp' }, { '@type': 'Person', name: 'Brooke Huerkamp' }],
+      parentOrganization: { '@type': 'Organization', name: site.brokerage }, sameAs: [site.facebookUrl],
+    },
+    { '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+  ],
+});
+const photo = (m: { photo: string }, size: number, ext: string) => `/people/${m.photo.split('/').pop()!.replace(/\.(png|jpg)$/, '')}-${size}.${ext}`;
+const pending = `Thanks! Online forms are still being connected. For now, call ${site.phone} or email ${site.email}.`;
 ---
 <Base
-  title="Huerkamp Home Group | Twin Cities Real Estate"
-  description="Huerkamp Home Group helps buyers and sellers across Minneapolis, St. Paul and the Twin Cities metro. Keller Williams Preferred Realty, Burnsville, MN.">
-    <section class="hero">
-      <img class="hero__photo" src="/hero/minneapolis-skyline-1920.jpg"
-        srcset="/hero/minneapolis-skyline-1920.jpg 1920w, /hero/minneapolis-skyline-3840.jpg 3840w"
-        sizes="100vw" alt="Downtown Minneapolis skyline at dusk, reflected in the Mississippi River" fetchpriority="high" />
-      <div class="hero__shade" aria-hidden="true"></div>
-      <div class="wrap hero__content">
-        <p class="hero__kicker"><span>Huerkamp Home Group</span></p>
-        <div class="hero__badges">
-          <div class="badge"><strong>Est. 2002</strong><span>Twin Cities real estate team</span></div>
-          <div class="badge"><strong>Ramsey</strong><span>Endorsed Local Provider</span></div>
-        </div>
-        <h1>Twin Cities Real Estate, From Minneapolis to St.&nbsp;Paul</h1>
-        <p class="hero__lede">Helping buyers and sellers across Minneapolis, St. Paul, the 13-county metro and Western Wisconsin.</p>
+  title="Huerkamp Home Group | Twin Cities Real Estate Team Since 2002"
+  description={`Twin Cities real estate team since 2002: ${google.rating.toFixed(1)} stars across ${google.count} Google reviews, Dave Ramsey Endorsed Local Provider. Buy or sell in Minneapolis, Saint Paul and the metro.`}>
+  <script slot="head" type="application/ld+json" set:html={ld} />
 
-        <form class="search" action="/search" method="get" role="search" data-pending="Home search launches with the NorthstarMLS feed in step 7.">
-          <label class="visually-hidden" for="hero-search">City, neighborhood, ZIP or address</label>
-          <input id="hero-search" name="q" type="search" placeholder="City, neighborhood, ZIP or address" autocomplete="off" />
-          <button class="btn" type="submit">Search homes</button>
-        </form>
-        <p class="search__status" role="status" aria-live="polite"></p>
-
-        <div class="split">
-          <a class="split__card" href="/search">
-            <span class="split__eyebrow">Buying</span>
-            <span class="split__title">Search All Twin Cities Homes</span>
-            <span class="split__sub">Minneapolis · St. Paul · South Metro · Western Wisconsin</span>
-          </a>
-          <a class="split__card" href="/sell">
-            <span class="split__eyebrow">Selling</span>
-            <span class="split__title">What Is My Home Worth?</span>
-            <span class="split__sub">A free, local pricing report from our listing team</span>
-          </a>
+  <!-- Hero -->
+  <section class="hero">
+    <img class="hero__bg" src="/hero/minneapolis-skyline-1920.jpg" srcset="/hero/minneapolis-skyline-1920.jpg 1920w, /hero/minneapolis-skyline-3840.jpg 3840w" sizes="100vw" alt="" fetchpriority="high" />
+    <div class="hero__shade" aria-hidden="true"></div>
+    <div class="wrap hero__grid">
+      <div class="hero__copy">
+        <p class="eyebrow hero__eyebrow">Huerkamp Home Group<br />Minneapolis · Saint Paul · Twin Cities</p>
+        <h1>Twin Cities real estate, <em>since&nbsp;2002.</em></h1>
+        <p class="hero__lede">A family-led Keller Williams team of {members.length} agents and staff, rated {google.rating.toFixed(1)} stars across {google.count} Google reviews, and a Dave Ramsey Endorsed Local Provider for more than 15 years.</p>
+        <blockquote class="hero__quote">
+          <p>“They exceeded our expectations for sale price and service.”</p>
+          <cite>{featured.reviewer}, Google review</cite>
+        </blockquote>
+        <div class="hero__ctas">
+          <a class="btn" href="/sell#value">Get Your Home's Value</a>
+          <a class="btn" href="/sell">Sell Your Home</a>
+          <a class="btn" href={site.searchUrl} rel="noopener">Find a Home</a>
         </div>
-      </div>
-    </section>
-
-    <section class="section section--dark stats" aria-labelledby="why-title">
-      <div class="wrap">
-        <div class="head">
-          <p class="eyebrow">Why work with us</p>
-          <h2 id="why-title">A Minnesota team since <em>2002.</em></h2>
-        </div>
-        <dl class="stats__grid">
-          {stats.map((s) => (
-            <div class="stat"><dt>{s.label}</dt><dd>{s.value}</dd></div>
-          ))}
+        <dl class="hero__stats">
+          <div><dt>{google.count} Google reviews</dt><dd><span class="star" aria-hidden="true">★</span> {google.rating.toFixed(1)} / 5</dd></div>
+          <div><dt>Founded</dt><dd>2002</dd></div>
+          <div><dt>Ramsey ELP</dt><dd>15+ years</dd></div>
         </dl>
       </div>
-    </section>
-
-    <section class="section" aria-labelledby="paths-title">
-      <div class="wrap">
-        <div class="head">
-          <p class="eyebrow">How we help</p>
-          <h2 id="paths-title">Buy, sell or invest, <em>with a plan.</em></h2>
-        </div>
-        <div class="paths">
-          {paths.map((p) => (
-            <article class="path">
-              <p class="eyebrow">{p.eyebrow}</p>
-              <h3>{p.title}</h3>
-              <p>{p.body}</p>
-              <a class="path__link" href={p.href}>{p.cta} <span aria-hidden="true">→</span></a>
-            </article>
+      <figure class="hero__people">
+        <div class="hero__photos">
+          {founders.map((m, i) => (
+            <picture>
+              <source srcset={photo(m, 720, 'webp')} type="image/webp" />
+              <img src={photo(m, 720, 'jpg')} alt={m.name} width="360" height="360" class={i === 0 ? 'p1' : 'p2'} />
+            </picture>
           ))}
         </div>
+        <figcaption><strong>Jason &amp; Brooke Huerkamp</strong><span>Founders · {site.brokerage}</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- The record -->
+  <section class="section record" aria-labelledby="record-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">The record</p>
+        <h2 id="record-title">Numbers you can <em>check.</em></h2>
+        <p>Every figure below names its source.</p>
       </div>
-    </section>
-
-    <section class="section section--paper" id="communities" aria-labelledby="comm-title">
-      <div class="wrap">
-        <div class="head">
-          <p class="eyebrow">Jump to a city</p>
-          <h2 id="comm-title">Homes across the <em>Twin Cities.</em></h2>
-          <p>Local guides and live listings for the cities our agents work in every week.</p>
-        </div>
-        <ul class="cities">
-          {communities.map((c) => (
-            <li><a href={`/communities/${c.toLowerCase().replace(/\s+/g, '-')}`}>{c}<span aria-hidden="true">→</span></a></li>
-          ))}
-        </ul>
-        <p class="all-cities"><a class="btn btn--dark" href="/communities">See all Twin Cities communities</a></p>
+      <div class="record__grid">
+        {record.map((r) => (
+          <article class="rcard">
+            <p class="rcard__badge"><span aria-hidden="true">✓</span> Verified</p>
+            <p class="rcard__value">{r.value}{r.unit && <sup>{r.unit}</sup>}</p>
+            <h3>{r.label}</h3>
+            <p class="rcard__note">{r.note}</p>
+            <p class="rcard__source">Source · <strong>{r.source}</strong></p>
+          </article>
+        ))}
+        <a class="rcard rcard--cta" href="/sell#value">
+          <p class="rcard__badge">Your home next</p>
+          <p class="rcard__cta">What is your home worth today?</p>
+          <span class="link-arrow">Get your free valuation →</span>
+        </a>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="section" id="reviews" aria-labelledby="reviews-title">
-      <div class="wrap">
-        <div class="head">
-          <p class="eyebrow">Client reviews</p>
-          <h2 id="reviews-title">Trusted by <em>Minnesota families.</em></h2>
-        </div>
-        <div class="reviews">
-          {featured.map((r: any) => (
-            <figure class="review">
-              <p class="review__stars" aria-label={`${r.rating} out of 5 stars`}>{'★'.repeat(r.rating)}</p>
-              <blockquote>{r.text}</blockquote>
-              <figcaption>
-                <strong>{r.reviewer}</strong>
-                <span>{r.source === 'Zillow' ? `Zillow review · worked with ${r.agent}` : 'Google review'}</span>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-        <p class="reviews__summary">
-          <a href={googleSummary.url}>{googleSummary.rating.toFixed(1)} stars from {googleSummary.count} reviews on Google</a>
-        </p>
+  <!-- Find a home -->
+  <section class="section section--paper" aria-labelledby="find-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Live from the MLS</p>
+        <h2 id="find-title">Homes for sale <em>across the Twin Cities.</em></h2>
+        <p>Search every NorthstarMLS listing, save homes and get alerts when new ones hit the market.</p>
       </div>
-    </section>
+      <a class="search-cta" href={site.searchUrl} rel="noopener">
+        <span>City, neighborhood, ZIP or address</span>
+        <strong>Search homes →</strong>
+      </a>
+      <p class="subhead">Popular places to look</p>
+      <ul class="chips">
+        {popular.map((c) => <li><a href={`/communities/${c.slug}`}>{c.name}</a></li>)}
+        <li><a href="/lake-homes">Lake homes</a></li>
+        <li><a href="/communities">All {communities.length} communities</a></li>
+      </ul>
+    </div>
+  </section>
 
-    <section class="section section--paper" id="team" aria-labelledby="team-title">
-      <div class="wrap">
-        <div class="head">
-          <p class="eyebrow">Meet the team</p>
-          <h2 id="team-title">{members.length} people, <em>one team.</em></h2>
-          <p>Licensed agents and client care staff at Keller Williams Preferred Realty in Burnsville.</p>
-        </div>
-        <ul class="team">
-          {members.map((m) => (
-            <li class="agent">
-              <div class="agent__photo">
-                <span aria-hidden="true">{initials(m.name)}</span>
-                {m.photo && <img src={m.photo} alt={m.name} loading="lazy" width="320" height="320" onerror="this.remove()" />}
-              </div>
-              <h3>{m.name}</h3>
-              {m.title && <p class="agent__title">{m.title}</p>}
-              <p class="agent__contact">{m.phone}</p>
-            </li>
-          ))}
+  <!-- Where we work -->
+  <section class="section" aria-labelledby="where-title">
+    <div class="wrap where">
+      <div class="where__copy">
+        <p class="eyebrow">Where we work</p>
+        <h2 id="where-title">Seven counties. {communities.length} communities. <em>Your backyard.</em></h2>
+        <p>From Minneapolis and Saint Paul to the suburbs and southern Minnesota, every community has its own guide with local facts, schools and commute times.</p>
+        <ul class="areas">
+          {regionCounts.map((r) => <li><a href="/communities"><strong>{r.name}</strong><span>{r.count} {r.count === 1 ? 'community' : 'communities'}</span></a></li>)}
         </ul>
       </div>
-    </section>
-
-    <section class="section section--dark ramsey" aria-labelledby="ramsey-title">
-      <div class="wrap ramsey__inner">
-        <div>
-          <p class="eyebrow">Dave Ramsey Endorsed Local Provider</p>
-          <h2 id="ramsey-title">Buy or sell the <em>Ramsey way.</em></h2>
-        </div>
-        <div class="ramsey__body">
-          <p>We have been a Ramsey ELP for more than 15 years. Our agents follow the principles Ramsey listeners expect: plain advice, no pressure, and a plan that fits your budget.</p>
-          <a class="btn" href="/ramsey">About the ELP program</a>
-        </div>
+      <div class="where__map">
+        <AreaMap src={communityGeoUrl} info={communityInfo} label="Hover a community" height="520px" />
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="section cta" aria-labelledby="cta-title">
-      <div class="wrap head">
-        <h2 id="cta-title">Ready to make <em>your move?</em></h2>
-        <p>Talk with a Huerkamp Home Group agent about buying or selling in the Twin Cities.</p>
-        <a class="btn btn--dark" href={phoneHref}>Call {phone}</a>
+  <!-- Sell with confidence -->
+  <section class="section section--paper" aria-labelledby="sell-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Sell with confidence</p>
+        <h2 id="sell-title">Three ways to <em>start your sale.</em></h2>
+        <p>Pick the path that fits your timeline. We'll show you the numbers for each before you decide.</p>
       </div>
-    </section>
+      <div class="programs">
+        <article class="program">
+          <p class="eyebrow">Start here</p>
+          <h3>Free Home Valuation</h3>
+          <p>An agent compares your home with recent sales nearby and sends you a price range you can plan around.</p>
+          <a class="link-arrow" href="/sell#value">Get your value</a>
+        </article>
+        <article class="program">
+          <p class="eyebrow">Skip the showings</p>
+          <h3>Cash Offer</h3>
+          <p>Sell your home fast and hassle-free. No repairs, no staging, no open houses. Just a fair, all-cash offer.</p>
+          <a class="link-arrow" href="/sell#cash">How it works</a>
+        </article>
+        <article class="program">
+          <p class="eyebrow">Top dollar</p>
+          <h3>Full Marketing Plan</h3>
+          <p>Professional photography, targeted online advertising and an agent who keeps you posted at every step.</p>
+          <a class="link-arrow" href="/sell">See the plan</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marketing -->
+  <section class="section section--dark" aria-labelledby="market-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Marketing</p>
+        <h2 id="market-title">Your listing isn't just posted. <em>It's marketed.</em></h2>
+        <p>Buyers are on their phones and laptops, not reading bench ads. That's where we put your home.</p>
+      </div>
+      <ul class="pillars">
+        <li><strong>Aggressive marketing and re-marketing</strong><span>across the entire digital landscape</span></li>
+        <li><strong>Precise demographic targeting</strong><span>so your home reaches likely buyers</span></li>
+        <li><strong>Proactive customer support</strong><span>from lead to closing, you're kept informed</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section class="section" id="reviews" aria-labelledby="reviews-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Client stories</p>
+        <h2 id="reviews-title">{google.rating.toFixed(1)} stars on Google across <em>{google.count} reviews.</em></h2>
+        <p>Quoted word for word from Google and Zillow.</p>
+      </div>
+      <figure class="feature-quote">
+        <blockquote>“{featured.text}”</blockquote>
+        <figcaption><strong>{featured.reviewer}</strong> · Google review</figcaption>
+      </figure>
+      <div class="quotes">
+        {cards.map((r: any) => (
+          <figure class="quote">
+            <p class="quote__stars" aria-label={`${r.rating} out of 5 stars`}>{'★'.repeat(r.rating)}</p>
+            <blockquote>{r.text}</blockquote>
+            <figcaption><strong>{r.reviewer}</strong><span>{r.source === 'Zillow' ? `Zillow review · worked with ${r.agent}` : 'Google review'}</span></figcaption>
+          </figure>
+        ))}
+      </div>
+      <p class="more"><a class="link-arrow" href={google.url} rel="noopener">Read all {google.count} reviews on Google</a></p>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="section section--paper" aria-labelledby="team-title">
+    <div class="wrap team-teaser">
+      <div class="head">
+        <p class="eyebrow">Meet the team</p>
+        <h2 id="team-title">{members.length} people. <em>One team.</em></h2>
+        <p>Licensed agents and client-care staff at {site.brokerage} in Burnsville.</p>
+        <a class="btn btn--dark" href="/team">Meet the whole team</a>
+      </div>
+      <ul class="faces">
+        {members.slice(0, 12).map((m) => (
+          <li><img src={m.photo} alt={m.name} width="160" height="160" loading="lazy" /><span>{m.name}</span></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Ramsey -->
+  <section class="section section--dark" aria-labelledby="ramsey-title">
+    <div class="wrap ramsey">
+      <div>
+        <p class="eyebrow">Dave Ramsey Endorsed Local Provider</p>
+        <h2 id="ramsey-title">Buy or sell <em>the Ramsey way.</em></h2>
+      </div>
+      <div class="ramsey__body">
+        <p>We have been a Ramsey ELP for more than 15 years. Our agents follow the principles Ramsey listeners expect: plain advice, no pressure, and a plan that fits your budget.</p>
+        <a class="btn" href="/ramsey">About the ELP program</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" aria-labelledby="faq-title">
+    <div class="wrap faq-wrap">
+      <div class="head">
+        <p class="eyebrow">Questions</p>
+        <h2 id="faq-title">What buyers and sellers <em>ask us first.</em></h2>
+      </div>
+      <div class="faq">
+        {faqs.map((f, i) => <details open={i === 0}><summary>{f.q}</summary><p>{f.a}</p></details>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section--dark" aria-labelledby="cta-title">
+    <div class="wrap cta">
+      <div class="cta__copy">
+        <p class="eyebrow">Ready to make a move?</p>
+        <h2 id="cta-title">Let's talk about <em>your next home.</em></h2>
+        <p>Buying, selling or both, tell us where you're headed and we'll match you with the right agent.</p>
+        <a class="cta__phone" href={site.phoneHref}>{site.phone}</a>
+        <p class="cta__addr">{site.street}, {site.cityStateZip}</p>
+      </div>
+      <form class="form" data-pending={pending}>
+        <div class="form__row">
+          <div class="field"><label for="h-first">First name</label><input id="h-first" name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for="h-last">Last name</label><input id="h-last" name="lastName" autocomplete="family-name" required /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="h-email">Email</label><input id="h-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="h-phone">Phone</label><input id="h-phone" name="phone" type="tel" autocomplete="tel" /></div>
+        </div>
+        <div class="field">
+          <label for="h-goal">I want to</label>
+          <select id="h-goal" name="goal"><option value="">Choose one</option><option>Sell my home</option><option>Buy a home</option><option>Buy and sell</option><option>Invest</option></select>
+        </div>
+        <button class="btn" type="submit">Request my free consultation</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
 </Base>
 
 <style>
   /* Hero */
-  .hero { position: relative; overflow: hidden; color: #fff; background: var(--espresso-deep); padding-block: clamp(4rem, 9vw, 6.5rem) clamp(3rem, 6vw, 4.5rem); }
-  .hero__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 55% 70%; }
-  .hero__shade { position: absolute; inset: 0; background:
-      linear-gradient(180deg, rgba(26,20,16,.55) 0%, rgba(26,20,16,.35) 45%, rgba(26,20,16,.8) 100%); }
-  .hero__content { position: relative; z-index: 1; display: grid; justify-items: center; text-align: center; gap: 1.5rem; }
-  .hero__kicker { display: flex; align-items: center; gap: 1.25rem; font: 500 clamp(1rem, 2.4vw, 1.9rem)/1 var(--serif-display); letter-spacing: .3em; text-transform: uppercase; color: var(--gold); }
-  .hero__kicker::before, .hero__kicker::after { content: ""; width: clamp(1.5rem, 5vw, 3.5rem); height: 1px; background: var(--gold); opacity: .7; }
-  .hero__badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
-  .badge { display: grid; gap: .35rem; min-width: 13rem; padding: .8rem 1.4rem; border: 1px solid rgba(212,178,124,.55); border-radius: 4px; background: rgba(26,20,16,.35); }
-  .badge strong { font: 400 1.9rem/1 var(--serif-display); color: var(--gold); }
-  .badge span { font: 600 .72rem/1.2 var(--ui); letter-spacing: .14em; text-transform: uppercase; }
-  .hero h1 { font: 400 clamp(2.5rem, 6.4vw, 5rem)/1.02 var(--serif-display); letter-spacing: -.015em; max-width: 24ch; text-shadow: 0 2px 24px rgba(0,0,0,.35); }
-  .hero__lede { max-width: 36rem; font-size: 1.125rem; color: #eee5d7; }
+  .hero { position: relative; overflow: hidden; background: var(--night-deep); color: #fff; padding-block: clamp(3.5rem, 7vw, 6rem) clamp(2.5rem, 5vw, 4rem); }
+  .hero__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 55% 70%; }
+  .hero__shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(21,18,19,.94) 0%, rgba(21,18,19,.82) 45%, rgba(21,18,19,.45) 100%); }
+  .hero__grid { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  @media (max-width: 960px) { .hero__grid { grid-template-columns: 1fr; } }
+  .hero__copy { display: grid; gap: 1.4rem; justify-items: start; }
+  .hero__eyebrow { color: var(--rose); line-height: 1.7; }
+  .hero h1 { font: 500 clamp(2.8rem, 6.4vw, 5.2rem)/1.02 var(--serif-display); letter-spacing: -.015em; max-width: 14ch; }
+  .hero__lede { max-width: 36rem; font-size: 1.12rem; color: #e9e1da; }
+  .hero__quote { margin: 0; display: grid; gap: .3rem; }
+  .hero__quote p { font: italic 500 clamp(1.3rem, 2.2vw, 1.7rem)/1.3 var(--serif); }
+  .hero__quote cite { font: 600 .75rem/1 var(--ui); letter-spacing: .14em; text-transform: uppercase; font-style: normal; color: var(--on-dark-soft); }
+  .hero__ctas { display: flex; flex-wrap: wrap; gap: .75rem; }
+  .hero__stats { display: flex; flex-wrap: wrap; gap: 2.5rem; margin: .5rem 0 0; padding-top: 1.4rem; border-top: 1px solid rgba(255,255,255,.18); width: 100%; }
+  .hero__stats div { display: flex; flex-direction: column-reverse; gap: .35rem; }
+  .hero__stats dd { margin: 0; font: 500 1.7rem/1 var(--serif); }
+  .hero__stats dt { font: 600 .7rem/1 var(--ui); letter-spacing: .16em; text-transform: uppercase; color: var(--on-dark-soft); }
+  .star { color: #c99a2e; }
+  .hero__people { margin: 0; display: grid; gap: 1rem; justify-items: end; }
+  @media (max-width: 960px) { .hero__people { justify-items: start; } }
+  .hero__photos { position: relative; width: min(100%, 26rem); aspect-ratio: 1 / 1; }
+  .hero__photos img { position: absolute; width: 60%; height: auto; aspect-ratio: 1; object-fit: cover; border: 6px solid var(--cream); box-shadow: 0 24px 50px rgba(0,0,0,.4); }
+  .hero__photos .p1 { left: 0; top: 0; }
+  .hero__photos .p2 { right: 0; bottom: 0; }
+  .hero__people figcaption { display: grid; gap: .2rem; text-align: right; }
+  @media (max-width: 960px) { .hero__people figcaption { text-align: left; } }
+  .hero__people strong { font: 500 1.4rem/1.2 var(--serif); }
+  .hero__people span { font: 600 .7rem/1.3 var(--ui); letter-spacing: .16em; text-transform: uppercase; color: var(--on-dark-soft); }
 
-  .search { display: flex; gap: .5rem; width: min(100%, 40rem); padding: .45rem; border-radius: 999px; background: rgba(255,255,255,.96); box-shadow: 0 12px 40px rgba(0,0,0,.3); }
-  .search input { flex: 1; min-width: 0; border: 0; background: transparent; padding: .6rem 1rem; font: 500 1rem var(--sans); color: #1d1813; }
-  .search input:focus { outline: none; }
-  .search:focus-within { outline: 2px solid var(--gold); outline-offset: 3px; }
-  .search__status { min-height: 1.4em; font-size: .95rem; color: var(--gold); }
+  /* Record */
+  .record__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); background: var(--paper); }
+  @media (max-width: 900px) { .record__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 560px) { .record__grid { grid-template-columns: 1fr; } }
+  .rcard { display: grid; gap: .5rem; align-content: start; padding: 2rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); text-decoration: none; color: inherit; }
+  .rcard__badge { font: 700 .7rem/1 var(--ui); letter-spacing: .18em; text-transform: uppercase; color: var(--crimson); }
+  .rcard__badge span { display: inline-grid; place-items: center; width: 1.1rem; height: 1.1rem; border: 1px solid var(--crimson); border-radius: 50%; font-size: .6rem; margin-right: .35rem; }
+  .rcard__value { font: 500 clamp(2.8rem, 5vw, 3.6rem)/1 var(--serif-display); color: var(--ink); margin-top: .75rem; }
+  .rcard__value sup { font-size: .45em; color: var(--crimson); margin-left: .1em; }
+  .rcard h3 { font: 700 1rem/1.3 var(--ui); }
+  .rcard__note { color: var(--text-soft); font-size: .95rem; }
+  .rcard__source { margin-top: .75rem; padding-top: .75rem; border-top: 1px dashed var(--line); font: 600 .7rem/1.4 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--text-soft); }
+  .rcard__source strong { color: var(--ink); }
+  .rcard--cta { background: var(--night); color: var(--on-dark); align-content: center; gap: 1.25rem; }
+  .rcard--cta .rcard__badge { color: var(--rose); }
+  .rcard__cta { font: 500 2rem/1.15 var(--serif); }
+  .rcard--cta .link-arrow { color: var(--on-dark); justify-self: start; }
 
-  .split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: min(100%, 65rem); border: 1px solid rgba(212,178,124,.35); border-radius: 12px; overflow: hidden; background: rgba(26,20,16,.72); backdrop-filter: blur(6px); }
-  .split__card { display: grid; gap: .5rem; padding: 1.75rem 2rem; text-decoration: none; color: #fff; transition: background .2s; }
-  .split__card + .split__card { border-left: 1px solid rgba(212,178,124,.35); }
-  .split__card:hover { background: rgba(212,178,124,.12); }
-  .split__eyebrow { font: 700 .72rem/1 var(--ui); letter-spacing: .22em; text-transform: uppercase; color: var(--gold); }
-  .split__title { font: 400 clamp(1.5rem, 2.6vw, 2rem)/1.1 var(--serif-display); }
-  .split__sub { font-size: .9rem; color: #cfc4b2; }
-  @media (max-width: 700px) {
-    .split { grid-template-columns: 1fr; }
-    .split__card + .split__card { border-left: 0; border-top: 1px solid rgba(212,178,124,.35); }
-    .search { flex-direction: column; border-radius: 16px; }
-    .search .btn { justify-content: center; }
-  }
+  /* Find a home */
+  .search-cta { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.25rem 1.5rem; background: var(--paper); border: 1px solid var(--line); border-left: 4px solid var(--crimson); text-decoration: none; color: var(--text-soft); font-size: 1.1rem; }
+  .search-cta strong { color: var(--crimson); font: 700 .95rem/1 var(--ui); letter-spacing: .06em; white-space: nowrap; }
+  .search-cta:hover { box-shadow: 0 10px 24px rgba(0,0,0,.06); }
+  .subhead { margin: 2rem 0 .9rem; font: 700 .75rem/1 var(--ui); letter-spacing: .18em; text-transform: uppercase; color: var(--text-soft); }
+  .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+  .chips a { display: inline-block; padding: .6rem 1rem; background: var(--paper); border: 1px solid var(--line); text-decoration: none; font-size: .95rem; }
+  .chips a:hover { border-color: var(--crimson); color: var(--crimson); }
 
-  /* Stats */
-  .stats__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.25rem; margin: 0; }
-  .stat { display: flex; flex-direction: column-reverse; gap: .6rem; padding: 2rem 1rem; text-align: center; background: var(--espresso-raised); border: 1px solid rgba(212,178,124,.18); }
-  .stat dd { margin: 0; font: 400 clamp(2.6rem, 5vw, 3.6rem)/1 var(--serif-display); color: #f0dfc2; font-variant-numeric: tabular-nums; }
-  .stat dt { font: 600 .72rem/1.3 var(--ui); letter-spacing: .16em; text-transform: uppercase; color: var(--on-dark-soft); }
-  @media (max-width: 800px) { .stats__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  /* Where we work */
+  .where { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.3fr); gap: clamp(2rem, 5vw, 3.5rem); align-items: start; }
+  @media (max-width: 960px) { .where { grid-template-columns: 1fr; } }
+  .where__copy { display: grid; gap: 1rem; }
+  .where__copy > p:not(.eyebrow) { color: var(--text-soft); }
+  .areas { list-style: none; margin: .5rem 0 0; padding: 0; border-top: 1px solid var(--line); }
+  .areas a { display: flex; justify-content: space-between; align-items: baseline; padding: .9rem 0; border-bottom: 1px solid var(--line); text-decoration: none; }
+  .areas strong { font: 500 1.35rem/1.2 var(--serif); }
+  .areas span { color: var(--text-soft); font-size: .9rem; }
+  .areas a:hover strong { color: var(--crimson); }
 
-  /* Paths */
-  .paths { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
-  .path { display: flex; flex-direction: column; gap: .85rem; padding: 2rem; background: var(--surface); border: 1px solid var(--line); }
-  .path p:not(.eyebrow) { color: var(--text-soft); }
-  .path__link { margin-top: auto; padding-top: .5rem; font: 700 .95rem/1 var(--ui); color: var(--eyebrow); text-decoration: none; }
-  .path__link:hover { text-decoration: underline; }
-  @media (max-width: 860px) { .paths { grid-template-columns: 1fr; } }
+  /* Programs */
+  .programs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+  @media (max-width: 900px) { .programs { grid-template-columns: 1fr; } }
+  .program { display: grid; gap: .9rem; align-content: start; padding: 2rem; background: var(--paper); border-top: 3px solid var(--crimson); box-shadow: 0 1px 0 var(--line); }
+  .program p:not(.eyebrow) { color: var(--text-soft); }
+  .program .link-arrow { justify-self: start; margin-top: .5rem; }
 
-  /* Communities */
-  .cities { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 0 2rem; }
-  .cities a { display: flex; justify-content: space-between; align-items: baseline; padding: 1rem 0; border-bottom: 1px solid var(--line); text-decoration: none; font: 400 1.35rem/1.2 var(--serif); }
-  .cities a span { color: var(--eyebrow); transition: transform .2s; }
-  .all-cities { margin-top: 2rem; text-align: center; }
-  .cities a:hover span { transform: translateX(4px); }
+  /* Marketing */
+  .pillars { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.12); }
+  @media (max-width: 900px) { .pillars { grid-template-columns: 1fr; } }
+  .pillars li { display: grid; gap: .5rem; padding: 2rem; background: var(--night-raised); }
+  .pillars strong { font: 500 1.6rem/1.2 var(--serif); color: var(--on-dark); }
+  .pillars span { color: var(--on-dark-soft); }
 
   /* Reviews */
-  .reviews { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 1.5rem; }
-  .review { margin: 0; padding: 2rem; background: var(--surface); border: 1px solid var(--line); display: grid; grid-template-rows: auto 1fr auto; gap: 1rem; }
-  .review__stars { color: var(--gold); letter-spacing: .2em; }
-  .review blockquote { margin: 0; font: italic 400 1.1rem/1.55 var(--serif); white-space: pre-line; }
-  .review figcaption { font-size: .9rem; color: var(--text-soft); }
-  .review figcaption { display: grid; gap: .15rem; }
-  .review figcaption strong { color: var(--text); font-weight: 600; }
-  .reviews__summary { margin-top: 2rem; text-align: center; font: 700 .95rem/1.4 var(--ui); }
-  .reviews__summary a { color: var(--eyebrow); }
+  .feature-quote { margin: 0 0 2rem; padding: clamp(1.5rem, 4vw, 2.5rem); background: var(--paper); border-left: 4px solid var(--crimson); }
+  .feature-quote blockquote { margin: 0; font: italic 500 clamp(1.35rem, 2.4vw, 1.75rem)/1.4 var(--serif); }
+  .feature-quote figcaption { margin-top: 1rem; font-size: .95rem; color: var(--text-soft); }
+  .more { margin-top: 2rem; }
 
   /* Team */
-  .team { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr)); gap: 2rem 1.5rem; }
-  .agent { display: grid; gap: .3rem; text-align: center; }
-  .agent__photo { position: relative; aspect-ratio: 1; max-width: 100%; margin-bottom: .6rem; overflow: hidden; background: var(--espresso); display: grid; place-items: center; }
-  .agent__photo span { font: 400 2.6rem/1 var(--serif-display); color: var(--gold); letter-spacing: .04em; }
-  .agent__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .agent h3 { font-size: 1.1rem; }
-  .agent__title { font: 600 .72rem/1.3 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--eyebrow); }
-  .agent__contact { font-size: .92rem; color: var(--text-soft); font-variant-numeric: tabular-nums; }
+  .team-teaser { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 2.5rem; align-items: center; }
+  @media (max-width: 960px) { .team-teaser { grid-template-columns: 1fr; } }
+  .team-teaser .head { margin-bottom: 0; }
+  .faces { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .75rem; }
+  @media (max-width: 560px) { .faces { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .faces li { display: grid; gap: .35rem; }
+  .faces img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; background: var(--night); }
+  .faces span { font-size: .82rem; color: var(--text-soft); line-height: 1.25; }
 
   /* Ramsey */
-  .ramsey__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2.5rem; align-items: center; }
-  .ramsey__inner > div:first-child { display: grid; gap: 1rem; }
+  .ramsey { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2.5rem; align-items: center; }
+  .ramsey > div:first-child { display: grid; gap: 1rem; }
   .ramsey__body { display: grid; gap: 1.5rem; justify-items: start; color: var(--on-dark-soft); font-size: 1.1rem; }
-  @media (max-width: 800px) { .ramsey__inner { grid-template-columns: 1fr; } }
+  @media (max-width: 800px) { .ramsey { grid-template-columns: 1fr; } }
 
-  .cta .head { margin-bottom: 0; }
+  /* FAQ */
+  .faq-wrap { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 2.5rem; align-items: start; }
+  @media (max-width: 900px) { .faq-wrap { grid-template-columns: 1fr; } }
+  .faq { display: grid; gap: .75rem; }
+  .faq details { background: var(--paper); border: 1px solid var(--line); padding: 1.1rem 1.4rem; }
+  .faq summary { cursor: pointer; font: 600 1.25rem/1.35 var(--serif); }
+  .faq details p { margin-top: .75rem; color: var(--text-soft); }
 
+  /* CTA */
+  .cta { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  @media (max-width: 900px) { .cta { grid-template-columns: 1fr; } }
+  .cta__copy { display: grid; gap: 1rem; }
+  .cta__copy > p:not(.eyebrow) { color: var(--on-dark-soft); }
+  .cta__phone { font: 500 clamp(2.2rem, 4.5vw, 3.2rem)/1 var(--serif); color: var(--on-dark); text-decoration: none; }
+  .cta__phone:hover { color: var(--rose); }
+  .cta__addr { font-size: .95rem; }
 </style>

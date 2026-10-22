@@ -10,7 +10,7 @@ _Status: Step 3 — home page approved 2026-09-26; Buy, Sell, Invest, Ramsey ELP
 | CRM | Follow Up Boss. Every form, home inquiry and saved search is sent to FUB with its source. |
 | Home search (IDX) | Replace the current search with a new one built on the NorthstarMLS data feed. |
 | Budget | Up to $500/month, aiming well below that to protect profitability. |
-| Look and feel | Modeled on nevadarealestategroup.com, with a Minneapolis skyline photo in the hero. |
+| Look and feel | Since 2026-10-22: modeled on markzproperties.com (Mark Z, Detroit) with Huerkamp Home Group branding. Earlier versions followed nevadarealestategroup.com; community pages keep that section structure. |
 
 ## Business facts (confirm before launch)
 
@@ -183,3 +183,19 @@ Jason asked for every city in the seven-county metro plus Owatonna, Dundas, Le S
 - The map outlines load from one shared file so the 149 pages stay light.
 
 Rebuild order: `build-communities.py` → `fetch-drive-times.py` → `build-community-details.py` → `npm run build`.
+
+## Rebrand after markzproperties.com (2026-10-22)
+
+Jason asked to model the site on markzproperties.com, replace that team's branding with Huerkamp Home Group's, and push hard on SEO, speed, IDX, blog and YouTube.
+
+**Findings:** Mark Z's site and Huerkamp Home Group's current site both run on **Ylopo**. HHG already has Ylopo home search at search.huerkamphomegroup.com. IDX decision pending (Ylopo vs. our own MLS Grid search); meanwhile every "Search homes" button reads `site.searchUrl` in `src/data/site.ts`, set to the Ylopo search.
+
+**Done (step 1 of the new plan):**
+- Brand: HHG logo from the current site (`public/brand/`: logo, header mark, light-on-dark versions, favicon). Colors from the logo: crimson #D11241, charcoal #4C4D4F, on cream #F9F6F1 / sand #F2EBE3 with near-black bands. Cormorant Garamond (matches the logo serif) and Figtree. Light theme only, like Mark Z.
+- Header: dark utility bar (Ramsey ELP, brokerage, phone), cream header with logo, drop-down menus, red "Free Home Valuation" button, **phone menu**. Large footer with link columns and legal lines.
+- Home page in Mark Z's order: hero with Jason & Brooke, "the record" stat cards (each with a source), home search, seven-county map, seller programs, marketing, reviews, team preview, Ramsey, FAQ, contact. RealEstateAgent + FAQ structured data, canonical and Open Graph tags on every page.
+- New `/team` page with all 39 people, titles and bios.
+
+**Still needed from Jason:** hero-quality photos (Jason/Brooke, office, team), real homes-sold and sales-volume figures and any rankings (with sources), which seller programs HHG offers (cash offer confirmed on the current site; guaranteed sale?), YouTube channel link, IDX decision.
+
+**Next steps:** IDX hookup, technical SEO (sitemap, robots, structured data everywhere, 301 redirect map from the current site), speed work, blog (with migration of current posts), YouTube section.
