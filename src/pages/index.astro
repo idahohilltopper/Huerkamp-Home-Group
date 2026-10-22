@@ -55,7 +55,6 @@ const ld = JSON.stringify({
     { '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
   ],
 });
-const photo = (m: { photo: string }, size: number, ext: string) => `/people/${m.photo.split('/').pop()!.replace(/\.(png|jpg)$/, '')}-${size}.${ext}`;
 const pending = `Thanks! Online forms are still being connected. For now, call ${site.phone} or email ${site.email}.`;
 ---
 <Base
@@ -88,13 +87,16 @@ const pending = `Thanks! Online forms are still being connected. For now, call $
         </dl>
       </div>
       <figure class="hero__people">
-        <div class="hero__photos">
-          {founders.map((m, i) => (
-            <picture>
-              <source srcset={photo(m, 720, 'webp')} type="image/webp" />
-              <img src={photo(m, 720, 'jpg')} alt={m.name} width="360" height="360" class={i === 0 ? 'p1' : 'p2'} />
-            </picture>
-          ))}
+        <div class="hero__cutouts">
+          {founders.map((m) => {
+            const n = m.photo.split('/').pop()!.replace(/\.(png|jpg)$/, '');
+            return (
+              <picture class={`cut cut--${n.split('-')[0]}`}>
+                <source type="image/webp" srcset={`/people/${n}-cutout-560.webp 560w, /people/${n}-cutout-900.webp 900w`} sizes="(max-width: 960px) 45vw, 22rem" />
+                <img src={`/people/${n}-cutout-560.png`} alt={m.name} width="560" height="560" fetchpriority="high" />
+              </picture>
+            );
+          })}
         </div>
         <figcaption><strong>Jason &amp; Brooke Huerkamp</strong><span>Founders · {site.brokerage}</span></figcaption>
       </figure>
@@ -316,8 +318,8 @@ const pending = `Thanks! Online forms are still being connected. For now, call $
   /* Hero */
   .hero { position: relative; overflow: hidden; background: var(--night-deep); color: #fff; padding-block: clamp(3.5rem, 7vw, 6rem) clamp(2.5rem, 5vw, 4rem); }
   .hero__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 55% 70%; }
-  .hero__shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(21,18,19,.94) 0%, rgba(21,18,19,.82) 45%, rgba(21,18,19,.45) 100%); }
-  .hero__grid { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  .hero__shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(21,18,19,.94) 0%, rgba(21,18,19,.8) 45%, rgba(21,18,19,.55) 100%), linear-gradient(0deg, rgba(21,18,19,.85) 0%, transparent 30%); }
+  .hero__grid { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(1.5rem, 3vw, 2.5rem); align-items: center; }
   @media (max-width: 960px) { .hero__grid { grid-template-columns: 1fr; } }
   .hero__copy { display: grid; gap: 1.4rem; justify-items: start; }
   .hero__eyebrow { color: var(--rose); line-height: 1.7; }
@@ -332,16 +334,23 @@ const pending = `Thanks! Online forms are still being connected. For now, call $
   .hero__stats dd { margin: 0; font: 500 1.7rem/1 var(--serif); }
   .hero__stats dt { font: 600 .7rem/1 var(--ui); letter-spacing: .16em; text-transform: uppercase; color: var(--on-dark-soft); }
   .star { color: #c99a2e; }
-  .hero__people { margin: 0; display: grid; gap: 1rem; justify-items: end; }
-  @media (max-width: 960px) { .hero__people { justify-items: start; } }
-  .hero__photos { position: relative; width: min(100%, 26rem); aspect-ratio: 1 / 1; }
-  .hero__photos img { position: absolute; width: 60%; height: auto; aspect-ratio: 1; object-fit: cover; border: 6px solid var(--cream); box-shadow: 0 24px 50px rgba(0,0,0,.4); }
-  .hero__photos .p1 { left: 0; top: 0; }
-  .hero__photos .p2 { right: 0; bottom: 0; }
-  .hero__people figcaption { display: grid; gap: .2rem; text-align: right; }
-  @media (max-width: 960px) { .hero__people figcaption { text-align: left; } }
-  .hero__people strong { font: 500 1.4rem/1.2 var(--serif); }
+  .hero__people { position: relative; margin: 0; align-self: stretch; min-height: 34rem; margin-bottom: calc(-1 * clamp(2.5rem, 5vw, 4rem)); }
+  .hero__cutouts { position: absolute; inset: 0; }
+  .cut img { position: absolute; bottom: 0; width: auto; max-width: none;
+    -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent 100%); mask-image: linear-gradient(to bottom, #000 78%, transparent 100%);
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,.45)); }
+  /* Side by side with a small overlap so both faces stay clear; Jason a touch larger, standing behind. */
+  .cut--jason img { width: 66%; height: auto; left: 0; bottom: 12%; -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 96%); mask-image: linear-gradient(to bottom, #000 62%, transparent 96%); }
+  .cut--brooke img { width: 62%; height: auto; right: 0; z-index: 1; }
+  .hero__people figcaption { position: absolute; right: 0; bottom: 60%; z-index: 2; display: grid; gap: .2rem; text-align: right; text-shadow: 0 2px 12px rgba(0,0,0,.6); }
+  .hero__people strong { font: 500 1.5rem/1.2 var(--serif); }
   .hero__people span { font: 600 .7rem/1.3 var(--ui); letter-spacing: .16em; text-transform: uppercase; color: var(--on-dark-soft); }
+  @media (max-width: 960px) {
+    .hero__people { min-height: 24rem; margin-top: 1rem; }
+    .hero__people figcaption { top: 0; bottom: auto; }
+    .cut--jason img { width: 64%; left: 0; }
+    .cut--brooke img { width: 60%; right: 0; }
+  }
 
   /* Record */
   .record__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); background: var(--paper); }
