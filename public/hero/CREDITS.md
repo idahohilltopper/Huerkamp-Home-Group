@@ -6,4 +6,5 @@
 - License: CC BY 2.0 — https://creativecommons.org/licenses/by/2.0/
 - Source: https://commons.wikimedia.org/wiki/File:Minneapolis_Moonlight_Skyline_(15674738158).jpg
   (originally https://www.flickr.com/photos/diversey/15674738158/)
-- Requirement: visible credit to the photographer with a link to the license (done in the site footer). Resized only, not otherwise altered.
+- Requirement: visible credit to the photographer with a link to the license, and a note that it was changed (both in the site footer).
+- Changes: the site versions are brightened, with a glow added around the lights (scripts/make-hero.py). minneapolis-skyline-3840.jpg is the unaltered original.
