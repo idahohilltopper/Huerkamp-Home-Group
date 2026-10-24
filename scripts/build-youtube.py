@@ -26,7 +26,14 @@ BOILER = re.compile(
     r'(https?://|www\.|@|☎|📨|🌐|📱|📋|📩|📍|🚨|👇|🔗|▶|call/text|call or text|email:|instagram|app store|licensed since|license number|'
     r'keller williams preferred realty \d|brokered by|subscribe|thinking (about|of) (buying|moving)|living in minneapolis, minnesota \(|'
     r'if you are considering buying|call, text, or email|reach out day|video suggestion|learn more about the twin cities|find us on google|'
-    r"don.t forget to like|jason & brooke huerkamp, licensed|^jason huerkamp$|we.d love to help|^#)", re.I)
+    r"don.t forget to like|jason & brooke huerkamp, licensed|^jason huerkamp$|we.d love to help|^#|webinar|goes here\]|go here\]|"
+    r"about this channel|welcome to living in minneapolis|comment \"|dm me|follow (for|along)|hit share|drop (it|your|a|their)|"
+    r"full (video|breakdown|guide|tour)[^.]*(on|here|channel)|watch (the )?full|connect with (us|me)|ready to stop waiting|get your home value|"
+    r"please (watch|follow)|real estate needs in the twin cities|all stats, data|^\*|fill out (the|this) form|thinking of (selling|buying|retiring)|"
+    r"^(the )?(huerkamp home group,? (of )?)?keller williams preferred realty$|^jason huerkamp & brooke huerkamp$|licensed since|licensed in minnesota|brought to you by|on (the|our|my) (youtube )?channel|"
+    r"\d{3}[-. ]\d{3}[-. ]\d{4})", re.I)
+# Sentences inside a kept paragraph that are calls to action, not content.
+CTA = re.compile(r"(\bcomment\b.*\b(below|and i|and we)|\bdm me\b|\bsubscribe\b|\d{3}[-. ]\d{3}[-. ]\d{4}|this is the channel you need)", re.I)
 CHAPTER = re.compile(r'^\s*(\d{1,2}:\d{2}(?::\d{2})?)\s*[-–—:]?\s*(.+)$')
 
 
@@ -62,6 +69,7 @@ def clean(desc):
         cur.append(re.sub(r'^[^\w"“$#(]+', '', line))  # drop leading emoji/bullets
     if cur:
         paras.append(' '.join(cur))
+    paras = [' '.join(x for x in re.split(r'(?<=[.!?])\s+', p) if not CTA.search(x)) for p in paras]
     # Keep real sentences only; the channel's standard intro paragraphs are already filtered above.
     paras = [p for p in paras if len(p) > 40]
     return paras, chapters
@@ -99,6 +107,8 @@ def main(videos_path, shorts_path, details_path):
     for kind, entries in (('long', flat_long), ('short', flat_short)):
         for order, e in enumerate(entries):
             d = details.get(e['id'], {})
+            if '(delete)' in (d.get('title') or e['title']).lower():
+                continue
             # Hashtags in Shorts titles are for YouTube search; drop them on the site.
             title = re.sub(r'\s*#[\w-]+', '', d.get('title') or e['title']).strip()
             summary, chapters = clean(d.get('description', ''))
