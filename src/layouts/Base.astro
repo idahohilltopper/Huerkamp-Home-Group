@@ -60,7 +60,10 @@ const menu = [
   { label: 'Team', href: '/team' },
   { label: 'Ramsey ELP', href: '/ramsey' },
   { label: 'Reviews', href: '/reviews' },
-  { label: 'Blog', href: '/blog' },
+  { label: 'Videos', href: '/videos', items: [
+    ['All videos', '/videos'], ['Market updates', '/videos#market-updates'], ['Suburbs & neighborhoods', '/videos#suburbs-neighborhoods'],
+    ['Shorts', '/videos#shorts'], ['Blog', '/blog'], ['YouTube channel', 'https://www.youtube.com/@livinginminneapolis'],
+  ] },
   { label: 'Contact', href: '/contact' },
 ] as { label: string; href: string; items?: [string, string][] }[];
 
@@ -68,7 +71,7 @@ const footerCols = [
   { title: 'Communities', links: [['Minneapolis', '/communities/minneapolis'], ['Saint Paul', '/communities/saint-paul'], ['Burnsville', '/communities/burnsville'], ['Lakeville', '/communities/lakeville'], ['Eagan', '/communities/eagan'], ['Apple Valley', '/communities/apple-valley'], ['Edina', '/communities/edina'], ['All communities', '/communities']] },
   { title: 'Homes', links: [['Search all homes', site.searchUrl], ['Buy a home', '/buy'], ['Lake homes', '/lake-homes'], ['Investment property', '/invest']] },
   { title: 'Sell', links: [['Sell your home', '/sell'], ['Free home valuation', '/sell#value'], ['Get a cash offer', '/sell#cash']] },
-  { title: 'Company', links: [['Our team', '/team'], ['Ramsey ELP', '/ramsey'], ['Reviews', '/reviews'], ['Blog', '/blog'], ['Contact', '/contact']] },
+  { title: 'Company', links: [['Our team', '/team'], ['Ramsey ELP', '/ramsey'], ['Reviews', '/reviews'], ['Videos', '/videos'], ['Blog', '/blog'], ['Contact', '/contact']] },
 ];
 const isExternal = (href: string) => href.startsWith('http');
 ---
@@ -184,7 +187,7 @@ const isExternal = (href: string) => href.startsWith('http');
     </div>
     <div class="wrap footer__legal">
       <p>© {year} {site.name}. {site.brokerage}. Each office independently owned and operated.</p>
-      <p><span aria-hidden="true">⌂</span> Equal Housing Opportunity. Skyline photo: <a href="https://www.flickr.com/photos/diversey/15674738158/">Tony Webster</a>, <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>. <a href={site.facebookUrl} rel="noopener">Facebook</a></p>
+      <p><span aria-hidden="true">⌂</span> Equal Housing Opportunity. Skyline photo: <a href="https://www.flickr.com/photos/diversey/15674738158/">Tony Webster</a>, <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>. <a href={site.facebookUrl} rel="noopener">Facebook</a> · <a href={site.youtubeUrl} rel="noopener">YouTube</a></p>
     </div>
   </footer>
 

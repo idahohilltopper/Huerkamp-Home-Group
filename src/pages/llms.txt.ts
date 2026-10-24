@@ -6,6 +6,7 @@ import { communities } from '../data/areas';
 import team from '../data/team.json';
 import reviews from '../data/reviews.json';
 import { getPosts, postUrl } from '../data/blog';
+import { watchable, channel } from '../data/youtube';
 
 export async function GET(context: APIContext) {
   const url = (p: string) => new URL(p, context.site).href;
@@ -21,6 +22,7 @@ Facts (with sources on ${url('/')}):
 - ${team.members.length} agents and staff. Founders: Jason Huerkamp and Brooke Huerkamp.
 - Office: ${site.street}, ${site.cityStateZip}. Phone: ${site.phone}. Email: ${site.email}.
 - Home search (all NorthstarMLS listings): ${site.searchUrl}
+- YouTube channel "${channel.title}" (${channel.url}): weekly videos on Twin Cities neighborhoods, suburbs and the housing market, by Jason Huerkamp.
 
 ## Main pages
 - [Home](${url('/')}): overview, featured listings, reviews, FAQ
@@ -31,11 +33,15 @@ Facts (with sources on ${url('/')}):
 - [Team](${url('/team')}): every agent and staff member
 - [Reviews](${url('/reviews')}): verbatim Google and Zillow reviews
 - [Ramsey ELP](${url('/ramsey')}): working with a Ramsey Endorsed Local Provider
+- [Videos](${url('/videos')}): every Living in Minneapolis video, by topic
 - [Contact](${url('/contact')})
 
 ## Community guides
 Each guide covers homes for sale, home values, population, schools, commute and drive times, using US Census data.
 ${communities.map((c) => `- [${c.name}, MN](${url(`/communities/${c.slug}`)})`).join('\n')}
+
+## Videos
+${watchable.slice(0, 40).map((v) => `- [${v.title}](${url(`/videos/${v.slug}`)}): ${v.summary[0]}`).join('\n')}
 
 ## Recent articles
 ${posts.map((p) => `- [${p.data.title}](${url(postUrl(p))}): ${p.data.description}`).join('\n')}

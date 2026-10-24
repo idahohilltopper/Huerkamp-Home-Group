@@ -1,0 +1,6245 @@
+{
+ "channel": {
+  "id": "UCQrRaA9zK3E-NhBLgXVSGhg",
+  "handle": "@livinginminneapolis",
+  "title": "Living in Minneapolis Minnesota",
+  "url": "https://www.youtube.com/@livinginminneapolis"
+ },
+ "videos": [
+  {
+   "id": "o427aHe-m7U",
+   "kind": "long",
+   "title": "New Interest Rates Could Paralyze Minneapolis' Housing Market",
+   "published": "2026-10-23T21:00:31Z",
+   "seconds": 657,
+   "views": 750,
+   "summary": [
+    "Mortgage rates are back above 7%, but what does that mean for the Minneapolis housing market? Discover how rising interest rates affect monthly mortgage payments, home prices, and buyer demand across the Twin Cities and Dakota County. Explore mortgage rate forecasts for 2027, assumable FHA and VA loans, and strategies for buyers and sellers."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "7% Rates Hit Minneapolis"
+    },
+    {
+     "t": 60,
+     "label": "Why Rates Are Rising"
+    },
+    {
+     "t": 131,
+     "label": "How Mortgage Rates Work"
+    },
+    {
+     "t": 217,
+     "label": "Higher Mortgage Payments"
+    },
+    {
+     "t": 319,
+     "label": "2027 Rate Forecast"
+    },
+    {
+     "t": 371,
+     "label": "Twin Cities Market Impact"
+    },
+    {
+     "t": 435,
+     "label": "FHA & VA Loan Options"
+    },
+    {
+     "t": 529,
+     "label": "15-Year Loans vs. ARMs"
+    },
+    {
+     "t": 582,
+     "label": "Tips for Minneapolis Sellers"
+    }
+   ],
+   "topic": "Market updates",
+   "order": 0,
+   "slug": "new-interest-rates-could-paralyze-minneapolis-housing-market"
+  },
+  {
+   "id": "aNaqQdQDoKg",
+   "kind": "long",
+   "title": "Builders Are SLASHING Prices In The Minneapolis Metro",
+   "published": "2026-10-20T21:00:15Z",
+   "seconds": 603,
+   "views": 1146,
+   "summary": [
+    "Builders are slashing prices on new construction homes across the Minneapolis–St. Paul metro! Discover discounts of up to $52,000 in Lino Lakes, Hanover, and Rosemount. Learn why builders are cutting prices, how mortgage rate buydowns work, and where Twin Cities homebuyers can find new construction deals."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Cutting Prices"
+    },
+    {
+     "t": 39,
+     "label": "Offering Discounts"
+    },
+    {
+     "t": 170,
+     "label": "Types of Incentives"
+    },
+    {
+     "t": 234,
+     "label": "Lino Lakes: Watermark"
+    },
+    {
+     "t": 293,
+     "label": "Hanover: Crow River Heights"
+    },
+    {
+     "t": 350,
+     "label": "Rosemount: Amber Fields"
+    },
+    {
+     "t": 416,
+     "label": "Biggest New Construction Discount"
+    },
+    {
+     "t": 481,
+     "label": "Why Not All New Homes Are Discounted"
+    },
+    {
+     "t": 529,
+     "label": "New Construction vs. Resale Prices"
+    }
+   ],
+   "topic": "Market updates",
+   "order": 1,
+   "slug": "builders-are-slashing-prices-in-the-minneapolis-metro"
+  },
+  {
+   "id": "saB0pb8liyk",
+   "kind": "long",
+   "title": "The Minnesota Exodus Everyone Talks About Is WRONG",
+   "published": "2026-10-16T21:00:35Z",
+   "seconds": 702,
+   "views": 7269,
+   "summary": [
+    "Is everyone really leaving Minnesota? New population data reveals a surprising shift in Minnesota's migration trends. Discover why people are moving in and out, which counties are growing or shrinking, and how population changes could affect Minnesota home prices and real estate in 2026."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Minnesota Exodus Reversal"
+    },
+    {
+     "t": 77,
+     "label": "Population Growth"
+    },
+    {
+     "t": 182,
+     "label": "Why People Are Leaving"
+    },
+    {
+     "t": 271,
+     "label": "Why People Are Moving In"
+    },
+    {
+     "t": 324,
+     "label": "Rural Minnesota Growth"
+    },
+    {
+     "t": 372,
+     "label": "Growing vs. Declining Counties"
+    },
+    {
+     "t": 483,
+     "label": "Minnesota's Job Market"
+    },
+    {
+     "t": 555,
+     "label": "Impact on Homebuyers"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 2,
+   "slug": "the-minnesota-exodus-everyone-talks-about-is-wrong"
+  },
+  {
+   "id": "sPQcgRBSpXY",
+   "kind": "long",
+   "title": "10 Crucial Things Everyone Gets Wrong About Living in Minnesota",
+   "published": "2026-10-13T21:18:12Z",
+   "seconds": 901,
+   "views": 3800,
+   "summary": [],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Minnesota Living Myths"
+    },
+    {
+     "t": 51,
+     "label": "Minnesota Beyond the Twin Cities"
+    },
+    {
+     "t": 120,
+     "label": "Minnesota's Geography"
+    },
+    {
+     "t": 218,
+     "label": "Minnesota's 10,000 Lakes"
+    },
+    {
+     "t": 296,
+     "label": "Minnesota Home Prices"
+    },
+    {
+     "t": 404,
+     "label": "Minnesota Income Taxes"
+    },
+    {
+     "t": 503,
+     "label": "Infrastructure & Public Services"
+    },
+    {
+     "t": 557,
+     "label": "Minnesota Property Taxes"
+    },
+    {
+     "t": 643,
+     "label": "Jobs Outside the Twin Cities"
+    },
+    {
+     "t": 706,
+     "label": "Best Time to Buy a Home"
+    },
+    {
+     "t": 779,
+     "label": "Mississippi River Facts"
+    },
+    {
+     "t": 860,
+     "label": "Moving to Minnesota"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 3
+  },
+  {
+   "id": "LzXzz3JRNS4",
+   "kind": "long",
+   "title": "This Will Be WORSE Than A Housing Market Crash In Minneapolis",
+   "published": "2026-10-09T22:55:07Z",
+   "seconds": 1590,
+   "views": 16058,
+   "summary": [
+    "Is the Minneapolis housing market about to crash in 2026? Home prices are rising, but properties are taking longer to sell. Discover 10 warning signs affecting Minneapolis homeowners, including rising property taxes, insurance costs, buyer competition, home inspections, and local selling requirements."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Minneapolis Housing Crash?"
+    },
+    {
+     "t": 90,
+     "label": "Rising Prices, Slower Sales"
+    },
+    {
+     "t": 184,
+     "label": "More Homes Available"
+    },
+    {
+     "t": 295,
+     "label": "Mortgage Rate Lock-In"
+    },
+    {
+     "t": 421,
+     "label": "Home Price Gaps"
+    },
+    {
+     "t": 507,
+     "label": "Higher Property Taxes"
+    },
+    {
+     "t": 648,
+     "label": "Rising Insurance Costs"
+    },
+    {
+     "t": 960,
+     "label": "Inspection Issues"
+    },
+    {
+     "t": 1079,
+     "label": "Radon Testing"
+    },
+    {
+     "t": 1163,
+     "label": "Condo & HOA Risks"
+    },
+    {
+     "t": 1330,
+     "label": "Home Sale Requirements"
+    },
+    {
+     "t": 1527,
+     "label": "Seller Advice"
+    }
+   ],
+   "topic": "Market updates",
+   "order": 4,
+   "slug": "this-will-be-worse-than-a-housing-market-crash-in-minneapolis"
+  },
+  {
+   "id": "bAPcTN0tiLI",
+   "kind": "long",
+   "title": "Which Major Minnesota City is the Best Place to Live?",
+   "published": "2026-10-06T22:05:21Z",
+   "seconds": 1405,
+   "views": 1559,
+   "summary": [
+    "Which major Minnesota city is the best place to live? We compare Minneapolis, St. Paul, Rochester, and Duluth based on home prices, jobs, commuting, outdoor access, entertainment, and everyday lifestyle to help you find the best fit."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Which Minnesota City Is Best?"
+    },
+    {
+     "t": 44,
+     "label": "Location & Population"
+    },
+    {
+     "t": 334,
+     "label": "Home Prices & Cost of Living"
+    },
+    {
+     "t": 459,
+     "label": "Jobs & Economy"
+    },
+    {
+     "t": 679,
+     "label": "Traffic & Commutes"
+    },
+    {
+     "t": 794,
+     "label": "Airports & Travel"
+    },
+    {
+     "t": 853,
+     "label": "Outdoor Access"
+    },
+    {
+     "t": 1033,
+     "label": "Things to Do"
+    },
+    {
+     "t": 1197,
+     "label": "Comparing All Four Cities"
+    },
+    {
+     "t": 1352,
+     "label": "Which City Fits You?"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 5,
+   "slug": "which-major-minnesota-city-is-the-best-place-to-live"
+  },
+  {
+   "id": "u7283LnfORo",
+   "kind": "long",
+   "title": "Something Doesn't Add Up In The Minneapolis Housing Market",
+   "published": "2026-10-02T21:00:14Z",
+   "seconds": 980,
+   "views": 1981,
+   "summary": [
+    "Something doesn’t add up in the Minneapolis housing market. The Twin Cities is being called a buyer’s market, yet Minneapolis homes can still attract multiple offers and sell above asking. Here’s what the numbers actually show and why condos, single-family homes, buyers, and sellers are experiencing very different markets."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Market Contradiction"
+    },
+    {
+     "t": 59,
+     "label": "Buyer’s Market"
+    },
+    {
+     "t": 167,
+     "label": "Minneapolis Is Still Competitive"
+    },
+    {
+     "t": 291,
+     "label": "Homes Selling Above Asking"
+    },
+    {
+     "t": 361,
+     "label": "Price Cuts & Longer Sales"
+    },
+    {
+     "t": 398,
+     "label": "Why Both Can Be True"
+    },
+    {
+     "t": 488,
+     "label": "Condos vs Single-Family Homes"
+    },
+    {
+     "t": 621,
+     "label": "Seller Pricing Mistakes"
+    },
+    {
+     "t": 735,
+     "label": "Choosing the Right Agent"
+    },
+    {
+     "t": 870,
+     "label": "Pricing for Today’s Market"
+    },
+    {
+     "t": 918,
+     "label": "What Sellers Need to Know"
+    }
+   ],
+   "topic": "Market updates",
+   "order": 6,
+   "slug": "something-doesnt-add-up-in-the-minneapolis-housing-market"
+  },
+  {
+   "id": "jcLqESM93uo",
+   "kind": "long",
+   "title": "Minnesota Just Ranked For Quality of Life in the U.S. (Here’s Why)",
+   "published": "2026-09-29T21:00:38Z",
+   "seconds": 1160,
+   "views": 9081,
+   "summary": [
+    "Minnesota was ranked #1 for quality of life in the U.S., despite not finishing first in a single individual category. Here’s how strong employment, healthcare, community connection, affordability, and overall consistency pushed Minnesota to the top, plus where the state falls short."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Minnesota Ranks #1"
+    },
+    {
+     "t": 40,
+     "label": "How the Ranking Works"
+    },
+    {
+     "t": 264,
+     "label": "Why Minnesota Wins Overall"
+    },
+    {
+     "t": 380,
+     "label": "Jobs & Employment"
+    },
+    {
+     "t": 472,
+     "label": "Major Employers"
+    },
+    {
+     "t": 624,
+     "label": "Community & Social Life"
+    },
+    {
+     "t": 739,
+     "label": "Healthcare"
+    },
+    {
+     "t": 822,
+     "label": "Cost of Living"
+    },
+    {
+     "t": 879,
+     "label": "Taxes & Public Services"
+    },
+    {
+     "t": 994,
+     "label": "Minnesota’s Weak Spots"
+    },
+    {
+     "t": 1088,
+     "label": "Is Minnesota Right for You?"
+    }
+   ],
+   "topic": "Suburbs & neighborhoods",
+   "order": 7,
+   "slug": "minnesota-just-ranked-for-quality-of-life-in-the-u-s-heres-why"
+  },
+  {
+   "id": "YYQOXMAeWXY",
+   "kind": "long",
+   "title": "Never Buy These Types of Homes in Minnesota",
+   "published": "2026-09-25T21:00:37Z",
+   "seconds": 1514,
+   "views": 6258,
+   "summary": [
+    "Some Minnesota homes come with expensive problems you won’t see in the listing. From failing septic systems and illegal shoreline structures to radon, private wells, stucco issues, and as-is properties, here’s what buyers should check before closing."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Minnesota Homes to Avoid"
+    },
+    {
+     "t": 32,
+     "label": "Failing Septic Systems"
+    },
+    {
+     "t": 349,
+     "label": "Lake Homes & Shoreline Rules"
+    },
+    {
+     "t": 576,
+     "label": "Radon Problems"
+    },
+    {
+     "t": 769,
+     "label": "Private Well Problems"
+    },
+    {
+     "t": 1064,
+     "label": "As-Is Homes"
+    },
+    {
+     "t": 1241,
+     "label": "Inspection Risks"
+    },
+    {
+     "t": 1397,
+     "label": "Stucco Problems"
+    },
+    {
+     "t": 1469,
+     "label": "What Buyers Should Know"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 8,
+   "slug": "never-buy-these-types-of-homes-in-minnesota"
+  },
+  {
+   "id": "jTT60_MyXEk",
+   "kind": "long",
+   "title": "Ranking The Best & Worst Places to Live in Minnesota",
+   "published": "2026-09-22T21:00:27Z",
+   "seconds": 1115,
+   "views": 3973,
+   "summary": [
+    "Where are the best places to live in Minnesota? This ranking compares 10 popular cities and suburbs based on lifestyle, location, commute, housing, amenities, and the trade-offs you should know before moving."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Best Places in Minnesota"
+    },
+    {
+     "t": 36,
+     "label": "Minneapolis"
+    },
+    {
+     "t": 156,
+     "label": "St. Paul"
+    },
+    {
+     "t": 279,
+     "label": "Plymouth"
+    },
+    {
+     "t": 355,
+     "label": "Eden Prairie"
+    },
+    {
+     "t": 458,
+     "label": "Edina"
+    },
+    {
+     "t": 546,
+     "label": "Maple Grove"
+    },
+    {
+     "t": 642,
+     "label": "Woodbury"
+    },
+    {
+     "t": 714,
+     "label": "Wayzata & Lake Minnetonka"
+    },
+    {
+     "t": 815,
+     "label": "Lakeville"
+    },
+    {
+     "t": 950,
+     "label": "Rochester"
+    }
+   ],
+   "topic": "Suburbs & neighborhoods",
+   "order": 9,
+   "slug": "ranking-the-best-and-worst-places-to-live-in-minnesota"
+  },
+  {
+   "id": "TlEpVmzjjj0",
+   "kind": "long",
+   "title": "What They Don’t Tell You About Living in Minnesota",
+   "published": "2026-09-18T21:20:56Z",
+   "seconds": 1021,
+   "views": 4917,
+   "summary": [
+    "What is living in Minnesota really like? From long winters and the job market to affordability, outdoor life, local quirks, and choosing where to live, here are the things you should know before moving to Minnesota."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Living in Minnesota"
+    },
+    {
+     "t": 108,
+     "label": "Minnesota Winters"
+    },
+    {
+     "t": 309,
+     "label": "Jobs & Cost of Living"
+    },
+    {
+     "t": 415,
+     "label": "Travel & Outdoors"
+    },
+    {
+     "t": 519,
+     "label": "Minnesota Quirks"
+    },
+    {
+     "t": 687,
+     "label": "Minnesota Nice"
+    },
+    {
+     "t": 762,
+     "label": "Where to Live"
+    },
+    {
+     "t": 784,
+     "label": "Housing Market"
+    },
+    {
+     "t": 892,
+     "label": "Winter Home Features"
+    },
+    {
+     "t": 960,
+     "label": "Is Minnesota Right for You?"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 10,
+   "slug": "what-they-dont-tell-you-about-living-in-minnesota"
+  },
+  {
+   "id": "Vz0EGPVWnkk",
+   "kind": "long",
+   "title": "Homes That Are Practically Worthless Right Now In Minnesota",
+   "published": "2026-09-15T21:00:34Z",
+   "seconds": 1548,
+   "views": 14044,
+   "summary": [
+    "Some Minnesota homes may look like a great deal but come with risks that can hurt their resale value. Here are five types of homes buyers should research carefully, from older properties and new construction to condos, limited-storage homes, and unusual modern designs."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Risky Minnesota Homes"
+    },
+    {
+     "t": 53,
+     "label": "Older Homes"
+    },
+    {
+     "t": 503,
+     "label": "New Construction"
+    },
+    {
+     "t": 1002,
+     "label": "Condos"
+    },
+    {
+     "t": 1182,
+     "label": "Homes Without Storage"
+    },
+    {
+     "t": 1343,
+     "label": "Overly Modern Homes"
+    },
+    {
+     "t": 1505,
+     "label": "What Buyers Should Know"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 11,
+   "slug": "homes-that-are-practically-worthless-right-now-in-minnesota"
+  },
+  {
+   "id": "W-fh9bDG_ns",
+   "kind": "long",
+   "title": "Housing Inventory Hits a 7-Year High in Minnesota | Minneapolis Market Update",
+   "published": "2026-09-11T21:00:28Z",
+   "seconds": 1059,
+   "views": 10608,
+   "summary": [
+    "Minnesota housing inventory just hit a 7-year high, but what does that actually mean? Here’s what the latest Minneapolis and Twin Cities market data shows for buyers, sellers, home prices, negotiation power, and where the market could be heading."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Inventory Hits 7-Year High"
+    },
+    {
+     "t": 60,
+     "label": "What Higher Inventory Means"
+    },
+    {
+     "t": 185,
+     "label": "Minnesota Market Data"
+    },
+    {
+     "t": 277,
+     "label": "Twin Cities Market"
+    },
+    {
+     "t": 365,
+     "label": "What Buyers Should Know"
+    },
+    {
+     "t": 591,
+     "label": "What Sellers Should Know"
+    },
+    {
+     "t": 815,
+     "label": "Is It a Buyer’s Market?"
+    },
+    {
+     "t": 962,
+     "label": "What to Watch Next"
+    }
+   ],
+   "topic": "Market updates",
+   "order": 12,
+   "slug": "housing-inventory-hits-a-7-year-high-in-minnesota-minneapolis-market-update"
+  },
+  {
+   "id": "PFHhq5q_8UA",
+   "kind": "long",
+   "title": "These 4 New Minnesota Laws Are Insane (In A GOOD Way)!",
+   "published": "2026-09-08T21:00:30Z",
+   "seconds": 1759,
+   "views": 114813,
+   "summary": [
+    "Minnesota is making major changes that could affect homeowners, buyers, investors, property taxes, and HOAs. From a proposed private equity home-buying ban to tax refunds and sweeping HOA reforms, here are the changes Minnesota homeowners need to understand and how they could impact your money and property rights."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Minnesota Housing Laws"
+    },
+    {
+     "t": 56,
+     "label": "Private Equity Ban"
+    },
+    {
+     "t": 633,
+     "label": "Homestead Credit Refund"
+    },
+    {
+     "t": 848,
+     "label": "Property Tax Refund"
+    },
+    {
+     "t": 959,
+     "label": "Homestead Value Exclusion"
+    },
+    {
+     "t": 1169,
+     "label": "HOA Reform Act"
+    },
+    {
+     "t": 1675,
+     "label": "What Homeowners Should Know"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 13,
+   "slug": "these-4-new-minnesota-laws-are-insane-in-a-good-way"
+  },
+  {
+   "id": "qs12LtkMaLY",
+   "kind": "long",
+   "title": "Sellers Losing Money In Minneapolis | Here's What's Actually Happening",
+   "published": "2026-09-05T21:07:15Z",
+   "seconds": 858,
+   "views": 20984,
+   "summary": [
+    "The Minneapolis housing market isn’t crashing, but some sellers are still losing money. Home prices remain high while listings sit longer, buyers negotiate harder, and pandemic-era purchases create difficult financial situations. Here’s what’s actually happening with Minneapolis sellers and what buyers need to understand before making an offer."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "What’s Happening in Minneapolis"
+    },
+    {
+     "t": 28,
+     "label": "Is the Market Crashing?"
+    },
+    {
+     "t": 82,
+     "label": "Why Sellers Won’t Budge"
+    },
+    {
+     "t": 182,
+     "label": "What Sellers Need"
+    },
+    {
+     "t": 284,
+     "label": "Pandemic Buyers"
+    },
+    {
+     "t": 372,
+     "label": "Cost of Selling"
+    },
+    {
+     "t": 464,
+     "label": "Mortgage Rate Lock-In"
+    },
+    {
+     "t": 548,
+     "label": "The Most Trapped Sellers"
+    },
+    {
+     "t": 592,
+     "label": "Seller Reality Check"
+    },
+    {
+     "t": 707,
+     "label": "Market Hangover"
+    },
+    {
+     "t": 737,
+     "label": "What Buyers & Sellers Should Do"
+    }
+   ],
+   "topic": "Market updates",
+   "order": 14,
+   "slug": "sellers-losing-money-in-minneapolis-heres-whats-actually-happening"
+  },
+  {
+   "id": "uf3J-7Suyw4",
+   "kind": "long",
+   "title": "Minneapolis Mega Projects That Will Transform Minnesota",
+   "published": "2026-09-01T21:10:04Z",
+   "seconds": 992,
+   "views": 65822,
+   "summary": [
+    "Seven major projects are reshaping the Minneapolis-St. Paul metro, from a potential new arena and a $2 billion airport expansion to major infrastructure, redevelopment, and Meta’s $800 million data center."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Twin Cities Transformation"
+    },
+    {
+     "t": 38,
+     "label": "New Timberwolves Arena"
+    },
+    {
+     "t": 188,
+     "label": "Maple Grove Expansion"
+    },
+    {
+     "t": 313,
+     "label": "MSP Airport Expansion"
+    },
+    {
+     "t": 420,
+     "label": "I-494 Rebuild"
+    },
+    {
+     "t": 636,
+     "label": "United Village"
+    },
+    {
+     "t": 730,
+     "label": "Downtown Conversions"
+    },
+    {
+     "t": 823,
+     "label": "Meta Data Center"
+    },
+    {
+     "t": 927,
+     "label": "What It Means for Minnesota"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 15,
+   "slug": "minneapolis-mega-projects-that-will-transform-minnesota"
+  },
+  {
+   "id": "JhJ0ayjf8fw",
+   "kind": "long",
+   "title": "If I Had $750k To Buy In Minneapolis, I’d Buy Here",
+   "published": "2026-08-28T21:00:30Z",
+   "seconds": 738,
+   "views": 5968,
+   "summary": [
+    "What can $750,000 buy in Minneapolis and the Twin Cities? From Edina and Linden Hills to Excelsior, Woodbury, and Northeast Minneapolis, we compare what your budget gets you, the lifestyle, and the trade-offs before revealing where I’d personally buy."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "What $750K Buys"
+    },
+    {
+     "t": 79,
+     "label": "Edina"
+    },
+    {
+     "t": 175,
+     "label": "Linden Hills"
+    },
+    {
+     "t": 287,
+     "label": "Excelsior"
+    },
+    {
+     "t": 398,
+     "label": "Woodbury"
+    },
+    {
+     "t": 522,
+     "label": "Northeast Minneapolis"
+    },
+    {
+     "t": 633,
+     "label": "My Top Pick"
+    },
+    {
+     "t": 691,
+     "label": "Final Thoughts"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 16,
+   "slug": "if-i-had-750k-to-buy-in-minneapolis-id-buy-here"
+  },
+  {
+   "id": "SfHrfZd6gt8",
+   "kind": "long",
+   "title": "Minneapolis Homeowners Are Finally Selling | Twin Cities Housing Market",
+   "published": "2026-08-25T21:00:36Z",
+   "seconds": 815,
+   "views": 5007,
+   "summary": [
+    "After years of homeowners holding onto ultra-low mortgage rates, the Twin Cities housing market is finally moving again. Listings jumped, inventory reached a multi-year high, and homeowners started selling even without a major drop in mortgage rates.",
+    "This video breaks down what changed, how home equity is helping sellers move, and what the shifting Minneapolis housing market means for buyers and sellers."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Why Homeowners Stayed Put"
+    },
+    {
+     "t": 155,
+     "label": "Listings Finally Jump"
+    },
+    {
+     "t": 269,
+     "label": "Rates Stayed High"
+    },
+    {
+     "t": 354,
+     "label": "Equity Changed Everything"
+    },
+    {
+     "t": 430,
+     "label": "Why Sellers Finally Moved"
+    },
+    {
+     "t": 458,
+     "label": "Buyers Are Back"
+    },
+    {
+     "t": 536,
+     "label": "Selling Is Getting Harder"
+    },
+    {
+     "t": 642,
+     "label": "What Sellers Need to Know"
+    },
+    {
+     "t": 712,
+     "label": "Should You Sell Now?"
+    }
+   ],
+   "topic": "Market updates",
+   "order": 17,
+   "slug": "minneapolis-homeowners-are-finally-selling-twin-cities-housing-market"
+  },
+  {
+   "id": "t4guYeI7iQk",
+   "kind": "long",
+   "title": "Why Wall Street Is Quietly Buying Up Minneapolis Homes",
+   "published": "2026-08-21T21:00:26Z",
+   "seconds": 502,
+   "views": 2463,
+   "summary": [
+    "Wall Street and other investors are buying thousands of homes across the Twin Cities, particularly starter homes in Minneapolis suburbs. But what does that actually mean for homeowners and first-time buyers?",
+    "This video breaks down who these investors are, why they target certain homes, how investor ownership affects the Minneapolis housing market, whether you should accept an investor cash offer, and how regular buyers can compete against cash investors."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Who’s Buying Minneapolis Homes?"
+    },
+    {
+     "t": 39,
+     "label": "Investor-Owned Homes"
+    },
+    {
+     "t": 84,
+     "label": "Why Investors Buy Here"
+    },
+    {
+     "t": 156,
+     "label": "Impact on Starter Homes"
+    },
+    {
+     "t": 271,
+     "label": "Should You Take a Cash Offer?"
+    },
+    {
+     "t": 341,
+     "label": "Selling As-Is"
+    },
+    {
+     "t": 368,
+     "label": "How Buyers Can Compete"
+    },
+    {
+     "t": 446,
+     "label": "What Buyers & Sellers Should Do"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 18,
+   "slug": "why-wall-street-is-quietly-buying-up-minneapolis-homes"
+  },
+  {
+   "id": "ZWe58NW1qJY",
+   "kind": "long",
+   "title": "How Massive Data Centers Are Quietly Reshaping Minneapolis Real Estate",
+   "published": "2026-08-18T21:00:06Z",
+   "seconds": 943,
+   "views": 600,
+   "summary": [
+    "Massive data centers are quietly changing real estate across the Minneapolis suburbs and greater Minnesota. Major projects are being planned or built around Rosemount, Farmington, Eagan, and other growing areas.",
+    "This video breaks down where data centers are going, why cities are pushing back, power and water concerns, potential effects on home values, and what homebuyers should investigate before buying near a proposed site."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Minnesota’s Data Center Boom"
+    },
+    {
+     "t": 32,
+     "label": "Where Data Centers Are Going"
+    },
+    {
+     "t": 163,
+     "label": "Cities Pushing Back"
+    },
+    {
+     "t": 228,
+     "label": "Lawsuits & Delays"
+    },
+    {
+     "t": 305,
+     "label": "Why the Suburbs?"
+    },
+    {
+     "t": 420,
+     "label": "Could One Come Near You?"
+    },
+    {
+     "t": 466,
+     "label": "Power Bill Concerns"
+    },
+    {
+     "t": 563,
+     "label": "Water Usage"
+    },
+    {
+     "t": 660,
+     "label": "Impact on Home Values"
+    },
+    {
+     "t": 767,
+     "label": "What Buyers Should Check"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 19,
+   "slug": "how-massive-data-centers-are-quietly-reshaping-minneapolis-real-estate"
+  },
+  {
+   "id": "qYUMQZRD3t8",
+   "kind": "long",
+   "title": "Best Places To Retire in Minneapolis",
+   "published": "2026-08-14T21:00:07Z",
+   "seconds": 733,
+   "views": 645,
+   "summary": [
+    "Looking for the best places to retire near Minneapolis? This video covers some of the top 55+ communities, retirement towns, condos, and low-maintenance options across the Twin Cities.",
+    "From Wayzata, Edina, Minnetonka, Maple Grove, and White Bear Lake to active adult communities, we compare healthcare access, walkability, home maintenance, amenities, and costs to help you find the right place to retire in Minnesota."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "What Retirees Should Look For"
+    },
+    {
+     "t": 132,
+     "label": "Best 55+ Communities"
+    },
+    {
+     "t": 247,
+     "label": "Four Seasons at Rush Creek"
+    },
+    {
+     "t": 298,
+     "label": "Becketwood"
+    },
+    {
+     "t": 356,
+     "label": "Low-Maintenance Condos"
+    },
+    {
+     "t": 409,
+     "label": "Best Retirement Towns"
+    },
+    {
+     "t": 422,
+     "label": "Wayzata"
+    },
+    {
+     "t": 445,
+     "label": "Edina"
+    },
+    {
+     "t": 485,
+     "label": "Minnetonka"
+    },
+    {
+     "t": 511,
+     "label": "Maple Grove"
+    },
+    {
+     "t": 528,
+     "label": "White Bear Lake"
+    },
+    {
+     "t": 551,
+     "label": "55+ Community vs No HOA"
+    },
+    {
+     "t": 638,
+     "label": "How to Choose"
+    },
+    {
+     "t": 692,
+     "label": "Final Thoughts"
+    }
+   ],
+   "topic": "Suburbs & neighborhoods",
+   "order": 20,
+   "slug": "best-places-to-retire-in-minneapolis"
+  },
+  {
+   "id": "YPke2k7Xcy4",
+   "kind": "long",
+   "title": "Bloomington vs Woodbury: Which Minneapolis Suburb Is Right for You?",
+   "published": "2026-08-11T21:00:03Z",
+   "seconds": 750,
+   "views": 257,
+   "summary": [
+    "Bloomington or Woodbury? Both are popular Twin Cities suburbs, but they offer very different lifestyles. Bloomington gives you a central location, quick MSP Airport access, established neighborhoods, and easier access to Minneapolis. Woodbury offers newer homes, extensive trails, more space, and convenient access to St. Paul.",
+    "We compare home prices, commute times, housing, property taxes, shopping, parks, growth, and lifestyle to help you decide which Minneapolis suburb fits you best."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Bloomington vs Woodbury"
+    },
+    {
+     "t": 25,
+     "label": "Location & Commute"
+    },
+    {
+     "t": 155,
+     "label": "Home Prices"
+    },
+    {
+     "t": 233,
+     "label": "New vs Older Homes"
+    },
+    {
+     "t": 346,
+     "label": "Property Taxes"
+    },
+    {
+     "t": 431,
+     "label": "Shopping & Daily Life"
+    },
+    {
+     "t": 539,
+     "label": "Parks & Trails"
+    },
+    {
+     "t": 622,
+     "label": "Future Growth"
+    },
+    {
+     "t": 674,
+     "label": "Which Suburb Is Better?"
+    },
+    {
+     "t": 713,
+     "label": "Final Thoughts"
+    }
+   ],
+   "topic": "Suburbs & neighborhoods",
+   "order": 21,
+   "slug": "bloomington-vs-woodbury-which-minneapolis-suburb-is-right-for-you"
+  },
+  {
+   "id": "zLSpPo3Ck8s",
+   "kind": "long",
+   "title": "Minnesota Just Landed the Biggest Thing in Decades",
+   "published": "2026-08-07T21:00:37Z",
+   "seconds": 510,
+   "views": 37513,
+   "summary": [
+    "Expo 2031 could become one of the biggest developments in Minnesota's history. In this video, we break down what the project includes, why it's already approved, the three possible locations, and what it could mean for Rosemount, Farmington, Hastings, and the future of Dakota County real estate."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Expo 2031 Overview"
+    },
+    {
+     "t": 36,
+     "label": "What Is Expo 2031?"
+    },
+    {
+     "t": 96,
+     "label": "Why It's Already Approved"
+    },
+    {
+     "t": 153,
+     "label": "Inside the Expo Site"
+    },
+    {
+     "t": 234,
+     "label": "Where Will It Be Built?"
+    },
+    {
+     "t": 335,
+     "label": "Impact on Home Values"
+    },
+    {
+     "t": 378,
+     "label": "Who Pays for It?"
+    },
+    {
+     "t": 418,
+     "label": "What Buyers Should Do"
+    },
+    {
+     "t": 446,
+     "label": "Final Thoughts"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 22,
+   "slug": "minnesota-just-landed-the-biggest-thing-in-decades"
+  },
+  {
+   "id": "jjqIx0PYyKw",
+   "kind": "long",
+   "title": "Moving to Minneapolis Suburbs vs the City (Full Breakdown)",
+   "published": "2026-08-04T20:56:43Z",
+   "seconds": 973,
+   "views": 384,
+   "summary": [
+    "Should you live in Minneapolis or the suburbs? The answer depends on your lifestyle, budget, commute, and long-term goals.",
+    "In this video, we compare Minneapolis with popular suburbs like Eden Prairie, Plymouth, Maple Grove, Minnetonka, Lakeville, and Woodbury, covering home prices, commute times, outdoor recreation, new construction, resale value, and what daily life is really like in each area."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Overview"
+    },
+    {
+     "t": 39,
+     "label": "Cost of Living"
+    },
+    {
+     "t": 170,
+     "label": "Space & Home Styles"
+    },
+    {
+     "t": 308,
+     "label": "Transportation"
+    },
+    {
+     "t": 434,
+     "label": "Outdoor Lifestyle"
+    },
+    {
+     "t": 565,
+     "label": "New Construction Options"
+    },
+    {
+     "t": 689,
+     "label": "Lifestyle Differences"
+    },
+    {
+     "t": 803,
+     "label": "Resale & Long-Term Value"
+    },
+    {
+     "t": 927,
+     "label": "Which One Fits You?"
+    }
+   ],
+   "topic": "Suburbs & neighborhoods",
+   "order": 23,
+   "slug": "moving-to-minneapolis-suburbs-vs-the-city-full-breakdown"
+  },
+  {
+   "id": "l5v0pf_FucM",
+   "kind": "long",
+   "title": "The California EXODUS to Minneapolis Is BIGGER Than Anyone Thought",
+   "published": "2026-07-31T21:00:23Z",
+   "seconds": 508,
+   "views": 1833,
+   "summary": [
+    "More Californians are moving to Minneapolis and the Twin Cities as housing costs push buyers out of California. This video breaks down why Minnesota is becoming more attractive, from affordable homes and strong jobs to lakes, parks, and quality of life.",
+    "We also look at some of the best Minneapolis suburbs for California buyers, including Eden Prairie, Minnetonka, and Plymouth."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Californians Are Leaving"
+    },
+    {
+     "t": 112,
+     "label": "Why Minneapolis"
+    },
+    {
+     "t": 259,
+     "label": "Lakes & Lifestyle"
+    },
+    {
+     "t": 285,
+     "label": "Jobs in Minnesota"
+    },
+    {
+     "t": 324,
+     "label": "The Winter Trade-Off"
+    },
+    {
+     "t": 366,
+     "label": "Minnesota’s Migration Shift"
+    },
+    {
+     "t": 403,
+     "label": "Best Minneapolis Suburbs"
+    },
+    {
+     "t": 491,
+     "label": "Final Thoughts"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 24,
+   "slug": "the-california-exodus-to-minneapolis-is-bigger-than-anyone-thought"
+  },
+  {
+   "id": "gyX00RhTCnQ",
+   "kind": "long",
+   "title": "The Minneapolis Suburbs That Will Be UNRECOGNIZABLE by 2050!",
+   "published": "2026-07-28T21:00:34Z",
+   "seconds": 635,
+   "views": 2811,
+   "summary": [
+    "Which Minneapolis suburbs will change the most by 2050? We break down the fastest-growing Twin Cities suburbs, including Lakeville, Woodbury, Maple Grove, Blaine, Rosemount, Cottage Grove, Corcoran, and Carver.",
+    "See where new homes, population growth, and major development could reshape the Minneapolis metro."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Twin Cities Growth"
+    },
+    {
+     "t": 35,
+     "label": "Lakeville"
+    },
+    {
+     "t": 143,
+     "label": "Woodbury"
+    },
+    {
+     "t": 238,
+     "label": "Maple Grove & Blaine"
+    },
+    {
+     "t": 316,
+     "label": "Rosemount & Cottage Grove"
+    },
+    {
+     "t": 411,
+     "label": "Corcoran & Carver"
+    },
+    {
+     "t": 525,
+     "label": "Best Suburbs for Buyers"
+    },
+    {
+     "t": 591,
+     "label": "What’s Next by 2050"
+    },
+    {
+     "t": 620,
+     "label": "Final Thoughts"
+    }
+   ],
+   "topic": "Suburbs & neighborhoods",
+   "order": 25,
+   "slug": "the-minneapolis-suburbs-that-will-be-unrecognizable-by-2050"
+  },
+  {
+   "id": "R3n_BmIJJHk",
+   "kind": "long",
+   "title": "Why Minneapolis’ Housing Market Is Frozen in Place",
+   "published": "2026-07-24T21:00:30Z",
+   "seconds": 715,
+   "views": 2131,
+   "summary": [
+    "Why does the Minneapolis housing market feel frozen even as home prices hit record highs? Low mortgage rates are keeping homeowners from selling, limiting inventory and keeping buyers competing.",
+    "Here’s what’s happening in the Twin Cities real estate market, when selling may still make sense, and what could finally get the market moving again."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Why the Market Is Frozen"
+    },
+    {
+     "t": 176,
+     "label": "Low Housing Inventory"
+    },
+    {
+     "t": 258,
+     "label": "First-Time Buyers"
+    },
+    {
+     "t": 314,
+     "label": "The Cost of Staying Put"
+    },
+    {
+     "t": 418,
+     "label": "When Selling Makes Sense"
+    },
+    {
+     "t": 548,
+     "label": "What Could Unlock the Market"
+    },
+    {
+     "t": 631,
+     "label": "Preparing for the Market Shift"
+    }
+   ],
+   "topic": "Market updates",
+   "order": 26,
+   "slug": "why-minneapolis-housing-market-is-frozen-in-place"
+  },
+  {
+   "id": "E1yJD_GnAhw",
+   "kind": "long",
+   "title": "What Nobody Tells You About OLD vs NEW Homes in Minneapolis",
+   "published": "2026-07-21T20:23:09Z",
+   "seconds": 794,
+   "views": 1027,
+   "summary": [
+    "Should you buy a brand-new home or an older home in Minneapolis? In this video, we compare the pros and cons of both, covering character, walkability, maintenance, energy efficiency, builder incentives, hidden costs, resale value, and commute times to help you make the right decision."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "New Homes vs Older Homes"
+    },
+    {
+     "t": 30,
+     "label": "Why Buyers Love Older Minneapolis Homes"
+    },
+    {
+     "t": 166,
+     "label": "Hidden Costs of Older Homes"
+    },
+    {
+     "t": 355,
+     "label": "Why New Construction Appeals to Buyers"
+    },
+    {
+     "t": 476,
+     "label": "Builder Incentives & Lower Costs"
+    },
+    {
+     "t": 540,
+     "label": "Downsides of Buying a New Build"
+    },
+    {
+     "t": 643,
+     "label": "The Commute Trade-Off Most Buyers Ignore"
+    },
+    {
+     "t": 693,
+     "label": "Which Home Is Right for You?"
+    }
+   ],
+   "topic": "Suburbs & neighborhoods",
+   "order": 27,
+   "slug": "what-nobody-tells-you-about-old-vs-new-homes-in-minneapolis"
+  },
+  {
+   "id": "R45zoPZEQkI",
+   "kind": "long",
+   "title": "The Biggest Mistake Minneapolis Sellers Are Making Right Now",
+   "published": "2026-07-17T21:27:46Z",
+   "seconds": 774,
+   "views": 250,
+   "summary": [
+    "Thinking about selling your home in Minneapolis or the Twin Cities? The biggest mistake many sellers make isn't staging or marketing—it's pricing their home too high. In this video, we explain why correct pricing leads to more showings, multiple offers, and often a higher final sale price, while overpricing can cost you both time and money."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "The Biggest Seller Mistake"
+    },
+    {
+     "t": 39,
+     "label": "Is It Really a Seller's Market?"
+    },
+    {
+     "t": 161,
+     "label": "Why the First Week Matters"
+    },
+    {
+     "t": 299,
+     "label": "The Cost of Overpricing"
+    },
+    {
+     "t": 428,
+     "label": "How the Right Price Creates Competition"
+    },
+    {
+     "t": 590,
+     "label": "How to Price Your Home Correctly"
+    },
+    {
+     "t": 713,
+     "label": "Final Thoughts"
+    }
+   ],
+   "topic": "Market updates",
+   "order": 28,
+   "slug": "the-biggest-mistake-minneapolis-sellers-are-making-right-now"
+  },
+  {
+   "id": "JPl1h7C342s",
+   "kind": "long",
+   "title": "Minneapolis' Next Biggest Suburb Is Growing Faster Than Anyone Predicted",
+   "published": "2026-07-14T21:00:25Z",
+   "seconds": 855,
+   "views": 649,
+   "summary": [
+    "Corcoran, Minnesota is quickly becoming one of the fastest-growing suburbs near Minneapolis. With major builders, master-planned communities, larger lots, and rapid population growth, many buyers are looking at Corcoran before prices catch up.",
+    "In this video, we compare Corcoran vs. Maple Grove, explore new construction communities, home prices, 55+ living, acreage homes, and future development, and explain why this Northwest Metro suburb is attracting so much attention"
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Why Corcoran Is Growing Fast"
+    },
+    {
+     "t": 62,
+     "label": "Corcoran vs. Maple Grove"
+    },
+    {
+     "t": 145,
+     "label": "New Home Builders"
+    },
+    {
+     "t": 289,
+     "label": "New 55+ Community"
+    },
+    {
+     "t": 347,
+     "label": "Population Growth"
+    },
+    {
+     "t": 444,
+     "label": "Home Prices & New Construction"
+    },
+    {
+     "t": 554,
+     "label": "Why the Buying Window Is Closing"
+    },
+    {
+     "t": 677,
+     "label": "Is Corcoran Right for You?"
+    },
+    {
+     "t": 816,
+     "label": "Final Thoughts"
+    }
+   ],
+   "topic": "Suburbs & neighborhoods",
+   "order": 29,
+   "slug": "minneapolis-next-biggest-suburb-is-growing-faster-than-anyone-predicted"
+  },
+  {
+   "id": "r0AcdAaAsFw",
+   "kind": "long",
+   "title": "Minneapolis Just Broke Ground on Its Most Exciting Riverfront Project",
+   "published": "2026-07-10T21:00:11Z",
+   "seconds": 395,
+   "views": 739,
+   "summary": [
+    "Minneapolis has officially broken ground on the $350 million Upper Harbor riverfront project in North Minneapolis. The development will bring an 8,000-seat amphitheater, a 20-acre riverfront park, new housing, commercial space, trails, jobs, and a community wellness hub to the Mississippi River.",
+    "In this video, we compare Upper Harbor to the transformation of the North Loop and explain what this project could mean for North Minneapolis real estate, home values, buyers, sellers, and future development."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Upper Harbor Project"
+    },
+    {
+     "t": 50,
+     "label": "How North Loop Transformed"
+    },
+    {
+     "t": 105,
+     "label": "Upper Harbor History"
+    },
+    {
+     "t": 171,
+     "label": "New Amphitheater"
+    },
+    {
+     "t": 209,
+     "label": "Riverfront Park & Housing"
+    },
+    {
+     "t": 255,
+     "label": "Economic Impact"
+    },
+    {
+     "t": 305,
+     "label": "What This Means for Buyers"
+    },
+    {
+     "t": 366,
+     "label": "Final Thoughts"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 30,
+   "slug": "minneapolis-just-broke-ground-on-its-most-exciting-riverfront-project"
+  },
+  {
+   "id": "WOciuZxmT2g",
+   "kind": "long",
+   "title": "Minneapolis' Housing Market Has Completely Fractured",
+   "published": "2026-07-07T20:35:41Z",
+   "seconds": 737,
+   "views": 17424,
+   "summary": [
+    "The Minneapolis housing market has split into two completely different markets. While suburban homes in places like Edina, Eden Prairie, Minnetonka, Chanhassen, Maple Grove, Woodbury, and Lakeville continue to attract strong buyer demand, downtown Minneapolis condos are facing slower sales, rising HOA costs, and greater negotiating power for buyers. In this video, we explain what's driving the divide, how the Minneapolis 2040 Plan has changed the market, and what buyers and sellers should do in 2026."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Minneapolis Housing Market Split"
+    },
+    {
+     "t": 58,
+     "label": "Market Data Explained"
+    },
+    {
+     "t": 124,
+     "label": "Why Suburbs Are Still Hot"
+    },
+    {
+     "t": 264,
+     "label": "Why Downtown Is Slowing"
+    },
+    {
+     "t": 323,
+     "label": "HOA Fees & Condo Costs"
+    },
+    {
+     "t": 379,
+     "label": "Minneapolis 2040 Plan"
+    },
+    {
+     "t": 451,
+     "label": "Strategy for Home Buyers"
+    },
+    {
+     "t": 585,
+     "label": "Strategy for Home Sellers"
+    },
+    {
+     "t": 693,
+     "label": "What This Means for 2026"
+    },
+    {
+     "t": 722,
+     "label": "Final Thoughts"
+    }
+   ],
+   "topic": "Market updates",
+   "order": 31,
+   "slug": "minneapolis-housing-market-has-completely-fractured"
+  },
+  {
+   "id": "aAJI0Qau2ts",
+   "kind": "long",
+   "title": "Avoid Moving to the Wrong Minneapolis Suburb",
+   "published": "2026-07-03T21:00:35Z",
+   "seconds": 704,
+   "views": 2396,
+   "summary": [
+    "Not every Minneapolis suburb is the right fit. In this video, we compare the best places to live in the Twin Cities, including Blaine, Shakopee, Cottage Grove, Corcoran, Eden Prairie, Plymouth, Maple Grove, Lakeville, Stillwater, Prior Lake, White Bear Lake, Carver, Edina, Medina, Orono, and Wayzata. We cover home prices, lifestyle, commute, new developments, luxury neighborhoods, value suburbs, and areas to think twice about before buying a home. If you're moving to Minneapolis or relocating to the Twin Cities, this guide will help you choose the right suburb for your lifestyle and budget"
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Minneapolis Suburbs Overview"
+    },
+    {
+     "t": 28,
+     "label": "Suburbs to Think Twice About"
+    },
+    {
+     "t": 129,
+     "label": "Best Value Minneapolis Suburbs"
+    },
+    {
+     "t": 280,
+     "label": "Best Established Suburbs"
+    },
+    {
+     "t": 404,
+     "label": "Best Lifestyle Suburbs"
+    },
+    {
+     "t": 527,
+     "label": "Best Luxury Minneapolis Suburbs"
+    },
+    {
+     "t": 652,
+     "label": "Which Minneapolis Suburb Is Right?"
+    },
+    {
+     "t": 683,
+     "label": "Final Thoughts"
+    }
+   ],
+   "topic": "Suburbs & neighborhoods",
+   "order": 32,
+   "slug": "avoid-moving-to-the-wrong-minneapolis-suburb"
+  },
+  {
+   "id": "iuzi_mYzXdg",
+   "kind": "long",
+   "title": "How Minnesota's Most Controversial Project EVER Will Reshape the Twin Cities",
+   "published": "2026-06-30T22:25:30Z",
+   "seconds": 724,
+   "views": 2757,
+   "summary": [],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "$2.8B Green Line Extension"
+    },
+    {
+     "t": 28,
+     "label": "Southwest LRT Project Overview"
+    },
+    {
+     "t": 144,
+     "label": "Why the Green Line Is Controversial"
+    },
+    {
+     "t": 275,
+     "label": "Does Light Rail Increase Home Values?"
+    },
+    {
+     "t": 358,
+     "label": "St. Louis Park Real Estate"
+    },
+    {
+     "t": 400,
+     "label": "Hopkins Real Estate"
+    },
+    {
+     "t": 449,
+     "label": "Minnetonka & Opus Corridor"
+    },
+    {
+     "t": 472,
+     "label": "Eden Prairie Real Estate"
+    },
+    {
+     "t": 521,
+     "label": "What Home Buyers Should Know"
+    },
+    {
+     "t": 605,
+     "label": "What Home Sellers Should Know"
+    },
+    {
+     "t": 666,
+     "label": "Final Thoughts"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 33
+  },
+  {
+   "id": "0BEEkRxEUnQ",
+   "kind": "long",
+   "title": "Minneapolis Is Sitting on a Housing Market TIME BOMB",
+   "published": "2026-06-26T20:01:19Z",
+   "seconds": 762,
+   "views": 954,
+   "summary": [
+    "A brief drop in mortgage rates below 6% revealed just how fragile—and how competitive—the Minneapolis housing market could become. In this video, we break down why the Twin Cities are one of the most rate-sensitive markets in America, what happens when rates fall again, and what buyers and sellers should do before the next wave of demand arrives."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Minneapolis Housing Market"
+    },
+    {
+     "t": 134,
+     "label": "Why Demand Is Rising"
+    },
+    {
+     "t": 337,
+     "label": "Best Time to Buy a Home"
+    },
+    {
+     "t": 437,
+     "label": "Mortgage Rate Impact"
+    },
+    {
+     "t": 588,
+     "label": "Minneapolis Buyer Tips"
+    },
+    {
+     "t": 728,
+     "label": "Final Thoughts"
+    }
+   ],
+   "topic": "Market updates",
+   "order": 34,
+   "slug": "minneapolis-is-sitting-on-a-housing-market-time-bomb"
+  },
+  {
+   "id": "LAc9z-eTbYs",
+   "kind": "long",
+   "title": "Why Minneapolis Is The Opposite of Every Other Major U.S. City",
+   "published": "2026-06-23T21:00:10Z",
+   "seconds": 962,
+   "views": 25101,
+   "summary": [
+    "Most major cities revolve around their downtown core, but Minneapolis works differently. In this video, we break down why the Twin Cities are the opposite of nearly every other major U.S. metro, from high-demand suburbs and lake living to winter culture, local identity, and what buyers need to know before moving here."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Why Minneapolis Is Different"
+    },
+    {
+     "t": 26,
+     "label": "Downtown Isn’t the Prize Here"
+    },
+    {
+     "t": 150,
+     "label": "The Suburbs Are the Dream"
+    },
+    {
+     "t": 292,
+     "label": "Minneapolis Is Built Around the Climate"
+    },
+    {
+     "t": 525,
+     "label": "Water Is a Lifestyle"
+    },
+    {
+     "t": 731,
+     "label": "Two Cities, One Metro, Different Identities"
+    },
+    {
+     "t": 865,
+     "label": "Why The Suburbs Win in Minneapolis"
+    },
+    {
+     "t": 885,
+     "label": "Final Thoughts"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 35,
+   "slug": "why-minneapolis-is-the-opposite-of-every-other-major-u-s-city"
+  },
+  {
+   "id": "anqWlZb0yZ8",
+   "kind": "long",
+   "title": "Every Minneapolis Suburb Ranked By Appreciation (2015–2025)",
+   "published": "2026-06-19T21:00:33Z",
+   "seconds": 703,
+   "views": 312,
+   "summary": [
+    "A Twin Cities home purchased in 2015 for $300,000 could be worth nearly $270,000 more today. In this video, we rank seven of the most popular Minneapolis-area suburbs by appreciation using real closed sales data from 2015 to 2025. From Minneapolis and Bloomington to Lakeville and Dayton, you'll see which areas created the most wealth for homeowners and what these trends could mean for buyers heading into 2026.",
+    "0:56 - #7 Minneapolis Citywide 2:04 - #6 Bloomington 2:54 - #5 Burnsville 3:40 - #4 Apple Valley 4:30 - #3 Prior Lake 5:28 - #2 Lakeville 6:18 - #1 Dayton"
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Minneapolis Suburbs Ranked by Appreciation"
+    },
+    {
+     "t": 466,
+     "label": "The Percentage Rerank"
+    },
+    {
+     "t": 602,
+     "label": "What This Tells 2026 Buyers"
+    },
+    {
+     "t": 662,
+     "label": "Final Thoughts"
+    }
+   ],
+   "topic": "Market updates",
+   "order": 36,
+   "slug": "every-minneapolis-suburb-ranked-by-appreciation-2015-2025"
+  },
+  {
+   "id": "LcHmmRn-AgU",
+   "kind": "long",
+   "title": "Minneapolis Home Buyers Are Doing Something Unexpected",
+   "published": "2026-06-16T11:00:47Z",
+   "seconds": 710,
+   "views": 957,
+   "summary": [
+    "The smartest move in Twin Cities real estate right now isn't buying alone. It's buying together. Families across Minneapolis and St. Paul are pooling equity and income to get into homes they couldn't afford solo. Here's exactly how it works and why it's changing the market."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "The smartest move nobody's making"
+    },
+    {
+     "t": 46,
+     "label": "Why families are consolidating"
+    },
+    {
+     "t": 105,
+     "label": "Who's actually winning right now"
+    },
+    {
+     "t": 137,
+     "label": "How shared homes have changed"
+    },
+    {
+     "t": 223,
+     "label": "Two doors, one house"
+    },
+    {
+     "t": 278,
+     "label": "Zoning laws nobody told you about"
+    },
+    {
+     "t": 390,
+     "label": "The math that changes everything"
+    },
+    {
+     "t": 449,
+     "label": "Building wealth the smarter way"
+    },
+    {
+     "t": 549,
+     "label": "Future-proofing your Minnesota home"
+    },
+    {
+     "t": 640,
+     "label": "What to look for right now"
+    },
+    {
+     "t": 664,
+     "label": "How to get started"
+    }
+   ],
+   "topic": "Market updates",
+   "order": 37,
+   "slug": "minneapolis-home-buyers-are-doing-something-unexpected"
+  },
+  {
+   "id": "AnWi_dhO9VA",
+   "kind": "long",
+   "title": "The Problem With Living in St. Paul Nobody Talks About…",
+   "published": "2026-06-12T21:00:05Z",
+   "seconds": 884,
+   "views": 4532,
+   "summary": [
+    "St. Paul is one of the most historic and charming cities in the Midwest, but it isn't perfect. In this video, we break down the biggest pros and cons of living in St. Paul, from beautiful neighborhoods and parks to road construction, transit challenges, and lifestyle trade-offs."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Con #1: Quieter Nightlife"
+    },
+    {
+     "t": 111,
+     "label": "Pro #1: Historic Architecture & Charm"
+    },
+    {
+     "t": 186,
+     "label": "Con #2: Limited New Construction"
+    },
+    {
+     "t": 279,
+     "label": "Pro #2: Parks & Green Spaces"
+    },
+    {
+     "t": 356,
+     "label": "Con #3: Potholes & Road Construction"
+    },
+    {
+     "t": 444,
+     "label": "Pro #3: Award-Winning Food Scene"
+    },
+    {
+     "t": 533,
+     "label": "Con #4: Limited Public Transit"
+    },
+    {
+     "t": 599,
+     "label": "Pro #4: Arts & Culture Scene"
+    },
+    {
+     "t": 694,
+     "label": "Con #5: Less Retail & Entertainment Options"
+    },
+    {
+     "t": 753,
+     "label": "Pro #5: Excellent Higher Education"
+    },
+    {
+     "t": 829,
+     "label": "Final Thoughts"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 38,
+   "slug": "the-problem-with-living-in-st-paul-nobody-talks-about"
+  },
+  {
+   "id": "meXCyHDK_KI",
+   "kind": "long",
+   "title": "The $750M Project TRANSFORMING This Minneapolis Suburb",
+   "published": "2026-06-09T21:00:03Z",
+   "seconds": 779,
+   "views": 1939,
+   "summary": [
+    "Blaine is building a $750 million downtown from scratch, transforming one of Minnesota's largest suburbs into a true destination. In this video, we break down the timeline, the Scheels effect, the National Sports Center connection, and what it could mean for future home values."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Why Blaine Never Had A Downtown"
+    },
+    {
+     "t": 120,
+     "label": "The National Sports Center Impact"
+    },
+    {
+     "t": 225,
+     "label": "The Phase-by-Phase Plan"
+    },
+    {
+     "t": 337,
+     "label": "The Scheels Effect"
+    },
+    {
+     "t": 435,
+     "label": "Where Home Values Could Rise"
+    },
+    {
+     "t": 517,
+     "label": "Comparable Success Stories"
+    },
+    {
+     "t": 591,
+     "label": "The Buy-Now Strategy"
+    },
+    {
+     "t": 667,
+     "label": "The Reality Check"
+    },
+    {
+     "t": 729,
+     "label": "Final Thoughts"
+    }
+   ],
+   "topic": "Suburbs & neighborhoods",
+   "order": 39,
+   "slug": "the-750m-project-transforming-this-minneapolis-suburb"
+  },
+  {
+   "id": "99U9n99_cgw",
+   "kind": "long",
+   "title": "Why This Charming River Town Near Minneapolis Is So Underrated",
+   "published": "2026-06-05T21:00:31Z",
+   "seconds": 775,
+   "views": 251,
+   "summary": [
+    "Stillwater is one of the most unique and historic towns in the Minneapolis metro. In this video, we explore its rich history, riverfront lifestyle, outdoor recreation, housing market, and why so many people are choosing this charming St. Croix River community."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "The Stillwater Story"
+    },
+    {
+     "t": 167,
+     "label": "What Makes Stillwater Special?"
+    },
+    {
+     "t": 369,
+     "label": "Outdoor Recreation"
+    },
+    {
+     "t": 500,
+     "label": "The Commute Reality"
+    },
+    {
+     "t": 580,
+     "label": "Who Stillwater Is Best For"
+    },
+    {
+     "t": 667,
+     "label": "Home Prices & Market"
+    },
+    {
+     "t": 713,
+     "label": "Final Thoughts"
+    }
+   ],
+   "topic": "Suburbs & neighborhoods",
+   "order": 40,
+   "slug": "why-this-charming-river-town-near-minneapolis-is-so-underrated"
+  },
+  {
+   "id": "hlCwX7fdNxE",
+   "kind": "long",
+   "title": "Answering CONCERNING Questions About Living in Minneapolis",
+   "published": "2026-06-02T21:00:04Z",
+   "seconds": 1493,
+   "views": 380,
+   "summary": [],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Q#1: Can You Afford Minneapolis?"
+    },
+    {
+     "t": 127,
+     "label": "Q#2: Is Minneapolis A Better Deal?"
+    },
+    {
+     "t": 202,
+     "label": "Q#3: Why Are Property Taxes So High?"
+    },
+    {
+     "t": 297,
+     "label": "Q#4: How Bad Is Winter Really?"
+    },
+    {
+     "t": 418,
+     "label": "Q#5: Do You Need A Car?"
+    },
+    {
+     "t": 498,
+     "label": "Q#6: Are Suburb Commutes Manageable?"
+    },
+    {
+     "t": 571,
+     "label": "Q#7: Will Roads Keep Up With Growth?"
+    },
+    {
+     "t": 616,
+     "label": "Q#8: Is Minneapolis A Transplant City?"
+    },
+    {
+     "t": 686,
+     "label": "Q#9: Does Minnesota Nice Exist?"
+    },
+    {
+     "t": 767,
+     "label": "Q#10: How Dangerous Is Winter Driving?"
+    },
+    {
+     "t": 820,
+     "label": "Q#11: Are The Schools Really Good?"
+    },
+    {
+     "t": 851,
+     "label": "Q#12: Does Minneapolis Have Two Downtowns?"
+    },
+    {
+     "t": 933,
+     "label": "Q#13: Is There Anything To Do?"
+    },
+    {
+     "t": 1065,
+     "label": "Q#14: How Bad Are Mosquitoes & Humidity?"
+    },
+    {
+     "t": 1144,
+     "label": "Q#15: Are The Lakes Worth It?"
+    },
+    {
+     "t": 1208,
+     "label": "Q#16: Is Downtown Minneapolis Walkable?"
+    },
+    {
+     "t": 1290,
+     "label": "Q#17: How Far Is Minneapolis From Other Cities?"
+    },
+    {
+     "t": 1376,
+     "label": "Q#18: Will Growth Ruin Minneapolis?"
+    },
+    {
+     "t": 1440,
+     "label": "Final Thoughts"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 41
+  },
+  {
+   "id": "nyv9dwyHU-A",
+   "kind": "long",
+   "title": "Inside One of Minneapolis's Best Suburbs: Shakopee MN",
+   "published": "2026-05-29T21:00:33Z",
+   "seconds": 2282,
+   "views": 712,
+   "summary": [
+    "Shakopee is quickly becoming one of the fastest-growing suburbs in the Twin Cities, offering affordable housing, entertainment, parks, trails, and major new development. In this driving tour, we explore neighborhoods, downtown Shakopee, Lake O’Dow, Canterbury Park, new construction, and what makes this suburb stand out."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Shakopee Growth"
+    },
+    {
+     "t": 78,
+     "label": "Valleyfair"
+    },
+    {
+     "t": 210,
+     "label": "Murphy’s Landing"
+    },
+    {
+     "t": 465,
+     "label": "Canterbury Park"
+    },
+    {
+     "t": 663,
+     "label": "New Development"
+    },
+    {
+     "t": 755,
+     "label": "Downtown Shakopee"
+    },
+    {
+     "t": 954,
+     "label": "Older Neighborhoods"
+    },
+    {
+     "t": 1090,
+     "label": "Commercial District"
+    },
+    {
+     "t": 1248,
+     "label": "New Construction"
+    },
+    {
+     "t": 1309,
+     "label": "Schools & Hospital"
+    },
+    {
+     "t": 1500,
+     "label": "Lake O’Dow"
+    },
+    {
+     "t": 1591,
+     "label": "Stonebrooke Golf"
+    },
+    {
+     "t": 1696,
+     "label": "Affordable Housing"
+    },
+    {
+     "t": 1800,
+     "label": "Land Restoration"
+    },
+    {
+     "t": 1921,
+     "label": "Southbridge"
+    },
+    {
+     "t": 2080,
+     "label": "Shopping & Retail"
+    },
+    {
+     "t": 2184,
+     "label": "Who Shakopee Fits Best"
+    }
+   ],
+   "topic": "Home tours",
+   "order": 42,
+   "slug": "inside-one-of-minneapoliss-best-suburbs-shakopee-mn"
+  },
+  {
+   "id": "7lZ-1Z8HB3o",
+   "kind": "long",
+   "title": "Why Minneapolis Is Growing Backwards",
+   "published": "2026-05-26T21:00:36Z",
+   "seconds": 731,
+   "views": 7162,
+   "summary": [
+    "Minneapolis is changing fast, but not in the way most people expected. In this video, we break down why Minneapolis is growing backwards, what’s happening with the housing market, population shifts, downtown changes, and why more people are choosing the suburbs over the city."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Minneapolis Is Shrinking"
+    },
+    {
+     "t": 26,
+     "label": "The Population Map"
+    },
+    {
+     "t": 119,
+     "label": "The Growth Map"
+    },
+    {
+     "t": 201,
+     "label": "Which Counties are Actually Growing"
+    },
+    {
+     "t": 297,
+     "label": "Why is this Happening"
+    },
+    {
+     "t": 441,
+     "label": "What This Means for Buyers"
+    },
+    {
+     "t": 523,
+     "label": "The Mistake People Make"
+    },
+    {
+     "t": 591,
+     "label": "Where to Position Yourself"
+    },
+    {
+     "t": 670,
+     "label": "Final Thoughts"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 43,
+   "slug": "why-minneapolis-is-growing-backwards"
+  },
+  {
+   "id": "aTWBw1ypB6Q",
+   "kind": "long",
+   "title": "Small Towns Near Minneapolis People Are Quietly Moving To",
+   "published": "2026-05-22T21:00:28Z",
+   "seconds": 1037,
+   "views": 1868,
+   "summary": [
+    "These small towns near Minneapolis offer lake life, historic downtowns, better affordability, and a slower pace without being too far from the city. This video breaks down the lifestyle, commute, home prices, and vibe of each town."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Best Small Towns Near Minneapolis"
+    },
+    {
+     "t": 40,
+     "label": "Stillwater"
+    },
+    {
+     "t": 273,
+     "label": "Northfield"
+    },
+    {
+     "t": 426,
+     "label": "Waconia"
+    },
+    {
+     "t": 571,
+     "label": "New Prague"
+    },
+    {
+     "t": 717,
+     "label": "Prior Lake"
+    },
+    {
+     "t": 852,
+     "label": "Elk River"
+    },
+    {
+     "t": 968,
+     "label": "Which Town Fits You Best?"
+    }
+   ],
+   "topic": "Suburbs & neighborhoods",
+   "order": 44,
+   "slug": "small-towns-near-minneapolis-people-are-quietly-moving-to"
+  },
+  {
+   "id": "3EM34uukz_Q",
+   "kind": "long",
+   "title": "A Full Breakdown of Minneapolis in Just 30 Minutes",
+   "published": "2026-05-19T21:00:03Z",
+   "seconds": 1317,
+   "views": 1096,
+   "summary": [],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Twin Cities Overview"
+    },
+    {
+     "t": 118,
+     "label": "Minneapolis Lakes & Downtown"
+    },
+    {
+     "t": 338,
+     "label": "Western Suburbs Overview"
+    },
+    {
+     "t": 493,
+     "label": "South Metro Overview"
+    },
+    {
+     "t": 685,
+     "label": "Northeast Minneapolis"
+    },
+    {
+     "t": 772,
+     "label": "Inner North Suburbs"
+    },
+    {
+     "t": 912,
+     "label": "Outer North Suburbs"
+    },
+    {
+     "t": 1090,
+     "label": "Northwest Outer Suburbs"
+    },
+    {
+     "t": 1278,
+     "label": "Choosing the Right Area"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 45
+  },
+  {
+   "id": "pLK5X9YbFEA",
+   "kind": "long",
+   "title": "Minneapolis' Shakopee Will NEVER Be The Same",
+   "published": "2026-05-15T21:00:57Z",
+   "seconds": 892,
+   "views": 277,
+   "summary": [
+    "Shakopee, MN is changing faster than any suburb in the Twin Cities — and most people haven't caught on yet. In this video, I break down why this once-overlooked city south of Minneapolis has become one of the fastest-growing communities in Minnesota.",
+    "Here's what you'll get: The brand-new Mystic Lake Amphitheater + 2026 concert lineup Why Valley Fair, Canterbury Park, and Mystic Lake Casino make Shakopee unlike any other suburb Historic downtown, the new social district, and lifestyle perks Current Shakopee home prices, new construction, and the 2026 market Where Shakopee is headed over the next 10 years"
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Shakopee’s Comeback"
+    },
+    {
+     "t": 122,
+     "label": "Entertainment Growth"
+    },
+    {
+     "t": 203,
+     "label": "Mystic Lake & Valleyfair"
+    },
+    {
+     "t": 265,
+     "label": "Canterbury Commons"
+    },
+    {
+     "t": 351,
+     "label": "Historic Downtown"
+    },
+    {
+     "t": 421,
+     "label": "Social District"
+    },
+    {
+     "t": 504,
+     "label": "Lifestyle & Commute"
+    },
+    {
+     "t": 606,
+     "label": "Why People Are Moving"
+    },
+    {
+     "t": 690,
+     "label": "Housing Market"
+    },
+    {
+     "t": 756,
+     "label": "Future Growth"
+    },
+    {
+     "t": 818,
+     "label": "Final Thoughts"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 46,
+   "slug": "minneapolis-shakopee-will-never-be-the-same"
+  },
+  {
+   "id": "eAZKrr7CKTY",
+   "kind": "long",
+   "title": "Minneapolis' Cheapest vs Most Expensive Neighborhoods",
+   "published": "2026-05-12T21:00:42Z",
+   "seconds": 795,
+   "views": 879,
+   "summary": [
+    "Minneapolis has homes starting around $300,000 — and one listing on Lake Minnetonka asking $50 million. Yes, you read that right.",
+    "In this video, I'm breaking down every price tier in the Twin Cities, from the most affordable first-ring suburbs to the most exclusive lakefront estates in the state. Whether you're house hunting on a $350,000 budget or shopping in the multi-million dollar luxury market, I'll show you exactly which neighborhoods fit your price point and what tradeoffs come with each one.",
+    "I cover Richfield, Northfield, Bloomington, Maple Grove, Savage, Woodbury, Lakeville, Chanhassen, Edina, Medina, Bde Maka Ska, Orono, Lake of the Isles, and the Lake Minnetonka luxury market in Wayzata. You'll see which suburbs deliver the best value, where the commute tradeoffs hit hardest, and why Lake Minnetonka leads the entire state in luxury pricing."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Minneapolis Price Range"
+    },
+    {
+     "t": 21,
+     "label": "Tier 1 Areas"
+    },
+    {
+     "t": 245,
+     "label": "Tier 2 Areas"
+    },
+    {
+     "t": 342,
+     "label": "Tier 3 Areas"
+    },
+    {
+     "t": 480,
+     "label": "Tier 4 Areas"
+    },
+    {
+     "t": 585,
+     "label": "Tier 5 Areas"
+    },
+    {
+     "t": 682,
+     "label": "Tier 6 Luxury Areas"
+    },
+    {
+     "t": 763,
+     "label": "Final Thoughts"
+    }
+   ],
+   "topic": "Suburbs & neighborhoods",
+   "order": 47,
+   "slug": "minneapolis-cheapest-vs-most-expensive-neighborhoods"
+  },
+  {
+   "id": "_56zho42szg",
+   "kind": "long",
+   "title": "The Minneapolis Migration Story Nobody Is Talking About",
+   "published": "2026-05-08T21:00:29Z",
+   "seconds": 956,
+   "views": 9643,
+   "summary": [
+    "The Minneapolis migration story nobody is talking about revealed through real data, housing trends, population shifts, and what’s actually driving people in and out of the city.",
+    "Understand where people are moving, why it matters, and how it impacts home prices, jobs, and future growth."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Why people are moving to Minnesota"
+    },
+    {
+     "t": 25,
+     "label": "California buyers"
+    },
+    {
+     "t": 202,
+     "label": "Top states moving in"
+    },
+    {
+     "t": 400,
+     "label": "Four seasons lifestyle"
+    },
+    {
+     "t": 514,
+     "label": "Where buyers are moving"
+    },
+    {
+     "t": 532,
+     "label": "Eden Prairie"
+    },
+    {
+     "t": 631,
+     "label": "Minnetonka"
+    },
+    {
+     "t": 694,
+     "label": "Bloomington"
+    },
+    {
+     "t": 743,
+     "label": "Plymouth"
+    },
+    {
+     "t": 822,
+     "label": "Maple Grove"
+    },
+    {
+     "t": 868,
+     "label": "Market trends"
+    },
+    {
+     "t": 908,
+     "label": "How to move"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 48,
+   "slug": "the-minneapolis-migration-story-nobody-is-talking-about"
+  },
+  {
+   "id": "hGHkxegZErw",
+   "kind": "long",
+   "title": "It’s Finally Become Impossible to Move to Wayzata, MN",
+   "published": "2026-05-05T21:00:43Z",
+   "seconds": 849,
+   "views": 1704,
+   "summary": [
+    "Wayzata, Minnesota has officially become the most exclusive market in the state — and getting in is harder than ever. With a median price per square foot of $525, a $50 million active listing on Lake Minnetonka, and barely any homes available, this Twin Cities suburb is in a league of its own."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Why Wayzata is expensive"
+    },
+    {
+     "t": 29,
+     "label": "Pricing explained"
+    },
+    {
+     "t": 122,
+     "label": "Off market deals"
+    },
+    {
+     "t": 210,
+     "label": "Luxury buyers"
+    },
+    {
+     "t": 261,
+     "label": "Location advantage"
+    },
+    {
+     "t": 368,
+     "label": "Lifestyle"
+    },
+    {
+     "t": 581,
+     "label": "Low inventory"
+    },
+    {
+     "t": 642,
+     "label": "No land to build"
+    },
+    {
+     "t": 693,
+     "label": "How buyers get in"
+    },
+    {
+     "t": 765,
+     "label": "How to compete"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 49,
+   "slug": "its-finally-become-impossible-to-move-to-wayzata-mn"
+  },
+  {
+   "id": "5_0zostzDqE",
+   "kind": "long",
+   "title": "Living in Minneapolis: Top 5 Golf Course Communities",
+   "published": "2026-05-01T21:00:11Z",
+   "seconds": 620,
+   "views": 303,
+   "summary": [
+    "Want to live on a golf course in the Twin Cities? Some of these communities you literally can't buy your way into — no matter how much money you have.",
+    "In this video, I'm ranking the top 5 golf course communities in the Twin Cities metro: TPC Twin Cities (Blaine), Edinburgh USA (Brooklyn Park), Bearpath (Eden Prairie), Interlachen (Edina), and Hazeltine (Chaska). I break down what it actually costs to live in each one — home prices, initiation fees, monthly dues, HOA, and the hidden buy-in requirements most buyers never hear about until it's too late.",
+    "CHAPTERS 0:27 - #5 TPC Twin Cities 2:21 - #4 Edinburgh USA 3:56 - #3 Bearpath 6:07 - #2 Interlachen 7:41 - #1 Hazeltine"
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Golf community overview"
+    },
+    {
+     "t": 587,
+     "label": "Final takeaway"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 50,
+   "slug": "living-in-minneapolis-top-5-golf-course-communities"
+  },
+  {
+   "id": "9fllW1lYQ4g",
+   "kind": "long",
+   "title": "Why This St. Paul Neighborhood Has Become So Irresistible",
+   "published": "2026-04-28T21:00:11Z",
+   "seconds": 531,
+   "views": 266,
+   "summary": [
+    "Mac-Groveland just took the #1 spot as the best neighborhood in St. Paul — and most buyers haven't caught on yet.",
+    "In this video, I'm breaking down 6 reasons Mac-Groveland is quietly outperforming Highland Park and Summit Hill: the unbeatable location near downtown St. Paul, the energy from Macalester College and the University of St. Thomas, Tangle Town's historic winding streets, Grand Avenue's walkable lifestyle, what homes actually cost in 2026, and why this pocket of St. Paul keeps drawing buyers back."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Why it ranks #1"
+    },
+    {
+     "t": 27,
+     "label": "Location advantage"
+    },
+    {
+     "t": 148,
+     "label": "College influence"
+    },
+    {
+     "t": 219,
+     "label": "Unique layout"
+    },
+    {
+     "t": 287,
+     "label": "Walkable lifestyle"
+    },
+    {
+     "t": 371,
+     "label": "Home prices"
+    },
+    {
+     "t": 430,
+     "label": "Accessibility"
+    },
+    {
+     "t": 490,
+     "label": "Final takeaway"
+    }
+   ],
+   "topic": "Suburbs & neighborhoods",
+   "order": 51,
+   "slug": "why-this-st-paul-neighborhood-has-become-so-irresistible"
+  },
+  {
+   "id": "9FsVXa9x3oc",
+   "kind": "long",
+   "title": "Minneapolis Housing Crisis: The Data No One's Showing You",
+   "published": null,
+   "seconds": 1439,
+   "views": 6500,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 52
+  },
+  {
+   "id": "su6ynNKReH4",
+   "kind": "long",
+   "title": "Why Minneapolis is the Most Underrated Economic Powerhouse in America",
+   "published": null,
+   "seconds": 918,
+   "views": 579,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 53
+  },
+  {
+   "id": "-eypwoixOBQ",
+   "kind": "long",
+   "title": "What’s New in Minneapolis for Summer 2026! (Events, Restaurants & Things To Do)",
+   "published": null,
+   "seconds": 1185,
+   "views": 2400,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 54
+  },
+  {
+   "id": "zlcnfSa3QS4",
+   "kind": "long",
+   "title": "A Realistic Driving Tour of Downtown St. Paul, MN | 2026 Update",
+   "published": null,
+   "seconds": 1724,
+   "views": 838,
+   "summary": [],
+   "chapters": [],
+   "topic": "Home tours",
+   "order": 55
+  },
+  {
+   "id": "JXbxSOZnccM",
+   "kind": "long",
+   "title": "The Honest Reality of Living in Bloomington, Minnesota",
+   "published": null,
+   "seconds": 938,
+   "views": 2000,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 56
+  },
+  {
+   "id": "4h-OYguG4Jk",
+   "kind": "long",
+   "title": "Avoid These 5 Minneapolis Suburbs If You Are From Out of State",
+   "published": null,
+   "seconds": 631,
+   "views": 28000,
+   "summary": [],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 57
+  },
+  {
+   "id": "Mij_7RppcWk",
+   "kind": "long",
+   "title": "Driving Tour Of Minneapolis' Fastest Growing Suburb: Lakeville",
+   "published": null,
+   "seconds": 2510,
+   "views": 877,
+   "summary": [],
+   "chapters": [],
+   "topic": "Home tours",
+   "order": 58
+  },
+  {
+   "id": "DW90Dkg8BFk",
+   "kind": "long",
+   "title": "5 Reasons Not To Retire in Minneapolis , MN",
+   "published": null,
+   "seconds": 1009,
+   "views": 5000,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 59
+  },
+  {
+   "id": "Oglz2WaAKOU",
+   "kind": "long",
+   "title": "Which is Minneapolis Best Area? North vs East vs South vs West",
+   "published": null,
+   "seconds": 1109,
+   "views": 2000,
+   "summary": [],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 60
+  },
+  {
+   "id": "RuAt-d4Y6CI",
+   "kind": "long",
+   "title": "$8 Billion in Data Centers Is About to Change THESE 3 Minneapolis Suburbs Forever",
+   "published": null,
+   "seconds": 844,
+   "views": 2000,
+   "summary": [],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 61
+  },
+  {
+   "id": "6SbVemhZkPs",
+   "kind": "long",
+   "title": "Why These Minneapolis Homes Aren’t Selling… But Others Are",
+   "published": null,
+   "seconds": 1294,
+   "views": 2000,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 62
+  },
+  {
+   "id": "QKwE62k8D4M",
+   "kind": "long",
+   "title": "Massive New Megaprojects Coming to Minneapolis in 2026",
+   "published": null,
+   "seconds": 1205,
+   "views": 29000,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 63
+  },
+  {
+   "id": "aPuiaslqZBs",
+   "kind": "long",
+   "title": "Top 7 Luxury Suburbs in the Twin Cities, Minnesota",
+   "published": null,
+   "seconds": 1167,
+   "views": 1100,
+   "summary": [],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 64
+  },
+  {
+   "id": "DvPYwfgiqV4",
+   "kind": "long",
+   "title": "Minneapolis' Eden Prairie Will NEVER Be The Same",
+   "published": null,
+   "seconds": 1212,
+   "views": 5200,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 65
+  },
+  {
+   "id": "KrbsHuJv2Dw",
+   "kind": "long",
+   "title": "Why Mall of America's Waterpark Will Change Minneapolis Forever",
+   "published": null,
+   "seconds": 1532,
+   "views": 18000,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 66
+  },
+  {
+   "id": "Qik71bsDvIw",
+   "kind": "long",
+   "title": "The Minneapolis Suburbs Nobody Talks About… But Should",
+   "published": null,
+   "seconds": 1023,
+   "views": 352,
+   "summary": [],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 67
+  },
+  {
+   "id": "g1zM1VfTYsM",
+   "kind": "long",
+   "title": "MASSIVE CHANGES Coming to Minneapolis in 2026",
+   "published": null,
+   "seconds": 1648,
+   "views": 384,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 68
+  },
+  {
+   "id": "g-wFtoX_3wo",
+   "kind": "long",
+   "title": "St. Paul vs. Minneapolis Which Is Better For You",
+   "published": null,
+   "seconds": 1141,
+   "views": 882,
+   "summary": [],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 69
+  },
+  {
+   "id": "oHfATw643vo",
+   "kind": "long",
+   "title": "These Minneapolis Suburbs Will Explode in 2026 (Get In Early)",
+   "published": null,
+   "seconds": 1263,
+   "views": 1500,
+   "summary": [],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 70
+  },
+  {
+   "id": "0Ug_INUjDMc",
+   "kind": "long",
+   "title": "Touring One of the Rarest Homes in Minneapolis' MOST PRESTIGIOUS Neigborhood",
+   "published": null,
+   "seconds": 418,
+   "views": 187,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 71
+  },
+  {
+   "id": "hRgnC06gtu4",
+   "kind": "long",
+   "title": "What's Suddenly Happening to Minneapolis Home Values",
+   "published": null,
+   "seconds": 818,
+   "views": 340,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 72
+  },
+  {
+   "id": "vSg7TyYObBw",
+   "kind": "long",
+   "title": "A Driving Tour of Minneapolis' Most Desirable Suburb: Edina Minnesota",
+   "published": null,
+   "seconds": 884,
+   "views": 2000,
+   "summary": [],
+   "chapters": [],
+   "topic": "Home tours",
+   "order": 73
+  },
+  {
+   "id": "5emknxQoIL0",
+   "kind": "long",
+   "title": "5 Reasons Why Minneapolis Will Thrive Over The Next 10 Years",
+   "published": null,
+   "seconds": 919,
+   "views": 431,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 74
+  },
+  {
+   "id": "jYYKjX7h9pQ",
+   "kind": "long",
+   "title": "Where the Old Money Choose To Live in Minneapolis, MN",
+   "published": null,
+   "seconds": 1027,
+   "views": 1200,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 75
+  },
+  {
+   "id": "g1XcB-DSxgc",
+   "kind": "long",
+   "title": "Minneapolis Housing Market Just Shifted",
+   "published": null,
+   "seconds": 888,
+   "views": 1100,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 76
+  },
+  {
+   "id": "ILVKFPZoa48",
+   "kind": "long",
+   "title": "I've Lived in Minneapolis All My Life... My Honest Thoughts",
+   "published": null,
+   "seconds": 1215,
+   "views": 13000,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 77
+  },
+  {
+   "id": "xFpKrVMSkeY",
+   "kind": "long",
+   "title": "Never Buy These Types of Homes in Minneapolis",
+   "published": null,
+   "seconds": 1436,
+   "views": 3300,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 78
+  },
+  {
+   "id": "F24a7woT_zg",
+   "kind": "long",
+   "title": "The Real Truth About Living in Minneapolis, Minnesota",
+   "published": null,
+   "seconds": 1151,
+   "views": 1600,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 79
+  },
+  {
+   "id": "JIRNw3aCf2E",
+   "kind": "long",
+   "title": "Ranking Minneapolis BEST & WORST Suburbs (Tier List)",
+   "published": null,
+   "seconds": 1200,
+   "views": 3900,
+   "summary": [],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 80
+  },
+  {
+   "id": "a5aJ711jGyo",
+   "kind": "long",
+   "title": "If I Could Live Anywhere in Minneapolis in 2026, I'd Move Here",
+   "published": null,
+   "seconds": 780,
+   "views": 725,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 81
+  },
+  {
+   "id": "Wvn1tntQA84",
+   "kind": "long",
+   "title": "Mistake People Make When Moving to Minneapolis",
+   "published": "2025-12-12T21:54:41Z",
+   "seconds": 928,
+   "views": 607,
+   "summary": [
+    "Discover the number one mistake people make when moving to Minneapolis Minnesota and how to avoid the biggest relocation regrets. Learn what newcomers overlook and how to choose the right neighborhood for your lifestyle."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "7 Mistakes People Make When Moving to Minneapolis (Don’t Do These)"
+    },
+    {
+     "t": 57,
+     "label": "Mistake #1: Winter Here Is No Joke (What You Actually Need)"
+    },
+    {
+     "t": 281,
+     "label": "The “Hidden Cost” of Moving Here: Taxes, Paychecks + What You Get"
+    },
+    {
+     "t": 724,
+     "label": "The Biggest Mistake: Picking the Wrong Suburb (Changes Everything)"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 82,
+   "slug": "mistake-people-make-when-moving-to-minneapolis"
+  },
+  {
+   "id": "48yM6SjTKHY",
+   "kind": "long",
+   "title": "A Realistic Tour of Downtown Minneapolis, MN | 2026 Update",
+   "published": "2025-12-05T22:00:04Z",
+   "seconds": 1163,
+   "views": 30002,
+   "summary": [],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "What Downtown Minneapolis Really Looks Like Today"
+    },
+    {
+     "t": 166,
+     "label": "The Lakes, Trails & Neighborhoods That Make Minneapolis Different"
+    },
+    {
+     "t": 420,
+     "label": "Iconic Downtown Spots: Skyways, Arts, Sports & Food Scene"
+    },
+    {
+     "t": 905,
+     "label": "Downtown Living vs Neighborhood Living (Prices + Who It’s For)"
+    }
+   ],
+   "topic": "Home tours",
+   "order": 83
+  },
+  {
+   "id": "yePHad_d-vw",
+   "kind": "long",
+   "title": "Minneapolis' Most Underrated Suburb in 2026 (Don't Tell Anyone)",
+   "published": "2025-11-28T22:01:07Z",
+   "seconds": 888,
+   "views": 3061,
+   "summary": [
+    "Take a full tour of Minneapolis’s most underrated suburb Lakeville and see why locals love its parks, schools, neighborhoods, and growing housing options — plus what makes it one of the best hidden gems in the Twin Cities."
+   ],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 84,
+   "slug": "minneapolis-most-underrated-suburb-in-2026-dont-tell-anyone"
+  },
+  {
+   "id": "ziB03wbfloQ",
+   "kind": "long",
+   "title": "Inside a 5 Bedroom Luxury Home in Inver Grove Heights, Minnesota",
+   "published": "2025-11-15T00:01:21Z",
+   "seconds": 501,
+   "views": 817,
+   "summary": [
+    "Tour a 5-bedroom luxury home in Inver Grove Heights, Minnesota, showcasing elegant design, modern features, and spacious living in a sought-after Twin Cities community."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Introduction"
+    },
+    {
+     "t": 40,
+     "label": "Entryway"
+    },
+    {
+     "t": 69,
+     "label": "Kitchen"
+    },
+    {
+     "t": 168,
+     "label": "Office"
+    },
+    {
+     "t": 230,
+     "label": "Owner Suite"
+    },
+    {
+     "t": 332,
+     "label": "Bedroom"
+    },
+    {
+     "t": 378,
+     "label": "Basement"
+    },
+    {
+     "t": 487,
+     "label": "Outro"
+    }
+   ],
+   "topic": "Home tours",
+   "order": 85,
+   "slug": "inside-a-5-bedroom-luxury-home-in-inver-grove-heights-minnesota"
+  },
+  {
+   "id": "jRFvNpnWfsE",
+   "kind": "long",
+   "title": "New Construction Home in Minnesota | Lake Elmo, MN",
+   "published": "2025-10-31T19:57:32Z",
+   "seconds": 256,
+   "views": 809,
+   "summary": [
+    "Take a full tour of this Lennar villa-style home in Royal Oak, Lake Elmo, MN (Twin Cities suburb just east of St. Paul).",
+    "Lake Elmo is one of the most requested areas for new construction in Minnesota because you get newer neighborhoods, trails, golf, and quick access to St. Paul and Minneapolis. A lot of relocating buyers compare Lake Elmo, Woodbury, Stillwater, and Hudson WI when deciding where to live in the Twin Cities."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Introduction"
+    },
+    {
+     "t": 25,
+     "label": "Kitchen"
+    },
+    {
+     "t": 66,
+     "label": "Living Room"
+    },
+    {
+     "t": 78,
+     "label": "Deck/Outside Area"
+    },
+    {
+     "t": 88,
+     "label": "Owner Suite"
+    },
+    {
+     "t": 119,
+     "label": "Garage"
+    },
+    {
+     "t": 136,
+     "label": "Dining Room"
+    },
+    {
+     "t": 147,
+     "label": "Flex Room"
+    },
+    {
+     "t": 158,
+     "label": "Bathroom"
+    },
+    {
+     "t": 169,
+     "label": "Basement"
+    },
+    {
+     "t": 229,
+     "label": "Outro"
+    }
+   ],
+   "topic": "Home tours",
+   "order": 86,
+   "slug": "new-construction-home-in-minnesota-lake-elmo-mn"
+  },
+  {
+   "id": "Z82N8Zd9Mhw",
+   "kind": "long",
+   "title": "6 Twin Cities Towns Locals LOVE (But Don’t Want You to Know About)",
+   "published": "2025-10-24T17:37:24Z",
+   "seconds": 752,
+   "views": 707,
+   "summary": [
+    "In this video, I’m revealing 6 underrated towns locals quietly love - so you can find your perfect fit in 2025. These aren’t the flashy ZIP codes, but they punch above their weight on lifestyle, value, and day-to-day ease. I’ll break down what life really looks like - commutes, walkability, housing, schools, lake life, and more - so you know where to focus (and why)."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Introduction"
+    },
+    {
+     "t": 38,
+     "label": "Northfield"
+    },
+    {
+     "t": 157,
+     "label": "Stillwater"
+    },
+    {
+     "t": 290,
+     "label": "New Prague"
+    },
+    {
+     "t": 386,
+     "label": "North Oaks"
+    },
+    {
+     "t": 484,
+     "label": "Mankato"
+    },
+    {
+     "t": 585,
+     "label": "Excelsior"
+    },
+    {
+     "t": 705,
+     "label": "Outro"
+    }
+   ],
+   "topic": "Suburbs & neighborhoods",
+   "order": 87,
+   "slug": "6-twin-cities-towns-locals-love-but-dont-want-you-to-know-about"
+  },
+  {
+   "id": "lgAmrYy5Bv0",
+   "kind": "long",
+   "title": "Iconic 1885 St. Paul Brownstone Is For Sale - You Have To See Inside!",
+   "published": "2025-10-15T16:57:32Z",
+   "seconds": 412,
+   "views": 679,
+   "summary": [
+    "Don’t miss this chance to own one of Cathedral Hill’s most iconic historic brownstones - beautifully restored and ready for its next owner. Welcome to 505 Holly Avenue, a one-of-a-kind 1885 brownstone for sale that blends timeless craftsmanship with modern design.",
+    "This four-level home offers over 3,000 square feet of living space with three bedrooms, three bathrooms, and a two-car garage in the heart of Cathedral Hill, St. Paul.",
+    "Property Highlights: Original exposed brick & curved walls Three wood-burning fireplaces Red oak & maple hardwood floors Private rooftop patio with skyline views Bright, open spaces filled with natural light",
+    "Step inside and experience a piece of St. Paul history - reimagined for modern living. Every inch of this home has been thoughtfully updated while preserving the character that makes Cathedral Hill so special.",
+    "This stunning St. Paul home is for sale now - call 952-900-3025 to schedule your private showing today!",
+    "Whether you’re relocating to Minnesota, searching for St. Paul homes for sale, or simply love historic brownstone architecture, this tour is a must-see."
+   ],
+   "chapters": [],
+   "topic": "Home tours",
+   "order": 88,
+   "slug": "iconic-1885-st-paul-brownstone-is-for-sale-you-have-to-see-inside"
+  },
+  {
+   "id": "j7pRPRYl288",
+   "kind": "long",
+   "title": "$1,000,000 New Construction Home in Minnesota (Lake Elmo Luxury Tour)",
+   "published": "2025-10-09T19:23:12Z",
+   "seconds": 458,
+   "views": 3264,
+   "summary": [
+    "Welcome to our full walkthrough of 1476 Palmer Drive N, Lake Elmo, MN - a newly built luxury home in the East Metro of the Twin Cities. Join me, Jason Huerkamp, as we explore over 5,200 ft² (3,200 ft² above grade) of high-end finishes, expansive living spaces, and a private lot backing to wetlands.",
+    "This new construction home sits in Lake Elmo’s desirable east-metro area, offering both proximity to the Twin Cities and a more private, natural setting. Homes in this neighborhood often list from the high $900s to over $1.3 million.",
+    "If you’re looking to buy or sell a new construction or luxury home in the Twin Cities metro, Washington County, Lake Elmo, Stillwater, or Woodbury - let the Huerkamp Home Group be your go-to real estate team. Contact us for private showings, builder relationships, or to explore other new builds in the area."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Introduction"
+    },
+    {
+     "t": 31,
+     "label": "Entryway, Office, & Dining Room"
+    },
+    {
+     "t": 88,
+     "label": "Kitchen & Living Room"
+    },
+    {
+     "t": 175,
+     "label": "Coat Closet, Bathroom, Pantry, Deck"
+    },
+    {
+     "t": 223,
+     "label": "Loft, Upstairs Bedrooms, Price Reveal"
+    },
+    {
+     "t": 260,
+     "label": "Laundry Room"
+    },
+    {
+     "t": 270,
+     "label": "Owner's Suite"
+    },
+    {
+     "t": 372,
+     "label": "Downstairs"
+    },
+    {
+     "t": 435,
+     "label": "Outro"
+    }
+   ],
+   "topic": "Home tours",
+   "order": 89,
+   "slug": "1-000-000-new-construction-home-in-minnesota-lake-elmo-luxury-tour"
+  },
+  {
+   "id": "c_Ioq05IIYI",
+   "kind": "long",
+   "title": "Best Real Estate Agent in Twin Cities?  (Ranked by Reviews & Results!)",
+   "published": "2025-10-02T19:59:21Z",
+   "seconds": 956,
+   "views": 242,
+   "summary": [
+    "Are you wondering who the best real estate agents in Minnesota really are? With over 21,000 licensed agents in the Twin Cities, it can feel overwhelming to figure out who you can actually trust with your biggest financial decision.",
+    "In this video, Jason Huerkamp with Living in Minneapolis breaks down the Top 5 Realtors and real estate teams in the Twin Cities, ranked by Google reviews, client results, and community reputation. Whether you’re buying your first home in Minneapolis, selling in St. Paul, or relocating to the suburbs, knowing who the top performers are will help you make a confident choice.",
+    "If you’re buying or selling in Minnesota, this video will give you the insight you need to choose the right Realtor and avoid costly mistakes."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Intro"
+    },
+    {
+     "t": 17,
+     "label": "Why it’s hard to choose an agent"
+    },
+    {
+     "t": 90,
+     "label": "What we looked at (reviews + sales)"
+    },
+    {
+     "t": 125,
+     "label": "The Top 5 Agents in MN"
+    },
+    {
+     "t": 343,
+     "label": "4 Red Flags to Watch Out For"
+    },
+    {
+     "t": 500,
+     "label": "Why teams are the future of real estate"
+    },
+    {
+     "t": 585,
+     "label": "Final thoughts + how to choose the right agent"
+    }
+   ],
+   "topic": "Suburbs & neighborhoods",
+   "order": 90,
+   "slug": "best-real-estate-agent-in-twin-cities-ranked-by-reviews-and-results"
+  },
+  {
+   "id": "uAabF9FwdKk",
+   "kind": "long",
+   "title": "I Ranked Twin Cities Neighborhoods… Here’s the TRUTH",
+   "published": "2025-09-30T20:21:47Z",
+   "seconds": 1062,
+   "views": 612,
+   "summary": [
+    "Which Twin Cities neighborhood is right for you in 2025? In this video, Jason with the Herkamp Home Group walks you through Minneapolis, St. Paul, and surrounding suburbs—ranking them from Good → Better → Best for lifestyle, price, amenities, and more."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Introduction"
+    },
+    {
+     "t": 46,
+     "label": "North Loop"
+    },
+    {
+     "t": 83,
+     "label": "Northeast"
+    },
+    {
+     "t": 115,
+     "label": "Uptown"
+    },
+    {
+     "t": 147,
+     "label": "Linden Hills"
+    },
+    {
+     "t": 200,
+     "label": "Cathedral/Summit Hill"
+    },
+    {
+     "t": 295,
+     "label": "Mac-Groveland"
+    },
+    {
+     "t": 364,
+     "label": "Highland Park"
+    },
+    {
+     "t": 416,
+     "label": "Edina"
+    },
+    {
+     "t": 541,
+     "label": "Saint Louis Park"
+    },
+    {
+     "t": 603,
+     "label": "Richfield"
+    },
+    {
+     "t": 726,
+     "label": "Maple Grove"
+    },
+    {
+     "t": 853,
+     "label": "Lakeville"
+    },
+    {
+     "t": 1045,
+     "label": "Outro"
+    }
+   ],
+   "topic": "Suburbs & neighborhoods",
+   "order": 91,
+   "slug": "i-ranked-twin-cities-neighborhoods-heres-the-truth"
+  },
+  {
+   "id": "-cTLbqI6roY",
+   "kind": "long",
+   "title": "Minnesota Land Fraud Alert: Protect Your Home from Deed & Title Theft",
+   "published": null,
+   "seconds": 1322,
+   "views": 149,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 92
+  },
+  {
+   "id": "oGyTm_FbQFY",
+   "kind": "long",
+   "title": "This $2.25M Lake House Will Blow You Away! | Prior Lake Minnesota",
+   "published": null,
+   "seconds": 543,
+   "views": 1500,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 93
+  },
+  {
+   "id": "VHF-DILv9EQ",
+   "kind": "long",
+   "title": "Home Insurance Savings Most People Miss",
+   "published": null,
+   "seconds": 1282,
+   "views": 49,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 94
+  },
+  {
+   "id": "wtUpssKVtEg",
+   "kind": "long",
+   "title": "House Hunting Headache? This Lakeville MN Home Solves It",
+   "published": null,
+   "seconds": 966,
+   "views": 283,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 95
+  },
+  {
+   "id": "MkVI8O7f4bw",
+   "kind": "long",
+   "title": "Never Buy a Home in Minnesota Until You Watch This (7 Costly Mistakes)",
+   "published": null,
+   "seconds": 542,
+   "views": 419,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 96
+  },
+  {
+   "id": "NnZOGLZswrQ",
+   "kind": "long",
+   "title": "This Massive Lakeville Villa Will Take Your Breath Away",
+   "published": null,
+   "seconds": 434,
+   "views": 186,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 97
+  },
+  {
+   "id": "hBN17lwwXdI",
+   "kind": "long",
+   "title": "Never Make These 7 Costly Home Renovation Mistakes",
+   "published": null,
+   "seconds": 344,
+   "views": 312,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 98
+  },
+  {
+   "id": "v4JFOZUDAVM",
+   "kind": "long",
+   "title": "Speed Tour! $600K New Construction Home in Lakeville",
+   "published": null,
+   "seconds": 93,
+   "views": 51,
+   "summary": [],
+   "chapters": [],
+   "topic": "Home tours",
+   "order": 99
+  },
+  {
+   "id": "Hpvv0x4MGbE",
+   "kind": "long",
+   "title": "This Lakeville Home Just Hit the Market: New Construction in Minnesota",
+   "published": null,
+   "seconds": 642,
+   "views": 970,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 100
+  },
+  {
+   "id": "WxNvR1I3YUY",
+   "kind": "long",
+   "title": "You Won't Believe What $600k Gets You in Lakeville",
+   "published": null,
+   "seconds": 363,
+   "views": 144,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 101
+  },
+  {
+   "id": "qWZbTfdJu8k",
+   "kind": "long",
+   "title": "Why Everyone Wants This $400K Apple Valley New Build",
+   "published": null,
+   "seconds": 350,
+   "views": 565,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 102
+  },
+  {
+   "id": "09nOTdKeliM",
+   "kind": "long",
+   "title": "$500K New Construction Home That Will Shock You - Elko New Market",
+   "published": null,
+   "seconds": 414,
+   "views": 121,
+   "summary": [],
+   "chapters": [],
+   "topic": "Home tours",
+   "order": 103
+  },
+  {
+   "id": "k2zWcQnzKZY",
+   "kind": "long",
+   "title": "The Perfect New Home Actually Exists in Prior Lake",
+   "published": null,
+   "seconds": 591,
+   "views": 136,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 104
+  },
+  {
+   "id": "TE-HRw9shpE",
+   "kind": "long",
+   "title": "New DR Horton Home Ends Buyer Frustration in Farmington MN",
+   "published": null,
+   "seconds": 819,
+   "views": 220,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 105
+  },
+  {
+   "id": "xvxwg7G3CoM",
+   "kind": "long",
+   "title": "Must-See Affordable Homes in Lakeville's Hottest Community",
+   "published": null,
+   "seconds": 209,
+   "views": 104,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 106
+  },
+  {
+   "id": "pR450mPbFkM",
+   "kind": "long",
+   "title": "Stunning Turn-Key Home Just Listed in Lakeville MN",
+   "published": null,
+   "seconds": 790,
+   "views": 208,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 107
+  },
+  {
+   "id": "rM1bJ8BaFw4",
+   "kind": "long",
+   "title": "Home Buyers Will Notice These Quick Property Upgrades",
+   "published": null,
+   "seconds": 588,
+   "views": 55,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 108
+  },
+  {
+   "id": "68bRI5DxWDw",
+   "kind": "long",
+   "title": "Your Dream Home in Farmington MN Costs Less Than You Think",
+   "published": null,
+   "seconds": 527,
+   "views": 342,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 109
+  },
+  {
+   "id": "gcjA_XEm7u4",
+   "kind": "long",
+   "title": "Modern Luxury in Shakopee’s Whispering Waters - New Construction MN",
+   "published": null,
+   "seconds": 657,
+   "views": 217,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 110
+  },
+  {
+   "id": "E-wGYKLlJxg",
+   "kind": "long",
+   "title": "Luxury Golf Community's Most Stunning New Build - Prior Lake MN",
+   "published": null,
+   "seconds": 1118,
+   "views": 786,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 111
+  },
+  {
+   "id": "4-xSrivTVdE",
+   "kind": "long",
+   "title": "What’s New in Woodbury MN? Lennar’s Westwind Model Home Tour",
+   "published": null,
+   "seconds": 460,
+   "views": 958,
+   "summary": [],
+   "chapters": [],
+   "topic": "Home tours",
+   "order": 112
+  },
+  {
+   "id": "PA5RikkFGhQ",
+   "kind": "long",
+   "title": "Fall in Love with Lakeville's Perfect New Home in Minnesota",
+   "published": null,
+   "seconds": 340,
+   "views": 200,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 113
+  },
+  {
+   "id": "I0urRYd0PYY",
+   "kind": "long",
+   "title": "Lakeville MN Twin Homes: The Secret Housing Alternative",
+   "published": null,
+   "seconds": 510,
+   "views": 235,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 114
+  },
+  {
+   "id": "QhcyOO8Bzxo",
+   "kind": "long",
+   "title": "What Every Seller MUST Know About Cash Offers In The Market",
+   "published": null,
+   "seconds": 1072,
+   "views": 1200,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 115
+  },
+  {
+   "id": "XqQFEYPAq-0",
+   "kind": "long",
+   "title": "South Metro's Most Affordable New Construction Homes in Minnesota",
+   "published": null,
+   "seconds": 537,
+   "views": 73,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 116
+  },
+  {
+   "id": "bwlF5yQtOzY",
+   "kind": "long",
+   "title": "Twin Cities Home Inspection SECRETS Revealed! Avoid Costly Mistakes",
+   "published": null,
+   "seconds": 4744,
+   "views": 105,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 117
+  },
+  {
+   "id": "zuddwkdJfg4",
+   "kind": "long",
+   "title": "NEW BUILD in Rosemount MN! Is This The One?",
+   "published": null,
+   "seconds": 501,
+   "views": 247,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 118
+  },
+  {
+   "id": "j4KiU5CHWJQ",
+   "kind": "long",
+   "title": "Master Your Credit Score Before Your Next Mortgage",
+   "published": null,
+   "seconds": 2194,
+   "views": 76,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 119
+  },
+  {
+   "id": "GQbZJjTV5i0",
+   "kind": "long",
+   "title": "Million-Dollar Home on 2.5 Acres Prior Lake MN!",
+   "published": null,
+   "seconds": 773,
+   "views": 356,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 120
+  },
+  {
+   "id": "KZUyETXqDQo",
+   "kind": "long",
+   "title": "Explore Highview Ridge in Lakeville MN – A Community You’ll Love",
+   "published": null,
+   "seconds": 624,
+   "views": 158,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 121
+  },
+  {
+   "id": "BCxFziR61Lk",
+   "kind": "long",
+   "title": "The Ultimate Garage (Lakeville MN)",
+   "published": null,
+   "seconds": 361,
+   "views": 415,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 122
+  },
+  {
+   "id": "XMHVKklCK5s",
+   "kind": "long",
+   "title": "Hidden Gem with Prior Lake MN Views!",
+   "published": null,
+   "seconds": 419,
+   "views": 131,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 123
+  },
+  {
+   "id": "x83iHeoove4",
+   "kind": "long",
+   "title": "Lakeville's Newest Community: New Construction Homes in Minnesota",
+   "published": null,
+   "seconds": 759,
+   "views": 365,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 124
+  },
+  {
+   "id": "b7nNWblr_Fo",
+   "kind": "long",
+   "title": "Modern Elegance: Prior Lake Home Tour",
+   "published": null,
+   "seconds": 483,
+   "views": 134,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 125
+  },
+  {
+   "id": "eV2vFcEeAkA",
+   "kind": "long",
+   "title": "20 Bedroom Home, Sleeps 80! (Spooner Lake Island Oasis)",
+   "published": null,
+   "seconds": 742,
+   "views": 3300,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 126
+  },
+  {
+   "id": "mcJD_XOBLUw",
+   "kind": "long",
+   "title": "Caramore Crossing: The Ideal Rosemount MN Neighborhood",
+   "published": null,
+   "seconds": 470,
+   "views": 189,
+   "summary": [],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 127
+  },
+  {
+   "id": "La2EuoL4aLM",
+   "kind": "long",
+   "title": "Exclusive Tour of Big Sky Estates in Savage MN",
+   "published": null,
+   "seconds": 945,
+   "views": 402,
+   "summary": [],
+   "chapters": [],
+   "topic": "Home tours",
+   "order": 128
+  },
+  {
+   "id": "dgZy9pn0yzM",
+   "kind": "long",
+   "title": "Step Inside Credit River's BEST NEW BUILDS by Cuddigan Homes!",
+   "published": null,
+   "seconds": 776,
+   "views": 701,
+   "summary": [],
+   "chapters": [],
+   "topic": "Home tours",
+   "order": 129
+  },
+  {
+   "id": "W31fuKwmvkg",
+   "kind": "long",
+   "title": "Experience LUXURY Living at Credit River Ranch Acreage Lots!",
+   "published": null,
+   "seconds": 1006,
+   "views": 876,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 130
+  },
+  {
+   "id": "9ks2cXNpGLY",
+   "kind": "long",
+   "title": "Chaska Minnesota's Hidden Gem for Home Buyers",
+   "published": null,
+   "seconds": 405,
+   "views": 244,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 131
+  },
+  {
+   "id": "aiSNKlZNrBk",
+   "kind": "long",
+   "title": "Is OAK CREEK the Hottest New Neighborhood in CHASKA?",
+   "published": null,
+   "seconds": 543,
+   "views": 79,
+   "summary": [],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 132
+  },
+  {
+   "id": "RjX8Eh2xzzw",
+   "kind": "long",
+   "title": "Bridle Creek in Jordan, MN: New Construction Community",
+   "published": null,
+   "seconds": 642,
+   "views": 218,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 133
+  },
+  {
+   "id": "eeA_z9LLNaM",
+   "kind": "long",
+   "title": "Highview Park in Shakopee MN: New Construction Twin Homes Community",
+   "published": null,
+   "seconds": 781,
+   "views": 274,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 134
+  },
+  {
+   "id": "SGBaGETZSR4",
+   "kind": "long",
+   "title": "$6 Million Dollar Clubhouse in this Lakeville MN Neighborhood!",
+   "published": null,
+   "seconds": 677,
+   "views": 287,
+   "summary": [],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 135
+  },
+  {
+   "id": "XiJNAy6gg-U",
+   "kind": "long",
+   "title": "Lakeshore Living: Minnesota & Wisconsin Lakefront Buying Guide",
+   "published": null,
+   "seconds": 867,
+   "views": 248,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 136
+  },
+  {
+   "id": "XsImChuYXQM",
+   "kind": "long",
+   "title": "HHG's Annual Party in The Park YouTube - 2023",
+   "published": null,
+   "seconds": 39,
+   "views": 60,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 137
+  },
+  {
+   "id": "xoLo1W0i8hQ",
+   "kind": "long",
+   "title": "Stunning Prior Lake Estate Perfect for Hosting",
+   "published": null,
+   "seconds": 203,
+   "views": 85,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 138
+  },
+  {
+   "id": "JAdoXVcH4tA",
+   "kind": "long",
+   "title": "Listing Tour - 13822 Grothe Circle, Apple Valley, MN",
+   "published": null,
+   "seconds": 149,
+   "views": 1400,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 139
+  },
+  {
+   "id": "Of76cdiHI-g",
+   "kind": "long",
+   "title": "Steps to Sell Your Home",
+   "published": null,
+   "seconds": 456,
+   "views": 58,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 140
+  },
+  {
+   "id": "n1S12HNUzlI",
+   "kind": "long",
+   "title": "2-1 Buydown - How does that help you?",
+   "published": null,
+   "seconds": 242,
+   "views": 1600,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 141
+  },
+  {
+   "id": "ogykiHrV1XM",
+   "kind": "long",
+   "title": "Steps in Buying a Home",
+   "published": null,
+   "seconds": 425,
+   "views": 486,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 142
+  },
+  {
+   "id": "V73dX5zpTs0",
+   "kind": "long",
+   "title": "Pros And Cons Of Selling In Winter | Living in Minneapolis Minnesota",
+   "published": null,
+   "seconds": 442,
+   "views": 150,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 143
+  },
+  {
+   "id": "o81K-rlxkgo",
+   "kind": "long",
+   "title": "What Does $600,000 Get You in Lakeville Minnesota?",
+   "published": null,
+   "seconds": 341,
+   "views": 2700,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 144
+  },
+  {
+   "id": "dWWXqi6dldA",
+   "kind": "long",
+   "title": "Living in Farmington Minnesota | Moving to Farmington Minnesota",
+   "published": null,
+   "seconds": 483,
+   "views": 1600,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 145
+  },
+  {
+   "id": "bTJm4oeK5sQ",
+   "kind": "long",
+   "title": "Living in Lakeville Minnesota | Moving to Lakeville Minnesota",
+   "published": null,
+   "seconds": 599,
+   "views": 877,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 146
+  },
+  {
+   "id": "aTPdtz2xs8k",
+   "kind": "long",
+   "title": "Living in Prior Lake Minnesota | Moving to Prior Lake Minnesota",
+   "published": null,
+   "seconds": 603,
+   "views": 888,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 147
+  },
+  {
+   "id": "i92hfJ9XEs0",
+   "kind": "long",
+   "title": "What Does $675,000 Get You in Lakeville Minnesota?",
+   "published": null,
+   "seconds": 284,
+   "views": 400,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 148
+  },
+  {
+   "id": "rinMamgT4eM",
+   "kind": "long",
+   "title": "What Does $460,000 Get You in Burnsville Minnesota? A Dream Home!",
+   "published": null,
+   "seconds": 470,
+   "views": 606,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 149
+  },
+  {
+   "id": "YagBnE0Kl2o",
+   "kind": "long",
+   "title": "Living in Burnsville Minnesota | Moving to Burnsville Minnesota",
+   "published": null,
+   "seconds": 511,
+   "views": 1400,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 150
+  },
+  {
+   "id": "9VmYSlo9Dac",
+   "kind": "long",
+   "title": "Living in Apple Valley Minnesota | Moving to Apple Valley Minnesota",
+   "published": null,
+   "seconds": 523,
+   "views": 1000,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 151
+  },
+  {
+   "id": "DM1jdamf1uE",
+   "kind": "long",
+   "title": "Don't Move to Minnesota | 10 Reasons Not to Live in Minnesota",
+   "published": "2022-10-07T15:30:02Z",
+   "seconds": 487,
+   "views": 1104,
+   "summary": [
+    "Interested in moving or living in Minnesota? Just like all places, there are a handful of things to be aware of before moving to Minnesota!",
+    "Jason Huerkamp of the Huerkamp Home Group goes through 10 reasons why you should not live or move to Minnesota. He goes through weather, wildlife, bugs, allergies and even the friendliness of people in Minnesota.",
+    "Please watch: \"(4) Pro and Cons of Selling in the Winter | Living in Minneapolis Minnesota \""
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Introduction"
+    },
+    {
+     "t": 63,
+     "label": "Weather"
+    },
+    {
+     "t": 148,
+     "label": "Bugs"
+    },
+    {
+     "t": 179,
+     "label": "Wildlife"
+    },
+    {
+     "t": 201,
+     "label": "Allergies"
+    },
+    {
+     "t": 228,
+     "label": "Traffic"
+    },
+    {
+     "t": 263,
+     "label": "Size of the Twin Cities"
+    },
+    {
+     "t": 296,
+     "label": "Construction"
+    },
+    {
+     "t": 330,
+     "label": "Minnesota Nice"
+    },
+    {
+     "t": 361,
+     "label": "Tornadoes/Hail"
+    },
+    {
+     "t": 399,
+     "label": "Tax Rates"
+    },
+    {
+     "t": 455,
+     "label": "Closing"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 152,
+   "slug": "dont-move-to-minnesota-10-reasons-not-to-live-in-minnesota"
+  },
+  {
+   "id": "TosKa4nHRFc",
+   "kind": "long",
+   "title": "Living in Eden Prairie Minnesota in 2022 | Moving to Eden Prairie Minnesota",
+   "published": "2022-10-06T19:00:12Z",
+   "seconds": 490,
+   "views": 1123,
+   "summary": [
+    "Interested in the city of Eden Prairie, Minnesota? Want to learn more about the city and everything it has to offer?",
+    "Jason Huerkamp of the Huerkamp Home Group goes through the details of Eden Prairie including general information, schools, food, parks and recreation and transportation. He'll provide all the insights to understand if Eden Prairie is the right fit for you!",
+    "Please watch: \"(4) Pro And Cons Of Selling In The Winter | Living in Minneapolis Minnesota \""
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Introduction"
+    },
+    {
+     "t": 80,
+     "label": "General Information"
+    },
+    {
+     "t": 123,
+     "label": "Food"
+    },
+    {
+     "t": 208,
+     "label": "Lakes"
+    },
+    {
+     "t": 274,
+     "label": "Parks and Recreation"
+    },
+    {
+     "t": 356,
+     "label": "Schools"
+    },
+    {
+     "t": 423,
+     "label": "Transportation"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 153,
+   "slug": "living-in-eden-prairie-minnesota-in-2022-moving-to-eden-prairie-minnesota"
+  },
+  {
+   "id": "e0ew1TJonBA",
+   "kind": "long",
+   "title": "Move to Minnesota | 10 Reasons to Live in Minneapolis Minnesota",
+   "published": "2022-10-04T19:44:33Z",
+   "seconds": 540,
+   "views": 3469,
+   "summary": [
+    "Jason Huerkamp of the Huerkamp Home Group discusses 10 reasons why you should live in Minneapolis, Minnesota. From outdoor activities to sporting events to breweries, he explores every aspect of Minnesota.",
+    "All stats, data, house pricing, and anything else mentioned is always subject to change and is provided merely as an example at the time of this recording* Please watch: \"(4) Pro And Cons Of Selling In The Winter | Living in Minneapolis Minnesota \""
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Introduction"
+    },
+    {
+     "t": 48,
+     "label": "Lakes"
+    },
+    {
+     "t": 96,
+     "label": "Mall of America"
+    },
+    {
+     "t": 134,
+     "label": "Summer Nights"
+    },
+    {
+     "t": 173,
+     "label": "Sports"
+    },
+    {
+     "t": 238,
+     "label": "Music Scene"
+    },
+    {
+     "t": 275,
+     "label": "Outdoor Activities"
+    },
+    {
+     "t": 345,
+     "label": "Schools"
+    },
+    {
+     "t": 397,
+     "label": "Breweries"
+    },
+    {
+     "t": 437,
+     "label": "State Fair"
+    },
+    {
+     "t": 487,
+     "label": "Affordable Living"
+    },
+    {
+     "t": 531,
+     "label": "Closing"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 154,
+   "slug": "move-to-minnesota-10-reasons-to-live-in-minneapolis-minnesota"
+  },
+  {
+   "id": "j-CAfVGBo1M",
+   "kind": "short",
+   "title": "Save Over $120 000 on Your New Home",
+   "published": "2026-10-23T22:30:11Z",
+   "seconds": 80,
+   "views": 146,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 0
+  },
+  {
+   "id": "YsieKugmhXs",
+   "kind": "short",
+   "title": "Is Rural Minnesota Really Dying? The Data Says Otherwise",
+   "published": "2026-10-22T22:41:50Z",
+   "seconds": 152,
+   "views": 447,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 1
+  },
+  {
+   "id": "Ju_gAUwFTdc",
+   "kind": "short",
+   "title": "Why Retirees Are Leaving Minnesota",
+   "published": "2026-10-21T23:02:50Z",
+   "seconds": 76,
+   "views": 1247,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 2
+  },
+  {
+   "id": "7ecTGA4XEI8",
+   "kind": "short",
+   "title": "Surprising Economy  Why People Are Moving To Minnesota",
+   "published": "2026-10-20T21:38:22Z",
+   "seconds": 70,
+   "views": 1030,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 3
+  },
+  {
+   "id": "9byfUIEtV9s",
+   "kind": "short",
+   "title": "The Truth About People Leaving Minnesota",
+   "published": "2026-10-19T21:41:44Z",
+   "seconds": 121,
+   "views": 1994,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 4
+  },
+  {
+   "id": "_RpztK1MMnU",
+   "kind": "short",
+   "title": "Why Minneapolis Homes Are Sitting on the Market",
+   "published": "2026-10-16T21:35:41Z",
+   "seconds": 99,
+   "views": 239,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 5
+  },
+  {
+   "id": "tLM32AYYCuk",
+   "kind": "short",
+   "title": "Minnesota home insurance costs are exploding",
+   "published": "2026-10-15T21:17:20Z",
+   "seconds": 58,
+   "views": 170,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 6
+  },
+  {
+   "id": "sTvNWwvi9LM",
+   "kind": "short",
+   "title": "Why Buyers Are Being Pickier Than Ever",
+   "published": "2026-10-15T00:51:01Z",
+   "seconds": 60,
+   "views": 184,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 7
+  },
+  {
+   "id": "YKljIexLB1o",
+   "kind": "short",
+   "title": "The Mortgage Rate Number Keeping Buyers Out of Your Home",
+   "published": "2026-10-13T20:59:07Z",
+   "seconds": 90,
+   "views": 78,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 8
+  },
+  {
+   "id": "kGAgrSkAlvk",
+   "kind": "short",
+   "title": "Why Minnesota Property Taxes Are Skyrocketing",
+   "published": "2026-10-13T15:03:05Z",
+   "seconds": 142,
+   "views": 712,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 9
+  },
+  {
+   "id": "EX6S4zWAqek",
+   "kind": "short",
+   "title": "Exploring Minnesota's Scenic North Shore",
+   "published": "2026-10-09T20:26:22Z",
+   "seconds": 63,
+   "views": 165,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 10
+  },
+  {
+   "id": "j4AQ3GAd7Cw",
+   "kind": "short",
+   "title": "Why Minneapolis Real Estate Defies National Trends",
+   "published": "2026-10-06T21:25:35Z",
+   "seconds": 82,
+   "views": 338,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 11
+  },
+  {
+   "id": "0bv-yO2x9xI",
+   "kind": "short",
+   "title": "Is Minnesota Housing Actually Affordable",
+   "published": "2026-10-02T22:03:54Z",
+   "seconds": 75,
+   "views": 216,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 12
+  },
+  {
+   "id": "URUE8XXTldE",
+   "kind": "short",
+   "title": "The Brutal Truth About Minnesota Income Taxes",
+   "published": "2026-10-02T01:17:51Z",
+   "seconds": 106,
+   "views": 135,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 13
+  },
+  {
+   "id": "01po2D6Bpw0",
+   "kind": "short",
+   "title": "The Hidden Dangers of 'As Is' Home Listings",
+   "published": "2026-09-29T01:51:40Z",
+   "seconds": 97,
+   "views": 1016,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 14
+  },
+  {
+   "id": "IdCmTFj1wfQ",
+   "kind": "short",
+   "title": "Big companies headquartered in Minnesota",
+   "published": "2026-09-24T18:55:55Z",
+   "seconds": 62,
+   "views": 272,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 15
+  },
+  {
+   "id": "K0_AWidaYg0",
+   "kind": "short",
+   "title": "What 'Minnesota Nice' Actually Means",
+   "published": "2026-09-22T21:44:16Z",
+   "seconds": 61,
+   "views": 1277,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 16
+  },
+  {
+   "id": "iDS87515Thc",
+   "kind": "short",
+   "title": "The things to look for when buying from a builder",
+   "published": "2026-09-21T21:13:58Z",
+   "seconds": 168,
+   "views": 103,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 17
+  },
+  {
+   "id": "yfqcbiQTllM",
+   "kind": "short",
+   "title": "Why a $365k New Home Could Be Cheaper Than a $300k Old One",
+   "published": "2026-09-16T21:20:47Z",
+   "seconds": 53,
+   "views": 1230,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 18
+  },
+  {
+   "id": "6JF8VwpJNrw",
+   "kind": "short",
+   "title": "Why The 7 Year High Matters  The Grocery Store Analogy",
+   "published": "2026-09-15T22:16:30Z",
+   "seconds": 109,
+   "views": 315,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 19
+  },
+  {
+   "id": "Vqn4A-k3CrY",
+   "kind": "short",
+   "title": "Why Your Home Isn't Selling: The Strategy",
+   "published": "2026-09-14T21:22:55Z",
+   "seconds": 89,
+   "views": 157,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 20
+  },
+  {
+   "id": "96WnSatCIFE",
+   "kind": "short",
+   "title": "Minnesota's New HOA Reform Act: Fines Are Now Capped!",
+   "published": "2026-09-10T21:07:52Z",
+   "seconds": 93,
+   "views": 163,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 21
+  },
+  {
+   "id": "AyDLNO0i-DY",
+   "kind": "short",
+   "title": "Why 3% Mortgage Rates are Freezing the Housing Market",
+   "published": "2026-09-09T16:12:02Z",
+   "seconds": 80,
+   "views": 196,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 22
+  },
+  {
+   "id": "zxT0QYEHMpc",
+   "kind": "short",
+   "title": "Is the Minneapolis Housing Market Actually Crashing",
+   "published": "2026-09-08T20:23:12Z",
+   "seconds": 83,
+   "views": 421,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 23
+  },
+  {
+   "id": "MU7nquDm47E",
+   "kind": "short",
+   "title": "MSP Airport's $2 Billion Expansion",
+   "published": "2026-09-04T20:42:12Z",
+   "seconds": 78,
+   "views": 406,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 24
+  },
+  {
+   "id": "ye8AHzZRkEQ",
+   "kind": "short",
+   "title": "Can One Company Actually Change a Housing Market",
+   "published": "2026-09-03T21:01:17Z",
+   "seconds": 104,
+   "views": 1301,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 25
+  },
+  {
+   "id": "SOkp9Kw5OwU",
+   "kind": "short",
+   "title": "Meta's Secret $800M Project in Minnesota",
+   "published": "2026-09-02T21:03:04Z",
+   "seconds": 86,
+   "views": 1592,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 26
+  },
+  {
+   "id": "YWO7JVQMFpI",
+   "kind": "short",
+   "title": "Linden Hills Is this the best Minneapolis spot",
+   "published": "2026-09-01T16:29:52Z",
+   "seconds": 96,
+   "views": 122,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 27
+  },
+  {
+   "id": "8Wj6wDFl4nk",
+   "kind": "short",
+   "title": "Buying a house in Edina What $750k gets you",
+   "published": "2026-09-01T01:44:21Z",
+   "seconds": 71,
+   "views": 263,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 28
+  },
+  {
+   "id": "yNFqgHy03uo",
+   "kind": "short",
+   "title": "Why you feel trapped in your current mortgage rate",
+   "published": "2026-08-28T00:52:59Z",
+   "seconds": 162,
+   "views": 1160,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 29
+  },
+  {
+   "id": "0HnT7WqRs88",
+   "kind": "short",
+   "title": "Why the Housing Standoff Finally Broke",
+   "published": "2026-08-26T23:40:16Z",
+   "seconds": 102,
+   "views": 158,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 30
+  },
+  {
+   "id": "J9pF4XylUCk",
+   "kind": "short",
+   "title": "Is Big Money Good or Bad for Housing?",
+   "published": "2026-08-25T21:16:40Z",
+   "seconds": 41,
+   "views": 1053,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 31
+  },
+  {
+   "id": "sbzA1Um1Qek",
+   "kind": "short",
+   "title": "Should you accept that cash offer on your house?",
+   "published": "2026-08-24T21:56:44Z",
+   "seconds": 96,
+   "views": 148,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 32
+  },
+  {
+   "id": "2U7XQPKhvVA",
+   "kind": "short",
+   "title": "Do Data Centers Tank Your Home's Value",
+   "published": "2026-08-20T01:38:34Z",
+   "seconds": 101,
+   "views": 149,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 33
+  },
+  {
+   "id": "LbWw1DCYNns",
+   "kind": "short",
+   "title": "The biggest financial trade off in retirement housing",
+   "published": "2026-08-18T20:51:54Z",
+   "seconds": 76,
+   "views": 39,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 34
+  },
+  {
+   "id": "6Ag_UjGAD9w",
+   "kind": "short",
+   "title": "Retire Like You're on a Cruise Ship in Minnesota",
+   "published": "2026-08-17T20:52:23Z",
+   "seconds": 79,
+   "views": 347,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 35
+  },
+  {
+   "id": "jgNwLVhk6Ls",
+   "kind": "short",
+   "title": "Don't Skip This Step Before Buying A Home",
+   "published": "2026-08-14T21:45:17Z",
+   "seconds": 77,
+   "views": 113,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 36
+  },
+  {
+   "id": "4dA2s-Buehg",
+   "kind": "short",
+   "title": "How to get the best vacation commute to MSP",
+   "published": "2026-08-13T20:47:36Z",
+   "seconds": 65,
+   "views": 135,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 37
+  },
+  {
+   "id": "oF79Q_Wct3k",
+   "kind": "short",
+   "title": "Will Taxpayers Foot the Bill for Expo 2031",
+   "published": "2026-08-11T16:52:29Z",
+   "seconds": 78,
+   "views": 41,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 38
+  },
+  {
+   "id": "SGR2OIVsRGc",
+   "kind": "short",
+   "title": "Inside the $1B+ Minnesota World's Fair",
+   "published": "2026-08-10T21:17:23Z",
+   "seconds": 87,
+   "views": 805,
+   "summary": [],
+   "chapters": [],
+   "topic": "Home tours",
+   "order": 39
+  },
+  {
+   "id": "ALJSPX-8Ln8",
+   "kind": "short",
+   "title": "A World's Fair is Coming to Minnesota  Expo 2031",
+   "published": "2026-08-10T21:01:10Z",
+   "seconds": 70,
+   "views": 1125,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 40
+  },
+  {
+   "id": "RMAq-rZOEIg",
+   "kind": "short",
+   "title": "The Most Important Number in Real Estate",
+   "published": "2026-08-07T19:14:28Z",
+   "seconds": 46,
+   "views": 189,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 41
+  },
+  {
+   "id": "SDx858yl60A",
+   "kind": "short",
+   "title": "Why Californians are moving to the cold of Minnesota",
+   "published": "2026-08-05T23:51:43Z",
+   "seconds": 54,
+   "views": 1006,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 42
+  },
+  {
+   "id": "vMBnjzs1WA0",
+   "kind": "short",
+   "title": "Why Californians are Flocking to Minneapolis",
+   "published": "2026-08-04T19:14:10Z",
+   "seconds": 96,
+   "views": 982,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 43
+  },
+  {
+   "id": "rhEHV87Hy8U",
+   "kind": "short",
+   "title": "Minnesota Has More Shoreline Than California",
+   "published": "2026-08-03T20:40:54Z",
+   "seconds": 32,
+   "views": 695,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 44
+  },
+  {
+   "id": "bD12AcMW2rc",
+   "kind": "short",
+   "title": "Why Lakeville put a hold on new home builds",
+   "published": "2026-07-30T02:22:35Z",
+   "seconds": 60,
+   "views": 1195,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 45
+  },
+  {
+   "id": "QvdpkmIB49s",
+   "kind": "short",
+   "title": "The shocking age of first time homebuyers",
+   "published": "2026-07-28T21:41:15Z",
+   "seconds": 43,
+   "views": 620,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 46
+  },
+  {
+   "id": "3e3uerE1eb4",
+   "kind": "short",
+   "title": "Why Minneapolis Home Prices Hit Records While the Market is Frozen",
+   "published": "2026-07-28T14:11:57Z",
+   "seconds": 96,
+   "views": 545,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 47
+  },
+  {
+   "id": "RD7-9O_mDBY",
+   "kind": "short",
+   "title": "The hidden dangers of buying older homes",
+   "published": "2026-07-24T18:22:55Z",
+   "seconds": 88,
+   "views": 109,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 48
+  },
+  {
+   "id": "yNgna-buYHQ",
+   "kind": "short",
+   "title": "The Hidden Perk of Buying New Construction in Minnesota",
+   "published": "2026-07-23T20:17:50Z",
+   "seconds": 36,
+   "views": 13,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 49
+  },
+  {
+   "id": "dhyWlFN3TXg",
+   "kind": "short",
+   "title": "Why Minnesota Homes Are Built Differently",
+   "published": "2026-07-23T17:04:07Z",
+   "seconds": 70,
+   "views": 137,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 50
+  },
+  {
+   "id": "gdt2rIdD__A",
+   "kind": "short",
+   "title": "The hidden costs of letting your home sit on the market",
+   "published": "2026-07-23T16:11:38Z",
+   "seconds": 44,
+   "views": 44,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 51
+  },
+  {
+   "id": "qx7N6YtdN48",
+   "kind": "short",
+   "title": "The magic that happens when you price your home right",
+   "published": "2026-07-23T00:30:36Z",
+   "seconds": 33,
+   "views": 22,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 52
+  },
+  {
+   "id": "OsXQz3PWb88",
+   "kind": "short",
+   "title": "Why Your Home's First 7 Days On The Market Are Everything1",
+   "published": "2026-07-21T20:04:46Z",
+   "seconds": 34,
+   "views": 14,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 53
+  },
+  {
+   "id": "4z1pGftgkXg",
+   "kind": "short",
+   "title": "Stop Trusting Zestimates  They Are Not Real",
+   "published": "2026-07-20T20:13:42Z",
+   "seconds": 84,
+   "views": 57,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 54
+  },
+  {
+   "id": "qDsWGFxJJH8",
+   "kind": "short",
+   "title": "Buyers know your house price before they even visit",
+   "published": "2026-07-20T17:01:58Z",
+   "seconds": 99,
+   "views": 28,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 55
+  },
+  {
+   "id": "SN34Hobf-oM",
+   "kind": "short",
+   "title": "Why Corcoran is the best early investment in the Twin Cities",
+   "published": "2026-07-17T19:35:49Z",
+   "seconds": 63,
+   "views": 39,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 56
+  },
+  {
+   "id": "gjIaBWhODC0",
+   "kind": "short",
+   "title": "Why Corcoran is Minneapolis' Next Big Suburb",
+   "published": "2026-07-16T22:23:52Z",
+   "seconds": 82,
+   "views": 46,
+   "summary": [],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 57
+  },
+  {
+   "id": "89UzSTAZrPI",
+   "kind": "short",
+   "title": "Why the window is closing on this growing Minnesota suburb",
+   "published": "2026-07-16T19:16:25Z",
+   "seconds": 52,
+   "views": 10,
+   "summary": [],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 58
+  },
+  {
+   "id": "wxk6UlIvtVw",
+   "kind": "short",
+   "title": "What's Actually Being Built In North Minneapolis",
+   "published": "2026-07-14T20:01:23Z",
+   "seconds": 45,
+   "views": 38,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 59
+  },
+  {
+   "id": "W1BY383GKl4",
+   "kind": "short",
+   "title": "A Huge New Music Venue for Minneapolis",
+   "published": "2026-07-14T15:15:22Z",
+   "seconds": 56,
+   "views": 45,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 60
+  },
+  {
+   "id": "1Y4yVfjUr9o",
+   "kind": "short",
+   "title": "Is North Minneapolis the Next North Loop?",
+   "published": "2026-07-13T20:07:03Z",
+   "seconds": 42,
+   "views": 145,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 61
+  },
+  {
+   "id": "puKhqRLd61I",
+   "kind": "short",
+   "title": "Dreaming of living in Stillwater?",
+   "published": "2026-07-13T16:12:21Z",
+   "seconds": 43,
+   "views": 57,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 62
+  },
+  {
+   "id": "N05h55SHeYQ",
+   "kind": "short",
+   "title": "Why Shakopee is blowing up right now",
+   "published": "2026-07-10T16:10:43Z",
+   "seconds": 48,
+   "views": 22,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 63
+  },
+  {
+   "id": "gB9vu6o7dRM",
+   "kind": "short",
+   "title": "Living in Edina, Minnesota!",
+   "published": "2026-07-10T01:27:06Z",
+   "seconds": 46,
+   "views": 55,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 64
+  },
+  {
+   "id": "uRgFxlSyz2k",
+   "kind": "short",
+   "title": "City Core Buyers Have Leverage!",
+   "published": "2026-07-09T19:09:50Z",
+   "seconds": 75,
+   "views": 23,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 65
+  },
+  {
+   "id": "XRRZpQutSeE",
+   "kind": "short",
+   "title": "The Hidden Cost Killing the Minneapolis Condo Market",
+   "published": "2026-07-08T17:19:32Z",
+   "seconds": 57,
+   "views": 33,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 66
+  },
+  {
+   "id": "QQ_rxjbLuUM",
+   "kind": "short",
+   "title": "Thinking about moving to Blaine?",
+   "published": "2026-07-07T19:52:09Z",
+   "seconds": 53,
+   "views": 52,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 67
+  },
+  {
+   "id": "KmYunolTw5I",
+   "kind": "short",
+   "title": "Why Suburban Commuters Won't Use the Light Rail",
+   "published": "2026-07-06T19:38:59Z",
+   "seconds": 46,
+   "views": 119,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 68
+  },
+  {
+   "id": "l0BoX4e0PUw",
+   "kind": "short",
+   "title": "Why developers are betting $3B on this train line",
+   "published": "2026-07-04T00:53:44Z",
+   "seconds": 61,
+   "views": 26,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 69
+  },
+  {
+   "id": "-Y-TVPfCSww",
+   "kind": "short",
+   "title": "The Surprising Truth About Minneapolis Suburbs",
+   "published": "2026-07-02T17:59:31Z",
+   "seconds": 90,
+   "views": 58,
+   "summary": [],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 70
+  },
+  {
+   "id": "KOHzl1qFdas",
+   "kind": "short",
+   "title": "Minneapolis Spent $2.8 Billion on a 14.5 Mile Train",
+   "published": "2026-07-01T17:24:04Z",
+   "seconds": 51,
+   "views": 166,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 71
+  },
+  {
+   "id": "QGV3tXj94D0",
+   "kind": "short",
+   "title": "Why You Need to Get Pre-Approved Now",
+   "published": "2026-06-30T15:15:45Z",
+   "seconds": 39,
+   "views": 142,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 72
+  },
+  {
+   "id": "zO8XMFS6VMU",
+   "kind": "short",
+   "title": "Why 81,000 New Buyers are About to Flood the Minneapolis Market",
+   "published": "2026-06-29T20:58:26Z",
+   "seconds": 45,
+   "views": 1356,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 73
+  },
+  {
+   "id": "3sO4tHxSH8k",
+   "kind": "short",
+   "title": "Why water is a lifestyle in Minneapolis",
+   "published": "2026-06-26T17:58:06Z",
+   "seconds": 39,
+   "views": 821,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 74
+  },
+  {
+   "id": "IKYXw0Twcv8",
+   "kind": "short",
+   "title": "Why Plymouth & Maple Grove are top tier places to live",
+   "published": "2026-06-25T15:53:42Z",
+   "seconds": 34,
+   "views": 802,
+   "summary": [],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 75
+  },
+  {
+   "id": "IgNw_vQQOlQ",
+   "kind": "short",
+   "title": "Moving to Minnesota  You Need These 3 Home Features!",
+   "published": "2026-06-24T18:27:55Z",
+   "seconds": 60,
+   "views": 618,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 76
+  },
+  {
+   "id": "DVsiAnqS4Mk",
+   "kind": "short",
+   "title": "How a $300k Home Gained $270k in 10 Years",
+   "published": "2026-06-23T19:12:18Z",
+   "seconds": 35,
+   "views": 1211,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 77
+  },
+  {
+   "id": "Cv8CHngxeEE",
+   "kind": "short",
+   "title": "The Minneapolis Suburb for Home Appreciation Revealed",
+   "published": "2026-06-22T19:40:16Z",
+   "seconds": 49,
+   "views": 866,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 78
+  },
+  {
+   "id": "g2Iyc9OVhdk",
+   "kind": "short",
+   "title": "The Smartest Real Estate Move in the Twin Cities Right Now",
+   "published": "2026-06-19T14:54:01Z",
+   "seconds": 64,
+   "views": 735,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 79
+  },
+  {
+   "id": "qc-LyqMeHMQ",
+   "kind": "short",
+   "title": "St  Paul’s Award Winning Eats You Must Try",
+   "published": "2026-06-18T18:36:14Z",
+   "seconds": 87,
+   "views": 1308,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 80
+  },
+  {
+   "id": "RnFCQQvyyiM",
+   "kind": "short",
+   "title": "Will Your House Still Be Valuable in 5 Years?",
+   "published": "2026-06-17T19:15:24Z",
+   "seconds": 61,
+   "views": 926,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 81
+  },
+  {
+   "id": "V4P40vZ1ik8",
+   "kind": "short",
+   "title": "The Math Behind Buying a House Together",
+   "published": "2026-06-16T19:28:05Z",
+   "seconds": 65,
+   "views": 1533,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 82
+  },
+  {
+   "id": "o9dPx4lhr74",
+   "kind": "short",
+   "title": "St  Paul's hidden outdoor gem",
+   "published": "2026-06-15T20:35:31Z",
+   "seconds": 72,
+   "views": 701,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 83
+  },
+  {
+   "id": "yjZP3uLiaOE",
+   "kind": "short",
+   "title": "The 2028 Deadline - Why act now?",
+   "published": "2026-06-11T20:22:54Z",
+   "seconds": 68,
+   "views": 672,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 84
+  },
+  {
+   "id": "9ZkCTZHrNRc",
+   "kind": "short",
+   "title": "The 'Scheels Effect' explained",
+   "published": "2026-06-10T18:11:37Z",
+   "seconds": 66,
+   "views": 1287,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 85
+  },
+  {
+   "id": "MrxWAIuDY4c",
+   "kind": "short",
+   "title": "The Brutal Truth About the Commute",
+   "published": "2026-06-09T20:45:34Z",
+   "seconds": 68,
+   "views": 1359,
+   "summary": [
+    "Thinking about making the move to the east side of the Twin Cities? You might want to take a closer look at what that daily commute to Minneapolis really looks like before you pack your bags."
+   ],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 86
+  },
+  {
+   "id": "YliqZENvCqM",
+   "kind": "short",
+   "title": "Why Stillwater is the Birthplace of Minnesota?",
+   "published": "2026-06-08T19:45:02Z",
+   "seconds": 64,
+   "views": 1186,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 87
+  },
+  {
+   "id": "PYtv4rlDrZM",
+   "kind": "short",
+   "title": "Minneapolis Downtown Collapse",
+   "published": "2026-06-05T15:06:24Z",
+   "seconds": 58,
+   "views": 723,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 88
+  },
+  {
+   "id": "71zsiXeXl60",
+   "kind": "short",
+   "title": "Minneapolis Michelin Rated Art, Music & Mall of America!",
+   "published": "2026-06-04T20:37:43Z",
+   "seconds": 117,
+   "views": 748,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 89
+  },
+  {
+   "id": "LxgWM0GV9bk",
+   "kind": "short",
+   "title": "Minneapolis Lakes  Marketing Hype or Real Recreation Value?",
+   "published": "2026-06-03T14:45:52Z",
+   "seconds": 64,
+   "views": 769,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 90
+  },
+  {
+   "id": "7Jpov6D1lpM",
+   "kind": "short",
+   "title": "Amenities in Shakopee, MN",
+   "published": "2026-06-01T22:00:31Z",
+   "seconds": 168,
+   "views": 528,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 91
+  },
+  {
+   "id": "cp6dZsldcQE",
+   "kind": "short",
+   "title": "Minneapolis Growth Illusion: Why Suburbs Explode, City Declines",
+   "published": "2026-05-29T15:09:43Z",
+   "seconds": 119,
+   "views": 815,
+   "summary": [],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 92
+  },
+  {
+   "id": "tFfxd_6hK5A",
+   "kind": "short",
+   "title": "Exploding Suburbs  The Counties Nobody Talks About!",
+   "published": "2026-05-28T18:53:03Z",
+   "seconds": 100,
+   "views": 869,
+   "summary": [],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 93
+  },
+  {
+   "id": "DLcDBCLC5pA",
+   "kind": "short",
+   "title": "6 Must Visit Small Towns Near the City for Family",
+   "published": "2026-05-27T18:31:53Z",
+   "seconds": 17,
+   "views": 1631,
+   "summary": [],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 94
+  },
+  {
+   "id": "0mgsf_lDqTI",
+   "kind": "short",
+   "title": "Northfield Cows, Colleges, Contentment & Jesse James Robbery!",
+   "published": "2026-05-22T22:08:41Z",
+   "seconds": 88,
+   "views": 1049,
+   "summary": [
+    "Ever wonder what a Saturday in Northfield, MN looks like? From cows and colleges to the famous Jesse James bank raid, this town has more personality than you'd expect. 🤠🐄",
+    "Thinking about living in or around Northfield? Here's a quick local look at the history, charm, and lifestyle that make it unique."
+   ],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 95
+  },
+  {
+   "id": "nr08IZEkvA4",
+   "kind": "short",
+   "title": "How Shakopee MN Went From Overlooked to One of the Hottest Suburbs",
+   "published": "2026-05-19T23:00:44Z",
+   "seconds": 61,
+   "views": 657,
+   "summary": [
+    "5 years ago nobody was talking about Shakopee.",
+    "Affordable land brought builders in. Builders brought people. People brought restaurants, hotels, and retail. The population has more than doubled since 2000 — growing 123% to nearly 50,000 people today.",
+    "Scott County, where Shakopee sits, has been one of the fastest growing counties in Minnesota for decades. And it's not slowing down.",
+    "This is the perfect example of how fast a suburb can flip. Now it's one of the most in-demand communities in the entire Twin Cities metro."
+   ],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 96
+  },
+  {
+   "id": "A1dU7kMog8g",
+   "kind": "short",
+   "title": "Mystic Lake Amphitheatre Twin Cities' NEW 19,000 Seat Venue!",
+   "published": null,
+   "seconds": null,
+   "views": 1100,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 97
+  },
+  {
+   "id": "qMx9zng5gK8",
+   "kind": "short",
+   "title": "St. Paul Has the Longest Victorian Street in All of America",
+   "published": null,
+   "seconds": null,
+   "views": 559,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 98
+  },
+  {
+   "id": "BsuA755j_y4",
+   "kind": "short",
+   "title": "The Minnesota State Fair's Most Iconic Building Is Getting a $35M Makeover",
+   "published": null,
+   "seconds": null,
+   "views": 481,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 99
+  },
+  {
+   "id": "trONtKIlMYY",
+   "kind": "short",
+   "title": "Bloomington MN: The Most Convenient Suburb in the Twin Cities?",
+   "published": null,
+   "seconds": null,
+   "views": 644,
+   "summary": [],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 100
+  },
+  {
+   "id": "DvoEG64iFqA",
+   "kind": "short",
+   "title": "Minnesota Has More Shoreline Than California & Hawaii Combined",
+   "published": null,
+   "seconds": null,
+   "views": 621,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 101
+  },
+  {
+   "id": "gY-RkXiFNRM",
+   "kind": "short",
+   "title": "Why People Are Suddenly Moving to Minnesota Again",
+   "published": null,
+   "seconds": null,
+   "views": 1100,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 102
+  },
+  {
+   "id": "GMuc7hQ-30k",
+   "kind": "short",
+   "title": "Mill City Farmers Market Is the Best Weekend Spot in Minneapolis",
+   "published": null,
+   "seconds": null,
+   "views": 852,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 103
+  },
+  {
+   "id": "pBNGN7BmuFk",
+   "kind": "short",
+   "title": "Interlachen: The Edina Club $60K and Connections Can't Guarantee",
+   "published": null,
+   "seconds": null,
+   "views": 683,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 104
+  },
+  {
+   "id": "i8Fi4ZG4d7s",
+   "kind": "short",
+   "title": "This Minnesota Home Cost $90M to Build — It's Listed at $50M",
+   "published": null,
+   "seconds": null,
+   "views": 568,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 105
+  },
+  {
+   "id": "1AaZNpAYiAI",
+   "kind": "short",
+   "title": "Most Expensive Minnesota Home Listed: $50M!",
+   "published": null,
+   "seconds": null,
+   "views": 581,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 106
+  },
+  {
+   "id": "_ikvvNI-Ido",
+   "kind": "short",
+   "title": "World No. 1 Golfer Scheffler Is Coming to Blaine, MN This July",
+   "published": null,
+   "seconds": null,
+   "views": 1200,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 107
+  },
+  {
+   "id": "6Z1PYuRrFZo",
+   "kind": "short",
+   "title": "This New Bakery in Minnesota Has a Secret at Night",
+   "published": null,
+   "seconds": null,
+   "views": 1000,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 108
+  },
+  {
+   "id": "pFoGncsl4CQ",
+   "kind": "short",
+   "title": "Still Renting in Your 40s? Here's What's Really Happening",
+   "published": null,
+   "seconds": null,
+   "views": 512,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 109
+  },
+  {
+   "id": "jmTB3j3M0Dc",
+   "kind": "short",
+   "title": "St. Paul's Best Neighborhood Isn't Highland Park — It's This",
+   "published": null,
+   "seconds": null,
+   "views": 863,
+   "summary": [],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 110
+  },
+  {
+   "id": "Qp4UcLtPWC0",
+   "kind": "short",
+   "title": "The Average First-Time Homebuyer's Age Will Shock You",
+   "published": null,
+   "seconds": null,
+   "views": 896,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 111
+  },
+  {
+   "id": "CRyhkHDoPyE",
+   "kind": "short",
+   "title": "Skims Just Opened Its First Minnesota Store",
+   "published": null,
+   "seconds": null,
+   "views": 886,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 112
+  },
+  {
+   "id": "aTXFvcs1XnU",
+   "kind": "short",
+   "title": "Twin Cities home values keep climbing — here's the foundation",
+   "published": null,
+   "seconds": null,
+   "views": 707,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 113
+  },
+  {
+   "id": "bxOHr2v2vlI",
+   "kind": "short",
+   "title": "Nobody Calls Minneapolis an Economic Powerhouse. They Should.",
+   "published": null,
+   "seconds": null,
+   "views": 808,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 114
+  },
+  {
+   "id": "ibgESFmAAAk",
+   "kind": "short",
+   "title": "Wait—A Pickleball Bar AND 16 Restaurants in Minneapolis?",
+   "published": null,
+   "seconds": null,
+   "views": 626,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 115
+  },
+  {
+   "id": "QwWHFXwIyYs",
+   "kind": "short",
+   "title": "This Used to Be a Ford Plant — Now It's $3M Homes 🤯",
+   "published": null,
+   "seconds": null,
+   "views": 557,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 116
+  },
+  {
+   "id": "SRYi1QAzPb0",
+   "kind": "short",
+   "title": "St. Paul Almost Had the Worst City Name in America",
+   "published": null,
+   "seconds": null,
+   "views": 504,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 117
+  },
+  {
+   "id": "tL1oUSzivYM",
+   "kind": "short",
+   "title": "The Ranked Neighborhood in Minnesota Is in St. Paul",
+   "published": null,
+   "seconds": null,
+   "views": 1300,
+   "summary": [],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 118
+  },
+  {
+   "id": "KmDufV6C3oA",
+   "kind": "short",
+   "title": "Lindsey Vonn Trained HERE in Minnesota (10 Minutes from the Mall of America)",
+   "published": null,
+   "seconds": null,
+   "views": 734,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 119
+  },
+  {
+   "id": "yTowhKdniso",
+   "kind": "short",
+   "title": "Bloomington MN Has Two Sides — Which One Should You Buy In?",
+   "published": null,
+   "seconds": null,
+   "views": 1100,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 120
+  },
+  {
+   "id": "S3xYG2UBGM8",
+   "kind": "short",
+   "title": "19,000 Seats. Shakopee MN Is Not the Same Suburb Anymore",
+   "published": null,
+   "seconds": null,
+   "views": 1300,
+   "summary": [],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 121
+  },
+  {
+   "id": "gtP3DUawegc",
+   "kind": "short",
+   "title": "5 Minneapolis Suburbs to AVOID When Moving!",
+   "published": null,
+   "seconds": null,
+   "views": 1300,
+   "summary": [],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 122
+  },
+  {
+   "id": "TKavv9l3UhQ",
+   "kind": "short",
+   "title": "You Can Bike These Trails Year Round in Lakeville, MN",
+   "published": null,
+   "seconds": null,
+   "views": 1200,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 123
+  },
+  {
+   "id": "iokFDWidn6E",
+   "kind": "short",
+   "title": "This Suburb Is Projected to Be Bigger Than Minneapolis 😳",
+   "published": null,
+   "seconds": null,
+   "views": 159,
+   "summary": [],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 124
+  },
+  {
+   "id": "gtlXE20Jzm8",
+   "kind": "short",
+   "title": "Data Centers Need Insane Power — This Minnesota Town Already Has It",
+   "published": null,
+   "seconds": null,
+   "views": 791,
+   "summary": [],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 125
+  },
+  {
+   "id": "2Rsqvvz7K1o",
+   "kind": "short",
+   "title": "Own a Home in These 3 Suburbs?  They're on Fire Right Now",
+   "published": null,
+   "seconds": null,
+   "views": 41,
+   "summary": [],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 126
+  },
+  {
+   "id": "Vdlsid1qbO4",
+   "kind": "short",
+   "title": "Older Than Minnesota & Nobody Knows It 😱",
+   "published": null,
+   "seconds": null,
+   "views": 879,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 127
+  },
+  {
+   "id": "HYQEsdoD074",
+   "kind": "short",
+   "title": "$350,000,000 Is Coming to North Minneapolis. Read That Again.",
+   "published": null,
+   "seconds": null,
+   "views": 376,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 128
+  },
+  {
+   "id": "zS_yO26Uoqc",
+   "kind": "short",
+   "title": "What Retirement Articles Won't Tell You About Minneapolis",
+   "published": null,
+   "seconds": null,
+   "views": 402,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 129
+  },
+  {
+   "id": "Hm-YytFklQk",
+   "kind": "short",
+   "title": "They Ranked Minneapolis to Retire. I Disagree — Here's Why",
+   "published": null,
+   "seconds": null,
+   "views": 900,
+   "summary": [],
+   "chapters": [],
+   "topic": "Suburbs & neighborhoods",
+   "order": 130
+  },
+  {
+   "id": "C8aZBzXvrhE",
+   "kind": "short",
+   "title": "Meta Just Invested $800 Million in Minnesota — Here's Why",
+   "published": null,
+   "seconds": null,
+   "views": 1300,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 131
+  },
+  {
+   "id": "SJgD4_uvPgk",
+   "kind": "short",
+   "title": "Carpet in the Bathroom and You Wonder Why It Won't Sell",
+   "published": null,
+   "seconds": null,
+   "views": 453,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 132
+  },
+  {
+   "id": "zUrL79BEMds",
+   "kind": "short",
+   "title": "I Work Out Twice a Day So I Can Eat at These 3 Spots",
+   "published": null,
+   "seconds": null,
+   "views": 738,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 133
+  },
+  {
+   "id": "cBzTWp6UZew",
+   "kind": "short",
+   "title": "Buying a House in Minnesota? Don't Skip These 4 Things!",
+   "published": null,
+   "seconds": null,
+   "views": 365,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 134
+  },
+  {
+   "id": "jXURb43MhhY",
+   "kind": "short",
+   "title": "$1 Billion Development Is Transforming St. Paul, MN",
+   "published": null,
+   "seconds": null,
+   "views": 883,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 135
+  },
+  {
+   "id": "1ViLmyPF_ag",
+   "kind": "short",
+   "title": "Minneapolis Parks Are Making Homeowners More Money (delete)",
+   "published": null,
+   "seconds": null,
+   "views": 1000,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 136
+  },
+  {
+   "id": "jEbo6nb_Sk0",
+   "kind": "short",
+   "title": "The Cost of Waiting to Buy or Sell a Home in Minnesota",
+   "published": null,
+   "seconds": null,
+   "views": 411,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 137
+  },
+  {
+   "id": "MVabagvgyVY",
+   "kind": "short",
+   "title": "Edina's Best Park (Summer & Winter Activities)",
+   "published": null,
+   "seconds": null,
+   "views": 196,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 138
+  },
+  {
+   "id": "MeBfegzxQ64",
+   "kind": "short",
+   "title": "Eden Prairie Real Estate Boom Light Rail Arrives 2027!",
+   "published": null,
+   "seconds": null,
+   "views": 982,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 139
+  },
+  {
+   "id": "yeTm9gINX8I",
+   "kind": "short",
+   "title": "Stop Trusting Zillow to Price Your Home",
+   "published": null,
+   "seconds": null,
+   "views": 1100,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 140
+  },
+  {
+   "id": "Iq2Xf5fhgWg",
+   "kind": "short",
+   "title": "Saint Patrick's Day Parade Minnesota's LARGEST Celebration!",
+   "published": null,
+   "seconds": null,
+   "views": 1000,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 141
+  },
+  {
+   "id": "u2MoH_8Rcno",
+   "kind": "short",
+   "title": "Richfield Homes.. Hidden Gem?",
+   "published": null,
+   "seconds": null,
+   "views": 237,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 142
+  },
+  {
+   "id": "Y06c_S4ayhM",
+   "kind": "short",
+   "title": "Mall of America Just Changed Everything For Minneapolis Real Estate",
+   "published": null,
+   "seconds": null,
+   "views": 1000,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 143
+  },
+  {
+   "id": "vQ3IvV_1oOI",
+   "kind": "short",
+   "title": "Everything Shifts",
+   "published": null,
+   "seconds": null,
+   "views": 1100,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 144
+  },
+  {
+   "id": "2gefu97luLE",
+   "kind": "short",
+   "title": "The Disappearing Buyer",
+   "published": null,
+   "seconds": null,
+   "views": 561,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 145
+  },
+  {
+   "id": "sex9NMgw8Pw",
+   "kind": "short",
+   "title": "Mystery Cove  Indoor Water Park Paradise Coming 2029!",
+   "published": null,
+   "seconds": null,
+   "views": 523,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 146
+  }
+ ]
+}

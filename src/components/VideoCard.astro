@@ -1,0 +1,34 @@
+---
+// A full-length video: thumbnail, length, title, date and views. Opens its watch page on this site
+// (or YouTube for older videos that don't have one yet).
+import { videoHref, clock, views, type Video } from '../data/youtube';
+interface Props { video: Video }
+const { video: v } = Astro.props;
+const href = videoHref(v);
+const external = href.startsWith('http');
+const date = v.published ? new Date(v.published).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' }) : '';
+---
+<article class="vcard">
+  <a class="vcard__thumb" href={href} rel={external ? 'noopener' : undefined} tabindex="-1" aria-hidden="true">
+    <img src={`https://i.ytimg.com/vi/${v.id}/mqdefault.jpg`} srcset={`https://i.ytimg.com/vi/${v.id}/mqdefault.jpg 320w, https://i.ytimg.com/vi/${v.id}/hq720.jpg 1280w`}
+      sizes="(max-width: 700px) 90vw, 360px" alt="" width="320" height="180" loading="lazy" decoding="async" />
+    <span class="vcard__play" aria-hidden="true"></span>
+    {v.seconds && <span class="vcard__time">{clock(v.seconds)}</span>}
+  </a>
+  <h3><a href={href} rel={external ? 'noopener' : undefined}>{v.title}</a></h3>
+  <p class="vcard__meta">{[date, views(v.views)].filter(Boolean).join(' · ')}</p>
+</article>
+
+<style>
+  .vcard { display: grid; gap: .55rem; align-content: start; }
+  .vcard__thumb { position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden; background: var(--night); }
+  .vcard__thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s; }
+  .vcard:hover .vcard__thumb img { transform: scale(1.04); }
+  .vcard__play { position: absolute; left: 50%; top: 50%; width: 3.2rem; height: 2.3rem; translate: -50% -50%; border-radius: .65rem; background: var(--crimson); opacity: .92; }
+  .vcard__play::after { content: ""; position: absolute; left: 54%; top: 50%; translate: -50% -50%; border-style: solid; border-width: .5rem 0 .5rem .85rem; border-color: transparent transparent transparent #fff; }
+  .vcard__time { position: absolute; right: .5rem; bottom: .5rem; padding: .2rem .45rem; background: rgba(0,0,0,.8); color: #fff; font: 700 .75rem/1 var(--ui); }
+  .vcard h3 { font: 600 1.05rem/1.35 var(--sans); }
+  .vcard h3 a { color: var(--text); text-decoration: none; }
+  .vcard h3 a:hover { color: var(--crimson); }
+  .vcard__meta { font-size: .85rem; color: var(--text-soft); }
+</style>

@@ -256,3 +256,14 @@ All nine website forms post to `/api/lead` (`netlify/functions/lead.mjs`), which
 - Home page order now follows Mark Z: hero → red strip → the record → featured listings → map → homes for sale → seller programs → marketing → reviews → team → Ramsey → FAQ → blog → contact.
 - **/llms.txt**: plain-text guide for AI assistants, built from the site's data.
 - The widget checks the site's address; it works on www.huerkamphomegroup.com. If it shows "Loading listings…" on the Netlify preview address, that's Ylopo limiting it to the real domain.
+
+## YouTube: Living in Minneapolis (2026-10-24)
+
+Channel: **Living in Minneapolis Minnesota**, https://www.youtube.com/@livinginminneapolis (channel ID UCQrRaA9zK3E-NhBLgXVSGhg), 155 videos + 147 Shorts at import. Data: `src/data/youtube.json`.
+- **/videos**: library by topic (market updates, suburbs & neighborhoods, home tours, living in Minnesota) plus Shorts that play on the page.
+- **/videos/<slug>**: a watch page for each long video that has a description (60 at import). The video is the main content, with the cleaned description (the contact and subscribe text repeated on every video is removed), chapters, and VideoObject structured data with chapters as "key moments" (Clip), the cities it covers, upload date, length and views.
+- **Community pages**: "Watch: <city> on video" when a video names the city (39 of 149 at import). Names that are also common words (Ramsey, Grant, Independence…) must appear as "<name>, MN".
+- **Home page**: latest 3 videos and 10 Shorts. Menu: Videos (with Blog under it). YouTube added to the business's `sameAs` and to /llms.txt.
+- **Import**: `scripts/build-youtube.py` built the first set (channel lists from yt-dlp; descriptions for 162 videos from vidIQ until its credits ran out). The other ~90 older long videos show in the library and play from YouTube; they get watch pages once their descriptions are added (YouTube Data API key or more vidIQ credits).
+- **Weekly**: `python3 scripts/update-youtube.py` reads the channel's public feed (newest 15 uploads, with full descriptions), adds new videos and watch pages, and refreshes view counts. A weekly routine runs it every Monday morning and publishes the update.
+- **To fix on YouTube**: descriptions list (952) 900-3025, team@hhgus.com and huerkamphomes.com; the website uses (612) 843-9620, leads@hhgus.com and huerkamphomegroup.com. Google trusts a business more when name, phone and website match everywhere.

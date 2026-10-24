@@ -6,6 +6,9 @@ import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import TeamPhoto from '../../components/TeamPhoto.astro';
 import YlopoListings from '../../components/YlopoListings.astro';
+import VideoCard from '../../components/VideoCard.astro';
+import ShortsRow from '../../components/ShortsRow.astro';
+import { videosAbout } from '../../data/youtube';
 import AreaMap from '../../components/AreaMap.astro';
 import LineChart from '../../components/LineChart.astro';
 import BarList from '../../components/BarList.astro';
@@ -122,6 +125,9 @@ const priceBands = [
 const place = ylopoPlace(c.slug);
 const searchable = !!(place.city || place.zips?.length);
 const allHomes = communitySearch(c.slug);
+const cityVideos = videosAbout([c.name], 9);
+const cityLong = cityVideos.filter((v) => v.kind === 'long').slice(0, 6);
+const cityShorts = cityVideos.filter((v) => v.kind === 'short');
 const widgetSearch = { locations: place.city ? [{ city: place.city, state: 'MN' }] : (place.zips ?? []).map((z) => ({ postalCode: z })) };
 const browse = [
   { label: 'Single-family homes', href: communitySearch(c.slug, { type: 'house' }) },
@@ -482,6 +488,21 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
     </div>
   </section>
 
+  {cityVideos.length > 0 && (
+    <section class="section" aria-labelledby="videos-title">
+      <div class="wrap">
+        <div class="head">
+          <p class="eyebrow">Living in Minneapolis on YouTube</p>
+          <h2 id="videos-title">Watch: <em>{c.name}</em> on video</h2>
+          <p>Jason's videos about {c.name}: neighborhoods, homes and what living here is really like.</p>
+        </div>
+        {cityLong.length > 0 && <ul class="vgrid">{cityLong.map((v) => <li><VideoCard video={v} /></li>)}</ul>}
+        {cityShorts.length > 0 && <div class="vshorts"><ShortsRow shorts={cityShorts} /></div>}
+        <p class="vmore"><a class="link-arrow" href="/videos">All Twin Cities videos</a></p>
+      </div>
+    </section>
+  )}
+
   <!-- 16. Open houses -->
   <section class="section section--dark" aria-labelledby="open-title">
     <div class="wrap cta-row">
@@ -648,6 +669,9 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
   .takeaways { margin: .5rem 0; padding-left: 1.2rem; display: grid; gap: .6rem; color: var(--text); font-size: 1.05rem; }
   .takeaways li::marker { color: var(--gold); }
 
+  .vgrid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); gap: 2rem 1.5rem; }
+  .vshorts { margin-top: 2rem; }
+  .vmore { margin-top: 1.75rem; }
   .search-row { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
   .btn--ghost-dark { background: transparent; color: var(--text); border: 1px solid var(--text); }
   .btn--ghost-dark:hover { border-color: var(--crimson); color: var(--crimson); }

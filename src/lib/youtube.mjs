@@ -11,10 +11,14 @@ export function youtubeId(input) {
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 
-export function youtubeHtml(id, title = 'Video') {
-  return `<div class="yt" data-yt="${id}" data-title="${esc(title)}">` +
-    `<a class="yt__link" href="https://www.youtube.com/watch?v=${id}" aria-label="Play video: ${esc(title)}">` +
-    `<img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async" />` +
+/** opts.short: vertical YouTube Short. opts.eager: the video is the main thing on the page (load its thumbnail first). */
+export function youtubeHtml(id, title = 'Video', opts = {}) {
+  const href = opts.short ? `https://www.youtube.com/shorts/${id}` : `https://www.youtube.com/watch?v=${id}`;
+  const img = opts.eager
+    ? `<img src="https://i.ytimg.com/vi/${id}/hq720.jpg" alt="" width="1280" height="720" fetchpriority="high" decoding="async" />`
+    : `<img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async" />`;
+  return `<div class="yt${opts.short ? ' yt--short' : ''}" data-yt="${id}" data-title="${esc(title)}">` +
+    `<a class="yt__link" href="${href}" aria-label="Play video: ${esc(title)}">` + img +
     `<span class="yt__play" aria-hidden="true"></span></a></div>`;
 }
 

@@ -1,0 +1,83 @@
+---
+// Video library: every video from the team's YouTube channel, Living in Minneapolis Minnesota.
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import VideoCard from '../../components/VideoCard.astro';
+import ShortsRow from '../../components/ShortsRow.astro';
+import { youtubeHtml } from '../../lib/youtube.mjs';
+import { channel, longVideos, shorts, watchable, topics, videoHref } from '../../data/youtube';
+import { origin } from '../../data/schema';
+
+const latest = watchable[0];
+const byTopic = topics.map((t) => ({ t, id: t.toLowerCase().replace(/[^a-z]+/g, '-'), list: longVideos.filter((v) => v.topic === t && v.id !== latest.id) }))
+  .filter((g) => g.list.length);
+const ld = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Living in Minneapolis videos by Huerkamp Home Group',
+  itemListElement: watchable.map((v, i) => ({ '@type': 'ListItem', position: i + 1, url: new URL(videoHref(v), origin).href })),
+});
+---
+<Base
+  breadcrumbs={[{ name: 'Videos', href: '/videos' }]}
+  title="Living in Minneapolis Videos | Huerkamp Home Group"
+  description={`${longVideos.length} videos and ${shorts.length} Shorts about living in Minneapolis, the Twin Cities suburbs and the Minnesota housing market, from Jason and Brooke Huerkamp.`}>
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <PageHero eyebrow="Living in Minneapolis" title="Watch before you move."
+    lede={`${longVideos.length} videos and ${shorts.length} Shorts on Twin Cities neighborhoods, suburbs and the housing market. New videos every week.`}>
+    <div class="hero-actions">
+      <a class="btn" href={`${channel.url}?sub_confirmation=1`} rel="noopener">Subscribe on YouTube</a>
+      <a class="btn btn--ghost" href="#shorts">Watch the Shorts</a>
+    </div>
+  </PageHero>
+
+  <section class="section" aria-labelledby="latest-title">
+    <div class="wrap latest">
+      <div class="latest__player" set:html={youtubeHtml(latest.id, latest.title, { eager: true })} />
+      <div class="latest__copy">
+        <p class="eyebrow">Newest video</p>
+        <h2 id="latest-title"><a href={videoHref(latest)}>{latest.title}</a></h2>
+        <p>{latest.summary[0]}</p>
+        <a class="link-arrow" href={videoHref(latest)}>Chapters and details</a>
+      </div>
+    </div>
+  </section>
+
+  <nav class="topics wrap" aria-label="Video topics">
+    {byTopic.map((g) => <a href={`#${g.id}`}>{g.t} <span>{g.list.length}</span></a>)}
+    <a href="#shorts">Shorts <span>{shorts.length}</span></a>
+  </nav>
+
+  {byTopic.map((g, i) => (
+    <section class:list={['section', i % 2 === 0 && 'section--paper']} id={g.id} aria-labelledby={`${g.id}-title`}>
+      <div class="wrap">
+        <div class="head"><p class="eyebrow">{g.list.length} videos</p><h2 id={`${g.id}-title`}>{g.t}</h2></div>
+        <ul class="vgrid">{g.list.map((v) => <li><VideoCard video={v} /></li>)}</ul>
+      </div>
+    </section>
+  ))}
+
+  <section class="section section--dark" id="shorts" aria-labelledby="shorts-title">
+    <div class="wrap">
+      <div class="head"><p class="eyebrow">Shorts</p><h2 id="shorts-title">A minute on <em>Minnesota.</em></h2></div>
+      <ShortsRow shorts={shorts.slice(0, 30)} />
+      <p class="more"><a class="link-arrow" href={`${channel.url}/shorts`} rel="noopener">All {shorts.length} Shorts on YouTube</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: .5rem; }
+  .latest { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3rem); align-items: center; }
+  @media (max-width: 860px) { .latest { grid-template-columns: 1fr; } }
+  .latest__copy { display: grid; gap: .9rem; color: var(--text-soft); }
+  .latest__copy h2 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); }
+  .latest__copy h2 a { color: var(--text); text-decoration: none; }
+  .topics { display: flex; flex-wrap: wrap; gap: .5rem; padding-block: 0 2.5rem; }
+  .topics a { padding: .55rem .95rem; border: 1px solid var(--line); background: var(--paper); font: 600 .88rem/1 var(--ui); text-decoration: none; color: var(--text); }
+  .topics a span { color: var(--text-soft); font-weight: 500; }
+  .topics a:hover { border-color: var(--crimson); color: var(--crimson); }
+  .vgrid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); gap: 2rem 1.5rem; }
+  .more { margin-top: 1.5rem; }
+  .section--dark .link-arrow { color: var(--on-dark); }
+</style>

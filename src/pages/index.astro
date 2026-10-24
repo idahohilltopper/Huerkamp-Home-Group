@@ -6,6 +6,9 @@ import AreaMap from '../components/AreaMap.astro';
 import TeamPhoto from '../components/TeamPhoto.astro';
 import PostCard from '../components/PostCard.astro';
 import YlopoListings from '../components/YlopoListings.astro';
+import VideoCard from '../components/VideoCard.astro';
+import ShortsRow from '../components/ShortsRow.astro';
+import { longVideos, shorts, channel } from '../data/youtube';
 import { searchUrl, ylopoPlace } from '../data/ylopo';
 import { getPosts } from '../data/blog';
 import { site } from '../data/site';
@@ -314,6 +317,20 @@ const ld = JSON.stringify({
     </div>
   </section>
 
+  <!-- Videos -->
+  <section class="section section--dark" aria-labelledby="videos-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Living in Minneapolis on YouTube</p>
+        <h2 id="videos-title">New videos <em>every week.</em></h2>
+        <p>Jason and Brooke break down the Twin Cities housing market, suburbs and neighborhoods, {longVideos.length} videos and counting.</p>
+      </div>
+      <ul class="vgrid">{longVideos.slice(0, 3).map((v) => <li><VideoCard video={v} /></li>)}</ul>
+      <div class="vshorts"><ShortsRow shorts={shorts.slice(0, 10)} /></div>
+      <p class="vmore"><a class="btn" href="/videos">Watch all videos</a> <a class="btn btn--ghost" href={`${channel.url}?sub_confirmation=1`} rel="noopener">Subscribe</a></p>
+    </div>
+  </section>
+
   <!-- Blog -->
   <section class="section section--paper" aria-labelledby="blog-title">
     <div class="wrap">
@@ -357,6 +374,11 @@ const ld = JSON.stringify({
 </Base>
 
 <style>
+  .vgrid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); gap: 2rem 1.5rem; }
+  .section--dark .vgrid :global(h3 a) { color: #fff; }
+  .section--dark .vgrid :global(.vcard__meta) { color: var(--on-dark-soft); }
+  .vshorts { margin-top: 2.5rem; }
+  .vmore { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: .75rem; }
   .strip { background: var(--crimson); color: #fff; overflow: hidden; }
   .strip__track { list-style: none; margin: 0; padding: .85rem 0; display: flex; width: max-content; animation: strip 50s linear infinite; }
   .strip__track li { font: 700 .78rem/1 var(--ui); letter-spacing: .16em; text-transform: uppercase; white-space: nowrap; padding-inline: 2rem; position: relative; }

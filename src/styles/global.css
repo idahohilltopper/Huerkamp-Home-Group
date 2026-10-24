@@ -164,3 +164,4 @@ p { margin: 0; }
 .yt__play { position: absolute; left: 50%; top: 50%; width: 4.5rem; height: 3.2rem; translate: -50% -50%; border-radius: .9rem; background: var(--crimson); box-shadow: 0 6px 24px rgba(0,0,0,.35); transition: transform .15s; }
 .yt__play::after { content: ""; position: absolute; left: 54%; top: 50%; translate: -50% -50%; border-style: solid; border-width: .7rem 0 .7rem 1.15rem; border-color: transparent transparent transparent #fff; }
 .yt__link:hover .yt__play, .yt__link:focus-visible .yt__play { transform: scale(1.08); }
+.yt--short { aspect-ratio: 9 / 16; }
