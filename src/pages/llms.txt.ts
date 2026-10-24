@@ -4,6 +4,7 @@ import type { APIContext } from 'astro';
 import { site } from '../data/site';
 import { communities } from '../data/areas';
 import team from '../data/team.json';
+import { hoods, hoodHref, hoodKey, CITY_NAME } from '../data/neighborhoods';
 import { members, agentHref, isAgent, reviewsFor } from '../data/agents';
 import { source as mSource, latest as mLatest, asOf as mAsOf, REGION, marketFor, hasMarket, monthLabel, money, signed, count } from '../data/market';
 import reviews from '../data/reviews.json';
@@ -43,6 +44,10 @@ Facts (with sources on ${url('/')}):
 Source: ${mSource.name} (data from ${mSource.data}), current as of ${mAsOf}. 12 months through ${monthLabel(mLatest)}: median sale price, change from the prior 12 months, homes sold. Full reports: ${url('/market')}
 - Twin Cities 16-county region: ${money(marketFor(REGION)?.medianPrice?.r12[1])}, ${signed(marketFor(REGION)?.medianPrice?.r12[2])}, ${count(marketFor(REGION)?.closedSales?.r12[1])} sold
 ${communities.filter((c) => hasMarket(c.slug)).map((c) => { const x = marketFor(c.slug)!; return `- [${c.name}](${url(`/market/${c.slug}`)}): ${money(x.medianPrice?.r12[1])}, ${signed(x.medianPrice?.r12[2])}, ${count(x.closedSales?.r12[1])} sold`; }).join('\n')}
+
+## Minneapolis and Saint Paul neighborhoods
+Each guide has the neighborhood's monthly market report (${mSource.name}), US Census estimates and homes for sale. Median sale price over the 12 months through ${monthLabel(mLatest)}, where reported.
+${hoods.map((h) => { const x = hasMarket(hoodKey(h)) ? marketFor(hoodKey(h)) : undefined; return `- [${h.name}, ${CITY_NAME[h.city]}](${url(hoodHref(h))})${x ? `: ${money(x.medianPrice?.r12[1])}, ${signed(x.medianPrice?.r12[2])}, ${count(x.closedSales?.r12[1])} sold` : ''}`; }).join('\n')}
 
 ## Agents
 Each page has the agent's own bio, Minnesota license number, contact details and complete reviews that mention them.

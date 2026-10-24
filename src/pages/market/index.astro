@@ -7,6 +7,7 @@ import LineChart from '../../components/LineChart.astro';
 import { communities, regions } from '../../data/areas';
 import { business, origin } from '../../data/schema';
 import { site } from '../../data/site';
+import { hoodsIn, hoodHref, hoodKey } from '../../data/neighborhoods';
 import { source, latest, asOf, REGION, marketFor, hasMarket, history, monthLabel, money, moneyK, count, change, signed } from '../../data/market';
 
 const r = marketFor(REGION)!;
@@ -16,6 +17,10 @@ const prices = history(REGION, 'medianPrice').slice(-24);
 const groups = regions.map((reg) => ({ reg, list: communities.filter((c) => c.region === reg && hasMarket(c.slug)).sort((a, b) => a.name.localeCompare(b.name)) }))
   .filter((g) => g.list.length);
 const covered = groups.reduce((n, g) => n + g.list.length, 0);
+const hoodTables = [
+  { city: 'minneapolis', title: 'Minneapolis neighborhoods', list: hoodsIn('minneapolis') },
+  { city: 'saint-paul', title: 'Saint Paul planning districts', list: hoodsIn('saint-paul') },
+].map((t) => ({ ...t, list: t.list.filter((h) => hasMarket(hoodKey(h))) })).filter((t) => t.list.length);
 
 const ld = JSON.stringify({
   '@context': 'https://schema.org', '@type': 'Dataset', '@id': `${origin}/market#data`,
@@ -75,6 +80,35 @@ const ld = JSON.stringify({
       <p class="source">Source: {source.name} for each city, {month}. Data from {source.data}; produced by {source.producer}; current as of {asOfText}. Months of supply is as of the end of {month}. {source.note}</p>
     </div>
   </section>
+
+  {hoodTables.length > 0 && (
+    <section class="section" aria-labelledby="hoods-title">
+      <div class="wrap">
+        <div class="head">
+          <p class="eyebrow">Inside the two cities</p>
+          <h2 id="hoods-title">Minneapolis and Saint Paul neighborhoods</h2>
+          <p>Each neighborhood guide has its full market report, Census facts and homes for sale.</p>
+        </div>
+        {hoodTables.map((t) => (
+          <div class="group">
+            <h3>{t.title}</h3>
+            <div class="table-scroll">
+              <table class="data">
+                <thead><tr><th scope="col">Neighborhood</th>{t.city === 'minneapolis' && <th scope="col">Community</th>}<th scope="col" class="num">Median price</th><th scope="col" class="num">Change</th><th scope="col" class="num">Homes sold</th><th scope="col" class="num">Days on market</th></tr></thead>
+                <tbody>
+                  {t.list.map((h) => {
+                    const x = marketFor(hoodKey(h))!;
+                    return <tr><th scope="row"><a href={`${hoodHref(h)}#market`}>{h.name}</a></th>{t.city === 'minneapolis' && <td>{h.community}</td>}<td class="num">{moneyK(x.medianPrice?.r12[1])}</td><td class="num">{signed(x.medianPrice?.r12[2])}</td><td class="num">{count(x.closedSales?.r12[1])}</td><td class="num">{count(x.daysOnMarket?.r12[1])}</td></tr>;
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        ))}
+        <p class="source">Source: {source.name} for each neighborhood, 12 months through {month}. Data from {source.data}; current as of {asOfText}.</p>
+      </div>
+    </section>
+  )}
 
   <section class="section section--dark" aria-labelledby="cta-title">
     <div class="wrap cta">

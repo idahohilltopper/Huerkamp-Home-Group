@@ -9,6 +9,7 @@ Usage:
                                                    # (does nothing if that month is already in market.json)
   python3 scripts/update-market.py --backfill 12   # also the 11 months before it (first run)
   python3 scripts/update-market.py --month 2026-09 # one specific month
+  python3 scripts/update-market.py --backfill 12 --areas neighborhoods   # only the Minneapolis/Saint Paul neighborhoods
 Needs pypdf (pip install pypdf). Only the numbers are kept; every page that shows them names the source,
 the month and the "current as of" date, and links to the original report.
 """
@@ -56,7 +57,7 @@ def report_name(c):
 
 def report_url(name, month=None):
     key = re.sub(r'[&+ ]', '', name)
-    return f'{BASE}/docs/lmu/{month + "/" if month else ""}x/{urllib.parse.quote(key)}?src=page'
+    return f'{BASE}/docs/lmu/{month + "/" if month else ""}x/{urllib.parse.quote(key, safe="")}?src=page'
 
 
 def num(s):
@@ -122,6 +123,11 @@ def main(args):
     })
     store.setdefault('months', {})
     areas = [('twin-cities', REGION)] + [(c['slug'], report_name(c)) for c in communities if c['slug'] not in skip]
+    # Minneapolis neighborhoods and Saint Paul planning districts, keyed "minneapolis/linden-hills".
+    hoods = json.loads((ROOT / 'src/data/neighborhoods.json').read_text())['neighborhoods']
+    areas += [(f"{h['city']}/{h['slug']}", h['report']) for h in hoods if f"{h['city']}/{h['slug']}" not in skip]
+    if args.get('areas') == 'neighborhoods':  # e.g. the first backfill after adding neighborhoods
+        areas = [('twin-cities', REGION)] + [a for a in areas if '/' in a[0]]
 
     # Which months: the newest available (read from the region's report), or the one asked for.
     first = fetch(REGION, args.get('month'))
@@ -149,7 +155,7 @@ def main(args):
 
     store['latest'] = max(store['months'])
     # Communities that never had a report (outside the region) are remembered so later runs skip them.
-    store['noReport'] = sorted(no_report - {s for m in store['months'].values() for s in m['areas']})
+    store['noReport'] = sorted((no_report | skip) - {s for m in store['months'].values() for s in m['areas']})
     store['months'] = dict(sorted(store['months'].items(), reverse=True))
     OUT.write_text(json.dumps(store, ensure_ascii=False, separators=(',', ':')) + '\n')
     print(f'latest {store["latest"]}; no report for: {", ".join(store["noReport"]) or "none"}')

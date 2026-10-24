@@ -28,7 +28,10 @@ export function lastmods() {
   const market = JSON.parse(read('src/data/market.json'));
   const latest = market.months[market.latest];
   map.set('/market', latest.asOf);
-  for (const slug of Object.keys(latest.areas)) map.set(`/market/${slug}`, latest.asOf);
+  for (const slug of Object.keys(latest.areas)) {
+    // Neighborhood keys look like "minneapolis/linden-hills"; their report is on the neighborhood guide.
+    map.set(slug.includes('/') ? `/communities/${slug}` : `/market/${slug}`, latest.asOf);
+  }
 
   const details = JSON.parse(read('src/data/community-details.json'));
   for (const slug of Object.keys(details.communities)) {

@@ -20,6 +20,7 @@ import { site } from '../../data/site';
 import { communitySearch, searchUrl, ylopoPlace } from '../../data/ylopo';
 import PostCard from '../../components/PostCard.astro';
 import { getPosts, postsAbout } from '../../data/blog';
+import { hoodsIn, hoodHref, hoodKey, hoodInfo, hoodGeoUrl } from '../../data/neighborhoods';
 import { marketFor, hasMarket, latest as marketMonth, asOf as marketAsOf, monthLabel, money, count, change, signed } from '../../data/market';
 
 export function getStaticPaths() {
@@ -133,6 +134,10 @@ const cityLong = cityVideos.filter((v) => v.kind === 'long').slice(0, 6);
 const cityShorts = cityVideos.filter((v) => v.kind === 'short');
 // This month's MLS numbers (Minneapolis Area REALTORS® Local Market Update), when the city has a report.
 const mk = hasMarket(c.slug) ? marketFor(c.slug) : undefined;
+// Minneapolis neighborhoods (by community) and Saint Paul planning districts.
+const cityHoods = hoodsIn(c.slug);
+const hoodGroups = [...new Set(cityHoods.map((h) => h.community ?? ''))].sort()
+  .map((g) => ({ g, list: cityHoods.filter((h) => (h.community ?? '') === g) }));
 // "Updated" is the newest real change to this guide: a local story, a video, the market report or the town's data.
 const lastChange = new Date(Math.max(
   Date.parse(detailData.updated),
@@ -262,6 +267,28 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
           <li><span>Months of supply</span><strong>{mk.monthsSupply?.month[1] ?? '—'}</strong><em>end of {monthLabel(marketMonth)}</em></li>
         </ul>
         <p class="mk-source">NorthstarMLS data via the <a href={mk.url} rel="noopener">Minneapolis Area REALTORS® Local Market Update</a>, current as of {new Date(marketAsOf + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}. <a class="link-arrow" href={`/market/${c.slug}`}>Full {c.name} market report</a></p>
+      </div>
+    </section>
+  )}
+
+  <!-- 3c. Neighborhoods (Minneapolis and Saint Paul) -->
+  {cityHoods.length > 0 && (
+    <section class="section section--paper" id="neighborhoods" aria-labelledby="hoods-title">
+      <div class="wrap">
+        <div class="head">
+          <p class="eyebrow">{cityHoods.length} {c.slug === 'saint-paul' ? 'planning districts' : 'neighborhoods'}</p>
+          <h2 id="hoods-title">{c.name} neighborhoods</h2>
+          <p>Each guide has its own monthly market report, Census facts, homes for sale and the neighborhoods next door. Hover the map or pick one below.</p>
+        </div>
+        <AreaMap src={hoodGeoUrl} info={hoodInfo(c.slug)} label={`Hover a ${c.name} neighborhood`} height="520px" />
+        <div class="hoods">
+          {hoodGroups.map(({ g, list }) => (
+            <div>
+              {g && <h3>{g}</h3>}
+              <ul>{list.map((h) => { const m = hasMarket(hoodKey(h)) ? marketFor(hoodKey(h)) : undefined; return <li><a href={hoodHref(h)}>{h.name}</a>{m?.medianPrice?.r12[1] != null && <span>{moneyK(m.medianPrice.r12[1])}</span>}</li>; })}</ul>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )}
@@ -725,6 +752,13 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
   .mk span { font: 700 .7rem/1.2 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--crimson); }
   .mk strong { font: 500 clamp(1.6rem, 3.5vw, 2.3rem)/1 var(--serif-display); color: var(--text); }
   .mk em { font-style: normal; font-size: .85rem; color: var(--text-soft); }
+  .hoods { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); gap: 1.5rem 2rem; margin-top: 2rem; }
+  .hoods h3 { font: 700 .75rem/1.2 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--crimson); margin-bottom: .5rem; }
+  .hoods ul { list-style: none; margin: 0; padding: 0; display: grid; }
+  .hoods li { display: flex; justify-content: space-between; gap: 1rem; padding: .35rem 0; border-bottom: 1px solid var(--line); }
+  .hoods li a { color: var(--text); text-decoration: none; font-weight: 600; }
+  .hoods li a:hover { color: var(--crimson); }
+  .hoods li span { color: var(--text-soft); font-size: .9rem; font-variant-numeric: tabular-nums; }
   .mk-source { margin-top: 1rem; font-size: .88rem; color: var(--text-soft); }
   .mk-source .link-arrow { display: inline-block; margin-left: 1rem; }
   .search-row { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }

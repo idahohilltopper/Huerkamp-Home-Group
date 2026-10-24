@@ -1,0 +1,6033 @@
+{
+ "sources": {
+  "boundaries": "City of Minneapolis neighborhoods (opendata.minneapolismn.gov); City of Saint Paul planning districts (information.stpaul.gov)",
+  "census": "US Census Bureau, American Community Survey 2020-2024 5-year estimates for the block groups mostly inside each neighborhood (tables B01001, B01003, B08301, B08303, B11001, B15003, B19001, B25003, B25024, B25034, B25075); medians estimated from ranges"
+ },
+ "neighborhoods": [
+  {
+   "city": "minneapolis",
+   "slug": "armatage",
+   "name": "Armatage",
+   "report": "Armatage",
+   "community": "Southwest",
+   "acres": 474,
+   "center": [
+    -93.31118,
+    44.89795
+   ],
+   "bbox": [
+    -93.31883,
+    44.89071,
+    -93.30345,
+    44.90524
+   ],
+   "neighbors": [
+    "minneapolis/fulton",
+    "minneapolis/kenny",
+    "minneapolis/lynnhurst"
+   ],
+   "blockGroups": 5,
+   "census": {
+    "population": 5040.0,
+    "households": 1890.0,
+    "ownerPct": 78,
+    "renterPct": 22,
+    "medianHomeValue": 439000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 144000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 32,
+     "18to34": 15,
+     "35to64": 41,
+     "65plus": 13
+    },
+    "housing": {
+     "singleFamily": 84,
+     "townhomeDuplex": 11,
+     "smallApartment": 3,
+     "largeApartment": 1
+    },
+    "builtBefore1940Pct": 9,
+    "built2000onPct": 8,
+    "bachelorsPct": 68,
+    "commute": {
+     "droveAlone": 54,
+     "transit": 0,
+     "bike": 0,
+     "walk": 1,
+     "fromHome": 40
+    },
+    "commuteUnder20Pct": 33
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "audubon-park",
+   "name": "Audubon Park",
+   "report": "Audubon Park",
+   "community": "Northeast",
+   "acres": 426,
+   "center": [
+    -93.23887,
+    45.01953
+   ],
+   "bbox": [
+    -93.24735,
+    45.01316,
+    -93.22685,
+    45.0257
+   ],
+   "neighbors": [
+    "minneapolis/columbia-park",
+    "minneapolis/holland",
+    "minneapolis/waite-park",
+    "minneapolis/windom-park"
+   ],
+   "blockGroups": 5,
+   "census": {
+    "population": 5070.0,
+    "households": 2270.0,
+    "ownerPct": 74,
+    "renterPct": 26,
+    "medianHomeValue": 351000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 107000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 20,
+     "18to34": 28,
+     "35to64": 40,
+     "65plus": 12
+    },
+    "housing": {
+     "singleFamily": 72,
+     "townhomeDuplex": 23,
+     "smallApartment": 4,
+     "largeApartment": 1
+    },
+    "builtBefore1940Pct": 69,
+    "built2000onPct": 5,
+    "bachelorsPct": 61,
+    "commute": {
+     "droveAlone": 58,
+     "transit": 2,
+     "bike": 2,
+     "walk": 1,
+     "fromHome": 31
+    },
+    "commuteUnder20Pct": 40
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "bancroft",
+   "name": "Bancroft",
+   "report": "Bancroft",
+   "community": "Powderhorn",
+   "acres": 236,
+   "center": [
+    -93.25491,
+    44.93054
+   ],
+   "bbox": [
+    -93.26251,
+    44.92693,
+    -93.24732,
+    44.93416
+   ],
+   "neighbors": [
+    "minneapolis/bryant",
+    "minneapolis/central",
+    "minneapolis/ericsson",
+    "minneapolis/northrop",
+    "minneapolis/powderhorn-park",
+    "minneapolis/regina",
+    "minneapolis/standish"
+   ],
+   "blockGroups": 4,
+   "census": {
+    "population": 3300.0,
+    "households": 1400.0,
+    "ownerPct": 71,
+    "renterPct": 29,
+    "medianHomeValue": 334000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 102000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 19,
+     "18to34": 28,
+     "35to64": 45,
+     "65plus": 7
+    },
+    "housing": {
+     "singleFamily": 63,
+     "townhomeDuplex": 19,
+     "smallApartment": 15,
+     "largeApartment": 3
+    },
+    "builtBefore1940Pct": 71,
+    "built2000onPct": 3,
+    "bachelorsPct": 57,
+    "commute": {
+     "droveAlone": 59,
+     "transit": 4,
+     "bike": 2,
+     "walk": 3,
+     "fromHome": 26
+    },
+    "commuteUnder20Pct": 37
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "beltrami",
+   "name": "Beltrami",
+   "report": "Beltrami",
+   "community": "Northeast",
+   "acres": 145,
+   "center": [
+    -93.24293,
+    44.99502
+   ],
+   "bbox": [
+    -93.24748,
+    44.99123,
+    -93.23651,
+    44.99871
+   ],
+   "neighbors": [
+    "minneapolis/logan-park",
+    "minneapolis/marcy-holmes",
+    "minneapolis/northeast-park",
+    "minneapolis/southeast-como",
+    "minneapolis/st-anthony-east"
+   ],
+   "blockGroups": 1,
+   "census": {
+    "population": 1260.0,
+    "households": 480.0,
+    "ownerPct": 47,
+    "renterPct": 53,
+    "medianHomeValue": 359000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 76000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 25,
+     "18to34": 37,
+     "35to64": 30,
+     "65plus": 7
+    },
+    "housing": {
+     "singleFamily": 48,
+     "townhomeDuplex": 36,
+     "smallApartment": 13,
+     "largeApartment": 1
+    },
+    "builtBefore1940Pct": 53,
+    "built2000onPct": 5,
+    "bachelorsPct": 52,
+    "commute": {
+     "droveAlone": 57,
+     "transit": 3,
+     "bike": 1,
+     "walk": 0,
+     "fromHome": 33
+    },
+    "commuteUnder20Pct": 54
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "bottineau",
+   "name": "Bottineau",
+   "report": "Bottineau",
+   "community": "Northeast",
+   "acres": 181,
+   "center": [
+    -93.26865,
+    45.00908
+   ],
+   "bbox": [
+    -93.27448,
+    45.00503,
+    -93.26309,
+    45.01317
+   ],
+   "neighbors": [
+    "minneapolis/hawthorne",
+    "minneapolis/holland",
+    "minneapolis/marshall-terrace",
+    "minneapolis/mckinley",
+    "minneapolis/sheridan"
+   ],
+   "blockGroups": 1,
+   "census": {
+    "population": 1930.0,
+    "households": 770.0,
+    "ownerPct": 30,
+    "renterPct": 70,
+    "medianHomeValue": 345000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 73000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 28,
+     "18to34": 32,
+     "35to64": 33,
+     "65plus": 6
+    },
+    "housing": {
+     "singleFamily": 27,
+     "townhomeDuplex": 44,
+     "smallApartment": 18,
+     "largeApartment": 12
+    },
+    "builtBefore1940Pct": 55,
+    "built2000onPct": 15,
+    "bachelorsPct": 57,
+    "commute": {
+     "droveAlone": 60,
+     "transit": 5,
+     "bike": 1,
+     "walk": 0,
+     "fromHome": 19
+    },
+    "commuteUnder20Pct": 48
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "bryant",
+   "name": "Bryant",
+   "report": "Bryant",
+   "community": "Powderhorn",
+   "acres": 191,
+   "center": [
+    -93.26858,
+    44.93049
+   ],
+   "bbox": [
+    -93.27468,
+    44.92678,
+    -93.26247,
+    44.93416
+   ],
+   "neighbors": [
+    "minneapolis/bancroft",
+    "minneapolis/central",
+    "minneapolis/king-field",
+    "minneapolis/northrop",
+    "minneapolis/powderhorn-park",
+    "minneapolis/regina"
+   ],
+   "blockGroups": 3,
+   "census": {
+    "population": 2720.0,
+    "households": 970.0,
+    "ownerPct": 88,
+    "renterPct": 12,
+    "medianHomeValue": 325000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 127000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 26,
+     "18to34": 22,
+     "35to64": 44,
+     "65plus": 7
+    },
+    "housing": {
+     "singleFamily": 87,
+     "townhomeDuplex": 10,
+     "smallApartment": 3,
+     "largeApartment": 0
+    },
+    "builtBefore1940Pct": 81,
+    "built2000onPct": 2,
+    "bachelorsPct": 48,
+    "commute": {
+     "droveAlone": 57,
+     "transit": 6,
+     "bike": 1,
+     "walk": 2,
+     "fromHome": 17
+    },
+    "commuteUnder20Pct": 43
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "bryn-mawr",
+   "name": "Bryn Mawr",
+   "report": "Bryn Mawr",
+   "community": "Calhoun-Isles",
+   "acres": 827,
+   "center": [
+    -93.3155,
+    44.97
+   ],
+   "bbox": [
+    -93.32881,
+    44.95926,
+    -93.28861,
+    44.98074
+   ],
+   "neighbors": [
+    "minneapolis/cedar-isles-dean",
+    "minneapolis/harrison",
+    "minneapolis/kenwood",
+    "minneapolis/lowry-hill"
+   ],
+   "blockGroups": 3,
+   "census": {
+    "population": 2770.0,
+    "households": 1360.0,
+    "ownerPct": 86,
+    "renterPct": 14,
+    "medianHomeValue": 493000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 123000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 13,
+     "18to34": 16,
+     "35to64": 49,
+     "65plus": 22
+    },
+    "housing": {
+     "singleFamily": 85,
+     "townhomeDuplex": 13,
+     "smallApartment": 1,
+     "largeApartment": 0
+    },
+    "builtBefore1940Pct": 52,
+    "built2000onPct": 6,
+    "bachelorsPct": 72,
+    "commute": {
+     "droveAlone": 42,
+     "transit": 0,
+     "bike": 5,
+     "walk": 3,
+     "fromHome": 36
+    },
+    "commuteUnder20Pct": 62
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "cedar-isles-dean",
+   "name": "Cedar-Isles-Dean",
+   "report": "Cedar - Isles - Dean",
+   "community": "Calhoun-Isles",
+   "acres": 458,
+   "center": [
+    -93.31689,
+    44.95389
+   ],
+   "bbox": [
+    -93.32885,
+    44.94833,
+    -93.30495,
+    44.95936
+   ],
+   "neighbors": [
+    "minneapolis/bryn-mawr",
+    "minneapolis/east-bde-maka-ska",
+    "minneapolis/east-isles",
+    "minneapolis/kenwood",
+    "minneapolis/west-maka-ska"
+   ],
+   "blockGroups": 3,
+   "census": {
+    "population": 3480.0,
+    "households": 1790.0,
+    "ownerPct": 42,
+    "renterPct": 58,
+    "medianHomeValue": 659000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 112000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 10,
+     "18to34": 34,
+     "35to64": 29,
+     "65plus": 28
+    },
+    "housing": {
+     "singleFamily": 21,
+     "townhomeDuplex": 11,
+     "smallApartment": 19,
+     "largeApartment": 49
+    },
+    "builtBefore1940Pct": 29,
+    "built2000onPct": 33,
+    "bachelorsPct": 85,
+    "commute": {
+     "droveAlone": 45,
+     "transit": 0,
+     "bike": 3,
+     "walk": 4,
+     "fromHome": 42
+    },
+    "commuteUnder20Pct": 51
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "cedar-riverside",
+   "name": "Cedar-Riverside",
+   "report": "Cedar - Riverside",
+   "community": "University",
+   "acres": 367,
+   "center": [
+    -93.24863,
+    44.97168
+   ],
+   "bbox": [
+    -93.25374,
+    44.96431,
+    -93.22584,
+    44.97893
+   ],
+   "neighbors": [
+    "minneapolis/downtown-east",
+    "minneapolis/elliot-park",
+    "minneapolis/marcy-holmes",
+    "minneapolis/prospect-park-east-river-road",
+    "minneapolis/seward",
+    "minneapolis/university-of-minnesota",
+    "minneapolis/ventura-village"
+   ],
+   "blockGroups": 5,
+   "census": {
+    "population": 9730.0,
+    "households": 3950.0,
+    "ownerPct": 8,
+    "renterPct": 92,
+    "medianHomeValue": 187000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 24000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 22,
+     "18to34": 45,
+     "35to64": 23,
+     "65plus": 10
+    },
+    "housing": {
+     "singleFamily": 2,
+     "townhomeDuplex": 15,
+     "smallApartment": 21,
+     "largeApartment": 62
+    },
+    "builtBefore1940Pct": 7,
+    "built2000onPct": 16,
+    "bachelorsPct": 23,
+    "commute": {
+     "droveAlone": 34,
+     "transit": 16,
+     "bike": 2,
+     "walk": 18,
+     "fromHome": 21
+    },
+    "commuteUnder20Pct": 61
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "central",
+   "name": "Central",
+   "report": "Central",
+   "community": "Powderhorn",
+   "acres": 373,
+   "center": [
+    -93.26864,
+    44.94126
+   ],
+   "bbox": [
+    -93.27476,
+    44.93414,
+    -93.2625,
+    44.94836
+   ],
+   "neighbors": [
+    "minneapolis/bancroft",
+    "minneapolis/bryant",
+    "minneapolis/king-field",
+    "minneapolis/lyndale",
+    "minneapolis/midtown-phillips",
+    "minneapolis/phillips-west",
+    "minneapolis/powderhorn-park",
+    "minneapolis/whittier"
+   ],
+   "blockGroups": 7,
+   "census": {
+    "population": 7470.0,
+    "households": 2270.0,
+    "ownerPct": 54,
+    "renterPct": 46,
+    "medianHomeValue": 311000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 82000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 32,
+     "18to34": 29,
+     "35to64": 32,
+     "65plus": 7
+    },
+    "housing": {
+     "singleFamily": 56,
+     "townhomeDuplex": 32,
+     "smallApartment": 9,
+     "largeApartment": 2
+    },
+    "builtBefore1940Pct": 72,
+    "built2000onPct": 6,
+    "bachelorsPct": 40,
+    "commute": {
+     "droveAlone": 50,
+     "transit": 8,
+     "bike": 4,
+     "walk": 5,
+     "fromHome": 24
+    },
+    "commuteUnder20Pct": 46
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "cleveland",
+   "name": "Cleveland",
+   "report": "Cleveland",
+   "community": "Camden",
+   "acres": 239,
+   "center": [
+    -93.31335,
+    45.01867
+   ],
+   "bbox": [
+    -93.31853,
+    45.01324,
+    -93.30823,
+    45.02411
+   ],
+   "neighbors": [
+    "minneapolis/folwell",
+    "minneapolis/jordan",
+    "minneapolis/victory",
+    "minneapolis/webber-camden"
+   ],
+   "blockGroups": 4,
+   "census": {
+    "population": 3390.0,
+    "households": 1310.0,
+    "ownerPct": 77,
+    "renterPct": 23,
+    "medianHomeValue": 268000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 80000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 28,
+     "18to34": 25,
+     "35to64": 39,
+     "65plus": 8
+    },
+    "housing": {
+     "singleFamily": 92,
+     "townhomeDuplex": 6,
+     "smallApartment": 2,
+     "largeApartment": 0
+    },
+    "builtBefore1940Pct": 51,
+    "built2000onPct": 2,
+    "bachelorsPct": 40,
+    "commute": {
+     "droveAlone": 54,
+     "transit": 7,
+     "bike": 1,
+     "walk": 0,
+     "fromHome": 24
+    },
+    "commuteUnder20Pct": 33
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "columbia-park",
+   "name": "Columbia Park",
+   "report": "Columbia Park",
+   "community": "Northeast",
+   "acres": 958,
+   "center": [
+    -93.25501,
+    45.02617
+   ],
+   "bbox": [
+    -93.28351,
+    45.01677,
+    -93.24727,
+    45.03556
+   ],
+   "neighbors": [
+    "minneapolis/audubon-park",
+    "minneapolis/holland",
+    "minneapolis/marshall-terrace",
+    "minneapolis/waite-park"
+   ],
+   "blockGroups": 2,
+   "census": {
+    "population": 1410.0,
+    "households": 740.0,
+    "ownerPct": 97,
+    "renterPct": 3,
+    "medianHomeValue": 303000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 79000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 14,
+     "18to34": 22,
+     "35to64": 45,
+     "65plus": 19
+    },
+    "housing": {
+     "singleFamily": 96,
+     "townhomeDuplex": 4,
+     "smallApartment": 0,
+     "largeApartment": 0
+    },
+    "builtBefore1940Pct": 32,
+    "built2000onPct": 6,
+    "bachelorsPct": 39,
+    "commute": {
+     "droveAlone": 61,
+     "transit": 6,
+     "bike": 0,
+     "walk": 0,
+     "fromHome": 12
+    },
+    "commuteUnder20Pct": 24
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "cooper",
+   "name": "Cooper",
+   "report": "Cooper",
+   "community": "Longfellow",
+   "acres": 423,
+   "center": [
+    -93.20991,
+    44.94874
+   ],
+   "bbox": [
+    -93.21784,
+    44.94144,
+    -93.20091,
+    44.95605
+   ],
+   "neighbors": [
+    "minneapolis/howe",
+    "minneapolis/longfellow",
+    "minneapolis/prospect-park-east-river-road",
+    "minneapolis/seward",
+    "saint-paul/union-park"
+   ],
+   "blockGroups": 4,
+   "census": {
+    "population": 3520.0,
+    "households": 1560.0,
+    "ownerPct": 82,
+    "renterPct": 18,
+    "medianHomeValue": 381000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 124000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 17,
+     "18to34": 16,
+     "35to64": 47,
+     "65plus": 20
+    },
+    "housing": {
+     "singleFamily": 70,
+     "townhomeDuplex": 18,
+     "smallApartment": 10,
+     "largeApartment": 2
+    },
+    "builtBefore1940Pct": 68,
+    "built2000onPct": 9,
+    "bachelorsPct": 68,
+    "commute": {
+     "droveAlone": 49,
+     "transit": 4,
+     "bike": 3,
+     "walk": 1,
+     "fromHome": 32
+    },
+    "commuteUnder20Pct": 51
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "corcoran",
+   "name": "Corcoran",
+   "report": "Corcoran Neighborhood",
+   "community": "Powderhorn",
+   "acres": 292,
+   "center": [
+    -93.24119,
+    44.94333
+   ],
+   "bbox": [
+    -93.24742,
+    44.93773,
+    -93.23113,
+    44.94837
+   ],
+   "neighbors": [
+    "minneapolis/east-phillips",
+    "minneapolis/howe",
+    "minneapolis/longfellow",
+    "minneapolis/powderhorn-park",
+    "minneapolis/standish"
+   ],
+   "blockGroups": 4,
+   "census": {
+    "population": 4540.0,
+    "households": 1890.0,
+    "ownerPct": 53,
+    "renterPct": 47,
+    "medianHomeValue": 310000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 71000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 26,
+     "18to34": 25,
+     "35to64": 41,
+     "65plus": 9
+    },
+    "housing": {
+     "singleFamily": 43,
+     "townhomeDuplex": 31,
+     "smallApartment": 10,
+     "largeApartment": 15
+    },
+    "builtBefore1940Pct": 56,
+    "built2000onPct": 22,
+    "bachelorsPct": 50,
+    "commute": {
+     "droveAlone": 45,
+     "transit": 5,
+     "bike": 4,
+     "walk": 1,
+     "fromHome": 37
+    },
+    "commuteUnder20Pct": 34
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "diamond-lake",
+   "name": "Diamond Lake",
+   "report": "Diamond Lake",
+   "community": "Nokomis",
+   "acres": 659,
+   "center": [
+    -93.26514,
+    44.89715
+   ],
+   "bbox": [
+    -93.27517,
+    44.89066,
+    -93.24718,
+    44.90366
+   ],
+   "neighbors": [
+    "minneapolis/hale",
+    "minneapolis/page",
+    "minneapolis/tangletown",
+    "minneapolis/wenonah",
+    "minneapolis/windom"
+   ],
+   "blockGroups": 6,
+   "census": {
+    "population": 6050.0,
+    "households": 2630.0,
+    "ownerPct": 91,
+    "renterPct": 9,
+    "medianHomeValue": 434000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 156000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 22,
+     "18to34": 17,
+     "35to64": 45,
+     "65plus": 15
+    },
+    "housing": {
+     "singleFamily": 87,
+     "townhomeDuplex": 12,
+     "smallApartment": 1,
+     "largeApartment": 0
+    },
+    "builtBefore1940Pct": 32,
+    "built2000onPct": 3,
+    "bachelorsPct": 71,
+    "commute": {
+     "droveAlone": 61,
+     "transit": 1,
+     "bike": 1,
+     "walk": 0,
+     "fromHome": 34
+    },
+    "commuteUnder20Pct": 57
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "downtown-east",
+   "name": "Downtown East",
+   "report": "Downtown East – Mpls",
+   "community": "Central",
+   "acres": 235,
+   "center": [
+    -93.25462,
+    44.97569
+   ],
+   "bbox": [
+    -93.26243,
+    44.96983,
+    -93.24499,
+    44.98163
+   ],
+   "neighbors": [
+    "minneapolis/cedar-riverside",
+    "minneapolis/downtown-west",
+    "minneapolis/elliot-park",
+    "minneapolis/marcy-holmes"
+   ],
+   "blockGroups": 2,
+   "census": {
+    "population": 4610.0,
+    "households": 2440.0,
+    "ownerPct": 41,
+    "renterPct": 59,
+    "medianHomeValue": 727000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 124000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 11,
+     "18to34": 43,
+     "35to64": 33,
+     "65plus": 14
+    },
+    "housing": {
+     "singleFamily": 0,
+     "townhomeDuplex": 2,
+     "smallApartment": 21,
+     "largeApartment": 77
+    },
+    "builtBefore1940Pct": 6,
+    "built2000onPct": 88,
+    "bachelorsPct": 82,
+    "commute": {
+     "droveAlone": 43,
+     "transit": 1,
+     "bike": 2,
+     "walk": 16,
+     "fromHome": 37
+    },
+    "commuteUnder20Pct": 58
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "downtown-west",
+   "name": "Downtown West",
+   "report": "Downtown West – Mpls",
+   "community": "Central",
+   "acres": 476,
+   "center": [
+    -93.27104,
+    44.97764
+   ],
+   "bbox": [
+    -93.28161,
+    44.96984,
+    -93.25714,
+    44.98529
+   ],
+   "neighbors": [
+    "minneapolis/downtown-east",
+    "minneapolis/elliot-park",
+    "minneapolis/loring-park",
+    "minneapolis/marcy-holmes",
+    "minneapolis/nicollet-island-east-bank",
+    "minneapolis/north-loop"
+   ],
+   "blockGroups": 9,
+   "census": {
+    "population": 8220.0,
+    "households": 5110.0,
+    "ownerPct": 23,
+    "renterPct": 77,
+    "medianHomeValue": 322000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 89000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 6,
+     "18to34": 45,
+     "35to64": 39,
+     "65plus": 10
+    },
+    "housing": {
+     "singleFamily": 3,
+     "townhomeDuplex": 1,
+     "smallApartment": 8,
+     "largeApartment": 87
+    },
+    "builtBefore1940Pct": 8,
+    "built2000onPct": 33,
+    "bachelorsPct": 60,
+    "commute": {
+     "droveAlone": 27,
+     "transit": 7,
+     "bike": 0,
+     "walk": 33,
+     "fromHome": 30
+    },
+    "commuteUnder20Pct": 57
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "east-bde-maka-ska",
+   "name": "East Bde Maka Ska",
+   "report": "East Bde Maka Ska",
+   "community": "Calhoun-Isles",
+   "acres": 281,
+   "center": [
+    -93.3044,
+    44.94381
+   ],
+   "bbox": [
+    -93.31048,
+    44.93767,
+    -93.29828,
+    44.9484
+   ],
+   "neighbors": [
+    "minneapolis/cedar-isles-dean",
+    "minneapolis/east-harriet",
+    "minneapolis/east-isles",
+    "minneapolis/linden-hills",
+    "minneapolis/lowry-hill-east",
+    "minneapolis/south-uptown",
+    "minneapolis/west-maka-ska"
+   ],
+   "blockGroups": 3,
+   "census": {
+    "population": 2440.0,
+    "households": 1380.0,
+    "ownerPct": 40,
+    "renterPct": 60,
+    "medianHomeValue": 604000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 120000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 10,
+     "18to34": 44,
+     "35to64": 33,
+     "65plus": 12
+    },
+    "housing": {
+     "singleFamily": 23,
+     "townhomeDuplex": 26,
+     "smallApartment": 28,
+     "largeApartment": 24
+    },
+    "builtBefore1940Pct": 50,
+    "built2000onPct": 22,
+    "bachelorsPct": 82,
+    "commute": {
+     "droveAlone": 47,
+     "transit": 5,
+     "bike": 0,
+     "walk": 1,
+     "fromHome": 41
+    },
+    "commuteUnder20Pct": 42
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "east-harriet",
+   "name": "East Harriet",
+   "report": "East Harriet",
+   "community": "Southwest",
+   "acres": 794,
+   "center": [
+    -93.2979,
+    44.92871
+   ],
+   "bbox": [
+    -93.31051,
+    44.91956,
+    -93.28821,
+    44.93772
+   ],
+   "neighbors": [
+    "minneapolis/east-bde-maka-ska",
+    "minneapolis/king-field",
+    "minneapolis/linden-hills",
+    "minneapolis/lyndale",
+    "minneapolis/lynnhurst",
+    "minneapolis/south-uptown",
+    "minneapolis/tangletown",
+    "minneapolis/west-maka-ska"
+   ],
+   "blockGroups": 4,
+   "census": {
+    "population": 3260.0,
+    "households": 1500.0,
+    "ownerPct": 64,
+    "renterPct": 36,
+    "medianHomeValue": 482000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 108000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 18,
+     "18to34": 23,
+     "35to64": 36,
+     "65plus": 23
+    },
+    "housing": {
+     "singleFamily": 42,
+     "townhomeDuplex": 23,
+     "smallApartment": 26,
+     "largeApartment": 9
+    },
+    "builtBefore1940Pct": 80,
+    "built2000onPct": 3,
+    "bachelorsPct": 71,
+    "commute": {
+     "droveAlone": 54,
+     "transit": 4,
+     "bike": 1,
+     "walk": 1,
+     "fromHome": 35
+    },
+    "commuteUnder20Pct": 43
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "east-isles",
+   "name": "East Isles",
+   "report": "East Isles",
+   "community": "Calhoun-Isles",
+   "acres": 218,
+   "center": [
+    -93.30115,
+    44.95432
+   ],
+   "bbox": [
+    -93.30503,
+    44.94836,
+    -93.29273,
+    44.96094
+   ],
+   "neighbors": [
+    "minneapolis/cedar-isles-dean",
+    "minneapolis/east-bde-maka-ska",
+    "minneapolis/kenwood",
+    "minneapolis/lowry-hill",
+    "minneapolis/lowry-hill-east",
+    "minneapolis/south-uptown"
+   ],
+   "blockGroups": 3,
+   "census": {
+    "population": 3890.0,
+    "households": 2200.0,
+    "ownerPct": 37,
+    "renterPct": 63,
+    "medianHomeValue": 652000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 105000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 10,
+     "18to34": 33,
+     "35to64": 42,
+     "65plus": 15
+    },
+    "housing": {
+     "singleFamily": 19,
+     "townhomeDuplex": 13,
+     "smallApartment": 52,
+     "largeApartment": 15
+    },
+    "builtBefore1940Pct": 62,
+    "built2000onPct": 10,
+    "bachelorsPct": 74,
+    "commute": {
+     "droveAlone": 53,
+     "transit": 4,
+     "bike": 3,
+     "walk": 3,
+     "fromHome": 33
+    },
+    "commuteUnder20Pct": 42
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "east-phillips",
+   "name": "East Phillips",
+   "report": "East Phillips",
+   "community": "Phillips",
+   "acres": 256,
+   "center": [
+    -93.24752,
+    44.95464
+   ],
+   "bbox": [
+    -93.25251,
+    44.94836,
+    -93.23817,
+    44.96093
+   ],
+   "neighbors": [
+    "minneapolis/corcoran",
+    "minneapolis/longfellow",
+    "minneapolis/midtown-phillips",
+    "minneapolis/powderhorn-park",
+    "minneapolis/seward",
+    "minneapolis/ventura-village"
+   ],
+   "blockGroups": 3,
+   "census": {
+    "population": 4800.0,
+    "households": 1260.0,
+    "ownerPct": 46,
+    "renterPct": 54,
+    "medianHomeValue": 326000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 65000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 30,
+     "18to34": 36,
+     "35to64": 30,
+     "65plus": 4
+    },
+    "housing": {
+     "singleFamily": 32,
+     "townhomeDuplex": 40,
+     "smallApartment": 22,
+     "largeApartment": 6
+    },
+    "builtBefore1940Pct": 64,
+    "built2000onPct": 20,
+    "bachelorsPct": 29,
+    "commute": {
+     "droveAlone": 51,
+     "transit": 13,
+     "bike": 1,
+     "walk": 7,
+     "fromHome": 15
+    },
+    "commuteUnder20Pct": 56
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "elliot-park",
+   "name": "Elliot Park",
+   "report": "Elliot Park",
+   "community": "Central",
+   "acres": 242,
+   "center": [
+    -93.26159,
+    44.97086
+   ],
+   "bbox": [
+    -93.26963,
+    44.96573,
+    -93.25296,
+    44.97595
+   ],
+   "neighbors": [
+    "minneapolis/cedar-riverside",
+    "minneapolis/downtown-east",
+    "minneapolis/downtown-west",
+    "minneapolis/loring-park",
+    "minneapolis/stevens-square-loring-heights",
+    "minneapolis/ventura-village"
+   ],
+   "blockGroups": 6,
+   "census": {
+    "population": 6560.0,
+    "households": 3540.0,
+    "ownerPct": 22,
+    "renterPct": 78,
+    "medianHomeValue": 380000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 52000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 7,
+     "18to34": 43,
+     "35to64": 38,
+     "65plus": 12
+    },
+    "housing": {
+     "singleFamily": 5,
+     "townhomeDuplex": 10,
+     "smallApartment": 29,
+     "largeApartment": 54
+    },
+    "builtBefore1940Pct": 21,
+    "built2000onPct": 35,
+    "bachelorsPct": 44,
+    "commute": {
+     "droveAlone": 47,
+     "transit": 8,
+     "bike": 1,
+     "walk": 17,
+     "fromHome": 24
+    },
+    "commuteUnder20Pct": 50
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "ericsson",
+   "name": "Ericsson",
+   "report": "Ericsson",
+   "community": "Nokomis",
+   "acres": 583,
+   "center": [
+    -93.23363,
+    44.92144
+   ],
+   "bbox": [
+    -93.24732,
+    44.91608,
+    -93.21515,
+    44.92693
+   ],
+   "neighbors": [
+    "minneapolis/bancroft",
+    "minneapolis/hiawatha",
+    "minneapolis/keewaydin",
+    "minneapolis/minnehaha",
+    "minneapolis/northrop",
+    "minneapolis/standish"
+   ],
+   "blockGroups": 4,
+   "census": {
+    "population": 3410.0,
+    "households": 1570.0,
+    "ownerPct": 84,
+    "renterPct": 16,
+    "medianHomeValue": 392000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 118000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 15,
+     "18to34": 20,
+     "35to64": 50,
+     "65plus": 15
+    },
+    "housing": {
+     "singleFamily": 79,
+     "townhomeDuplex": 9,
+     "smallApartment": 1,
+     "largeApartment": 12
+    },
+    "builtBefore1940Pct": 57,
+    "built2000onPct": 19,
+    "bachelorsPct": 65,
+    "commute": {
+     "droveAlone": 50,
+     "transit": 5,
+     "bike": 2,
+     "walk": 4,
+     "fromHome": 37
+    },
+    "commuteUnder20Pct": 37
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "field",
+   "name": "Field",
+   "report": "Field",
+   "community": "Nokomis",
+   "acres": 221,
+   "center": [
+    -93.26869,
+    44.91447
+   ],
+   "bbox": [
+    -93.27482,
+    44.90917,
+    -93.26259,
+    44.91972
+   ],
+   "neighbors": [
+    "minneapolis/hale",
+    "minneapolis/king-field",
+    "minneapolis/northrop",
+    "minneapolis/page",
+    "minneapolis/regina",
+    "minneapolis/tangletown"
+   ],
+   "blockGroups": 3,
+   "census": {
+    "population": 2840.0,
+    "households": 1130.0,
+    "ownerPct": 88,
+    "renterPct": 12,
+    "medianHomeValue": 387000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 116000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 29,
+     "18to34": 12,
+     "35to64": 43,
+     "65plus": 15
+    },
+    "housing": {
+     "singleFamily": 94,
+     "townhomeDuplex": 5,
+     "smallApartment": 2,
+     "largeApartment": 0
+    },
+    "builtBefore1940Pct": 78,
+    "built2000onPct": 6,
+    "bachelorsPct": 67,
+    "commute": {
+     "droveAlone": 53,
+     "transit": 3,
+     "bike": 1,
+     "walk": 0,
+     "fromHome": 37
+    },
+    "commuteUnder20Pct": 58
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "folwell",
+   "name": "Folwell",
+   "report": "Folwell",
+   "community": "Camden",
+   "acres": 356,
+   "center": [
+    -93.30067,
+    45.01861
+   ],
+   "bbox": [
+    -93.30833,
+    45.01314,
+    -93.29305,
+    45.02409
+   ],
+   "neighbors": [
+    "minneapolis/cleveland",
+    "minneapolis/hawthorne",
+    "minneapolis/jordan",
+    "minneapolis/mckinley",
+    "minneapolis/victory",
+    "minneapolis/webber-camden"
+   ],
+   "blockGroups": 5,
+   "census": {
+    "population": 5340.0,
+    "households": 1870.0,
+    "ownerPct": 79,
+    "renterPct": 21,
+    "medianHomeValue": 192000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 70000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 26,
+     "18to34": 22,
+     "35to64": 43,
+     "65plus": 9
+    },
+    "housing": {
+     "singleFamily": 74,
+     "townhomeDuplex": 7,
+     "smallApartment": 10,
+     "largeApartment": 5
+    },
+    "builtBefore1940Pct": 72,
+    "built2000onPct": 3,
+    "bachelorsPct": 25,
+    "commute": {
+     "droveAlone": 63,
+     "transit": 9,
+     "bike": 0,
+     "walk": 0,
+     "fromHome": 17
+    },
+    "commuteUnder20Pct": 32
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "fulton",
+   "name": "Fulton",
+   "report": "Fulton",
+   "community": "Southwest",
+   "acres": 559,
+   "center": [
+    -93.31886,
+    44.91154
+   ],
+   "bbox": [
+    -93.32909,
+    44.90513,
+    -93.30863,
+    44.91794
+   ],
+   "neighbors": [
+    "minneapolis/armatage",
+    "minneapolis/linden-hills",
+    "minneapolis/lynnhurst"
+   ],
+   "blockGroups": 6,
+   "census": {
+    "population": 6640.0,
+    "households": 2780.0,
+    "ownerPct": 88,
+    "renterPct": 12,
+    "medianHomeValue": 627000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 174000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 22,
+     "18to34": 15,
+     "35to64": 44,
+     "65plus": 19
+    },
+    "housing": {
+     "singleFamily": 86,
+     "townhomeDuplex": 9,
+     "smallApartment": 3,
+     "largeApartment": 2
+    },
+    "builtBefore1940Pct": 59,
+    "built2000onPct": 9,
+    "bachelorsPct": 84,
+    "commute": {
+     "droveAlone": 52,
+     "transit": 2,
+     "bike": 1,
+     "walk": 1,
+     "fromHome": 42
+    },
+    "commuteUnder20Pct": 46
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "hale",
+   "name": "Hale",
+   "report": "Hale",
+   "community": "Nokomis",
+   "acres": 326,
+   "center": [
+    -93.25498,
+    44.90975
+   ],
+   "bbox": [
+    -93.26266,
+    44.90341,
+    -93.24728,
+    44.91523
+   ],
+   "neighbors": [
+    "minneapolis/diamond-lake",
+    "minneapolis/field",
+    "minneapolis/keewaydin",
+    "minneapolis/northrop",
+    "minneapolis/page",
+    "minneapolis/wenonah"
+   ],
+   "blockGroups": 4,
+   "census": {
+    "population": 3080.0,
+    "households": 1240.0,
+    "ownerPct": 86,
+    "renterPct": 14,
+    "medianHomeValue": 471000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 162000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 26,
+     "18to34": 14,
+     "35to64": 45,
+     "65plus": 14
+    },
+    "housing": {
+     "singleFamily": 91,
+     "townhomeDuplex": 8,
+     "smallApartment": 1,
+     "largeApartment": 0
+    },
+    "builtBefore1940Pct": 57,
+    "built2000onPct": 1,
+    "bachelorsPct": 80,
+    "commute": {
+     "droveAlone": 55,
+     "transit": 2,
+     "bike": 1,
+     "walk": 0,
+     "fromHome": 38
+    },
+    "commuteUnder20Pct": 46
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "harrison",
+   "name": "Harrison",
+   "report": "Harrison",
+   "community": "Near North",
+   "acres": 364,
+   "center": [
+    -93.30365,
+    44.98019
+   ],
+   "bbox": [
+    -93.3185,
+    44.97597,
+    -93.28799,
+    44.98441
+   ],
+   "neighbors": [
+    "minneapolis/bryn-mawr",
+    "minneapolis/lowry-hill",
+    "minneapolis/near-north",
+    "minneapolis/north-loop",
+    "minneapolis/sumner-glenwood",
+    "minneapolis/willard-hay"
+   ],
+   "blockGroups": 3,
+   "census": {
+    "population": 3970.0,
+    "households": 1300.0,
+    "ownerPct": 24,
+    "renterPct": 76,
+    "medianHomeValue": 292000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 66000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 31,
+     "18to34": 39,
+     "35to64": 24,
+     "65plus": 6
+    },
+    "housing": {
+     "singleFamily": 21,
+     "townhomeDuplex": 37,
+     "smallApartment": 39,
+     "largeApartment": 3
+    },
+    "builtBefore1940Pct": 38,
+    "built2000onPct": 15,
+    "bachelorsPct": 35,
+    "commute": {
+     "droveAlone": 52,
+     "transit": 7,
+     "bike": 0,
+     "walk": 2,
+     "fromHome": 28
+    },
+    "commuteUnder20Pct": 64
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "hawthorne",
+   "name": "Hawthorne",
+   "report": "Hawthorne",
+   "community": "Near North",
+   "acres": 605,
+   "center": [
+    -93.28404,
+    45.00608
+   ],
+   "bbox": [
+    -93.29433,
+    44.99902,
+    -93.27384,
+    45.01314
+   ],
+   "neighbors": [
+    "minneapolis/bottineau",
+    "minneapolis/folwell",
+    "minneapolis/jordan",
+    "minneapolis/marshall-terrace",
+    "minneapolis/mckinley",
+    "minneapolis/near-north",
+    "minneapolis/sheridan",
+    "minneapolis/st-anthony-west"
+   ],
+   "blockGroups": 7,
+   "census": {
+    "population": 4160.0,
+    "households": 1480.0,
+    "ownerPct": 39,
+    "renterPct": 61,
+    "medianHomeValue": 225000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 36000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 33,
+     "18to34": 24,
+     "35to64": 33,
+     "65plus": 10
+    },
+    "housing": {
+     "singleFamily": 46,
+     "townhomeDuplex": 27,
+     "smallApartment": 7,
+     "largeApartment": 19
+    },
+    "builtBefore1940Pct": 58,
+    "built2000onPct": 11,
+    "bachelorsPct": 13,
+    "commute": {
+     "droveAlone": 56,
+     "transit": 12,
+     "bike": 0,
+     "walk": 0,
+     "fromHome": 7
+    },
+    "commuteUnder20Pct": 47
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "hiawatha",
+   "name": "Hiawatha",
+   "report": "Hiawatha",
+   "community": "Longfellow",
+   "acres": 794,
+   "center": [
+    -93.20932,
+    44.91802
+   ],
+   "bbox": [
+    -93.22618,
+    44.90537,
+    -93.19433,
+    44.93085
+   ],
+   "neighbors": [
+    "minneapolis/ericsson",
+    "minneapolis/howe",
+    "minneapolis/minnehaha",
+    "minneapolis/standish",
+    "saint-paul/highland-park"
+   ],
+   "blockGroups": 5,
+   "census": {
+    "population": 6570.0,
+    "households": 3190.0,
+    "ownerPct": 64,
+    "renterPct": 36,
+    "medianHomeValue": 349000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 97000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 15,
+     "18to34": 21,
+     "35to64": 42,
+     "65plus": 22
+    },
+    "housing": {
+     "singleFamily": 59,
+     "townhomeDuplex": 10,
+     "smallApartment": 12,
+     "largeApartment": 19
+    },
+    "builtBefore1940Pct": 41,
+    "built2000onPct": 19,
+    "bachelorsPct": 60,
+    "commute": {
+     "droveAlone": 59,
+     "transit": 7,
+     "bike": 2,
+     "walk": 3,
+     "fromHome": 22
+    },
+    "commuteUnder20Pct": 38
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "holland",
+   "name": "Holland",
+   "report": "Holland",
+   "community": "Northeast",
+   "acres": 341,
+   "center": [
+    -93.25523,
+    45.01098
+   ],
+   "bbox": [
+    -93.26316,
+    45.00523,
+    -93.24732,
+    45.01679
+   ],
+   "neighbors": [
+    "minneapolis/audubon-park",
+    "minneapolis/bottineau",
+    "minneapolis/columbia-park",
+    "minneapolis/logan-park",
+    "minneapolis/marshall-terrace",
+    "minneapolis/sheridan",
+    "minneapolis/windom-park"
+   ],
+   "blockGroups": 4,
+   "census": {
+    "population": 5040.0,
+    "households": 2160.0,
+    "ownerPct": 51,
+    "renterPct": 49,
+    "medianHomeValue": 333000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 78000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 23,
+     "18to34": 28,
+     "35to64": 40,
+     "65plus": 9
+    },
+    "housing": {
+     "singleFamily": 45,
+     "townhomeDuplex": 35,
+     "smallApartment": 12,
+     "largeApartment": 8
+    },
+    "builtBefore1940Pct": 52,
+    "built2000onPct": 15,
+    "bachelorsPct": 49,
+    "commute": {
+     "droveAlone": 54,
+     "transit": 8,
+     "bike": 1,
+     "walk": 1,
+     "fromHome": 22
+    },
+    "commuteUnder20Pct": 49
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "howe",
+   "name": "Howe",
+   "report": "Howe",
+   "community": "Longfellow",
+   "acres": 680,
+   "center": [
+    -93.21554,
+    44.93617
+   ],
+   "bbox": [
+    -93.23361,
+    44.93045,
+    -93.20045,
+    44.94156
+   ],
+   "neighbors": [
+    "minneapolis/cooper",
+    "minneapolis/corcoran",
+    "minneapolis/hiawatha",
+    "minneapolis/longfellow",
+    "minneapolis/standish"
+   ],
+   "blockGroups": 7,
+   "census": {
+    "population": 7090.0,
+    "households": 3260.0,
+    "ownerPct": 78,
+    "renterPct": 22,
+    "medianHomeValue": 367000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 115000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 20,
+     "18to34": 21,
+     "35to64": 46,
+     "65plus": 13
+    },
+    "housing": {
+     "singleFamily": 75,
+     "townhomeDuplex": 9,
+     "smallApartment": 11,
+     "largeApartment": 6
+    },
+    "builtBefore1940Pct": 72,
+    "built2000onPct": 8,
+    "bachelorsPct": 56,
+    "commute": {
+     "droveAlone": 56,
+     "transit": 7,
+     "bike": 3,
+     "walk": 1,
+     "fromHome": 29
+    },
+    "commuteUnder20Pct": 44
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "jordan",
+   "name": "Jordan",
+   "report": "Jordan Neighborhood",
+   "community": "Near North",
+   "acres": 509,
+   "center": [
+    -93.303,
+    45.00615
+   ],
+   "bbox": [
+    -93.31844,
+    44.99914,
+    -93.29408,
+    45.01333
+   ],
+   "neighbors": [
+    "minneapolis/cleveland",
+    "minneapolis/folwell",
+    "minneapolis/hawthorne",
+    "minneapolis/near-north",
+    "minneapolis/willard-hay"
+   ],
+   "blockGroups": 8,
+   "census": {
+    "population": 8440.0,
+    "households": 2780.0,
+    "ownerPct": 59,
+    "renterPct": 41,
+    "medianHomeValue": 213000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 65000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 33,
+     "18to34": 24,
+     "35to64": 35,
+     "65plus": 8
+    },
+    "housing": {
+     "singleFamily": 71,
+     "townhomeDuplex": 14,
+     "smallApartment": 3,
+     "largeApartment": 12
+    },
+    "builtBefore1940Pct": 49,
+    "built2000onPct": 16,
+    "bachelorsPct": 23,
+    "commute": {
+     "droveAlone": 61,
+     "transit": 12,
+     "bike": 1,
+     "walk": 2,
+     "fromHome": 10
+    },
+    "commuteUnder20Pct": 33
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "keewaydin",
+   "name": "Keewaydin",
+   "report": "Keewaydin",
+   "community": "Nokomis",
+   "acres": 563,
+   "center": [
+    -93.23509,
+    44.91074
+   ],
+   "bbox": [
+    -93.24736,
+    44.90528,
+    -93.2228,
+    44.91622
+   ],
+   "neighbors": [
+    "minneapolis/ericsson",
+    "minneapolis/hale",
+    "minneapolis/minnehaha",
+    "minneapolis/morris-park",
+    "minneapolis/northrop",
+    "minneapolis/wenonah"
+   ],
+   "blockGroups": 4,
+   "census": {
+    "population": 2980.0,
+    "households": 1350.0,
+    "ownerPct": 89,
+    "renterPct": 11,
+    "medianHomeValue": 403000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 120000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 20,
+     "18to34": 19,
+     "35to64": 45,
+     "65plus": 16
+    },
+    "housing": {
+     "singleFamily": 92,
+     "townhomeDuplex": 5,
+     "smallApartment": 2,
+     "largeApartment": 0
+    },
+    "builtBefore1940Pct": 69,
+    "built2000onPct": 2,
+    "bachelorsPct": 64,
+    "commute": {
+     "droveAlone": 59,
+     "transit": 6,
+     "bike": 1,
+     "walk": 0,
+     "fromHome": 31
+    },
+    "commuteUnder20Pct": 31
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "kenny",
+   "name": "Kenny",
+   "report": "Kenny",
+   "community": "Southwest",
+   "acres": 411,
+   "center": [
+    -93.29655,
+    44.89788
+   ],
+   "bbox": [
+    -93.30483,
+    44.89064,
+    -93.2883,
+    44.90512
+   ],
+   "neighbors": [
+    "minneapolis/armatage",
+    "minneapolis/lynnhurst",
+    "minneapolis/tangletown",
+    "minneapolis/windom"
+   ],
+   "blockGroups": 3,
+   "census": {
+    "population": 3790.0,
+    "households": 1610.0,
+    "ownerPct": 92,
+    "renterPct": 8,
+    "medianHomeValue": 462000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 149000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 25,
+     "18to34": 14,
+     "35to64": 46,
+     "65plus": 15
+    },
+    "housing": {
+     "singleFamily": 97,
+     "townhomeDuplex": 3,
+     "smallApartment": 0,
+     "largeApartment": 0
+    },
+    "builtBefore1940Pct": 14,
+    "built2000onPct": 3,
+    "bachelorsPct": 83,
+    "commute": {
+     "droveAlone": 53,
+     "transit": 1,
+     "bike": 0,
+     "walk": 2,
+     "fromHome": 41
+    },
+    "commuteUnder20Pct": 41
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "kenwood",
+   "name": "Kenwood",
+   "report": "Kenwood",
+   "community": "Calhoun-Isles",
+   "acres": 421,
+   "center": [
+    -93.31226,
+    44.9617
+   ],
+   "bbox": [
+    -93.32096,
+    44.95465,
+    -93.30317,
+    44.96949
+   ],
+   "neighbors": [
+    "minneapolis/bryn-mawr",
+    "minneapolis/cedar-isles-dean",
+    "minneapolis/east-isles",
+    "minneapolis/lowry-hill"
+   ],
+   "blockGroups": 1,
+   "census": {
+    "population": 1360.0,
+    "households": 510.0,
+    "ownerPct": 92,
+    "renterPct": 8,
+    "medianHomeValue": 1198000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 200000.0,
+    "medianIncomeTop": true,
+    "ages": {
+     "under18": 25,
+     "18to34": 9,
+     "35to64": 44,
+     "65plus": 22
+    },
+    "housing": {
+     "singleFamily": 89,
+     "townhomeDuplex": 3,
+     "smallApartment": 7,
+     "largeApartment": 0
+    },
+    "builtBefore1940Pct": 65,
+    "built2000onPct": 11,
+    "bachelorsPct": 83,
+    "commute": {
+     "droveAlone": 78,
+     "transit": 0,
+     "bike": 7,
+     "walk": 3,
+     "fromHome": 12
+    },
+    "commuteUnder20Pct": 34
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "king-field",
+   "name": "King Field",
+   "report": "King Field",
+   "community": "Southwest",
+   "acres": 533,
+   "center": [
+    -93.28147,
+    44.92953
+   ],
+   "bbox": [
+    -93.28833,
+    44.91956,
+    -93.27465,
+    44.93776
+   ],
+   "neighbors": [
+    "minneapolis/bryant",
+    "minneapolis/central",
+    "minneapolis/east-harriet",
+    "minneapolis/field",
+    "minneapolis/lyndale",
+    "minneapolis/lynnhurst",
+    "minneapolis/regina",
+    "minneapolis/south-uptown",
+    "minneapolis/tangletown"
+   ],
+   "blockGroups": 8,
+   "census": {
+    "population": 7450.0,
+    "households": 3680.0,
+    "ownerPct": 64,
+    "renterPct": 36,
+    "medianHomeValue": 410000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 98000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 19,
+     "18to34": 29,
+     "35to64": 42,
+     "65plus": 10
+    },
+    "housing": {
+     "singleFamily": 58,
+     "townhomeDuplex": 21,
+     "smallApartment": 20,
+     "largeApartment": 1
+    },
+    "builtBefore1940Pct": 72,
+    "built2000onPct": 5,
+    "bachelorsPct": 72,
+    "commute": {
+     "droveAlone": 57,
+     "transit": 6,
+     "bike": 4,
+     "walk": 2,
+     "fromHome": 26
+    },
+    "commuteUnder20Pct": 48
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "lind-bohanon",
+   "name": "Lind-Bohanon",
+   "report": "Lind - Bohanon",
+   "community": "Camden",
+   "acres": 513,
+   "center": [
+    -93.2929,
+    45.0418
+   ],
+   "bbox": [
+    -93.29921,
+    45.03269,
+    -93.28062,
+    45.05114
+   ],
+   "neighbors": [
+    "minneapolis/shingle-creek",
+    "minneapolis/webber-camden"
+   ],
+   "blockGroups": 3,
+   "census": {
+    "population": 3890.0,
+    "households": 1560.0,
+    "ownerPct": 74,
+    "renterPct": 26,
+    "medianHomeValue": 251000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 88000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 21,
+     "18to34": 28,
+     "35to64": 43,
+     "65plus": 8
+    },
+    "housing": {
+     "singleFamily": 75,
+     "townhomeDuplex": 7,
+     "smallApartment": 6,
+     "largeApartment": 12
+    },
+    "builtBefore1940Pct": 27,
+    "built2000onPct": 20,
+    "bachelorsPct": 32,
+    "commute": {
+     "droveAlone": 59,
+     "transit": 1,
+     "bike": 0,
+     "walk": 0,
+     "fromHome": 22
+    },
+    "commuteUnder20Pct": 51
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "linden-hills",
+   "name": "Linden Hills",
+   "report": "Linden Hills",
+   "community": "Southwest",
+   "acres": 885,
+   "center": [
+    -93.31831,
+    44.92783
+   ],
+   "bbox": [
+    -93.32911,
+    44.91789,
+    -93.30752,
+    44.93781
+   ],
+   "neighbors": [
+    "minneapolis/east-bde-maka-ska",
+    "minneapolis/east-harriet",
+    "minneapolis/fulton",
+    "minneapolis/lynnhurst",
+    "minneapolis/west-maka-ska"
+   ],
+   "blockGroups": 9,
+   "census": {
+    "population": 7530.0,
+    "households": 3300.0,
+    "ownerPct": 67,
+    "renterPct": 33,
+    "medianHomeValue": 761000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 118000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 23,
+     "18to34": 18,
+     "35to64": 46,
+     "65plus": 14
+    },
+    "housing": {
+     "singleFamily": 59,
+     "townhomeDuplex": 13,
+     "smallApartment": 22,
+     "largeApartment": 7
+    },
+    "builtBefore1940Pct": 49,
+    "built2000onPct": 14,
+    "bachelorsPct": 85,
+    "commute": {
+     "droveAlone": 54,
+     "transit": 2,
+     "bike": 2,
+     "walk": 3,
+     "fromHome": 32
+    },
+    "commuteUnder20Pct": 46
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "logan-park",
+   "name": "Logan Park",
+   "report": "Logan Park",
+   "community": "Northeast",
+   "acres": 197,
+   "center": [
+    -93.25243,
+    45.00328
+   ],
+   "bbox": [
+    -93.25755,
+    44.99856,
+    -93.24728,
+    45.00791
+   ],
+   "neighbors": [
+    "minneapolis/beltrami",
+    "minneapolis/holland",
+    "minneapolis/northeast-park",
+    "minneapolis/sheridan",
+    "minneapolis/st-anthony-east",
+    "minneapolis/st-anthony-west",
+    "minneapolis/windom-park"
+   ],
+   "blockGroups": 2,
+   "census": {
+    "population": 2320.0,
+    "households": 1210.0,
+    "ownerPct": 33,
+    "renterPct": 67,
+    "medianHomeValue": 377000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 65000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 12,
+     "18to34": 26,
+     "35to64": 28,
+     "65plus": 35
+    },
+    "housing": {
+     "singleFamily": 15,
+     "townhomeDuplex": 40,
+     "smallApartment": 9,
+     "largeApartment": 35
+    },
+    "builtBefore1940Pct": 48,
+    "built2000onPct": 10,
+    "bachelorsPct": 43,
+    "commute": {
+     "droveAlone": 59,
+     "transit": 7,
+     "bike": 1,
+     "walk": 2,
+     "fromHome": 25
+    },
+    "commuteUnder20Pct": 34
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "longfellow",
+   "name": "Longfellow",
+   "report": "Longfellow",
+   "community": "Longfellow",
+   "acres": 545,
+   "center": [
+    -93.22849,
+    44.94966
+   ],
+   "bbox": [
+    -93.24469,
+    44.94135,
+    -93.21783,
+    44.95797
+   ],
+   "neighbors": [
+    "minneapolis/cooper",
+    "minneapolis/corcoran",
+    "minneapolis/east-phillips",
+    "minneapolis/howe",
+    "minneapolis/seward"
+   ],
+   "blockGroups": 6,
+   "census": {
+    "population": 5580.0,
+    "households": 2490.0,
+    "ownerPct": 48,
+    "renterPct": 52,
+    "medianHomeValue": 319000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 76000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 18,
+     "18to34": 26,
+     "35to64": 44,
+     "65plus": 11
+    },
+    "housing": {
+     "singleFamily": 45,
+     "townhomeDuplex": 25,
+     "smallApartment": 26,
+     "largeApartment": 4
+    },
+    "builtBefore1940Pct": 62,
+    "built2000onPct": 11,
+    "bachelorsPct": 42,
+    "commute": {
+     "droveAlone": 52,
+     "transit": 6,
+     "bike": 5,
+     "walk": 3,
+     "fromHome": 24
+    },
+    "commuteUnder20Pct": 55
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "loring-park",
+   "name": "Loring Park",
+   "report": "Loring Park",
+   "community": "Central",
+   "acres": 299,
+   "center": [
+    -93.28045,
+    44.97058
+   ],
+   "bbox": [
+    -93.28807,
+    44.96428,
+    -93.26925,
+    44.97641
+   ],
+   "neighbors": [
+    "minneapolis/downtown-west",
+    "minneapolis/elliot-park",
+    "minneapolis/lowry-hill",
+    "minneapolis/lowry-hill-east",
+    "minneapolis/north-loop",
+    "minneapolis/stevens-square-loring-heights",
+    "minneapolis/ventura-village"
+   ],
+   "blockGroups": 9,
+   "census": {
+    "population": 9660.0,
+    "households": 7030.0,
+    "ownerPct": 22,
+    "renterPct": 78,
+    "medianHomeValue": 264000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 53000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 4,
+     "18to34": 46,
+     "35to64": 33,
+     "65plus": 17
+    },
+    "housing": {
+     "singleFamily": 1,
+     "townhomeDuplex": 3,
+     "smallApartment": 27,
+     "largeApartment": 68
+    },
+    "builtBefore1940Pct": 29,
+    "built2000onPct": 15,
+    "bachelorsPct": 59,
+    "commute": {
+     "droveAlone": 42,
+     "transit": 10,
+     "bike": 3,
+     "walk": 16,
+     "fromHome": 26
+    },
+    "commuteUnder20Pct": 53
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "lowry-hill",
+   "name": "Lowry Hill",
+   "report": "Lowry Hill",
+   "community": "Calhoun-Isles",
+   "acres": 387,
+   "center": [
+    -93.29631,
+    44.96904
+   ],
+   "bbox": [
+    -93.30458,
+    44.96092,
+    -93.28798,
+    44.97705
+   ],
+   "neighbors": [
+    "minneapolis/bryn-mawr",
+    "minneapolis/east-isles",
+    "minneapolis/harrison",
+    "minneapolis/kenwood",
+    "minneapolis/loring-park",
+    "minneapolis/lowry-hill-east",
+    "minneapolis/north-loop"
+   ],
+   "blockGroups": 4,
+   "census": {
+    "population": 4030.0,
+    "households": 2420.0,
+    "ownerPct": 42,
+    "renterPct": 58,
+    "medianHomeValue": 804000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 103000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 16,
+     "18to34": 32,
+     "35to64": 38,
+     "65plus": 15
+    },
+    "housing": {
+     "singleFamily": 27,
+     "townhomeDuplex": 12,
+     "smallApartment": 43,
+     "largeApartment": 18
+    },
+    "builtBefore1940Pct": 64,
+    "built2000onPct": 5,
+    "bachelorsPct": 73,
+    "commute": {
+     "droveAlone": 61,
+     "transit": 1,
+     "bike": 1,
+     "walk": 4,
+     "fromHome": 27
+    },
+    "commuteUnder20Pct": 50
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "lowry-hill-east",
+   "name": "Lowry Hill East",
+   "report": "Lowry Hill East",
+   "community": "Calhoun-Isles",
+   "acres": 263,
+   "center": [
+    -93.29152,
+    44.9579
+   ],
+   "bbox": [
+    -93.29828,
+    44.94836,
+    -93.28796,
+    44.96716
+   ],
+   "neighbors": [
+    "minneapolis/east-bde-maka-ska",
+    "minneapolis/east-isles",
+    "minneapolis/loring-park",
+    "minneapolis/lowry-hill",
+    "minneapolis/lyndale",
+    "minneapolis/south-uptown",
+    "minneapolis/stevens-square-loring-heights",
+    "minneapolis/whittier"
+   ],
+   "blockGroups": 4,
+   "census": {
+    "population": 8380.0,
+    "households": 5640.0,
+    "ownerPct": 8,
+    "renterPct": 92,
+    "medianHomeValue": 468000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 65000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 4,
+     "18to34": 64,
+     "35to64": 28,
+     "65plus": 5
+    },
+    "housing": {
+     "singleFamily": 5,
+     "townhomeDuplex": 15,
+     "smallApartment": 46,
+     "largeApartment": 34
+    },
+    "builtBefore1940Pct": 32,
+    "built2000onPct": 31,
+    "bachelorsPct": 67,
+    "commute": {
+     "droveAlone": 50,
+     "transit": 8,
+     "bike": 3,
+     "walk": 2,
+     "fromHome": 34
+    },
+    "commuteUnder20Pct": 51
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "lyndale",
+   "name": "Lyndale",
+   "report": "Lyndale",
+   "community": "Powderhorn",
+   "acres": 309,
+   "center": [
+    -93.28144,
+    44.94303
+   ],
+   "bbox": [
+    -93.28821,
+    44.9377,
+    -93.27468,
+    44.94837
+   ],
+   "neighbors": [
+    "minneapolis/central",
+    "minneapolis/east-harriet",
+    "minneapolis/king-field",
+    "minneapolis/lowry-hill-east",
+    "minneapolis/phillips-west",
+    "minneapolis/south-uptown",
+    "minneapolis/whittier"
+   ],
+   "blockGroups": 7,
+   "census": {
+    "population": 6410.0,
+    "households": 3410.0,
+    "ownerPct": 28,
+    "renterPct": 72,
+    "medianHomeValue": 377000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 59000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 13,
+     "18to34": 44,
+     "35to64": 30,
+     "65plus": 13
+    },
+    "housing": {
+     "singleFamily": 20,
+     "townhomeDuplex": 20,
+     "smallApartment": 42,
+     "largeApartment": 17
+    },
+    "builtBefore1940Pct": 53,
+    "built2000onPct": 13,
+    "bachelorsPct": 50,
+    "commute": {
+     "droveAlone": 48,
+     "transit": 11,
+     "bike": 5,
+     "walk": 2,
+     "fromHome": 23
+    },
+    "commuteUnder20Pct": 43
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "lynnhurst",
+   "name": "Lynnhurst",
+   "report": "Lynnhurst",
+   "community": "Southwest",
+   "acres": 636,
+   "center": [
+    -93.29848,
+    44.91236
+   ],
+   "bbox": [
+    -93.30876,
+    44.90508,
+    -93.28825,
+    44.91963
+   ],
+   "neighbors": [
+    "minneapolis/armatage",
+    "minneapolis/east-harriet",
+    "minneapolis/fulton",
+    "minneapolis/kenny",
+    "minneapolis/king-field",
+    "minneapolis/linden-hills",
+    "minneapolis/tangletown",
+    "minneapolis/windom"
+   ],
+   "blockGroups": 7,
+   "census": {
+    "population": 7130.0,
+    "households": 2720.0,
+    "ownerPct": 92,
+    "renterPct": 8,
+    "medianHomeValue": 688000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 200000.0,
+    "medianIncomeTop": true,
+    "ages": {
+     "under18": 25,
+     "18to34": 13,
+     "35to64": 44,
+     "65plus": 17
+    },
+    "housing": {
+     "singleFamily": 86,
+     "townhomeDuplex": 12,
+     "smallApartment": 2,
+     "largeApartment": 0
+    },
+    "builtBefore1940Pct": 76,
+    "built2000onPct": 2,
+    "bachelorsPct": 83,
+    "commute": {
+     "droveAlone": 45,
+     "transit": 2,
+     "bike": 2,
+     "walk": 1,
+     "fromHome": 47
+    },
+    "commuteUnder20Pct": 42
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "marcy-holmes",
+   "name": "Marcy Holmes",
+   "report": "Marcy Holmes",
+   "community": "University",
+   "acres": 535,
+   "center": [
+    -93.24528,
+    44.98745
+   ],
+   "bbox": [
+    -93.26011,
+    44.97848,
+    -93.23082,
+    44.99633
+   ],
+   "neighbors": [
+    "minneapolis/beltrami",
+    "minneapolis/cedar-riverside",
+    "minneapolis/downtown-east",
+    "minneapolis/downtown-west",
+    "minneapolis/nicollet-island-east-bank",
+    "minneapolis/southeast-como",
+    "minneapolis/st-anthony-east",
+    "minneapolis/university-of-minnesota"
+   ],
+   "blockGroups": 10,
+   "census": {
+    "population": 15390.0,
+    "households": 6970.0,
+    "ownerPct": 10,
+    "renterPct": 90,
+    "medianHomeValue": 362000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 46000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 4,
+     "18to34": 77,
+     "35to64": 14,
+     "65plus": 5
+    },
+    "housing": {
+     "singleFamily": 4,
+     "townhomeDuplex": 14,
+     "smallApartment": 38,
+     "largeApartment": 44
+    },
+    "builtBefore1940Pct": 20,
+    "built2000onPct": 38,
+    "bachelorsPct": 61,
+    "commute": {
+     "droveAlone": 49,
+     "transit": 11,
+     "bike": 2,
+     "walk": 16,
+     "fromHome": 18
+    },
+    "commuteUnder20Pct": 56
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "marshall-terrace",
+   "name": "Marshall Terrace",
+   "report": "Marshall Terrace",
+   "community": "Northeast",
+   "acres": 450,
+   "center": [
+    -93.27004,
+    45.02127
+   ],
+   "bbox": [
+    -93.2816,
+    45.01314,
+    -93.26261,
+    45.02938
+   ],
+   "neighbors": [
+    "minneapolis/bottineau",
+    "minneapolis/columbia-park",
+    "minneapolis/hawthorne",
+    "minneapolis/holland",
+    "minneapolis/mckinley"
+   ],
+   "blockGroups": 1,
+   "census": {
+    "population": 1470.0,
+    "households": 790.0,
+    "ownerPct": 56,
+    "renterPct": 44,
+    "medianHomeValue": 296000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 63000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 16,
+     "18to34": 25,
+     "35to64": 44,
+     "65plus": 15
+    },
+    "housing": {
+     "singleFamily": 56,
+     "townhomeDuplex": 18,
+     "smallApartment": 10,
+     "largeApartment": 16
+    },
+    "builtBefore1940Pct": 34,
+    "built2000onPct": 19,
+    "bachelorsPct": 44,
+    "commute": {
+     "droveAlone": 62,
+     "transit": 2,
+     "bike": 4,
+     "walk": 2,
+     "fromHome": 23
+    },
+    "commuteUnder20Pct": 48
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "mckinley",
+   "name": "McKinley",
+   "report": "McKinley",
+   "community": "Camden",
+   "acres": 392,
+   "center": [
+    -93.28458,
+    45.01853
+   ],
+   "bbox": [
+    -93.2931,
+    45.01311,
+    -93.27448,
+    45.02397
+   ],
+   "neighbors": [
+    "minneapolis/bottineau",
+    "minneapolis/folwell",
+    "minneapolis/hawthorne",
+    "minneapolis/marshall-terrace",
+    "minneapolis/webber-camden"
+   ],
+   "blockGroups": 2,
+   "census": {
+    "population": 3740.0,
+    "households": 1110.0,
+    "ownerPct": 60,
+    "renterPct": 40,
+    "medianHomeValue": 176000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 57000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 30,
+     "18to34": 24,
+     "35to64": 41,
+     "65plus": 5
+    },
+    "housing": {
+     "singleFamily": 90,
+     "townhomeDuplex": 7,
+     "smallApartment": 1,
+     "largeApartment": 0
+    },
+    "builtBefore1940Pct": 64,
+    "built2000onPct": 0,
+    "bachelorsPct": 14,
+    "commute": {
+     "droveAlone": 51,
+     "transit": 25,
+     "bike": 0,
+     "walk": 0,
+     "fromHome": 5
+    },
+    "commuteUnder20Pct": 27
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "midtown-phillips",
+   "name": "Midtown Phillips",
+   "report": "Midtown Phillips",
+   "community": "Phillips",
+   "acres": 237,
+   "center": [
+    -93.25754,
+    44.95375
+   ],
+   "bbox": [
+    -93.26268,
+    44.94836,
+    -93.25237,
+    44.95913
+   ],
+   "neighbors": [
+    "minneapolis/central",
+    "minneapolis/east-phillips",
+    "minneapolis/phillips-west",
+    "minneapolis/powderhorn-park",
+    "minneapolis/ventura-village"
+   ],
+   "blockGroups": 4,
+   "census": {
+    "population": 5030.0,
+    "households": 1750.0,
+    "ownerPct": 39,
+    "renterPct": 61,
+    "medianHomeValue": 263000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 45000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 41,
+     "18to34": 29,
+     "35to64": 26,
+     "65plus": 4
+    },
+    "housing": {
+     "singleFamily": 25,
+     "townhomeDuplex": 37,
+     "smallApartment": 8,
+     "largeApartment": 30
+    },
+    "builtBefore1940Pct": 60,
+    "built2000onPct": 14,
+    "bachelorsPct": 37,
+    "commute": {
+     "droveAlone": 58,
+     "transit": 9,
+     "bike": 3,
+     "walk": 4,
+     "fromHome": 13
+    },
+    "commuteUnder20Pct": 51
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "minnehaha",
+   "name": "Minnehaha",
+   "report": "Minnehaha",
+   "community": "Nokomis",
+   "acres": 381,
+   "center": [
+    -93.21543,
+    44.91084
+   ],
+   "bbox": [
+    -93.22288,
+    44.90537,
+    -93.19695,
+    44.91631
+   ],
+   "neighbors": [
+    "minneapolis/ericsson",
+    "minneapolis/hiawatha",
+    "minneapolis/keewaydin",
+    "minneapolis/morris-park",
+    "minneapolis/wenonah"
+   ],
+   "blockGroups": 5,
+   "census": {
+    "population": 4120.0,
+    "households": 2110.0,
+    "ownerPct": 81,
+    "renterPct": 19,
+    "medianHomeValue": 324000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 93000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 19,
+     "18to34": 15,
+     "35to64": 46,
+     "65plus": 19
+    },
+    "housing": {
+     "singleFamily": 62,
+     "townhomeDuplex": 8,
+     "smallApartment": 11,
+     "largeApartment": 19
+    },
+    "builtBefore1940Pct": 51,
+    "built2000onPct": 16,
+    "bachelorsPct": 74,
+    "commute": {
+     "droveAlone": 55,
+     "transit": 4,
+     "bike": 1,
+     "walk": 4,
+     "fromHome": 35
+    },
+    "commuteUnder20Pct": 26
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "morris-park",
+   "name": "Morris Park",
+   "report": "Morris Park",
+   "community": "Nokomis",
+   "acres": 345,
+   "center": [
+    -93.2153,
+    44.89945
+   ],
+   "bbox": [
+    -93.22296,
+    44.89342,
+    -93.20759,
+    44.90539
+   ],
+   "neighbors": [
+    "minneapolis/keewaydin",
+    "minneapolis/minnehaha",
+    "minneapolis/wenonah"
+   ],
+   "blockGroups": 3,
+   "census": {
+    "population": 3580.0,
+    "households": 1440.0,
+    "ownerPct": 87,
+    "renterPct": 13,
+    "medianHomeValue": 313000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 108000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 19,
+     "18to34": 25,
+     "35to64": 46,
+     "65plus": 10
+    },
+    "housing": {
+     "singleFamily": 96,
+     "townhomeDuplex": 3,
+     "smallApartment": 1,
+     "largeApartment": 0
+    },
+    "builtBefore1940Pct": 31,
+    "built2000onPct": 3,
+    "bachelorsPct": 37,
+    "commute": {
+     "droveAlone": 67,
+     "transit": 5,
+     "bike": 0,
+     "walk": 1,
+     "fromHome": 13
+    },
+    "commuteUnder20Pct": 39
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "near-north",
+   "name": "Near North",
+   "report": "Near North",
+   "community": "Near North",
+   "acres": 679,
+   "center": [
+    -93.29362,
+    44.9919
+   ],
+   "bbox": [
+    -93.30831,
+    44.98437,
+    -93.27321,
+    44.99952
+   ],
+   "neighbors": [
+    "minneapolis/harrison",
+    "minneapolis/hawthorne",
+    "minneapolis/jordan",
+    "minneapolis/north-loop",
+    "minneapolis/sheridan",
+    "minneapolis/st-anthony-west",
+    "minneapolis/sumner-glenwood",
+    "minneapolis/willard-hay"
+   ],
+   "blockGroups": 7,
+   "census": {
+    "population": 6330.0,
+    "households": 2050.0,
+    "ownerPct": 50,
+    "renterPct": 50,
+    "medianHomeValue": 315000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 66000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 38,
+     "18to34": 19,
+     "35to64": 33,
+     "65plus": 11
+    },
+    "housing": {
+     "singleFamily": 42,
+     "townhomeDuplex": 25,
+     "smallApartment": 18,
+     "largeApartment": 15
+    },
+    "builtBefore1940Pct": 33,
+    "built2000onPct": 12,
+    "bachelorsPct": 31,
+    "commute": {
+     "droveAlone": 59,
+     "transit": 6,
+     "bike": 1,
+     "walk": 2,
+     "fromHome": 19
+    },
+    "commuteUnder20Pct": 59
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "nicollet-island-east-bank",
+   "name": "Nicollet Island-East Bank",
+   "report": "Nicollet Island - East Bank",
+   "community": "University",
+   "acres": 160,
+   "center": [
+    -93.26025,
+    44.98784
+   ],
+   "bbox": [
+    -93.26777,
+    44.983,
+    -93.2502,
+    44.99265
+   ],
+   "neighbors": [
+    "minneapolis/downtown-west",
+    "minneapolis/marcy-holmes",
+    "minneapolis/north-loop",
+    "minneapolis/st-anthony-east",
+    "minneapolis/st-anthony-west"
+   ],
+   "blockGroups": 2,
+   "census": {
+    "population": 2500.0,
+    "households": 1660.0,
+    "ownerPct": 48,
+    "renterPct": 52,
+    "medianHomeValue": 567000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 114000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 1,
+     "18to34": 32,
+     "35to64": 44,
+     "65plus": 23
+    },
+    "housing": {
+     "singleFamily": 2,
+     "townhomeDuplex": 10,
+     "smallApartment": 22,
+     "largeApartment": 65
+    },
+    "builtBefore1940Pct": 12,
+    "built2000onPct": 58,
+    "bachelorsPct": 76,
+    "commute": {
+     "droveAlone": 44,
+     "transit": 3,
+     "bike": 4,
+     "walk": 12,
+     "fromHome": 35
+    },
+    "commuteUnder20Pct": 63
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "north-loop",
+   "name": "North Loop",
+   "report": "North Loop",
+   "community": "Central",
+   "acres": 547,
+   "center": [
+    -93.28056,
+    44.98399
+   ],
+   "bbox": [
+    -93.28866,
+    44.97501,
+    -93.26392,
+    44.99301
+   ],
+   "neighbors": [
+    "minneapolis/downtown-west",
+    "minneapolis/harrison",
+    "minneapolis/loring-park",
+    "minneapolis/lowry-hill",
+    "minneapolis/near-north",
+    "minneapolis/nicollet-island-east-bank",
+    "minneapolis/st-anthony-west",
+    "minneapolis/sumner-glenwood"
+   ],
+   "blockGroups": 7,
+   "census": {
+    "population": 7740.0,
+    "households": 5040.0,
+    "ownerPct": 23,
+    "renterPct": 77,
+    "medianHomeValue": 423000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 127000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 8,
+     "18to34": 48,
+     "35to64": 38,
+     "65plus": 6
+    },
+    "housing": {
+     "singleFamily": 6,
+     "townhomeDuplex": 3,
+     "smallApartment": 25,
+     "largeApartment": 65
+    },
+    "builtBefore1940Pct": 22,
+    "built2000onPct": 65,
+    "bachelorsPct": 77,
+    "commute": {
+     "droveAlone": 40,
+     "transit": 4,
+     "bike": 1,
+     "walk": 18,
+     "fromHome": 33
+    },
+    "commuteUnder20Pct": 59
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "northeast-park",
+   "name": "Northeast Park",
+   "report": "Northeast Park",
+   "community": "Northeast",
+   "acres": 468,
+   "center": [
+    -93.21708,
+    45.006
+   ],
+   "bbox": [
+    -93.24737,
+    44.99869,
+    -93.20763,
+    45.01328
+   ],
+   "neighbors": [
+    "minneapolis/beltrami",
+    "minneapolis/logan-park",
+    "minneapolis/windom-park"
+   ],
+   "blockGroups": 3,
+   "census": {
+    "population": 900.0,
+    "households": 360.0,
+    "ownerPct": 45,
+    "renterPct": 55,
+    "medianHomeValue": 307000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 90000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 18,
+     "18to34": 32,
+     "35to64": 41,
+     "65plus": 10
+    },
+    "housing": {
+     "singleFamily": 57,
+     "townhomeDuplex": 35,
+     "smallApartment": 8,
+     "largeApartment": 0
+    },
+    "builtBefore1940Pct": 73,
+    "built2000onPct": 3,
+    "bachelorsPct": 45,
+    "commute": {
+     "droveAlone": 60,
+     "transit": 0,
+     "bike": 3,
+     "walk": 1,
+     "fromHome": 22
+    },
+    "commuteUnder20Pct": 36
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "northrop",
+   "name": "Northrop",
+   "report": "Northrop",
+   "community": "Nokomis",
+   "acres": 450,
+   "center": [
+    -93.25495,
+    44.91926
+   ],
+   "bbox": [
+    -93.26265,
+    44.91115,
+    -93.2473,
+    44.92694
+   ],
+   "neighbors": [
+    "minneapolis/bancroft",
+    "minneapolis/bryant",
+    "minneapolis/ericsson",
+    "minneapolis/field",
+    "minneapolis/hale",
+    "minneapolis/keewaydin",
+    "minneapolis/page",
+    "minneapolis/regina",
+    "minneapolis/standish"
+   ],
+   "blockGroups": 5,
+   "census": {
+    "population": 4700.0,
+    "households": 2000.0,
+    "ownerPct": 84,
+    "renterPct": 16,
+    "medianHomeValue": 393000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 127000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 20,
+     "18to34": 22,
+     "35to64": 46,
+     "65plus": 12
+    },
+    "housing": {
+     "singleFamily": 81,
+     "townhomeDuplex": 17,
+     "smallApartment": 2,
+     "largeApartment": 0
+    },
+    "builtBefore1940Pct": 71,
+    "built2000onPct": 4,
+    "bachelorsPct": 69,
+    "commute": {
+     "droveAlone": 57,
+     "transit": 1,
+     "bike": 1,
+     "walk": 0,
+     "fromHome": 35
+    },
+    "commuteUnder20Pct": 36
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "page",
+   "name": "Page",
+   "report": "Page",
+   "community": "Nokomis",
+   "acres": 210,
+   "center": [
+    -93.26874,
+    44.90787
+   ],
+   "bbox": [
+    -93.27492,
+    44.90309,
+    -93.26262,
+    44.91261
+   ],
+   "neighbors": [
+    "minneapolis/diamond-lake",
+    "minneapolis/field",
+    "minneapolis/hale",
+    "minneapolis/northrop",
+    "minneapolis/tangletown",
+    "minneapolis/windom"
+   ],
+   "blockGroups": 2,
+   "census": {
+    "population": 2150.0,
+    "households": 740.0,
+    "ownerPct": 97,
+    "renterPct": 3,
+    "medianHomeValue": 584000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 186000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 27,
+     "18to34": 14,
+     "35to64": 47,
+     "65plus": 12
+    },
+    "housing": {
+     "singleFamily": 98,
+     "townhomeDuplex": 2,
+     "smallApartment": 0,
+     "largeApartment": 0
+    },
+    "builtBefore1940Pct": 65,
+    "built2000onPct": 8,
+    "bachelorsPct": 88,
+    "commute": {
+     "droveAlone": 60,
+     "transit": 2,
+     "bike": 2,
+     "walk": 2,
+     "fromHome": 33
+    },
+    "commuteUnder20Pct": 49
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "phillips-west",
+   "name": "Phillips West",
+   "report": "Phillips West",
+   "community": "Phillips",
+   "acres": 245,
+   "center": [
+    -93.26684,
+    44.95465
+   ],
+   "bbox": [
+    -93.27476,
+    44.94835,
+    -93.26257,
+    44.96091
+   ],
+   "neighbors": [
+    "minneapolis/central",
+    "minneapolis/lyndale",
+    "minneapolis/midtown-phillips",
+    "minneapolis/powderhorn-park",
+    "minneapolis/ventura-village",
+    "minneapolis/whittier"
+   ],
+   "blockGroups": 4,
+   "census": {
+    "population": 6400.0,
+    "households": 2160.0,
+    "ownerPct": 11,
+    "renterPct": 89,
+    "medianHomeValue": 229000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 41000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 37,
+     "18to34": 16,
+     "35to64": 32,
+     "65plus": 15
+    },
+    "housing": {
+     "singleFamily": 6,
+     "townhomeDuplex": 15,
+     "smallApartment": 35,
+     "largeApartment": 43
+    },
+    "builtBefore1940Pct": 16,
+    "built2000onPct": 24,
+    "bachelorsPct": 37,
+    "commute": {
+     "droveAlone": 41,
+     "transit": 23,
+     "bike": 1,
+     "walk": 14,
+     "fromHome": 9
+    },
+    "commuteUnder20Pct": 31
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "powderhorn-park",
+   "name": "Powderhorn Park",
+   "report": "Powderhorn Park",
+   "community": "Powderhorn",
+   "acres": 468,
+   "center": [
+    -93.25498,
+    44.94126
+   ],
+   "bbox": [
+    -93.26268,
+    44.93411,
+    -93.24734,
+    44.94837
+   ],
+   "neighbors": [
+    "minneapolis/bancroft",
+    "minneapolis/bryant",
+    "minneapolis/central",
+    "minneapolis/corcoran",
+    "minneapolis/east-phillips",
+    "minneapolis/midtown-phillips",
+    "minneapolis/phillips-west",
+    "minneapolis/standish"
+   ],
+   "blockGroups": 9,
+   "census": {
+    "population": 7770.0,
+    "households": 3320.0,
+    "ownerPct": 53,
+    "renterPct": 47,
+    "medianHomeValue": 323000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 72000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 23,
+     "18to34": 27,
+     "35to64": 41,
+     "65plus": 9
+    },
+    "housing": {
+     "singleFamily": 43,
+     "townhomeDuplex": 36,
+     "smallApartment": 20,
+     "largeApartment": 1
+    },
+    "builtBefore1940Pct": 76,
+    "built2000onPct": 4,
+    "bachelorsPct": 49,
+    "commute": {
+     "droveAlone": 51,
+     "transit": 11,
+     "bike": 3,
+     "walk": 7,
+     "fromHome": 22
+    },
+    "commuteUnder20Pct": 42
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "prospect-park-east-river-road",
+   "name": "Prospect Park-East River Road",
+   "report": "Prospect Park - East River Road",
+   "community": "University",
+   "acres": 815,
+   "center": [
+    -93.21741,
+    44.9675
+   ],
+   "bbox": [
+    -93.22712,
+    44.95303,
+    -93.20767,
+    44.98237
+   ],
+   "neighbors": [
+    "minneapolis/cedar-riverside",
+    "minneapolis/cooper",
+    "minneapolis/seward",
+    "minneapolis/southeast-como",
+    "minneapolis/university-of-minnesota",
+    "saint-paul/st-anthony-park",
+    "saint-paul/union-park"
+   ],
+   "blockGroups": 8,
+   "census": {
+    "population": 8620.0,
+    "households": 4000.0,
+    "ownerPct": 20,
+    "renterPct": 80,
+    "medianHomeValue": 528000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 46000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 8,
+     "18to34": 67,
+     "35to64": 16,
+     "65plus": 8
+    },
+    "housing": {
+     "singleFamily": 17,
+     "townhomeDuplex": 11,
+     "smallApartment": 15,
+     "largeApartment": 57
+    },
+    "builtBefore1940Pct": 17,
+    "built2000onPct": 54,
+    "bachelorsPct": 78,
+    "commute": {
+     "droveAlone": 41,
+     "transit": 9,
+     "bike": 3,
+     "walk": 15,
+     "fromHome": 29
+    },
+    "commuteUnder20Pct": 52
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "regina",
+   "name": "Regina",
+   "report": "Regina",
+   "community": "Nokomis",
+   "acres": 189,
+   "center": [
+    -93.26863,
+    44.92331
+   ],
+   "bbox": [
+    -93.27472,
+    44.91966,
+    -93.26251,
+    44.92695
+   ],
+   "neighbors": [
+    "minneapolis/bancroft",
+    "minneapolis/bryant",
+    "minneapolis/field",
+    "minneapolis/king-field",
+    "minneapolis/northrop",
+    "minneapolis/tangletown"
+   ],
+   "blockGroups": 2,
+   "census": {
+    "population": 1960.0,
+    "households": 940.0,
+    "ownerPct": 80,
+    "renterPct": 20,
+    "medianHomeValue": 338000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 96000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 15,
+     "18to34": 22,
+     "35to64": 49,
+     "65plus": 15
+    },
+    "housing": {
+     "singleFamily": 78,
+     "townhomeDuplex": 14,
+     "smallApartment": 9,
+     "largeApartment": 0
+    },
+    "builtBefore1940Pct": 47,
+    "built2000onPct": 9,
+    "bachelorsPct": 40,
+    "commute": {
+     "droveAlone": 58,
+     "transit": 2,
+     "bike": 3,
+     "walk": 2,
+     "fromHome": 22
+    },
+    "commuteUnder20Pct": 57
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "seward",
+   "name": "Seward",
+   "report": "Seward",
+   "community": "Longfellow",
+   "acres": 645,
+   "center": [
+    -93.23235,
+    44.95979
+   ],
+   "bbox": [
+    -93.24958,
+    44.95326,
+    -93.21278,
+    44.9663
+   ],
+   "neighbors": [
+    "minneapolis/cedar-riverside",
+    "minneapolis/cooper",
+    "minneapolis/east-phillips",
+    "minneapolis/longfellow",
+    "minneapolis/prospect-park-east-river-road",
+    "minneapolis/ventura-village"
+   ],
+   "blockGroups": 7,
+   "census": {
+    "population": 8210.0,
+    "households": 4030.0,
+    "ownerPct": 33,
+    "renterPct": 67,
+    "medianHomeValue": 351000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 56000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 18,
+     "18to34": 29,
+     "35to64": 29,
+     "65plus": 23
+    },
+    "housing": {
+     "singleFamily": 26,
+     "townhomeDuplex": 20,
+     "smallApartment": 21,
+     "largeApartment": 31
+    },
+    "builtBefore1940Pct": 32,
+    "built2000onPct": 10,
+    "bachelorsPct": 47,
+    "commute": {
+     "droveAlone": 43,
+     "transit": 8,
+     "bike": 4,
+     "walk": 4,
+     "fromHome": 30
+    },
+    "commuteUnder20Pct": 55
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "sheridan",
+   "name": "Sheridan",
+   "report": "Sheridan",
+   "community": "Northeast",
+   "acres": 246,
+   "center": [
+    -93.26591,
+    45.0024
+   ],
+   "bbox": [
+    -93.27517,
+    44.9987,
+    -93.25753,
+    45.00603
+   ],
+   "neighbors": [
+    "minneapolis/bottineau",
+    "minneapolis/hawthorne",
+    "minneapolis/holland",
+    "minneapolis/logan-park",
+    "minneapolis/near-north",
+    "minneapolis/st-anthony-east",
+    "minneapolis/st-anthony-west"
+   ],
+   "blockGroups": 3,
+   "census": {
+    "population": 2950.0,
+    "households": 1700.0,
+    "ownerPct": 42,
+    "renterPct": 58,
+    "medianHomeValue": 365000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 88000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 12,
+     "18to34": 42,
+     "35to64": 37,
+     "65plus": 9
+    },
+    "housing": {
+     "singleFamily": 34,
+     "townhomeDuplex": 32,
+     "smallApartment": 14,
+     "largeApartment": 20
+    },
+    "builtBefore1940Pct": 49,
+    "built2000onPct": 27,
+    "bachelorsPct": 60,
+    "commute": {
+     "droveAlone": 55,
+     "transit": 3,
+     "bike": 4,
+     "walk": 4,
+     "fromHome": 24
+    },
+    "commuteUnder20Pct": 48
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "shingle-creek",
+   "name": "Shingle Creek",
+   "report": "Shingle Creek",
+   "community": "Camden",
+   "acres": 319,
+   "center": [
+    -93.30933,
+    45.04757
+   ],
+   "bbox": [
+    -93.3195,
+    45.04392,
+    -93.29918,
+    45.05125
+   ],
+   "neighbors": [
+    "minneapolis/lind-bohanon"
+   ],
+   "blockGroups": 3,
+   "census": {
+    "population": 2500.0,
+    "households": 940.0,
+    "ownerPct": 90,
+    "renterPct": 10,
+    "medianHomeValue": 261000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 99000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 24,
+     "18to34": 23,
+     "35to64": 41,
+     "65plus": 13
+    },
+    "housing": {
+     "singleFamily": 91,
+     "townhomeDuplex": 5,
+     "smallApartment": 2,
+     "largeApartment": 0
+    },
+    "builtBefore1940Pct": 2,
+    "built2000onPct": 13,
+    "bachelorsPct": 41,
+    "commute": {
+     "droveAlone": 69,
+     "transit": 4,
+     "bike": 0,
+     "walk": 0,
+     "fromHome": 14
+    },
+    "commuteUnder20Pct": 42
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "south-uptown",
+   "name": "South Uptown",
+   "report": "South Uptown",
+   "community": "Calhoun-Isles",
+   "acres": 235,
+   "center": [
+    -93.29324,
+    44.94381
+   ],
+   "bbox": [
+    -93.29839,
+    44.93767,
+    -93.2881,
+    44.94837
+   ],
+   "neighbors": [
+    "minneapolis/east-bde-maka-ska",
+    "minneapolis/east-harriet",
+    "minneapolis/east-isles",
+    "minneapolis/king-field",
+    "minneapolis/lowry-hill-east",
+    "minneapolis/lyndale",
+    "minneapolis/whittier"
+   ],
+   "blockGroups": 6,
+   "census": {
+    "population": 6100.0,
+    "households": 3650.0,
+    "ownerPct": 30,
+    "renterPct": 70,
+    "medianHomeValue": 370000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 72000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 7,
+     "18to34": 53,
+     "35to64": 32,
+     "65plus": 8
+    },
+    "housing": {
+     "singleFamily": 16,
+     "townhomeDuplex": 24,
+     "smallApartment": 55,
+     "largeApartment": 5
+    },
+    "builtBefore1940Pct": 57,
+    "built2000onPct": 4,
+    "bachelorsPct": 65,
+    "commute": {
+     "droveAlone": 55,
+     "transit": 3,
+     "bike": 4,
+     "walk": 3,
+     "fromHome": 30
+    },
+    "commuteUnder20Pct": 30
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "southeast-como",
+   "name": "Southeast Como",
+   "report": "Southeast Como",
+   "community": "University",
+   "acres": 721,
+   "center": [
+    -93.21956,
+    44.98483
+   ],
+   "bbox": [
+    -93.24199,
+    44.97632,
+    -93.20756,
+    44.99329
+   ],
+   "neighbors": [
+    "minneapolis/beltrami",
+    "minneapolis/marcy-holmes",
+    "minneapolis/prospect-park-east-river-road",
+    "minneapolis/university-of-minnesota",
+    "saint-paul/st-anthony-park"
+   ],
+   "blockGroups": 4,
+   "census": {
+    "population": 3640.0,
+    "households": 1400.0,
+    "ownerPct": 21,
+    "renterPct": 79,
+    "medianHomeValue": 378000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 62000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 10,
+     "18to34": 76,
+     "35to64": 9,
+     "65plus": 6
+    },
+    "housing": {
+     "singleFamily": 29,
+     "townhomeDuplex": 19,
+     "smallApartment": 40,
+     "largeApartment": 12
+    },
+    "builtBefore1940Pct": 16,
+    "built2000onPct": 27,
+    "bachelorsPct": 76,
+    "commute": {
+     "droveAlone": 61,
+     "transit": 16,
+     "bike": 5,
+     "walk": 1,
+     "fromHome": 12
+    },
+    "commuteUnder20Pct": 53
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "st-anthony-east",
+   "name": "St. Anthony East",
+   "report": "St Anthony East",
+   "community": "Northeast",
+   "acres": 129,
+   "center": [
+    -93.25296,
+    44.99494
+   ],
+   "bbox": [
+    -93.25753,
+    44.99101,
+    -93.24727,
+    44.99872
+   ],
+   "neighbors": [
+    "minneapolis/beltrami",
+    "minneapolis/logan-park",
+    "minneapolis/marcy-holmes",
+    "minneapolis/nicollet-island-east-bank",
+    "minneapolis/sheridan",
+    "minneapolis/st-anthony-west"
+   ],
+   "blockGroups": 2,
+   "census": {
+    "population": 2280.0,
+    "households": 1120.0,
+    "ownerPct": 30,
+    "renterPct": 70,
+    "medianHomeValue": 470000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 89000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 15,
+     "18to34": 40,
+     "35to64": 35,
+     "65plus": 10
+    },
+    "housing": {
+     "singleFamily": 24,
+     "townhomeDuplex": 43,
+     "smallApartment": 19,
+     "largeApartment": 14
+    },
+    "builtBefore1940Pct": 38,
+    "built2000onPct": 9,
+    "bachelorsPct": 62,
+    "commute": {
+     "droveAlone": 67,
+     "transit": 5,
+     "bike": 2,
+     "walk": 3,
+     "fromHome": 20
+    },
+    "commuteUnder20Pct": 54
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "st-anthony-west",
+   "name": "St. Anthony West",
+   "report": "St Anthony West",
+   "community": "Northeast",
+   "acres": 313,
+   "center": [
+    -93.26537,
+    44.9939
+   ],
+   "bbox": [
+    -93.27515,
+    44.98884,
+    -93.25492,
+    44.99902
+   ],
+   "neighbors": [
+    "minneapolis/hawthorne",
+    "minneapolis/logan-park",
+    "minneapolis/near-north",
+    "minneapolis/nicollet-island-east-bank",
+    "minneapolis/north-loop",
+    "minneapolis/sheridan",
+    "minneapolis/st-anthony-east"
+   ],
+   "blockGroups": 4,
+   "census": {
+    "population": 3020.0,
+    "households": 1620.0,
+    "ownerPct": 25,
+    "renterPct": 75,
+    "medianHomeValue": 374000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 88000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 4,
+     "18to34": 47,
+     "35to64": 29,
+     "65plus": 21
+    },
+    "housing": {
+     "singleFamily": 15,
+     "townhomeDuplex": 34,
+     "smallApartment": 23,
+     "largeApartment": 28
+    },
+    "builtBefore1940Pct": 26,
+    "built2000onPct": 27,
+    "bachelorsPct": 59,
+    "commute": {
+     "droveAlone": 62,
+     "transit": 4,
+     "bike": 5,
+     "walk": 1,
+     "fromHome": 25
+    },
+    "commuteUnder20Pct": 52
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "standish",
+   "name": "Standish",
+   "report": "Standish",
+   "community": "Powderhorn",
+   "acres": 522,
+   "center": [
+    -93.23702,
+    44.93127
+   ],
+   "bbox": [
+    -93.24737,
+    44.92508,
+    -93.22372,
+    44.93774
+   ],
+   "neighbors": [
+    "minneapolis/bancroft",
+    "minneapolis/corcoran",
+    "minneapolis/ericsson",
+    "minneapolis/hiawatha",
+    "minneapolis/howe",
+    "minneapolis/northrop",
+    "minneapolis/powderhorn-park"
+   ],
+   "blockGroups": 7,
+   "census": {
+    "population": 6880.0,
+    "households": 3110.0,
+    "ownerPct": 81,
+    "renterPct": 19,
+    "medianHomeValue": 331000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 101000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 20,
+     "18to34": 24,
+     "35to64": 42,
+     "65plus": 14
+    },
+    "housing": {
+     "singleFamily": 83,
+     "townhomeDuplex": 6,
+     "smallApartment": 6,
+     "largeApartment": 6
+    },
+    "builtBefore1940Pct": 68,
+    "built2000onPct": 10,
+    "bachelorsPct": 64,
+    "commute": {
+     "droveAlone": 56,
+     "transit": 5,
+     "bike": 3,
+     "walk": 1,
+     "fromHome": 29
+    },
+    "commuteUnder20Pct": 38
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "stevens-square-loring-heights",
+   "name": "Stevens Square-Loring Heights",
+   "report": "Stevens Square - Loring Heights",
+   "community": "Central",
+   "acres": 119,
+   "center": [
+    -93.27642,
+    44.96476
+   ],
+   "bbox": [
+    -93.288,
+    44.96269,
+    -93.26952,
+    44.96673
+   ],
+   "neighbors": [
+    "minneapolis/elliot-park",
+    "minneapolis/loring-park",
+    "minneapolis/lowry-hill-east",
+    "minneapolis/ventura-village",
+    "minneapolis/whittier"
+   ],
+   "blockGroups": 4,
+   "census": {
+    "population": 4290.0,
+    "households": 2940.0,
+    "ownerPct": 25,
+    "renterPct": 75,
+    "medianHomeValue": 293000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 46000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 4,
+     "18to34": 49,
+     "35to64": 38,
+     "65plus": 9
+    },
+    "housing": {
+     "singleFamily": 8,
+     "townhomeDuplex": 12,
+     "smallApartment": 59,
+     "largeApartment": 21
+    },
+    "builtBefore1940Pct": 54,
+    "built2000onPct": 6,
+    "bachelorsPct": 37,
+    "commute": {
+     "droveAlone": 42,
+     "transit": 14,
+     "bike": 1,
+     "walk": 5,
+     "fromHome": 23
+    },
+    "commuteUnder20Pct": 44
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "sumner-glenwood",
+   "name": "Sumner-Glenwood",
+   "report": "Sumner - Glenwood",
+   "community": "Near North",
+   "acres": 132,
+   "center": [
+    -93.291,
+    44.98438
+   ],
+   "bbox": [
+    -93.29715,
+    44.97946,
+    -93.28796,
+    44.98929
+   ],
+   "neighbors": [
+    "minneapolis/harrison",
+    "minneapolis/near-north",
+    "minneapolis/north-loop"
+   ],
+   "blockGroups": 2,
+   "census": {
+    "population": 2180.0,
+    "households": 1060.0,
+    "ownerPct": 46,
+    "renterPct": 54,
+    "medianHomeValue": 282000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 87000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 33,
+     "18to34": 32,
+     "35to64": 27,
+     "65plus": 8
+    },
+    "housing": {
+     "singleFamily": 2,
+     "townhomeDuplex": 24,
+     "smallApartment": 33,
+     "largeApartment": 41
+    },
+    "builtBefore1940Pct": 11,
+    "built2000onPct": 42,
+    "bachelorsPct": 51,
+    "commute": {
+     "droveAlone": 64,
+     "transit": 5,
+     "bike": 0,
+     "walk": 0,
+     "fromHome": 18
+    },
+    "commuteUnder20Pct": 56
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "tangletown",
+   "name": "Tangletown",
+   "report": "Tangletown",
+   "community": "Southwest",
+   "acres": 444,
+   "center": [
+    -93.28151,
+    44.91156
+   ],
+   "bbox": [
+    -93.28833,
+    44.90356,
+    -93.27471,
+    44.91966
+   ],
+   "neighbors": [
+    "minneapolis/diamond-lake",
+    "minneapolis/east-harriet",
+    "minneapolis/field",
+    "minneapolis/kenny",
+    "minneapolis/king-field",
+    "minneapolis/lynnhurst",
+    "minneapolis/page",
+    "minneapolis/regina",
+    "minneapolis/windom"
+   ],
+   "blockGroups": 4,
+   "census": {
+    "population": 5080.0,
+    "households": 2140.0,
+    "ownerPct": 85,
+    "renterPct": 15,
+    "medianHomeValue": 556000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 164000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 30,
+     "18to34": 16,
+     "35to64": 43,
+     "65plus": 11
+    },
+    "housing": {
+     "singleFamily": 79,
+     "townhomeDuplex": 6,
+     "smallApartment": 6,
+     "largeApartment": 10
+    },
+    "builtBefore1940Pct": 71,
+    "built2000onPct": 5,
+    "bachelorsPct": 82,
+    "commute": {
+     "droveAlone": 47,
+     "transit": 3,
+     "bike": 1,
+     "walk": 5,
+     "fromHome": 43
+    },
+    "commuteUnder20Pct": 52
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "university-of-minnesota",
+   "name": "University of Minnesota",
+   "report": "University of Minnesota",
+   "community": "University",
+   "acres": 420,
+   "center": [
+    -93.23326,
+    44.97576
+   ],
+   "bbox": [
+    -93.24589,
+    44.96712,
+    -93.22704,
+    44.98444
+   ],
+   "neighbors": [
+    "minneapolis/cedar-riverside",
+    "minneapolis/marcy-holmes",
+    "minneapolis/prospect-park-east-river-road",
+    "minneapolis/southeast-como"
+   ],
+   "blockGroups": 2,
+   "census": {
+    "population": 7670.0,
+    "households": 790.0,
+    "ownerPct": 0,
+    "renterPct": 100,
+    "medianHomeValue": null,
+    "medianHomeValueTop": false,
+    "medianIncome": 29000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 0,
+     "18to34": 97,
+     "35to64": 2,
+     "65plus": 0
+    },
+    "housing": {
+     "singleFamily": 5,
+     "townhomeDuplex": 9,
+     "smallApartment": 10,
+     "largeApartment": 75
+    },
+    "builtBefore1940Pct": 4,
+    "built2000onPct": 77,
+    "bachelorsPct": 46,
+    "commute": {
+     "droveAlone": 25,
+     "transit": 9,
+     "bike": 2,
+     "walk": 35,
+     "fromHome": 19
+    },
+    "commuteUnder20Pct": 63
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "ventura-village",
+   "name": "Ventura Village",
+   "report": "Ventura Village",
+   "community": "Phillips",
+   "acres": 290,
+   "center": [
+    -93.25835,
+    44.96272
+   ],
+   "bbox": [
+    -93.26955,
+    44.95912,
+    -93.24588,
+    44.96634
+   ],
+   "neighbors": [
+    "minneapolis/cedar-riverside",
+    "minneapolis/east-phillips",
+    "minneapolis/elliot-park",
+    "minneapolis/loring-park",
+    "minneapolis/midtown-phillips",
+    "minneapolis/phillips-west",
+    "minneapolis/seward",
+    "minneapolis/stevens-square-loring-heights",
+    "minneapolis/whittier"
+   ],
+   "blockGroups": 6,
+   "census": {
+    "population": 6250.0,
+    "households": 2350.0,
+    "ownerPct": 16,
+    "renterPct": 84,
+    "medianHomeValue": 230000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 34000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 31,
+     "18to34": 21,
+     "35to64": 40,
+     "65plus": 8
+    },
+    "housing": {
+     "singleFamily": 9,
+     "townhomeDuplex": 25,
+     "smallApartment": 45,
+     "largeApartment": 20
+    },
+    "builtBefore1940Pct": 45,
+    "built2000onPct": 9,
+    "bachelorsPct": 20,
+    "commute": {
+     "droveAlone": 52,
+     "transit": 20,
+     "bike": 4,
+     "walk": 6,
+     "fromHome": 8
+    },
+    "commuteUnder20Pct": 56
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "victory",
+   "name": "Victory",
+   "report": "Victory",
+   "community": "Camden",
+   "acres": 437,
+   "center": [
+    -93.31236,
+    45.03345
+   ],
+   "bbox": [
+    -93.32323,
+    45.02409,
+    -93.30593,
+    45.04288
+   ],
+   "neighbors": [
+    "minneapolis/cleveland",
+    "minneapolis/folwell",
+    "minneapolis/webber-camden"
+   ],
+   "blockGroups": 4,
+   "census": {
+    "population": 4790.0,
+    "households": 1900.0,
+    "ownerPct": 80,
+    "renterPct": 20,
+    "medianHomeValue": 279000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 93000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 22,
+     "18to34": 22,
+     "35to64": 43,
+     "65plus": 13
+    },
+    "housing": {
+     "singleFamily": 90,
+     "townhomeDuplex": 4,
+     "smallApartment": 6,
+     "largeApartment": 0
+    },
+    "builtBefore1940Pct": 45,
+    "built2000onPct": 3,
+    "bachelorsPct": 39,
+    "commute": {
+     "droveAlone": 66,
+     "transit": 1,
+     "bike": 0,
+     "walk": 2,
+     "fromHome": 19
+    },
+    "commuteUnder20Pct": 37
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "waite-park",
+   "name": "Waite Park",
+   "report": "Waite Park",
+   "community": "Northeast",
+   "acres": 565,
+   "center": [
+    -93.23711,
+    45.02718
+   ],
+   "bbox": [
+    -93.24735,
+    45.01892,
+    -93.22687,
+    45.03567
+   ],
+   "neighbors": [
+    "minneapolis/audubon-park",
+    "minneapolis/columbia-park"
+   ],
+   "blockGroups": 6,
+   "census": {
+    "population": 5660.0,
+    "households": 2340.0,
+    "ownerPct": 91,
+    "renterPct": 9,
+    "medianHomeValue": 327000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 122000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 17,
+     "18to34": 27,
+     "35to64": 44,
+     "65plus": 12
+    },
+    "housing": {
+     "singleFamily": 91,
+     "townhomeDuplex": 3,
+     "smallApartment": 4,
+     "largeApartment": 0
+    },
+    "builtBefore1940Pct": 26,
+    "built2000onPct": 2,
+    "bachelorsPct": 48,
+    "commute": {
+     "droveAlone": 55,
+     "transit": 2,
+     "bike": 0,
+     "walk": 3,
+     "fromHome": 33
+    },
+    "commuteUnder20Pct": 49
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "webber-camden",
+   "name": "Webber-Camden",
+   "report": "Webber - Camden",
+   "community": "Camden",
+   "acres": 591,
+   "center": [
+    -93.29699,
+    45.03184
+   ],
+   "bbox": [
+    -93.30848,
+    45.02391,
+    -93.28264,
+    45.03936
+   ],
+   "neighbors": [
+    "minneapolis/cleveland",
+    "minneapolis/folwell",
+    "minneapolis/lind-bohanon",
+    "minneapolis/mckinley",
+    "minneapolis/victory"
+   ],
+   "blockGroups": 5,
+   "census": {
+    "population": 6000.0,
+    "households": 2390.0,
+    "ownerPct": 74,
+    "renterPct": 26,
+    "medianHomeValue": 232000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 66000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 26,
+     "18to34": 23,
+     "35to64": 40,
+     "65plus": 12
+    },
+    "housing": {
+     "singleFamily": 76,
+     "townhomeDuplex": 11,
+     "smallApartment": 2,
+     "largeApartment": 11
+    },
+    "builtBefore1940Pct": 69,
+    "built2000onPct": 2,
+    "bachelorsPct": 36,
+    "commute": {
+     "droveAlone": 63,
+     "transit": 9,
+     "bike": 0,
+     "walk": 1,
+     "fromHome": 17
+    },
+    "commuteUnder20Pct": 25
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "wenonah",
+   "name": "Wenonah",
+   "report": "Wenonah",
+   "community": "Nokomis",
+   "acres": 464,
+   "center": [
+    -93.23516,
+    44.90051
+   ],
+   "bbox": [
+    -93.2475,
+    44.89507,
+    -93.22287,
+    44.90596
+   ],
+   "neighbors": [
+    "minneapolis/diamond-lake",
+    "minneapolis/hale",
+    "minneapolis/keewaydin",
+    "minneapolis/minnehaha",
+    "minneapolis/morris-park"
+   ],
+   "blockGroups": 4,
+   "census": {
+    "population": 4320.0,
+    "households": 1710.0,
+    "ownerPct": 77,
+    "renterPct": 23,
+    "medianHomeValue": 360000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 114000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 28,
+     "18to34": 21,
+     "35to64": 41,
+     "65plus": 10
+    },
+    "housing": {
+     "singleFamily": 77,
+     "townhomeDuplex": 6,
+     "smallApartment": 9,
+     "largeApartment": 8
+    },
+    "builtBefore1940Pct": 15,
+    "built2000onPct": 1,
+    "bachelorsPct": 52,
+    "commute": {
+     "droveAlone": 70,
+     "transit": 5,
+     "bike": 1,
+     "walk": 0,
+     "fromHome": 19
+    },
+    "commuteUnder20Pct": 51
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "west-maka-ska",
+   "name": "West Maka Ska",
+   "report": "West Maka Ska",
+   "community": "Calhoun-Isles",
+   "acres": 426,
+   "center": [
+    -93.31971,
+    44.94362
+   ],
+   "bbox": [
+    -93.32901,
+    44.93767,
+    -93.31046,
+    44.94847
+   ],
+   "neighbors": [
+    "minneapolis/cedar-isles-dean",
+    "minneapolis/east-bde-maka-ska",
+    "minneapolis/east-harriet",
+    "minneapolis/linden-hills"
+   ],
+   "blockGroups": 2,
+   "census": {
+    "population": 2620.0,
+    "households": 1490.0,
+    "ownerPct": 23,
+    "renterPct": 77,
+    "medianHomeValue": 406000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 81000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 4,
+     "18to34": 56,
+     "35to64": 29,
+     "65plus": 10
+    },
+    "housing": {
+     "singleFamily": 11,
+     "townhomeDuplex": 7,
+     "smallApartment": 37,
+     "largeApartment": 44
+    },
+    "builtBefore1940Pct": 10,
+    "built2000onPct": 12,
+    "bachelorsPct": 64,
+    "commute": {
+     "droveAlone": 53,
+     "transit": 8,
+     "bike": 0,
+     "walk": 0,
+     "fromHome": 38
+    },
+    "commuteUnder20Pct": 32
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "whittier",
+   "name": "Whittier",
+   "report": "Whittier",
+   "community": "Powderhorn",
+   "acres": 518,
+   "center": [
+    -93.2792,
+    44.95553
+   ],
+   "bbox": [
+    -93.2881,
+    44.94835,
+    -93.26954,
+    44.9627
+   ],
+   "neighbors": [
+    "minneapolis/central",
+    "minneapolis/lowry-hill-east",
+    "minneapolis/lyndale",
+    "minneapolis/phillips-west",
+    "minneapolis/south-uptown",
+    "minneapolis/stevens-square-loring-heights",
+    "minneapolis/ventura-village"
+   ],
+   "blockGroups": 13,
+   "census": {
+    "population": 15160.0,
+    "households": 7810.0,
+    "ownerPct": 13,
+    "renterPct": 87,
+    "medianHomeValue": 289000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 53000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 14,
+     "18to34": 50,
+     "35to64": 32,
+     "65plus": 4
+    },
+    "housing": {
+     "singleFamily": 7,
+     "townhomeDuplex": 19,
+     "smallApartment": 50,
+     "largeApartment": 24
+    },
+    "builtBefore1940Pct": 40,
+    "built2000onPct": 18,
+    "bachelorsPct": 41,
+    "commute": {
+     "droveAlone": 47,
+     "transit": 14,
+     "bike": 3,
+     "walk": 8,
+     "fromHome": 18
+    },
+    "commuteUnder20Pct": 46
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "willard-hay",
+   "name": "Willard-Hay",
+   "report": "Willard-Hay",
+   "community": "Near North",
+   "acres": 678,
+   "center": [
+    -93.30894,
+    44.99827
+   ],
+   "bbox": [
+    -93.31849,
+    44.98395,
+    -93.29899,
+    45.01313
+   ],
+   "neighbors": [
+    "minneapolis/harrison",
+    "minneapolis/jordan",
+    "minneapolis/near-north"
+   ],
+   "blockGroups": 8,
+   "census": {
+    "population": 7500.0,
+    "households": 3040.0,
+    "ownerPct": 58,
+    "renterPct": 42,
+    "medianHomeValue": 273000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 58000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 29,
+     "18to34": 24,
+     "35to64": 37,
+     "65plus": 10
+    },
+    "housing": {
+     "singleFamily": 68,
+     "townhomeDuplex": 16,
+     "smallApartment": 11,
+     "largeApartment": 4
+    },
+    "builtBefore1940Pct": 53,
+    "built2000onPct": 10,
+    "bachelorsPct": 28,
+    "commute": {
+     "droveAlone": 60,
+     "transit": 6,
+     "bike": 0,
+     "walk": 1,
+     "fromHome": 12
+    },
+    "commuteUnder20Pct": 41
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "windom",
+   "name": "Windom",
+   "report": "Windom",
+   "community": "Southwest",
+   "acres": 470,
+   "center": [
+    -93.28226,
+    44.89785
+   ],
+   "bbox": [
+    -93.29564,
+    44.89059,
+    -93.2749,
+    44.9051
+   ],
+   "neighbors": [
+    "minneapolis/diamond-lake",
+    "minneapolis/kenny",
+    "minneapolis/lynnhurst",
+    "minneapolis/page",
+    "minneapolis/tangletown"
+   ],
+   "blockGroups": 5,
+   "census": {
+    "population": 4410.0,
+    "households": 1870.0,
+    "ownerPct": 52,
+    "renterPct": 48,
+    "medianHomeValue": 446000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 114000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 22,
+     "18to34": 28,
+     "35to64": 36,
+     "65plus": 13
+    },
+    "housing": {
+     "singleFamily": 52,
+     "townhomeDuplex": 7,
+     "smallApartment": 17,
+     "largeApartment": 23
+    },
+    "builtBefore1940Pct": 26,
+    "built2000onPct": 2,
+    "bachelorsPct": 58,
+    "commute": {
+     "droveAlone": 64,
+     "transit": 1,
+     "bike": 0,
+     "walk": 1,
+     "fromHome": 28
+    },
+    "commuteUnder20Pct": 49
+   }
+  },
+  {
+   "city": "minneapolis",
+   "slug": "windom-park",
+   "name": "Windom Park",
+   "report": "Windom Park",
+   "community": "Northeast",
+   "acres": 386,
+   "center": [
+    -93.23513,
+    45.00936
+   ],
+   "bbox": [
+    -93.24737,
+    45.00593,
+    -93.21955,
+    45.01327
+   ],
+   "neighbors": [
+    "minneapolis/audubon-park",
+    "minneapolis/holland",
+    "minneapolis/logan-park",
+    "minneapolis/northeast-park"
+   ],
+   "blockGroups": 5,
+   "census": {
+    "population": 5330.0,
+    "households": 2800.0,
+    "ownerPct": 43,
+    "renterPct": 57,
+    "medianHomeValue": 374000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 93000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 17,
+     "18to34": 29,
+     "35to64": 40,
+     "65plus": 14
+    },
+    "housing": {
+     "singleFamily": 38,
+     "townhomeDuplex": 34,
+     "smallApartment": 13,
+     "largeApartment": 15
+    },
+    "builtBefore1940Pct": 54,
+    "built2000onPct": 3,
+    "bachelorsPct": 55,
+    "commute": {
+     "droveAlone": 56,
+     "transit": 2,
+     "bike": 1,
+     "walk": 1,
+     "fromHome": 31
+    },
+    "commuteUnder20Pct": 41
+   }
+  },
+  {
+   "city": "saint-paul",
+   "slug": "battle-creek-highwood",
+   "name": "Battle Creek–Highwood",
+   "report": "Saint Paul – Battle Creek - Highwood",
+   "district": 1,
+   "councilName": "Southeast Community Organization",
+   "acres": 6104,
+   "center": [
+    -93.02735,
+    44.92743
+   ],
+   "bbox": [
+    -93.05689,
+    44.89075,
+    -93.00432,
+    44.96306
+   ],
+   "neighbors": [
+    "saint-paul/daytons-bluff",
+    "saint-paul/greater-east-side",
+    "saint-paul/west-side"
+   ],
+   "blockGroups": 19,
+   "census": {
+    "population": 24260.0,
+    "households": 8760.0,
+    "ownerPct": 51,
+    "renterPct": 49,
+    "medianHomeValue": 275000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 70000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 29,
+     "18to34": 27,
+     "35to64": 33,
+     "65plus": 10
+    },
+    "housing": {
+     "singleFamily": 47,
+     "townhomeDuplex": 9,
+     "smallApartment": 19,
+     "largeApartment": 25
+    },
+    "builtBefore1940Pct": 9,
+    "built2000onPct": 4,
+    "bachelorsPct": 25,
+    "commute": {
+     "droveAlone": 67,
+     "transit": 3,
+     "bike": 0,
+     "walk": 1,
+     "fromHome": 12
+    },
+    "commuteUnder20Pct": 40
+   }
+  },
+  {
+   "city": "saint-paul",
+   "slug": "como-park",
+   "name": "Como Park",
+   "report": "Saint Paul – Como Park",
+   "district": 10,
+   "councilName": "District 10 Como Community Council",
+   "acres": 2080,
+   "center": [
+    -93.14664,
+    44.97913
+   ],
+   "bbox": [
+    -93.17211,
+    44.9658,
+    -93.1261,
+    44.99198
+   ],
+   "neighbors": [
+    "saint-paul/frogtown",
+    "saint-paul/hamline-midway",
+    "saint-paul/north-end",
+    "saint-paul/st-anthony-park"
+   ],
+   "blockGroups": 14,
+   "census": {
+    "population": 16070.0,
+    "households": 7550.0,
+    "ownerPct": 67,
+    "renterPct": 33,
+    "medianHomeValue": 323000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 85000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 18,
+     "18to34": 27,
+     "35to64": 39,
+     "65plus": 15
+    },
+    "housing": {
+     "singleFamily": 65,
+     "townhomeDuplex": 5,
+     "smallApartment": 13,
+     "largeApartment": 17
+    },
+    "builtBefore1940Pct": 37,
+    "built2000onPct": 4,
+    "bachelorsPct": 56,
+    "commute": {
+     "droveAlone": 56,
+     "transit": 4,
+     "bike": 2,
+     "walk": 2,
+     "fromHome": 29
+    },
+    "commuteUnder20Pct": 47
+   }
+  },
+  {
+   "city": "saint-paul",
+   "slug": "daytons-bluff",
+   "name": "Dayton's Bluff",
+   "report": "Saint Paul – Daytons Bluff",
+   "district": 4,
+   "councilName": "Dayton's Bluff Community Council",
+   "acres": 1818,
+   "center": [
+    -93.05683,
+    44.95849
+   ],
+   "bbox": [
+    -93.09137,
+    44.94265,
+    -93.03629,
+    44.97503
+   ],
+   "neighbors": [
+    "saint-paul/battle-creek-highwood",
+    "saint-paul/downtown",
+    "saint-paul/greater-east-side",
+    "saint-paul/payne-phalen",
+    "saint-paul/west-side"
+   ],
+   "blockGroups": 13,
+   "census": {
+    "population": 16720.0,
+    "households": 5850.0,
+    "ownerPct": 58,
+    "renterPct": 42,
+    "medianHomeValue": 236000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 74000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 27,
+     "18to34": 24,
+     "35to64": 36,
+     "65plus": 12
+    },
+    "housing": {
+     "singleFamily": 61,
+     "townhomeDuplex": 19,
+     "smallApartment": 8,
+     "largeApartment": 11
+    },
+    "builtBefore1940Pct": 55,
+    "built2000onPct": 12,
+    "bachelorsPct": 30,
+    "commute": {
+     "droveAlone": 60,
+     "transit": 6,
+     "bike": 0,
+     "walk": 1,
+     "fromHome": 18
+    },
+    "commuteUnder20Pct": 46
+   }
+  },
+  {
+   "city": "saint-paul",
+   "slug": "downtown",
+   "name": "Downtown",
+   "report": "Saint Paul – Downtown",
+   "district": 17,
+   "councilName": "CapitolRiver Council",
+   "acres": 665,
+   "center": [
+    -93.09383,
+    44.94961
+   ],
+   "bbox": [
+    -93.11005,
+    44.94059,
+    -93.07928,
+    44.95787
+   ],
+   "neighbors": [
+    "saint-paul/daytons-bluff",
+    "saint-paul/frogtown",
+    "saint-paul/payne-phalen",
+    "saint-paul/summit-university",
+    "saint-paul/west-seventh",
+    "saint-paul/west-side"
+   ],
+   "blockGroups": 14,
+   "census": {
+    "population": 9380.0,
+    "households": 6430.0,
+    "ownerPct": 24,
+    "renterPct": 76,
+    "medianHomeValue": 243000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 59000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 5,
+     "18to34": 37,
+     "35to64": 42,
+     "65plus": 17
+    },
+    "housing": {
+     "singleFamily": 4,
+     "townhomeDuplex": 3,
+     "smallApartment": 19,
+     "largeApartment": 74
+    },
+    "builtBefore1940Pct": 42,
+    "built2000onPct": 16,
+    "bachelorsPct": 50,
+    "commute": {
+     "droveAlone": 51,
+     "transit": 4,
+     "bike": 2,
+     "walk": 10,
+     "fromHome": 29
+    },
+    "commuteUnder20Pct": 50
+   }
+  },
+  {
+   "city": "saint-paul",
+   "slug": "frogtown",
+   "name": "Frogtown",
+   "report": "Saint Paul – Thomas - Dale (Frogtown)",
+   "district": 7,
+   "councilName": "Frogtown Neighborhood Association",
+   "acres": 1098,
+   "center": [
+    -93.11875,
+    44.96047
+   ],
+   "bbox": [
+    -93.14661,
+    44.95489,
+    -93.09086,
+    44.96747
+   ],
+   "neighbors": [
+    "saint-paul/como-park",
+    "saint-paul/downtown",
+    "saint-paul/hamline-midway",
+    "saint-paul/north-end",
+    "saint-paul/payne-phalen",
+    "saint-paul/summit-university",
+    "saint-paul/union-park"
+   ],
+   "blockGroups": 15,
+   "census": {
+    "population": 14950.0,
+    "households": 5050.0,
+    "ownerPct": 50,
+    "renterPct": 50,
+    "medianHomeValue": 236000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 55000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 31,
+     "18to34": 28,
+     "35to64": 34,
+     "65plus": 7
+    },
+    "housing": {
+     "singleFamily": 55,
+     "townhomeDuplex": 25,
+     "smallApartment": 9,
+     "largeApartment": 11
+    },
+    "builtBefore1940Pct": 48,
+    "built2000onPct": 13,
+    "bachelorsPct": 23,
+    "commute": {
+     "droveAlone": 64,
+     "transit": 11,
+     "bike": 0,
+     "walk": 3,
+     "fromHome": 13
+    },
+    "commuteUnder20Pct": 52
+   }
+  },
+  {
+   "city": "saint-paul",
+   "slug": "greater-east-side",
+   "name": "Greater East Side",
+   "report": "Saint Paul – Greater East Side",
+   "district": 2,
+   "councilName": "Greater East Side Community Council",
+   "acres": 2505,
+   "center": [
+    -93.02533,
+    44.97628
+   ],
+   "bbox": [
+    -93.04595,
+    44.96304,
+    -93.00505,
+    44.99201
+   ],
+   "neighbors": [
+    "saint-paul/battle-creek-highwood",
+    "saint-paul/daytons-bluff",
+    "saint-paul/payne-phalen"
+   ],
+   "blockGroups": 25,
+   "census": {
+    "population": 30880.0,
+    "households": 10250.0,
+    "ownerPct": 63,
+    "renterPct": 37,
+    "medianHomeValue": 239000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 69000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 31,
+     "18to34": 25,
+     "35to64": 35,
+     "65plus": 9
+    },
+    "housing": {
+     "singleFamily": 64,
+     "townhomeDuplex": 13,
+     "smallApartment": 18,
+     "largeApartment": 4
+    },
+    "builtBefore1940Pct": 22,
+    "built2000onPct": 9,
+    "bachelorsPct": 24,
+    "commute": {
+     "droveAlone": 65,
+     "transit": 4,
+     "bike": 1,
+     "walk": 2,
+     "fromHome": 12
+    },
+    "commuteUnder20Pct": 38
+   }
+  },
+  {
+   "city": "saint-paul",
+   "slug": "hamline-midway",
+   "name": "Hamline-Midway",
+   "report": "Saint Paul – Hamline - Midway",
+   "district": 11,
+   "councilName": "Hamline Midway Coalition",
+   "acres": 1226,
+   "center": [
+    -93.16697,
+    44.96366
+   ],
+   "bbox": [
+    -93.18736,
+    44.95565,
+    -93.14659,
+    44.97237
+   ],
+   "neighbors": [
+    "saint-paul/como-park",
+    "saint-paul/frogtown",
+    "saint-paul/st-anthony-park",
+    "saint-paul/summit-university",
+    "saint-paul/union-park"
+   ],
+   "blockGroups": 11,
+   "census": {
+    "population": 12760.0,
+    "households": 5250.0,
+    "ownerPct": 56,
+    "renterPct": 44,
+    "medianHomeValue": 291000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 79000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 23,
+     "18to34": 30,
+     "35to64": 38,
+     "65plus": 9
+    },
+    "housing": {
+     "singleFamily": 66,
+     "townhomeDuplex": 15,
+     "smallApartment": 15,
+     "largeApartment": 4
+    },
+    "builtBefore1940Pct": 66,
+    "built2000onPct": 5,
+    "bachelorsPct": 57,
+    "commute": {
+     "droveAlone": 52,
+     "transit": 12,
+     "bike": 1,
+     "walk": 5,
+     "fromHome": 25
+    },
+    "commuteUnder20Pct": 48
+   }
+  },
+  {
+   "city": "saint-paul",
+   "slug": "highland-park",
+   "name": "Highland Park",
+   "report": "Saint Paul – Highland Park",
+   "district": 15,
+   "councilName": "Highland District Council",
+   "acres": 3870,
+   "center": [
+    -93.17544,
+    44.90655
+   ],
+   "bbox": [
+    -93.20156,
+    44.88744,
+    -93.13859,
+    44.92705
+   ],
+   "neighbors": [
+    "minneapolis/hiawatha",
+    "saint-paul/macalester-groveland",
+    "saint-paul/west-seventh"
+   ],
+   "blockGroups": 26,
+   "census": {
+    "population": 24800.0,
+    "households": 11810.0,
+    "ownerPct": 50,
+    "renterPct": 50,
+    "medianHomeValue": 431000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 85000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 19,
+     "18to34": 22,
+     "35to64": 38,
+     "65plus": 21
+    },
+    "housing": {
+     "singleFamily": 47,
+     "townhomeDuplex": 6,
+     "smallApartment": 23,
+     "largeApartment": 24
+    },
+    "builtBefore1940Pct": 20,
+    "built2000onPct": 16,
+    "bachelorsPct": 62,
+    "commute": {
+     "droveAlone": 59,
+     "transit": 6,
+     "bike": 1,
+     "walk": 4,
+     "fromHome": 24
+    },
+    "commuteUnder20Pct": 53
+   }
+  },
+  {
+   "city": "saint-paul",
+   "slug": "macalester-groveland",
+   "name": "Macalester-Groveland",
+   "report": "Saint Paul – Macalester - Groveland",
+   "district": 14,
+   "councilName": "Macalester Groveland Community Council",
+   "acres": 1620,
+   "center": [
+    -93.1755,
+    44.93424
+   ],
+   "bbox": [
+    -93.20079,
+    44.92693,
+    -93.14392,
+    44.9415
+   ],
+   "neighbors": [
+    "saint-paul/highland-park",
+    "saint-paul/summit-hill",
+    "saint-paul/union-park",
+    "saint-paul/west-seventh"
+   ],
+   "blockGroups": 19,
+   "census": {
+    "population": 19170.0,
+    "households": 8040.0,
+    "ownerPct": 72,
+    "renterPct": 28,
+    "medianHomeValue": 452000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 108000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 17,
+     "18to34": 31,
+     "35to64": 37,
+     "65plus": 15
+    },
+    "housing": {
+     "singleFamily": 70,
+     "townhomeDuplex": 9,
+     "smallApartment": 17,
+     "largeApartment": 4
+    },
+    "builtBefore1940Pct": 73,
+    "built2000onPct": 4,
+    "bachelorsPct": 76,
+    "commute": {
+     "droveAlone": 48,
+     "transit": 3,
+     "bike": 2,
+     "walk": 10,
+     "fromHome": 30
+    },
+    "commuteUnder20Pct": 53
+   }
+  },
+  {
+   "city": "saint-paul",
+   "slug": "north-end",
+   "name": "North End",
+   "report": "Saint Paul – North End",
+   "district": 6,
+   "councilName": "North End Neighborhood Organization",
+   "acres": 2224,
+   "center": [
+    -93.10748,
+    44.97926
+   ],
+   "bbox": [
+    -93.12629,
+    44.96306,
+    -93.08868,
+    44.99187
+   ],
+   "neighbors": [
+    "saint-paul/como-park",
+    "saint-paul/frogtown",
+    "saint-paul/payne-phalen"
+   ],
+   "blockGroups": 17,
+   "census": {
+    "population": 23390.0,
+    "households": 8200.0,
+    "ownerPct": 50,
+    "renterPct": 50,
+    "medianHomeValue": 230000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 59000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 32,
+     "18to34": 29,
+     "35to64": 32,
+     "65plus": 7
+    },
+    "housing": {
+     "singleFamily": 47,
+     "townhomeDuplex": 20,
+     "smallApartment": 28,
+     "largeApartment": 4
+    },
+    "builtBefore1940Pct": 28,
+    "built2000onPct": 9,
+    "bachelorsPct": 20,
+    "commute": {
+     "droveAlone": 60,
+     "transit": 8,
+     "bike": 0,
+     "walk": 2,
+     "fromHome": 11
+    },
+    "commuteUnder20Pct": 47
+   }
+  },
+  {
+   "city": "saint-paul",
+   "slug": "payne-phalen",
+   "name": "Payne-Phalen",
+   "report": "Saint Paul – Payne - Phalen",
+   "district": 5,
+   "councilName": "Payne-Phalen District 5 Planning Council",
+   "acres": 2724,
+   "center": [
+    -93.06725,
+    44.97385
+   ],
+   "bbox": [
+    -93.0914,
+    44.95575,
+    -93.04488,
+    44.99202
+   ],
+   "neighbors": [
+    "saint-paul/daytons-bluff",
+    "saint-paul/downtown",
+    "saint-paul/frogtown",
+    "saint-paul/greater-east-side",
+    "saint-paul/north-end"
+   ],
+   "blockGroups": 26,
+   "census": {
+    "population": 30850.0,
+    "households": 10220.0,
+    "ownerPct": 59,
+    "renterPct": 41,
+    "medianHomeValue": 238000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 68000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 30,
+     "18to34": 28,
+     "35to64": 33,
+     "65plus": 9
+    },
+    "housing": {
+     "singleFamily": 60,
+     "townhomeDuplex": 18,
+     "smallApartment": 14,
+     "largeApartment": 7
+    },
+    "builtBefore1940Pct": 41,
+    "built2000onPct": 6,
+    "bachelorsPct": 25,
+    "commute": {
+     "droveAlone": 60,
+     "transit": 3,
+     "bike": 0,
+     "walk": 1,
+     "fromHome": 17
+    },
+    "commuteUnder20Pct": 53
+   }
+  },
+  {
+   "city": "saint-paul",
+   "slug": "st-anthony-park",
+   "name": "St. Anthony Park",
+   "report": "Saint Paul – St Anthony Park",
+   "district": 12,
+   "councilName": "St. Anthony Park Community Council",
+   "acres": 1560,
+   "center": [
+    -93.19751,
+    44.97178
+   ],
+   "bbox": [
+    -93.20777,
+    44.95438,
+    -93.16704,
+    44.98809
+   ],
+   "neighbors": [
+    "minneapolis/prospect-park-east-river-road",
+    "minneapolis/southeast-como",
+    "saint-paul/como-park",
+    "saint-paul/hamline-midway",
+    "saint-paul/union-park"
+   ],
+   "blockGroups": 9,
+   "census": {
+    "population": 10810.0,
+    "households": 5140.0,
+    "ownerPct": 36,
+    "renterPct": 64,
+    "medianHomeValue": 403000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 75000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 15,
+     "18to34": 44,
+     "35to64": 27,
+     "65plus": 14
+    },
+    "housing": {
+     "singleFamily": 28,
+     "townhomeDuplex": 10,
+     "smallApartment": 25,
+     "largeApartment": 36
+    },
+    "builtBefore1940Pct": 31,
+    "built2000onPct": 39,
+    "bachelorsPct": 70,
+    "commute": {
+     "droveAlone": 55,
+     "transit": 10,
+     "bike": 2,
+     "walk": 6,
+     "fromHome": 23
+    },
+    "commuteUnder20Pct": 64
+   }
+  },
+  {
+   "city": "saint-paul",
+   "slug": "summit-hill",
+   "name": "Summit Hill",
+   "report": "Saint Paul – Summit Hill",
+   "district": 16,
+   "councilName": "Summit Hill Association",
+   "acres": 616,
+   "center": [
+    -93.1383,
+    44.93463
+   ],
+   "bbox": [
+    -93.15294,
+    44.92867,
+    -93.11221,
+    44.94145
+   ],
+   "neighbors": [
+    "saint-paul/macalester-groveland",
+    "saint-paul/summit-university",
+    "saint-paul/union-park",
+    "saint-paul/west-seventh"
+   ],
+   "blockGroups": 7,
+   "census": {
+    "population": 7980.0,
+    "households": 3860.0,
+    "ownerPct": 54,
+    "renterPct": 46,
+    "medianHomeValue": 479000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 103000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 18,
+     "18to34": 31,
+     "35to64": 39,
+     "65plus": 12
+    },
+    "housing": {
+     "singleFamily": 37,
+     "townhomeDuplex": 16,
+     "smallApartment": 46,
+     "largeApartment": 0
+    },
+    "builtBefore1940Pct": 75,
+    "built2000onPct": 5,
+    "bachelorsPct": 77,
+    "commute": {
+     "droveAlone": 62,
+     "transit": 3,
+     "bike": 2,
+     "walk": 3,
+     "fromHome": 27
+    },
+    "commuteUnder20Pct": 53
+   }
+  },
+  {
+   "city": "saint-paul",
+   "slug": "summit-university",
+   "name": "Summit-University",
+   "report": "Saint Paul – Summit - University",
+   "district": 8,
+   "councilName": "Summit-University Planning Council",
+   "acres": 1156,
+   "center": [
+    -93.12671,
+    44.94961
+   ],
+   "bbox": [
+    -93.14661,
+    44.94133,
+    -93.10566,
+    44.95578
+   ],
+   "neighbors": [
+    "saint-paul/downtown",
+    "saint-paul/frogtown",
+    "saint-paul/hamline-midway",
+    "saint-paul/summit-hill",
+    "saint-paul/union-park",
+    "saint-paul/west-seventh"
+   ],
+   "blockGroups": 18,
+   "census": {
+    "population": 18130.0,
+    "households": 8280.0,
+    "ownerPct": 46,
+    "renterPct": 54,
+    "medianHomeValue": 333000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 65000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 20,
+     "18to34": 30,
+     "35to64": 36,
+     "65plus": 15
+    },
+    "housing": {
+     "singleFamily": 29,
+     "townhomeDuplex": 24,
+     "smallApartment": 31,
+     "largeApartment": 15
+    },
+    "builtBefore1940Pct": 54,
+    "built2000onPct": 9,
+    "bachelorsPct": 51,
+    "commute": {
+     "droveAlone": 56,
+     "transit": 8,
+     "bike": 1,
+     "walk": 2,
+     "fromHome": 24
+    },
+    "commuteUnder20Pct": 51
+   }
+  },
+  {
+   "city": "saint-paul",
+   "slug": "union-park",
+   "name": "Union Park",
+   "report": "Saint Paul – Merriam Park / Lexington - Hamline",
+   "district": 13,
+   "councilName": "Union Park District Council",
+   "acres": 1905,
+   "center": [
+    -93.17522,
+    44.95015
+   ],
+   "bbox": [
+    -93.20777,
+    44.94141,
+    -93.14661,
+    44.95997
+   ],
+   "neighbors": [
+    "minneapolis/cooper",
+    "minneapolis/prospect-park-east-river-road",
+    "saint-paul/frogtown",
+    "saint-paul/hamline-midway",
+    "saint-paul/macalester-groveland",
+    "saint-paul/st-anthony-park",
+    "saint-paul/summit-hill",
+    "saint-paul/summit-university"
+   ],
+   "blockGroups": 17,
+   "census": {
+    "population": 18560.0,
+    "households": 7420.0,
+    "ownerPct": 45,
+    "renterPct": 55,
+    "medianHomeValue": 454000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 87000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 17,
+     "18to34": 38,
+     "35to64": 32,
+     "65plus": 14
+    },
+    "housing": {
+     "singleFamily": 41,
+     "townhomeDuplex": 18,
+     "smallApartment": 27,
+     "largeApartment": 14
+    },
+    "builtBefore1940Pct": 63,
+    "built2000onPct": 11,
+    "bachelorsPct": 62,
+    "commute": {
+     "droveAlone": 60,
+     "transit": 4,
+     "bike": 1,
+     "walk": 9,
+     "fromHome": 20
+    },
+    "commuteUnder20Pct": 59
+   }
+  },
+  {
+   "city": "saint-paul",
+   "slug": "west-seventh",
+   "name": "West Seventh",
+   "report": "Saint Paul – West Seventh",
+   "district": 9,
+   "councilName": "West 7th St / Fort Road Federation",
+   "acres": 1762,
+   "center": [
+    -93.12873,
+    44.92583
+   ],
+   "bbox": [
+    -93.15566,
+    44.9039,
+    -93.09431,
+    44.94682
+   ],
+   "neighbors": [
+    "saint-paul/downtown",
+    "saint-paul/highland-park",
+    "saint-paul/macalester-groveland",
+    "saint-paul/summit-hill",
+    "saint-paul/summit-university",
+    "saint-paul/west-side"
+   ],
+   "blockGroups": 12,
+   "census": {
+    "population": 12830.0,
+    "households": 6970.0,
+    "ownerPct": 45,
+    "renterPct": 55,
+    "medianHomeValue": 272000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 72000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 12,
+     "18to34": 32,
+     "35to64": 37,
+     "65plus": 19
+    },
+    "housing": {
+     "singleFamily": 36,
+     "townhomeDuplex": 16,
+     "smallApartment": 14,
+     "largeApartment": 33
+    },
+    "builtBefore1940Pct": 39,
+    "built2000onPct": 25,
+    "bachelorsPct": 51,
+    "commute": {
+     "droveAlone": 58,
+     "transit": 5,
+     "bike": 1,
+     "walk": 6,
+     "fromHome": 23
+    },
+    "commuteUnder20Pct": 49
+   }
+  },
+  {
+   "city": "saint-paul",
+   "slug": "west-side",
+   "name": "West Side",
+   "report": "Saint Paul – West Side",
+   "district": 3,
+   "councilName": "West Side Community Organization",
+   "acres": 2996,
+   "center": [
+    -93.07691,
+    44.93407
+   ],
+   "bbox": [
+    -93.12863,
+    44.9195,
+    -93.04946,
+    44.9476
+   ],
+   "neighbors": [
+    "saint-paul/battle-creek-highwood",
+    "saint-paul/daytons-bluff",
+    "saint-paul/downtown",
+    "saint-paul/west-seventh"
+   ],
+   "blockGroups": 15,
+   "census": {
+    "population": 15730.0,
+    "households": 6160.0,
+    "ownerPct": 61,
+    "renterPct": 39,
+    "medianHomeValue": 269000.0,
+    "medianHomeValueTop": false,
+    "medianIncome": 76000.0,
+    "medianIncomeTop": false,
+    "ages": {
+     "under18": 26,
+     "18to34": 22,
+     "35to64": 40,
+     "65plus": 12
+    },
+    "housing": {
+     "singleFamily": 53,
+     "townhomeDuplex": 26,
+     "smallApartment": 9,
+     "largeApartment": 13
+    },
+    "builtBefore1940Pct": 50,
+    "built2000onPct": 11,
+    "bachelorsPct": 31,
+    "commute": {
+     "droveAlone": 62,
+     "transit": 3,
+     "bike": 1,
+     "walk": 3,
+     "fromHome": 20
+    },
+    "commuteUnder20Pct": 50
+   }
+  }
+ ]
+}

@@ -30,6 +30,9 @@
 | Agent pages | Reviews | Verbatim (Google, Zillow), shown only when the review names that person |
 | Market reports (/market) and community "home prices and sales" boxes | Every number | Minneapolis Area REALTORS® Local Market Update, data from NorthstarMLS; sentences only restate those numbers |
 | YouTube form (/youtube-form) | All text | New |
+| Neighborhood pages (Minneapolis, Saint Paul) | Market numbers | Minneapolis Area REALTORS® Local Market Update for each neighborhood (NorthstarMLS) |
+| Neighborhood pages | People and homes | US Census ACS 2020–2024, block groups mostly inside each neighborhood; boundaries from the cities of Minneapolis and Saint Paul |
+| Neighborhood pages | Sentences | Built only from those numbers |
 
 Left out on purpose:
 - The Facebook and Google usage figures on /why-list-with-us (1.9 billion, 3.5 billion); they are out of date.

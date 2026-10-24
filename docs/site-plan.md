@@ -320,3 +320,12 @@ Google and AI search favor sites that keep adding real, useful, accurate informa
 - Each page shows their bio, title, license and contact details word for word from their profile. It also shows complete, word-for-word reviews that name them (`src/data/agents.ts` matches full names, or first names no one else on the team shares) and the community guides for towns named in their bio.
 - The contact form tags the lead "Agent page" and "Asked for <name>" in Follow Up Boss.
 - Pages with no bio and no reviews stay out of Google until a bio is added to `src/data/team.json`.
+
+## Minneapolis and Saint Paul neighborhood pages (/communities/minneapolis/<name>, /communities/saint-paul/<name>)
+
+- **What's covered:** 84 Minneapolis neighborhoods (the city's official map, leaving out 3 industrial areas) and Saint Paul's 17 planning districts. Saint Paul's market reports and district councils use the districts. Both city guides have a "Neighborhoods" section with a map and a list. /market has a table for each city.
+- **Market:** each neighborhood has its own Minneapolis Area REALTORS® Local Market Update, with the same numbers, rules and source as the city reports. `scripts/update-market.py` includes neighborhoods, keyed like `minneapolis/linden-hills`, and the daily refresh updates them with the cities.
+- **Census:** US Census ACS 2020–2024 estimates for the block groups mostly inside each neighborhood. Counts are added up, and medians are estimated from ranges. The pages say these are approximate. Built by `scripts/build-neighborhoods.py`; its header explains the inputs.
+  - The Minneapolis neighborhoods add up to 421,790 residents against the city's ACS total of 427,246.
+- **Homes for sale:** 77 neighborhoods match a Ylopo neighborhood exactly, so they get the listings widget and a neighborhood search. The other 24 link to Ylopo's map, zoomed to the neighborhood. Run `scripts/match-ylopo-neighborhoods.py` to redo the matching.
+- **Videos and stories:** a neighborhood shows a video or post only when it names the neighborhood. Names that are also ordinary words (Field, Page, Central, Downtown…) must appear with the city's name.
