@@ -5,6 +5,7 @@ path: "preparing-your-eden-prairie-home-for-online-buyers"
 date: 2026-07-23
 author: "Huerkamp Home Group"
 categories: ["Buyer", "Neighborhoods"]
+communities: ["eden-prairie"]
 tags: []
 cover: { src: "/blog/preparing-your-eden-prairie-home-for-online-buyers/cover.webp", width: 1200, height: 655, thumb: "/blog/preparing-your-eden-prairie-home-for-online-buyers/cover-640.webp" }
 importedFrom: luxurypresence

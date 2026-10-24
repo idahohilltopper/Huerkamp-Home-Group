@@ -5,6 +5,7 @@ path: "buying-a-historic-home-in-saint-paul-key-things-to-know"
 date: 2026-04-16
 author: "Huerkamp Home Group"
 categories: ["Buyer", "Neighborhoods"]
+communities: ["saint-paul"]
 tags: []
 cover: { src: "/blog/buying-a-historic-home-in-saint-paul-key-things-to-know/cover.webp", width: 1200, height: 670, thumb: "/blog/buying-a-historic-home-in-saint-paul-key-things-to-know/cover-640.webp" }
 importedFrom: luxurypresence

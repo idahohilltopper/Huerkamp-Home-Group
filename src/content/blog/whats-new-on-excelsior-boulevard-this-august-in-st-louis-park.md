@@ -5,6 +5,7 @@ path: "whats-new-on-excelsior-boulevard-this-august-in-st-louis-park"
 date: 2026-08-06
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["st-louis-park"]
 tags: []
 cover: { src: "/blog/whats-new-on-excelsior-boulevard-this-august-in-st-louis-park/cover.webp", width: 1200, height: 670, thumb: "/blog/whats-new-on-excelsior-boulevard-this-august-in-st-louis-park/cover-640.webp" }
 importedFrom: luxurypresence

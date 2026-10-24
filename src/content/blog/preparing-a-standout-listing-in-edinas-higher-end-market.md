@@ -5,6 +5,7 @@ path: "preparing-a-standout-listing-in-edinas-higher-end-market"
 date: 2026-04-02
 author: "Huerkamp Home Group"
 categories: ["Seller", "Neighborhoods"]
+communities: ["edina"]
 tags: []
 cover: { src: "/blog/preparing-a-standout-listing-in-edinas-higher-end-market/cover.webp", width: 1200, height: 670, thumb: "/blog/preparing-a-standout-listing-in-edinas-higher-end-market/cover-640.webp" }
 importedFrom: luxurypresence

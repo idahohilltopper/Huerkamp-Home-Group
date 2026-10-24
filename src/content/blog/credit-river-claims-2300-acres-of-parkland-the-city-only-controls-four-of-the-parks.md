@@ -5,6 +5,7 @@ path: "credit-river-claims-2300-acres-of-parkland-the-city-only-controls-four-of
 date: 2026-09-03
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["credit-river"]
 tags: []
 cover: { src: "/blog/credit-river-claims-2300-acres-of-parkland-the-city-only-controls-four-of-the-parks/cover.webp", width: 1200, height: 670, thumb: "/blog/credit-river-claims-2300-acres-of-parkland-the-city-only-controls-four-of-the-parks/cover-640.webp" }
 importedFrom: luxurypresence

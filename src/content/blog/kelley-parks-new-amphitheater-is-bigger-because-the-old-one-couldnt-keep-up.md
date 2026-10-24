@@ -5,6 +5,7 @@ path: "kelley-parks-new-amphitheater-is-bigger-because-the-old-one-couldnt-keep-
 date: 2026-09-10
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["apple-valley"]
 tags: []
 cover: { src: "/blog/kelley-parks-new-amphitheater-is-bigger-because-the-old-one-couldnt-keep-up/cover.webp", width: 1200, height: 670, thumb: "/blog/kelley-parks-new-amphitheater-is-bigger-because-the-old-one-couldnt-keep-up/cover-640.webp" }
 importedFrom: luxurypresence

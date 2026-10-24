@@ -5,6 +5,7 @@ path: "the-zoning-rule-quietly-setting-new-home-prices-in-victoria-mn"
 date: 2026-08-13
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["victoria"]
 tags: []
 cover: { src: "/blog/the-zoning-rule-quietly-setting-new-home-prices-in-victoria-mn/cover.webp", width: 1200, height: 670, thumb: "/blog/the-zoning-rule-quietly-setting-new-home-prices-in-victoria-mn/cover-640.webp" }
 importedFrom: luxurypresence

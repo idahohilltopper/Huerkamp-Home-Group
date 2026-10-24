@@ -5,6 +5,7 @@ path: "weekend-living-in-rosemount-mn-parks-shops-and-activities"
 date: 2026-03-12
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["rosemount"]
 tags: []
 cover: { src: "/blog/weekend-living-in-rosemount-mn-parks-shops-and-activities/cover.webp", width: 1200, height: 670, thumb: "/blog/weekend-living-in-rosemount-mn-parks-shops-and-activities/cover-640.webp" }
 importedFrom: luxurypresence

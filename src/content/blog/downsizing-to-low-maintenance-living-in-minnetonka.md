@@ -5,6 +5,7 @@ path: "downsizing-to-low-maintenance-living-in-minnetonka"
 date: 2026-06-18
 author: "Huerkamp Home Group"
 categories: ["Homeowner", "Empty Nester", "Neighborhoods"]
+communities: ["minnetonka"]
 tags: []
 cover: { src: "/blog/downsizing-to-low-maintenance-living-in-minnetonka/cover.webp", width: 1200, height: 655, thumb: "/blog/downsizing-to-low-maintenance-living-in-minnetonka/cover-640.webp" }
 importedFrom: luxurypresence

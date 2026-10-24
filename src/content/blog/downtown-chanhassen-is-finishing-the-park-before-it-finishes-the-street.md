@@ -5,6 +5,7 @@ path: "downtown-chanhassen-is-finishing-the-park-before-it-finishes-the-street"
 date: 2026-08-27
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["chanhassen"]
 tags: []
 cover: { src: "/blog/downtown-chanhassen-is-finishing-the-park-before-it-finishes-the-street/cover.webp", width: 1200, height: 670, thumb: "/blog/downtown-chanhassen-is-finishing-the-park-before-it-finishes-the-street/cover-640.webp" }
 importedFrom: luxurypresence

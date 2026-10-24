@@ -5,6 +5,7 @@ path: "is-it-the-right-time-to-sell-your-prior-lake-mn-home"
 date: 2026-04-23
 author: "Huerkamp Home Group"
 categories: ["Seller", "Neighborhoods"]
+communities: ["prior-lake"]
 tags: []
 cover: { src: "/blog/is-it-the-right-time-to-sell-your-prior-lake-mn-home/cover.webp", width: 768, height: 1376, thumb: "/blog/is-it-the-right-time-to-sell-your-prior-lake-mn-home/cover-640.webp" }
 importedFrom: luxurypresence

@@ -5,6 +5,7 @@ path: "living-in-burnsville-mn-a-practical-guide-for-commuters"
 date: 2026-02-12
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["burnsville"]
 tags: []
 cover: { src: "/blog/living-in-burnsville-mn-a-practical-guide-for-commuters/cover.webp", width: 1200, height: 655, thumb: "/blog/living-in-burnsville-mn-a-practical-guide-for-commuters/cover-640.webp" }
 importedFrom: luxurypresence

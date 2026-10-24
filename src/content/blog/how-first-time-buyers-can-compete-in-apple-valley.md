@@ -5,6 +5,7 @@ path: "how-first-time-buyers-can-compete-in-apple-valley"
 date: 2026-05-28
 author: "Huerkamp Home Group"
 categories: ["Buyer", "Neighborhoods"]
+communities: ["apple-valley"]
 tags: []
 cover: { src: "/blog/how-first-time-buyers-can-compete-in-apple-valley/cover.webp", width: 1200, height: 670, thumb: "/blog/how-first-time-buyers-can-compete-in-apple-valley/cover-640.webp" }
 importedFrom: luxurypresence

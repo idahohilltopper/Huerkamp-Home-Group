@@ -5,6 +5,7 @@ path: "what-to-know-about-lake-living-in-prior-lake"
 date: 2026-06-11
 author: "Huerkamp Home Group"
 categories: ["Buyer", "Neighborhoods"]
+communities: ["prior-lake"]
 tags: []
 cover: { src: "/blog/what-to-know-about-lake-living-in-prior-lake/cover.webp", width: 1200, height: 670, thumb: "/blog/what-to-know-about-lake-living-in-prior-lake/cover-640.webp" }
 importedFrom: luxurypresence

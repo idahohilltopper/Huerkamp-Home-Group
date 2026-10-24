@@ -5,6 +5,7 @@ path: "the-real-reason-some-lake-street-restaurants-survive-and-others-dont"
 date: 2026-08-13
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["wayzata"]
 tags: []
 cover: { src: "/blog/the-real-reason-some-lake-street-restaurants-survive-and-others-dont/cover.webp", width: 1200, height: 670, thumb: "/blog/the-real-reason-some-lake-street-restaurants-survive-and-others-dont/cover-640.webp" }
 importedFrom: luxurypresence

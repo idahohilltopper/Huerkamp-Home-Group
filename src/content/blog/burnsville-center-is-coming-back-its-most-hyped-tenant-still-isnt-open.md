@@ -5,6 +5,7 @@ path: "burnsville-center-is-coming-back-its-most-hyped-tenant-still-isnt-open"
 date: 2026-09-17
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["burnsville"]
 tags: []
 cover: { src: "/blog/burnsville-center-is-coming-back-its-most-hyped-tenant-still-isnt-open/cover.webp", width: 1200, height: 670, thumb: "/blog/burnsville-center-is-coming-back-its-most-hyped-tenant-still-isnt-open/cover-640.webp" }
 importedFrom: luxurypresence

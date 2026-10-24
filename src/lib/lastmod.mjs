@@ -1,0 +1,32 @@
+// Real "last changed" dates for the sitemap, so Google and AI crawlers re-read pages that actually changed.
+// Only real changes count: a post's date, a video's upload date, a town's data or its newest local story.
+// Pages without a known date are listed without one rather than with a made-up date.
+import { readFileSync, readdirSync } from 'node:fs';
+
+const root = new URL('../../', import.meta.url);
+const read = (p) => readFileSync(new URL(p, root), 'utf8');
+const max = (dates) => dates.filter(Boolean).sort().at(-1);
+
+export function lastmods() {
+  const map = new Map();
+  const posts = readdirSync(new URL('src/content/blog/', root)).filter((f) => f.endsWith('.md')).map((f) => {
+    const fm = read(`src/content/blog/${f}`).split('\n---\n')[0];
+    const get = (k) => fm.match(new RegExp(`^${k}: "?([^"\\n]*)"?$`, 'm'))?.[1];
+    return { path: get('path'), date: get('updated') || get('date'), towns: JSON.parse(get('communities') ? fm.match(/^communities: (.*)$/m)[1] : '[]'), draft: get('draft') === 'true' };
+  }).filter((p) => p.path && !p.draft);
+  for (const p of posts) map.set(`/blog/${p.path}`, p.date);
+  const newestPost = max(posts.map((p) => p.date));
+  map.set('/blog', newestPost);
+
+  const { videos } = JSON.parse(read('src/data/youtube.json'));
+  for (const v of videos) if (v.slug && v.published) map.set(`/videos/${v.slug}`, v.published.slice(0, 10));
+  const newestVideo = max(videos.map((v) => v.published?.slice(0, 10)));
+  map.set('/videos', newestVideo);
+  map.set('/', max([newestPost, newestVideo]));
+
+  const details = JSON.parse(read('src/data/community-details.json'));
+  for (const slug of Object.keys(details.communities)) {
+    map.set(`/communities/${slug}`, max([details.updated, ...posts.filter((p) => p.towns.includes(slug)).map((p) => p.date)]));
+  }
+  return map;
+}

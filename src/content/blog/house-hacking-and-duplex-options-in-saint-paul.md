@@ -5,6 +5,7 @@ path: "house-hacking-and-duplex-options-in-saint-paul"
 date: 2026-07-16
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["saint-paul"]
 tags: []
 cover: { src: "/blog/house-hacking-and-duplex-options-in-saint-paul/cover.webp", width: 1200, height: 670, thumb: "/blog/house-hacking-and-duplex-options-in-saint-paul/cover-640.webp" }
 importedFrom: luxurypresence

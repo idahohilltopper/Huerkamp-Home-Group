@@ -5,6 +5,7 @@ path: "northfields-new-arena-opens-next-week-its-most-watched-empty-lot-still-do
 date: 2026-09-17
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["northfield"]
 tags: []
 cover: { src: "/blog/northfields-new-arena-opens-next-week-its-most-watched-empty-lot-still-doesnt-have-a-start-date/cover.webp", width: 1200, height: 670, thumb: "/blog/northfields-new-arena-opens-next-week-its-most-watched-empty-lot-still-doesnt-have-a-start-date/cover-640.webp" }
 importedFrom: luxurypresence

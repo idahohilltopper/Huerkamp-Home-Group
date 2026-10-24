@@ -5,6 +5,7 @@ path: "farmington-finally-has-a-grocery-store-again-its-on-elm-street-not-where-
 date: 2026-10-08
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["farmington"]
 tags: []
 cover: { src: "/blog/farmington-finally-has-a-grocery-store-again-its-on-elm-street-not-where-the-city-planned-one/cover.webp", width: 1200, height: 675, thumb: "/blog/farmington-finally-has-a-grocery-store-again-its-on-elm-street-not-where-the-city-planned-one/cover-640.webp" }
 importedFrom: luxurypresence

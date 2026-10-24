@@ -5,6 +5,7 @@ path: "commuting-from-waconia-to-the-twin-cities-core"
 date: 2026-07-02
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["waconia"]
 tags: []
 cover: { src: "/blog/commuting-from-waconia-to-the-twin-cities-core/cover.webp", width: 1200, height: 670, thumb: "/blog/commuting-from-waconia-to-the-twin-cities-core/cover-640.webp" }
 importedFrom: luxurypresence

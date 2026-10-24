@@ -5,6 +5,7 @@ path: "coordinating-your-sale-and-next-home-in-burnsville"
 date: 2026-05-21
 author: "Huerkamp Home Group"
 categories: ["Seller", "Neighborhoods"]
+communities: ["burnsville"]
 tags: []
 cover: { src: "/blog/coordinating-your-sale-and-next-home-in-burnsville/cover.webp", width: 1200, height: 670, thumb: "/blog/coordinating-your-sale-and-next-home-in-burnsville/cover-640.webp" }
 importedFrom: luxurypresence

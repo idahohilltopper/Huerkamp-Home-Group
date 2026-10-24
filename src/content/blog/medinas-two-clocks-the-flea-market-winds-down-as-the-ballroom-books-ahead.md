@@ -5,6 +5,7 @@ path: "medinas-two-clocks-the-flea-market-winds-down-as-the-ballroom-books-ahead
 date: 2026-08-13
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["medina"]
 tags: []
 cover: { src: "/blog/medinas-two-clocks-the-flea-market-winds-down-as-the-ballroom-books-ahead/cover.webp", width: 1200, height: 670, thumb: "/blog/medinas-two-clocks-the-flea-market-winds-down-as-the-ballroom-books-ahead/cover-640.webp" }
 importedFrom: luxurypresence

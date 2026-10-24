@@ -44,3 +44,9 @@ cover: { src: "/blog/lakeville-market-update-2026/cover.webp", width: 1200, heig
 - 46 posts existed only on the old Luxury Presence site (huerkamphomes.com). They were copied with their text as written, and their images were saved under `public/blog/`. Their addresses stay the same (`/blog/<slug>`).
 - 44 of them are local Twin Cities stories and guides, listed under the "Neighborhoods" category.
 - Re-run the copy: `scripts/import-luxury-presence-blog.py` (instructions at the top of that file).
+
+## Local stories on community pages
+
+- A post with `communities: ["burnsville"]` at the top shows under "Local stories" on that community's page. The post also links back to the guide, and Google is told which city the post is about.
+- New posts get tagged automatically: `python3 scripts/tag-post-communities.py`. It reads the town from the title, or else the description. To tag a post by hand, add the line yourself; the script never changes a tag that's already there.
+- A community page's "Updated" date, and the date in the sitemap, is the newest real change to that guide: a local story, a video about the town, or its census data. It is never just the day the site was rebuilt.

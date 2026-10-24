@@ -5,6 +5,7 @@ path: "lakeville-mn-housing-market-what-local-sellers-should-know"
 date: 2026-02-26
 author: "Huerkamp Home Group"
 categories: ["Seller", "Neighborhoods"]
+communities: ["lakeville"]
 tags: []
 cover: { src: "/blog/lakeville-mn-housing-market-what-local-sellers-should-know/cover.webp", width: 1200, height: 805, thumb: "/blog/lakeville-mn-housing-market-what-local-sellers-should-know/cover-640.webp" }
 importedFrom: luxurypresence

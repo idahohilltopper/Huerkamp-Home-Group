@@ -5,6 +5,7 @@ path: "comparing-home-styles-and-layouts-in-eagan-mn"
 date: 2026-06-04
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["eagan"]
 tags: []
 cover: { src: "/blog/comparing-home-styles-and-layouts-in-eagan-mn/cover.webp", width: 1200, height: 655, thumb: "/blog/comparing-home-styles-and-layouts-in-eagan-mn/cover-640.webp" }
 importedFrom: luxurypresence

@@ -5,6 +5,7 @@ path: "west-saint-paul-housing-market-for-local-sellers"
 date: 2026-07-09
 author: "Huerkamp Home Group"
 categories: ["Seller", "Neighborhoods"]
+communities: ["west-st-paul"]
 tags: []
 cover: { src: "/blog/west-saint-paul-housing-market-for-local-sellers/cover.webp", width: 1200, height: 670, thumb: "/blog/west-saint-paul-housing-market-for-local-sellers/cover-640.webp" }
 importedFrom: luxurypresence

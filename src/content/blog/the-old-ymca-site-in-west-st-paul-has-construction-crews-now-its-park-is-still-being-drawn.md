@@ -5,6 +5,7 @@ path: "the-old-ymca-site-in-west-st-paul-has-construction-crews-now-its-park-is-
 date: 2026-10-22
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["west-st-paul"]
 tags: []
 cover: { src: "/blog/the-old-ymca-site-in-west-st-paul-has-construction-crews-now-its-park-is-still-being-drawn/cover.webp", width: 1200, height: 675, thumb: "/blog/the-old-ymca-site-in-west-st-paul-has-construction-crews-now-its-park-is-still-being-drawn/cover-640.webp" }
 importedFrom: luxurypresence

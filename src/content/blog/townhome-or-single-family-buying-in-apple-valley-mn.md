@@ -5,6 +5,7 @@ path: "townhome-or-single-family-buying-in-apple-valley-mn"
 date: 2026-02-19
 author: "Huerkamp Home Group"
 categories: ["Buyer", "Neighborhoods"]
+communities: ["apple-valley"]
 tags: []
 cover: { src: "/blog/townhome-or-single-family-buying-in-apple-valley-mn/cover.webp", width: 1200, height: 655, thumb: "/blog/townhome-or-single-family-buying-in-apple-valley-mn/cover-640.webp" }
 importedFrom: luxurypresence

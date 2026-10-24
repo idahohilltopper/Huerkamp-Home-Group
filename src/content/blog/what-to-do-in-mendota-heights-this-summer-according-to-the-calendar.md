@@ -5,6 +5,7 @@ path: "what-to-do-in-mendota-heights-this-summer-according-to-the-calendar"
 date: 2026-08-06
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["mendota-heights"]
 tags: []
 cover: { src: "/blog/what-to-do-in-mendota-heights-this-summer-according-to-the-calendar/cover.webp", width: 1200, height: 670, thumb: "/blog/what-to-do-in-mendota-heights-this-summer-according-to-the-calendar/cover-640.webp" }
 importedFrom: luxurypresence

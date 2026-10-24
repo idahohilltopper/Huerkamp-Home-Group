@@ -7,6 +7,7 @@ import TeamPhoto from '../../components/TeamPhoto.astro';
 import { getPosts, postUrl, catUrl, formatDate, readingMinutes, related, type Post } from '../../data/blog';
 import { youtubeId, youtubeHtml } from '../../lib/youtube.mjs';
 import { business, origin } from '../../data/schema';
+import { communities } from '../../data/areas';
 import team from '../../data/team.json';
 import { site } from '../../data/site';
 
@@ -25,6 +26,8 @@ const showCover = cover && cover.height / cover.width <= 1;
 const jason = team.members.find((m) => m.name === 'Jason Huerkamp')!;
 const byJason = author === 'Jason Huerkamp';
 const more = related(post, posts);
+// Community guides this post is about (local stories link back to their town's page).
+const places = post.data.communities.map((slug: string) => communities.find((c) => c.slug === slug)).filter((c) => c != null);
 
 const ld = JSON.stringify({
   '@context': 'https://schema.org',
@@ -42,6 +45,7 @@ const ld = JSON.stringify({
     : { '@id': business['@id'] },
   publisher: { '@id': business['@id'] },
   articleSection: categories.length ? categories : undefined,
+  ...(places.length && { about: places.map((c) => ({ '@type': 'City', name: `${c.name}, Minnesota`, url: `${origin}/communities/${c.slug}` })) }),
   keywords: tags.length ? tags.join(', ') : undefined,
   wordCount: post.body?.split(/\s+/).length,
   ...(videoId && {
@@ -88,6 +92,17 @@ const ld = JSON.stringify({
     </div>
 
     <aside class="wrap post__aside" aria-label="About the author and next steps">
+      {places.length > 0 && (
+        <div class="guides">
+          <p class="eyebrow">Community guide{places.length > 1 ? 's' : ''}</p>
+          {places.map((c) => (
+            <a class="guides__link" href={`/communities/${c.slug}`}>
+              <strong>{c.name}, MN</strong>
+              <span>Homes for sale, home values, schools, commutes and more local stories</span>
+            </a>
+          ))}
+        </div>
+      )}
       <div class="author">
         {byJason
           ? <TeamPhoto photo={jason.photo} alt={jason.name} size={96} />
@@ -153,6 +168,11 @@ const ld = JSON.stringify({
   .post__body :global(.post-embed iframe) { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
   .post__aside { display: grid; gap: 1.5rem; margin-top: 3rem; }
+  .guides { display: grid; gap: .75rem; padding: 1.5rem; border: 1px solid var(--line); border-left: 4px solid var(--crimson); background: var(--paper); }
+  .guides__link { display: grid; gap: .15rem; text-decoration: none; color: var(--text); }
+  .guides__link strong { font: 600 1.3rem/1.2 var(--serif); }
+  .guides__link span { color: var(--text-soft); font-size: .95rem; }
+  .guides__link:hover strong { color: var(--crimson); }
   .author { display: grid; grid-template-columns: 6rem 1fr; gap: 1.25rem; align-items: center; padding: 1.5rem; background: var(--sand); }
   .author :global(img) { width: 6rem; height: 6rem; object-fit: cover; border-radius: 50%; }
   .author img[src$='hhg-mark.webp'] { object-fit: contain; border-radius: 0; }

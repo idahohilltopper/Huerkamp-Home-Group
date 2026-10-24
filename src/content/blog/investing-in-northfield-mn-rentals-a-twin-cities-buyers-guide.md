@@ -5,6 +5,7 @@ path: "investing-in-northfield-mn-rentals-a-twin-cities-buyers-guide"
 date: 2026-05-07
 author: "Huerkamp Home Group"
 categories: ["Buyer", "Neighborhoods"]
+communities: ["northfield"]
 tags: []
 cover: { src: "/blog/investing-in-northfield-mn-rentals-a-twin-cities-buyers-guide/cover.webp", width: 1200, height: 670, thumb: "/blog/investing-in-northfield-mn-rentals-a-twin-cities-buyers-guide/cover-640.webp" }
 importedFrom: luxurypresence

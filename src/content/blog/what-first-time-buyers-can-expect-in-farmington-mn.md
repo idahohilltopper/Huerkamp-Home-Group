@@ -5,6 +5,7 @@ path: "what-first-time-buyers-can-expect-in-farmington-mn"
 date: 2026-03-24
 author: "Huerkamp Home Group"
 categories: ["Buyer", "Neighborhoods"]
+communities: ["farmington"]
 tags: []
 cover: { src: "/blog/what-first-time-buyers-can-expect-in-farmington-mn/cover.webp", width: 1200, height: 670, thumb: "/blog/what-first-time-buyers-can-expect-in-farmington-mn/cover-640.webp" }
 importedFrom: luxurypresence

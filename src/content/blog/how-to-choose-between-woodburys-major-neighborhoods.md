@@ -5,6 +5,7 @@ path: "how-to-choose-between-woodburys-major-neighborhoods"
 date: 2026-06-25
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["woodbury"]
 tags: []
 cover: { src: "/blog/how-to-choose-between-woodburys-major-neighborhoods/cover.webp", width: 1200, height: 655, thumb: "/blog/how-to-choose-between-woodburys-major-neighborhoods/cover-640.webp" }
 importedFrom: luxurypresence

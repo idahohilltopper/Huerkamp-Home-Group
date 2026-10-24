@@ -5,6 +5,7 @@ path: "waconias-scarecrow-tour-walks-through-a-downtown-that-changed-addresses-t
 date: 2026-10-08
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["waconia"]
 tags: []
 cover: { src: "/blog/waconias-scarecrow-tour-walks-through-a-downtown-that-changed-addresses-this-year/cover.webp", width: 1200, height: 675, thumb: "/blog/waconias-scarecrow-tour-walks-through-a-downtown-that-changed-addresses-this-year/cover-640.webp" }
 importedFrom: luxurypresence

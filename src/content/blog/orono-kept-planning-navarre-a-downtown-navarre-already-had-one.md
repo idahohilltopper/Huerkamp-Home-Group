@@ -5,6 +5,7 @@ path: "orono-kept-planning-navarre-a-downtown-navarre-already-had-one"
 date: 2026-10-01
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["orono"]
 tags: []
 cover: { src: "/blog/orono-kept-planning-navarre-a-downtown-navarre-already-had-one/cover.webp", width: 1200, height: 675, thumb: "/blog/orono-kept-planning-navarre-a-downtown-navarre-already-had-one/cover-640.webp" }
 importedFrom: luxurypresence

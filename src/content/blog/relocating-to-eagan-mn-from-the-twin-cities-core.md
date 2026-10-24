@@ -5,6 +5,7 @@ path: "relocating-to-eagan-mn-from-the-twin-cities-core"
 date: 2026-03-05
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["eagan"]
 tags: []
 cover: { src: "/blog/relocating-to-eagan-mn-from-the-twin-cities-core/cover.webp", width: 1200, height: 670, thumb: "/blog/relocating-to-eagan-mn-from-the-twin-cities-core/cover-640.webp" }
 importedFrom: luxurypresence

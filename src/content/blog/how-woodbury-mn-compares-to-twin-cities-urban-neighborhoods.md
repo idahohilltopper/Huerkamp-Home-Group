@@ -5,6 +5,7 @@ path: "how-woodbury-mn-compares-to-twin-cities-urban-neighborhoods"
 date: 2026-05-14
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["woodbury"]
 tags: []
 cover: { src: "/blog/how-woodbury-mn-compares-to-twin-cities-urban-neighborhoods/cover.webp", width: 1200, height: 670, thumb: "/blog/how-woodbury-mn-compares-to-twin-cities-urban-neighborhoods/cover-640.webp" }
 importedFrom: luxurypresence

@@ -5,6 +5,7 @@ path: "what-the-old-thomson-reuters-campus-is-giving-back-to-wescott-station-par
 date: 2026-10-15
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["eagan"]
 tags: []
 cover: { src: "/blog/what-the-old-thomson-reuters-campus-is-giving-back-to-wescott-station-park/cover.webp", width: 1200, height: 675, thumb: "/blog/what-the-old-thomson-reuters-campus-is-giving-back-to-wescott-station-park/cover-640.webp" }
 importedFrom: luxurypresence

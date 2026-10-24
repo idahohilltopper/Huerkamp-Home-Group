@@ -5,6 +5,7 @@ path: "eden-prairie-has-been-quietly-upgrading-the-places-you-use-every-week"
 date: 2026-03-26
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["eden-prairie"]
 tags: []
 cover: { src: "/blog/eden-prairie-has-been-quietly-upgrading-the-places-you-use-every-week/cover.webp", width: 1200, height: 670, thumb: "/blog/eden-prairie-has-been-quietly-upgrading-the-places-you-use-every-week/cover-640.webp" }
 importedFrom: luxurypresence

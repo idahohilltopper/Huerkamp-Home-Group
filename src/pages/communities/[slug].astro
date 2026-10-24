@@ -18,6 +18,8 @@ import reviewData from '../../data/reviews.json';
 import team from '../../data/team.json';
 import { site } from '../../data/site';
 import { communitySearch, searchUrl, ylopoPlace } from '../../data/ylopo';
+import PostCard from '../../components/PostCard.astro';
+import { getPosts, postsAbout } from '../../data/blog';
 
 export function getStaticPaths() {
   return communities.map((c) => ({ params: { slug: c.slug }, props: { c } }));
@@ -55,7 +57,7 @@ const regionPhrase = c.region === 'Minneapolis & Saint Paul' ? "one of the Twin 
 const distancePhrase = c.slug === 'minneapolis' ? `downtown Saint Paul is about ${d.driveMinutes.downtownSaintPaul} minutes away`
   : c.slug === 'saint-paul' ? `downtown Minneapolis is about ${d.driveMinutes.downtownMinneapolis} minutes away`
   : `it's about ${d.driveMinutes.downtownMinneapolis} minutes from downtown Minneapolis and ${d.driveMinutes.downtownSaintPaul} minutes from downtown Saint Paul`;
-const updated = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+const stories = postsAbout(c.slug, await getPosts());
 
 // ---------- derived content ----------
 const mainDistrict = d.schoolDistricts[0];
@@ -128,6 +130,13 @@ const allHomes = communitySearch(c.slug);
 const cityVideos = videosAbout([c.name], 9);
 const cityLong = cityVideos.filter((v) => v.kind === 'long').slice(0, 6);
 const cityShorts = cityVideos.filter((v) => v.kind === 'short');
+// "Updated" is the newest real change to this guide: a local story, a video about the town, or the town's data.
+const lastChange = new Date(Math.max(
+  Date.parse(detailData.updated),
+  ...stories.map((p) => p.data.date.valueOf()),
+  ...cityVideos.map((v) => (v.published ? Date.parse(v.published) : 0)),
+));
+const updated = lastChange.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 const widgetSearch = { locations: place.city ? [{ city: place.city, state: 'MN' }] : (place.zips ?? []).map((z) => ({ postalCode: z })) };
 const browse = [
   { label: 'Single-family homes', href: communitySearch(c.slug, { type: 'house' }) },
@@ -487,6 +496,20 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
       </div>
     </div>
   </section>
+
+  {stories.length > 0 && (
+    <section class="section section--paper" id="stories" aria-labelledby="stories-title">
+      <div class="wrap">
+        <div class="head">
+          <p class="eyebrow">Local stories</p>
+          <h2 id="stories-title">What's happening in <em>{c.name}</em></h2>
+          <p>Stories about {c.name}: new development, parks, local businesses and the housing market.</p>
+        </div>
+        <ul class="vgrid">{stories.slice(0, 6).map((p) => <li><PostCard post={p} /></li>)}</ul>
+        <p class="vmore"><a class="link-arrow" href="/blog/category/neighborhoods">All local stories</a></p>
+      </div>
+    </section>
+  )}
 
   {cityVideos.length > 0 && (
     <section class="section" aria-labelledby="videos-title">

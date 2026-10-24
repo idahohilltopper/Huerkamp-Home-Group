@@ -5,6 +5,7 @@ path: "the-north-arm-landing-fight-was-never-really-about-the-boat-ramp"
 date: 2026-08-13
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["orono"]
 tags: []
 cover: { src: "/blog/the-north-arm-landing-fight-was-never-really-about-the-boat-ramp/cover.webp", width: 1200, height: 670, thumb: "/blog/the-north-arm-landing-fight-was-never-really-about-the-boat-ramp/cover-640.webp" }
 importedFrom: luxurypresence

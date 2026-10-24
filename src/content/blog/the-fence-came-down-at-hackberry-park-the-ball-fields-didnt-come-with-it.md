@@ -5,6 +5,7 @@ path: "the-fence-came-down-at-hackberry-park-the-ball-fields-didnt-come-with-it"
 date: 2026-09-24
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["orono"]
 tags: []
 cover: { src: "/blog/the-fence-came-down-at-hackberry-park-the-ball-fields-didnt-come-with-it/cover.webp", width: 1200, height: 670, thumb: "/blog/the-fence-came-down-at-hackberry-park-the-ball-fields-didnt-come-with-it/cover-640.webp" }
 importedFrom: luxurypresence

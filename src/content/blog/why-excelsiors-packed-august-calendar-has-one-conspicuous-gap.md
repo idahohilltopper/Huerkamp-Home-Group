@@ -5,6 +5,7 @@ path: "why-excelsiors-packed-august-calendar-has-one-conspicuous-gap"
 date: 2026-08-13
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["excelsior"]
 tags: []
 cover: { src: "/blog/why-excelsiors-packed-august-calendar-has-one-conspicuous-gap/cover.webp", width: 1200, height: 670, thumb: "/blog/why-excelsiors-packed-august-calendar-has-one-conspicuous-gap/cover-640.webp" }
 importedFrom: luxurypresence

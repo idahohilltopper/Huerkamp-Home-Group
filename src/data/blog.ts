@@ -27,13 +27,17 @@ export const formatDate = (d: Date) => d.toLocaleDateString('en-US', { year: 'nu
 export const readingMinutes = (markdown = '') =>
   Math.max(1, Math.round(markdown.replace(/<[^>]+>|[#*_>\[\]()!-]/g, ' ').split(/\s+/).filter(Boolean).length / 230));
 
-/** Up to n other posts, preferring ones that share a category. */
+/** Up to n other posts, preferring ones about the same town, then ones that share a category. */
 export function related(post: Post, posts: Post[], n = 3) {
   const cats = new Set(post.data.categories);
+  const towns = new Set(post.data.communities);
   return posts
     .filter((p) => p.id !== post.id)
-    .map((p) => ({ p, score: p.data.categories.filter((c: string) => cats.has(c)).length }))
+    .map((p) => ({ p, score: 10 * p.data.communities.filter((c: string) => towns.has(c)).length + p.data.categories.filter((c: string) => cats.has(c)).length }))
     .sort((a, b) => b.score - a.score || b.p.data.date.valueOf() - a.p.data.date.valueOf())
     .slice(0, n)
     .map((x) => x.p);
 }
+
+/** Posts about one community (frontmatter `communities`), newest first. */
+export const postsAbout = (slug: string, posts: Post[]) => posts.filter((p) => p.data.communities.includes(slug));

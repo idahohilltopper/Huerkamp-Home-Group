@@ -18,6 +18,8 @@ const blog = defineCollection({
     author: z.string().default('Huerkamp Home Group'),
     categories: z.array(z.string()).default([]),
     tags: z.array(z.string()).default([]),
+    /** Community guides this post is about (slugs, e.g. ["burnsville"]); it then shows on those pages. scripts/tag-post-communities.py fills it in. */
+    communities: z.array(z.string()).default([]),
     /** Banner image (public/blog/<slug>/cover.webp); thumb is the small card version from scripts/make-blog-thumbs.py. */
     cover: z.object({ src: z.string(), width: z.number(), height: z.number(), alt: z.string().optional(), thumb: z.string().optional() }).optional(),
     /** YouTube video ID or URL to feature at the top of the post. */

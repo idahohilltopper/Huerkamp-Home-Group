@@ -199,6 +199,7 @@ baselines = {
 }
 
 json.dump({
+    'updated': __import__('datetime').date.today().isoformat(),  # shown as the guide's "Updated" date
     'sources': {
         'acs': 'US Census Bureau, American Community Survey 2020-2024 5-year estimates (tables B01002, B01003, B08013, B08301, B08303, B11001, B15003, B19013, B19301, B23025, B25003, B25024, B25035, B25064, B25077, C24050)',
         'schoolDistricts': 'US Census Bureau TIGER/Line 2024 unified school districts; districts covering at least 3% of the city',

@@ -5,6 +5,7 @@ path: "home-styles-and-lake-living-options-in-minnetonka-mn"
 date: 2026-04-09
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["minnetonka"]
 tags: []
 cover: { src: "/blog/home-styles-and-lake-living-options-in-minnetonka-mn/cover.webp", width: 1200, height: 670, thumb: "/blog/home-styles-and-lake-living-options-in-minnetonka-mn/cover-640.webp" }
 importedFrom: luxurypresence

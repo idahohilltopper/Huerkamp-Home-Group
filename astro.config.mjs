@@ -2,6 +2,9 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import { unified } from '@astrojs/markdown-remark';
 import { remarkYoutube } from './src/lib/youtube.mjs';
+import { lastmods } from './src/lib/lastmod.mjs';
+
+const changed = lastmods();
 
 export default defineConfig({
   site: 'https://www.huerkamphomegroup.com',
@@ -9,7 +12,13 @@ export default defineConfig({
   // addresses the old Squarespace site used, so existing Google rankings carry over.
   trailingSlash: 'never',
   build: { format: 'file' },
-  integrations: [sitemap()],
+  // The sitemap carries each page's real last-changed date (src/lib/lastmod.mjs).
+  integrations: [sitemap({
+    serialize(item) {
+      const date = changed.get(new URL(item.url).pathname.replace(/\/$/, '') || '/');
+      return date ? { ...item, lastmod: new Date(date).toISOString() } : item;
+    },
+  })],
   // Blog posts are Markdown; a YouTube link on its own line becomes a fast video player.
   markdown: { processor: unified({ remarkPlugins: [remarkYoutube] }) },
 });

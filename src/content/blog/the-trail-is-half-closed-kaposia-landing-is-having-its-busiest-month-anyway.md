@@ -5,6 +5,7 @@ path: "the-trail-is-half-closed-kaposia-landing-is-having-its-busiest-month-anyw
 date: 2026-08-20
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["south-st-paul"]
 tags: []
 cover: { src: "/blog/the-trail-is-half-closed-kaposia-landing-is-having-its-busiest-month-anyway/cover.webp", width: 1200, height: 670, thumb: "/blog/the-trail-is-half-closed-kaposia-landing-is-having-its-busiest-month-anyway/cover-640.webp" }
 importedFrom: luxurypresence

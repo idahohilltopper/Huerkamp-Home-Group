@@ -5,6 +5,7 @@ path: "the-old-speedway-corner-is-gone-rosemount-isnt-in-a-hurry-to-fill-it"
 date: 2026-08-27
 author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
+communities: ["rosemount"]
 tags: []
 cover: { src: "/blog/the-old-speedway-corner-is-gone-rosemount-isnt-in-a-hurry-to-fill-it/cover.webp", width: 1200, height: 670, thumb: "/blog/the-old-speedway-corner-is-gone-rosemount-isnt-in-a-hurry-to-fill-it/cover-640.webp" }
 importedFrom: luxurypresence
