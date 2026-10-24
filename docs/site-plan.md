@@ -290,7 +290,7 @@ Google and AI search favor sites that keep adding real, useful, accurate informa
 | Routine | When (Central time) | What it does | Publishes? |
 |---|---|---|---|
 | Daily website refresh | Every day, 6:38 am | Adds new YouTube videos and Shorts, plus their watch pages. Tags new blog posts to their towns. Checks links, the sitemap and llms.txt. Does nothing if nothing changed. | Yes, straight to the live branch |
-| Weekly local story and SEO upgrade | Wednesdays, 7:53 am | Writes one new local story about a core town, with every fact linked to a public source and fact-checked before publishing. Also makes one small SEO/AI improvement for the whole site. | Yes, straight to the live branch |
+| Weekly local story (for approval) and SEO upgrade | Wednesdays, 7:53 am | Writes one new local story about a core town, with every fact linked to a public source and fact-checked. Also makes one small SEO/AI improvement for the whole site. Both go on a review branch (claude/story-DATE), and Jason gets the full text and sources in a notification. | Only after Jason replies "publish" in that routine's conversation |
 | Monthly SEO checkup | 1st of the month, 7:39 am | Full check of speed, links, schema, listings and data freshness. Writes a report in docs/checkups/. | No. Fixes wait on a checkup branch for approval. |
 
 - Each page's "Updated" date and its sitemap date come from real changes only (src/lib/lastmod.mjs).
