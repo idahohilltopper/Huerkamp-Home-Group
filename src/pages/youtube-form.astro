@@ -1,0 +1,66 @@
+---
+// Contact form linked from every Living in Minneapolis video description (and the old webinar sign-up links).
+// Leads are tagged "YouTube" in Follow Up Boss; the phone and email shown here are the YouTube tracking ones.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site';
+---
+<Base
+  breadcrumbs={[{ name: 'Talk to us', href: '/youtube-form' }]}
+  title="Talk to Jason and Brooke | Living in Minneapolis"
+  description="Watched one of our Living in Minneapolis videos? Ask Jason, Brooke and the Huerkamp Home Group team about moving to the Twin Cities."
+  noindex>
+  <PageHero eyebrow="Living in Minneapolis" title="Thanks for watching."
+    lede="Thinking about a move to the Twin Cities? Tell us a little about it and we'll get back to you." />
+
+  <section class="section" aria-labelledby="yt-title">
+    <div class="wrap split-2">
+      <div class="prose">
+        <p class="eyebrow">Reach us directly</p>
+        <h2 id="yt-title">Call, text or email</h2>
+        <dl class="details">
+          <div><dt>Call or text</dt><dd><a href={site.youtubePhoneHref}>{site.youtubePhone}</a></dd></div>
+          <div><dt>Email</dt><dd><a href={`mailto:${site.youtubeEmail}`}>{site.youtubeEmail}</a></dd></div>
+        </dl>
+        <p><a class="link-arrow" href="/videos">Keep watching</a></p>
+      </div>
+      <form class="form" data-lead="youtube">
+        <h3>Leave a message</h3>
+        <div class="form__row">
+          <div class="field"><label for="y-first">First name</label><input id="y-first" name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for="y-last">Last name</label><input id="y-last" name="lastName" autocomplete="family-name" required /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="y-email">Email</label><input id="y-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="y-phone">Phone</label><input id="y-phone" name="phone" type="tel" autocomplete="tel" /></div>
+        </div>
+        <div class="form__row">
+          <div class="field">
+            <label for="y-interest">Interested in</label>
+            <select id="y-interest" name="interest">
+              <option value="">Choose one</option>
+              <option>Selling &amp; buying</option>
+              <option>Selling</option>
+              <option>Buying</option>
+              <option>Renting</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field"><label for="y-from">Moving from</label><input id="y-from" name="moveFrom" placeholder="City, state" /></div>
+        </div>
+        <div class="field"><label for="y-message">Message</label><textarea id="y-message" name="message"></textarea></div>
+        <button class="btn" type="submit">Send message</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .details { display: grid; gap: 1rem; margin: .5rem 0 1rem; }
+  .details div { display: grid; gap: .15rem; }
+  .details dt { font: 700 .75rem/1.2 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--eyebrow); }
+  .details dd { margin: 0; color: var(--text); font-size: 1.1rem; }
+  .details a { text-decoration: none; }
+  .details a:hover { text-decoration: underline; }
+</style>

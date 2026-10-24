@@ -165,3 +165,9 @@ p { margin: 0; }
 .yt__play::after { content: ""; position: absolute; left: 54%; top: 50%; translate: -50% -50%; border-style: solid; border-width: .7rem 0 .7rem 1.15rem; border-color: transparent transparent transparent #fff; }
 .yt__link:hover .yt__play, .yt__link:focus-visible .yt__play { transform: scale(1.08); }
 .yt--short { aspect-ratio: 9 / 16; }
+
+/* Form consent (added to every lead form by Base.astro) */
+.consent { display: grid; grid-template-columns: auto 1fr; gap: .6rem; align-items: start; font-size: .82rem; line-height: 1.45; color: var(--text-soft); }
+.consent input { margin-top: .2rem; width: 1.05rem; height: 1.05rem; accent-color: var(--crimson); }
+.consent__privacy { font-size: .78rem; color: var(--text-soft); }
+.consent__privacy a { color: inherit; }

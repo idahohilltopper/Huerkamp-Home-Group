@@ -106,7 +106,7 @@ const isExternal = (href: string) => href.startsWith('http');
   {crumbLd && <script type="application/ld+json" set:html={crumbLd} />}
   <slot name="head" />
 </head>
-<body>
+<body data-privacy={site.privacyUrl}>
   <a class="skip" href="#main">Skip to content</a>
   <div class="utility">
     <div class="utility__inner">
@@ -187,7 +187,7 @@ const isExternal = (href: string) => href.startsWith('http');
     </div>
     <div class="wrap footer__legal">
       <p>© {year} {site.name}. {site.brokerage}. Each office independently owned and operated.</p>
-      <p><span aria-hidden="true">⌂</span> Equal Housing Opportunity. Skyline photo: <a href="https://www.flickr.com/photos/diversey/15674738158/">Tony Webster</a>, <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>. <a href={site.facebookUrl} rel="noopener">Facebook</a> · <a href={site.youtubeUrl} rel="noopener">YouTube</a></p>
+      <p><span aria-hidden="true">⌂</span> Equal Housing Opportunity. Skyline photo: <a href="https://www.flickr.com/photos/diversey/15674738158/">Tony Webster</a>, <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>. <a href={site.facebookUrl} rel="noopener">Facebook</a> · <a href={site.youtubeUrl} rel="noopener">YouTube</a> · <a href={site.privacyUrl} rel="noopener">Privacy policy</a></p>
     </div>
   </footer>
 
@@ -205,8 +205,13 @@ const isExternal = (href: string) => href.startsWith('http');
     // Forms: send to Follow Up Boss through /api/lead (netlify/functions/lead.mjs).
     const loadedAt = Date.now();
     document.querySelectorAll<HTMLFormElement>('form[data-lead]').forEach((form) => {
+      form.dataset.privacy = document.body.dataset.privacy;
       // Hidden field people never see; bots that fill every field get ignored.
       form.insertAdjacentHTML('beforeend', '<div class="visually-hidden" aria-hidden="true"><label>Leave empty<input name="website_url" tabindex="-1" autocomplete="off"></label></div>');
+      // Text-message consent (opt-in) and privacy notice, placed just above the submit button.
+      form.querySelector('button[type="submit"]')?.insertAdjacentHTML('beforebegin',
+        `<label class="consent"><input type="checkbox" name="smsConsent" value="yes"> <span>Yes, ${form.dataset.brand ?? 'Huerkamp Home Group'} may text me about my real estate questions. Message frequency varies; message and data rates may apply. Reply STOP to opt out. Not required to submit.</span></label>` +
+        `<p class="consent__privacy">By submitting, you agree we may contact you about your inquiry. See our <a href="${form.dataset.privacy}" rel="noopener">privacy policy</a>.</p>`);
       const status = form.querySelector<HTMLElement>('[role="status"]') ?? form.nextElementSibling as HTMLElement | null;
       const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
       form.addEventListener('submit', async (e) => {

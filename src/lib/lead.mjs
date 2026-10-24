@@ -16,13 +16,14 @@ export const FORMS = {
   'investing':         { type: 'General Inquiry', label: 'Investment form',        tags: ['Investor'] },
   'ramsey':            { type: 'General Inquiry', label: 'Ramsey ELP form',        tags: ['Ramsey ELP'] },
   'lender':            { type: 'General Inquiry', label: 'Lender request (Ken Rife)', tags: ['Buyer lead', 'Lender referral'] },
+  'youtube':           { type: 'General Inquiry', label: 'YouTube viewer form',    tags: ['YouTube'], source: 'YouTube - Living in Minneapolis' },
 };
 
 // Field names → readable labels for the note on the lead. Contact details are sent separately.
 const LABELS = {
   address: 'Property address', timeline: 'Selling timeline', topic: 'Topic', goal: 'Goal',
   notes: 'Notes', message: 'Message', lake: 'Lake', priceRange: 'Price range', maxPrice: 'Price range',
-  community: 'Community', ramseyReferral: 'Referred by Ramsey',
+  community: 'Community', ramseyReferral: 'Referred by Ramsey', interest: 'Interested in', moveFrom: 'Moving from',
 };
 const CONTACT = new Set(['firstName', 'lastName', 'email', 'phone']);
 
@@ -46,7 +47,7 @@ export function buildEvent(input) {
   if (!isEmail(f.email)) return { error: 'A valid email is required' };
 
   // A goal or topic that mentions selling turns any form into a seller inquiry.
-  const intent = `${f.goal ?? ''} ${f.topic ?? ''}`.toLowerCase();
+  const intent = `${f.goal ?? ''} ${f.topic ?? ''} ${f.interest ?? ''}`.toLowerCase();
   const sells = /sell/.test(intent);
   const buys = /buy/.test(intent);
   const type = cfg.type === 'General Inquiry' && sells ? 'Seller Inquiry' : cfg.type;
@@ -55,18 +56,21 @@ export function buildEvent(input) {
   if (sells) tags.add('Seller lead');
   if (buys) tags.add('Buyer lead');
   if (f.community) tags.add(f.community);
+  // Text-message consent is opt-in only (unchecked box on every form).
+  if (f.smsConsent === 'yes') tags.add('SMS consent');
   if (f.lake) tags.add(f.lake);
   // Test submissions are labeled so the team can find and delete them.
   if (/^test\b/i.test(f.firstName) || /@example\.(com|org)$/i.test(f.email)) tags.add('TEST – website');
 
   const details = Object.entries(f)
     .filter(([k, v]) => v && !CONTACT.has(k) && LABELS[k])
-    .map(([k, v]) => `${LABELS[k]}: ${v}`);
+    .map(([k, v]) => `${LABELS[k]}: ${v}`)
+    .concat(f.smsConsent === 'yes' ? ['Agreed to receive text messages (website checkbox)'] : []);
   const pageUrl = page ? `https://www.huerkamphomegroup.com${clean(page, 300)}` : undefined;
   const message = [`${cfg.label}${title ? ` on "${clean(title, 200)}"` : ''}`, ...details].join('\n');
 
   const event = {
-    source: SOURCE,
+    source: cfg.source ?? SOURCE,
     system: 'HuerkampHomeGroupWebsite',
     type,
     message,

@@ -267,3 +267,16 @@ Channel: **Living in Minneapolis Minnesota**, https://www.youtube.com/@livinginm
 - **Import**: `scripts/build-youtube.py` built the set (channel lists from yt-dlp; descriptions for 297 of 302 videos from vidIQ). **144 watch pages.** vidIQ's tool rejects 5 videos (a date-format bug on its side): -eypwoixOBQ, qWZbTfdJu8k, qMx9zng5gK8, gtP3DUawegc, vQ3IvV_1oOI; they show in the library and play from YouTube. Videos titled with "(delete)" are skipped. Long videos whose description is only contact/subscribe text have no watch page.
 - **Weekly**: `python3 scripts/update-youtube.py` reads the channel's public feed (newest 15 uploads, with full descriptions), adds new videos and watch pages, and refreshes view counts. A weekly routine runs it every Monday morning and publishes the update.
 - **Tracking numbers (Jason, 2026-10-24)**: YouTube uses (952) 900-3025 and team@hhgus.com on purpose, to track YouTube leads. The website strips them from video descriptions so website leads keep the website's number. Google Business Profile, directories and the website stay on (612) 843-9620.
+
+## Retiring the Luxury Presence site (huerkamphomes.com, ends December)
+
+- **Which site is which:** huerkamphomes.com is the Luxury Presence site. www.huerkamphomegroup.com was the Ylopo-made Squarespace site, which this site replaces, and search.huerkamphomegroup.com is Ylopo home search (it stays).
+- **Why it matters:** every Living in Minneapolis video description links to huerkamphomes.com/youtube-form or /webinarsignup. Those links would break in December.
+- **The fix:** keep the huerkamphomes.com domain, then add it (and www.huerkamphomes.com) to this Netlify site as a domain alias. `public/_redirects` already sends every old address to its new page with a permanent (301) redirect:
+  - /youtube-form and the webinar pages go to /youtube-form. That page is not shown in Google. Its leads land in Follow Up Boss with the source "YouTube - Living in Minneapolis" and the tag "YouTube", and it shows the YouTube tracking phone (952) 900-3025 and team@hhgus.com.
+  - The 27 neighborhood pages go to their community guides.
+  - 290 old blog posts go to the same post here. The other 97 go to /blog until they are moved over.
+  - Agent pages go to /team, and listing pages go to Ylopo search.
+  - Anything else goes to the home page.
+- **To rebuild the rules:** `python3 scripts/build-lp-redirects.py <saved LP sitemaps>` and then `node scripts/write-redirects.mjs`.
+- **Text-message consent:** every form now has an unchecked, optional text-message consent box and a privacy-policy link. Checking the box adds the "SMS consent" tag in Follow Up Boss.

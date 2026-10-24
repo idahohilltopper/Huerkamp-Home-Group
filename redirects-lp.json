@@ -1,0 +1,1382 @@
+[
+ {
+  "from": "/",
+  "to": "/"
+ },
+ {
+  "from": "/blog",
+  "to": "/blog"
+ },
+ {
+  "from": "/careers",
+  "to": "/team#careers"
+ },
+ {
+  "from": "/cash-offer",
+  "to": "/sell#cash"
+ },
+ {
+  "from": "/communities",
+  "to": "/communities"
+ },
+ {
+  "from": "/contact",
+  "to": "/contact"
+ },
+ {
+  "from": "/financing",
+  "to": "/buy"
+ },
+ {
+  "from": "/home-valuation",
+  "to": "/sell#value"
+ },
+ {
+  "from": "/html-sitemap",
+  "to": "/"
+ },
+ {
+  "from": "/lakeville",
+  "to": "/communities/lakeville"
+ },
+ {
+  "from": "/our-guarantees",
+  "to": "/sell"
+ },
+ {
+  "from": "/properties/sale",
+  "to": "https://search.huerkamphomegroup.com/search?s[featured]=t"
+ },
+ {
+  "from": "/properties/sold",
+  "to": "/reviews"
+ },
+ {
+  "from": "/team",
+  "to": "/team"
+ },
+ {
+  "from": "/testimonials",
+  "to": "/reviews"
+ },
+ {
+  "from": "/why-list-with-us",
+  "to": "/sell"
+ },
+ {
+  "from": "/home-search/listings",
+  "to": "https://search.huerkamphomegroup.com/search"
+ },
+ {
+  "from": "/youtube-form",
+  "to": "/youtube-form"
+ },
+ {
+  "from": "/webinar",
+  "to": "/youtube-form"
+ },
+ {
+  "from": "/webinarsignup",
+  "to": "/youtube-form"
+ },
+ {
+  "from": "/webinar-register",
+  "to": "/youtube-form"
+ },
+ {
+  "from": "/buy",
+  "to": "/buy"
+ },
+ {
+  "from": "/sell",
+  "to": "/sell"
+ },
+ {
+  "from": "/neighborhoods/minnetrista",
+  "to": "/communities/minnetrista"
+ },
+ {
+  "from": "/neighborhoods/medina",
+  "to": "/communities/medina"
+ },
+ {
+  "from": "/neighborhoods/chanhassen",
+  "to": "/communities/chanhassen"
+ },
+ {
+  "from": "/neighborhoods/woodbury",
+  "to": "/communities/woodbury"
+ },
+ {
+  "from": "/neighborhoods/waconia",
+  "to": "/communities/waconia"
+ },
+ {
+  "from": "/neighborhoods/orono",
+  "to": "/communities/orono"
+ },
+ {
+  "from": "/neighborhoods/credit-river",
+  "to": "/communities/credit-river"
+ },
+ {
+  "from": "/neighborhoods/prior-lake",
+  "to": "/communities/prior-lake"
+ },
+ {
+  "from": "/neighborhoods/victoria",
+  "to": "/communities/victoria"
+ },
+ {
+  "from": "/neighborhoods/excelsior",
+  "to": "/communities/excelsior"
+ },
+ {
+  "from": "/neighborhoods/eden-prairie",
+  "to": "/communities/eden-prairie"
+ },
+ {
+  "from": "/neighborhoods/st-louis-park",
+  "to": "/communities/st-louis-park"
+ },
+ {
+  "from": "/neighborhoods/minnetonka",
+  "to": "/communities/minnetonka"
+ },
+ {
+  "from": "/neighborhoods/edina",
+  "to": "/communities/edina"
+ },
+ {
+  "from": "/neighborhoods/wayzata",
+  "to": "/communities/wayzata"
+ },
+ {
+  "from": "/neighborhoods/farmington",
+  "to": "/communities/farmington"
+ },
+ {
+  "from": "/neighborhoods/west-saint-paul",
+  "to": "/communities/west-st-paul"
+ },
+ {
+  "from": "/neighborhoods/eagan",
+  "to": "/communities/eagan"
+ },
+ {
+  "from": "/neighborhoods/mendota-heights",
+  "to": "/communities/mendota-heights"
+ },
+ {
+  "from": "/neighborhoods/apple-valley",
+  "to": "/communities/apple-valley"
+ },
+ {
+  "from": "/neighborhoods/lakeville",
+  "to": "/communities/lakeville"
+ },
+ {
+  "from": "/neighborhoods/rosemount",
+  "to": "/communities/rosemount"
+ },
+ {
+  "from": "/neighborhoods/saint-paul",
+  "to": "/communities/saint-paul"
+ },
+ {
+  "from": "/neighborhoods/south-saint-paul",
+  "to": "/communities/south-st-paul"
+ },
+ {
+  "from": "/neighborhoods/inver-grove-heights",
+  "to": "/communities/inver-grove-heights"
+ },
+ {
+  "from": "/neighborhoods/burnsville",
+  "to": "/communities/burnsville"
+ },
+ {
+  "from": "/neighborhoods/northfield",
+  "to": "/communities/northfield"
+ },
+ {
+  "from": "/blog/heres-what-you-need-to-know-about-the-mortgage-underwriting-process",
+  "to": "/blog/2022/10/27/heres-what-you-need-to-know-about-the-mortgage-underwriting-process"
+ },
+ {
+  "from": "/blog/the-pros-and-cons-of-buying-a-property-near-a-cemetery",
+  "to": "/blog/2022/10/27/the-pros-and-cons-of-buying-a-property-near-a-cemetery"
+ },
+ {
+  "from": "/blog/how-many-showings-does-it-take-to-sell-a-house",
+  "to": "/blog/2025/9/16/how-many-showings-does-it-take-to-sell-a-house"
+ },
+ {
+  "from": "/blog/curb-appeal-projects-to-focus-on-if-you-want-to-sell-your-home-this-spring",
+  "to": "/blog/2025/4/1/curb-appeal-projects-to-focus-on-if-you-want-to-sell-your-home-this-spring"
+ },
+ {
+  "from": "/blog/5-ways-to-involve-your-children-in-the-home-buying-process",
+  "to": "/blog/2025/4/15/5-ways-to-involve-your-children-in-the-home-buying-process"
+ },
+ {
+  "from": "/blog/free-easter-egg-hunts-in-the-twin-cities-this-saturday",
+  "to": "/blog/2025/4/18/free-easter-egg-hunts-in-the-twin-cities-this-saturday"
+ },
+ {
+  "from": "/blog/safety-tips-to-keep-your-house-safe-during-a-renovation",
+  "to": "/blog/2025/7/29/safety-tips-to-keep-your-house-safe-during-a-renovation"
+ },
+ {
+  "from": "/blog/what-is-an-accessory-dwelling-unit",
+  "to": "/blog/2025/6/11/what-is-an-accessory-dwelling-unit"
+ },
+ {
+  "from": "/blog/should-you-buy-a-new-house-before-selling-your-old-one-lets-explore-the-pros-and-cons",
+  "to": "/blog/2025/8/15/should-you-buy-a-new-house-before-selling-your-old-one-lets-explore-the-pros-and-cons"
+ },
+ {
+  "from": "/blog/biggest-home-inspection-red-flags-to-look-out-for-before-buying",
+  "to": "/blog/2025/10/24/biggest-home-inspection-red-flags-to-look-out-for-before-buying"
+ },
+ {
+  "from": "/blog/5-rookie-mistakes-to-avoid-when-diy-painting-your-house",
+  "to": "/blog/2022/10/27/5-rookie-mistakes-to-avoid-when-diy-painting-your-house"
+ },
+ {
+  "from": "/blog/5-simple-but-essential-minimalist-design-tips-to-embrace-in-your-home",
+  "to": "/blog/2022/10/27/5-simple-but-essential-minimalist-design-tips-to-embrace-in-your-home"
+ },
+ {
+  "from": "/blog/5-best-kept-strategies-to-make-the-most-money-when-selling-your-home",
+  "to": "/blog/2022/10/27/5-best-kept-strategies-to-make-the-most-money-when-selling-your-home"
+ },
+ {
+  "from": "/blog/fundamental-questions-to-ask-before-hiring-professional-movers-part-2",
+  "to": "/blog/2022/10/27/fundamental-questions-to-ask-before-hiring-professional-movers-part-2"
+ },
+ {
+  "from": "/blog/the-things-youll-love-and-hate-about-living-on-a-cul-de-sac",
+  "to": "/blog/2022/10/27/the-things-youll-love-and-hate-about-living-on-a-cul-de-sac"
+ },
+ {
+  "from": "/blog/9-smart-and-practical-new-years-resolutions-for-homeowners",
+  "to": "/blog/2022/10/27/9-smart-and-practical-new-years-resolutions-for-homeowners"
+ },
+ {
+  "from": "/blog/5-risky-moves-homeowners-usually-make-when-selling-their-house",
+  "to": "/blog/2022/10/27/5-risky-moves-homeowners-usually-make-when-selling-their-house"
+ },
+ {
+  "from": "/blog/home-sellers-how-long-do-you-have-to-respond-to-an-offer",
+  "to": "/blog/2022/10/27/home-sellers-how-long-do-you-have-to-respond-to-an-offer"
+ },
+ {
+  "from": "/blog/why-you-should-start-your-home-selling-journey-by-decluttering",
+  "to": "/blog/2022/10/27/why-you-should-start-your-home-selling-journey-by-decluttering"
+ },
+ {
+  "from": "/blog/selling-a-smokers-house-here-are-expert-ways-to-remove-cigarette-smell-for-better-resale",
+  "to": "/blog/2022/10/27/selling-a-smokers-house-here-are-expert-ways-to-remove-cigarette-smell-for-better-resale"
+ },
+ {
+  "from": "/blog/what-to-know-if-youre-looking-to-buy-a-home-in-a-wildfire-prone-area",
+  "to": "/blog/2022/10/27/what-to-know-if-youre-looking-to-buy-a-home-in-a-wildfire-prone-area"
+ },
+ {
+  "from": "/blog/4-ways-to-avoid-going-over-budget-on-a-home-renovation",
+  "to": "/blog/2022/11/21/4-ways-to-avoid-going-over-budget-on-a-home-renovation"
+ },
+ {
+  "from": "/blog/what-you-should-know-if-youre-buying-a-home-in-a-flood-prone-area",
+  "to": "/blog/2022/12/5/what-you-should-know-if-youre-buying-a-home-in-a-flood-prone-area"
+ },
+ {
+  "from": "/blog/5-easy-but-helpful-tips-to-manage-stress-this-holiday-season",
+  "to": "/blog/2022/12/23/5-easy-but-helpful-tips-to-manage-stress-this-holiday-season"
+ },
+ {
+  "from": "/blog/6-new-years-resolutions-to-help-you-buy-your-first-home",
+  "to": "/blog/2023/1/11/6-new-years-resolutions-to-help-you-buy-your-first-home"
+ },
+ {
+  "from": "/blog/sellers-heres-everything-you-need-to-know-about-home-staging",
+  "to": "/blog/2023/3/9/sellers-heres-everything-you-need-to-know-about-home-staging"
+ },
+ {
+  "from": "/blog/3-huge-reasons-to-talk-to-a-mortgage-lender-before-you-start-house-hunting",
+  "to": "/blog/2023/5/25/3-huge-reasons-to-talk-to-a-mortgage-lender-before-you-start-house-hunting"
+ },
+ {
+  "from": "/blog/what-home-buyers-should-know-about-hoas",
+  "to": "/blog/2023/8/30/what-home-buyers-should-know-about-hoas"
+ },
+ {
+  "from": "/blog/beware-of-these-5-hidden-costs-when-selling-your-home",
+  "to": "/blog/2023/9/29/beware-of-these-5-hidden-costs-when-selling-your-home"
+ },
+ {
+  "from": "/blog/5-tips-to-help-sell-your-home-in-the-fall",
+  "to": "/blog/2023/10/31/5-tips-to-help-sell-your-home-in-the-fall"
+ },
+ {
+  "from": "/blog/6-little-but-meaningful-ways-to-be-a-good-neighbor",
+  "to": "/blog/2023/12/8/6-little-but-meaningful-ways-to-be-a-good-neighbor"
+ },
+ {
+  "from": "/blog/should-you-sell-your-house-this-year-or-wait-consider-these-factors-first",
+  "to": "/blog/2024/1/26/should-you-sell-your-house-this-year-or-wait-consider-these-factors-first"
+ },
+ {
+  "from": "/blog/5-decisive-questions-to-ask-your-significant-other-before-buying-a-house-together",
+  "to": "/blog/2024/2/19/5-decisive-questions-to-ask-your-significant-other-before-buying-a-house-together"
+ },
+ {
+  "from": "/blog/pros-and-cons-of-buying-a-home-near-a-school",
+  "to": "/blog/2024/11/19/pros-and-cons-of-buying-a-home-near-a-school"
+ },
+ {
+  "from": "/blog/can-a-generator-add-value-to-your-home",
+  "to": "/blog/2024/9/3/can-a-generator-add-value-to-your-home"
+ },
+ {
+  "from": "/blog/dont-make-these-7-mistakes-when-you-buy-your-first-home",
+  "to": "/blog/2022/10/27/dont-make-these-7-mistakes-when-you-buy-your-first-home"
+ },
+ {
+  "from": "/blog/the-5-biggest-challenges-of-buying-a-home-when-you-have-student-loans",
+  "to": "/blog/2022/10/27/the-5-biggest-challenges-of-buying-a-home-when-you-have-student-loans"
+ },
+ {
+  "from": "/blog/turning-foreclosure-homes-into-profit",
+  "to": "/blog/2022/10/27/turning-foreclosure-homes-into-profit"
+ },
+ {
+  "from": "/blog/renovating-without-a-permit-here-are-7-reasons-why-its-a-big-no-no",
+  "to": "/blog/2022/10/27/renovating-without-a-permit-here-are-7-reasons-why-its-a-big-no-no"
+ },
+ {
+  "from": "/blog/5-ways-to-look-for-a-great-school-district-when-buying-a-home",
+  "to": "/blog/2022/10/27/5-ways-to-look-for-a-great-school-district-when-buying-a-home"
+ },
+ {
+  "from": "/blog/7-reasons-youll-love-selling-your-home-in-the-spring",
+  "to": "/blog/2022/10/27/7-reasons-youll-love-selling-your-home-in-the-spring"
+ },
+ {
+  "from": "/blog/thinking-of-buying-a-home-with-cash-here-are-the-pros-and-cons",
+  "to": "/blog/2022/10/27/thinking-of-buying-a-home-with-cash-here-are-the-pros-and-cons"
+ },
+ {
+  "from": "/blog/the-pet-owners-guide-to-selling-a-home-5-things-to-do-to-prepare-your-property",
+  "to": "/blog/2022/10/27/the-pet-owners-guide-to-selling-a-home-5-things-to-do-to-prepare-your-property"
+ },
+ {
+  "from": "/blog/before-you-buy-a-fixer-upper-answer-these-questions-first",
+  "to": "/blog/2022/10/27/before-you-buy-a-fixer-upper-answer-these-questions-first"
+ },
+ {
+  "from": "/blog/the-annual-home-maintenance-checklist-a-guide-for-new-homeowners",
+  "to": "/blog/2022/10/27/the-annual-home-maintenance-checklist-a-guide-for-new-homeowners"
+ },
+ {
+  "from": "/blog/what-is-a-tiny-house-we-explain-this-huge-real-estate-trend-for-a-minimalist-living",
+  "to": "/blog/2022/10/27/what-is-a-tiny-house-we-explain-this-huge-real-estate-trend-for-a-minimalist-living"
+ },
+ {
+  "from": "/blog/what-things-stay-in-the-house-and-what-should-go-with-you-after-a-home-sale",
+  "to": "/blog/2022/10/27/what-things-stay-in-the-house-and-what-should-go-with-you-after-a-home-sale"
+ },
+ {
+  "from": "/blog/6-things-to-remember-when-choosing-paint-colors-for-your-home",
+  "to": "/blog/2022/10/27/6-things-to-remember-when-choosing-paint-colors-for-your-home"
+ },
+ {
+  "from": "/blog/4-reasons-why-homeowners-decide-to-sell-their-homes-as-is",
+  "to": "/blog/2024/2/8/4-reasons-why-homeowners-decide-to-sell-their-homes-as-is"
+ },
+ {
+  "from": "/blog/understanding-your-homeowners-insurance-policy-in-case-of-a-wildfire",
+  "to": "/blog/2022/10/27/understanding-your-homeowners-insurance-policy-in-case-of-a-wildfire"
+ },
+ {
+  "from": "/blog/heres-everything-you-need-to-know-about-mortgage-pre-approval",
+  "to": "/blog/2022/10/27/heres-everything-you-need-to-know-about-mortgage-pre-approval"
+ },
+ {
+  "from": "/blog/the-3-things-you-must-do-before-listing-your-home-for-sale",
+  "to": "/blog/2022/10/27/the-3-things-you-must-do-before-listing-your-home-for-sale"
+ },
+ {
+  "from": "/blog/practical-tips-on-home-buying-from-5-awesome-movies",
+  "to": "/blog/2022/10/27/practical-tips-on-home-buying-from-5-awesome-movies"
+ },
+ {
+  "from": "/blog/why-you-must-have-flood-insurance-even-if-you-dont-live-in-a-flood-zone",
+  "to": "/blog/2022/10/27/why-you-must-have-flood-insurance-even-if-you-dont-live-in-a-flood-zone"
+ },
+ {
+  "from": "/blog/getting-a-mortgage-after-retirement",
+  "to": "/blog/2022/10/27/getting-a-mortgage-after-retirement"
+ },
+ {
+  "from": "/blog/top-things-you-should-do-before-buying-a-rural-home",
+  "to": "/blog/2022/10/27/top-things-you-should-do-before-buying-a-rural-home"
+ },
+ {
+  "from": "/blog/6-misconceptions-about-selling-property-that-you-should-know-about",
+  "to": "/blog/2022/10/27/6-misconceptions-about-selling-property-that-you-should-know-about"
+ },
+ {
+  "from": "/blog/7-signs-youre-ready-to-stop-renting-and-finally-buy-your-first-home",
+  "to": "/blog/2022/10/27/7-signs-youre-ready-to-stop-renting-and-finally-buy-your-first-home"
+ },
+ {
+  "from": "/blog/the-things-youll-love-and-hate-about-living-in-an-hoa-community",
+  "to": "/blog/2022/10/27/the-things-youll-love-and-hate-about-living-in-an-hoa-community"
+ },
+ {
+  "from": "/blog/debunking-the-most-common-misconceptions-about-mortgage-refinancing",
+  "to": "/blog/2022/10/27/debunking-the-most-common-misconceptions-about-mortgage-refinancing"
+ },
+ {
+  "from": "/blog/why-do-home-sales-fall-through-5-common-reasons-why-the-seller-or-buyer-walk-away",
+  "to": "/blog/2022/10/27/why-do-home-sales-fall-through-5-common-reasons-why-the-seller-or-buyer-walk-away"
+ },
+ {
+  "from": "/blog/the-great-divide-should-you-buy-a-single-family-house-or-a-condo",
+  "to": "/blog/2022/10/27/the-great-divide-should-you-buy-a-single-family-house-or-a-condo"
+ },
+ {
+  "from": "/blog/10-little-weekend-projects-you-can-do-to-refresh-your-home",
+  "to": "/blog/2022/10/27/10-little-weekend-projects-you-can-do-to-refresh-your-home"
+ },
+ {
+  "from": "/blog/the-4-biggest-myths-that-are-holding-back-home-buyers",
+  "to": "/blog/2022/10/27/the-4-biggest-myths-that-are-holding-back-home-buyers"
+ },
+ {
+  "from": "/blog/the-things-youll-love-and-hate-about-being-a-homeowner",
+  "to": "/blog/2022/10/27/the-things-youll-love-and-hate-about-being-a-homeowner"
+ },
+ {
+  "from": "/blog/5-sticky-situations-you-can-avoid-if-you-have-a-real-estate-title-insurance",
+  "to": "/blog/2022/10/27/5-sticky-situations-you-can-avoid-if-you-have-a-real-estate-title-insurance"
+ },
+ {
+  "from": "/blog/make-your-home-more-energy-efficient-with-these-green-home-improvements",
+  "to": "/blog/2022/10/27/make-your-home-more-energy-efficient-with-these-green-home-improvements"
+ },
+ {
+  "from": "/blog/which-real-estate-documents-should-you-keep-after-closing",
+  "to": "/blog/2022/10/27/which-real-estate-documents-should-you-keep-after-closing"
+ },
+ {
+  "from": "/blog/steps-to-make-your-home-eligible-for-an-fha-loan",
+  "to": "/blog/2022/10/27/steps-to-make-your-home-eligible-for-an-fha-loan"
+ },
+ {
+  "from": "/blog/5-things-you-should-never-do-after-applying-for-a-mortgage",
+  "to": "/blog/2022/10/27/5-things-you-should-never-do-after-applying-for-a-mortgage"
+ },
+ {
+  "from": "/blog/how-to-find-the-best-agent-for-a-short-sale",
+  "to": "/blog/2022/10/27/how-to-find-the-best-agent-for-a-short-sale"
+ },
+ {
+  "from": "/blog/8-home-buyer-practices-that-your-agent-wants-you-to-change",
+  "to": "/blog/2022/10/27/8-home-buyer-practices-that-your-agent-wants-you-to-change"
+ },
+ {
+  "from": "/blog/5-simple-ways-to-appreciate-your-home",
+  "to": "/blog/2022/10/27/5-simple-ways-to-appreciate-your-home"
+ },
+ {
+  "from": "/blog/6-easy-cleaning-tasks-homeowners-shouldnt-overlook",
+  "to": "/blog/2022/10/27/6-easy-cleaning-tasks-homeowners-shouldnt-overlook"
+ },
+ {
+  "from": "/blog/how-to-continue-your-home-buying-journey-while-staying-safe-at-home",
+  "to": "/blog/2022/10/27/how-to-continue-your-home-buying-journey-while-staying-safe-at-home"
+ },
+ {
+  "from": "/blog/understanding-real-estate-commissions",
+  "to": "/blog/2022/10/27/understanding-real-estate-commissions"
+ },
+ {
+  "from": "/blog/the-tax-benefits-that-homeowners-can-enjoy",
+  "to": "/blog/2022/10/27/the-tax-benefits-that-homeowners-can-enjoy"
+ },
+ {
+  "from": "/blog/can-you-hire-a-real-estate-agent-to-help-you-find-the-perfect-rental-property",
+  "to": "/blog/2022/10/27/can-you-hire-a-real-estate-agent-to-help-you-find-the-perfect-rental-property"
+ },
+ {
+  "from": "/blog/top-qualities-to-look-for-in-a-short-sales-agent",
+  "to": "/blog/2022/10/27/top-qualities-to-look-for-in-a-short-sales-agent"
+ },
+ {
+  "from": "/blog/millennials-and-young-homeowners-heres-your-guide-to-building-home-equity",
+  "to": "/blog/2022/10/27/millennials-and-young-homeowners-heres-your-guide-to-building-home-equity"
+ },
+ {
+  "from": "/blog/forget-a-cash-offer-here-are-5-creative-ways-to-help-you-win-a-bidding-war",
+  "to": "/blog/2022/10/27/forget-a-cash-offer-here-are-5-creative-ways-to-help-you-win-a-bidding-war"
+ },
+ {
+  "from": "/blog/should-you-sell-or-buy-a-home-in-winter-heres-why-the-colder-climate-might-work-in-your-favor",
+  "to": "/blog/2022/10/27/should-you-sell-or-buy-a-home-in-winter-heres-why-the-colder-climate-might-work-in-your-favor"
+ },
+ {
+  "from": "/blog/should-you-hire-a-realtor-when-buying-new-construction-home",
+  "to": "/blog/2022/10/27/should-you-hire-a-realtor-when-buying-new-construction-home"
+ },
+ {
+  "from": "/blog/8-of-the-most-unexpected-things-us-homeowners-found-in-their-properties",
+  "to": "/blog/2022/10/27/8-of-the-most-unexpected-things-us-homeowners-found-in-their-properties"
+ },
+ {
+  "from": "/blog/5-things-you-must-do-to-prepare-for-a-hurricane",
+  "to": "/blog/2022/10/27/5-things-you-must-do-to-prepare-for-a-hurricane"
+ },
+ {
+  "from": "/blog/7-truths-you-should-never-say-to-buyers-when-selling-your-home",
+  "to": "/blog/2022/10/27/7-truths-you-should-never-say-to-buyers-when-selling-your-home"
+ },
+ {
+  "from": "/blog/notice-of-intent-to-foreclose-know-your-options",
+  "to": "/blog/2022/10/27/notice-of-intent-to-foreclose-know-your-options"
+ },
+ {
+  "from": "/blog/the-pros-and-cons-of-purchasing-a-rural-property",
+  "to": "/blog/2022/10/27/the-pros-and-cons-of-purchasing-a-rural-property"
+ },
+ {
+  "from": "/blog/10-moving-mistakes-youd-want-to-avoid",
+  "to": "/blog/2022/10/27/10-moving-mistakes-youd-want-to-avoid"
+ },
+ {
+  "from": "/blog/5-things-to-remember-when-selling-your-home-in-spring",
+  "to": "/blog/2022/10/27/5-things-to-remember-when-selling-your-home-in-spring"
+ },
+ {
+  "from": "/blog/the-7-step-decluttering-guide-to-organizing-your-home-this-new-year",
+  "to": "/blog/2022/10/27/the-7-step-decluttering-guide-to-organizing-your-home-this-new-year"
+ },
+ {
+  "from": "/blog/stop-believing-these-6-common-pricing-myths-when-you-sell-your-home",
+  "to": "/blog/2022/10/27/stop-believing-these-6-common-pricing-myths-when-you-sell-your-home"
+ },
+ {
+  "from": "/blog/5-home-renovations-that-appeal-to-millennial-buyers",
+  "to": "/blog/2022/10/27/5-home-renovations-that-appeal-to-millennial-buyers"
+ },
+ {
+  "from": "/blog/tips-on-setting-a-home-renovation-budget",
+  "to": "/blog/2022/10/27/tips-on-setting-a-home-renovation-budget"
+ },
+ {
+  "from": "/blog/7-reasons-why-buyers-and-sellers-shouldnt-ditch-the-home-inspection",
+  "to": "/blog/2022/10/27/7-reasons-why-buyers-and-sellers-shouldnt-ditch-the-home-inspection"
+ },
+ {
+  "from": "/blog/watch-out-these-neighborhood-features-can-drag-down-your-homes-value",
+  "to": "/blog/2022/10/27/watch-out-these-neighborhood-features-can-drag-down-your-homes-value"
+ },
+ {
+  "from": "/blog/understanding-the-roles-of-different-real-estate-experts",
+  "to": "/blog/2022/10/27/understanding-the-roles-of-different-real-estate-experts"
+ },
+ {
+  "from": "/blog/what-is-a-comparative-market-analysis-and-how-can-it-help-you-sell-your-home",
+  "to": "/blog/2022/10/27/what-is-a-comparative-market-analysis-and-how-can-it-help-you-sell-your-home"
+ },
+ {
+  "from": "/blog/what-you-need-to-know-about-real-estate-purchase-contracts",
+  "to": "/blog/2022/10/27/what-you-need-to-know-about-real-estate-purchase-contracts"
+ },
+ {
+  "from": "/blog/how-to-make-the-most-of-using-your-401k-on-a-home",
+  "to": "/blog/2022/10/27/how-to-make-the-most-of-using-your-401k-on-a-home"
+ },
+ {
+  "from": "/blog/important-house-hunting-tips-that-will-minimize-your-stress-and-keep-you-sane",
+  "to": "/blog/2022/10/27/important-house-hunting-tips-that-will-minimize-your-stress-and-keep-you-sane"
+ },
+ {
+  "from": "/blog/home-viewing-etiquette-for-buyers",
+  "to": "/blog/2022/10/27/home-viewing-etiquette-for-buyers"
+ },
+ {
+  "from": "/blog/the-first-time-home-buyers-guide-to-earnest-money-deposits",
+  "to": "/blog/2022/10/27/the-first-time-home-buyers-guide-to-earnest-money-deposits"
+ },
+ {
+  "from": "/blog/what-to-do-when-your-offer-is-rejected-tips-on-how-to-become-a-better-home-buyer",
+  "to": "/blog/2022/10/27/what-to-do-when-your-offer-is-rejected-tips-on-how-to-become-a-better-home-buyer"
+ },
+ {
+  "from": "/blog/whats-in-a-mortgage-breaking-down-the-components-of-a-mortgage-payment",
+  "to": "/blog/2025/3/6/whats-in-a-mortgage-breaking-down-the-components-of-a-mortgage-payment"
+ },
+ {
+  "from": "/blog/beware-these-features-can-drive-up-the-cost-of-your-homeowners-insurance",
+  "to": "/blog/2022/10/27/beware-these-features-can-drive-up-the-cost-of-your-homeowners-insurance"
+ },
+ {
+  "from": "/blog/6-staging-mistakes-to-avoid-when-selling-your-home",
+  "to": "/blog/2022/10/27/6-staging-mistakes-to-avoid-when-selling-your-home"
+ },
+ {
+  "from": "/blog/how-to-properly-deal-with-the-threat-of-foreclosure",
+  "to": "/blog/2022/10/27/how-to-properly-deal-with-the-threat-of-foreclosure"
+ },
+ {
+  "from": "/blog/important-factors-that-affect-your-mortgage-application",
+  "to": "/blog/2022/10/27/important-factors-that-affect-your-mortgage-application"
+ },
+ {
+  "from": "/blog/military-home-buyers-5-reasons-to-choose-a-va-loan-instead-of-a-conventional-loan",
+  "to": "/blog/2025/2/27/military-home-buyers-5-reasons-to-choose-a-va-loan-instead-of-a-conventional-loan"
+ },
+ {
+  "from": "/blog/understanding-property-liens-and-how-they-can-be-a-nightmare-to-your-home-sale",
+  "to": "/blog/2022/10/27/understanding-property-liens-and-how-they-can-be-a-nightmare-to-your-home-sale"
+ },
+ {
+  "from": "/blog/what-things-should-you-disclose-when-selling-a-home",
+  "to": "/blog/2022/10/27/what-things-should-you-disclose-when-selling-a-home"
+ },
+ {
+  "from": "/blog/5-things-that-might-cost-you-if-you-hide-things-from-your-landlord",
+  "to": "/blog/2022/10/27/5-things-that-might-cost-you-if-you-hide-things-from-your-landlord"
+ },
+ {
+  "from": "/blog/home-sellers-check-this-easy-guide-to-boost-your-homes-curb-appeal",
+  "to": "/blog/2022/10/27/home-sellers-check-this-easy-guide-to-boost-your-homes-curb-appeal"
+ },
+ {
+  "from": "/blog/top-7-reasons-why-you-shouldnt-overprice-your-home",
+  "to": "/blog/2022/10/27/top-7-reasons-why-you-shouldnt-overprice-your-home"
+ },
+ {
+  "from": "/blog/understanding-contingencies-a-guide-for-buyers-and-sellers",
+  "to": "/blog/2022/10/27/understanding-contingencies-a-guide-for-buyers-and-sellers"
+ },
+ {
+  "from": "/blog/opportunities-and-risks-of-an-interest-only-mortgage-a-guide-for-home-buyers",
+  "to": "/blog/2022/10/27/opportunities-and-risks-of-an-interest-only-mortgage-a-guide-for-home-buyers"
+ },
+ {
+  "from": "/blog/in-love-with-historic-homes-here-are-the-pros-and-cons-of-buying-one",
+  "to": "/blog/2022/10/27/in-love-with-historic-homes-here-are-the-pros-and-cons-of-buying-one"
+ },
+ {
+  "from": "/blog/the-beginners-guide-to-escrow-in-real-estate",
+  "to": "/blog/2022/10/27/the-beginners-guide-to-escrow-in-real-estate"
+ },
+ {
+  "from": "/blog/12-money-saving-household-habits-to-practice-while-sheltering-in-place",
+  "to": "/blog/2022/10/27/12-money-saving-household-habits-to-practice-while-sheltering-in-place"
+ },
+ {
+  "from": "/blog/the-home-buying-process-in-the-time-of-covid-19-pandemic",
+  "to": "/blog/2022/10/27/the-home-buying-process-in-the-time-of-covid-19-pandemic"
+ },
+ {
+  "from": "/blog/5-ways-to-upgrade-your-outdoor-living-space",
+  "to": "/blog/2022/10/27/5-ways-to-upgrade-your-outdoor-living-space"
+ },
+ {
+  "from": "/blog/video-conference-backgrounds-you-can-use-on-your-next-virtual-meeting",
+  "to": "/blog/2022/10/27/video-conference-backgrounds-you-can-use-on-your-next-virtual-meeting"
+ },
+ {
+  "from": "/blog/tips-for-moving-safely-to-a-new-home-during-the-coronavirus-pandemic",
+  "to": "/blog/2022/10/27/tips-for-moving-safely-to-a-new-home-during-the-coronavirus-pandemic"
+ },
+ {
+  "from": "/blog/halted-your-home-buying-due-to-the-pandemic-use-this-time-to-finalize-your-wishlist",
+  "to": "/blog/2022/10/27/halted-your-home-buying-due-to-the-pandemic-use-this-time-to-finalize-your-wishlist"
+ },
+ {
+  "from": "/blog/getting-cold-feet-heres-how-you-can-prevent-sellers-remorse",
+  "to": "/blog/2022/10/27/getting-cold-feet-heres-how-you-can-prevent-sellers-remorse"
+ },
+ {
+  "from": "/blog/5-best-practices-for-home-buyers-to-make-the-most-of-virtual-showings",
+  "to": "/blog/2022/10/27/5-best-practices-for-home-buyers-to-make-the-most-of-virtual-showings"
+ },
+ {
+  "from": "/blog/dont-forget-to-ask-these-questions-during-a-virtual-home-tour",
+  "to": "/blog/2022/10/27/dont-forget-to-ask-these-questions-during-a-virtual-home-tour"
+ },
+ {
+  "from": "/blog/5-easy-tips-and-tricks-to-make-your-kitchen-look-more-organized",
+  "to": "/blog/2022/10/27/5-easy-tips-and-tricks-to-make-your-kitchen-look-more-organized"
+ },
+ {
+  "from": "/blog/first-time-homebuyer-heres-a-5-step-checklist-before-starting-your-search",
+  "to": "/blog/2022/10/27/first-time-homebuyer-heres-a-5-step-checklist-before-starting-your-search"
+ },
+ {
+  "from": "/blog/heres-what-you-need-to-know-about-home-equity-and-the-best-ways-to-use-it",
+  "to": "/blog/2022/10/27/heres-what-you-need-to-know-about-home-equity-and-the-best-ways-to-use-it"
+ },
+ {
+  "from": "/blog/7-advantages-of-buying-your-first-home-in-your-30s",
+  "to": "/blog/2025/2/27/7-advantages-of-buying-your-first-home-in-your-30s"
+ },
+ {
+  "from": "/blog/upgrades-that-will-not-increase-the-value-of-your-home",
+  "to": "/blog/2022/10/27/upgrades-that-will-not-increase-the-value-of-your-home"
+ },
+ {
+  "from": "/blog/9-refreshing-ways-to-decorate-your-home-with-plants",
+  "to": "/blog/2022/10/27/9-refreshing-ways-to-decorate-your-home-with-plants"
+ },
+ {
+  "from": "/blog/what-is-an-interest-only-loan-and-who-is-it-for",
+  "to": "/blog/2022/10/27/what-is-an-interest-only-loan-and-who-is-it-for"
+ },
+ {
+  "from": "/blog/20-smart-and-simple-ways-you-can-start-saving-for-a-down-payment-on-a-home",
+  "to": "/blog/2022/10/27/20-smart-and-simple-ways-you-can-start-saving-for-a-down-payment-on-a-home"
+ },
+ {
+  "from": "/blog/top-5-things-home-buyers-forget-to-check-during-home-viewing",
+  "to": "/blog/2022/10/27/top-5-things-home-buyers-forget-to-check-during-home-viewing"
+ },
+ {
+  "from": "/blog/selling-your-home-heres-how-you-can-upgrade-your-kitchen-on-a-budget",
+  "to": "/blog/2022/10/27/selling-your-home-heres-how-you-can-upgrade-your-kitchen-on-a-budget"
+ },
+ {
+  "from": "/blog/the-abcs-of-real-estate-real-estate-terms-every-buyer-and-seller-needs-to-know",
+  "to": "/blog/2025/2/27/the-abcs-of-real-estate-real-estate-terms-every-buyer-and-seller-needs-to-know"
+ },
+ {
+  "from": "/blog/12-telltale-signs-its-already-time-for-you-to-move",
+  "to": "/blog/2025/3/6/12-telltale-signs-its-already-time-for-you-to-move"
+ },
+ {
+  "from": "/blog/10-thoughtful-and-heartwarming-gift-ideas-for-first-time-homeowners",
+  "to": "/blog/2022/10/27/10-thoughtful-and-heartwarming-gift-ideas-for-first-time-homeowners"
+ },
+ {
+  "from": "/blog/how-to-find-the-best-retirement-home-for-you",
+  "to": "/blog/2022/10/27/how-to-find-the-best-retirement-home-for-you"
+ },
+ {
+  "from": "/blog/5-things-you-save-when-you-hire-a-real-estate-agent-to-sell-your-home",
+  "to": "/blog/2022/10/27/5-things-you-save-when-you-hire-a-real-estate-agent-to-sell-your-home"
+ },
+ {
+  "from": "/blog/home-appraisals-101-common-myths-buyers-and-sellers-should-stop-believing",
+  "to": "/blog/2022/10/27/home-appraisals-101-common-myths-buyers-and-sellers-should-stop-believing"
+ },
+ {
+  "from": "/blog/how-to-be-a-home-seller-that-buyers-love",
+  "to": "/blog/2022/10/27/how-to-be-a-home-seller-that-buyers-love"
+ },
+ {
+  "from": "/blog/3-most-important-things-to-remember-when-selling-a-home-that-you-still-have-to-live-in",
+  "to": "/blog/2022/10/27/3-most-important-things-to-remember-when-selling-a-home-that-you-still-have-to-live-in"
+ },
+ {
+  "from": "/blog/how-to-sell-your-home-and-buy-one-at-the-same-time-or-in-the-quickest-possible-succession",
+  "to": "/blog/2022/10/27/how-to-sell-your-home-and-buy-one-at-the-same-time-or-in-the-quickest-possible-succession"
+ },
+ {
+  "from": "/blog/how-to-determine-the-best-time-to-list-your-home-for-sale",
+  "to": "/blog/2022/10/27/how-to-determine-the-best-time-to-list-your-home-for-sale"
+ },
+ {
+  "from": "/blog/how-to-successfully-buy-a-home-in-a-sellers-market",
+  "to": "/blog/2022/10/27/how-to-successfully-buy-a-home-in-a-sellers-market"
+ },
+ {
+  "from": "/blog/5-good-reasons-why-you-should-know-the-value-of-your-property",
+  "to": "/blog/2022/10/27/5-good-reasons-why-you-should-know-the-value-of-your-property"
+ },
+ {
+  "from": "/blog/home-improvements-and-repairs-that-add-the-most-value",
+  "to": "/blog/2022/10/27/home-improvements-and-repairs-that-add-the-most-value"
+ },
+ {
+  "from": "/blog/a-first-time-home-buyers-guide-to-down-payment-assistance-programs",
+  "to": "/blog/2022/10/27/a-first-time-home-buyers-guide-to-down-payment-assistance-programs"
+ },
+ {
+  "from": "/blog/online-tools-and-resources-to-leverage-when-checking-a-potential-neighborhood",
+  "to": "/blog/2022/10/27/online-tools-and-resources-to-leverage-when-checking-a-potential-neighborhood"
+ },
+ {
+  "from": "/blog/between-an-existing-home-or-new-construction-which-should-you-buy",
+  "to": "/blog/2022/10/27/between-an-existing-home-or-new-construction-which-should-you-buy"
+ },
+ {
+  "from": "/blog/7-potential-red-flags-to-watch-out-for-when-house-hunting",
+  "to": "/blog/2022/10/27/7-potential-red-flags-to-watch-out-for-when-house-hunting"
+ },
+ {
+  "from": "/blog/common-closing-costs-to-prepare-for-when-selling-your-home",
+  "to": "/blog/2022/10/27/common-closing-costs-to-prepare-for-when-selling-your-home"
+ },
+ {
+  "from": "/blog/10-crucial-fall-maintenance-tasks-to-prepare-your-home-for-the-colder-months",
+  "to": "/blog/2022/10/27/10-crucial-fall-maintenance-tasks-to-prepare-your-home-for-the-colder-months"
+ },
+ {
+  "from": "/blog/what-is-virtual-staging-heres-what-you-need-to-know-about-this-trend",
+  "to": "/blog/2022/10/27/what-is-virtual-staging-heres-what-you-need-to-know-about-this-trend"
+ },
+ {
+  "from": "/blog/3-crucial-things-every-seller-needs-to-know-about-home-pricing",
+  "to": "/blog/2022/10/27/3-crucial-things-every-seller-needs-to-know-about-home-pricing"
+ },
+ {
+  "from": "/blog/5-uncontrollable-factors-that-affect-home-prices",
+  "to": "/blog/2022/10/27/5-uncontrollable-factors-that-affect-home-prices"
+ },
+ {
+  "from": "/blog/5-reasons-why-a-30-year-mortgage-may-be-the-right-choice-for-you",
+  "to": "/blog/2022/10/27/5-reasons-why-a-30-year-mortgage-may-be-the-right-choice-for-you"
+ },
+ {
+  "from": "/blog/5-ways-millennials-are-changing-the-real-estate-scene",
+  "to": "/blog/2022/10/27/5-ways-millennials-are-changing-the-real-estate-scene"
+ },
+ {
+  "from": "/blog/home-sellers-dont-be-guilty-of-these-5-home-inspection-mistakes",
+  "to": "/blog/2022/10/27/home-sellers-dont-be-guilty-of-these-5-home-inspection-mistakes"
+ },
+ {
+  "from": "/blog/7-misconceptions-that-hinder-people-from-getting-an-fha-loan",
+  "to": "/blog/2025/2/27/7-misconceptions-that-hinder-people-from-getting-an-fha-loan"
+ },
+ {
+  "from": "/blog/10-tips-on-how-to-be-the-perfect-home-buyer",
+  "to": "/blog/2022/10/27/10-tips-on-how-to-be-the-perfect-home-buyer"
+ },
+ {
+  "from": "/blog/top-10-home-features-that-boosts-a-propertys-resale-value",
+  "to": "/blog/2022/10/27/top-10-home-features-that-boosts-a-propertys-resale-value"
+ },
+ {
+  "from": "/blog/how-to-factor-your-commute-time-in-your-home-buying-decision",
+  "to": "/blog/2022/10/27/how-to-factor-your-commute-time-in-your-home-buying-decision"
+ },
+ {
+  "from": "/blog/understanding-buyer-and-seller-rights-before-closing",
+  "to": "/blog/2022/10/27/understanding-buyer-and-seller-rights-before-closing"
+ },
+ {
+  "from": "/blog/5-factors-to-consider-when-deciding-how-long-you-should-live-in-your-home-before-you-sell",
+  "to": "/blog/2022/10/27/5-factors-to-consider-when-deciding-how-long-you-should-live-in-your-home-before-you-sell"
+ },
+ {
+  "from": "/blog/10-things-new-homeowners-must-do-after-closing-on-a-home-and-even-before-moving-in",
+  "to": "/blog/2025/2/27/10-things-new-homeowners-must-do-after-closing-on-a-home-and-even-before-moving-in"
+ },
+ {
+  "from": "/blog/sellers-beware-these-home-improvements-could-hurt-your-homes-value",
+  "to": "/blog/2025/2/27/sellers-beware-these-home-improvements-could-hurt-your-homes-value"
+ },
+ {
+  "from": "/blog/selling-your-home-this-year-avoid-these-6-mistakes-for-a-smooth-sale",
+  "to": "/blog/2022/10/27/selling-your-home-this-year-avoid-these-6-mistakes-for-a-smooth-sale"
+ },
+ {
+  "from": "/blog/5-trends-you-should-consider-when-deciding-if-now-is-the-right-time-to-sell-your-home",
+  "to": "/blog/2022/10/27/5-trends-you-should-consider-when-deciding-if-now-is-the-right-time-to-sell-your-home"
+ },
+ {
+  "from": "/blog/3-huge-tips-for-refinancing-your-mortgage-even-if-you-have-bad-credit",
+  "to": "/blog/2022/10/27/3-huge-tips-for-refinancing-your-mortgage-even-if-you-have-bad-credit"
+ },
+ {
+  "from": "/blog/fixed-rate-vs-adjustable-rate-mortgage-which-is-right-for-you",
+  "to": "/blog/2022/10/27/fixed-rate-vs-adjustable-rate-mortgage-which-is-right-for-you"
+ },
+ {
+  "from": "/blog/7-safety-tips-to-prevent-kitchen-fires-this-thanksgiving-holiday",
+  "to": "/blog/2022/10/27/7-safety-tips-to-prevent-kitchen-fires-this-thanksgiving-holiday"
+ },
+ {
+  "from": "/blog/the-rise-of-multigenerational-living-and-the-challenges-that-come-with-it",
+  "to": "/blog/2022/10/27/the-rise-of-multigenerational-living-and-the-challenges-that-come-with-it"
+ },
+ {
+  "from": "/blog/3-wonderful-reasons-why-the-holidays-are-a-good-time-to-sell-your-house",
+  "to": "/blog/2022/10/27/3-wonderful-reasons-why-the-holidays-are-a-good-time-to-sell-your-house"
+ },
+ {
+  "from": "/blog/the-ins-and-outs-of-giving-or-receiving-down-payment-gifts",
+  "to": "/blog/2022/10/27/the-ins-and-outs-of-giving-or-receiving-down-payment-gifts"
+ },
+ {
+  "from": "/blog/5-things-you-can-start-doing-now-if-you-want-to-buy-your-first-home-in-2021",
+  "to": "/blog/2022/10/27/5-things-you-can-start-doing-now-if-you-want-to-buy-your-first-home-in-2021"
+ },
+ {
+  "from": "/blog/6-doable-resolutions-to-help-you-save-for-a-down-payment-on-a-home",
+  "to": "/blog/2022/10/27/6-doable-resolutions-to-help-you-save-for-a-down-payment-on-a-home"
+ },
+ {
+  "from": "/blog/5-things-that-could-go-wrong-if-you-skip-hiring-a-real-estate-agent-to-buy-a-home",
+  "to": "/blog/2022/10/27/5-things-that-could-go-wrong-if-you-skip-hiring-a-real-estate-agent-to-buy-a-home"
+ },
+ {
+  "from": "/blog/letting-go-of-the-home-you-love-tips-to-deal-with-the-emotional-impact-of-selling-your-house",
+  "to": "/blog/2022/10/27/letting-go-of-the-home-you-love-tips-to-deal-with-the-emotional-impact-of-selling-your-house"
+ },
+ {
+  "from": "/blog/top-5-situations-where-you-should-accept-the-first-offer-on-your-home",
+  "to": "/blog/2022/10/27/top-5-situations-where-you-should-accept-the-first-offer-on-your-home"
+ },
+ {
+  "from": "/blog/how-to-get-over-the-heartbreak-of-losing-out-on-your-dream-home",
+  "to": "/blog/2022/10/27/how-to-get-over-the-heartbreak-of-losing-out-on-your-dream-home"
+ },
+ {
+  "from": "/blog/5-cleaning-habits-you-need-to-break-for-better-housekeeping",
+  "to": "/blog/2022/10/27/5-cleaning-habits-you-need-to-break-for-better-housekeeping"
+ },
+ {
+  "from": "/blog/the-best-communication-practices-between-home-sellers-and-listing-agents",
+  "to": "/blog/2022/10/27/the-best-communication-practices-between-home-sellers-and-listing-agents"
+ },
+ {
+  "from": "/blog/top-5-home-buying-tips-for-single-parents",
+  "to": "/blog/2022/10/27/top-5-home-buying-tips-for-single-parents"
+ },
+ {
+  "from": "/blog/debunking-5-common-credit-score-myths-that-many-home-buyers-believe",
+  "to": "/blog/2022/10/27/debunking-5-common-credit-score-myths-that-many-home-buyers-believe"
+ },
+ {
+  "from": "/blog/curb-appeal-tips-to-show-your-home-in-its-best-light-when-selling",
+  "to": "/blog/2022/10/27/curb-appeal-tips-to-show-your-home-in-its-best-light-when-selling"
+ },
+ {
+  "from": "/blog/the-risks-of-buying-a-home-with-unpermitted-renovation-work",
+  "to": "/blog/2022/10/27/the-risks-of-buying-a-home-with-unpermitted-renovation-work"
+ },
+ {
+  "from": "/blog/millennials-dont-make-these-7-mistakes-when-buying-your-first-home",
+  "to": "/blog/2025/2/27/millennials-dont-make-these-7-mistakes-when-buying-your-first-home"
+ },
+ {
+  "from": "/blog/3-easy-steps-on-how-to-dispute-errors-on-your-credit-report",
+  "to": "/blog/2022/10/27/3-easy-steps-on-how-to-dispute-errors-on-your-credit-report"
+ },
+ {
+  "from": "/blog/sell-your-house-fast-10-cheap-home-improvement-tips",
+  "to": "/blog/2022/10/27/sell-your-house-fast-10-cheap-home-improvement-tips"
+ },
+ {
+  "from": "/blog/6-savvy-tips-for-selling-your-luxury-home",
+  "to": "/blog/2025/2/27/6-savvy-tips-for-selling-your-luxury-home"
+ },
+ {
+  "from": "/blog/top-5-things-a-great-real-estate-agent-will-do-for-home-buyers",
+  "to": "/blog/2022/10/27/top-5-things-a-great-real-estate-agent-will-do-for-home-buyers"
+ },
+ {
+  "from": "/blog/5-most-common-home-buyer-fears-and-how-to-overcome-them",
+  "to": "/blog/2022/10/27/5-most-common-home-buyer-fears-and-how-to-overcome-them"
+ },
+ {
+  "from": "/blog/5-tips-for-finding-the-perfect-vacation-home",
+  "to": "/blog/2025/2/27/5-tips-for-finding-the-perfect-vacation-home"
+ },
+ {
+  "from": "/blog/10-things-you-need-to-know-before-buying-a-house-remotely",
+  "to": "/blog/2022/10/27/10-things-you-need-to-know-before-buying-a-house-remotely"
+ },
+ {
+  "from": "/blog/an-expert-guide-on-buying-a-house-you-can-actually-afford",
+  "to": "/blog/2022/10/27/an-expert-guide-on-buying-a-house-you-can-actually-afford"
+ },
+ {
+  "from": "/blog/5-ways-to-be-a-wise-home-buyer-by-balancing-logic-and-emotion",
+  "to": "/blog/2022/10/27/5-ways-to-be-a-wise-home-buyer-by-balancing-logic-and-emotion"
+ },
+ {
+  "from": "/blog/7-expert-tips-for-buying-your-dream-luxury-home",
+  "to": "/blog/2022/10/27/7-expert-tips-for-buying-your-dream-luxury-home"
+ },
+ {
+  "from": "/blog/a-3-step-decluttering-guide-for-empty-nesters-looking-to-downsize",
+  "to": "/blog/2022/10/27/a-3-step-decluttering-guide-for-empty-nesters-looking-to-downsize"
+ },
+ {
+  "from": "/blog/top-investment-tips-for-buying-your-dream-vacation-home",
+  "to": "/blog/2022/10/27/top-investment-tips-for-buying-your-dream-vacation-home"
+ },
+ {
+  "from": "/blog/5-most-common-misconceptions-about-va-loans",
+  "to": "/blog/2022/10/27/5-most-common-misconceptions-about-va-loans"
+ },
+ {
+  "from": "/blog/should-you-renovate-or-not-here-are-3-things-to-consider-before-selling-your-house",
+  "to": "/blog/2022/10/27/should-you-renovate-or-not-here-are-3-things-to-consider-before-selling-your-house"
+ },
+ {
+  "from": "/blog/the-complete-final-walkthrough-checklist",
+  "to": "/blog/2022/10/27/the-complete-final-walkthrough-checklist"
+ },
+ {
+  "from": "/blog/is-downsizing-right-for-you-5-questions-to-ask-yourself-before-making-the-move",
+  "to": "/blog/2022/10/27/is-downsizing-right-for-you-5-questions-to-ask-yourself-before-making-the-move"
+ },
+ {
+  "from": "/blog/homeowners-make-sure-you-leave-these-repair-tasks-to-the-pros",
+  "to": "/blog/2022/10/27/homeowners-make-sure-you-leave-these-repair-tasks-to-the-pros"
+ },
+ {
+  "from": "/blog/fundamental-questions-to-ask-before-hiring-professional-movers-part-1",
+  "to": "/blog/2022/10/27/fundamental-questions-to-ask-before-hiring-professional-movers-part-1"
+ },
+ {
+  "from": "/blog/buyers-beware-of-making-these-mistakes-during-the-home-inspection",
+  "to": "/blog/2022/10/27/buyers-beware-of-making-these-mistakes-during-the-home-inspection"
+ },
+ {
+  "from": "/blog/what-to-know-about-cash-offers-when-selling-your-home",
+  "to": "/blog/2022/10/27/what-to-know-about-cash-offers-when-selling-your-home"
+ },
+ {
+  "from": "/blog/these-3-organizing-tips-can-actually-cause-more-harm-than-good",
+  "to": "/blog/2022/10/27/these-3-organizing-tips-can-actually-cause-more-harm-than-good"
+ },
+ {
+  "from": "/blog/7-listing-photo-mistakes-to-avoid-when-selling-your-home",
+  "to": "/blog/2022/10/27/7-listing-photo-mistakes-to-avoid-when-selling-your-home"
+ },
+ {
+  "from": "/blog/summer-is-the-best-time-to-tackle-these-5-home-improvement-projects",
+  "to": "/blog/2022/10/27/summer-is-the-best-time-to-tackle-these-5-home-improvement-projects"
+ },
+ {
+  "from": "/blog/7-critical-steps-to-take-after-your-house-is-damaged-by-storm",
+  "to": "/blog/2022/10/27/7-critical-steps-to-take-after-your-house-is-damaged-by-storm"
+ },
+ {
+  "from": "/blog/what-is-an-ibuyer-and-the-pros-and-cons-of-selling-your-home-to-one",
+  "to": "/blog/2022/10/27/what-is-an-ibuyer-and-the-pros-and-cons-of-selling-your-home-to-one"
+ },
+ {
+  "from": "/blog/10-practical-tips-for-buying-second-hand-furniture-for-your-home",
+  "to": "/blog/2022/10/27/10-practical-tips-for-buying-second-hand-furniture-for-your-home"
+ },
+ {
+  "from": "/blog/home-buyers-here-are-5-expert-tips-to-ensure-a-smooth-closing",
+  "to": "/blog/2022/10/27/home-buyers-here-are-5-expert-tips-to-ensure-a-smooth-closing"
+ },
+ {
+  "from": "/blog/hosting-thanksgiving-at-your-new-home-here-are-last-minute-tips-to-get-ready",
+  "to": "/blog/2022/10/27/hosting-thanksgiving-at-your-new-home-here-are-last-minute-tips-to-get-ready"
+ },
+ {
+  "from": "/blog/what-does-days-on-market-mean-and-why-does-it-matter-to-home-buyers",
+  "to": "/blog/2024/2/8/what-does-days-on-market-mean-and-why-does-it-matter-to-home-buyers"
+ },
+ {
+  "from": "/blog/do-you-believe-these-real-estate-superstitions",
+  "to": "/blog/2022/10/27/do-you-believe-these-real-estate-superstitions"
+ },
+ {
+  "from": "/blog/7-tips-to-sell-a-good-house-from-a-challenging-location",
+  "to": "/blog/2025/2/27/7-tips-to-sell-a-good-house-from-a-challenging-location"
+ },
+ {
+  "from": "/blog/to-rent-or-to-buy-top-things-you-should-know",
+  "to": "/blog/2022/10/27/to-rent-or-to-buy-top-things-you-should-know"
+ },
+ {
+  "from": "/blog/top-5-reasons-to-sell-your-home-now",
+  "to": "/blog/2022/10/27/top-5-reasons-to-sell-your-home-now"
+ },
+ {
+  "from": "/blog/12-home-staging-tips-that-are-designed-to-sell",
+  "to": "/blog/2022/10/27/12-home-staging-tips-that-are-designed-to-sell"
+ },
+ {
+  "from": "/blog/6-of-the-best-ways-to-manage-stress-when-selling-your-home",
+  "to": "/blog/2022/10/27/6-of-the-best-ways-to-manage-stress-when-selling-your-home"
+ },
+ {
+  "from": "/blog/10-important-fixesrepairs-to-make-before-selling-your-home",
+  "to": "/blog/2022/10/27/10-important-fixesrepairs-to-make-before-selling-your-home"
+ },
+ {
+  "from": "/blog/the-5-biggest-red-flags-to-spot-when-purchasing-a-new-house",
+  "to": "/blog/2022/10/27/the-5-biggest-red-flags-to-spot-when-purchasing-a-new-house"
+ },
+ {
+  "from": "/blog/10-important-things-to-know-before-listing-your-house-for-sale",
+  "to": "/blog/2022/10/27/10-important-things-to-know-before-listing-your-house-for-sale"
+ },
+ {
+  "from": "/blog/3-important-questions-you-must-ask-a-listing-agent-during-an-open-house",
+  "to": "/blog/2022/10/27/3-important-questions-you-must-ask-a-listing-agent-during-an-open-house"
+ },
+ {
+  "from": "/blog/3-important-questions-to-ask-before-choosing-a-real-estate-agent",
+  "to": "/blog/2022/10/27/3-important-questions-to-ask-before-choosing-a-real-estate-agent"
+ },
+ {
+  "from": "/blog/top-10-fees-you-need-to-know-about-when-purchasing-a-home",
+  "to": "/blog/2022/10/27/top-10-fees-you-need-to-know-about-when-purchasing-a-home"
+ },
+ {
+  "from": "/blog/first-time-home-buyers-are-you-making-these-7-mistakes",
+  "to": "/blog/2025/2/27/first-time-home-buyers-are-you-making-these-7-mistakes"
+ },
+ {
+  "from": "/blog/beware-of-these-3-home-insurance-purchasing-mistakes",
+  "to": "/blog/2022/10/27/beware-of-these-3-home-insurance-purchasing-mistakes"
+ },
+ {
+  "from": "/blog/expert-questions-to-ask-when-house-hunting-with-pets-in-mind",
+  "to": "/blog/2022/10/27/expert-questions-to-ask-when-house-hunting-with-pets-in-mind"
+ },
+ {
+  "from": "/blog/dont-forget-to-look-up-the-importance-of-having-a-healthy-roof-over-your-home",
+  "to": "/blog/2022/10/27/dont-forget-to-look-up-the-importance-of-having-a-healthy-roof-over-your-home"
+ },
+ {
+  "from": "/blog/thrifty-ways-to-furnish-your-new-home-for-less",
+  "to": "/blog/2022/10/27/thrifty-ways-to-furnish-your-new-home-for-less"
+ },
+ {
+  "from": "/blog/heres-how-to-deal-with-things-sellers-leave-behind-in-your-new-home",
+  "to": "/blog/2022/10/27/heres-how-to-deal-with-things-sellers-leave-behind-in-your-new-home"
+ },
+ {
+  "from": "/blog/finding-the-one-4-ways-house-hunting-is-like-dating",
+  "to": "/blog/2022/10/27/finding-the-one-4-ways-house-hunting-is-like-dating"
+ },
+ {
+  "from": "/blog/what-does-it-mean-to-be-house-poor-and-how-to-avoid-it",
+  "to": "/blog/2024/2/8/what-does-it-mean-to-be-house-poor-and-how-to-avoid-it"
+ },
+ {
+  "from": "/blog/3-things-to-remember-before-making-any-updates-when-selling-your-home",
+  "to": "/blog/2022/10/27/3-things-to-remember-before-making-any-updates-when-selling-your-home"
+ },
+ {
+  "from": "/blog/7-smart-tips-to-keep-your-home-safe-from-burglars-this-holiday-season",
+  "to": "/blog/2022/12/15/7-smart-tips-to-keep-your-home-safe-from-burglars-this-holiday-season"
+ },
+ {
+  "from": "/blog/planning-to-sell-your-home-this-year-heres-why-you-should-work-with-a-real-estate-agent",
+  "to": "/blog/2023/1/24/planning-to-sell-your-home-this-year-heres-why-you-should-work-with-a-real-estate-agent"
+ },
+ {
+  "from": "/blog/what-is-the-multiple-listing-service-a-basic-guide-for-buyers-and-sellers",
+  "to": "/blog/2023/2/7/what-is-the-multiple-listing-service-a-basic-guide-for-buyers-and-sellers"
+ },
+ {
+  "from": "/blog/5-clever-ways-to-maximize-your-closet-space-and-keep-it-organized",
+  "to": "/blog/2023/2/23/5-clever-ways-to-maximize-your-closet-space-and-keep-it-organized"
+ },
+ {
+  "from": "/blog/how-much-does-it-cost-to-sell-a-home",
+  "to": "/blog/2025/2/27/how-much-does-it-cost-to-sell-a-home"
+ },
+ {
+  "from": "/blog/the-complete-home-sellers-checklist-exterior-preparation",
+  "to": "/blog/2022/10/27/the-complete-home-sellers-checklist-exterior-preparation"
+ },
+ {
+  "from": "/blog/how-to-deal-with-low-ball-offers-on-your-home",
+  "to": "/blog/2022/10/27/how-to-deal-with-low-ball-offers-on-your-home"
+ },
+ {
+  "from": "/blog/from-renter-to-owner-8-important-reminders-before-making-the-transition",
+  "to": "/blog/2022/10/27/from-renter-to-owner-8-important-reminders-before-making-the-transition"
+ },
+ {
+  "from": "/blog/questions-to-ask-before-hiring-a-contractor-for-your-home-improvement-project",
+  "to": "/blog/2023/3/28/questions-to-ask-before-hiring-a-contractor-for-your-home-improvement-project"
+ },
+ {
+  "from": "/blog/5-crucial-things-you-shouldnt-lie-about-when-applying-for-a-mortgage",
+  "to": "/blog/2023/4/6/5-crucial-things-you-shouldnt-lie-about-when-applying-for-a-mortgage"
+ },
+ {
+  "from": "/blog/what-is-a-listing-agreement-a-basic-guide-for-home-sellers",
+  "to": "/blog/2023/4/27/what-is-a-listing-agreement-a-basic-guide-for-home-sellers"
+ },
+ {
+  "from": "/blog/7-ways-to-minimize-unnecessary-costs-when-moving",
+  "to": "/blog/2022/10/27/7-ways-to-minimize-unnecessary-costs-when-moving"
+ },
+ {
+  "from": "/blog/5-common-mistakes-first-time-homeowners-make-after-moving-in",
+  "to": "/blog/2023/5/4/5-common-mistakes-first-time-homeowners-make-after-moving-in"
+ },
+ {
+  "from": "/blog/last-minute-home-showing-checklist-for-sellers",
+  "to": "/blog/2023/6/19/last-minute-home-showing-checklist-for-sellers"
+ },
+ {
+  "from": "/blog/5-biggest-plumbing-mistakes-many-homeowners-are-guilty-of-making",
+  "to": "/blog/2023/6/29/5-biggest-plumbing-mistakes-many-homeowners-are-guilty-of-making"
+ },
+ {
+  "from": "/blog/heres-why-you-shouldnt-max-out-your-budget-when-buying-a-home",
+  "to": "/blog/2024/2/8/heres-why-you-shouldnt-max-out-your-budget-when-buying-a-home"
+ },
+ {
+  "from": "/blog/5-meaningful-ways-to-say-goodbye-to-a-home-you-loved",
+  "to": "/blog/2023/8/1/5-meaningful-ways-to-say-goodbye-to-a-home-you-loved"
+ },
+ {
+  "from": "/blog/5-questions-your-real-estate-agent-cannot-answer-and-why",
+  "to": "/blog/2023/9/15/5-questions-your-real-estate-agent-cannot-answer-and-why"
+ },
+ {
+  "from": "/blog/understanding-seller-concessions-what-are-they-and-how-do-they-work",
+  "to": "/blog/2023/10/31/understanding-seller-concessions-what-are-they-and-how-do-they-work"
+ },
+ {
+  "from": "/blog/honoring-all-who-served-and-the-many-advantages-of-va-loans",
+  "to": "/blog/2023/11/10/honoring-all-who-served-and-the-many-advantages-of-va-loans"
+ },
+ {
+  "from": "/blog/5-things-you-didnt-think-you-need-to-ask-about-before-buying-a-house",
+  "to": "/blog/2023/11/16/5-things-you-didnt-think-you-need-to-ask-about-before-buying-a-house"
+ },
+ {
+  "from": "/blog/5-tips-for-an-easier-thanksgiving-cleanup-if-youre-hosting-for-the-first-time",
+  "to": "/blog/2023/11/21/5-tips-for-an-easier-thanksgiving-cleanup-if-youre-hosting-for-the-first-time"
+ },
+ {
+  "from": "/blog/buying-a-home-during-off-season-heres-why-you-should-do-it",
+  "to": "/blog/2023/12/27/buying-a-home-during-off-season-heres-why-you-should-do-it"
+ },
+ {
+  "from": "/blog/5-biggest-things-to-remember-when-decluttering-in-the-new-year",
+  "to": "/blog/2024/1/11/5-biggest-things-to-remember-when-decluttering-in-the-new-year"
+ },
+ {
+  "from": "/blog/5-common-reasons-for-buyers-remorse-after-purchasing-a-home",
+  "to": "/blog/2024/4/2/5-common-reasons-for-buyers-remorse-after-purchasing-a-home"
+ },
+ {
+  "from": "/blog/what-you-should-know-before-renting-a-storage-unit",
+  "to": "/blog/2024/4/17/what-you-should-know-before-renting-a-storage-unit"
+ },
+ {
+  "from": "/blog/homeowners-heres-your-maintenance-and-safety-checklist-for-may",
+  "to": "/blog/2024/5/1/homeowners-heres-your-maintenance-and-safety-checklist-for-may"
+ },
+ {
+  "from": "/blog/3-huge-signs-a-home-buyer-isnt-serious",
+  "to": "/blog/2024/5/24/3-huge-signs-a-home-buyer-isnt-serious"
+ },
+ {
+  "from": "/blog/does-a-swimming-pool-boost-or-hurt-your-homes-value",
+  "to": "/blog/2024/6/7/does-a-swimming-pool-boost-or-hurt-your-homes-value"
+ },
+ {
+  "from": "/blog/what-to-love-and-hate-about-corner-lots-factors-to-consider-before-buying",
+  "to": "/blog/2024/6/21/what-to-love-and-hate-about-corner-lots-factors-to-consider-before-buying"
+ },
+ {
+  "from": "/blog/empty-nesters-top-5-reasons-why-it-could-be-wiser-to-sell-than-to-renovate",
+  "to": "/blog/2022/10/27/empty-nesters-top-5-reasons-why-it-could-be-wiser-to-sell-than-to-renovate"
+ },
+ {
+  "from": "/blog/top-10-things-every-home-buyer-should-know-before-making-an-offer",
+  "to": "/blog/2022/10/27/top-10-things-every-home-buyer-should-know-before-making-an-offer"
+ },
+ {
+  "from": "/blog/7-secrets-to-getting-a-mortgage-without-a-full-time-job",
+  "to": "/blog/2022/10/27/7-secrets-to-getting-a-mortgage-without-a-full-time-job"
+ },
+ {
+  "from": "/blog/how-to-pull-off-a-long-distance-move-to-your-new-home",
+  "to": "/blog/2022/10/27/how-to-pull-off-a-long-distance-move-to-your-new-home"
+ },
+ {
+  "from": "/blog/heres-what-life-is-like-after-paying-off-your-mortgage",
+  "to": "/blog/2022/10/27/heres-what-life-is-like-after-paying-off-your-mortgage"
+ },
+ {
+  "from": "/blog/5-ways-you-can-ace-moving-to-a-new-home-when-you-have-kids",
+  "to": "/blog/2022/10/27/5-ways-you-can-ace-moving-to-a-new-home-when-you-have-kids"
+ },
+ {
+  "from": "/blog/6-bizarre-real-estate-laws-across-the-us",
+  "to": "/blog/2022/10/27/6-bizarre-real-estate-laws-across-the-us"
+ },
+ {
+  "from": "/blog/5-ways-the-coronavirus-pandemic-could-change-what-buyers-want-in-their-homes",
+  "to": "/blog/2022/10/27/5-ways-the-coronavirus-pandemic-could-change-what-buyers-want-in-their-homes"
+ },
+ {
+  "from": "/blog/the-key-professionals-you-need-on-your-team-when-buying-a-home",
+  "to": "/blog/2022/10/27/the-key-professionals-you-need-on-your-team-when-buying-a-home"
+ },
+ {
+  "from": "/blog/6-mistakes-to-avoid-when-buying-furniture-for-your-new-home",
+  "to": "/blog/2022/10/27/6-mistakes-to-avoid-when-buying-furniture-for-your-new-home"
+ },
+ {
+  "from": "/blog/your-top-5-priorities-if-you-want-to-buy-your-first-home-in-2022",
+  "to": "/blog/2022/10/27/your-top-5-priorities-if-you-want-to-buy-your-first-home-in-2022"
+ },
+ {
+  "from": "/blog/is-that-fixer-upper-a-dream-home-or-a-money-pit-5-major-warning-signs-to-help-you-find-out",
+  "to": "/blog/2022/10/27/is-that-fixer-upper-a-dream-home-or-a-money-pit-5-major-warning-signs-to-help-you-find-out"
+ },
+ {
+  "from": "/blog/youve-sold-your-home-now-what-important-steps-you-should-take-post-sale",
+  "to": "/blog/2023/5/17/youve-sold-your-home-now-what-important-steps-you-should-take-post-sale"
+ },
+ {
+  "from": "/blog/the-biggest-pros-and-cons-of-buying-a-house-near-a-highway-airport-and-other-landmarks",
+  "to": "/blog/2024/2/12/the-biggest-pros-and-cons-of-buying-a-house-near-a-highway-airport-and-other-landmarks"
+ },
+ {
+  "from": "/blog/the-complete-home-sellers-checklist-interior-preparation",
+  "to": "/blog/2022/10/27/the-complete-home-sellers-checklist-interior-preparation"
+ },
+ {
+  "from": "/blog/moving-to-a-new-state-dont-forget-to-add-these-tasks-to-your-to-do-list",
+  "to": "/blog/2024/8/20/moving-to-a-new-state-dont-forget-to-add-these-tasks-to-your-to-do-list"
+ },
+ {
+  "from": "/blog/heres-your-fall-cleanup-checklist-to-prep-your-yard-for-winter",
+  "to": "/blog/2024/9/14/heres-your-fall-cleanup-checklist-to-prep-your-yard-for-winter"
+ },
+ {
+  "from": "/blog/how-to-get-pre-approved-for-a-home-mortgage-loan-its-easier-than-you-think",
+  "to": "/blog/2022/10/27/how-to-get-pre-approved-for-a-home-mortgage-loan-its-easier-than-you-think"
+ },
+ {
+  "from": "/agent/*",
+  "to": "/team"
+ },
+ {
+  "from": "/properties/*",
+  "to": "https://search.huerkamphomegroup.com/search"
+ },
+ {
+  "from": "/home-search/*",
+  "to": "https://search.huerkamphomegroup.com/search"
+ },
+ {
+  "from": "/neighborhoods/*",
+  "to": "/communities"
+ },
+ {
+  "from": "/blog/*",
+  "to": "/blog"
+ }
+]
