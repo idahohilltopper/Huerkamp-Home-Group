@@ -296,3 +296,27 @@ Google and AI search favor sites that keep adding real, useful, accurate informa
 
 - Each page's "Updated" date and its sitemap date come from real changes only (src/lib/lastmod.mjs).
 - The routines need this repository attached in claude.ai, under Routines, then each routine's settings.
+
+## Market reports (/market) and agent pages (/team/<name>)
+
+**Market reports**
+- **Source:** Minneapolis Area REALTORS® "Local Market Update", one report per city per month (https://maar.stats.10kresearch.com/reports/lmu). The data is from NorthstarMLS and the reports are produced by ShowingTime Plus. New months come out around the 7th to 10th.
+- **Script:** `scripts/update-market.py` keeps only the numbers, in `src/data/market.json`.
+  - It covers the 16-county region and 143 community guides. Owatonna, Le Sueur, Dundas and Landfall have no report.
+  - Credit River and Empire are listed as "Township".
+  - The first run backfilled 12 months, which gives 24 months of monthly history.
+- **Pages:**
+  - /market: the region plus a table of every city.
+  - /market/<city>: the 12-month and single-month tables, a comparison with the region, charts, a plain-English summary built only from the numbers, quick answers, and Dataset and FAQ schema.
+  - Each community guide shows a "home prices and sales" box linking to its report.
+  - llms.txt lists every city's median price, change and homes sold.
+- **Rules:**
+  - Every page names the source, the month and the "current as of" date, and links to the original report.
+  - The 12-month numbers lead, because single months swing when few homes sell. A warning appears under 10 sales.
+- **Updates:** the daily website refresh runs the script every morning. It does nothing until a new month is published, then updates every city that day.
+
+**Agent pages**
+- Every team member has a page at /team/<name>, the same address their profile had on the old site.
+- Each page shows their bio, title, license and contact details word for word from their profile. It also shows complete, word-for-word reviews that name them (`src/data/agents.ts` matches full names, or first names no one else on the team shares) and the community guides for towns named in their bio.
+- The contact form tags the lead "Agent page" and "Asked for <name>" in Follow Up Boss.
+- Pages with no bio and no reviews stay out of Google until a bio is added to `src/data/team.json`.

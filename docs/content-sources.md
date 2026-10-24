@@ -26,6 +26,10 @@
 | Communities pages | Reviews | Verbatim (Google, Zillow), shown only when the review names the city |
 | Lake Homes | Acres, counties, shoreline cities | US Census Bureau 2024 water areas and boundaries |
 | Lake Homes | Other text | New |
+| Agent pages (/team/<name>) | Name, title, bio, license, phone, email, photo | Verbatim from each person's profile on the old site |
+| Agent pages | Reviews | Verbatim (Google, Zillow), shown only when the review names that person |
+| Market reports (/market) and community "home prices and sales" boxes | Every number | Minneapolis Area REALTORS® Local Market Update, data from NorthstarMLS; sentences only restate those numbers |
+| YouTube form (/youtube-form) | All text | New |
 
 Left out on purpose:
 - The Facebook and Google usage figures on /why-list-with-us (1.9 billion, 3.5 billion); they are out of date.
