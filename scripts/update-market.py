@@ -44,6 +44,7 @@ ROWS = {
     'Inventory of Homes for Sale': 'inventory',
     'Months Supply of Inventory': 'monthsSupply',
 }
+NO_SALES_ZERO = {'medianPrice', 'averagePrice', 'pricePerSqft', 'pctOfList', 'daysOnMarket'}
 MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
 
@@ -77,6 +78,9 @@ def parse(text):
         vals = re.findall(r'--|[+-]? ?\$?[\d,]+(?:\.\d+)?%?', m[1])
         vals = [num(v) for v in vals]
         if len(vals) >= 6:
+            if key in NO_SALES_ZERO:  # the report prints 0 when nothing sold; that's "no sales", not a $0 price
+                vals = [None if (i % 3 != 2 and v == 0) else v for i, v in enumerate(vals)]
+                vals = [vals[i] if i % 3 != 2 or (vals[i - 2] is not None and vals[i - 1] is not None) else None for i in range(len(vals))]
             data[key] = {'month': vals[0:3], 'r12': vals[3:6]}
     month = f'{head[2]}-{MONTHS.index(head[1]) + 1:02d}'
     return {'month': month, 'asOf': asof and str(date(*map(int, _mdY(asof[1])))), 'data': data}

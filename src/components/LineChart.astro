@@ -22,6 +22,8 @@ const y = (v: number) => padT + ((hi - v) * (H - padT - padB)) / (hi - lo);
 const ticks: number[] = [];
 for (let t = lo; t <= hi + 1e-9; t += step) ticks.push(t);
 const short = (v: number) => (v >= 1000 ? `${Math.round(v / 100) / 10}k` : String(v));
+// Axis labels: all of them for short series; for long ones (24 months) about six, always including the last.
+const every = Math.ceil(points.length / 6);
 const path = points.map((p, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(p.value).toFixed(1)}`).join(' ');
 ---
 <figure class="lc">
@@ -33,7 +35,7 @@ const path = points.map((p, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(p.valu
         <text x={padL - 10} y={y(t) + 4} text-anchor="end">{short(t)}</text>
       </g>
     ))}
-    {points.map((p, i) => <text class="lc__x" x={x(i)} y={H - 10} text-anchor="middle">{p.label}</text>)}
+    {points.map((p, i) => (i % every === 0 || i === points.length - 1) && (points.length - 1 - i >= every / 2 || i === points.length - 1) && <text class="lc__x" x={x(i)} y={H - 10} text-anchor="middle">{p.label}</text>)}
     <path class="lc__line" d={path} />
     {points.map((p, i) => (
       <g class="lc__pt" tabindex="0" aria-label={`${p.label}: ${p.display}`}>

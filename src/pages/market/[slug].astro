@@ -1,0 +1,200 @@
+---
+// One city's monthly housing-market report. Every number comes from the Minneapolis Area REALTORS®
+// Local Market Update for that city (data from NorthstarMLS); the sentences only restate those numbers.
+import Base from '../../layouts/Base.astro';
+import LineChart from '../../components/LineChart.astro';
+import { communities } from '../../data/areas';
+import { communitySearch } from '../../data/ylopo';
+import { business, origin } from '../../data/schema';
+import { site } from '../../data/site';
+import {
+  source, latest, asOf, REGION, marketFor, hasMarket, history, monthLabel, money, moneyK, count, change, signed, SMALL_SAMPLE,
+  type AreaMarket, type Metric,
+} from '../../data/market';
+
+export function getStaticPaths() {
+  return communities.filter((c) => hasMarket(c.slug)).map((c) => ({ params: { slug: c.slug }, props: { c } }));
+}
+const { c } = Astro.props as { c: (typeof communities)[number] };
+const m = marketFor(c.slug)!;
+const region = marketFor(REGION)!;
+const month = monthLabel(latest);
+const asOfText = new Date(asOf + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+const url = `${origin}/market/${c.slug}`;
+const v = (k: keyof AreaMarket, p: 'month' | 'r12' = 'r12', i = 1) => ((m[k] as Metric | undefined)?.[p][i] ?? null);
+const small = (v('closedSales', 'month') ?? 0) < SMALL_SAMPLE;
+
+// Plain-English summary, built only from the report's numbers.
+const summary = [
+  v('medianPrice') != null && `Over the 12 months through ${month}, the median sale price in ${c.name} was ${money(v('medianPrice'))}, ${change(v('medianPrice', 'r12', 2))} from the 12 months before.`,
+  v('closedSales') != null && `${count(v('closedSales'))} homes sold in that time (${change(v('closedSales', 'r12', 2))}), and ${count(v('newListings'))} new listings came on the market (${change(v('newListings', 'r12', 2))}).`,
+  v('daysOnMarket') != null && `Homes that sold spent ${count(v('daysOnMarket'))} days on market, and sellers received ${v('pctOfList') ?? '—'}% of their original list price.`,
+  v('monthsSupply', 'month') != null && `At the end of ${month} there were ${count(v('inventory', 'month'))} homes for sale, ${v('monthsSupply', 'month')} months of supply${(v('monthsSupply', 'month') ?? 0) < 4 ? ', which usually favors sellers' : (v('monthsSupply', 'month') ?? 0) > 6 ? ', which usually favors buyers' : ''}.`,
+].filter(Boolean) as string[];
+
+const rows: [string, keyof AreaMarket, (n: number | null) => string][] = [
+  ['Median sale price', 'medianPrice', money], ['Average sale price', 'averagePrice', money], ['Price per square foot', 'pricePerSqft', money],
+  ['Closed sales', 'closedSales', count], ['New listings', 'newListings', count], ['Days on market', 'daysOnMarket', count],
+  ['% of original list price received', 'pctOfList', (n) => (n == null ? '—' : `${n}%`)],
+  ['Homes for sale (end of month)', 'inventory', count], ['Months of supply', 'monthsSupply', (n) => (n == null ? '—' : String(n))],
+];
+const prices = history(c.slug, 'medianPrice').slice(-24);
+const sales = history(c.slug, 'closedSales').slice(-24);
+const compare = [
+  { label: c.name, m },
+  { label: '16-county Twin Cities region', m: region },
+];
+const nearby = communities.filter((x) => x.slug !== c.slug && x.region === c.region && hasMarket(x.slug)).slice(0, 12);
+
+const faq = [
+  v('medianPrice') != null && { q: `What is the median home price in ${c.name}, MN?`, a: `${money(v('medianPrice'))} over the 12 months through ${month}, ${change(v('medianPrice', 'r12', 2))} from a year earlier, according to the Minneapolis Area REALTORS® Local Market Update (NorthstarMLS data). In ${month} alone it was ${money(v('medianPrice', 'month'))}.` },
+  v('daysOnMarket') != null && { q: `How fast are homes selling in ${c.name}?`, a: `Homes that sold in the 12 months through ${month} spent ${count(v('daysOnMarket'))} days on market (${month}: ${count(v('daysOnMarket', 'month'))} days).` },
+  v('monthsSupply', 'month') != null && { q: `Is ${c.name} a buyer's or seller's market?`, a: `At the end of ${month}, ${c.name} had ${v('monthsSupply', 'month')} months of supply (${count(v('inventory', 'month'))} homes for sale). Under about 4 months usually favors sellers; over about 6 favors buyers.` },
+].filter(Boolean) as { q: string; a: string }[];
+
+const ld = JSON.stringify([
+  {
+    '@context': 'https://schema.org', '@type': 'Dataset', '@id': `${url}#data`,
+    name: `${c.name}, MN housing market, ${month}`,
+    description: `Monthly and 12-month home sales, prices, days on market and inventory for ${c.name}, Minnesota.`,
+    url, temporalCoverage: `${prices[0]?.month ?? latest}/${latest}`, dateModified: asOf,
+    spatialCoverage: { '@type': 'Place', name: `${c.name}, Minnesota` },
+    creator: { '@type': 'Organization', name: source.publisher }, publisher: { '@id': business['@id'] },
+    isBasedOn: m.url, citation: `${source.name}, ${c.name}, ${month}. Data from ${source.data}. Current as of ${asOfText}.`,
+  },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+]);
+---
+<Base
+  breadcrumbs={[{ name: 'Market reports', href: '/market' }, { name: c.name, href: `/market/${c.slug}` }]}
+  title={`${c.name}, MN Housing Market: ${month} | ${site.name}`}
+  description={summary[0] ?? `${c.name}, MN home prices and sales for ${month}.`}>
+  <script slot="head" type="application/ld+json" set:html={ld} />
+
+  <section class="mhead">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/market">Market reports</a><span aria-hidden="true">/</span><span>{c.name}</span></nav>
+      <h1>{c.name} housing market</h1>
+      <p class="lede">{month} report · NorthstarMLS data via Minneapolis Area REALTORS® · current as of {asOfText}</p>
+      <ul class="kpis">
+        <li><span>Median sale price</span><strong>{moneyK(v('medianPrice'))}</strong><em>{signed(v('medianPrice', 'r12', 2))} vs. prior 12 months</em></li>
+        <li><span>Homes sold</span><strong>{count(v('closedSales'))}</strong><em>past 12 months, {signed(v('closedSales', 'r12', 2))}</em></li>
+        <li><span>Days on market</span><strong>{count(v('daysOnMarket'))}</strong><em>past 12 months</em></li>
+        <li><span>Months of supply</span><strong>{v('monthsSupply', 'month') ?? '—'}</strong><em>end of {month}</em></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="sum-title">
+    <div class="wrap split">
+      <div class="prose">
+        <p class="eyebrow">The short version</p>
+        <h2 id="sum-title">{c.name} in {month}</h2>
+        {summary.map((s) => <p>{s}</p>)}
+        {small && <p class="warn">Only {count(v('closedSales', 'month'))} {v('closedSales', 'month') === 1 ? 'home' : 'homes'} sold in {c.name} in {month}, so that month's numbers can swing a lot. The 12-month figures above are steadier.</p>}
+        <div class="cta-row">
+          <a class="btn" href={communitySearch(c.slug)} rel="noopener">See {c.name} homes for sale</a>
+          <a class="btn btn--ghost" href="/sell#value">What's my home worth?</a>
+        </div>
+      </div>
+      <div class="charts">
+        {prices.length > 3 && <LineChart points={prices.map((p) => ({ label: monthLabel(p.month, true), value: p.value, display: money(p.value) }))} title={`Median sale price by month, ${c.name}`} valueName="Median price" caption="Single months can swing when few homes sell." />}
+        {sales.length > 3 && <LineChart points={sales.map((p) => ({ label: monthLabel(p.month, true), value: p.value, display: count(p.value) }))} title={`Homes sold by month, ${c.name}`} valueName="Closed sales" />}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper" aria-labelledby="table-title">
+    <div class="wrap">
+      <div class="head"><p class="eyebrow">All the numbers</p><h2 id="table-title">{c.name} vs. a year earlier</h2></div>
+      <div class="table-scroll">
+        <table class="data">
+          <thead>
+            <tr><th scope="col"></th><th scope="col" colspan="3">{month}</th><th scope="col" colspan="3">12 months through {month}</th></tr>
+            <tr><th scope="col">Measure</th><th scope="col" class="num">Year before</th><th scope="col" class="num">This year</th><th scope="col" class="num">Change</th><th scope="col" class="num">Year before</th><th scope="col" class="num">This year</th><th scope="col" class="num">Change</th></tr>
+          </thead>
+          <tbody>
+            {rows.map(([label, k, f]) => (
+              <tr><th scope="row">{label}</th>
+                <td class="num">{f(v(k, 'month', 0))}</td><td class="num">{f(v(k, 'month', 1))}</td><td class="num">{signed(v(k, 'month', 2))}</td>
+                <td class="num">{f(v(k, 'r12', 0))}</td><td class="num">{f(v(k, 'r12', 1))}</td><td class="num">{signed(v(k, 'r12', 2))}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div class="head compare-head"><h3>Compared with the Twin Cities region (12 months)</h3></div>
+      <div class="table-scroll">
+        <table class="data">
+          <thead><tr><th scope="col">Area</th><th scope="col" class="num">Median price</th><th scope="col" class="num">Change</th><th scope="col" class="num">Days on market</th><th scope="col" class="num">% of list received</th><th scope="col" class="num">Months of supply</th></tr></thead>
+          <tbody>
+            {compare.map(({ label, m: x }) => (
+              <tr><th scope="row">{label}</th><td class="num">{money(x.medianPrice?.r12[1])}</td><td class="num">{signed(x.medianPrice?.r12[2])}</td>
+                <td class="num">{count(x.daysOnMarket?.r12[1])}</td><td class="num">{x.pctOfList?.r12[1] ?? '—'}%</td><td class="num">{x.monthsSupply?.month[1] ?? '—'}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="source">Source: <a href={m.url} rel="noopener">{source.name}, {c.name}, {month}</a>. Data from {source.data}; produced by {source.producer}; current as of {asOfText}. {source.note}</p>
+    </div>
+  </section>
+
+  {faq.length > 0 && (
+    <section class="section" aria-labelledby="faq-title">
+      <div class="wrap faq">
+        <div class="head"><p class="eyebrow">Quick answers</p><h2 id="faq-title">{c.name} market questions</h2></div>
+        {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+      </div>
+    </section>
+  )}
+
+  <section class="section section--paper" aria-labelledby="more-title">
+    <div class="wrap">
+      <div class="head"><p class="eyebrow">Keep exploring</p><h2 id="more-title">More about {c.name}</h2></div>
+      <p class="links"><a class="link-arrow" href={`/communities/${c.slug}`}>{c.name} community guide</a> <a class="link-arrow" href="/market">Twin Cities market report</a></p>
+      {nearby.length > 0 && (
+        <>
+          <h3 class="nearby-title">Nearby market reports</h3>
+          <ul class="nearby">{nearby.map((x) => <li><a href={`/market/${x.slug}`}>{x.name}</a> <span>{moneyK(marketFor(x.slug)?.medianPrice?.r12[1])}</span></li>)}</ul>
+        </>
+      )}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .mhead { padding-block: clamp(2rem, 5vw, 3.5rem); background: var(--night); color: #fff; }
+  .mhead .wrap { display: grid; gap: .9rem; }
+  .crumbs { display: flex; gap: .5rem; font: 700 .72rem/1.3 var(--ui); letter-spacing: .14em; text-transform: uppercase; color: var(--on-dark); }
+  .crumbs a { color: var(--rose); text-decoration: none; }
+  .mhead h1 { font: 500 clamp(2.2rem, 5vw, 3.6rem)/1.05 var(--serif-display); }
+  .lede { color: var(--on-dark); }
+  .kpis { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: rgba(255,255,255,.14); }
+  @media (max-width: 760px) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .kpis li { display: grid; gap: .3rem; padding: 1.1rem 1.2rem; background: var(--night); }
+  .kpis span { font: 700 .7rem/1.2 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--rose); }
+  .kpis strong { font: 500 clamp(1.8rem, 4vw, 2.6rem)/1 var(--serif-display); }
+  .kpis em { font-style: normal; font-size: .85rem; color: var(--on-dark); }
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+  .prose p:not(.eyebrow) { font-size: 1.05rem; line-height: 1.7; }
+  .warn { padding: .9rem 1rem; background: var(--sand); border-left: 4px solid var(--crimson); font-size: .95rem !important; }
+  .cta-row { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: .5rem; }
+  .charts { display: grid; gap: 2rem; }
+  .table-scroll { position: relative; overflow-x: auto; }
+  .data { width: 100%; border-collapse: collapse; font-size: .95rem; background: var(--paper); }
+  .data th, .data td { padding: .6rem .75rem; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+  .data thead th { font: 700 .72rem/1.3 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--text-soft); }
+  .data .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .compare-head { margin-top: 2.5rem; }
+  .compare-head h3 { font: 600 1.4rem/1.2 var(--serif); }
+  .source { margin-top: 1.25rem; font-size: .85rem; color: var(--text-soft); max-width: 60rem; }
+  .faq { display: grid; gap: .75rem; max-width: 52rem; }
+  .faq details { padding: 1rem 1.2rem; background: var(--paper); border: 1px solid var(--line); }
+  .faq summary { cursor: pointer; font: 600 1.15rem/1.3 var(--serif); }
+  .faq details p { margin-top: .6rem; color: var(--text-soft); }
+  .links { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+  .nearby-title { margin-top: 2rem; font: 600 1.3rem/1.2 var(--serif); }
+  .nearby { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); gap: .5rem 1.5rem; }
+  .nearby li { display: flex; justify-content: space-between; gap: 1rem; padding: .45rem 0; border-bottom: 1px solid var(--line); }
+  .nearby span { color: var(--text-soft); font-variant-numeric: tabular-nums; }
+</style>

@@ -1,0 +1,107 @@
+---
+// Twin Cities housing market report: the 16-county region plus every community guide that has a
+// Minneapolis Area REALTORS® Local Market Update (data from NorthstarMLS). Updated monthly.
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import LineChart from '../../components/LineChart.astro';
+import { communities, regions } from '../../data/areas';
+import { business, origin } from '../../data/schema';
+import { site } from '../../data/site';
+import { source, latest, asOf, REGION, marketFor, hasMarket, history, monthLabel, money, moneyK, count, change, signed } from '../../data/market';
+
+const r = marketFor(REGION)!;
+const month = monthLabel(latest);
+const asOfText = new Date(asOf + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+const prices = history(REGION, 'medianPrice').slice(-24);
+const groups = regions.map((reg) => ({ reg, list: communities.filter((c) => c.region === reg && hasMarket(c.slug)).sort((a, b) => a.name.localeCompare(b.name)) }))
+  .filter((g) => g.list.length);
+const covered = groups.reduce((n, g) => n + g.list.length, 0);
+
+const ld = JSON.stringify({
+  '@context': 'https://schema.org', '@type': 'Dataset', '@id': `${origin}/market#data`,
+  name: `Twin Cities housing market by city, ${month}`,
+  description: `Monthly and 12-month home sales, median prices, days on market and inventory for the 16-county Twin Cities region and ${covered} Minnesota cities.`,
+  url: `${origin}/market`, dateModified: asOf, temporalCoverage: `${prices[0]?.month ?? latest}/${latest}`,
+  spatialCoverage: { '@type': 'Place', name: 'Minneapolis–Saint Paul, Minnesota' },
+  creator: { '@type': 'Organization', name: source.publisher }, publisher: { '@id': business['@id'] },
+  isBasedOn: source.url, citation: `${source.name}, ${month}. Data from ${source.data}. Current as of ${asOfText}.`,
+});
+---
+<Base
+  breadcrumbs={[{ name: 'Market reports', href: '/market' }]}
+  title={`Twin Cities Housing Market Report: ${month} | ${site.name}`}
+  description={`Twin Cities home prices and sales for ${month}: region-wide median price ${money(r.medianPrice?.r12[1])} over 12 months (${change(r.medianPrice?.r12[2])}), plus ${covered} city reports. NorthstarMLS data.`}>
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <PageHero eyebrow={`Market report · ${month}`} title="Twin Cities housing market"
+    lede={`Home prices, sales and inventory for the 16-county Twin Cities region and ${covered} cities, updated every month from NorthstarMLS data.`} />
+
+  <section class="section" aria-labelledby="region-title">
+    <div class="wrap split">
+      <div class="prose">
+        <p class="eyebrow">16-county Twin Cities region</p>
+        <h2 id="region-title">{month} at a glance</h2>
+        <p>Over the 12 months through {month}, the median sale price across the region was {money(r.medianPrice?.r12[1])}, {change(r.medianPrice?.r12[2])} from the 12 months before. {count(r.closedSales?.r12[1])} homes sold ({change(r.closedSales?.r12[2])}) and {count(r.newListings?.r12[1])} new listings came on the market ({change(r.newListings?.r12[2])}).</p>
+        <p>In {month} itself, {count(r.closedSales?.month[1])} homes sold at a median {money(r.medianPrice?.month[1])}, spending {count(r.daysOnMarket?.month[1])} days on market. The month ended with {count(r.inventory?.month[1])} homes for sale, {r.monthsSupply?.month[1]} months of supply.</p>
+        <p class="source">Source: <a href={r.url} rel="noopener">{source.name}, 16-County Twin Cities Region, {month}</a>. Data from {source.data}; current as of {asOfText}. {source.note}</p>
+      </div>
+      {prices.length > 3 && <LineChart points={prices.map((p) => ({ label: monthLabel(p.month, true), value: p.value, display: money(p.value) }))} title="Median sale price by month, Twin Cities region" valueName="Median price" />}
+    </div>
+  </section>
+
+  <section class="section section--paper" aria-labelledby="cities-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">{covered} cities</p>
+        <h2 id="cities-title">Every city, 12 months through {month}</h2>
+        <p>Pick a city for its full report: monthly numbers, charts and how it compares with the region.</p>
+      </div>
+      <nav class="jump" aria-label="Regions">{groups.map((g) => <a href={`#${g.reg.toLowerCase().replace(/[^a-z]+/g, '-')}`}>{g.reg}</a>)}</nav>
+      {groups.map((g) => (
+        <div class="group" id={g.reg.toLowerCase().replace(/[^a-z]+/g, '-')}>
+          <h3>{g.reg}</h3>
+          <div class="table-scroll">
+            <table class="data">
+              <thead><tr><th scope="col">City</th><th scope="col" class="num">Median price</th><th scope="col" class="num">Change</th><th scope="col" class="num">Homes sold</th><th scope="col" class="num">Days on market</th><th scope="col" class="num">Months of supply</th></tr></thead>
+              <tbody>
+                {g.list.map((c) => {
+                  const x = marketFor(c.slug)!;
+                  return <tr><th scope="row"><a href={`/market/${c.slug}`}>{c.name}</a></th><td class="num">{moneyK(x.medianPrice?.r12[1])}</td><td class="num">{signed(x.medianPrice?.r12[2])}</td><td class="num">{count(x.closedSales?.r12[1])}</td><td class="num">{count(x.daysOnMarket?.r12[1])}</td><td class="num">{x.monthsSupply?.month[1] ?? '—'}</td></tr>;
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ))}
+      <p class="source">Source: {source.name} for each city, {month}. Data from {source.data}; produced by {source.producer}; current as of {asOfText}. Months of supply is as of the end of {month}. {source.note}</p>
+    </div>
+  </section>
+
+  <section class="section section--dark" aria-labelledby="cta-title">
+    <div class="wrap cta">
+      <div class="prose"><p class="eyebrow">What it means for you</p><h2 id="cta-title">Numbers are a start. <em>Your home is specific.</em></h2>
+        <p>Ask us what these trends mean for your home or your search. There's no cost and no pressure.</p></div>
+      <div class="cta__actions"><a class="btn" href="/sell#value">Get your home's value</a><a class="btn btn--ghost" href={site.phoneHref}>Call {site.phone}</a></div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+  .prose p:not(.eyebrow) { font-size: 1.05rem; line-height: 1.7; }
+  .prose .source, .source { font-size: .85rem !important; color: var(--text-soft); margin-top: 1rem; }
+  .jump { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.5rem; }
+  .jump a { padding: .5rem .9rem; border: 1px solid var(--line); background: var(--paper); font: 600 .85rem/1 var(--ui); text-decoration: none; color: var(--text); }
+  .jump a:hover { border-color: var(--crimson); color: var(--crimson); }
+  .group { margin-top: 2rem; }
+  .group h3 { font: 600 1.5rem/1.2 var(--serif); margin-bottom: .75rem; }
+  .table-scroll { position: relative; overflow-x: auto; }
+  .data { width: 100%; border-collapse: collapse; font-size: .95rem; background: var(--paper); }
+  .data th, .data td { padding: .55rem .75rem; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+  .data thead th { font: 700 .72rem/1.3 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--text-soft); }
+  .data .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .data tbody th a { color: var(--text); font-weight: 600; }
+  .data tbody th a:hover { color: var(--crimson); }
+  .cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2rem; }
+  .cta__actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+</style>

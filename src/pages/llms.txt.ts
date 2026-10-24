@@ -5,6 +5,7 @@ import { site } from '../data/site';
 import { communities } from '../data/areas';
 import team from '../data/team.json';
 import { members, agentHref, isAgent, reviewsFor } from '../data/agents';
+import { source as mSource, latest as mLatest, asOf as mAsOf, REGION, marketFor, hasMarket, monthLabel, money, signed, count } from '../data/market';
 import reviews from '../data/reviews.json';
 import { getPosts, postUrl } from '../data/blog';
 import { watchable, channel } from '../data/youtube';
@@ -31,11 +32,17 @@ Facts (with sources on ${url('/')}):
 - [Buy a home](${url('/buy')}): buying steps, lender partner
 - [Communities](${url('/communities')}): guides to ${communities.length} Minnesota cities
 - [Lake homes](${url('/lake-homes')}): homes on Twin Cities lakes
+- [Market reports](${url('/market')}): monthly home prices, sales and inventory for the Twin Cities and each city
 - [Team](${url('/team')}): every agent and staff member
 - [Reviews](${url('/reviews')}): verbatim Google and Zillow reviews
 - [Ramsey ELP](${url('/ramsey')}): working with a Ramsey Endorsed Local Provider
 - [Videos](${url('/videos')}): every Living in Minneapolis video, by topic
 - [Contact](${url('/contact')})
+
+## Housing market, ${monthLabel(mLatest)}
+Source: ${mSource.name} (data from ${mSource.data}), current as of ${mAsOf}. 12 months through ${monthLabel(mLatest)}: median sale price, change from the prior 12 months, homes sold. Full reports: ${url('/market')}
+- Twin Cities 16-county region: ${money(marketFor(REGION)?.medianPrice?.r12[1])}, ${signed(marketFor(REGION)?.medianPrice?.r12[2])}, ${count(marketFor(REGION)?.closedSales?.r12[1])} sold
+${communities.filter((c) => hasMarket(c.slug)).map((c) => { const x = marketFor(c.slug)!; return `- [${c.name}](${url(`/market/${c.slug}`)}): ${money(x.medianPrice?.r12[1])}, ${signed(x.medianPrice?.r12[2])}, ${count(x.closedSales?.r12[1])} sold`; }).join('\n')}
 
 ## Agents
 Each page has the agent's own bio, Minnesota license number, contact details and complete reviews that mention them.

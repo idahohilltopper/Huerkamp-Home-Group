@@ -24,9 +24,15 @@ export function lastmods() {
   map.set('/videos', newestVideo);
   map.set('/', max([newestPost, newestVideo]));
 
+  // Market reports change when a new monthly report comes in; community guides show its numbers too.
+  const market = JSON.parse(read('src/data/market.json'));
+  const latest = market.months[market.latest];
+  map.set('/market', latest.asOf);
+  for (const slug of Object.keys(latest.areas)) map.set(`/market/${slug}`, latest.asOf);
+
   const details = JSON.parse(read('src/data/community-details.json'));
   for (const slug of Object.keys(details.communities)) {
-    map.set(`/communities/${slug}`, max([details.updated, ...posts.filter((p) => p.towns.includes(slug)).map((p) => p.date)]));
+    map.set(`/communities/${slug}`, max([details.updated, latest.areas[slug] && latest.asOf, ...posts.filter((p) => p.towns.includes(slug)).map((p) => p.date)]));
   }
   return map;
 }

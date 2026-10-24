@@ -20,6 +20,7 @@ import { site } from '../../data/site';
 import { communitySearch, searchUrl, ylopoPlace } from '../../data/ylopo';
 import PostCard from '../../components/PostCard.astro';
 import { getPosts, postsAbout } from '../../data/blog';
+import { marketFor, hasMarket, latest as marketMonth, asOf as marketAsOf, monthLabel, money, count, change, signed } from '../../data/market';
 
 export function getStaticPaths() {
   return communities.map((c) => ({ params: { slug: c.slug }, props: { c } }));
@@ -130,9 +131,12 @@ const allHomes = communitySearch(c.slug);
 const cityVideos = videosAbout([c.name], 9);
 const cityLong = cityVideos.filter((v) => v.kind === 'long').slice(0, 6);
 const cityShorts = cityVideos.filter((v) => v.kind === 'short');
-// "Updated" is the newest real change to this guide: a local story, a video about the town, or the town's data.
+// This month's MLS numbers (Minneapolis Area REALTORS® Local Market Update), when the city has a report.
+const mk = hasMarket(c.slug) ? marketFor(c.slug) : undefined;
+// "Updated" is the newest real change to this guide: a local story, a video, the market report or the town's data.
 const lastChange = new Date(Math.max(
   Date.parse(detailData.updated),
+  ...(mk ? [Date.parse(marketAsOf)] : []),
   ...stories.map((p) => p.data.date.valueOf()),
   ...cityVideos.map((v) => (v.published ? Date.parse(v.published) : 0)),
 ));
@@ -241,6 +245,26 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
       </form>
     </div>
   </section>
+
+  <!-- 3b. Housing market this month -->
+  {mk && (
+    <section class="section" id="market" aria-labelledby="market-title">
+      <div class="wrap">
+        <div class="head">
+          <p class="eyebrow">Housing market · {monthLabel(marketMonth)}</p>
+          <h2 id="market-title">{c.name} home prices and sales</h2>
+          <p>Over the 12 months through {monthLabel(marketMonth)}, the median sale price in {c.name} was {money(mk.medianPrice?.r12[1])}, {change(mk.medianPrice?.r12[2])} from the year before, with {count(mk.closedSales?.r12[1])} homes sold.</p>
+        </div>
+        <ul class="mk">
+          <li><span>Median sale price</span><strong>{money(mk.medianPrice?.r12[1])}</strong><em>{signed(mk.medianPrice?.r12[2])} vs. prior 12 months</em></li>
+          <li><span>Homes sold</span><strong>{count(mk.closedSales?.r12[1])}</strong><em>past 12 months</em></li>
+          <li><span>Days on market</span><strong>{count(mk.daysOnMarket?.r12[1])}</strong><em>past 12 months</em></li>
+          <li><span>Months of supply</span><strong>{mk.monthsSupply?.month[1] ?? '—'}</strong><em>end of {monthLabel(marketMonth)}</em></li>
+        </ul>
+        <p class="mk-source">NorthstarMLS data via the <a href={mk.url} rel="noopener">Minneapolis Area REALTORS® Local Market Update</a>, current as of {new Date(marketAsOf + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}. <a class="link-arrow" href={`/market/${c.slug}`}>Full {c.name} market report</a></p>
+      </div>
+    </section>
+  )}
 
   <!-- 4. Living in: answer, map, at a glance -->
   <section class="section section--paper" aria-labelledby="living-title">
@@ -695,6 +719,14 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
   .vgrid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); gap: 2rem 1.5rem; }
   .vshorts { margin-top: 2rem; }
   .vmore { margin-top: 1.75rem; }
+  .mk { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  @media (max-width: 760px) { .mk { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .mk li { display: grid; gap: .3rem; padding: 1.1rem 1.2rem; background: var(--paper); }
+  .mk span { font: 700 .7rem/1.2 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--crimson); }
+  .mk strong { font: 500 clamp(1.6rem, 3.5vw, 2.3rem)/1 var(--serif-display); color: var(--text); }
+  .mk em { font-style: normal; font-size: .85rem; color: var(--text-soft); }
+  .mk-source { margin-top: 1rem; font-size: .88rem; color: var(--text-soft); }
+  .mk-source .link-arrow { display: inline-block; margin-left: 1rem; }
   .search-row { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
   .btn--ghost-dark { background: transparent; color: var(--text); border: 1px solid var(--text); }
   .btn--ghost-dark:hover { border-color: var(--crimson); color: var(--crimson); }
