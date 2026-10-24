@@ -265,7 +265,7 @@ Channel: **Living in Minneapolis Minnesota**, https://www.youtube.com/@livinginm
 - **Community pages**: "Watch: <city> on video" when a video names the city (39 of 149 at import). Names that are also common words (Ramsey, Grant, Independence…) must appear as "<name>, MN".
 - **Home page**: latest 3 videos and 10 Shorts. Menu: Videos (with Blog under it). YouTube added to the business's `sameAs` and to /llms.txt.
 - **Import**: `scripts/build-youtube.py` built the set (channel lists from yt-dlp; descriptions for 297 of 302 videos from vidIQ). **144 watch pages.** vidIQ's tool rejects 5 videos (a date-format bug on its side): -eypwoixOBQ, qWZbTfdJu8k, qMx9zng5gK8, gtP3DUawegc, vQ3IvV_1oOI; they show in the library and play from YouTube. Videos titled with "(delete)" are skipped. Long videos whose description is only contact/subscribe text have no watch page.
-- **Weekly**: `python3 scripts/update-youtube.py` reads the channel's public feed (newest 15 uploads, with full descriptions), adds new videos and watch pages, and refreshes view counts. A weekly routine runs it every Monday morning and publishes the update.
+- **Weekly**: `python3 scripts/update-youtube.py` reads the channel's public feed (newest 15 uploads, with full descriptions), adds new videos and watch pages, and refreshes view counts. The daily website refresh routine (below) runs it every morning and publishes the update.
 - **Tracking numbers (Jason, 2026-10-24)**: YouTube uses (952) 900-3025 and team@hhgus.com on purpose, to track YouTube leads. The website strips them from video descriptions so website leads keep the website's number. Google Business Profile, directories and the website stay on (612) 843-9620.
 
 ## Retiring the Luxury Presence site (huerkamphomes.com, ends December)
@@ -282,3 +282,16 @@ Channel: **Living in Minneapolis Minnesota**, https://www.youtube.com/@livinginm
 - **Domain:** the team controls huerkamphomes.com. When the new site launches, add huerkamphomes.com and www.huerkamphomes.com in Netlify under Domain management, then point the domain's DNS at Netlify. Do both before Luxury Presence shuts off in December.
 - **To rebuild the rules:** `python3 scripts/build-lp-redirects.py <saved LP sitemaps>` and then `node scripts/write-redirects.mjs`.
 - **Text-message consent:** every form now has an unchecked, optional text-message consent box and a privacy-policy link. Checking the box adds the "SMS consent" tag in Follow Up Boss.
+
+## Keeping the whole site current (automatic routines)
+
+Google and AI search favor sites that keep adding real, useful, accurate information. Faking freshness, like changing dates or shuffling words without adding anything, is treated as spam. So every scheduled run either makes a real change or does nothing.
+
+| Routine | When (Central time) | What it does | Publishes? |
+|---|---|---|---|
+| Daily website refresh | Every day, 6:38 am | Adds new YouTube videos and Shorts, plus their watch pages. Tags new blog posts to their towns. Checks links, the sitemap and llms.txt. Does nothing if nothing changed. | Yes, straight to the live branch |
+| Weekly local story and SEO upgrade | Wednesdays, 7:53 am | Writes one new local story about a core town, with every fact linked to a public source and fact-checked before publishing. Also makes one small SEO/AI improvement for the whole site. | Yes, straight to the live branch |
+| Monthly SEO checkup | 1st of the month, 7:39 am | Full check of speed, links, schema, listings and data freshness. Writes a report in docs/checkups/. | No. Fixes wait on a checkup branch for approval. |
+
+- Each page's "Updated" date and its sitemap date come from real changes only (src/lib/lastmod.mjs).
+- The routines need this repository attached in claude.ai, under Routines, then each routine's settings.
