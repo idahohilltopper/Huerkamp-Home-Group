@@ -1,10 +1,10 @@
-/* Huerkamp Home Group brand: logo crimson #D11241 and charcoal #4C4D4F on warm cream,
+/* Huerkamp Home Group brand: Ferrari red (Rosso Corsa #D40000) and charcoal #4C4D4F on warm cream,
    laid out after markzproperties.com (light theme, dark accent bands, square buttons). */
 :root {
   color-scheme: light;
-  --crimson: #d11241;        /* logo red; 5.4:1 on white */
-  --crimson-deep: #a80e35;   /* hover */
-  --rose: #f26a84;           /* crimson for small text on dark bands; 5.8:1 on --night */
+  --crimson: #d40000;        /* Ferrari red (Rosso Corsa); 5.5:1 on white */
+  --crimson-deep: #a80000;   /* hover */
+  --rose: #ff5a4f;           /* red for small text on dark bands; 5.5:1 on --night */
   --charcoal: #4c4d4f;       /* logo gray */
   --ink: #1b1819;
   --ink-soft: #5d5658;
@@ -30,7 +30,7 @@
   --text: var(--ink);
   --text-soft: var(--ink-soft);
   --eyebrow: var(--crimson);
-  --chart-1: #d11241; /* validated vs #fff (dataviz validator) */
+  --chart-1: #d40000; /* 5.5:1 vs #fff */
 
   /* Garamond to match the logo's serif; Figtree as a clean Avenir-style sans. */
   --serif-display: "Cormorant Garamond", Garamond, Georgia, "Times New Roman", serif;

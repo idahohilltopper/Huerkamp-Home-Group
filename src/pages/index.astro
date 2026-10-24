@@ -5,6 +5,8 @@ import Base from '../layouts/Base.astro';
 import AreaMap from '../components/AreaMap.astro';
 import TeamPhoto from '../components/TeamPhoto.astro';
 import PostCard from '../components/PostCard.astro';
+import YlopoListings from '../components/YlopoListings.astro';
+import { searchUrl, ylopoPlace } from '../data/ylopo';
 import { getPosts } from '../data/blog';
 import { site } from '../data/site';
 import team from '../data/team.json';
@@ -36,6 +38,9 @@ const record = [
 const regionCounts = regions.map((r) => ({ name: r, count: communities.filter((c) => c.region === r).length }));
 const popular = ['minneapolis', 'saint-paul', 'burnsville', 'lakeville', 'eagan', 'apple-valley', 'edina', 'woodbury', 'prior-lake', 'northfield']
   .map((s) => communities.find((c) => c.slug === s)!).filter(Boolean);
+// Live listings across the cities the team works most.
+const marketPlaces = popular.map((c) => ylopoPlace(c.slug)).filter((w) => w.city);
+const marketSearch = { locations: marketPlaces.map((w) => ({ city: w.city, state: 'MN' })) };
 
 const faqs = [
   { q: 'How do I find out what my home is worth?', a: 'Request a free home valuation. One of our agents compares your home with recent sales nearby and sends you a price range you can plan around. There is no cost and no obligation to list with us.' },
@@ -100,6 +105,19 @@ const ld = JSON.stringify({
     </div>
   </section>
 
+  <!-- Red facts strip -->
+  <div class="strip" aria-label="Huerkamp Home Group at a glance">
+    <ul class="strip__track">
+      {[0, 1].map((copy) => (
+        <>
+          {[`${google.rating.toFixed(1)}★ on Google · ${google.count} reviews`, 'Dave Ramsey Endorsed Local Provider · 15+ years', 'Serving the Twin Cities since 2002', `${members.length} agents and staff`, site.brokerage, `${communities.length} community guides`].map((t) => (
+            <li aria-hidden={copy === 1 ? 'true' : undefined}>{t}</li>
+          ))}
+        </>
+      ))}
+    </ul>
+  </div>
+
   <!-- The record -->
   <section class="section record" aria-labelledby="record-title">
     <div class="wrap">
@@ -127,24 +145,16 @@ const ld = JSON.stringify({
     </div>
   </section>
 
-  <!-- Find a home -->
-  <section class="section section--paper" aria-labelledby="find-title">
+  <!-- Featured listings: the team's own -->
+  <section class="section section--paper" aria-labelledby="featured-title">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow">Live from the MLS</p>
-        <h2 id="find-title">Homes for sale <em>across the Twin Cities.</em></h2>
-        <p>Search every NorthstarMLS listing, save homes and get an alert when new ones hit the market.</p>
+        <p class="eyebrow">Featured properties</p>
+        <h2 id="featured-title">Homes we're proud <em>to represent.</em></h2>
+        <p>Our team's current listings, live from the MLS.</p>
       </div>
-      <a class="search-cta" href={site.searchUrl} rel="noopener">
-        <span>City, neighborhood, ZIP or address</span>
-        <strong>Search homes →</strong>
-      </a>
-      <p class="subhead">Popular places to look</p>
-      <ul class="chips">
-        {popular.map((c) => <li><a href={`/communities/${c.slug}`}>{c.name}</a></li>)}
-        <li><a href="/lake-homes">Lake homes</a></li>
-        <li><a href="/communities">All {communities.length} communities</a></li>
-      </ul>
+      <YlopoListings layout="scroll" search={{ featured: 't', limit: 24 }}
+        moreHref={`${site.searchUrl}/search?s[featured]=t`} moreLabel="See every team listing" />
     </div>
   </section>
 
@@ -165,8 +175,31 @@ const ld = JSON.stringify({
     </div>
   </section>
 
+  <!-- Homes for sale -->
+  <section class="section section--paper" aria-labelledby="find-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Live from the MLS</p>
+        <h2 id="find-title">Homes for sale <em>in our markets.</em></h2>
+        <p>The newest listings in {popular.map((c) => c.name).join(', ')}, updated straight from the NorthstarMLS.</p>
+      </div>
+      <YlopoListings search={marketSearch}
+        moreHref={searchUrl(marketPlaces)} moreLabel="Search all Twin Cities homes" />
+      <a class="search-cta" href={site.searchUrl} rel="noopener">
+        <span>City, neighborhood, ZIP or address</span>
+        <strong>Search homes →</strong>
+      </a>
+      <p class="subhead">Popular places to look</p>
+      <ul class="chips">
+        {popular.map((c) => <li><a href={`/communities/${c.slug}`}>{c.name}</a></li>)}
+        <li><a href="/lake-homes">Lake homes</a></li>
+        <li><a href="/communities">All {communities.length} communities</a></li>
+      </ul>
+    </div>
+  </section>
+
   <!-- Sell with confidence -->
-  <section class="section section--paper" aria-labelledby="sell-title">
+  <section class="section" aria-labelledby="sell-title">
     <div class="wrap">
       <div class="head">
         <p class="eyebrow">Sell with confidence</p>
@@ -324,6 +357,13 @@ const ld = JSON.stringify({
 </Base>
 
 <style>
+  .strip { background: var(--crimson); color: #fff; overflow: hidden; }
+  .strip__track { list-style: none; margin: 0; padding: .85rem 0; display: flex; width: max-content; animation: strip 50s linear infinite; }
+  .strip__track li { font: 700 .78rem/1 var(--ui); letter-spacing: .16em; text-transform: uppercase; white-space: nowrap; padding-inline: 2rem; position: relative; }
+  .strip__track li::after { content: "★"; position: absolute; right: -.35rem; opacity: .7; }
+  @keyframes strip { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .strip__track { animation: none; flex-wrap: wrap; width: auto; justify-content: center; } .strip__track li[aria-hidden] { display: none; } }
+  .search-cta { margin-top: 2.5rem; }
   .latest { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); gap: 1.5rem; }
   .latest__more { margin-top: 2rem; }
   /* Hero */

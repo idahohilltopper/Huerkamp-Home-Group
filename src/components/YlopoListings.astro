@@ -1,0 +1,73 @@
+---
+// Live MLS listings from the team's Ylopo search (Ylopo's official results widget, same as Mark Z's site).
+// The widget's script loads only when listings scroll near the screen, so pages stay fast.
+// `search` uses Ylopo's search fields: locations, propertyTypes, minPrice, maxPrice, featured ("t" = the team's own listings), limit, sortBy, sortOrder.
+import { site } from '../data/site';
+interface Props {
+  search: Record<string, unknown>;
+  layout?: 'grid' | 'scroll';
+  /** Link to the full results; shown under the cards and if the widget can't load. */
+  moreHref: string;
+  moreLabel: string;
+  /** Set false when the page already has its own "see all" button. */
+  showMore?: boolean;
+}
+const { search, layout = 'grid', moreHref, moreLabel, showMore = true } = Astro.props;
+const domain = new URL(site.searchUrl).host;
+const data = JSON.stringify({ propertyTypes: ['house', 'condo', 'townhouse'], sortBy: 'listDate', sortOrder: 'desc', limit: 12, ...search });
+---
+<div class:list={['ylopo', `ylopo--${layout}`]} data-ylopo={domain}>
+  <div class="YLOPO_resultsWidget" data-search={data}></div>
+  <p class="ylopo__loading" aria-hidden="true">Loading listings…</p>
+</div>
+{showMore && <p class="ylopo__more"><a class="link-arrow" href={moreHref} rel="noopener">{moreLabel}</a></p>}
+
+<script>
+  // One loader for every widget on the page: add Ylopo's script the first time listings come near view.
+  const boxes = document.querySelectorAll<HTMLElement>('[data-ylopo]');
+  let loaded = false;
+  const load = () => {
+    if (loaded || !boxes.length) return;
+    loaded = true;
+    (window as any).YLOPO_WIDGETS = { domain: boxes[0].dataset.ylopo };
+    const s = document.createElement('script');
+    s.src = `https://${boxes[0].dataset.ylopo}/build/js/widgets-1.0.0.js`;
+    s.async = true;
+    document.head.append(s);
+    // Hide the loading note once cards appear (or after a while if the widget can't load).
+    const done = () => boxes.forEach((b) => b.classList.add('is-ready'));
+    const mo = new MutationObserver(() => { if (document.querySelector('.YLOPO-widget')) { done(); mo.disconnect(); } });
+    mo.observe(document.body, { childList: true, subtree: true });
+    setTimeout(done, 15000);
+  };
+  const io = new IntersectionObserver((entries) => {
+    if (entries.some((e) => e.isIntersecting)) { load(); io.disconnect(); }
+  }, { rootMargin: '800px 0px' });
+  boxes.forEach((b) => io.observe(b));
+</script>
+
+<style is:global>
+  /* Ylopo widget, restyled to match the site */
+  .ylopo { position: relative; min-height: 22rem; }
+  .ylopo.is-ready { min-height: 0; }
+  .ylopo__loading { position: absolute; inset: 0; display: grid; place-items: center; color: var(--text-soft); font: 600 .9rem/1 var(--ui); letter-spacing: .1em; text-transform: uppercase; }
+  .ylopo.is-ready .ylopo__loading { display: none; }
+  .ylopo__more { margin-top: 1.75rem; text-align: center; }
+  .ylopo .YLOPO-widget, .ylopo .YLOPO-widget *:not(.fa) { font-family: var(--sans) !important; }
+  .ylopo .widget-gallery-container { display: grid !important; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17.5rem), 1fr)); gap: 1.5rem; float: none !important; width: 100% !important; }
+  .ylopo .widget-gallery-container::before, .ylopo .widget-gallery-container::after { display: none !important; }
+  .ylopo .grid-view-item { width: auto !important; max-width: none !important; margin: 0 !important; padding: 0 !important; float: none !important; }
+  .ylopo .gallery-card-b { margin: 0 !important; border: 1px solid var(--line) !important; background: var(--paper); box-shadow: none !important; }
+  .ylopo .gallery-card-b-address-block .layout > div:first-child { font: 600 1.05rem/1.3 var(--sans) !important; color: var(--text); }
+  .ylopo .listing-status-flag { background: rgba(21, 18, 19, .82) !important; color: #fff !important; font: 700 .72rem/1 var(--ui) !important; letter-spacing: .1em; text-transform: uppercase; padding: .45rem .7rem !important; top: .75rem !important; left: .75rem !important; }
+  .ylopo .gallery-card-b-generate-sort-block { color: var(--text) !important; }
+  .ylopo .idx-compliance { font-size: .72rem !important; color: var(--text-soft) !important; }
+  /* Featured listings scroll sideways, like Mark Z's "Properties we're proud to represent" */
+  .ylopo--scroll .widget-gallery-container { display: flex !important; flex-wrap: nowrap !important; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: .75rem; }
+  .ylopo--scroll .grid-view-item { flex: 0 0 min(85%, 19rem); scroll-snap-align: start; }
+  /* On phones every listing row swipes sideways instead of stacking twelve cards */
+  @media (max-width: 700px) {
+    .ylopo .widget-gallery-container { display: flex !important; flex-wrap: nowrap !important; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: .75rem; }
+    .ylopo .grid-view-item { flex: 0 0 85% !important; scroll-snap-align: start; }
+  }
+</style>

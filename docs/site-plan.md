@@ -247,3 +247,12 @@ All nine website forms post to `/api/lead` (`netlify/functions/lead.mjs`), which
 - Spam: hidden honeypot field and a minimum time on page; bots get a silent "OK".
 - Jason's decision: website forms go to Follow Up Boss; Fello receives sellers through its existing Follow Up Boss integration. Confirm which tag/stage Fello imports and add it to the seller forms if it isn't "Seller lead".
 - Netlify only. (Vercel would need its own function; we're not using Vercel.)
+
+## Closer to Mark Z, Ferrari red, live listings (2026-10-24)
+
+- **Ferrari red** (Rosso Corsa #D40000) everywhere, including the logo files; #FF5A4F for small red text on dark sections (5.5:1).
+- **Live MLS listings** with Ylopo's official results widget (`src/components/YlopoListings.astro`), the same one Mark Z uses: the team's own listings ("Homes we're proud to represent", sideways scroll) and "Homes for sale in our markets" on the home page, and the newest 12 listings on each community page. The widget script loads only when listings scroll near view, so speed scores held (home 96, Burnsville 98, Team 99). Listings swipe sideways on phones.
+- **Red facts strip** under the hero (scrolls slowly; stops for people who turn off motion).
+- Home page order now follows Mark Z: hero → red strip → the record → featured listings → map → homes for sale → seller programs → marketing → reviews → team → Ramsey → FAQ → blog → contact.
+- **/llms.txt**: plain-text guide for AI assistants, built from the site's data.
+- The widget checks the site's address; it works on www.huerkamphomegroup.com. If it shows "Loading listings…" on the Netlify preview address, that's Ylopo limiting it to the real domain.

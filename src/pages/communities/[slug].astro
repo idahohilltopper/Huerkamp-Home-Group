@@ -5,6 +5,7 @@
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import TeamPhoto from '../../components/TeamPhoto.astro';
+import YlopoListings from '../../components/YlopoListings.astro';
 import AreaMap from '../../components/AreaMap.astro';
 import LineChart from '../../components/LineChart.astro';
 import BarList from '../../components/BarList.astro';
@@ -121,6 +122,7 @@ const priceBands = [
 const place = ylopoPlace(c.slug);
 const searchable = !!(place.city || place.zips?.length);
 const allHomes = communitySearch(c.slug);
+const widgetSearch = { locations: place.city ? [{ city: place.city, state: 'MN' }] : (place.zips ?? []).map((z) => ({ postalCode: z })) };
 const browse = [
   { label: 'Single-family homes', href: communitySearch(c.slug, { type: 'house' }) },
   { label: 'Townhomes', href: communitySearch(c.slug, { type: 'townhouse' }) },
@@ -165,8 +167,9 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
       <div class="head">
         <p class="eyebrow">For sale now</p>
         <h2 id="listings-title">Where can I find <em>{c.name} homes for sale?</em></h2>
-        <p>Every {c.name} listing on the NorthstarMLS, newest first, with photos, maps and saved-search alerts in our home search.</p>
+        <p>The newest {c.name} listings, live from the NorthstarMLS. Open any home for photos, maps and saved-search alerts.</p>
       </div>
+      {searchable && <YlopoListings search={widgetSearch} moreHref={allHomes} moreLabel={`See all ${c.name} homes for sale`} showMore={false} />}
       <div class="search-row">
         <a class="btn" href={allHomes} rel="noopener">{searchable ? `See all ${c.name} homes for sale` : 'Search all Twin Cities homes'}</a>
         <a class="btn btn--ghost-dark" href="#alerts">Get new-listing alerts</a>
@@ -645,7 +648,7 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
   .takeaways { margin: .5rem 0; padding-left: 1.2rem; display: grid; gap: .6rem; color: var(--text); font-size: 1.05rem; }
   .takeaways li::marker { color: var(--gold); }
 
-  .search-row { display: flex; flex-wrap: wrap; gap: .75rem; }
+  .search-row { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
   .btn--ghost-dark { background: transparent; color: var(--text); border: 1px solid var(--text); }
   .btn--ghost-dark:hover { border-color: var(--crimson); color: var(--crimson); }
   .search-note { margin-top: .75rem; font-size: .95rem; color: var(--text-soft); }

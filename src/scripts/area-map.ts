@@ -7,7 +7,7 @@ import mapCssUrl from 'maplibre-gl/dist/maplibre-gl.css?url';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 maplibregl.setWorkerUrl(workerUrl);
 
-const GOLD = '#d11241'; // brand crimson
+const GOLD = '#d40000'; // Ferrari red
 const INK = '#1b1819';
 
 function bounds(features: any[]) {
