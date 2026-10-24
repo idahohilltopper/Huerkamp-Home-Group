@@ -4,6 +4,7 @@ import type { APIContext } from 'astro';
 import { site } from '../data/site';
 import { communities } from '../data/areas';
 import team from '../data/team.json';
+import { members, agentHref, isAgent, reviewsFor } from '../data/agents';
 import reviews from '../data/reviews.json';
 import { getPosts, postUrl } from '../data/blog';
 import { watchable, channel } from '../data/youtube';
@@ -35,6 +36,10 @@ Facts (with sources on ${url('/')}):
 - [Ramsey ELP](${url('/ramsey')}): working with a Ramsey Endorsed Local Provider
 - [Videos](${url('/videos')}): every Living in Minneapolis video, by topic
 - [Contact](${url('/contact')})
+
+## Agents
+Each page has the agent's own bio, Minnesota license number, contact details and complete reviews that mention them.
+${members.filter(isAgent).map((m) => `- [${m.name}](${url(agentHref(m))}): ${m.title}${m.license ? `, MN license ${m.license}` : ''}, ${m.phone}${reviewsFor(m).length ? `; ${reviewsFor(m).length} five-star ${reviewsFor(m).length === 1 ? 'review mentions' : 'reviews mention'} them` : ''}`).join('\n')}
 
 ## Community guides
 Each guide covers homes for sale, home values, population, schools, commute and drive times, using US Census data.

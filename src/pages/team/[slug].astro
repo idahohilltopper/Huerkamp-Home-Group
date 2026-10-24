@@ -1,0 +1,202 @@
+---
+// One team member's page, at the same address their profile had on the old site (/team/<slug>).
+// Bio, title, license and contact details are verbatim from their profile (src/data/team.json);
+// reviews are complete, verbatim reviews that name them (src/data/agents.ts).
+import Base from '../../layouts/Base.astro';
+import TeamPhoto from '../../components/TeamPhoto.astro';
+import { members, slugOf, agentHref, isAgent, firstName, reviewsFor, bioTowns, type Member } from '../../data/agents';
+import { business, origin } from '../../data/schema';
+import { site } from '../../data/site';
+
+export function getStaticPaths() {
+  return members.map((m) => ({ params: { slug: slugOf(m) }, props: { m } }));
+}
+const { m } = Astro.props as { m: Member };
+const first = firstName(m);
+const agent = isAgent(m);
+const url = `${origin}${agentHref(m)}`;
+const reviews = reviewsFor(m);
+const towns = bioTowns(m);
+const tel = `tel:+1${m.phone.replace(/\D/g, '')}`;
+// Their own Zillow profile, from the address of their Zillow reviews.
+const zillow = reviews.map((r: any) => r.source === 'Zillow' && r.agent === m.name && r.sourceUrl?.match(/^https?:\/\/www\.zillow\.com\/profile\/[^/]+/)?.[0].replace(/^http:/, 'https:')).find(Boolean);
+// A page with no bio and no reviews has nothing Google would want to show; it stays out of search.
+const thin = !m.bio && reviews.length === 0;
+const others = members.filter((x) => x !== m && isAgent(x) === agent).slice(0, 40);
+
+const description = m.bio
+  ? `${m.name}, ${m.title} with ${site.name} at ${site.brokerage}. ${m.bio}`.slice(0, 155).replace(/\s+\S*$/, '') + '…'
+  : `${m.name}, ${m.title} with ${site.name} at ${site.brokerage} in Burnsville, MN. Call ${m.phone}.`;
+
+const ld = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': agent ? ['RealEstateAgent', 'Person'] : 'Person',
+  '@id': `${url}#person`,
+  name: m.name,
+  jobTitle: m.title,
+  url,
+  image: new URL(m.photo, origin).href,
+  telephone: m.phone,
+  email: m.email,
+  ...(m.bio && { description: m.bio }),
+  worksFor: { '@id': business['@id'] },
+  ...(agent && m.license && {
+    hasCredential: {
+      '@type': 'EducationalOccupationalCredential', credentialCategory: 'license', name: `Minnesota real estate license ${m.license}`,
+      recognizedBy: { '@type': 'GovernmentOrganization', name: 'Minnesota Department of Commerce' },
+    },
+  }),
+  ...(towns.length && { areaServed: towns.map((c) => ({ '@type': 'City', name: `${c.name}, Minnesota`, url: `${origin}/communities/${c.slug}` })) }),
+  ...(zillow && { sameAs: [zillow] }),
+});
+---
+<Base
+  breadcrumbs={[{ name: 'Our team', href: '/team' }, { name: m.name, href: agentHref(m) }]}
+  title={`${m.name}, ${m.title} | ${site.name}`}
+  description={description}
+  image={m.photo}
+  noindex={thin}>
+  <script slot="head" type="application/ld+json" set:html={ld} />
+
+  <section class="profile">
+    <div class="wrap profile__grid">
+      <div class="profile__photo"><TeamPhoto photo={m.photo} alt={m.name} size={500} sizes="(max-width: 700px) 60vw, 22rem" loading="eager" /></div>
+      <div class="profile__body">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="/team">Our team</a><span aria-hidden="true">/</span><span>{m.name}</span></nav>
+        <h1>{m.name}</h1>
+        <p class="role">{m.title}</p>
+        <p class="org">{site.name} · {site.brokerage}{agent && m.license && <> · MN license {m.license}</>}</p>
+        {reviews.length > 0 && <p class="rating"><span aria-hidden="true">★★★★★</span> <a href="#reviews">{reviews.length} five-star {reviews.length === 1 ? 'review' : 'reviews'} that mention {first}</a></p>}
+        <div class="actions">
+          <a class="btn" href={tel}>Call {m.phone}</a>
+          <a class="btn btn--ghost" href={`mailto:${m.email}`}>Email {first}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {m.bio && (
+    <section class="section section--paper" aria-labelledby="about-title">
+      <div class="wrap about">
+        <div class="prose">
+          <p class="eyebrow">About {first}</p>
+          <h2 id="about-title">Meet {m.name}</h2>
+          <p>{m.bio}</p>
+        </div>
+        {towns.length > 0 && (
+          <aside class="towns">
+            <p class="eyebrow">Community guides</p>
+            {towns.map((c) => <a href={`/communities/${c.slug}`}><strong>{c.name}, MN</strong><span>Homes, schools, commutes and local stories</span></a>)}
+          </aside>
+        )}
+      </div>
+    </section>
+  )}
+
+  {reviews.length > 0 && (
+    <section class="section" id="reviews" aria-labelledby="reviews-title">
+      <div class="wrap">
+        <div class="head">
+          <p class="eyebrow">Client reviews</p>
+          <h2 id="reviews-title">What clients say about <em>{first}</em></h2>
+          <p>Complete reviews, word for word, from Google and Zillow.</p>
+        </div>
+        <div class="quotes">
+          {reviews.slice(0, 9).map((r: any) => (
+            <figure class="quote">
+              <p class="quote__stars" aria-label="5 out of 5 stars">★★★★★</p>
+              <blockquote>{r.headline && <strong>{r.headline}. </strong>}{r.text}</blockquote>
+              <figcaption><strong>{r.reviewer}</strong> <span>{r.source} review{r.sourceUrl && <> · <a href={r.sourceUrl} rel="noopener nofollow">source</a></>}</span></figcaption>
+            </figure>
+          ))}
+        </div>
+        <p class="more"><a class="link-arrow" href="/reviews">All team reviews</a></p>
+      </div>
+    </section>
+  )}
+
+  <section class="section section--dark" id="contact" aria-labelledby="contact-title">
+    <div class="wrap contact">
+      <div class="prose">
+        <p class="eyebrow">Get in touch</p>
+        <h2 id="contact-title">Talk with <em>{agent ? first : site.name}</em></h2>
+        <p>{agent ? `Send ${first} a note about buying, selling or your home's value. There's no cost and no pressure.` : `Questions about buying or selling? Our team will get back to you.`}</p>
+        <p><a href={tel}>{m.phone}</a><br /><a href={`mailto:${m.email}`}>{m.email}</a></p>
+      </div>
+      <form class="form" data-lead="agent">
+        <input type="hidden" name="agent" value={m.name} />
+        <div class="form__row">
+          <div class="field"><label for="a-first">First name</label><input id="a-first" name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for="a-last">Last name</label><input id="a-last" name="lastName" autocomplete="family-name" required /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="a-email">Email</label><input id="a-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="a-phone">Phone</label><input id="a-phone" name="phone" type="tel" autocomplete="tel" /></div>
+        </div>
+        <div class="field">
+          <label for="a-topic">I'm interested in</label>
+          <select id="a-topic" name="topic">
+            <option value="">Choose one</option>
+            <option>Buying</option>
+            <option>Selling</option>
+            <option>Buying and selling</option>
+            <option>Something else</option>
+          </select>
+        </div>
+        <div class="field"><label for="a-message">Message</label><textarea id="a-message" name="message"></textarea></div>
+        <button class="btn" type="submit">Send to {agent ? first : 'our team'}</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section section--paper" aria-labelledby="others-title">
+    <div class="wrap">
+      <div class="head"><p class="eyebrow">{site.name}</p><h2 id="others-title">{agent ? 'More of our agents' : 'More of our team'}</h2></div>
+      <ul class="others">
+        {others.map((x) => <li><a href={agentHref(x)}><TeamPhoto photo={x.photo} alt="" size={320} sizes="6rem" /><span><strong>{x.name}</strong>{x.title}</span></a></li>)}
+      </ul>
+      <p class="more"><a class="link-arrow" href="/team">Meet the whole team</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .profile { padding-block: clamp(2rem, 5vw, 3.5rem); background: var(--sand); }
+  .profile__grid { display: grid; grid-template-columns: 20rem minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3rem); align-items: center; }
+  @media (max-width: 700px) { .profile__grid { grid-template-columns: 1fr; } .profile__photo { max-width: 16rem; } }
+  .profile__photo :global(img) { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border-bottom: 4px solid var(--crimson); background: var(--night); }
+  .profile__body { display: grid; gap: .6rem; justify-items: start; }
+  .crumbs { display: flex; gap: .5rem; font: 700 .72rem/1.3 var(--ui); letter-spacing: .14em; text-transform: uppercase; color: var(--text-soft); }
+  .crumbs a { color: var(--crimson); text-decoration: none; }
+  .profile h1 { font: 500 clamp(2.4rem, 5vw, 3.6rem)/1.05 var(--serif-display); }
+  .role { font: 700 .78rem/1.3 var(--ui); letter-spacing: .14em; text-transform: uppercase; color: var(--crimson); }
+  .org { color: var(--text-soft); }
+  .rating span { color: #c9a227; letter-spacing: .1em; }
+  .rating a { color: var(--text); }
+  .actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: .5rem; }
+  .about { display: grid; grid-template-columns: minmax(0, 1fr) 19rem; gap: clamp(1.5rem, 4vw, 3rem); align-items: start; }
+  @media (max-width: 860px) { .about { grid-template-columns: 1fr; } }
+  .about .prose p:not(.eyebrow) { font-size: 1.05rem; line-height: 1.75; }
+  .towns { display: grid; gap: .9rem; padding: 1.5rem; background: var(--paper); border-left: 4px solid var(--crimson); }
+  .towns a { display: grid; gap: .15rem; text-decoration: none; color: var(--text); }
+  .towns strong { font: 600 1.25rem/1.2 var(--serif); }
+  .towns span { color: var(--text-soft); font-size: .92rem; }
+  .towns a:hover strong { color: var(--crimson); }
+  .quotes { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); gap: 1.5rem; }
+  .quote { display: grid; gap: .75rem; align-content: start; margin: 0; padding: 1.5rem; background: var(--paper); border: 1px solid var(--line); }
+  .quote__stars { color: #c9a227; letter-spacing: .1em; }
+  .quote blockquote { margin: 0; color: var(--text); line-height: 1.65; }
+  .quote figcaption { display: grid; gap: .15rem; font-size: .9rem; color: var(--text-soft); }
+  .quote figcaption a { color: var(--text-soft); }
+  .more { margin-top: 1.75rem; }
+  .contact { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 860px) { .contact { grid-template-columns: 1fr; } }
+  .contact .prose a { color: #fff; }
+  .others { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); gap: .75rem 1.5rem; }
+  .others a { display: grid; grid-template-columns: 3.5rem 1fr; gap: .85rem; align-items: center; text-decoration: none; color: var(--text-soft); font-size: .85rem; }
+  .others :global(img) { width: 3.5rem; height: 3.5rem; object-fit: cover; border-radius: 50%; background: var(--night); }
+  .others span { display: grid; }
+  .others strong { color: var(--text); font-size: 1rem; }
+  .others a:hover strong { color: var(--crimson); }
+</style>

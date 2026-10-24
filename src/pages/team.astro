@@ -5,6 +5,7 @@ import PageHero from '../components/PageHero.astro';
 import TeamPhoto from '../components/TeamPhoto.astro';
 import team from '../data/team.json';
 import { site } from '../data/site';
+import { agentHref } from '../data/agents';
 
 const members = team.members;
 const founders = members.filter((m) => m.name === 'Jason Huerkamp' || m.name === 'Brooke Huerkamp');
@@ -17,7 +18,8 @@ const big = (m: { photo: string }) => `/people/${m.photo.split('/').pop()!.repla
 const ld = JSON.stringify({
   '@context': 'https://schema.org',
   '@graph': members.map((m) => ({
-    '@type': 'RealEstateAgent', name: m.name, jobTitle: m.title, telephone: m.phone, email: m.email,
+    '@type': 'RealEstateAgent', '@id': `https://www.huerkamphomegroup.com${agentHref(m)}#person`, url: `https://www.huerkamphomegroup.com${agentHref(m)}`,
+    name: m.name, jobTitle: m.title, telephone: m.phone, email: m.email,
     image: new URL(m.photo, 'https://www.huerkamphomegroup.com').href,
     worksFor: { '@id': 'https://www.huerkamphomegroup.com/#business' },
   })),
@@ -43,7 +45,7 @@ const ld = JSON.stringify({
               <img src={`${big(m)}.jpg`} alt={m.name} width="360" height="360" loading="lazy" />
             </picture>
             <div class="founder__body">
-              <h3>{m.name}</h3>
+              <h3><a href={agentHref(m)}>{m.name}</a></h3>
               <p class="role">{m.title}{m.license && ` · MN license ${m.license}`}</p>
               <p class="contact"><a href={`tel:+1${m.phone.replace(/\D/g, '')}`}>{m.phone}</a> · <a href={`mailto:${m.email}`}>{m.email}</a></p>
               {m.bio && <details><summary>Read bio</summary><p>{m.bio}</p></details>}
@@ -64,11 +66,11 @@ const ld = JSON.stringify({
         <ul class="people">
           {group.list.map((m) => (
             <li class="person">
-              <TeamPhoto photo={m.photo} alt={m.name} size={320} sizes="(max-width: 480px) 45vw, 16rem" />
-              <h3>{m.name}</h3>
+              <a href={agentHref(m)} tabindex="-1" aria-hidden="true"><TeamPhoto photo={m.photo} alt="" size={320} sizes="(max-width: 480px) 45vw, 16rem" /></a>
+              <h3><a href={agentHref(m)}>{m.name}</a></h3>
               <p class="role">{m.title}</p>
               <p class="contact"><a href={`tel:+1${m.phone.replace(/\D/g, '')}`}>{m.phone}</a></p>
-              {m.bio && <details><summary>Read bio</summary><p>{m.bio}</p></details>}
+              <a class="profile-link" href={agentHref(m)}>View profile<span class="visually-hidden"> of {m.name}</span></a>
             </li>
           ))}
         </ul>
@@ -106,6 +108,9 @@ const ld = JSON.stringify({
   .person { display: grid; gap: .35rem; align-content: start; }
   .person :global(img) { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; margin-bottom: .5rem; background: var(--night); }
   .person h3 { font-size: 1.35rem; }
+  .person h3 a, .founder h3 a { color: var(--text); text-decoration: none; }
+  .person h3 a:hover, .founder h3 a:hover { color: var(--crimson); }
+  .profile-link { font: 700 .8rem/1 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--ink); margin-top: .25rem; }
 
   .join { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2rem; }
 </style>
