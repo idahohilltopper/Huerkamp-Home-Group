@@ -226,3 +226,15 @@ Jason asked to model the site on markzproperties.com, replace that team's brandi
 ## Blog (2026-10-22)
 
 All 361 Squarespace posts imported at their exact old addresses with 2,339 images (WebP, 80 MB in `public/blog/`). New blog: list with categories and page numbers, post pages with author box, call-to-action and related posts, RSS feed, BlogPosting/VideoObject structured data, fast YouTube players, newest posts on the home page, "Blog" in the menu. Every one of the 406 addresses in the old sitemap now resolves (page or 301). Lighthouse (phone): blog list 97, posts 97–100. How to add posts: `docs/blog-guide.md`.
+
+## IDX decision: Ylopo (2026-10-24)
+
+Jason chose to keep the team's **Ylopo** home search (search.huerkamphomegroup.com) as the IDX for now. A custom search on our own NorthstarMLS feed can replace it later; every link is built in one file, `src/data/ylopo.ts`.
+
+- **Deep links** (format read from the search site's own URLs): `s[locations][i][city]` + `[state]=MN`, or `s[locations][i][postalCode]`; filters `s[minPrice]`, `s[maxPrice]`, `s[beds]` (minimum), `s[propertyTypes][0]` = house | townhouse | condo; sorted newest first.
+- **City names** in `src/data/ylopo-cities.json`, checked against Ylopo's autocomplete: "St." towns are "Saint …" in the MLS (West Saint Paul, etc.). Deephaven, Tonka Bay, Woodland, Lexington, Landfall, Birchwood Village, Coates and Miesville have no listings under their own name (homes use a neighbor's mailing city), so they link to their ZIP codes with a note. Empire, Minnetonka Beach and Credit River get a "tell us and we'll set up a search" note instead.
+- **Community pages**: "See all homes for sale" button, price-range cards, home type and bedroom shortcuts, at-a-glance link, and a "Homes for sale" link per ZIP. The MLS placeholders (list price, days on market) were removed; Ylopo doesn't provide those figures to embed.
+- **Lake Homes**: each lake links to a search across its shoreline cities.
+- **Buy page search box**: a typed city name or ZIP goes straight to those listings; anything else opens the search home page.
+- The old Squarespace site also linked "Get Cash Offer", "Sell Your Home" and "Home Valuation" to Fello landing pages (huerkamphomegroup.hifello.com). Ask Jason whether the new site's seller forms should feed Fello or Follow Up Boss.
+- Link check (2026-10-24): all 146 city/ZIP links open the right search. Ten very small cities (Dellwood, Hilltop, Lake Saint Croix Beach, Lakeland Shores, Lilydale, Medicine Lake, New Trier, Pine Springs, Spring Lake Park, Saint Marys Point) had 0 homes for sale that day; their links are still correct and let visitors save the search for alerts.

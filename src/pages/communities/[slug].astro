@@ -1,7 +1,7 @@
 ---
 // Community page, modeled section by section on nevadarealestategroup.com's city pages.
-// Every figure comes from src/data (Census, TIGER, OSRM); MLS-based figures show a
-// pending state until the NorthstarMLS feed is connected (build step 7).
+// Every figure comes from src/data (Census, TIGER, OSRM). Listings open in the team's
+// Ylopo home search (src/data/ylopo.ts).
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import TeamPhoto from '../../components/TeamPhoto.astro';
@@ -13,6 +13,7 @@ import detailData from '../../data/community-details.json';
 import reviewData from '../../data/reviews.json';
 import team from '../../data/team.json';
 import { site } from '../../data/site';
+import { communitySearch, searchUrl, ylopoPlace } from '../../data/ylopo';
 
 export function getStaticPaths() {
   return communities.map((c) => ({ params: { slug: c.slug }, props: { c } }));
@@ -85,7 +86,7 @@ const takeaways = [
 
 const faqs = [
   { q: `What is the median home value in ${c.name}?`,
-    a: `The Census Bureau's 2020–2024 American Community Survey puts the median value of owner-occupied homes in ${c.name} at ${money(a.medianHomeValue)}${cmp(a.medianHomeValue, county.medianHomeValue, `the ${countyName} median`)} (${countyName}: ${money(county.medianHomeValue)}). These are owner estimates; current list prices come from the MLS and will appear on this page once our listing feed is connected.` },
+    a: `The Census Bureau's 2020–2024 American Community Survey puts the median value of owner-occupied homes in ${c.name} at ${money(a.medianHomeValue)}${cmp(a.medianHomeValue, county.medianHomeValue, `the ${countyName} median`)} (${countyName}: ${money(county.medianHomeValue)}). These are owner estimates; for current asking prices, see the ${c.name} homes for sale in our home search.` },
   { q: `How many people live in ${c.name}, MN?`,
     a: `About ${fmt(c.population2024)} people, according to the Census Bureau's 2024 estimate. The city ${growthWord} ${c.growthPct === 0 ? '' : `by ${Math.abs(c.growthPct)}% `}between 2020 and 2024.` },
   { q: `Which school district serves ${c.name}?`,
@@ -110,8 +111,26 @@ const faqLd = JSON.stringify({
   mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
 });
 
-const priceBands = ['Under $300K', '$300K – $450K', '$450K – $650K', '$650K – $1M', 'Over $1M'];
-const browse = ['Single-family homes', 'Townhomes', 'Condos', 'New construction', 'Lake homes', 'One-level living', 'Under $400K', 'Luxury', 'Open houses', 'Price reduced'];
+const priceBands = [
+  { label: 'Under $300K', maxPrice: 300000 },
+  { label: '$300K – $450K', minPrice: 300000, maxPrice: 450000 },
+  { label: '$450K – $650K', minPrice: 450000, maxPrice: 650000 },
+  { label: '$650K – $1M', minPrice: 650000, maxPrice: 1000000 },
+  { label: 'Over $1M', minPrice: 1000000 },
+];
+const place = ylopoPlace(c.slug);
+const searchable = !!(place.city || place.zips?.length);
+const allHomes = communitySearch(c.slug);
+const browse = [
+  { label: 'Single-family homes', href: communitySearch(c.slug, { type: 'house' }) },
+  { label: 'Townhomes', href: communitySearch(c.slug, { type: 'townhouse' }) },
+  { label: 'Condos', href: communitySearch(c.slug, { type: 'condo' }) },
+  { label: '3+ bedrooms', href: communitySearch(c.slug, { beds: 3 }) },
+  { label: '4+ bedrooms', href: communitySearch(c.slug, { beds: 4 }) },
+  { label: 'Under $400K', href: communitySearch(c.slug, { maxPrice: 400000 }) },
+  { label: 'Luxury ($1M+)', href: communitySearch(c.slug, { minPrice: 1000000 }) },
+  ...(d.lakes?.length ? [{ label: 'Lake homes', href: '/lake-homes' }] : []),
+];
 const pending = `Thanks! Online forms are still being connected. For now, call ${site.phone} or email ${site.email}.`;
 const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 1000 : 400000;
 ---
@@ -147,18 +166,33 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
       <div class="head">
         <p class="eyebrow">For sale now</p>
         <h2 id="listings-title">Where can I find <em>{c.name} homes for sale?</em></h2>
-        <p>The newest {c.name} listings, with photos, prices and monthly payment estimates, appear here once our NorthstarMLS feed is connected.</p>
+        <p>Every {c.name} listing on the NorthstarMLS, newest first, with photos, maps and saved-search alerts in our home search.</p>
       </div>
-      <div class="mls-pending" role="note"><strong>Live listings coming soon.</strong> Until then, <a href="#alerts">sign up for alerts</a> or <a href={site.phoneHref}>call {site.phone}</a> and we'll send you every new {c.name} listing.</div>
-
-      <h3 class="subhead">How many {c.name} homes are for sale in each price range?</h3>
-      <div class="bands">
-        {priceBands.map((b) => <div class="band"><span>{b}</span><strong>—</strong><span>active listings</span></div>)}
+      <div class="search-row">
+        <a class="btn" href={allHomes} rel="noopener">{searchable ? `See all ${c.name} homes for sale` : 'Search all Twin Cities homes'}</a>
+        <a class="btn btn--ghost-dark" href="#alerts">Get new-listing alerts</a>
       </div>
+      {place.zips && (
+        <p class="search-note">{c.name} homes are listed under {place.zips.length === 1 ? 'ZIP code' : 'ZIP codes'} {place.zips.join(' and ')}, which {place.zips.length === 1 ? 'also covers' : 'also cover'} nearby areas.</p>
+      )}
+      {!searchable && (
+        <p class="search-note">{c.name} homes are listed under neighboring cities' mailing addresses. <a href="#contact">Tell us what you're looking for</a> and we'll set up a {c.name} search for you.</p>
+      )}
 
-      <h3 class="subhead">Find a {c.name} home by type, lifestyle and price</h3>
-      <ul class="chips">{browse.map((b) => <li><span class="chip" aria-disabled="true">{b}</span></li>)}</ul>
-      <p class="source">Counts and search links go live with the MLS feed.</p>
+      {searchable && (
+        <>
+          <h3 class="subhead">Browse {c.name} homes by price</h3>
+          <ul class="bands">
+            {priceBands.map(({ label, ...f }) => (
+              <li><a class="band" href={communitySearch(c.slug, f)} rel="noopener"><span>{label}</span><strong>See homes →</strong></a></li>
+            ))}
+          </ul>
+
+          <h3 class="subhead">Find a {c.name} home by type and size</h3>
+          <ul class="chips">{browse.map((b) => <li><a class="chip" href={b.href}>{b.label}</a></li>)}</ul>
+        </>
+      )}
+      <p class="source">Listings from NorthstarMLS through our home search at search.huerkamphomegroup.com.</p>
     </div>
   </section>
 
@@ -182,7 +216,7 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
         </div>
         <div class="field">
           <label for="al-price">Max price</label>
-          <select id="al-price" name="maxPrice"><option value="">Any</option>{priceBands.map((b) => <option>{b}</option>)}</select>
+          <select id="al-price" name="maxPrice"><option value="">Any</option>{priceBands.map((b) => <option>{b.label}</option>)}</select>
         </div>
         <input type="hidden" name="community" value={c.name} />
         <button class="btn" type="submit">Create my alert</button>
@@ -211,13 +245,7 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
         <AreaMap src={communityGeoUrl} info={communityInfo} mode="focus" focus={c.slug} label="Hover a community" height="560px" />
         <aside class="glance" aria-labelledby="glance-panel">
           <h3 id="glance-panel">{c.name} <span>at a glance</span></h3>
-          <div class="glance__market">
-            <div><strong>—</strong><span>Median list price</span></div>
-            <div><strong>—</strong><span>Active listings</span></div>
-            <div><strong>—</strong><span>Price / sq ft</span></div>
-            <div><strong>—</strong><span>Days on market</span></div>
-          </div>
-          <p class="glance__note">Market figures appear when MLS data is connected.</p>
+          <a class="glance__search" href={allHomes} rel="noopener">{searchable ? `See ${c.name} homes for sale →` : 'Search homes for sale →'}</a>
           <dl class="glance__facts">
             <div><dt>Population (2024)</dt><dd>{fmt(c.population2024)}</dd></div>
             <div><dt>Median home value</dt><dd>{money(a.medianHomeValue)}</dd></div>
@@ -301,14 +329,14 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
         <div class="head">
           <p class="eyebrow">By ZIP code</p>
           <h2 id="zip-title">What does {c.name} look like <em>by ZIP code?</em></h2>
-          <p>{d.zips.length === 1 ? `ZIP ${d.zips[0].zip} covers most of ${c.name}.` : `${d.zips.length} ZIP codes cover most of ${c.name}.`} Median list prices and days on market by ZIP will be added from the MLS.</p>
+          <p>{d.zips.length === 1 ? `ZIP ${d.zips[0].zip} covers most of ${c.name}.` : `${d.zips.length} ZIP codes cover most of ${c.name}.`}</p>
         </div>
         <div class="table-scroll">
           <table class="data">
-            <thead><tr><th scope="col">ZIP</th><th scope="col" class="num">Share of city</th><th scope="col" class="num">Median home value</th><th scope="col" class="num">Median household income</th><th scope="col" class="num">Homeowners</th><th scope="col" class="num">Median list price</th><th scope="col" class="num">Days on market</th></tr></thead>
+            <thead><tr><th scope="col">ZIP</th><th scope="col" class="num">Share of city</th><th scope="col" class="num">Median home value</th><th scope="col" class="num">Median household income</th><th scope="col" class="num">Homeowners</th><th scope="col"><span class="visually-hidden">Listings</span></th></tr></thead>
             <tbody>
               {d.zips.map((z: any) => (
-                <tr><th scope="row">{z.zip}</th><td class="num">{z.pctOfCityLand}%</td><td class="num">{money(z.medianHomeValue)}</td><td class="num">{money(z.medianHouseholdIncome)}</td><td class="num">{pctS(z.ownerOccupiedPct)}</td><td class="num muted">MLS</td><td class="num muted">MLS</td></tr>
+                <tr><th scope="row">{z.zip}</th><td class="num">{z.pctOfCityLand}%</td><td class="num">{money(z.medianHomeValue)}</td><td class="num">{money(z.medianHouseholdIncome)}</td><td class="num">{pctS(z.ownerOccupiedPct)}</td><td><a href={searchUrl({ zips: [z.zip] })} rel="noopener">Homes for sale</a></td></tr>
               ))}
             </tbody>
           </table>
@@ -376,7 +404,7 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
       <div class="head">
         <p class="eyebrow">City comparison</p>
         <h2 id="compare-title">How does {c.name} compare to <em>{list(compareSet.slice(1).map((x) => x.name))}?</em></h2>
-        <p>The three communities with the shortest drive from {c.name}, side by side. Market figures (list price, days on market) will be added from the MLS.</p>
+        <p>The three communities with the shortest drive from {c.name}, side by side.</p>
       </div>
       <div class="table-scroll">
         <table class="data compare">
@@ -391,7 +419,6 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
             <tr><th scope="row">Median age</th>{compareSet.map((x) => <td class="num">{x.acs.medianAge}</td>)}</tr>
             <tr><th scope="row">Average commute</th>{compareSet.map((x) => <td class="num">{x.acs.meanCommuteMinutes} min</td>)}</tr>
             <tr><th scope="row">Drive to downtown Minneapolis</th>{compareSet.map((x) => <td class="num">{x.drive} min</td>)}</tr>
-            <tr><th scope="row">Median list price</th>{compareSet.map(() => <td class="num muted">MLS</td>)}</tr>
           </tbody>
         </table>
       </div>
@@ -459,7 +486,7 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
       <div class="prose">
         <p class="eyebrow">This weekend's open houses</p>
         <h2 id="open-title">Can you tour {c.name} homes <em>this weekend?</em></h2>
-        <p>Open houses from the MLS will be listed here. Until then, ask us for a private showing of any {c.name} home.</p>
+        <p>Found a {c.name} home you like? We'll set up a private showing, usually within a day or two, or tell you when it has an open house.</p>
       </div>
       <div class="cta-row__actions"><a class="btn" href="#contact">Request a showing</a><a class="btn btn--ghost" href="#alerts">Get open-house alerts</a></div>
     </div>
@@ -619,16 +646,20 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
   .takeaways { margin: .5rem 0; padding-left: 1.2rem; display: grid; gap: .6rem; color: var(--text); font-size: 1.05rem; }
   .takeaways li::marker { color: var(--gold); }
 
-  .mls-pending { padding: 1.25rem 1.5rem; border: 1px dashed var(--gold); background: var(--surface); color: var(--text-soft); }
-  .mls-pending strong { color: var(--text); }
-  .mls-pending a { color: var(--eyebrow); }
-  .bands { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 1rem; }
-  .band { display: grid; gap: .25rem; padding: 1.1rem 1.25rem; background: var(--surface); border: 1px solid var(--line); }
+  .search-row { display: flex; flex-wrap: wrap; gap: .75rem; }
+  .btn--ghost-dark { background: transparent; color: var(--text); border: 1px solid var(--text); }
+  .btn--ghost-dark:hover { border-color: var(--crimson); color: var(--crimson); }
+  .search-note { margin-top: .75rem; font-size: .95rem; color: var(--text-soft); }
+  .search-note a { color: var(--crimson); }
+  .bands { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 1rem; }
+  .band { display: grid; gap: .5rem; padding: 1.1rem 1.25rem; background: var(--surface); border: 1px solid var(--line); text-decoration: none; height: 100%; }
+  .band:hover { border-color: var(--crimson); }
+  .band:hover strong { color: var(--crimson); }
   .band span:first-child { font: 700 .75rem/1.2 var(--ui); letter-spacing: .08em; text-transform: uppercase; color: var(--eyebrow); }
-  .band strong { font: 400 2rem/1 var(--serif-display); color: var(--text); }
-  .band span:last-child { font-size: .85rem; color: var(--text-soft); }
+  .band strong { font: 700 .95rem/1.2 var(--ui); color: var(--text); }
   .chips { list-style: none; padding: 0; margin: 0 0 .75rem; display: flex; flex-wrap: wrap; gap: .5rem; }
-  .chip { display: inline-block; padding: .5rem .95rem; border: 1px solid var(--line); border-radius: 999px; font-size: .92rem; color: var(--text-soft); background: var(--surface); }
+  .chip { display: inline-block; padding: .5rem .95rem; border: 1px solid var(--line); border-radius: 999px; font-size: .92rem; color: var(--text); background: var(--surface); text-decoration: none; }
+  .chip:hover { border-color: var(--crimson); color: var(--crimson); }
 
   .ticks { list-style: none; padding: 0; display: grid; gap: .6rem; }
   .ticks li { position: relative; padding-left: 1.5rem; }
@@ -647,11 +678,8 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
   @media (max-width: 900px) { .glance-grid { grid-template-columns: 1fr; } }
   .glance { display: grid; gap: 1rem; padding: 1.75rem; background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--gold); }
   .glance h3 span { font: 700 .75rem/1 var(--ui); letter-spacing: .14em; text-transform: uppercase; color: var(--eyebrow); margin-left: .35rem; }
-  .glance__market { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
-  .glance__market div { display: grid; gap: .25rem; padding: .9rem 1rem; background: var(--bg); }
-  .glance__market strong { font: 600 1.4rem/1 var(--sans); color: var(--text); }
-  .glance__market span { font: 700 .68rem/1.2 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--text-soft); }
-  .glance__note { font-size: .82rem; color: var(--text-soft); }
+  .glance__search { display: block; padding: .9rem 1rem; background: var(--crimson); color: #fff; font: 700 .95rem/1.2 var(--ui); text-decoration: none; text-align: center; }
+  .glance__search:hover { background: var(--crimson-deep); }
   .glance__facts { margin: 0; display: grid; }
   .glance__facts div { display: flex; justify-content: space-between; gap: 1rem; padding: .7rem 0; border-bottom: 1px solid var(--line); }
   .glance__facts dt { font: 700 .72rem/1.4 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--text-soft); }
@@ -672,7 +700,7 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
   .districts span { color: var(--text-soft); white-space: nowrap; }
   .prose a:not(.btn) { color: var(--eyebrow); }
 
-  .table-scroll { overflow-x: auto; }
+  .table-scroll { overflow-x: auto; position: relative; }
   .data { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
   .data th, .data td { padding: .8rem .9rem; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; color: var(--text); }
   .data thead th { font: 700 .72rem/1.2 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--eyebrow); }

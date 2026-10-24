@@ -1,0 +1,464 @@
+{
+ "_note": "How each community appears in the Ylopo home search (checked against its autocomplete, 2026-10-24). Cities with no listings filed under their own name link to their ZIP codes instead; {} means no reliable link, so the general search is used.",
+ "communities": {
+  "minneapolis": {
+   "city": "Minneapolis"
+  },
+  "saint-paul": {
+   "city": "Saint Paul"
+  },
+  "bloomington": {
+   "city": "Bloomington"
+  },
+  "brooklyn-park": {
+   "city": "Brooklyn Park"
+  },
+  "woodbury": {
+   "city": "Woodbury"
+  },
+  "plymouth": {
+   "city": "Plymouth"
+  },
+  "lakeville": {
+   "city": "Lakeville"
+  },
+  "blaine": {
+   "city": "Blaine"
+  },
+  "maple-grove": {
+   "city": "Maple Grove"
+  },
+  "eagan": {
+   "city": "Eagan"
+  },
+  "burnsville": {
+   "city": "Burnsville"
+  },
+  "coon-rapids": {
+   "city": "Coon Rapids"
+  },
+  "eden-prairie": {
+   "city": "Eden Prairie"
+  },
+  "apple-valley": {
+   "city": "Apple Valley"
+  },
+  "edina": {
+   "city": "Edina"
+  },
+  "minnetonka": {
+   "city": "Minnetonka"
+  },
+  "st-louis-park": {
+   "city": "St. Louis Park"
+  },
+  "shakopee": {
+   "city": "Shakopee"
+  },
+  "cottage-grove": {
+   "city": "Cottage Grove"
+  },
+  "maplewood": {
+   "city": "Maplewood"
+  },
+  "richfield": {
+   "city": "Richfield"
+  },
+  "inver-grove-heights": {
+   "city": "Inver Grove Heights"
+  },
+  "roseville": {
+   "city": "Roseville"
+  },
+  "andover": {
+   "city": "Andover"
+  },
+  "savage": {
+   "city": "Savage"
+  },
+  "brooklyn-center": {
+   "city": "Brooklyn Center"
+  },
+  "fridley": {
+   "city": "Fridley"
+  },
+  "rosemount": {
+   "city": "Rosemount"
+  },
+  "oakdale": {
+   "city": "Oakdale"
+  },
+  "chaska": {
+   "city": "Chaska"
+  },
+  "ramsey": {
+   "city": "Ramsey"
+  },
+  "prior-lake": {
+   "city": "Prior Lake"
+  },
+  "shoreview": {
+   "city": "Shoreview"
+  },
+  "owatonna": {
+   "city": "Owatonna"
+  },
+  "chanhassen": {
+   "city": "Chanhassen"
+  },
+  "faribault": {
+   "city": "Faribault"
+  },
+  "farmington": {
+   "city": "Farmington"
+  },
+  "white-bear-lake": {
+   "city": "White Bear Lake"
+  },
+  "champlin": {
+   "city": "Champlin"
+  },
+  "lino-lakes": {
+   "city": "Lino Lakes"
+  },
+  "hastings": {
+   "city": "Hastings"
+  },
+  "new-brighton": {
+   "city": "New Brighton"
+  },
+  "columbia-heights": {
+   "city": "Columbia Heights"
+  },
+  "crystal": {
+   "city": "Crystal"
+  },
+  "west-st-paul": {
+   "city": "West Saint Paul"
+  },
+  "northfield": {
+   "city": "Northfield"
+  },
+  "golden-valley": {
+   "city": "Golden Valley"
+  },
+  "new-hope": {
+   "city": "New Hope"
+  },
+  "forest-lake": {
+   "city": "Forest Lake"
+  },
+  "south-st-paul": {
+   "city": "South Saint Paul"
+  },
+  "hopkins": {
+   "city": "Hopkins"
+  },
+  "stillwater": {
+   "city": "Stillwater"
+  },
+  "anoka": {
+   "city": "Anoka"
+  },
+  "ham-lake": {
+   "city": "Ham Lake"
+  },
+  "hugo": {
+   "city": "Hugo"
+  },
+  "rogers": {
+   "city": "Rogers"
+  },
+  "lake-elmo": {
+   "city": "Lake Elmo"
+  },
+  "robbinsdale": {
+   "city": "Robbinsdale"
+  },
+  "waconia": {
+   "city": "Waconia"
+  },
+  "vadnais-heights": {
+   "city": "Vadnais Heights"
+  },
+  "mounds-view": {
+   "city": "Mounds View"
+  },
+  "north-st-paul": {
+   "city": "North Saint Paul"
+  },
+  "east-bethel": {
+   "city": "East Bethel"
+  },
+  "victoria": {
+   "city": "Victoria"
+  },
+  "mendota-heights": {
+   "city": "Mendota Heights"
+  },
+  "dayton": {
+   "city": "Dayton"
+  },
+  "little-canada": {
+   "city": "Little Canada"
+  },
+  "st-anthony": {
+   "city": "Saint Anthony"
+  },
+  "arden-hills": {
+   "city": "Arden Hills"
+  },
+  "oak-grove": {
+   "city": "Oak Grove"
+  },
+  "minnetrista": {
+   "city": "Minnetrista"
+  },
+  "mound": {
+   "city": "Mound"
+  },
+  "st-francis": {
+   "city": "Saint Francis"
+  },
+  "corcoran": {
+   "city": "Corcoran"
+  },
+  "new-prague": {
+   "city": "New Prague"
+  },
+  "orono": {
+   "city": "Orono"
+  },
+  "mahtomedi": {
+   "city": "Mahtomedi"
+  },
+  "shorewood": {
+   "city": "Shorewood"
+  },
+  "belle-plaine": {
+   "city": "Belle Plaine"
+  },
+  "medina": {
+   "city": "Medina"
+  },
+  "spring-lake-park": {
+   "city": "Spring Lake Park"
+  },
+  "jordan": {
+   "city": "Jordan"
+  },
+  "carver": {
+   "city": "Carver"
+  },
+  "credit-river": {},
+  "newport": {
+   "city": "Newport"
+  },
+  "st-paul-park": {
+   "city": "Saint Paul Park"
+  },
+  "north-oaks": {
+   "city": "North Oaks"
+  },
+  "elko-new-market": {
+   "city": "Elko New Market"
+  },
+  "falcon-heights": {
+   "city": "Falcon Heights"
+  },
+  "circle-pines": {
+   "city": "Circle Pines"
+  },
+  "rockford": {
+   "city": "Rockford"
+  },
+  "watertown": {
+   "city": "Watertown"
+  },
+  "oak-park-heights": {
+   "city": "Oak Park Heights"
+  },
+  "nowthen": {
+   "city": "Nowthen"
+  },
+  "wayzata": {
+   "city": "Wayzata"
+  },
+  "columbus": {
+   "city": "Columbus"
+  },
+  "le-sueur": {
+   "city": "Le Sueur"
+  },
+  "hanover": {
+   "city": "Hanover"
+  },
+  "centerville": {
+   "city": "Centerville"
+  },
+  "scandia": {
+   "city": "Scandia"
+  },
+  "grant": {
+   "city": "Grant"
+  },
+  "bayport": {
+   "city": "Bayport"
+  },
+  "norwood-young-america": {
+   "city": "Norwood Young America"
+  },
+  "deephaven": {
+   "zips": [
+    "55391",
+    "55331"
+   ]
+  },
+  "independence": {
+   "city": "Independence"
+  },
+  "empire": {},
+  "lexington": {
+   "zips": [
+    "55014"
+   ]
+  },
+  "afton": {
+   "city": "Afton"
+  },
+  "greenfield": {
+   "city": "Greenfield"
+  },
+  "mayer": {
+   "city": "Mayer"
+  },
+  "osseo": {
+   "city": "Osseo"
+  },
+  "lauderdale": {
+   "city": "Lauderdale"
+  },
+  "excelsior": {
+   "city": "Excelsior"
+  },
+  "st-bonifacius": {
+   "city": "Saint Bonifacius"
+  },
+  "cologne": {
+   "city": "Cologne"
+  },
+  "long-lake": {
+   "city": "Long Lake"
+  },
+  "dundas": {
+   "city": "Dundas"
+  },
+  "lakeland": {
+   "city": "Lakeland"
+  },
+  "maple-plain": {
+   "city": "Maple Plain"
+  },
+  "spring-park": {
+   "city": "Spring Park"
+  },
+  "tonka-bay": {
+   "zips": [
+    "55331"
+   ]
+  },
+  "medicine-lake": {
+   "city": "Medicine Lake"
+  },
+  "dellwood": {
+   "city": "Dellwood"
+  },
+  "lake-st-croix-beach": {
+   "city": "Lake Saint Croix Beach"
+  },
+  "hilltop": {
+   "city": "Hilltop"
+  },
+  "landfall": {
+   "zips": [
+    "55128"
+   ]
+  },
+  "birchwood-village": {
+   "zips": [
+    "55110"
+   ]
+  },
+  "lilydale": {
+   "city": "Lilydale"
+  },
+  "hampton": {
+   "city": "Hampton"
+  },
+  "greenwood": {
+   "city": "Greenwood"
+  },
+  "marine-on-st-croix": {
+   "city": "Marine On Saint Croix"
+  },
+  "loretto": {
+   "city": "Loretto"
+  },
+  "hamburg": {
+   "city": "Hamburg"
+  },
+  "minnetonka-beach": {},
+  "sunfish-lake": {
+   "city": "Sunfish Lake"
+  },
+  "gem-lake": {
+   "city": "Gem Lake"
+  },
+  "willernie": {
+   "city": "Willernie"
+  },
+  "bethel": {
+   "city": "Bethel"
+  },
+  "randolph": {
+   "city": "Randolph"
+  },
+  "new-germany": {
+   "city": "New Germany"
+  },
+  "vermillion": {
+   "city": "Vermillion"
+  },
+  "pine-springs": {
+   "city": "Pine Springs"
+  },
+  "woodland": {
+   "zips": [
+    "55391"
+   ]
+  },
+  "st-marys-point": {
+   "city": "Saint Marys Point"
+  },
+  "lakeland-shores": {
+   "city": "Lakeland Shores"
+  },
+  "mendota": {
+   "city": "Mendota"
+  },
+  "coates": {
+   "zips": [
+    "55068"
+   ]
+  },
+  "miesville": {
+   "zips": [
+    "55009",
+    "55033"
+   ]
+  },
+  "new-trier": {
+   "city": "New Trier"
+  }
+ }
+}

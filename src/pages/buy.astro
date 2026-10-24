@@ -3,7 +3,14 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import Quotes from '../components/Quotes.astro';
 import { site } from '../data/site';
+import { communities } from '../data/areas';
+import { communitySearch } from '../data/ylopo';
 
+// Typed city names and ZIP codes jump straight to those listings in the Ylopo search.
+const places = Object.fromEntries(communities.flatMap((c) => {
+  const href = communitySearch(c.slug);
+  return [c.name, c.censusName].map((n) => [n.toLowerCase().replace(/\./g, '').replace(/^st /, 'saint '), href]);
+}));
 const pending = `Thanks! Online forms are still being connected. For now, call ${site.phone} or email ${site.email}.`;
 ---
 <Base
@@ -12,12 +19,11 @@ const pending = `Thanks! Online forms are still being connected. For now, call $
   description="Buy a home in Minneapolis, St. Paul and the Twin Cities metro with Huerkamp Home Group: pre-approval, showings, offers and closing.">
   <PageHero eyebrow="Buying" title="Buy a Home in the Twin Cities"
     lede="From your first showing to closing day, an agent who knows the neighborhood is with you at every step.">
-    <form class="search search--light" action="/search" method="get" role="search" data-pending="Home search launches with the NorthstarMLS feed in a later build step.">
+    <form class="search search--light" action={site.searchUrl} method="get" role="search" data-places={JSON.stringify(places)} data-base={site.searchUrl}>
       <label class="visually-hidden" for="buy-search">City, neighborhood, ZIP or address</label>
       <input id="buy-search" name="q" type="search" placeholder="City, neighborhood, ZIP or address" autocomplete="off" />
       <button class="btn" type="submit">Search homes</button>
     </form>
-    <p class="search__status" role="status" aria-live="polite"></p>
   </PageHero>
 
   <section class="section" aria-labelledby="process-title">
@@ -99,12 +105,25 @@ const pending = `Thanks! Online forms are still being connected. For now, call $
   </section>
 </Base>
 
+<script>
+  const form = document.querySelector<HTMLFormElement>('form[data-places]');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const q = (new FormData(form).get('q') as string ?? '').trim();
+    const key = q.toLowerCase().replace(/\./g, '').replace(/,?\s*(mn|minnesota)$/, '').trim().replace(/^st /, 'saint ');
+    const places = JSON.parse(form.dataset.places!);
+    const base = form.dataset.base!;
+    const zip = q.match(/^\d{5}$/)?.[0];
+    window.location.href = places[key]
+      ?? (zip ? `${base}/search?s[orderBy]=sourceCreationDate%2Cdesc&s[page]=1&s[locations][0][postalCode]=${zip}` : base);
+  });
+</script>
+
 <style>
   .search { display: flex; gap: .5rem; width: min(100%, 40rem); padding: .45rem; border-radius: 999px; background: rgba(255,255,255,.96); }
   .search input { flex: 1; min-width: 0; border: 0; background: transparent; padding: .6rem 1rem; font: 500 1rem var(--sans); color: #1d1813; }
   .search input:focus { outline: none; }
   .search:focus-within { outline: 2px solid var(--gold); outline-offset: 3px; }
-  .search__status { min-height: 1.4em; color: var(--rose); }
   @media (max-width: 700px) { .search { flex-direction: column; border-radius: 16px; } .search .btn { justify-content: center; } }
   .lender-card { padding: 1.25rem 1.5rem; border-left: 3px solid var(--gold); background: var(--bg); color: var(--text); line-height: 1.7; }
 </style>
