@@ -275,8 +275,10 @@ Channel: **Living in Minneapolis Minnesota**, https://www.youtube.com/@livinginm
 - **The fix:** keep the huerkamphomes.com domain, then add it (and www.huerkamphomes.com) to this Netlify site as a domain alias. `public/_redirects` already sends every old address to its new page with a permanent (301) redirect:
   - /youtube-form and the webinar pages go to /youtube-form. That page is not shown in Google. Its leads land in Follow Up Boss with the source "YouTube - Living in Minneapolis" and the tag "YouTube", and it shows the YouTube tracking phone (952) 900-3025 and team@hhgus.com.
   - The 27 neighborhood pages go to their community guides.
-  - 290 old blog posts go to the same post here. The other 97 go to /blog until they are moved over.
+  - All 387 old blog posts go to the same post here, matched by address or by title.
   - Agent pages go to /team, and listing pages go to Ylopo search.
   - Anything else goes to the home page.
+- **Blog posts copied over (October 2026):** 46 posts existed only on Luxury Presence. They were copied with their text as written and the same address (/blog/<slug>), along with their 75 images. Most are local stories, now in the new "Neighborhoods" category. The other 51 Luxury Presence-only addresses were posts already on this blog under a different address, so they redirect to those posts. To re-run the copy: `scripts/import-luxury-presence-blog.py`.
+- **Domain:** the team controls huerkamphomes.com. When the new site launches, add huerkamphomes.com and www.huerkamphomes.com in Netlify under Domain management, then point the domain's DNS at Netlify. Do both before Luxury Presence shuts off in December.
 - **To rebuild the rules:** `python3 scripts/build-lp-redirects.py <saved LP sitemaps>` and then `node scripts/write-redirects.mjs`.
 - **Text-message consent:** every form now has an unchecked, optional text-message consent box and a privacy-policy link. Checking the box adds the "SMS consent" tag in Follow Up Boss.

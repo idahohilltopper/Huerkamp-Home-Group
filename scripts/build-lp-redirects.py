@@ -8,12 +8,14 @@ Inputs: the Luxury Presence sitemaps, saved outside the repo:
   curl -s https://huerkamphomes.com/sitemap-static.xml          > lp/static.xml
   curl -s https://huerkamphomes.com/sitemap-blog-dpages.xml     > lp/blog-dpages.xml
   curl -s https://huerkamphomes.com/sitemap-neighborhoods-dpages.xml > lp/neighborhoods-dpages.xml
+  and each blog post page saved as lp/posts/<slug>.html (used to match posts that changed address but kept their title)
 Usage:
   python3 scripts/build-lp-redirects.py lp/   then   node scripts/write-redirects.mjs
 """
 import json
 import re
 import sys
+from html import unescape
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -39,6 +41,10 @@ SECTIONS = [
 ]
 
 
+def key(title):
+    return re.sub(r'[^a-z0-9]+', '-', title.lower()).strip('-')
+
+
 def locs(path):
     return [re.sub(r'^https?://[^/]+', '', u).rstrip('/') or '/' for u in re.findall(r'<loc>([^<]+)', path.read_text())]
 
@@ -54,17 +60,25 @@ def main(lp_dir):
         if slug in communities:
             rules[p] = f'/communities/{slug}'
 
-    # Old blog posts that were also on the Squarespace blog (same slug) -> that post here.
-    posts = {}
+    # Old blog posts -> the same post here, matched by address, or else by title.
+    posts, titles = {}, {}
     for md in (ROOT / 'src/content/blog').glob('*.md'):
-        m = re.search(r'^path:\s*"([^"]+)"', md.read_text(), re.M)
+        text = md.read_text()
+        m = re.search(r'^path:\s*"([^"]+)"', text, re.M)
+        t = re.search(r'^title:\s*"(.*)"$', text, re.M)
         if m:
             posts[m[1].rsplit('/', 1)[-1]] = f'/blog/{m[1]}'
+            if t:
+                titles[key(json.loads(f'"{t[1]}"'))] = f'/blog/{m[1]}'
     unmatched = []
     for p in locs(lp / 'blog-dpages.xml'):
         slug = p.rsplit('/', 1)[1]
+        saved = lp / 'posts' / f'{slug}.html'
+        h1 = re.search(r'<h1[^>]*>(.*?)</h1>', saved.read_text(), re.S) if saved.exists() else None
         if slug in posts:
             rules[p] = posts[slug]
+        elif h1 and key(unescape(re.sub(r'<[^>]+>', '', h1[1]))) in titles:
+            rules[p] = titles[key(unescape(re.sub(r'<[^>]+>', '', h1[1])))]
         else:
             unmatched.append(p)
 

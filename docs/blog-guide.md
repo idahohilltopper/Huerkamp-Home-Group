@@ -38,3 +38,9 @@ cover: { src: "/blog/lakeville-market-update-2026/cover.webp", width: 1200, heig
 - 353 of the 361 posts were written by Ylopo's automatic blog service, not by the team. Similar articles appear on many agents' sites, so they carry little weight with Google on their own. Over time, the posts that will do the most for search are original, local ones (market updates, neighborhood guides, videos), like Jason's 8 posts.
 - Text was kept as written. One post (`buy-a-home-minnesota-2026`) lists the older phone number (612) 502-7653.
 - Re-run the import: `scripts/import-squarespace-blog.py` (instructions at the top of that file).
+
+## Posts from the Luxury Presence site (October 2026)
+
+- 46 posts existed only on the old Luxury Presence site (huerkamphomes.com). They were copied with their text as written, and their images were saved under `public/blog/`. Their addresses stay the same (`/blog/<slug>`).
+- 44 of them are local Twin Cities stories and guides, listed under the "Neighborhoods" category.
+- Re-run the copy: `scripts/import-luxury-presence-blog.py` (instructions at the top of that file).
