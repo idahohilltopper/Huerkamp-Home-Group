@@ -238,3 +238,12 @@ Jason chose to keep the team's **Ylopo** home search (search.huerkamphomegroup.c
 - **Buy page search box**: a typed city name or ZIP goes straight to those listings; anything else opens the search home page.
 - The old Squarespace site also linked "Get Cash Offer", "Sell Your Home" and "Home Valuation" to Fello landing pages (huerkamphomegroup.hifello.com). Ask Jason whether the new site's seller forms should feed Fello or Follow Up Boss.
 - Link check (2026-10-24): all 146 city/ZIP links open the right search. Ten very small cities (Dellwood, Hilltop, Lake Saint Croix Beach, Lakeland Shores, Lilydale, Medicine Lake, New Trier, Pine Springs, Spring Lake Park, Saint Marys Point) had 0 homes for sale that day; their links are still correct and let visitors save the search for alerts.
+
+## Forms → Follow Up Boss (2026-10-24)
+
+All nine website forms post to `/api/lead` (`netlify/functions/lead.mjs`), which sends a Follow Up Boss **event** (`POST /v1/events`, the endpoint FUB recommends for website leads, so lead routing and action plans run). The key is the Netlify secret `FUB_API_KEY` (Production, Deploy Previews, Branch deploys).
+- Form types, FUB event types and tags are in one table at the top of `src/lib/lead.mjs`. Every lead is tagged "Website"; seller forms (and any form where the visitor picks "Sell…") are **Seller Inquiry** events tagged "Seller lead" for Fello to pick up; community forms add the city name; Ramsey, lake, investor and lender (Ken Rife) forms add their own tag.
+- Test leads (first name "Test" or an @example.com email) are tagged "TEST – website".
+- Spam: hidden honeypot field and a minimum time on page; bots get a silent "OK".
+- Jason's decision: website forms go to Follow Up Boss; Fello receives sellers through its existing Follow Up Boss integration. Confirm which tag/stage Fello imports and add it to the seller forms if it isn't "Seller lead".
+- Netlify only. (Vercel would need its own function; we're not using Vercel.)

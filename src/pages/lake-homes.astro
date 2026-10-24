@@ -6,7 +6,6 @@ import { lakes, lakeGeo, lakeInfo, communities, fmt } from '../data/areas';
 import { site } from '../data/site';
 import { searchUrl, ylopoPlace } from '../data/ylopo';
 
-const pending = `Thanks! Online forms are still being connected. For now, call ${site.phone} or email ${site.email}.`;
 // Link shoreline cities that have their own community page.
 const pageFor = (city: string) => communities.find((c) => c.censusName === city || c.name === city);
 // One search across every shoreline city (homes on and near the lake).
@@ -77,7 +76,7 @@ const lakeSearch = (cities: string[]) => {
         <h2 id="lake-contact-title">Lake homes <em>are different.</em></h2>
         <p>Shoreline, dock rights, water depth and lake rules all affect what a lake home is worth. Tell us which lake you're interested in and we'll send new lakeshore listings as soon as they come on the market.</p>
       </div>
-      <form class="form" data-pending={pending}>
+      <form class="form" data-lead="lake-homes">
         <div class="form__row">
           <div class="field"><label for="lk-first">First name</label><input id="lk-first" name="firstName" autocomplete="given-name" required /></div>
           <div class="field"><label for="lk-last">Last name</label><input id="lk-last" name="lastName" autocomplete="family-name" required /></div>

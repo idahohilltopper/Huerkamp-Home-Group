@@ -4,7 +4,6 @@ import PageHero from '../components/PageHero.astro';
 import Quotes from '../components/Quotes.astro';
 import { site } from '../data/site';
 
-const pending = `Thanks! Online forms are still being connected. For now, call ${site.phone} or email ${site.email}.`;
 ---
 <Base
   breadcrumbs={[{ name: 'Sell', href: '/sell' }]}
@@ -21,7 +20,7 @@ const pending = `Thanks! Online forms are still being connected. For now, call $
         <p>An online estimate can't see your kitchen update or the new roof. One of our agents will compare your home with recent sales nearby and send you a price range you can plan around.</p>
         <p>There's no cost and no obligation to list with us.</p>
       </div>
-      <form class="form" data-pending={pending}>
+      <form class="form" data-lead="home-value">
         <h3>Request your home value</h3>
         <div class="field"><label for="val-address">Home address</label><input id="val-address" name="address" autocomplete="street-address" required /></div>
         <div class="form__row">

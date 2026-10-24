@@ -5,7 +5,6 @@ import TeamPhoto from '../components/TeamPhoto.astro';
 import team from '../data/team.json';
 import { site } from '../data/site';
 
-const pending = `Thanks! Online forms are still being connected. For now, call ${site.phone} or email ${site.email}.`;
 const byName = (n: string) => team.members.find((m) => m.name === n)!;
 const leads = [
   { m: byName('Jason Huerkamp'), note: 'Founder and real estate investor' },
@@ -55,7 +54,7 @@ const services = [
           ))}
         </ul>
       </div>
-      <form class="form" data-pending={pending}>
+      <form class="form" data-lead="investing">
         <h3>Tell us about your plans</h3>
         <div class="form__row">
           <div class="field"><label for="inv-first">First name</label><input id="inv-first" name="firstName" autocomplete="given-name" required /></div>

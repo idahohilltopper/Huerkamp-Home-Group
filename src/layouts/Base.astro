@@ -199,13 +199,34 @@ const isExternal = (href: string) => href.startsWith('http');
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
     }
 
-    // Forms are not connected to Follow Up Boss yet (build step 4).
-    // Show a note instead of pretending the message was sent.
-    document.querySelectorAll<HTMLFormElement>('form[data-pending]').forEach((form) => {
-      form.addEventListener('submit', (e) => {
+    // Forms: send to Follow Up Boss through /api/lead (netlify/functions/lead.mjs).
+    const loadedAt = Date.now();
+    document.querySelectorAll<HTMLFormElement>('form[data-lead]').forEach((form) => {
+      // Hidden field people never see; bots that fill every field get ignored.
+      form.insertAdjacentHTML('beforeend', '<div class="visually-hidden" aria-hidden="true"><label>Leave empty<input name="website_url" tabindex="-1" autocomplete="off"></label></div>');
+      const status = form.querySelector<HTMLElement>('[role="status"]') ?? form.nextElementSibling as HTMLElement | null;
+      const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const status = form.querySelector('[role="status"]') ?? form.nextElementSibling;
-        if (status) status.textContent = form.dataset.pending ?? '';
+        const data = Object.fromEntries(new FormData(form)) as Record<string, string>;
+        const { website_url: hp = '', ...fields } = data;
+        if (button) { button.disabled = true; button.dataset.label = button.textContent ?? ''; button.textContent = 'Sending…'; }
+        if (status) status.textContent = '';
+        try {
+          const res = await fetch('/api/lead', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ form: form.dataset.lead, fields, hp, elapsed: Date.now() - loadedAt, page: location.pathname, title: document.title }),
+          });
+          if (!res.ok) throw new Error(String(res.status));
+          form.reset();
+          if (status) status.textContent = "Thank you! We got your message and an agent will reach out shortly.";
+          (window as any).dataLayer?.push({ event: 'lead_submitted', form: form.dataset.lead });
+        } catch {
+          if (status) status.textContent = `Sorry, that didn't go through. Please call or text ${form.dataset.phone ?? '(612) 843-9620'}.`;
+        } finally {
+          if (button) { button.disabled = false; button.textContent = button.dataset.label ?? 'Send'; }
+        }
       });
     });
 

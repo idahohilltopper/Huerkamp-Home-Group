@@ -11,7 +11,6 @@ const places = Object.fromEntries(communities.flatMap((c) => {
   const href = communitySearch(c.slug);
   return [c.name, c.censusName].map((n) => [n.toLowerCase().replace(/\./g, '').replace(/^st /, 'saint '), href]);
 }));
-const pending = `Thanks! Online forms are still being connected. For now, call ${site.phone} or email ${site.email}.`;
 ---
 <Base
   breadcrumbs={[{ name: 'Buy', href: '/buy' }]}
@@ -56,7 +55,7 @@ const pending = `Thanks! Online forms are still being connected. For now, call $
           (651) 272-7232 · krife@mutualmortgage.com
         </p>
       </div>
-      <form class="form" data-pending={pending}>
+      <form class="form" data-lead="lender">
         <h3>Have Ken Rife contact me</h3>
         <div class="form__row">
           <div class="field"><label for="lender-first">First name</label><input id="lender-first" name="firstName" autocomplete="given-name" required /></div>

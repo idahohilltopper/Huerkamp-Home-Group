@@ -50,7 +50,6 @@ const ld = JSON.stringify({
     { '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
   ],
 });
-const pending = `Thanks! Online forms are still being connected. For now, call ${site.phone} or email ${site.email}.`;
 ---
 <Base
   title="Huerkamp Home Group | Twin Cities Real Estate Team Since 2002"
@@ -304,7 +303,7 @@ const pending = `Thanks! Online forms are still being connected. For now, call $
         <a class="cta__phone" href={site.phoneHref}>{site.phone}</a>
         <p class="cta__addr">{site.street}, {site.cityStateZip}</p>
       </div>
-      <form class="form" data-pending={pending}>
+      <form class="form" data-lead="home">
         <div class="form__row">
           <div class="field"><label for="h-first">First name</label><input id="h-first" name="firstName" autocomplete="given-name" required /></div>
           <div class="field"><label for="h-last">Last name</label><input id="h-last" name="lastName" autocomplete="family-name" required /></div>

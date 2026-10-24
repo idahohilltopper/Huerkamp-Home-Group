@@ -131,7 +131,6 @@ const browse = [
   { label: 'Luxury ($1M+)', href: communitySearch(c.slug, { minPrice: 1000000 }) },
   ...(d.lakes?.length ? [{ label: 'Lake homes', href: '/lake-homes' }] : []),
 ];
-const pending = `Thanks! Online forms are still being connected. For now, call ${site.phone} or email ${site.email}.`;
 const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 1000 : 400000;
 ---
 <Base
@@ -205,7 +204,7 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
         <p>Tell us your price range and we'll email new {c.name} listings that match. No spam, and you can unsubscribe anytime.</p>
         <ul class="ticks"><li>Pick your price, beds and home type</li><li>New listings emailed as they come on the market</li><li>Questions answered by a local agent</li></ul>
       </div>
-      <form class="form" data-pending={pending}>
+      <form class="form" data-lead="community-alert">
         <div class="form__row">
           <div class="field"><label for="al-first">First name</label><input id="al-first" name="firstName" autocomplete="given-name" required /></div>
           <div class="field"><label for="al-last">Last name</label><input id="al-last" name="lastName" autocomplete="family-name" /></div>
@@ -561,7 +560,7 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
           </div>
         </div>
       </div>
-      <form class="form" data-pending={pending}>
+      <form class="form" data-lead="community-contact">
         <h3>Ready to find your {c.name} home?</h3>
         <div class="form__row">
           <div class="field"><label for="ct-first">First name</label><input id="ct-first" name="firstName" autocomplete="given-name" required /></div>

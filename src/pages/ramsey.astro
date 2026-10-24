@@ -3,7 +3,6 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import { site } from '../data/site';
 
-const pending = `Thanks! Online forms are still being connected. For now, call ${site.phone} or email ${site.email}.`;
 ---
 <Base
   breadcrumbs={[{ name: 'Ramsey ELP', href: '/ramsey' }]}
@@ -34,7 +33,7 @@ const pending = `Thanks! Online forms are still being connected. For now, call $
 
   <section class="section section--paper" aria-labelledby="ramsey-contact-title">
     <div class="wrap narrow">
-      <form class="form" data-pending={pending}>
+      <form class="form" data-lead="ramsey">
         <h2 id="ramsey-contact-title">Talk with a Ramsey ELP agent</h2>
         <div class="form__row">
           <div class="field"><label for="elp-first">First name</label><input id="elp-first" name="firstName" autocomplete="given-name" required /></div>
