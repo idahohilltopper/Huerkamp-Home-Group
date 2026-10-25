@@ -200,6 +200,158 @@
   "to": "/communities/northfield"
  },
  {
+  "from": "/agent/colin-manson",
+  "to": "/team/colin-manson"
+ },
+ {
+  "from": "/agent/abhay-kumar",
+  "to": "/team/abhay-kumar"
+ },
+ {
+  "from": "/agent/aj-debellis",
+  "to": "/team/aj-debellis"
+ },
+ {
+  "from": "/agent/allie-wetterlin",
+  "to": "/team/allie-wetterlin"
+ },
+ {
+  "from": "/agent/amanda-johnson-white",
+  "to": "/team/amanda-johnson-white"
+ },
+ {
+  "from": "/agent/andy-coates",
+  "to": "/team/andy-coates"
+ },
+ {
+  "from": "/agent/brian-todd",
+  "to": "/team/brian-todd"
+ },
+ {
+  "from": "/agent/brooke-huerkamp",
+  "to": "/team/brooke-huerkamp"
+ },
+ {
+  "from": "/agent/bryce-pap",
+  "to": "/team/bryce-pap"
+ },
+ {
+  "from": "/agent/candace-johnson",
+  "to": "/team/candace-johnson"
+ },
+ {
+  "from": "/agent/cheri-topness",
+  "to": "/team/cheri-topness"
+ },
+ {
+  "from": "/agent/christie-whitfield",
+  "to": "/team/christie-whitfield"
+ },
+ {
+  "from": "/agent/eli-winslow",
+  "to": "/team/eli-winslow"
+ },
+ {
+  "from": "/agent/ella-bovee",
+  "to": "/team/ella-bovee"
+ },
+ {
+  "from": "/agent/freddy-juarez",
+  "to": "/team/freddy-juarez"
+ },
+ {
+  "from": "/agent/hannah-hunter",
+  "to": "/team/hannah-hunter"
+ },
+ {
+  "from": "/agent/heidi-locklear",
+  "to": "/team/heidi-locklear"
+ },
+ {
+  "from": "/agent/jason-huerkamp",
+  "to": "/team/jason-huerkamp"
+ },
+ {
+  "from": "/agent/jason-oliver",
+  "to": "/team/jason-oliver"
+ },
+ {
+  "from": "/agent/jeff-norberg",
+  "to": "/team/jeff-norberg"
+ },
+ {
+  "from": "/agent/jon-hoffmeister",
+  "to": "/team/jon-hoffmeister"
+ },
+ {
+  "from": "/agent/kaitlin-makarim",
+  "to": "/team/kaitlin-makarim"
+ },
+ {
+  "from": "/agent/kaitlyn-bahl",
+  "to": "/team/kaitlyn-bahl"
+ },
+ {
+  "from": "/agent/kat-pap",
+  "to": "/team/kat-pap"
+ },
+ {
+  "from": "/agent/kelly-jeffers",
+  "to": "/team/kelly-jeffers"
+ },
+ {
+  "from": "/agent/kim-lindgren",
+  "to": "/team/kim-lindgren"
+ },
+ {
+  "from": "/agent/kyera-reams",
+  "to": "/team/kyera-reams"
+ },
+ {
+  "from": "/agent/leah-petersen",
+  "to": "/team/leah-petersen"
+ },
+ {
+  "from": "/agent/lisa-price",
+  "to": "/team/lisa-price"
+ },
+ {
+  "from": "/agent/michele-meredith",
+  "to": "/team/michele-meredith"
+ },
+ {
+  "from": "/agent/nicole-kelly",
+  "to": "/team/nicole-kelly"
+ },
+ {
+  "from": "/agent/olivia-manson",
+  "to": "/team/olivia-manson"
+ },
+ {
+  "from": "/agent/roni-mugaki",
+  "to": "/team/roni-mugaki"
+ },
+ {
+  "from": "/agent/shyanne-comella",
+  "to": "/team/shyanne-comella"
+ },
+ {
+  "from": "/agent/steve-rall",
+  "to": "/team/steve-rall"
+ },
+ {
+  "from": "/agent/todd-johnson",
+  "to": "/team/todd-johnson"
+ },
+ {
+  "from": "/agent/vansh-kumar",
+  "to": "/team/vansh-kumar"
+ },
+ {
+  "from": "/agent/zac-bidelman",
+  "to": "/team/zac-bidelman"
+ },
+ {
   "from": "/blog/heres-what-you-need-to-know-about-the-mortgage-underwriting-process",
   "to": "/blog/2022/10/27/heres-what-you-need-to-know-about-the-mortgage-underwriting-process"
  },

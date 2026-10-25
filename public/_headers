@@ -7,12 +7,10 @@
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
 
-# Photos and logos: keep for a week.
+# Photos and logos: keep for a week. (Not /team/*: the agent pages live there too, and pages must stay fresh.)
 /hero/*
   Cache-Control: public, max-age=604800
 /people/*
-  Cache-Control: public, max-age=604800
-/team/*
   Cache-Control: public, max-age=604800
 /brand/*
   Cache-Control: public, max-age=604800

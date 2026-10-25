@@ -3,6 +3,7 @@ import sitemap from '@astrojs/sitemap';
 import { unified } from '@astrojs/markdown-remark';
 import { remarkYoutube } from './src/lib/youtube.mjs';
 import { lastmods } from './src/lib/lastmod.mjs';
+import sitemapNoindex from './src/lib/sitemap-noindex.mjs';
 
 const changed = lastmods();
 
@@ -18,7 +19,7 @@ export default defineConfig({
       const date = changed.get(new URL(item.url).pathname.replace(/\/$/, '') || '/');
       return date ? { ...item, lastmod: new Date(date).toISOString() } : item;
     },
-  })],
+  }), sitemapNoindex('https://www.huerkamphomegroup.com')],
   // Blog posts are Markdown; a YouTube link on its own line becomes a fast video player.
   markdown: { processor: unified({ remarkPlugins: [remarkYoutube] }) },
 });

@@ -1,0 +1,35 @@
+---
+// Shown by Netlify for any address that doesn't exist (and isn't redirected). Kept out of search results.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site';
+
+const popular = [['Minneapolis', 'minneapolis'], ['Saint Paul', 'saint-paul'], ['Burnsville', 'burnsville'], ['Lakeville', 'lakeville'], ['Eagan', 'eagan'], ['Apple Valley', 'apple-valley']];
+---
+<Base title={`Page not found | ${site.name}`} description="That page isn't here. Search homes, browse community guides or contact Huerkamp Home Group." noindex>
+  <PageHero eyebrow="Page not found" title="That page isn't here."
+    lede="It may have moved when we rebuilt our website. These will get you where you're going." />
+  <section class="section">
+    <div class="wrap lost">
+      <ul class="lost__links">
+        <li><a href={site.mapSearchUrl} rel="noopener"><strong>Search homes for sale</strong><span>Every MLS listing, on a map</span></a></li>
+        <li><a href="/communities"><strong>Community guides</strong><span>Homes, schools, commutes and market reports</span></a></li>
+        <li><a href="/sell#value"><strong>What's my home worth?</strong><span>A free home value from a local agent</span></a></li>
+        <li><a href="/blog"><strong>Blog and local stories</strong><span>Advice for buyers, sellers and homeowners</span></a></li>
+        <li><a href="/videos"><strong>Videos</strong><span>Living in Minneapolis on YouTube</span></a></li>
+        <li><a href="/contact"><strong>Contact us</strong><span>Call {site.phone}</span></a></li>
+      </ul>
+      <p class="lost__popular">Popular guides: {popular.map(([name, slug], i) => <>{i > 0 && ' · '}<a href={`/communities/${slug}`}>{name}</a></>)}</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .lost { display: grid; gap: 2rem; }
+  .lost__links { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); gap: 1rem; }
+  .lost__links a { display: grid; gap: .25rem; height: 100%; padding: 1.25rem 1.4rem; background: var(--paper); border: 1px solid var(--line); border-top: 3px solid var(--crimson); text-decoration: none; color: var(--text); }
+  .lost__links strong { font: 600 1.3rem/1.2 var(--serif); }
+  .lost__links span { color: var(--text-soft); font-size: .95rem; }
+  .lost__links a:hover strong { color: var(--crimson); }
+  .lost__popular { color: var(--text-soft); }
+</style>

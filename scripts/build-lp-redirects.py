@@ -8,6 +8,7 @@ Inputs: the Luxury Presence sitemaps, saved outside the repo:
   curl -s https://huerkamphomes.com/sitemap-static.xml          > lp/static.xml
   curl -s https://huerkamphomes.com/sitemap-blog-dpages.xml     > lp/blog-dpages.xml
   curl -s https://huerkamphomes.com/sitemap-neighborhoods-dpages.xml > lp/neighborhoods-dpages.xml
+  curl -s https://huerkamphomes.com/sitemap-agent-dpages.xml    > lp/agent-dpages.xml
   and each blog post page saved as lp/posts/<slug>.html (used to match posts that changed address but kept their title)
 Usage:
   python3 scripts/build-lp-redirects.py lp/   then   node scripts/write-redirects.mjs
@@ -59,6 +60,14 @@ def main(lp_dir):
         slug = slug if slug in communities else p.rsplit('/', 1)[1]
         if slug in communities:
             rules[p] = f'/communities/{slug}'
+
+    # Old agent pages -> that person's page here (same name in the address), when they're still on the team.
+    team = {m['profileUrl'].rsplit('/', 1)[1] for m in json.loads((ROOT / 'src/data/team.json').read_text())['members']}
+    agent_file = lp / 'agent-dpages.xml'
+    for p in locs(agent_file) if agent_file.exists() else []:
+        slug = p.rsplit('/', 1)[1]
+        if slug in team:
+            rules[p] = f'/team/{slug}'
 
     # Old blog posts -> the same post here, matched by address, or else by title.
     posts, titles = {}, {}

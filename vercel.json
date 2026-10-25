@@ -48,7 +48,7 @@
       ]
     },
     {
-      "source": "/team/(.*)",
+      "source": "/team/(.*)\\.(webp|jpg|png)",
       "headers": [
         {
           "key": "Cache-Control",
