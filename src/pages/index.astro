@@ -419,7 +419,7 @@ const ld = JSON.stringify({
   /* Side by side with a small overlap so both faces stay clear; Jason a touch larger, standing behind. */
   /* Jason runs to the bottom of the banner like Brooke (his coat fills the space under him), sized so his
      head sits where it did when he stood higher, left of and above Brooke's. */
-  .cut--jason img { width: 68%; height: auto; left: -1%; bottom: 0; -webkit-mask-image: linear-gradient(to bottom, #000 88%, transparent 100%); mask-image: linear-gradient(to bottom, #000 88%, transparent 100%); }
+  .cut--jason img { width: 68%; height: auto; left: -6%; bottom: 0; -webkit-mask-image: linear-gradient(to bottom, #000 88%, transparent 100%); mask-image: linear-gradient(to bottom, #000 88%, transparent 100%); }
   /* No drop shadow on Brooke: combined with the fade, it drew a light seam across Jason where her photo starts. */
   .cut--brooke img { width: 62%; height: auto; right: 0; z-index: 1; filter: none; }
   .hero__people figcaption { position: absolute; right: 0; bottom: 60%; z-index: 2; display: grid; gap: .2rem; text-align: right; text-shadow: 0 2px 12px rgba(0,0,0,.6); }
@@ -428,7 +428,7 @@ const ld = JSON.stringify({
   @media (max-width: 960px) {
     .hero__people { min-height: 24rem; margin-top: 1rem; }
     .hero__people figcaption { top: 0; bottom: auto; }
-    .cut--jason img { width: 62%; left: 4%; }
+    .cut--jason img { width: 62%; left: 0; }
     .cut--brooke img { width: 60%; right: 0; }
   }
 
