@@ -1,0 +1,93 @@
+---
+// One MLS listing (preview): /homes/listing?mls=<number>. Filled in the browser from /api/listings, so it stays
+// out of search results for now; listing pages with their own addresses come next.
+import Base from '../../layouts/Base.astro';
+import { mls } from '../../data/mls';
+import { site } from '../../data/site';
+---
+<Base title="Home for sale | Huerkamp Home Group" description="A home for sale in the Twin Cities, from NorthstarMLS." noindex>
+  <section class="section lst" aria-live="polite">
+    <div class="wrap">
+      <p class="lst__status">Loading the listing…</p>
+      <div class="lst__body" hidden>
+        <div class="lst__photos"></div>
+        <div class="lst__grid">
+          <div>
+            <p class="eyebrow lst__type"></p>
+            <h1 class="lst__title"></h1>
+            <p class="lst__price"></p>
+            <p class="lst__specs"></p>
+            <p class="lst__broker"></p>
+            <div class="lst__desc prose"></div>
+            <dl class="lst__facts"></dl>
+          </div>
+          <aside class="lst__ask">
+            <h2>Want to see it?</h2>
+            <p>Call <a href={site.phoneHref}>{site.phone}</a> or send us a note. We'll set up a showing and tell you what we know about the home.</p>
+            <form class="form" data-lead="listing">
+              <input type="hidden" name="listing" value="" />
+              <div class="field"><label for="ls-first">First name</label><input id="ls-first" name="firstName" autocomplete="given-name" required /></div>
+              <div class="field"><label for="ls-last">Last name</label><input id="ls-last" name="lastName" autocomplete="family-name" required /></div>
+              <div class="field"><label for="ls-email">Email</label><input id="ls-email" name="email" type="email" autocomplete="email" required /></div>
+              <div class="field"><label for="ls-phone">Phone</label><input id="ls-phone" name="phone" type="tel" autocomplete="tel" /></div>
+              <div class="field"><label for="ls-msg">Message</label><textarea id="ls-msg" name="message" rows="3">I'd like to see this home.</textarea></div>
+              <button class="btn" type="submit">Ask about this home</button>
+              <p class="form__status" role="status" aria-live="polite"></p>
+            </form>
+          </aside>
+        </div>
+        <p class="lst__notice">MLS #<span class="lst__mls"></span>. {mls.notice} <span class="lst__updated"></span></p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const $ = (s: string) => document.querySelector<HTMLElement>(s)!;
+  const esc = (s: unknown) => String(s ?? '').replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+  const fail = (msg: string) => { $('.lst__status').textContent = msg; };
+  (async () => {
+    const id = new URLSearchParams(location.search).get('mls');
+    if (!id) return fail('No listing was picked. Go back and choose a home.');
+    let d: any;
+    try { d = await (await fetch(`/api/listings?mls=${encodeURIComponent(id)}`)).json(); } catch { d = null; }
+    if (!d?.ok) return fail(d?.error === 'not-found' ? 'This home is no longer listed for sale.' : 'We couldn\'t load this listing right now. Please call us and we\'ll send it to you.');
+    const l = d.listing;
+    const where = `${l.street}, ${l.city}, ${l.state} ${l.zip}`.trim();
+    document.title = `${where} | Huerkamp Home Group`;
+    $('.lst__type').textContent = [l.type, l.status === 'New' ? 'New listing' : ''].filter(Boolean).join(' · ') || 'For sale';
+    $('.lst__title').textContent = where;
+    $('.lst__price').textContent = l.price != null ? '$' + l.price.toLocaleString('en-US') : '';
+    $('.lst__specs').textContent = [l.beds != null && `${l.beds} bedrooms`, l.baths != null && `${l.baths} bathrooms`, l.sqft && `${l.sqft.toLocaleString('en-US')} sq ft`].filter(Boolean).join(' · ');
+    $('.lst__broker').textContent = `Listing courtesy of ${l.brokerage || 'the listing brokerage'}${l.agent ? ` (${l.agent})` : ''}.`;
+    $('.lst__desc').innerHTML = l.description ? `<p>${esc(l.description)}</p>` : '';
+    $('.lst__facts').innerHTML = l.facts.map(([k, v]: string[]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('');
+    $('.lst__photos').innerHTML = l.photos.map((p: string, i: number) => `<img src="${esc(p)}" alt="Photo ${i + 1} of ${esc(where)}" ${i ? 'loading="lazy"' : 'fetchpriority="high"'} decoding="async" width="1600" height="1067">`).join('');
+    $('.lst__mls').textContent = l.mls;
+    $('.lst__updated').textContent = `Updated ${new Date(d.updated).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' })}.`;
+    document.querySelector<HTMLInputElement>('input[name="listing"]')!.value = `${where} (MLS #${l.mls}) ${location.href}`;
+    $('.lst__status').hidden = true;
+    $('.lst__body').hidden = false;
+  })();
+</script>
+
+<style>
+  .lst__status { padding-block: 4rem; text-align: center; color: var(--text-soft); }
+  .lst__photos { display: flex; gap: .5rem; overflow-x: auto; scroll-snap-type: x mandatory; margin-bottom: 2rem; }
+  .lst__photos :global(img) { flex: 0 0 min(100%, 56rem); aspect-ratio: 3 / 2; height: auto; align-self: start; object-fit: cover; scroll-snap-align: start; background: var(--line); }
+  .lst__grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 900px) { .lst__grid { grid-template-columns: 1fr; } }
+  .lst__title { font: 500 clamp(1.8rem, 4vw, 2.8rem)/1.1 var(--serif-display); }
+  .lst__price { font: 500 2rem/1.2 var(--serif); margin-top: .5rem; }
+  .lst__specs { font: 600 1rem/1.4 var(--ui); }
+  .lst__broker { font-size: .85rem; color: var(--text-soft); }
+  .lst__desc :global(p) { margin-top: 1.5rem; white-space: pre-line; }
+  .lst__facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr)); gap: 1px; margin-top: 1.5rem; background: var(--line); border: 1px solid var(--line); }
+  .lst__facts :global(div) { padding: .8rem 1rem; background: var(--paper); }
+  .lst__facts :global(dt) { font: 700 .68rem/1.2 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--crimson); }
+  .lst__facts :global(dd) { margin: .2rem 0 0; }
+  .lst__ask { position: sticky; top: 6rem; }
+  .lst__ask p { margin-bottom: 1rem; }
+  .lst__ask h2 { font: 500 1.6rem/1.2 var(--serif); }
+  .lst__notice { margin-top: 2.5rem; font-size: .75rem; line-height: 1.5; color: var(--text-soft); }
+</style>

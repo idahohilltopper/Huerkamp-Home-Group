@@ -4,6 +4,7 @@
 import Base from '../../layouts/Base.astro';
 import AreaMap from '../../components/AreaMap.astro';
 import YlopoListings from '../../components/YlopoListings.astro';
+import MlsListings from '../../components/MlsListings.astro';
 import {
   lakes, lakeHref, lakeCommunities, lakeSearchUrl, lakefrontWidgetSearch, lakeInfo, lakeGeoUrl, lakeSources, INDEX_MIN_ACRES, type Lake,
 } from '../../data/lakes';
@@ -79,6 +80,8 @@ const ld = JSON.stringify([
       <AreaMap src={lakeGeoUrl} info={lakeInfo} mode="focus" focus={l.slug} label="Hover a lake" height="440px" />
     </div>
   </section>
+
+  <MlsListings lake={l.slug} lakeName={l.name} moreHref={lakeSearchUrl(l)} />
 
   {searchable && (
     <section class="section section--paper" id="listings" aria-labelledby="listings-title">

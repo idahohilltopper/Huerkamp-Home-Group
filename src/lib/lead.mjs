@@ -17,6 +17,7 @@ export const FORMS = {
   'ramsey':            { type: 'General Inquiry', label: 'Ramsey ELP form',        tags: ['Ramsey ELP'] },
   'lender':            { type: 'General Inquiry', label: 'Lender request (Ken Rife)', tags: ['Buyer lead', 'Lender referral'] },
   'agent':             { type: 'General Inquiry', label: 'Agent page form',        tags: ['Agent page'] },
+  'listing':           { type: 'Property Inquiry', label: 'Listing page form',    tags: ['Buyer lead', 'Listing inquiry'] },
   'youtube':           { type: 'General Inquiry', label: 'YouTube viewer form',    tags: ['YouTube'], source: 'YouTube - Living in Minneapolis' },
 };
 
@@ -24,7 +25,7 @@ export const FORMS = {
 const LABELS = {
   address: 'Property address', timeline: 'Selling timeline', topic: 'Topic', goal: 'Goal',
   notes: 'Notes', message: 'Message', lake: 'Lake', priceRange: 'Price range', maxPrice: 'Price range',
-  community: 'Community', ramseyReferral: 'Referred by Ramsey', interest: 'Interested in', moveFrom: 'Moving from', agent: 'Wants to work with',
+  community: 'Community', ramseyReferral: 'Referred by Ramsey', interest: 'Interested in', moveFrom: 'Moving from', agent: 'Wants to work with', listing: 'Listing',
 };
 const CONTACT = new Set(['firstName', 'lastName', 'email', 'phone']);
 

@@ -1,0 +1,75 @@
+---
+// Live MLS listings on one lake, from Repliers via /api/listings (homes the MLS marks lakefront, inside the
+// lake's shoreline zone; answers are cached for 15 minutes). Stays hidden if the MLS feed isn't available.
+// Add ?mls-debug to the page address to see why it's hidden.
+import { mls } from '../data/mls';
+interface Props { lake: string; lakeName: string; moreHref: string }
+const { lake, lakeName, moreHref } = Astro.props;
+---
+<section class="section mls" id="on-the-lake" data-mls-lake={lake} data-lake-name={lakeName} hidden aria-labelledby="mls-title">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Live MLS listings · on {lakeName} only</p>
+      <h2 id="mls-title">Homes for sale on {lakeName}</h2>
+      <p class="mls__lede"></p>
+    </div>
+    <ul class="mls__cards"></ul>
+    <p class="mls__more"><a class="link-arrow" href={moreHref} rel="noopener">See them on the map and save a search</a></p>
+    <p class="mls__notice">{mls.notice} <span class="mls__updated"></span></p>
+  </div>
+</section>
+
+<script>
+  import { listingHref } from '../data/mls';
+  const money = (n: number | null) => (n == null ? '' : '$' + n.toLocaleString('en-US'));
+  const esc = (s: unknown) => String(s ?? '').replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+  const debug = location.search.includes('mls-debug');
+
+  document.querySelectorAll<HTMLElement>('[data-mls-lake]').forEach((box) => {
+    const name = box.dataset.lakeName!;
+    const show = (msg: string) => { if (debug) { box.hidden = false; box.querySelector('.mls__lede')!.textContent = `MLS feed: ${msg}`; } };
+    const load = async () => {
+      let d: any;
+      try {
+        const res = await fetch(`/api/listings?lake=${encodeURIComponent(box.dataset.mlsLake!)}`);
+        d = await res.json();
+      } catch (e) { return show(`could not load (${e})`); }
+      if (!d?.ok) return show(`${d?.error ?? 'error'}${d?.status ? ` (${d.status})` : ''}`);
+      const n = d.listings.length;
+      box.querySelector('.mls__lede')!.textContent = n
+        ? `${n} lakefront ${n === 1 ? 'home' : 'homes'} on ${name} for sale now, newest first.`
+        : `No lakefront homes on ${name} are for sale right now. Save a search and we'll tell you when one lists.`;
+      box.querySelector('.mls__cards')!.innerHTML = d.listings.map((l: any) => `
+        <li><a href="${listingHref(l.mls)}">
+          <span class="mls__photo">${l.photo ? `<img src="${esc(l.photo)}" alt="${esc(l.street)}, ${esc(l.city)}" loading="lazy" decoding="async" width="400" height="267">` : ''}</span>
+          <strong class="mls__price">${money(l.price)}</strong>
+          <span class="mls__specs">${[l.beds != null && `${l.beds} bd`, l.baths != null && `${l.baths} ba`, l.sqft && `${l.sqft.toLocaleString('en-US')} sq ft`].filter(Boolean).join(' · ')}</span>
+          <span class="mls__addr">${esc(l.street)}, ${esc(l.city)}</span>
+          <span class="mls__broker">Listing courtesy of ${esc(l.brokerage || 'the listing brokerage')}</span>
+        </a></li>`).join('');
+      box.querySelector('.mls__updated')!.textContent = `Updated ${new Date(d.updated).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' })}.`;
+      box.hidden = false;
+    };
+    load();
+  });
+</script>
+
+<style is:global>
+  .mls__lede { color: var(--text-soft); }
+  .mls__cards { list-style: none; margin: 0; padding: 0 0 .75rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17.5rem), 1fr)); gap: 1.5rem; }
+  .mls__cards a { display: grid; gap: .3rem; height: 100%; padding-bottom: 1rem; border: 1px solid var(--line); background: var(--paper); color: var(--text); text-decoration: none; }
+  .mls__cards a:hover strong, .mls__cards a:focus-visible strong { color: var(--crimson); }
+  .mls__photo { display: block; aspect-ratio: 3 / 2; background: var(--line); overflow: hidden; margin-bottom: .5rem; }
+  .mls__photo img { width: 100%; height: 100%; object-fit: cover; }
+  .mls__cards strong, .mls__cards span:not(.mls__photo) { padding-inline: 1rem; }
+  .mls__price { font: 500 1.5rem/1.2 var(--serif); }
+  .mls__specs { font: 600 .9rem/1.3 var(--ui); }
+  .mls__addr { font-size: .95rem; }
+  .mls__broker { font-size: .75rem; color: var(--text-soft); }
+  .mls__more { margin-top: 1.25rem; text-align: center; }
+  .mls__notice { margin-top: 1.5rem; font-size: .75rem; line-height: 1.5; color: var(--text-soft); }
+  @media (max-width: 700px) {
+    .mls__cards { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; }
+    .mls__cards li { flex: 0 0 85%; scroll-snap-align: start; }
+  }
+</style>

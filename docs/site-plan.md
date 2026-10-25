@@ -346,3 +346,17 @@ Google and AI search favor sites that keep adding real, useful, accurate informa
   - Each lake page has its map, lakefront search and listings, shoreline communities with their median sale price, nearby lakes, quick answers, LakeBodyOfWater schema and a lead form tagged with the lake.
   - Lakes under 50 acres have pages but stay out of Google.
 - Community guides list every lake touching the city and link to its page.
+
+## MLS listings from Repliers (preview, October 2026)
+
+Ylopo stays the main home search, ads and follow-up. Repliers (NorthstarMLS data) adds listings shown on our own pages.
+
+- **Key:** `REPLIERS_API_KEY` in Netlify (secret, set for Production, Deploy Previews and Branch deploys). Never in the repo or chat.
+- **`/api/listings`** (netlify/functions/listings.mjs, trimming in src/lib/repliers.mjs), cached 15 minutes:
+  - `?lake=<slug>`: active homes for sale inside the lake's shoreline zone (200 m out from the water, src/data/geo/lake-shores.json from scripts/build-lake-shores.py), kept only when the MLS marks them lakefront.
+  - `?mls=<number>`: one listing.
+  - `&debug=1`: shows the MLS's water fields, to check the lakefront filter.
+- **Lake pages:** a "Homes for sale on <lake>" section above the Ylopo widget. It stays hidden if the feed isn't working; add `?mls-debug` to the page address to see why ("not-authorized" usually means the NorthstarMLS license isn't approved yet).
+- **Listing page:** /homes/listing?mls=<number> (noindex for now) with photos, facts, listing brokerage and a "Listing page form" lead to Follow Up Boss.
+- **Display rules:** the notice in src/data/mls.ts and "Listing courtesy of <brokerage>" on every card and listing. Confirm the exact wording and any required logo with the broker's NorthstarMLS IDX license.
+- **Next:** listing pages at their own addresses (/homes/<address>) that search engines can read, and listings inside each Minneapolis and Saint Paul neighborhood boundary.
