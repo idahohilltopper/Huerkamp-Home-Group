@@ -371,3 +371,15 @@ Ylopo stays the main home search, ads and follow-up. Repliers (NorthstarMLS data
 - **Fair housing:** places are ranked only by facts about the homes, the market and the location, never by who lives there (no "best for families", "safest", schools rankings or demographics). Keep it that way when adding guides.
 - **Small samples:** market lists need 30+ sales in 12 months for a city and 20+ for a neighborhood (rising prices: 50+ and cities only).
 - **Updates:** built from the same data files as the rest of the site (src/data/guides.ts), so they change when the monthly market data or the community data changes. Each page has ItemList and FAQPage schema, a "Area guide form" lead to Follow Up Boss, and is listed in llms.txt.
+
+## Results report (/report), October 2026
+
+A private page (noindex, not linked, left out of the sitemap) showing what the site and channels do for the business:
+- **Leads and Google search (live):** loaded from `/api/report` (netlify/functions/report.mjs, logic in src/lib/report.mjs) after the passcode. Only counts leave the server.
+  - Leads: Follow Up Boss people whose source is the website or the YouTube form (last 7/30/90 days, per week, by form tag). Uses the existing `FUB_API_KEY`.
+  - Google: Search Console clicks, impressions, top searches and pages (28 days vs the 28 before, 16 weeks). Needs a Google service account added to the Search Console property.
+  - Netlify settings: `REPORT_KEY` (the passcode), `GSC_CLIENT_EMAIL`, `GSC_PRIVATE_KEY`, optional `GSC_SITE` (default `sc-domain:huerkamphomegroup.com`).
+- **Weekly data** in src/data/report.json, appended by the "Weekly results report" routine:
+  - `visibility`: the same 10 buyer/seller searches each week; does our site come up, are we named elsewhere, who ranks first. Never edit past entries.
+  - `social`: follower/view/post counts per platform (YouTube from vidIQ; other platforms once their handles are known).
+- **The website:** page counts by type and pages with a real change in the last 7/30 days (the sitemap's dates).

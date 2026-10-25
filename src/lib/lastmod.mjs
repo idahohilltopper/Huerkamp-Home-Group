@@ -2,8 +2,10 @@
 // Only real changes count: a post's date, a video's upload date, a town's data or its newest local story.
 // Pages without a known date are listed without one rather than with a made-up date.
 import { readFileSync, readdirSync } from 'node:fs';
+import { pathToFileURL } from 'node:url';
 
-const root = new URL('../../', import.meta.url);
+// The project folder (builds run from it; this file's own location moves when Astro bundles it).
+const root = pathToFileURL(`${process.cwd()}/`);
 const read = (p) => readFileSync(new URL(p, root), 'utf8');
 const max = (dates) => dates.filter(Boolean).sort().at(-1);
 

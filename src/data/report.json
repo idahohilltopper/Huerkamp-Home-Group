@@ -1,0 +1,192 @@
+{
+ "about": "Data for the private results report (/report). 'visibility' is a weekly check of where Huerkamp Home Group shows up for searches buyers and sellers make; 'social' is follower and view counts by platform. Added by the weekly report routine; never edit past entries.",
+ "visibility": [
+  {
+   "date": "2026-10-25",
+   "engine": "Web search (Claude's search tool, US results)",
+   "note": "Baseline before launch: huerkamphomegroup.com is still the old Squarespace site.",
+   "results": [
+    {
+     "query": "best real estate agent Burnsville MN",
+     "ourSite": false,
+     "mentioned": null,
+     "topResults": [
+      "homelight.com",
+      "biggerpockets.com",
+      "experience.com"
+     ]
+    },
+    {
+     "query": "Lakeville MN realtor",
+     "ourSite": false,
+     "mentioned": null,
+     "topResults": [
+      "ratemyagent.com",
+      "ramseysolutions.com",
+      "homelight.com"
+     ]
+    },
+    {
+     "query": "Twin Cities real estate team",
+     "ourSite": false,
+     "mentioned": null,
+     "topResults": [
+      "realtrends.com",
+      "redfin.com",
+      "homesmsp.com"
+     ]
+    },
+    {
+     "query": "Dave Ramsey endorsed local provider real estate agent Minneapolis",
+     "ourSite": false,
+     "mentioned": "Named on Ramsey's Minneapolis agent directory (ramseysolutions.com/real-estate/us/mn/minneapolis)",
+     "topResults": [
+      "ramseysolutions.com"
+     ]
+    },
+    {
+     "query": "sell my house Burnsville MN",
+     "ourSite": false,
+     "mentioned": null,
+     "topResults": [
+      "homelight.com",
+      "listwithclever.com",
+      "redfin.com"
+     ]
+    },
+    {
+     "query": "Lake Minnetonka lakefront homes for sale realtor",
+     "ourSite": false,
+     "mentioned": null,
+     "topResults": [
+      "lakeplace.com",
+      "homes.com"
+     ]
+    },
+    {
+     "query": "best Minneapolis suburbs to live in",
+     "ourSite": false,
+     "mentioned": null,
+     "topResults": [
+      "stacker.com",
+      "pods.com",
+      "newhomesource.com"
+     ]
+    },
+    {
+     "query": "Apple Valley MN real estate agent",
+     "ourSite": false,
+     "mentioned": null,
+     "topResults": [
+      "experience.com",
+      "homelight.com",
+      "biggerpockets.com"
+     ]
+    },
+    {
+     "query": "Eagan MN realtor reviews",
+     "ourSite": false,
+     "mentioned": null,
+     "topResults": [
+      "experience.com",
+      "redfin.com",
+      "indeed.com"
+     ]
+    },
+    {
+     "query": "moving to Minneapolis real estate YouTube",
+     "ourSite": false,
+     "mentioned": "Living in Minneapolis YouTube channel listed (vling.net channel directory)",
+     "topResults": [
+      "vling.net",
+      "luxuryhomemarketing.com",
+      "lofty.com"
+     ]
+    }
+   ]
+  }
+ ],
+ "social": [
+  {
+   "date": "2026-03-01",
+   "platform": "YouTube",
+   "account": "@livinginminneapolis",
+   "followers": 456,
+   "views": 56255,
+   "posts": 87,
+   "source": "vidIQ channel stats"
+  },
+  {
+   "date": "2026-04-01",
+   "platform": "YouTube",
+   "account": "@livinginminneapolis",
+   "followers": 790,
+   "views": 109064,
+   "posts": 113,
+   "source": "vidIQ channel stats"
+  },
+  {
+   "date": "2026-05-01",
+   "platform": "YouTube",
+   "account": "@livinginminneapolis",
+   "followers": 1010,
+   "views": 163131,
+   "posts": 142,
+   "source": "vidIQ channel stats"
+  },
+  {
+   "date": "2026-06-01",
+   "platform": "YouTube",
+   "account": "@livinginminneapolis",
+   "followers": 1250,
+   "views": 223113,
+   "posts": 168,
+   "source": "vidIQ channel stats"
+  },
+  {
+   "date": "2026-07-01",
+   "platform": "YouTube",
+   "account": "@livinginminneapolis",
+   "followers": 1390,
+   "views": 264472,
+   "posts": 198,
+   "source": "vidIQ channel stats"
+  },
+  {
+   "date": "2026-08-01",
+   "platform": "YouTube",
+   "account": "@livinginminneapolis",
+   "followers": 1570,
+   "views": 303866,
+   "posts": 233,
+   "source": "vidIQ channel stats"
+  },
+  {
+   "date": "2026-09-01",
+   "platform": "YouTube",
+   "account": "@livinginminneapolis",
+   "followers": 1870,
+   "views": 378500,
+   "posts": 259,
+   "source": "vidIQ channel stats"
+  },
+  {
+   "date": "2026-10-01",
+   "platform": "YouTube",
+   "account": "@livinginminneapolis",
+   "followers": 2960,
+   "views": 655928,
+   "posts": 281,
+   "source": "vidIQ channel stats"
+  },
+  {
+   "date": "2026-10-25",
+   "platform": "YouTube",
+   "account": "@livinginminneapolis",
+   "followers": 3110,
+   "views": 734956,
+   "posts": 300,
+   "source": "vidIQ channel stats"
+  }
+ ]
+}

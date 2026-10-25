@@ -1,0 +1,199 @@
+---
+// Private results report: what the website and channels are doing for the business, updated weekly.
+// Live leads and Google numbers load from /api/report after the passcode (REPORT_KEY in Netlify); the rest is
+// built from the site's own data and src/data/report.json. Not linked anywhere and kept out of search engines.
+import Base from '../layouts/Base.astro';
+import { communities } from '../data/areas';
+import { hoods } from '../data/neighborhoods';
+import { lakes } from '../data/lakes';
+import { guides } from '../data/guides';
+import { hasMarket, latest, monthLabel } from '../data/market';
+import { getPosts } from '../data/blog';
+import { watchable } from '../data/youtube';
+import { members } from '../data/agents';
+import { lastmods } from '../lib/lastmod.mjs';
+import report from '../data/report.json';
+
+const posts = await getPosts();
+const pages = [
+  ['Community guides', communities.length],
+  ['Minneapolis and Saint Paul neighborhood guides', hoods.length],
+  [`Market reports (${monthLabel(latest)})`, communities.filter((c) => hasMarket(c.slug)).length + 1],
+  ['Lake pages', lakes.length],
+  ['Area guides', guides.length],
+  ['Blog posts', posts.length],
+  ['Video pages', watchable.length],
+  ['Agent pages', members.length],
+] as [string, number][];
+const total = pages.reduce((n, [, c]) => n + c, 0);
+const today = Date.now();
+const dates = [...lastmods().values()].filter(Boolean).map((d) => Date.parse(d as string));
+const fresh = (days: number) => dates.filter((d) => today - d <= days * 86400000).length;
+
+const vis = report.visibility.at(-1)!;
+const visFound = vis.results.filter((r) => r.ourSite).length;
+const visMentioned = vis.results.filter((r) => r.mentioned).length;
+const yt = report.social.filter((s) => s.platform === 'YouTube');
+const first = yt[0], last = yt.at(-1)!;
+const fmt = (n: number) => n.toLocaleString('en-US');
+const times = (a: number, b: number) => (b / a).toFixed(1);
+const maxSubs = Math.max(...yt.map((s) => s.followers));
+const dateText = (d: string) => new Date(d + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+---
+<Base title="Results report | Huerkamp Home Group" description="Private results report." noindex>
+  <section class="section rep">
+    <div class="wrap">
+      <p class="eyebrow">Private · updated weekly</p>
+      <h1>Results report</h1>
+      <p class="lede">What the website and the channels are doing for the business. Every number shows where it comes from.</p>
+
+      <!-- Live: leads and Google -->
+      <section class="block" aria-labelledby="live-title">
+        <h2 id="live-title">Leads and Google search</h2>
+        <form class="pass" id="pass" hidden>
+          <label for="pass-key">Report passcode</label>
+          <div><input id="pass-key" type="password" autocomplete="current-password" required /><button class="btn" type="submit">Show live numbers</button></div>
+          <p class="pass__msg" role="status"></p>
+        </form>
+        <div id="live" hidden>
+          <div class="kpis" id="lead-kpis"></div>
+          <h3>Website leads per week</h3>
+          <div class="bars" id="lead-weeks"></div>
+          <h3>Last 30 days by form</h3>
+          <table class="data" id="lead-tags"><thead><tr><th scope="col">Form / tag</th><th scope="col" class="num">Leads</th></tr></thead><tbody></tbody></table>
+          <p class="source" id="lead-src">Source: Follow Up Boss, people whose source is the website or the YouTube form. Counts only.</p>
+
+          <div id="search"></div>
+        </div>
+      </section>
+
+      <!-- Social -->
+      <section class="block" aria-labelledby="social-title">
+        <h2 id="social-title">YouTube: Living in Minneapolis</h2>
+        <div class="kpis">
+          <div><span>Subscribers</span><strong>{fmt(last.followers)}</strong><em>{times(first.followers, last.followers)}× since {dateText(first.date)}</em></div>
+          <div><span>Total views</span><strong>{fmt(last.views)}</strong><em>+{fmt(last.views - first.views)} since {dateText(first.date)}</em></div>
+          <div><span>Videos</span><strong>{fmt(last.posts)}</strong><em>+{fmt(last.posts - first.posts)} since {dateText(first.date)}</em></div>
+        </div>
+        <h3>Subscribers by month</h3>
+        <div class="bars">
+          {yt.map((s) => <div class="bar"><span style={`height:${Math.max(2, (s.followers / maxSubs) * 100)}%`}></span><b>{fmt(s.followers)}</b><i>{dateText(s.date).replace(/ \d+,/, '')}</i></div>)}
+        </div>
+        <p class="source">Source: {last.source}, {dateText(last.date)}. Instagram, Facebook and TikTok are added once their accounts are connected.</p>
+      </section>
+
+      <!-- Visibility -->
+      <section class="block" aria-labelledby="vis-title">
+        <h2 id="vis-title">Do people find us when they search?</h2>
+        <p>{vis.results.length} searches a buyer or seller would make, checked {dateText(vis.date)}: our website came up for <strong>{visFound}</strong>; we were named on another site for <strong>{visMentioned}</strong>. {vis.note}</p>
+        <div class="table-scroll">
+          <table class="data">
+            <thead><tr><th scope="col">Search</th><th scope="col">Our website?</th><th scope="col">Mentioned elsewhere</th><th scope="col">Who comes up first</th></tr></thead>
+            <tbody>{vis.results.map((r) => <tr><th scope="row">{r.query}</th><td class={r.ourSite ? 'yes' : 'no'}>{r.ourSite ? 'Yes' : 'Not yet'}</td><td>{r.mentioned ?? '—'}</td><td>{r.topResults.join(', ')}</td></tr>)}</tbody>
+          </table>
+        </div>
+        {report.visibility.length > 1 && <p>History: {report.visibility.map((v) => `${dateText(v.date)}: ${v.results.filter((r) => r.ourSite).length} of ${v.results.length}`).join(' · ')}</p>}
+        <p class="source">Source: {vis.engine}. Checked weekly by the report routine; AI assistants (ChatGPT, Perplexity, Google AI) are checked by hand monthly until their results can be pulled automatically.</p>
+      </section>
+
+      <!-- Site -->
+      <section class="block" aria-labelledby="site-title">
+        <h2 id="site-title">The website</h2>
+        <div class="kpis">
+          <div><span>Pages with useful content</span><strong>{fmt(total)}</strong><em>plus the main pages</em></div>
+          <div><span>Updated in the last 7 days</span><strong>{fmt(fresh(7))}</strong><em>pages with a real change</em></div>
+          <div><span>Updated in the last 30 days</span><strong>{fmt(fresh(30))}</strong><em>Google sees these as fresh</em></div>
+        </div>
+        <table class="data"><tbody>{pages.map(([k, n]) => <tr><th scope="row">{k}</th><td class="num">{fmt(n)}</td></tr>)}</tbody></table>
+        <p class="source">Source: this website's own build, {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}. "Updated" uses the same real change dates the sitemap gives Google.</p>
+      </section>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const $ = (s: string) => document.querySelector<HTMLElement>(s)!;
+  const esc = (s: unknown) => String(s ?? '').replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+  const n = (x: number) => Math.round(x).toLocaleString('en-US');
+  const pct = (a: number, b: number) => (b ? `${a >= b ? '+' : '−'}${Math.abs(Math.round(((a - b) / b) * 100))}% vs the 30 days before` : 'first period');
+  const bars = (rows: { label: string; value: number }[]) => {
+    const max = Math.max(1, ...rows.map((r) => r.value));
+    return rows.map((r) => `<div class="bar"><span style="height:${Math.max(2, (r.value / max) * 100)}%"></span><b>${n(r.value)}</b><i>${esc(r.label)}</i></div>`).join('');
+  };
+  const short = (d: string) => new Date(d + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  const KEY = 'hhg-report-key';
+  const store = { get: () => { try { return localStorage.getItem(KEY) ?? ''; } catch { return ''; } }, set: (v: string) => { try { localStorage.setItem(KEY, v); } catch {} } };
+
+  async function load(key: string) {
+    const res = await fetch('/api/report', { headers: { 'x-report-key': key } }).catch(() => null);
+    const d = res ? await res.json().catch(() => null) : null;
+    if (!d?.ok) {
+      $('#pass').hidden = false;
+      $('.pass__msg').textContent = d?.error === 'wrong-passcode' ? 'That passcode didn\'t work.' : d?.error === 'not-configured' ? 'The report passcode isn\'t set up in Netlify yet (REPORT_KEY).' : 'Couldn\'t load the live numbers. Try again in a minute.';
+      return;
+    }
+    store.set(key);
+    $('#pass').hidden = true; $('#live').hidden = false;
+    const L = d.leads;
+    if (L.ok) {
+      $('#lead-kpis').innerHTML = `<div><span>Leads, last 7 days</span><strong>${n(L.last7)}</strong></div>
+        <div><span>Leads, last 30 days</span><strong>${n(L.last30)}</strong><em>${pct(L.last30, L.prior30)}</em></div>
+        <div><span>Seller leads, last 30 days</span><strong>${n(L.sellers30)}</strong></div>
+        <div><span>Leads, last 90 days</span><strong>${n(L.last90)}</strong></div>`;
+      $('#lead-weeks').innerHTML = bars(L.byWeek.map((w: any) => ({ label: short(w.weekOf), value: w.leads })));
+      $('#lead-tags tbody').innerHTML = L.tags30.length ? L.tags30.map(([t, c]: [string, number]) => `<tr><th scope="row">${esc(t)}</th><td class="num">${n(c)}</td></tr>`).join('') : '<tr><td colspan="2">No website leads in the last 30 days.</td></tr>';
+    } else {
+      $('#lead-kpis').innerHTML = `<p class="warn">Leads: ${esc(L.error)}.</p>`;
+    }
+    const S = d.search;
+    $('#search').innerHTML = S.ok ? `
+      <h3>Google search, 28 days through ${short(S.through)}</h3>
+      <div class="kpis">
+        <div><span>Clicks from Google</span><strong>${n(S.last28.clicks)}</strong><em>${pct(S.last28.clicks, S.prior28.clicks).replace('30', '28')}</em></div>
+        <div><span>Times shown in Google</span><strong>${n(S.last28.impressions)}</strong><em>${pct(S.last28.impressions, S.prior28.impressions).replace('30', '28')}</em></div>
+      </div>
+      <h3>Clicks from Google per week</h3><div class="bars">${bars(S.weeks.map((w: any) => ({ label: short(w.weekOf), value: w.clicks })))}</div>
+      <h3>Top searches</h3>
+      <div class="table-scroll"><table class="data"><thead><tr><th scope="col">Search</th><th scope="col" class="num">Clicks</th><th scope="col" class="num">Shown</th><th scope="col" class="num">Avg. position</th></tr></thead><tbody>
+        ${S.queries.map((r: any) => `<tr><th scope="row">${esc(r.key)}</th><td class="num">${n(r.clicks)}</td><td class="num">${n(r.impressions)}</td><td class="num">${r.position}</td></tr>`).join('')}</tbody></table></div>
+      <h3>Top pages</h3>
+      <div class="table-scroll"><table class="data"><thead><tr><th scope="col">Page</th><th scope="col" class="num">Clicks</th><th scope="col" class="num">Shown</th></tr></thead><tbody>
+        ${S.pages.map((r: any) => `<tr><th scope="row">${esc(r.key.replace(/^https?:\/\/[^/]+/, '') || '/')}</th><td class="num">${n(r.clicks)}</td><td class="num">${n(r.impressions)}</td></tr>`).join('')}</tbody></table></div>
+      <p class="source">Source: Google Search Console. Google reports about 3 days behind.</p>`
+      : `<h3>Google search</h3><p class="warn">${esc(S.error)}.</p>`;
+  }
+  const saved = store.get();
+  if (saved) load(saved); else $('#pass').hidden = false;
+  $('#pass').addEventListener('submit', (e) => { e.preventDefault(); load(($('#pass-key') as HTMLInputElement).value.trim()); });
+</script>
+
+<style is:global>
+  .rep h1 { font: 500 clamp(2.4rem, 5vw, 3.6rem)/1.05 var(--serif-display); }
+  .rep .lede { color: var(--text-soft); max-width: 44rem; }
+  .rep .block { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--line); }
+  .rep h2 { font: 500 1.9rem/1.2 var(--serif); margin-bottom: 1rem; }
+  .rep h3 { font: 700 .75rem/1.3 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--text-soft); margin: 1.75rem 0 .75rem; }
+  .rep .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .rep .kpis > div { display: grid; gap: .2rem; padding: 1rem 1.25rem; background: var(--paper); }
+  .rep .kpis span { font: 700 .68rem/1.25 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--crimson); }
+  .rep .kpis strong { font: 500 2rem/1.1 var(--serif); }
+  .rep .kpis em { font-style: normal; font-size: .82rem; color: var(--text-soft); }
+  .rep .bars { display: flex; align-items: flex-end; gap: .4rem; height: 11rem; padding-top: 1.25rem; overflow-x: auto; }
+  .rep .bar { flex: 1 0 2.75rem; height: 100%; display: grid; grid-template-rows: 1fr auto; position: relative; text-align: center; }
+  .rep .bar span { align-self: end; background: var(--crimson); min-height: 2px; }
+  .rep .bar b { position: absolute; left: 0; right: 0; top: -1.1rem; font: 600 .7rem/1 var(--ui); }
+  .rep .bar i { font-style: normal; font-size: .68rem; color: var(--text-soft); padding-top: .3rem; white-space: nowrap; }
+  .rep .table-scroll { overflow-x: auto; }
+  .rep .data { width: 100%; border-collapse: collapse; font-size: .92rem; background: var(--paper); margin-top: 1rem; }
+  .rep .data th, .rep .data td { padding: .55rem .75rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  .rep .data thead th { font: 700 .7rem/1.3 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--text-soft); }
+  .rep .data .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .rep .yes { color: #1a7f37; font-weight: 700; }
+  .rep .no { color: var(--text-soft); }
+  .rep .pass { display: grid; gap: .5rem; max-width: 28rem; }
+  .rep .pass[hidden], .rep #live[hidden] { display: none; }
+  .rep .pass div { display: flex; gap: .5rem; }
+  .rep .pass input { flex: 1; padding: .7rem .8rem; border: 1px solid var(--line); font: inherit; }
+  .rep .pass__msg, .rep .warn { color: var(--crimson); }
+  .rep .source { margin-top: .9rem; font-size: .8rem; color: var(--text-soft); }
+</style>
