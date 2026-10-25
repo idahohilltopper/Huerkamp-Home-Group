@@ -1,0 +1,239 @@
+---
+// Lake homes: every named lake of 10 acres or more touching one of our communities (Census water maps), and the
+// lakefront homes for sale on them (Ylopo's MLS "Lakefront" filter). Each lake has its own page.
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import AreaMap from '../../components/AreaMap.astro';
+import YlopoListings from '../../components/YlopoListings.astro';
+import { regions } from '../../data/areas';
+import {
+  lakes, lakeHref, lakeCommunities, lakeSearchUrl, allLakefrontUrl, lakefrontWidgetSearch, lakeCommunitySlugs, lakeInfo, lakeGeoUrl, lakeSources,
+} from '../../data/lakes';
+import { business, origin } from '../../data/schema';
+import { site } from '../../data/site';
+
+const fmt = (n: number) => n.toLocaleString('en-US');
+const big = lakes.filter((l) => l.acres >= 500);
+const counts = { all: lakes.length, big: big.length, mid: lakes.filter((l) => l.acres >= 100 && l.acres < 500).length, small: lakes.filter((l) => l.acres < 100).length };
+const communityCount = lakeCommunitySlugs.length;
+// Directory grouped by the region of each lake's main shoreline community.
+const groups = regions.map((reg) => ({
+  reg, id: reg.toLowerCase().replace(/[^a-z]+/g, '-'),
+  list: lakes.filter((l) => lakeCommunities(l)[0]?.region === reg).sort((a, b) => a.name.localeCompare(b.name)),
+})).filter((g) => g.list.length);
+
+const faq = [
+  { q: 'Which lakes are on this page?', a: `Every named lake or reservoir of 10 acres or more that touches one of our ${communityCount} lake communities, ${counts.all} in all, from US Census Bureau water maps. Rivers, creeks and ponds are left out, and the named bays of a lake (like Lake Minnetonka's) count as part of it.` },
+  { q: 'What counts as a lakefront home?', a: 'A home the listing agent marked as lakefront in the MLS (NorthstarMLS). Our lakefront searches use that field, so homes that are only near a lake or have a lake view are left out.' },
+  { q: 'How do I see the homes on one lake?', a: 'Open the lake from the map or the list. Each lake has a "lakefront homes" search on a map around that lake. A few homes on nearby smaller lakes inside the same map area can show up too.' },
+  { q: 'What should I check before buying on a lake?', a: 'Frontage, water depth at the dock, the shoreline (sand, rock or muck), lake rules and access, any lake association, and the shoreland rules that limit what you can build. We help with all of it.' },
+];
+const ld = JSON.stringify([
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+  {
+    '@context': 'https://schema.org', '@type': 'ItemList', name: 'Twin Cities lakes of 10 acres or more', numberOfItems: lakes.length,
+    itemListElement: lakes.slice(0, 100).map((l, i) => ({ '@type': 'ListItem', position: i + 1, url: `${origin}${lakeHref(l)}`, name: l.name })),
+  },
+]);
+---
+<Base
+  breadcrumbs={[{ name: 'Lake homes', href: '/lake-homes' }]}
+  title="Twin Cities Lake Homes for Sale: Every Lake 10+ Acres | Huerkamp Home Group"
+  description={`Lakefront homes for sale on ${counts.all} Twin Cities lakes of 10 acres or more, from Lake Minnetonka to Prior Lake, White Bear Lake and Lake Waconia. Search by lake.`}>
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <PageHero eyebrow="Lake homes" title="Twin Cities lakefront homes"
+    lede={`Every lake of 10 acres or more in our ${communityCount} lake communities, ${counts.all} lakes in all, and the lakefront homes for sale on them.`}>
+    <div class="hero-actions">
+      <a class="btn" href={allLakefrontUrl()} rel="noopener">See every lakefront home for sale</a>
+      <a class="btn btn--ghost" href="#lakes">Find your lake</a>
+    </div>
+  </PageHero>
+
+  <section class="section section--paper" aria-label="Lakes by size">
+    <div class="wrap">
+      <ul class="stats">
+        <li><strong>{counts.all}</strong><span>lakes of 10+ acres</span></li>
+        <li><strong>{counts.big}</strong><span>500 acres or more</span></li>
+        <li><strong>{counts.mid}</strong><span>100 to 499 acres</span></li>
+        <li><strong>{counts.small}</strong><span>10 to 99 acres</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="listings" aria-labelledby="listings-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Live MLS listings · lakefront only</p>
+        <h2 id="listings-title">Newest lakefront homes</h2>
+        <p>Homes marked lakefront in the MLS, in the communities with the most lake shoreline.</p>
+      </div>
+      <YlopoListings search={lakefrontWidgetSearch(lakeCommunitySlugs.slice(0, 30), 16)} layout="scroll" moreHref={allLakefrontUrl()} moreLabel="See every lakefront home for sale" />
+    </div>
+  </section>
+
+  <section class="section section--paper" aria-labelledby="map-title">
+    <div class="wrap">
+      <div class="head"><p class="eyebrow">Lake map</p><h2 id="map-title">Pick <em>your lake.</em></h2><p>All {counts.all} lakes. Hover for the size, click for the lake's page and its lakefront homes.</p></div>
+      <AreaMap src={lakeGeoUrl} info={lakeInfo} label="Hover a lake" height="600px" />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="big-title">
+    <div class="wrap">
+      <div class="head"><p class="eyebrow">The big lakes</p><h2 id="big-title">{counts.big} lakes of 500 acres or more</h2></div>
+      <ul class="cards">
+        {big.map((l) => (
+          <li class="card">
+            <h3><a href={lakeHref(l)}>{l.name}</a></h3>
+            <p class="card__acres"><strong>{fmt(l.acres)}</strong> acres · {l.counties.join(', ')} County</p>
+            <p class="card__towns">{lakeCommunities(l).map((c) => c.name).join(', ')}</p>
+            <p class="card__links"><a class="link-arrow" href={lakeSearchUrl(l)} rel="noopener">Lakefront homes</a> <a class="link-arrow" href={lakeHref(l)}>Lake guide</a></p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--paper" id="lakes" aria-labelledby="all-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Every lake</p>
+        <h2 id="all-title">All {counts.all} lakes, by area</h2>
+        <p>Grouped by the area of each lake's main shoreline community.</p>
+      </div>
+      <div class="filter">
+        <label for="lake-filter">Find a lake or city</label>
+        <input id="lake-filter" type="search" placeholder="e.g. Prior Lake, Orono, Bass Lake" autocomplete="off" />
+        <p class="filter__none" hidden>No lake matches. Try a city name.</p>
+      </div>
+      <nav class="jump" aria-label="Areas">{groups.map((g) => <a href={`#${g.id}`}>{g.reg} <span>{g.list.length}</span></a>)}</nav>
+      {groups.map((g) => (
+        <details class="group" id={g.id}>
+          <summary><h3>{g.reg}</h3><span>{g.list.length} lakes</span></summary>
+          <div class="table-scroll">
+            <table class="data">
+              <thead><tr><th scope="col">Lake</th><th scope="col" class="num">Acres</th><th scope="col">Shoreline communities</th><th scope="col">For sale</th></tr></thead>
+              <tbody>
+                {g.list.map((l) => (
+                  <tr data-q={`${l.name} ${lakeCommunities(l).map((c) => c.name).join(' ')}`.toLowerCase()}>
+                    <th scope="row"><a href={lakeHref(l)}>{l.name}</a></th>
+                    <td class="num">{fmt(l.acres)}</td>
+                    <td>{lakeCommunities(l).map((c, i) => <>{i > 0 && ', '}<a href={`/communities/${c.slug}`}>{c.name}</a></>)}</td>
+                    <td><a href={lakeSearchUrl(l)} rel="noopener">Lakefront homes</a></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </details>
+      ))}
+      <p class="source">Lakes: {lakeSources.water}. {lakeSources.rule}. Acreage is the Census water area, rounded; for depth, water quality and official DNR acreage see the <a href="https://www.dnr.state.mn.us/lakefind/index.html">Minnesota DNR LakeFinder</a>. Lakefront homes: listings marked lakefront in NorthstarMLS.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="faq-title">
+    <div class="wrap faq">
+      <div class="head"><p class="eyebrow">Quick answers</p><h2 id="faq-title">Lake home questions</h2></div>
+      {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+    </div>
+  </section>
+
+  <section class="section section--dark" aria-labelledby="lake-contact-title">
+    <div class="wrap split-2">
+      <div class="prose">
+        <p class="eyebrow">Buying or selling on the water</p>
+        <h2 id="lake-contact-title">Lake homes <em>are different.</em></h2>
+        <p>Shoreline, dock rights, water depth and lake rules all affect what a lake home is worth. Tell us which lake you're interested in and we'll send new lakefront listings as soon as they come on the market.</p>
+      </div>
+      <form class="form" data-lead="lake-homes">
+        <div class="form__row">
+          <div class="field"><label for="lk-first">First name</label><input id="lk-first" name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for="lk-last">Last name</label><input id="lk-last" name="lastName" autocomplete="family-name" required /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="lk-email">Email</label><input id="lk-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="lk-phone">Phone</label><input id="lk-phone" name="phone" type="tel" autocomplete="tel" /></div>
+        </div>
+        <div class="field">
+          <label for="lk-lake">Lake</label>
+          <input id="lk-lake" name="lake" list="lk-lakes" placeholder="Any lake" />
+          <datalist id="lk-lakes">{lakes.map((l) => <option value={l.name} />)}</datalist>
+        </div>
+        <div class="field">
+          <label for="lk-goal">I want to</label>
+          <select id="lk-goal" name="goal"><option value="">Choose one</option><option>Buy a lake home</option><option>Sell a lake home</option></select>
+        </div>
+        <button class="btn" type="submit">Send me lakefront listings</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // Filter the lake list as you type (lake name or shoreline city).
+  const input = document.querySelector<HTMLInputElement>('#lake-filter');
+  const none = document.querySelector<HTMLElement>('.filter__none');
+  // Jumping to an area opens it.
+  document.querySelectorAll<HTMLAnchorElement>('.jump a').forEach((a) => a.addEventListener('click', () => {
+    const d = document.querySelector<HTMLDetailsElement>(a.getAttribute('href')!); if (d) d.open = true;
+  }));
+  input?.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+    let shown = 0;
+    document.querySelectorAll<HTMLElement>('.group').forEach((g) => {
+      let n = 0;
+      g.querySelectorAll<HTMLElement>('tr[data-q]').forEach((r) => { const hit = !q || r.dataset.q!.includes(q); r.hidden = !hit; if (hit) n++; });
+      g.hidden = n === 0; shown += n;
+      (g as HTMLDetailsElement).open = !!q && n > 0; // typing opens the areas with matches
+    });
+    if (none) none.hidden = shown > 0;
+  });
+</script>
+
+<style>
+  .hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: .5rem; }
+  .stats { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  @media (max-width: 700px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .stats li { display: grid; gap: .25rem; padding: 1.2rem 1.4rem; background: var(--paper); }
+  .stats strong { font: 500 clamp(2rem, 4vw, 2.8rem)/1 var(--serif-display); color: var(--crimson); }
+  .stats span { font: 700 .72rem/1.3 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--text-soft); }
+  .cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); gap: 1.25rem; }
+  .card { display: grid; gap: .5rem; align-content: start; padding: 1.4rem; background: var(--paper); border: 1px solid var(--line); border-top: 3px solid var(--crimson); }
+  .card h3 { font-size: 1.5rem; }
+  .card h3 a { color: var(--text); text-decoration: none; }
+  .card h3 a:hover { color: var(--crimson); }
+  .card__acres { color: var(--text-soft); }
+  .card__acres strong { color: var(--text); font-variant-numeric: tabular-nums; }
+  .card__towns { font-size: .92rem; color: var(--text-soft); }
+  .card__links { display: flex; flex-wrap: wrap; gap: 1.25rem; margin-top: .25rem; }
+  .filter { display: grid; gap: .4rem; max-width: 28rem; margin-bottom: 1rem; }
+  .filter label { font: 700 .75rem/1.2 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--text-soft); }
+  .filter input { padding: .8rem 1rem; border: 1px solid var(--line); background: var(--paper); font: inherit; }
+  .filter__none { color: var(--text-soft); }
+  .jump { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
+  .jump a { padding: .5rem .9rem; border: 1px solid var(--line); background: var(--paper); font: 600 .85rem/1 var(--ui); text-decoration: none; color: var(--text); }
+  .jump a span { color: var(--text-soft); font-weight: 500; }
+  .jump a:hover { border-color: var(--crimson); color: var(--crimson); }
+  .group { margin-top: .75rem; border: 1px solid var(--line); background: var(--paper); scroll-margin-top: 6rem; }
+  .group summary { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: 1rem 1.2rem; cursor: pointer; list-style: none; }
+  .group summary::-webkit-details-marker { display: none; }
+  .group summary h3 { font: 600 1.4rem/1.2 var(--serif); }
+  .group summary h3::before { content: "+"; display: inline-block; width: 1.2rem; color: var(--crimson); }
+  .group[open] summary h3::before { content: "–"; }
+  .group summary span { color: var(--text-soft); font-size: .9rem; }
+  .group .table-scroll { padding: 0 1.2rem 1rem; }
+  .table-scroll { position: relative; overflow-x: auto; }
+  .data { width: 100%; border-collapse: collapse; font-size: .95rem; background: var(--paper); }
+  .data th, .data td { padding: .55rem .75rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  .data thead th { font: 700 .72rem/1.3 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--text-soft); white-space: nowrap; }
+  .data .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .data tbody th a { color: var(--text); font-weight: 600; }
+  .data td a { color: var(--crimson-deep); }
+  .data td:last-child { white-space: nowrap; }
+  .source { margin-top: 1.25rem; font-size: .85rem; color: var(--text-soft); }
+  .faq { display: grid; gap: .75rem; max-width: 52rem; }
+  .faq details { padding: 1rem 1.2rem; background: var(--paper); border: 1px solid var(--line); }
+  .faq summary { cursor: pointer; font: 600 1.15rem/1.3 var(--serif); }
+  .faq details p { margin-top: .6rem; color: var(--text-soft); }
+</style>

@@ -1,0 +1,8324 @@
+{
+ "sources": {
+  "water": "US Census Bureau TIGER/Line 2024 area water (lakes, ponds and reservoirs; touching parts joined)",
+  "rule": "Named lakes of 10 acres or more that touch a community guide boundary"
+ },
+ "lakes": [
+  {
+   "name": "Lake Minnetonka",
+   "acres": 10960,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "orono",
+    "minnetrista",
+    "shorewood",
+    "mound",
+    "deephaven",
+    "wayzata",
+    "tonka-bay",
+    "woodland",
+    "greenwood",
+    "minnetonka-beach",
+    "spring-park",
+    "minnetonka",
+    "excelsior",
+    "victoria"
+   ],
+   "center": [
+    -93.53753,
+    44.93142
+   ],
+   "bbox": [
+    -93.68477,
+    44.89096,
+    -93.48609,
+    44.9708
+   ],
+   "slug": "lake-minnetonka"
+  },
+  {
+   "name": "Lake Waconia",
+   "acres": 3654,
+   "counties": [
+    "Carver"
+   ],
+   "communities": [
+    "waconia"
+   ],
+   "center": [
+    -93.78385,
+    44.87767
+   ],
+   "bbox": [
+    -93.816,
+    44.85211,
+    -93.75688,
+    44.90304
+   ],
+   "slug": "lake-waconia"
+  },
+  {
+   "name": "White Bear Lake",
+   "acres": 2398,
+   "counties": [
+    "Ramsey",
+    "Washington"
+   ],
+   "communities": [
+    "mahtomedi",
+    "white-bear-lake",
+    "dellwood",
+    "birchwood-village"
+   ],
+   "center": [
+    -92.98986,
+    45.07653
+   ],
+   "bbox": [
+    -93.01632,
+    45.05538,
+    -92.96095,
+    45.09774
+   ],
+   "slug": "white-bear-lake"
+  },
+  {
+   "name": "Peltier Lake",
+   "acres": 2288,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "lino-lakes",
+    "centerville",
+    "circle-pines"
+   ],
+   "center": [
+    -93.10969,
+    45.1679
+   ],
+   "bbox": [
+    -93.14121,
+    45.1331,
+    -93.04599,
+    45.20276
+   ],
+   "slug": "peltier-lake"
+  },
+  {
+   "name": "Forest Lake",
+   "acres": 2256,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "forest-lake"
+   ],
+   "center": [
+    -92.94683,
+    45.27389
+   ],
+   "bbox": [
+    -92.98364,
+    45.25282,
+    -92.90863,
+    45.29493
+   ],
+   "slug": "forest-lake"
+  },
+  {
+   "name": "Big Marine Lake",
+   "acres": 1660,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "scandia"
+   ],
+   "center": [
+    -92.8678,
+    45.22485
+   ],
+   "bbox": [
+    -92.87978,
+    45.20434,
+    -92.82695,
+    45.24538
+   ],
+   "slug": "big-marine-lake"
+  },
+  {
+   "name": "Coon Lake",
+   "acres": 1483,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "east-bethel",
+    "ham-lake",
+    "columbus"
+   ],
+   "center": [
+    -93.16867,
+    45.30717
+   ],
+   "bbox": [
+    -93.1981,
+    45.28941,
+    -93.132,
+    45.32496
+   ],
+   "slug": "coon-lake"
+  },
+  {
+   "name": "Prior Lake",
+   "acres": 1309,
+   "counties": [
+    "Scott"
+   ],
+   "communities": [
+    "prior-lake",
+    "savage"
+   ],
+   "center": [
+    -93.42117,
+    44.73251
+   ],
+   "bbox": [
+    -93.46152,
+    44.7057,
+    -93.38205,
+    44.74585
+   ],
+   "slug": "prior-lake"
+  },
+  {
+   "name": "Long Meadow Lake",
+   "acres": 1235,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "bloomington"
+   ],
+   "center": [
+    -93.22844,
+    44.83465
+   ],
+   "bbox": [
+    -93.26495,
+    44.81176,
+    -93.20599,
+    44.85759
+   ],
+   "slug": "long-meadow-lake"
+  },
+  {
+   "name": "Bald Eagle Lake",
+   "acres": 1034,
+   "counties": [
+    "Anoka",
+    "Ramsey",
+    "Washington"
+   ],
+   "communities": [
+    "hugo",
+    "lino-lakes"
+   ],
+   "center": [
+    -93.01595,
+    45.118
+   ],
+   "bbox": [
+    -93.02792,
+    45.09913,
+    -92.99949,
+    45.13691
+   ],
+   "slug": "bald-eagle-lake"
+  },
+  {
+   "name": "Medicine Lake",
+   "acres": 905,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "plymouth",
+    "medicine-lake"
+   ],
+   "center": [
+    -93.41988,
+    45.00876
+   ],
+   "bbox": [
+    -93.43933,
+    44.99464,
+    -93.40312,
+    45.02298
+   ],
+   "slug": "medicine-lake"
+  },
+  {
+   "name": "Lake Byllesby",
+   "acres": 810,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "randolph"
+   ],
+   "center": [
+    -92.96667,
+    44.51822
+   ],
+   "bbox": [
+    -93.1913,
+    44.50681,
+    -92.93995,
+    44.52955
+   ],
+   "slug": "lake-byllesby"
+  },
+  {
+   "name": "Lake Independence",
+   "acres": 803,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "independence",
+    "medina"
+   ],
+   "center": [
+    -93.64894,
+    45.03188
+   ],
+   "bbox": [
+    -93.66237,
+    45.01909,
+    -93.63551,
+    45.04455
+   ],
+   "slug": "lake-independence"
+  },
+  {
+   "name": "Pigs Eye Lake",
+   "acres": 800,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "saint-paul"
+   ],
+   "center": [
+    -93.02928,
+    44.91388
+   ],
+   "bbox": [
+    -93.03936,
+    44.89276,
+    -93.01294,
+    44.93434
+   ],
+   "slug": "pigs-eye-lake"
+  },
+  {
+   "name": "Wells Lake",
+   "acres": 663,
+   "counties": [
+    "Rice"
+   ],
+   "communities": [
+    "faribault"
+   ],
+   "center": [
+    -93.34023,
+    44.28845
+   ],
+   "bbox": [
+    -93.35688,
+    44.2802,
+    -93.2994,
+    44.29889
+   ],
+   "slug": "wells-lake"
+  },
+  {
+   "name": "Minnewashta Lake",
+   "acres": 660,
+   "counties": [
+    "Carver"
+   ],
+   "communities": [
+    "chanhassen"
+   ],
+   "center": [
+    -93.61142,
+    44.87855
+   ],
+   "bbox": [
+    -93.62002,
+    44.86616,
+    -93.59041,
+    44.89117
+   ],
+   "slug": "minnewashta-lake"
+  },
+  {
+   "name": "Gervais Lake",
+   "acres": 632,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "maplewood",
+    "little-canada",
+    "saint-paul"
+   ],
+   "center": [
+    -93.06243,
+    45.00367
+   ],
+   "bbox": [
+    -93.0763,
+    44.97928,
+    -93.04589,
+    45.02808
+   ],
+   "slug": "gervais-lake"
+  },
+  {
+   "name": "Pleasant Lake",
+   "acres": 610,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "north-oaks"
+   ],
+   "center": [
+    -93.10047,
+    45.09576
+   ],
+   "bbox": [
+    -93.11548,
+    45.08622,
+    -93.08461,
+    45.10533
+   ],
+   "slug": "pleasant-lake"
+  },
+  {
+   "name": "Vadnais Lake",
+   "acres": 589,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "vadnais-heights",
+    "little-canada",
+    "shoreview"
+   ],
+   "center": [
+    -93.10175,
+    45.05274
+   ],
+   "bbox": [
+    -93.1062,
+    45.04201,
+    -93.07701,
+    45.06204
+   ],
+   "slug": "vadnais-lake"
+  },
+  {
+   "name": "Spring Lake",
+   "acres": 587,
+   "counties": [
+    "Scott"
+   ],
+   "communities": [
+    "prior-lake"
+   ],
+   "center": [
+    -93.47222,
+    44.69996
+   ],
+   "bbox": [
+    -93.49019,
+    44.69336,
+    -93.45642,
+    44.70646
+   ],
+   "slug": "spring-lake-prior-lake"
+  },
+  {
+   "name": "Lake Sarah",
+   "acres": 540,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "greenfield",
+    "independence"
+   ],
+   "center": [
+    -93.67147,
+    45.06166
+   ],
+   "bbox": [
+    -93.70551,
+    45.0518,
+    -93.65528,
+    45.07165
+   ],
+   "slug": "lake-sarah"
+  },
+  {
+   "name": "Whaletail Lake",
+   "acres": 498,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "minnetrista"
+   ],
+   "center": [
+    -93.73242,
+    44.93606
+   ],
+   "bbox": [
+    -93.74079,
+    44.92856,
+    -93.7093,
+    44.94387
+   ],
+   "slug": "whaletail-lake"
+  },
+  {
+   "name": "Lake George",
+   "acres": 480,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "oak-grove"
+   ],
+   "center": [
+    -93.3366,
+    45.35631
+   ],
+   "bbox": [
+    -93.34801,
+    45.34958,
+    -93.32513,
+    45.36299
+   ],
+   "slug": "lake-george"
+  },
+  {
+   "name": "Centerville Lake",
+   "acres": 459,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "lino-lakes",
+    "centerville"
+   ],
+   "center": [
+    -93.07011,
+    45.16333
+   ],
+   "bbox": [
+    -93.0815,
+    45.15679,
+    -93.0583,
+    45.16973
+   ],
+   "slug": "centerville-lake"
+  },
+  {
+   "name": "Turtle Lake",
+   "acres": 451,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "shoreview"
+   ],
+   "center": [
+    -93.13741,
+    45.09853
+   ],
+   "bbox": [
+    -93.14574,
+    45.08944,
+    -93.13062,
+    45.10773
+   ],
+   "slug": "turtle-lake"
+  },
+  {
+   "name": "Howard Lake",
+   "acres": 432,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "columbus"
+   ],
+   "center": [
+    -93.04415,
+    45.25974
+   ],
+   "bbox": [
+    -93.05986,
+    45.25313,
+    -93.03075,
+    45.2665
+   ],
+   "slug": "howard-lake-columbus"
+  },
+  {
+   "name": "Clear Lake",
+   "acres": 428,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "forest-lake"
+   ],
+   "center": [
+    -93.00223,
+    45.26045
+   ],
+   "bbox": [
+    -93.01459,
+    45.25439,
+    -92.98896,
+    45.26707
+   ],
+   "slug": "clear-lake-forest-lake"
+  },
+  {
+   "name": "Bde Maka Ska",
+   "acres": 417,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "minneapolis"
+   ],
+   "center": [
+    -93.31188,
+    44.94222
+   ],
+   "bbox": [
+    -93.31995,
+    44.93427,
+    -93.30387,
+    44.94992
+   ],
+   "slug": "bde-maka-ska"
+  },
+  {
+   "name": "Gun Club Lake",
+   "acres": 405,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "eagan",
+    "mendota-heights"
+   ],
+   "center": [
+    -93.19332,
+    44.85567
+   ],
+   "bbox": [
+    -93.20201,
+    44.84896,
+    -93.17607,
+    44.87474
+   ],
+   "slug": "gun-club-lake"
+  },
+  {
+   "name": "Diamond Lake",
+   "acres": 389,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "dayton"
+   ],
+   "center": [
+    -93.50399,
+    45.20223
+   ],
+   "bbox": [
+    -93.51776,
+    45.19506,
+    -93.49376,
+    45.20913
+   ],
+   "slug": "diamond-lake-dayton"
+  },
+  {
+   "name": "Rice Lake",
+   "acres": 387,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "maple-grove"
+   ],
+   "center": [
+    -93.46904,
+    45.11799
+   ],
+   "bbox": [
+    -93.48787,
+    45.10621,
+    -93.45688,
+    45.12987
+   ],
+   "slug": "rice-lake-maple-grove"
+  },
+  {
+   "name": "Lake Owasso",
+   "acres": 377,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "roseville",
+    "shoreview"
+   ],
+   "center": [
+    -93.12727,
+    45.03198
+   ],
+   "bbox": [
+    -93.13881,
+    45.02085,
+    -93.10986,
+    45.04314
+   ],
+   "slug": "lake-owasso"
+  },
+  {
+   "name": "Crossways Lake",
+   "acres": 355,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "columbus"
+   ],
+   "center": [
+    -93.06789,
+    45.22944
+   ],
+   "bbox": [
+    -93.07815,
+    45.22031,
+    -93.0617,
+    45.23873
+   ],
+   "slug": "crossways-lake"
+  },
+  {
+   "name": "Lake Harriet",
+   "acres": 340,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "minneapolis"
+   ],
+   "center": [
+    -93.30446,
+    44.92208
+   ],
+   "bbox": [
+    -93.31375,
+    44.91559,
+    -93.29658,
+    44.92836
+   ],
+   "slug": "lake-harriet"
+  },
+  {
+   "name": "Parley Lake",
+   "acres": 332,
+   "counties": [
+    "Carver",
+    "Hennepin"
+   ],
+   "communities": [
+    "minnetrista"
+   ],
+   "center": [
+    -93.73228,
+    44.8867
+   ],
+   "bbox": [
+    -93.74541,
+    44.8755,
+    -93.72329,
+    44.89772
+   ],
+   "slug": "parley-lake"
+  },
+  {
+   "name": "Oneka Lake",
+   "acres": 331,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "hugo"
+   ],
+   "center": [
+    -92.96862,
+    45.17883
+   ],
+   "bbox": [
+    -92.97596,
+    45.17163,
+    -92.96033,
+    45.18624
+   ],
+   "slug": "oneka-lake"
+  },
+  {
+   "name": "Black Dog Lake",
+   "acres": 329,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "burnsville"
+   ],
+   "center": [
+    -93.2676,
+    44.80314
+   ],
+   "bbox": [
+    -93.28329,
+    44.797,
+    -93.24907,
+    44.8093
+   ],
+   "slug": "black-dog-lake"
+  },
+  {
+   "name": "Fish Lake",
+   "acres": 318,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "east-bethel"
+   ],
+   "center": [
+    -93.16557,
+    45.4034
+   ],
+   "bbox": [
+    -93.17432,
+    45.39662,
+    -93.15892,
+    45.41024
+   ],
+   "slug": "fish-lake-east-bethel"
+  },
+  {
+   "name": "Rice Lake",
+   "acres": 317,
+   "counties": [
+    "Scott"
+   ],
+   "communities": [
+    "savage",
+    "shakopee"
+   ],
+   "center": [
+    -93.39142,
+    44.78819
+   ],
+   "bbox": [
+    -93.40115,
+    44.78065,
+    -93.38024,
+    44.79615
+   ],
+   "slug": "rice-lake-savage"
+  },
+  {
+   "name": "O Dowd Lake",
+   "acres": 304,
+   "counties": [
+    "Scott"
+   ],
+   "communities": [
+    "shakopee"
+   ],
+   "center": [
+    -93.51671,
+    44.74138
+   ],
+   "bbox": [
+    -93.5266,
+    44.73243,
+    -93.50734,
+    44.75026
+   ],
+   "slug": "o-dowd-lake"
+  },
+  {
+   "name": "Crystal Lake",
+   "acres": 291,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "burnsville",
+    "lakeville"
+   ],
+   "center": [
+    -93.26289,
+    44.72168
+   ],
+   "bbox": [
+    -93.28052,
+    44.71632,
+    -93.25363,
+    44.72699
+   ],
+   "slug": "crystal-lake-burnsville"
+  },
+  {
+   "name": "Lake Riley",
+   "acres": 288,
+   "counties": [
+    "Carver",
+    "Hennepin"
+   ],
+   "communities": [
+    "chanhassen",
+    "eden-prairie"
+   ],
+   "center": [
+    -93.5198,
+    44.83679
+   ],
+   "bbox": [
+    -93.53282,
+    44.83136,
+    -93.51211,
+    44.84219
+   ],
+   "slug": "lake-riley"
+  },
+  {
+   "name": "Otter Lake",
+   "acres": 286,
+   "counties": [
+    "Anoka",
+    "Ramsey"
+   ],
+   "communities": [
+    "lino-lakes"
+   ],
+   "center": [
+    -93.04199,
+    45.12375
+   ],
+   "bbox": [
+    -93.04772,
+    45.11621,
+    -93.03236,
+    45.1315
+   ],
+   "slug": "otter-lake"
+  },
+  {
+   "name": "Eagle Lake",
+   "acres": 282,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "maple-grove"
+   ],
+   "center": [
+    -93.41495,
+    45.07422
+   ],
+   "bbox": [
+    -93.42081,
+    45.06607,
+    -93.40627,
+    45.08245
+   ],
+   "slug": "eagle-lake"
+  },
+  {
+   "name": "Long Lake",
+   "acres": 275,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "orono",
+    "long-lake"
+   ],
+   "center": [
+    -93.55875,
+    44.98882
+   ],
+   "bbox": [
+    -93.56939,
+    44.98447,
+    -93.54317,
+    44.99314
+   ],
+   "slug": "long-lake-orono"
+  },
+  {
+   "name": "Lake Elmo",
+   "acres": 270,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "lake-elmo"
+   ],
+   "center": [
+    -92.88395,
+    44.984
+   ],
+   "bbox": [
+    -92.89589,
+    44.97328,
+    -92.88044,
+    44.99499
+   ],
+   "slug": "lake-elmo"
+  },
+  {
+   "name": "Lake Rebecca",
+   "acres": 263,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "greenfield",
+    "independence"
+   ],
+   "center": [
+    -93.74187,
+    45.06486
+   ],
+   "bbox": [
+    -93.75097,
+    45.05801,
+    -93.73557,
+    45.07169
+   ],
+   "slug": "lake-rebecca"
+  },
+  {
+   "name": "Round Lake",
+   "acres": 263,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "andover"
+   ],
+   "center": [
+    -93.35436,
+    45.24006
+   ],
+   "bbox": [
+    -93.36544,
+    45.2348,
+    -93.34767,
+    45.24526
+   ],
+   "slug": "round-lake-andover"
+  },
+  {
+   "name": "Christmas Lake",
+   "acres": 260,
+   "counties": [
+    "Carver",
+    "Hennepin"
+   ],
+   "communities": [
+    "shorewood",
+    "chanhassen"
+   ],
+   "center": [
+    -93.54308,
+    44.89618
+   ],
+   "bbox": [
+    -93.55094,
+    44.88934,
+    -93.53563,
+    44.9029
+   ],
+   "slug": "christmas-lake"
+  },
+  {
+   "name": "Blue Lake",
+   "acres": 252,
+   "counties": [
+    "Scott"
+   ],
+   "communities": [
+    "shakopee"
+   ],
+   "center": [
+    -93.43371,
+    44.80553
+   ],
+   "bbox": [
+    -93.45022,
+    44.80016,
+    -93.42397,
+    44.81046
+   ],
+   "slug": "blue-lake"
+  },
+  {
+   "name": "Rondeau Lake",
+   "acres": 245,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "lino-lakes",
+    "columbus"
+   ],
+   "center": [
+    -93.06938,
+    45.20586
+   ],
+   "bbox": [
+    -93.07501,
+    45.19623,
+    -93.061,
+    45.21551
+   ],
+   "slug": "rondeau-lake"
+  },
+  {
+   "name": "Lake de Montreville",
+   "acres": 240,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "lake-elmo"
+   ],
+   "center": [
+    -92.93948,
+    45.02061
+   ],
+   "bbox": [
+    -92.94844,
+    45.01231,
+    -92.93399,
+    45.0289
+   ],
+   "slug": "lake-de-montreville"
+  },
+  {
+   "name": "Pickerel Lake",
+   "acres": 239,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "nowthen"
+   ],
+   "center": [
+    -93.44803,
+    45.338
+   ],
+   "bbox": [
+    -93.45743,
+    45.33313,
+    -93.44033,
+    45.34289
+   ],
+   "slug": "pickerel-lake"
+  },
+  {
+   "name": "Rice Lake",
+   "acres": 238,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "east-bethel"
+   ],
+   "center": [
+    -93.14133,
+    45.34504
+   ],
+   "bbox": [
+    -93.15265,
+    45.33655,
+    -93.1346,
+    45.35359
+   ],
+   "slug": "rice-lake-east-bethel"
+  },
+  {
+   "name": "Lotus Lake",
+   "acres": 237,
+   "counties": [
+    "Carver"
+   ],
+   "communities": [
+    "chanhassen"
+   ],
+   "center": [
+    -93.53113,
+    44.87704
+   ],
+   "bbox": [
+    -93.53867,
+    44.86712,
+    -93.5223,
+    44.88692
+   ],
+   "slug": "lotus-lake"
+  },
+  {
+   "name": "Lake Johanna",
+   "acres": 235,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "arden-hills",
+    "roseville"
+   ],
+   "center": [
+    -93.16656,
+    45.0402
+   ],
+   "bbox": [
+    -93.17707,
+    45.03171,
+    -93.16296,
+    45.04867
+   ],
+   "slug": "lake-johanna"
+  },
+  {
+   "name": "Fish Lake",
+   "acres": 230,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "maple-grove"
+   ],
+   "center": [
+    -93.4633,
+    45.09351
+   ],
+   "bbox": [
+    -93.47094,
+    45.08334,
+    -93.45661,
+    45.10372
+   ],
+   "slug": "fish-lake-maple-grove"
+  },
+  {
+   "name": "Orchard Lake",
+   "acres": 227,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "lakeville"
+   ],
+   "center": [
+    -93.31024,
+    44.7004
+   ],
+   "bbox": [
+    -93.31689,
+    44.69522,
+    -93.30109,
+    44.7056
+   ],
+   "slug": "orchard-lake"
+  },
+  {
+   "name": "Robina Lake",
+   "acres": 225,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "independence"
+   ],
+   "center": [
+    -93.72387,
+    45.0363
+   ],
+   "bbox": [
+    -93.73323,
+    45.02932,
+    -93.71585,
+    45.04323
+   ],
+   "slug": "robina-lake"
+  },
+  {
+   "name": "Rice Lake",
+   "acres": 224,
+   "counties": [
+    "Carver",
+    "Hennepin"
+   ],
+   "communities": [
+    "eden-prairie",
+    "chanhassen"
+   ],
+   "center": [
+    -93.51776,
+    44.81337
+   ],
+   "bbox": [
+    -93.5261,
+    44.80852,
+    -93.50152,
+    44.81828
+   ],
+   "slug": "rice-lake-eden-prairie"
+  },
+  {
+   "name": "Bone Lake",
+   "acres": 222,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "scandia"
+   ],
+   "center": [
+    -92.8607,
+    45.28621
+   ],
+   "bbox": [
+    -92.86883,
+    45.2782,
+    -92.85246,
+    45.29408
+   ],
+   "slug": "bone-lake"
+  },
+  {
+   "name": "French Lake",
+   "acres": 217,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "dayton"
+   ],
+   "center": [
+    -93.50735,
+    45.1785
+   ],
+   "bbox": [
+    -93.51305,
+    45.17209,
+    -93.50091,
+    45.18504
+   ],
+   "slug": "french-lake-dayton"
+  },
+  {
+   "name": "Lake Zumbra",
+   "acres": 217,
+   "counties": [
+    "Carver"
+   ],
+   "communities": [
+    "victoria",
+    "minnetrista"
+   ],
+   "center": [
+    -93.66571,
+    44.88507
+   ],
+   "bbox": [
+    -93.67394,
+    44.879,
+    -93.65594,
+    44.89114
+   ],
+   "slug": "lake-zumbra"
+  },
+  {
+   "name": "Lake Nokomis",
+   "acres": 201,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "minneapolis"
+   ],
+   "center": [
+    -93.24191,
+    44.90866
+   ],
+   "bbox": [
+    -93.24961,
+    44.90206,
+    -93.23511,
+    44.91525
+   ],
+   "slug": "lake-nokomis"
+  },
+  {
+   "name": "Katrina Lake",
+   "acres": 200,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "medina"
+   ],
+   "center": [
+    -93.62377,
+    45.00983
+   ],
+   "bbox": [
+    -93.63304,
+    45.00487,
+    -93.61608,
+    45.01477
+   ],
+   "slug": "katrina-lake"
+  },
+  {
+   "name": "Marion Lake",
+   "acres": 194,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "lakeville"
+   ],
+   "center": [
+    -93.28214,
+    44.66631
+   ],
+   "bbox": [
+    -93.29331,
+    44.65841,
+    -93.26412,
+    44.67511
+   ],
+   "slug": "marion-lake"
+  },
+  {
+   "name": "Long Lake",
+   "acres": 192,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "new-brighton"
+   ],
+   "center": [
+    -93.20306,
+    45.07614
+   ],
+   "bbox": [
+    -93.21159,
+    45.06646,
+    -93.19562,
+    45.08577
+   ],
+   "slug": "long-lake-new-brighton"
+  },
+  {
+   "name": "Bass Lake",
+   "acres": 182,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "plymouth"
+   ],
+   "center": [
+    -93.43285,
+    45.05365
+   ],
+   "bbox": [
+    -93.43969,
+    45.04805,
+    -93.42715,
+    45.05932
+   ],
+   "slug": "bass-lake-plymouth"
+  },
+  {
+   "name": "Mud Lake",
+   "acres": 175,
+   "counties": [
+    "Anoka",
+    "Washington"
+   ],
+   "communities": [
+    "columbus",
+    "forest-lake"
+   ],
+   "center": [
+    -93.0193,
+    45.26417
+   ],
+   "bbox": [
+    -93.02962,
+    45.26013,
+    -93.01227,
+    45.26823
+   ],
+   "slug": "mud-lake-columbus"
+  },
+  {
+   "name": "Bush Lake",
+   "acres": 175,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "bloomington"
+   ],
+   "center": [
+    -93.38045,
+    44.83583
+   ],
+   "bbox": [
+    -93.39053,
+    44.82801,
+    -93.3762,
+    44.84363
+   ],
+   "slug": "bush-lake"
+  },
+  {
+   "name": "Pine Tree Lake",
+   "acres": 174,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "grant",
+    "dellwood"
+   ],
+   "center": [
+    -92.95321,
+    45.10142
+   ],
+   "bbox": [
+    -92.95993,
+    45.09538,
+    -92.94587,
+    45.10742
+   ],
+   "slug": "pine-tree-lake"
+  },
+  {
+   "name": "Bryant Lake",
+   "acres": 173,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "eden-prairie"
+   ],
+   "center": [
+    -93.42805,
+    44.87879
+   ],
+   "bbox": [
+    -93.43795,
+    44.87133,
+    -93.42022,
+    44.88605
+   ],
+   "slug": "bryant-lake"
+  },
+  {
+   "name": "Cedar Lake",
+   "acres": 169,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "minneapolis"
+   ],
+   "center": [
+    -93.32189,
+    44.95979
+   ],
+   "bbox": [
+    -93.3267,
+    44.95354,
+    -93.31562,
+    44.96584
+   ],
+   "slug": "cedar-lake"
+  },
+  {
+   "name": "Ham Lake",
+   "acres": 169,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "ham-lake"
+   ],
+   "center": [
+    -93.22293,
+    45.25699
+   ],
+   "bbox": [
+    -93.2302,
+    45.25171,
+    -93.21381,
+    45.26218
+   ],
+   "slug": "ham-lake"
+  },
+  {
+   "name": "Deans Lake",
+   "acres": 167,
+   "counties": [
+    "Scott"
+   ],
+   "communities": [
+    "shakopee"
+   ],
+   "center": [
+    -93.45081,
+    44.7768
+   ],
+   "bbox": [
+    -93.45749,
+    44.77097,
+    -93.43614,
+    44.78273
+   ],
+   "slug": "deans-lake"
+  },
+  {
+   "name": "Lake Bavaria",
+   "acres": 166,
+   "counties": [
+    "Carver"
+   ],
+   "communities": [
+    "chaska"
+   ],
+   "center": [
+    -93.63735,
+    44.83659
+   ],
+   "bbox": [
+    -93.65017,
+    44.83263,
+    -93.63154,
+    44.84049
+   ],
+   "slug": "lake-bavaria"
+  },
+  {
+   "name": "Wasserman Lake",
+   "acres": 163,
+   "counties": [
+    "Carver"
+   ],
+   "communities": [
+    "victoria"
+   ],
+   "center": [
+    -93.67302,
+    44.84185
+   ],
+   "bbox": [
+    -93.67954,
+    44.83713,
+    -93.66734,
+    44.84654
+   ],
+   "slug": "wasserman-lake"
+  },
+  {
+   "name": "Stieger Lake",
+   "acres": 162,
+   "counties": [
+    "Carver"
+   ],
+   "communities": [
+    "victoria"
+   ],
+   "center": [
+    -93.65911,
+    44.86623
+   ],
+   "bbox": [
+    -93.66543,
+    44.86133,
+    -93.65246,
+    44.87128
+   ],
+   "slug": "stieger-lake"
+  },
+  {
+   "name": "Dutch Lake",
+   "acres": 160,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "minnetrista",
+    "mound"
+   ],
+   "center": [
+    -93.67662,
+    44.94404
+   ],
+   "bbox": [
+    -93.69138,
+    44.94113,
+    -93.67036,
+    44.94694
+   ],
+   "slug": "dutch-lake"
+  },
+  {
+   "name": "Neds Lake",
+   "acres": 160,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "east-bethel"
+   ],
+   "center": [
+    -93.21736,
+    45.35689
+   ],
+   "bbox": [
+    -93.22613,
+    45.35263,
+    -93.21052,
+    45.36118
+   ],
+   "slug": "neds-lake"
+  },
+  {
+   "name": "Snail Lake",
+   "acres": 159,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "shoreview"
+   ],
+   "center": [
+    -93.12438,
+    45.07284
+   ],
+   "bbox": [
+    -93.13317,
+    45.06708,
+    -93.12032,
+    45.07859
+   ],
+   "slug": "snail-lake"
+  },
+  {
+   "name": "Staring Lake",
+   "acres": 157,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "eden-prairie"
+   ],
+   "center": [
+    -93.45442,
+    44.83729
+   ],
+   "bbox": [
+    -93.46179,
+    44.83353,
+    -93.44795,
+    44.84116
+   ],
+   "slug": "staring-lake"
+  },
+  {
+   "name": "Grass Lake",
+   "acres": 153,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "eden-prairie"
+   ],
+   "center": [
+    -93.46962,
+    44.81356
+   ],
+   "bbox": [
+    -93.48254,
+    44.80982,
+    -93.46279,
+    44.81703
+   ],
+   "slug": "grass-lake-eden-prairie"
+  },
+  {
+   "name": "Hazeltine Lake",
+   "acres": 152,
+   "counties": [
+    "Carver"
+   ],
+   "communities": [
+    "chaska"
+   ],
+   "center": [
+    -93.58945,
+    44.83879
+   ],
+   "bbox": [
+    -93.59402,
+    44.83538,
+    -93.57564,
+    44.84226
+   ],
+   "slug": "hazeltine-lake"
+  },
+  {
+   "name": "Cleary Lake",
+   "acres": 151,
+   "counties": [
+    "Scott"
+   ],
+   "communities": [
+    "credit-river"
+   ],
+   "center": [
+    -93.38925,
+    44.69336
+   ],
+   "bbox": [
+    -93.40213,
+    44.68893,
+    -93.37988,
+    44.69773
+   ],
+   "slug": "cleary-lake"
+  },
+  {
+   "name": "Gleason Lake",
+   "acres": 150,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "plymouth",
+    "minnetonka",
+    "wayzata"
+   ],
+   "center": [
+    -93.49356,
+    44.98214
+   ],
+   "bbox": [
+    -93.49835,
+    44.97298,
+    -93.48892,
+    44.99127
+   ],
+   "slug": "gleason-lake"
+  },
+  {
+   "name": "Lake Jane",
+   "acres": 147,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "lake-elmo"
+   ],
+   "center": [
+    -92.92327,
+    45.01573
+   ],
+   "bbox": [
+    -92.93212,
+    45.01277,
+    -92.91633,
+    45.01882
+   ],
+   "slug": "lake-jane"
+  },
+  {
+   "name": "Central Lake",
+   "acres": 146,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "blaine"
+   ],
+   "center": [
+    -93.19418,
+    45.1862
+   ],
+   "bbox": [
+    -93.20755,
+    45.1781,
+    -93.18684,
+    45.19429
+   ],
+   "slug": "central-lake"
+  },
+  {
+   "name": "Weaver Lake",
+   "acres": 144,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "maple-grove"
+   ],
+   "center": [
+    -93.50134,
+    45.1097
+   ],
+   "bbox": [
+    -93.50949,
+    45.10571,
+    -93.49571,
+    45.11386
+   ],
+   "slug": "weaver-lake"
+  },
+  {
+   "name": "Langdon Lake",
+   "acres": 142,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "mound"
+   ],
+   "center": [
+    -93.67535,
+    44.93307
+   ],
+   "bbox": [
+    -93.6818,
+    44.9295,
+    -93.66842,
+    44.9367
+   ],
+   "slug": "langdon-lake"
+  },
+  {
+   "name": "Goose Lake",
+   "acres": 141,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "white-bear-lake"
+   ],
+   "center": [
+    -93.016,
+    45.06949
+   ],
+   "bbox": [
+    -93.02721,
+    45.06559,
+    -93.01182,
+    45.07337
+   ],
+   "slug": "goose-lake-white-bear-lake"
+  },
+  {
+   "name": "Anderson Lake",
+   "acres": 137,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "bloomington",
+    "eden-prairie"
+   ],
+   "center": [
+    -93.39516,
+    44.84339
+   ],
+   "bbox": [
+    -93.40822,
+    44.83888,
+    -93.39073,
+    44.84798
+   ],
+   "slug": "anderson-lake-bloomington"
+  },
+  {
+   "name": "Lake Auburn",
+   "acres": 136,
+   "counties": [
+    "Carver"
+   ],
+   "communities": [
+    "victoria"
+   ],
+   "center": [
+    -93.68203,
+    44.86527
+   ],
+   "bbox": [
+    -93.68987,
+    44.86129,
+    -93.67359,
+    44.86948
+   ],
+   "slug": "lake-auburn"
+  },
+  {
+   "name": "Eagle Point Lake",
+   "acres": 132,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "lake-elmo"
+   ],
+   "center": [
+    -92.91273,
+    44.97844
+   ],
+   "bbox": [
+    -92.92063,
+    44.97052,
+    -92.90593,
+    44.98638
+   ],
+   "slug": "eagle-point-lake"
+  },
+  {
+   "name": "Birch Lake",
+   "acres": 129,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "white-bear-lake"
+   ],
+   "center": [
+    -93.03991,
+    45.08324
+   ],
+   "bbox": [
+    -93.04917,
+    45.0767,
+    -93.0349,
+    45.08701
+   ],
+   "slug": "birch-lake"
+  },
+  {
+   "name": "Minard Lake",
+   "acres": 127,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "east-bethel"
+   ],
+   "center": [
+    -93.24717,
+    45.40395
+   ],
+   "bbox": [
+    -93.25373,
+    45.3986,
+    -93.24277,
+    45.40937
+   ],
+   "slug": "minard-lake"
+  },
+  {
+   "name": "Amelia Lake",
+   "acres": 126,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "lino-lakes"
+   ],
+   "center": [
+    -93.05226,
+    45.13188
+   ],
+   "bbox": [
+    -93.05715,
+    45.12663,
+    -93.04755,
+    45.13715
+   ],
+   "slug": "amelia-lake"
+  },
+  {
+   "name": "Twin Lks",
+   "acres": 126,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "brooklyn-center",
+    "crystal"
+   ],
+   "center": [
+    -93.33736,
+    45.05368
+   ],
+   "bbox": [
+    -93.34069,
+    45.04821,
+    -93.33142,
+    45.05913
+   ],
+   "slug": "twin-lks-brooklyn-center"
+  },
+  {
+   "name": "Rice Lake",
+   "acres": 125,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "hugo"
+   ],
+   "center": [
+    -92.96497,
+    45.16148
+   ],
+   "bbox": [
+    -92.96805,
+    45.15539,
+    -92.95978,
+    45.16759
+   ],
+   "slug": "rice-lake-hugo"
+  },
+  {
+   "name": "Sunset Lake",
+   "acres": 125,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "hugo"
+   ],
+   "center": [
+    -92.94304,
+    45.13373
+   ],
+   "bbox": [
+    -92.9471,
+    45.12865,
+    -92.93832,
+    45.13903
+   ],
+   "slug": "sunset-lake"
+  },
+  {
+   "name": "Lake of Isles",
+   "acres": 123,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "minneapolis"
+   ],
+   "center": [
+    -93.30753,
+    44.9561
+   ],
+   "bbox": [
+    -93.31678,
+    44.94944,
+    -93.30162,
+    44.96264
+   ],
+   "slug": "lake-of-isles"
+  },
+  {
+   "name": "Crooked Lake",
+   "acres": 120,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "coon-rapids",
+    "andover"
+   ],
+   "center": [
+    -93.34449,
+    45.21087
+   ],
+   "bbox": [
+    -93.34677,
+    45.20297,
+    -93.33911,
+    45.21878
+   ],
+   "slug": "crooked-lake"
+  },
+  {
+   "name": "Round Lake",
+   "acres": 117,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "arden-hills"
+   ],
+   "center": [
+    -93.17732,
+    45.07398
+   ],
+   "bbox": [
+    -93.1817,
+    45.06957,
+    -93.17162,
+    45.07844
+   ],
+   "slug": "round-lake-arden-hills"
+  },
+  {
+   "name": "Lake Josephine",
+   "acres": 117,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "arden-hills",
+    "roseville"
+   ],
+   "center": [
+    -93.15374,
+    45.03592
+   ],
+   "bbox": [
+    -93.15852,
+    45.03116,
+    -93.14886,
+    45.04066
+   ],
+   "slug": "lake-josephine"
+  },
+  {
+   "name": "Lake Netta",
+   "acres": 115,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "ham-lake"
+   ],
+   "center": [
+    -93.19936,
+    45.2747
+   ],
+   "bbox": [
+    -93.20389,
+    45.26931,
+    -93.18949,
+    45.28014
+   ],
+   "slug": "lake-netta"
+  },
+  {
+   "name": "Pickeral Lake",
+   "acres": 114,
+   "counties": [
+    "Dakota",
+    "Ramsey"
+   ],
+   "communities": [
+    "lilydale",
+    "saint-paul"
+   ],
+   "center": [
+    -93.11952,
+    44.91783
+   ],
+   "bbox": [
+    -93.12782,
+    44.91224,
+    -93.11315,
+    44.92341
+   ],
+   "slug": "pickeral-lake"
+  },
+  {
+   "name": "Lake Ann",
+   "acres": 111,
+   "counties": [
+    "Carver"
+   ],
+   "communities": [
+    "chanhassen"
+   ],
+   "center": [
+    -93.56002,
+    44.87143
+   ],
+   "bbox": [
+    -93.5652,
+    44.86807,
+    -93.55472,
+    44.87458
+   ],
+   "slug": "lake-ann"
+  },
+  {
+   "name": "Mooney Lake",
+   "acres": 110,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "plymouth",
+    "medina",
+    "orono"
+   ],
+   "center": [
+    -93.5215,
+    45.00029
+   ],
+   "bbox": [
+    -93.52599,
+    44.99565,
+    -93.51327,
+    45.00488
+   ],
+   "slug": "mooney-lake"
+  },
+  {
+   "name": "Sylvan Lake",
+   "acres": 110,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "rogers"
+   ],
+   "center": [
+    -93.60944,
+    45.19034
+   ],
+   "bbox": [
+    -93.61735,
+    45.18571,
+    -93.60522,
+    45.19504
+   ],
+   "slug": "sylvan-lake"
+  },
+  {
+   "name": "Lake Isabel",
+   "acres": 109,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "hastings"
+   ],
+   "center": [
+    -92.8401,
+    44.74027
+   ],
+   "bbox": [
+    -92.84632,
+    44.73705,
+    -92.83262,
+    44.7435
+   ],
+   "slug": "lake-isabel"
+  },
+  {
+   "name": "Gilfillan Lake",
+   "acres": 109,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "north-oaks"
+   ],
+   "center": [
+    -93.07925,
+    45.08431
+   ],
+   "bbox": [
+    -93.08563,
+    45.07956,
+    -93.07408,
+    45.08917
+   ],
+   "slug": "gilfillan-lake"
+  },
+  {
+   "name": "Lake Virginia",
+   "acres": 108,
+   "counties": [
+    "Carver",
+    "Hennepin"
+   ],
+   "communities": [
+    "victoria",
+    "shorewood"
+   ],
+   "center": [
+    -93.6322,
+    44.88737
+   ],
+   "bbox": [
+    -93.63867,
+    44.88049,
+    -93.62542,
+    44.89416
+   ],
+   "slug": "lake-virginia"
+  },
+  {
+   "name": "Schultz Lake",
+   "acres": 104,
+   "counties": [
+    "Carver"
+   ],
+   "communities": [
+    "victoria"
+   ],
+   "center": [
+    -93.64665,
+    44.8758
+   ],
+   "bbox": [
+    -93.651,
+    44.87083,
+    -93.64057,
+    44.88064
+   ],
+   "slug": "schultz-lake"
+  },
+  {
+   "name": "Rogers Lake",
+   "acres": 102,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "mendota-heights"
+   ],
+   "center": [
+    -93.1391,
+    44.87083
+   ],
+   "bbox": [
+    -93.14382,
+    44.86756,
+    -93.13333,
+    44.87992
+   ],
+   "slug": "rogers-lake-mendota-heights"
+  },
+  {
+   "name": "Barnes Lake",
+   "acres": 100,
+   "counties": [
+    "Carver"
+   ],
+   "communities": [
+    "norwood-young-america"
+   ],
+   "center": [
+    -93.89601,
+    44.77648
+   ],
+   "bbox": [
+    -93.89974,
+    44.77229,
+    -93.88969,
+    44.78067
+   ],
+   "slug": "barnes-lake"
+  },
+  {
+   "name": "Moore Lake",
+   "acres": 100,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "fridley"
+   ],
+   "center": [
+    -93.24707,
+    45.07606
+   ],
+   "bbox": [
+    -93.25125,
+    45.072,
+    -93.24084,
+    45.08026
+   ],
+   "slug": "moore-lake"
+  },
+  {
+   "name": "Anderson Lake",
+   "acres": 99,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "eden-prairie",
+    "bloomington"
+   ],
+   "center": [
+    -93.40032,
+    44.85365
+   ],
+   "bbox": [
+    -93.41365,
+    44.85116,
+    -93.39664,
+    44.85598
+   ],
+   "slug": "anderson-lake-eden-prairie"
+  },
+  {
+   "name": "Long Lake",
+   "acres": 97,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "stillwater"
+   ],
+   "center": [
+    -92.85251,
+    45.04719
+   ],
+   "bbox": [
+    -92.85625,
+    45.03963,
+    -92.8483,
+    45.05475
+   ],
+   "slug": "long-lake-stillwater"
+  },
+  {
+   "name": "Wilkinson Lake",
+   "acres": 94,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "north-oaks"
+   ],
+   "center": [
+    -93.06397,
+    45.11658
+   ],
+   "bbox": [
+    -93.07177,
+    45.11099,
+    -93.06018,
+    45.12216
+   ],
+   "slug": "wilkinson-lake"
+  },
+  {
+   "name": "Stone Lake",
+   "acres": 93,
+   "counties": [
+    "Carver",
+    "Hennepin"
+   ],
+   "communities": [
+    "victoria",
+    "minnetrista"
+   ],
+   "center": [
+    -93.67895,
+    44.88869
+   ],
+   "bbox": [
+    -93.68306,
+    44.88534,
+    -93.67441,
+    44.89207
+   ],
+   "slug": "stone-lake"
+  },
+  {
+   "name": "Ox Yoke Lake",
+   "acres": 93,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "minnetrista"
+   ],
+   "center": [
+    -93.74578,
+    44.97232
+   ],
+   "bbox": [
+    -93.76037,
+    44.97031,
+    -93.73688,
+    44.97396
+   ],
+   "slug": "ox-yoke-lake"
+  },
+  {
+   "name": "Parkers Lake",
+   "acres": 93,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "plymouth"
+   ],
+   "center": [
+    -93.47248,
+    44.99365
+   ],
+   "bbox": [
+    -93.47614,
+    44.98973,
+    -93.46734,
+    44.99722
+   ],
+   "slug": "parkers-lake"
+  },
+  {
+   "name": "Keewahtin Lake",
+   "acres": 92,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "forest-lake",
+    "scandia"
+   ],
+   "center": [
+    -92.89738,
+    45.24918
+   ],
+   "bbox": [
+    -92.90415,
+    45.24506,
+    -92.89328,
+    45.25334
+   ],
+   "slug": "keewahtin-lake"
+  },
+  {
+   "name": "South School Section Lake",
+   "acres": 92,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "hugo"
+   ],
+   "center": [
+    -92.90434,
+    45.13909
+   ],
+   "bbox": [
+    -92.90992,
+    45.13489,
+    -92.89982,
+    45.14327
+   ],
+   "slug": "south-school-section-lake"
+  },
+  {
+   "name": "Mitchell Lake",
+   "acres": 90,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "eden-prairie"
+   ],
+   "center": [
+    -93.49696,
+    44.85728
+   ],
+   "bbox": [
+    -93.50174,
+    44.85216,
+    -93.49073,
+    44.86231
+   ],
+   "slug": "mitchell-lake"
+  },
+  {
+   "name": "Burandt Lake",
+   "acres": 89,
+   "counties": [
+    "Carver"
+   ],
+   "communities": [
+    "waconia"
+   ],
+   "center": [
+    -93.80525,
+    44.8495
+   ],
+   "bbox": [
+    -93.81057,
+    44.84637,
+    -93.80005,
+    44.85273
+   ],
+   "slug": "burandt-lake"
+  },
+  {
+   "name": "Reitz Lake",
+   "acres": 88,
+   "counties": [
+    "Carver"
+   ],
+   "communities": [
+    "waconia"
+   ],
+   "center": [
+    -93.74455,
+    44.83844
+   ],
+   "bbox": [
+    -93.75593,
+    44.83578,
+    -93.74041,
+    44.84092
+   ],
+   "slug": "reitz-lake"
+  },
+  {
+   "name": "Little Coon Lake",
+   "acres": 86,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "columbus"
+   ],
+   "center": [
+    -93.11054,
+    45.31189
+   ],
+   "bbox": [
+    -93.11475,
+    45.30831,
+    -93.1057,
+    45.31547
+   ],
+   "slug": "little-coon-lake-columbus"
+  },
+  {
+   "name": "Lake Lucy",
+   "acres": 85,
+   "counties": [
+    "Carver"
+   ],
+   "communities": [
+    "chanhassen"
+   ],
+   "center": [
+    -93.56071,
+    44.87812
+   ],
+   "bbox": [
+    -93.56505,
+    44.87516,
+    -93.55449,
+    44.88119
+   ],
+   "slug": "lake-lucy"
+  },
+  {
+   "name": "Alimagnet Lake",
+   "acres": 85,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "burnsville",
+    "apple-valley"
+   ],
+   "center": [
+    -93.24965,
+    44.7482
+   ],
+   "bbox": [
+    -93.25804,
+    44.74287,
+    -93.24393,
+    44.75352
+   ],
+   "slug": "alimagnet-lake"
+  },
+  {
+   "name": "Beaver Lake",
+   "acres": 84,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "maplewood",
+    "saint-paul"
+   ],
+   "center": [
+    -93.00463,
+    44.97307
+   ],
+   "bbox": [
+    -93.00908,
+    44.96913,
+    -93.00036,
+    44.97706
+   ],
+   "slug": "beaver-lake"
+  },
+  {
+   "name": "Goose Lake",
+   "acres": 84,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "scandia"
+   ],
+   "center": [
+    -92.80986,
+    45.26766
+   ],
+   "bbox": [
+    -92.81369,
+    45.26219,
+    -92.80371,
+    45.27307
+   ],
+   "slug": "goose-lake-scandia"
+  },
+  {
+   "name": "Deep Lake",
+   "acres": 83,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "north-oaks"
+   ],
+   "center": [
+    -93.08036,
+    45.11228
+   ],
+   "bbox": [
+    -93.09374,
+    45.10521,
+    -93.07206,
+    45.11935
+   ],
+   "slug": "deep-lake"
+  },
+  {
+   "name": "Lake Susan",
+   "acres": 82,
+   "counties": [
+    "Carver"
+   ],
+   "communities": [
+    "chanhassen"
+   ],
+   "center": [
+    -93.5406,
+    44.85163
+   ],
+   "bbox": [
+    -93.54583,
+    44.84905,
+    -93.53537,
+    44.85417
+   ],
+   "slug": "lake-susan"
+  },
+  {
+   "name": "Lake Itasca",
+   "acres": 82,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "ramsey"
+   ],
+   "center": [
+    -93.49564,
+    45.25373
+   ],
+   "bbox": [
+    -93.49897,
+    45.25013,
+    -93.49068,
+    45.25729
+   ],
+   "slug": "lake-itasca"
+  },
+  {
+   "name": "Hyland Lake",
+   "acres": 81,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "bloomington"
+   ],
+   "center": [
+    -93.36856,
+    44.8217
+   ],
+   "bbox": [
+    -93.3755,
+    44.81855,
+    -93.36322,
+    44.82488
+   ],
+   "slug": "hyland-lake"
+  },
+  {
+   "name": "Mann Lake",
+   "acres": 80,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "grant"
+   ],
+   "center": [
+    -92.93206,
+    45.11477
+   ],
+   "bbox": [
+    -92.9377,
+    45.11035,
+    -92.92831,
+    45.11908
+   ],
+   "slug": "mann-lake"
+  },
+  {
+   "name": "Young American Lake",
+   "acres": 80,
+   "counties": [
+    "Carver"
+   ],
+   "communities": [
+    "norwood-young-america"
+   ],
+   "center": [
+    -93.9062,
+    44.78363
+   ],
+   "bbox": [
+    -93.91074,
+    44.77999,
+    -93.90258,
+    44.78738
+   ],
+   "slug": "young-american-lake"
+  },
+  {
+   "name": "Hayden Lake",
+   "acres": 77,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "dayton",
+    "champlin"
+   ],
+   "center": [
+    -93.42707,
+    45.17761
+   ],
+   "bbox": [
+    -93.43152,
+    45.17369,
+    -93.41858,
+    45.18153
+   ],
+   "slug": "hayden-lake"
+  },
+  {
+   "name": "Bass Lake",
+   "acres": 77,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "nowthen"
+   ],
+   "center": [
+    -93.46383,
+    45.33551
+   ],
+   "bbox": [
+    -93.46739,
+    45.33184,
+    -93.46023,
+    45.33929
+   ],
+   "slug": "bass-lake-nowthen"
+  },
+  {
+   "name": "Cedar Island Lake",
+   "acres": 77,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "maple-grove"
+   ],
+   "center": [
+    -93.44208,
+    45.08383
+   ],
+   "bbox": [
+    -93.44568,
+    45.08047,
+    -93.4346,
+    45.08711
+   ],
+   "slug": "cedar-island-lake"
+  },
+  {
+   "name": "White Rock Lake",
+   "acres": 76,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "scandia"
+   ],
+   "center": [
+    -92.89246,
+    45.22312
+   ],
+   "bbox": [
+    -92.89656,
+    45.21958,
+    -92.88756,
+    45.22661
+   ],
+   "slug": "white-rock-lake"
+  },
+  {
+   "name": "Lake Edith",
+   "acres": 76,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "afton"
+   ],
+   "center": [
+    -92.80559,
+    44.93691
+   ],
+   "bbox": [
+    -92.81359,
+    44.93246,
+    -92.80182,
+    44.94132
+   ],
+   "slug": "lake-edith"
+  },
+  {
+   "name": "Crosby Lake",
+   "acres": 76,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "saint-paul"
+   ],
+   "center": [
+    -93.15086,
+    44.90387
+   ],
+   "bbox": [
+    -93.15768,
+    44.89921,
+    -93.14539,
+    44.90853
+   ],
+   "slug": "crosby-lake"
+  },
+  {
+   "name": "Twin Lks",
+   "acres": 76,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "nowthen"
+   ],
+   "center": [
+    -93.50287,
+    45.33391
+   ],
+   "bbox": [
+    -93.50866,
+    45.3309,
+    -93.49675,
+    45.33699
+   ],
+   "slug": "twin-lks-nowthen"
+  },
+  {
+   "name": "Silver Lake",
+   "acres": 75,
+   "counties": [
+    "Ramsey",
+    "Washington"
+   ],
+   "communities": [
+    "north-st-paul",
+    "oakdale",
+    "maplewood"
+   ],
+   "center": [
+    -92.9875,
+    45.02675
+   ],
+   "bbox": [
+    -92.99262,
+    45.02328,
+    -92.98402,
+    45.03021
+   ],
+   "slug": "silver-lake-north-st-paul"
+  },
+  {
+   "name": "Colby Lake",
+   "acres": 75,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "woodbury"
+   ],
+   "center": [
+    -92.90961,
+    44.90728
+   ],
+   "bbox": [
+    -92.91451,
+    44.90185,
+    -92.90577,
+    44.91272
+   ],
+   "slug": "colby-lake"
+  },
+  {
+   "name": "Mc Carrons Lake",
+   "acres": 74,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "roseville"
+   ],
+   "center": [
+    -93.11364,
+    44.99816
+   ],
+   "bbox": [
+    -93.11847,
+    44.99526,
+    -93.10738,
+    45.00106
+   ],
+   "slug": "mc-carrons-lake"
+  },
+  {
+   "name": "Horse Shoe Lake",
+   "acres": 74,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "lake-elmo"
+   ],
+   "center": [
+    -92.86334,
+    44.96909
+   ],
+   "bbox": [
+    -92.86925,
+    44.96547,
+    -92.85769,
+    44.97291
+   ],
+   "slug": "horse-shoe-lake-lake-elmo"
+  },
+  {
+   "name": "Crystal Lake",
+   "acres": 74,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "robbinsdale"
+   ],
+   "center": [
+    -93.32754,
+    45.02663
+   ],
+   "bbox": [
+    -93.33158,
+    45.02272,
+    -93.3243,
+    45.03039
+   ],
+   "slug": "crystal-lake-robbinsdale"
+  },
+  {
+   "name": "Burns Lake",
+   "acres": 74,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "nowthen"
+   ],
+   "center": [
+    -93.46716,
+    45.3787
+   ],
+   "bbox": [
+    -93.47952,
+    45.37449,
+    -93.46298,
+    45.38281
+   ],
+   "slug": "burns-lake"
+  },
+  {
+   "name": "Silver Lake",
+   "acres": 74,
+   "counties": [
+    "Anoka",
+    "Ramsey"
+   ],
+   "communities": [
+    "st-anthony",
+    "columbia-heights",
+    "new-brighton"
+   ],
+   "center": [
+    -93.2251,
+    45.04432
+   ],
+   "bbox": [
+    -93.22823,
+    45.04154,
+    -93.21831,
+    45.04707
+   ],
+   "slug": "silver-lake-st-anthony"
+  },
+  {
+   "name": "Long Lake",
+   "acres": 74,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "pine-springs",
+    "mahtomedi",
+    "lake-elmo"
+   ],
+   "center": [
+    -92.96063,
+    45.03525
+   ],
+   "bbox": [
+    -92.96294,
+    45.02938,
+    -92.95059,
+    45.03892
+   ],
+   "slug": "long-lake-pine-springs"
+  },
+  {
+   "name": "Mud Lake",
+   "acres": 73,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "nowthen",
+    "oak-grove"
+   ],
+   "center": [
+    -93.39056,
+    45.36908
+   ],
+   "bbox": [
+    -93.39513,
+    45.36601,
+    -93.3858,
+    45.37223
+   ],
+   "slug": "mud-lake-nowthen"
+  },
+  {
+   "name": "Spurzem Lake",
+   "acres": 73,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "medina"
+   ],
+   "center": [
+    -93.61873,
+    45.03647
+   ],
+   "bbox": [
+    -93.62423,
+    45.03418,
+    -93.61314,
+    45.03879
+   ],
+   "slug": "spurzem-lake"
+  },
+  {
+   "name": "Grass Lake",
+   "acres": 73,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "shoreview"
+   ],
+   "center": [
+    -93.1162,
+    45.05583
+   ],
+   "bbox": [
+    -93.12219,
+    45.05136,
+    -93.11062,
+    45.06029
+   ],
+   "slug": "grass-lake-shoreview"
+  },
+  {
+   "name": "Mud Lake",
+   "acres": 72,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "maple-grove"
+   ],
+   "center": [
+    -93.43405,
+    45.14441
+   ],
+   "bbox": [
+    -93.43853,
+    45.14149,
+    -93.43003,
+    45.14744
+   ],
+   "slug": "mud-lake-maple-grove"
+  },
+  {
+   "name": "Higgins Lake",
+   "acres": 72,
+   "counties": [
+    "Anoka",
+    "Washington"
+   ],
+   "communities": [
+    "columbus",
+    "forest-lake"
+   ],
+   "center": [
+    -93.02309,
+    45.29709
+   ],
+   "bbox": [
+    -93.02725,
+    45.29412,
+    -93.01687,
+    45.29998
+   ],
+   "slug": "higgins-lake"
+  },
+  {
+   "name": "Jubert Lake",
+   "acres": 72,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "corcoran"
+   ],
+   "center": [
+    -93.61678,
+    45.07998
+   ],
+   "bbox": [
+    -93.61976,
+    45.07583,
+    -93.6124,
+    45.08419
+   ],
+   "slug": "jubert-lake"
+  },
+  {
+   "name": "Red Rock Lake",
+   "acres": 72,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "eden-prairie"
+   ],
+   "center": [
+    -93.47568,
+    44.8462
+   ],
+   "bbox": [
+    -93.47964,
+    44.84215,
+    -93.46986,
+    44.8502
+   ],
+   "slug": "red-rock-lake"
+  },
+  {
+   "name": "Hanrehan Lake",
+   "acres": 72,
+   "counties": [
+    "Scott"
+   ],
+   "communities": [
+    "savage"
+   ],
+   "center": [
+    -93.33759,
+    44.72812
+   ],
+   "bbox": [
+    -93.34733,
+    44.72452,
+    -93.33398,
+    44.73175
+   ],
+   "slug": "hanrehan-lake"
+  },
+  {
+   "name": "Egg Lake",
+   "acres": 71,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "hugo"
+   ],
+   "center": [
+    -92.9896,
+    45.15742
+   ],
+   "bbox": [
+    -92.99168,
+    45.15295,
+    -92.98485,
+    45.16192
+   ],
+   "slug": "egg-lake"
+  },
+  {
+   "name": "Lake Como",
+   "acres": 71,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "saint-paul"
+   ],
+   "center": [
+    -93.14101,
+    44.98011
+   ],
+   "bbox": [
+    -93.14392,
+    44.97585,
+    -93.13586,
+    44.98433
+   ],
+   "slug": "lake-como"
+  },
+  {
+   "name": "Deer Lake",
+   "acres": 71,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "east-bethel"
+   ],
+   "center": [
+    -93.20007,
+    45.34828
+   ],
+   "bbox": [
+    -93.20324,
+    45.34396,
+    -93.19729,
+    45.35261
+   ],
+   "slug": "deer-lake"
+  },
+  {
+   "name": "Island Lake",
+   "acres": 70,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "shoreview"
+   ],
+   "center": [
+    -93.13517,
+    45.05575
+   ],
+   "bbox": [
+    -93.14012,
+    45.05049,
+    -93.13152,
+    45.061
+   ],
+   "slug": "island-lake"
+  },
+  {
+   "name": "Sweeney Lake",
+   "acres": 69,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "golden-valley"
+   ],
+   "center": [
+    -93.33885,
+    44.99325
+   ],
+   "bbox": [
+    -93.34377,
+    44.98779,
+    -93.33171,
+    44.99868
+   ],
+   "slug": "sweeney-lake"
+  },
+  {
+   "name": "Tanners Lake",
+   "acres": 68,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "oakdale",
+    "landfall",
+    "maplewood"
+   ],
+   "center": [
+    -92.98081,
+    44.95368
+   ],
+   "bbox": [
+    -92.9844,
+    44.94908,
+    -92.97834,
+    44.95827
+   ],
+   "slug": "tanners-lake"
+  },
+  {
+   "name": "Lac Lavon Lake",
+   "acres": 68,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "apple-valley",
+    "burnsville"
+   ],
+   "center": [
+    -93.24675,
+    44.72107
+   ],
+   "bbox": [
+    -93.25098,
+    44.71853,
+    -93.23896,
+    44.72363
+   ],
+   "slug": "lac-lavon-lake"
+  },
+  {
+   "name": "Andersons Lake",
+   "acres": 66,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "east-bethel"
+   ],
+   "center": [
+    -93.15784,
+    45.32689
+   ],
+   "bbox": [
+    -93.16114,
+    45.32289,
+    -93.15499,
+    45.33095
+   ],
+   "slug": "andersons-lake"
+  },
+  {
+   "name": "Devil Lake",
+   "acres": 66,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "east-bethel"
+   ],
+   "center": [
+    -93.17342,
+    45.33914
+   ],
+   "bbox": [
+    -93.17774,
+    45.33596,
+    -93.16917,
+    45.34231
+   ],
+   "slug": "devil-lake"
+  },
+  {
+   "name": "Goose Lake",
+   "acres": 65,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "nowthen"
+   ],
+   "center": [
+    -93.45232,
+    45.35524
+   ],
+   "bbox": [
+    -93.45513,
+    45.35085,
+    -93.44852,
+    45.35968
+   ],
+   "slug": "goose-lake-nowthen"
+  },
+  {
+   "name": "Sucker Lake",
+   "acres": 65,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "vadnais-heights",
+    "north-oaks"
+   ],
+   "center": [
+    -93.09672,
+    45.0746
+   ],
+   "bbox": [
+    -93.10115,
+    45.07032,
+    -93.09287,
+    45.07901
+   ],
+   "slug": "sucker-lake"
+  },
+  {
+   "name": "Kingsley Lake",
+   "acres": 64,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "lakeville"
+   ],
+   "center": [
+    -93.29996,
+    44.70732
+   ],
+   "bbox": [
+    -93.30365,
+    44.70449,
+    -93.29165,
+    44.71018
+   ],
+   "slug": "kingsley-lake"
+  },
+  {
+   "name": "Holy Name Lake",
+   "acres": 63,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "medina"
+   ],
+   "center": [
+    -93.53381,
+    45.0157
+   ],
+   "bbox": [
+    -93.5372,
+    45.01305,
+    -93.52694,
+    45.01837
+   ],
+   "slug": "holy-name-lake"
+  },
+  {
+   "name": "Valentine Lake",
+   "acres": 63,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "arden-hills"
+   ],
+   "center": [
+    -93.16782,
+    45.06156
+   ],
+   "bbox": [
+    -93.17032,
+    45.05688,
+    -93.16341,
+    45.06621
+   ],
+   "slug": "valentine-lake"
+  },
+  {
+   "name": "Horse Shoe Lake",
+   "acres": 63,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "hugo"
+   ],
+   "center": [
+    -92.96496,
+    45.20061
+   ],
+   "bbox": [
+    -92.96614,
+    45.19624,
+    -92.95922,
+    45.20496
+   ],
+   "slug": "horse-shoe-lake-hugo"
+  },
+  {
+   "name": "Sunfish Lake",
+   "acres": 62,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "lake-elmo"
+   ],
+   "center": [
+    -92.89548,
+    45.00194
+   ],
+   "bbox": [
+    -92.90264,
+    44.99756,
+    -92.8893,
+    45.00626
+   ],
+   "slug": "sunfish-lake-lake-elmo"
+  },
+  {
+   "name": "Laddie Lake",
+   "acres": 62,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "blaine",
+    "spring-lake-park"
+   ],
+   "center": [
+    -93.24149,
+    45.12531
+   ],
+   "bbox": [
+    -93.24464,
+    45.12202,
+    -93.23671,
+    45.12853
+   ],
+   "slug": "laddie-lake"
+  },
+  {
+   "name": "Schmidtt Lake",
+   "acres": 61,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "inver-grove-heights"
+   ],
+   "center": [
+    -93.07369,
+    44.87081
+   ],
+   "bbox": [
+    -93.07869,
+    44.8674,
+    -93.06873,
+    44.87422
+   ],
+   "slug": "schmidtt-lake"
+  },
+  {
+   "name": "Howard Lake",
+   "acres": 61,
+   "counties": [
+    "Scott"
+   ],
+   "communities": [
+    "prior-lake"
+   ],
+   "center": [
+    -93.48531,
+    44.72045
+   ],
+   "bbox": [
+    -93.48902,
+    44.71698,
+    -93.48264,
+    44.72384
+   ],
+   "slug": "howard-lake-prior-lake"
+  },
+  {
+   "name": "Willow Lake",
+   "acres": 61,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "vadnais-heights"
+   ],
+   "center": [
+    -93.04901,
+    45.04144
+   ],
+   "bbox": [
+    -93.05224,
+    45.03804,
+    -93.04485,
+    45.04516
+   ],
+   "slug": "willow-lake"
+  },
+  {
+   "name": "Fish Lake",
+   "acres": 60,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "scandia"
+   ],
+   "center": [
+    -92.84634,
+    45.24163
+   ],
+   "bbox": [
+    -92.84839,
+    45.23543,
+    -92.84057,
+    45.248
+   ],
+   "slug": "fish-lake-scandia"
+  },
+  {
+   "name": "Lemans Lake",
+   "acres": 60,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "champlin"
+   ],
+   "center": [
+    -93.40627,
+    45.17203
+   ],
+   "bbox": [
+    -93.40955,
+    45.16894,
+    -93.40221,
+    45.17508
+   ],
+   "slug": "lemans-lake"
+  },
+  {
+   "name": "Goose Lake",
+   "acres": 59,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "dayton",
+    "maple-grove",
+    "champlin"
+   ],
+   "center": [
+    -93.42446,
+    45.15446
+   ],
+   "bbox": [
+    -93.42812,
+    45.15132,
+    -93.42151,
+    45.15764
+   ],
+   "slug": "goose-lake-dayton"
+  },
+  {
+   "name": "Bunker Lake",
+   "acres": 59,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "andover"
+   ],
+   "center": [
+    -93.28355,
+    45.21769
+   ],
+   "bbox": [
+    -93.28638,
+    45.21457,
+    -93.27794,
+    45.22087
+   ],
+   "slug": "bunker-lake"
+  },
+  {
+   "name": "Glen Lake",
+   "acres": 58,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "minnetonka"
+   ],
+   "center": [
+    -93.45717,
+    44.90127
+   ],
+   "bbox": [
+    -93.46101,
+    44.89825,
+    -93.45368,
+    44.90431
+   ],
+   "slug": "glen-lake"
+  },
+  {
+   "name": "Golden Lake",
+   "acres": 57,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "circle-pines"
+   ],
+   "center": [
+    -93.15256,
+    45.13847
+   ],
+   "bbox": [
+    -93.15734,
+    45.13497,
+    -93.1498,
+    45.14205
+   ],
+   "slug": "golden-lake"
+  },
+  {
+   "name": "Twin Lks",
+   "acres": 56,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "crystal",
+    "brooklyn-center",
+    "robbinsdale"
+   ],
+   "center": [
+    -93.34066,
+    45.04347
+   ],
+   "bbox": [
+    -93.34303,
+    45.03906,
+    -93.33843,
+    45.04758
+   ],
+   "slug": "twin-lks-crystal"
+  },
+  {
+   "name": "Pike Lake",
+   "acres": 56,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "maple-grove",
+    "plymouth"
+   ],
+   "center": [
+    -93.41889,
+    45.06615
+   ],
+   "bbox": [
+    -93.42516,
+    45.06336,
+    -93.41503,
+    45.06899
+   ],
+   "slug": "pike-lake-maple-grove"
+  },
+  {
+   "name": "Keller Lake",
+   "acres": 55,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "burnsville",
+    "apple-valley"
+   ],
+   "center": [
+    -93.25204,
+    44.72647
+   ],
+   "bbox": [
+    -93.25605,
+    44.72417,
+    -93.24818,
+    44.7287
+   ],
+   "slug": "keller-lake"
+  },
+  {
+   "name": "Murphy Lake",
+   "acres": 54,
+   "counties": [
+    "Scott"
+   ],
+   "communities": [
+    "credit-river"
+   ],
+   "center": [
+    -93.33873,
+    44.71158
+   ],
+   "bbox": [
+    -93.3448,
+    44.70904,
+    -93.33656,
+    44.71408
+   ],
+   "slug": "murphy-lake"
+  },
+  {
+   "name": "Campbell Lake",
+   "acres": 54,
+   "counties": [
+    "Scott"
+   ],
+   "communities": [
+    "prior-lake"
+   ],
+   "center": [
+    -93.49919,
+    44.70702
+   ],
+   "bbox": [
+    -93.50364,
+    44.70403,
+    -93.49494,
+    44.71003
+   ],
+   "slug": "campbell-lake"
+  },
+  {
+   "name": "Lake Hiawatha",
+   "acres": 54,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "minneapolis"
+   ],
+   "center": [
+    -93.23613,
+    44.92067
+   ],
+   "bbox": [
+    -93.23901,
+    44.91799,
+    -93.23281,
+    44.92341
+   ],
+   "slug": "lake-hiawatha"
+  },
+  {
+   "name": "Lake Classen",
+   "acres": 53,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "orono"
+   ],
+   "center": [
+    -93.60554,
+    44.993
+   ],
+   "bbox": [
+    -93.60872,
+    44.98992,
+    -93.60166,
+    44.99634
+   ],
+   "slug": "lake-classen"
+  },
+  {
+   "name": "Farquar Lake",
+   "acres": 53,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "apple-valley"
+   ],
+   "center": [
+    -93.16499,
+    44.75853
+   ],
+   "bbox": [
+    -93.16909,
+    44.75621,
+    -93.16179,
+    44.76081
+   ],
+   "slug": "farquar-lake"
+  },
+  {
+   "name": "Chaska Lake",
+   "acres": 52,
+   "counties": [
+    "Carver"
+   ],
+   "communities": [
+    "chaska",
+    "carver"
+   ],
+   "center": [
+    -93.60814,
+    44.77646
+   ],
+   "bbox": [
+    -93.61325,
+    44.77452,
+    -93.6031,
+    44.77833
+   ],
+   "slug": "chaska-lake"
+  },
+  {
+   "name": "Long Lake",
+   "acres": 52,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "mahtomedi",
+    "grant",
+    "dellwood"
+   ],
+   "center": [
+    -92.95036,
+    45.07908
+   ],
+   "bbox": [
+    -92.95238,
+    45.07473,
+    -92.94101,
+    45.0834
+   ],
+   "slug": "long-lake-mahtomedi"
+  },
+  {
+   "name": "Shore Lake Cornelia",
+   "acres": 52,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "edina"
+   ],
+   "center": [
+    -93.33991,
+    44.88496
+   ],
+   "bbox": [
+    -93.34412,
+    44.88,
+    -93.33469,
+    44.88622
+   ],
+   "slug": "shore-lake-cornelia"
+  },
+  {
+   "name": "Sea Lake",
+   "acres": 51,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "scandia"
+   ],
+   "center": [
+    -92.83868,
+    45.29149
+   ],
+   "bbox": [
+    -92.84159,
+    45.28872,
+    -92.83166,
+    45.29429
+   ],
+   "slug": "sea-lake"
+  },
+  {
+   "name": "Rush Lake",
+   "acres": 50,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "new-brighton"
+   ],
+   "center": [
+    -93.193,
+    45.08009
+   ],
+   "bbox": [
+    -93.19481,
+    45.07546,
+    -93.18892,
+    45.08473
+   ],
+   "slug": "rush-lake"
+  },
+  {
+   "name": "Diamond Lake",
+   "acres": 50,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "minneapolis"
+   ],
+   "center": [
+    -93.26907,
+    44.90001
+   ],
+   "bbox": [
+    -93.27152,
+    44.89647,
+    -93.26659,
+    44.90355
+   ],
+   "slug": "diamond-lake-minneapolis"
+  },
+  {
+   "name": "Peter Lake",
+   "acres": 50,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "medina"
+   ],
+   "center": [
+    -93.60496,
+    45.05992
+   ],
+   "bbox": [
+    -93.60778,
+    45.05645,
+    -93.60118,
+    45.0633
+   ],
+   "slug": "peter-lake"
+  },
+  {
+   "name": "Norris Lake",
+   "acres": 50,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "nowthen",
+    "oak-grove"
+   ],
+   "center": [
+    -93.39024,
+    45.37849
+   ],
+   "bbox": [
+    -93.39557,
+    45.37686,
+    -93.38506,
+    45.38014
+   ],
+   "slug": "norris-lake"
+  },
+  {
+   "name": "Powers Lake",
+   "acres": 50,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "woodbury"
+   ],
+   "center": [
+    -92.89865,
+    44.92546
+   ],
+   "bbox": [
+    -92.90406,
+    44.92209,
+    -92.89421,
+    44.92883
+   ],
+   "slug": "powers-lake-woodbury"
+  },
+  {
+   "name": "Long Lake",
+   "acres": 49,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "minnetrista"
+   ],
+   "center": [
+    -93.70831,
+    44.95009
+   ],
+   "bbox": [
+    -93.70965,
+    44.94594,
+    -93.70551,
+    44.95395
+   ],
+   "slug": "long-lake-minnetrista"
+  },
+  {
+   "name": "Carver Lake",
+   "acres": 48,
+   "counties": [
+    "Ramsey",
+    "Washington"
+   ],
+   "communities": [
+    "woodbury",
+    "maplewood"
+   ],
+   "center": [
+    -92.98104,
+    44.90652
+   ],
+   "bbox": [
+    -92.98454,
+    44.90388,
+    -92.97801,
+    44.90909
+   ],
+   "slug": "carver-lake"
+  },
+  {
+   "name": "Sunfish Lake",
+   "acres": 48,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "sunfish-lake"
+   ],
+   "center": [
+    -93.09716,
+    44.87538
+   ],
+   "bbox": [
+    -93.1032,
+    44.87394,
+    -93.09119,
+    44.87684
+   ],
+   "slug": "sunfish-lake-sunfish-lake"
+  },
+  {
+   "name": "Little Coon Lake",
+   "acres": 47,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "ham-lake"
+   ],
+   "center": [
+    -93.18583,
+    45.28601
+   ],
+   "bbox": [
+    -93.18931,
+    45.28345,
+    -93.18321,
+    45.28877
+   ],
+   "slug": "little-coon-lake-ham-lake"
+  },
+  {
+   "name": "Benton Lake",
+   "acres": 47,
+   "counties": [
+    "Carver"
+   ],
+   "communities": [
+    "cologne"
+   ],
+   "center": [
+    -93.78439,
+    44.77471
+   ],
+   "bbox": [
+    -93.78824,
+    44.77269,
+    -93.78101,
+    44.77671
+   ],
+   "slug": "benton-lake"
+  },
+  {
+   "name": "Round Lake",
+   "acres": 47,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "hugo",
+    "grant"
+   ],
+   "center": [
+    -92.93376,
+    45.12508
+   ],
+   "bbox": [
+    -92.93666,
+    45.12121,
+    -92.92994,
+    45.12895
+   ],
+   "slug": "round-lake-hugo"
+  },
+  {
+   "name": "Haughey Lake",
+   "acres": 47,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "independence"
+   ],
+   "center": [
+    -93.74824,
+    45.04294
+   ],
+   "bbox": [
+    -93.75093,
+    45.0394,
+    -93.7451,
+    45.04644
+   ],
+   "slug": "haughey-lake"
+  },
+  {
+   "name": "Sand Lake",
+   "acres": 47,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "scandia"
+   ],
+   "center": [
+    -92.80487,
+    45.23012
+   ],
+   "bbox": [
+    -92.80726,
+    45.22599,
+    -92.80231,
+    45.23423
+   ],
+   "slug": "sand-lake"
+  },
+  {
+   "name": "Coopers Lake",
+   "acres": 46,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "east-bethel"
+   ],
+   "center": [
+    -93.24182,
+    45.3957
+   ],
+   "bbox": [
+    -93.245,
+    45.3924,
+    -93.23975,
+    45.39891
+   ],
+   "slug": "coopers-lake"
+  },
+  {
+   "name": "Long Lake",
+   "acres": 46,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "scandia"
+   ],
+   "center": [
+    -92.82214,
+    45.22811
+   ],
+   "bbox": [
+    -92.8281,
+    45.225,
+    -92.81547,
+    45.23118
+   ],
+   "slug": "long-lake-scandia"
+  },
+  {
+   "name": "Galpin Lake",
+   "acres": 46,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "excelsior",
+    "shorewood"
+   ],
+   "center": [
+    -93.56389,
+    44.8974
+   ],
+   "bbox": [
+    -93.56919,
+    44.89482,
+    -93.56036,
+    44.90001
+   ],
+   "slug": "galpin-lake"
+  },
+  {
+   "name": "Lake Wabasso",
+   "acres": 45,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "shoreview"
+   ],
+   "center": [
+    -93.11517,
+    45.04593
+   ],
+   "bbox": [
+    -93.12007,
+    45.04285,
+    -93.11203,
+    45.04897
+   ],
+   "slug": "lake-wabasso"
+  },
+  {
+   "name": "Markgrafs Lake",
+   "acres": 45,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "woodbury"
+   ],
+   "center": [
+    -92.89902,
+    44.93786
+   ],
+   "bbox": [
+    -92.90378,
+    44.93382,
+    -92.89565,
+    44.9419
+   ],
+   "slug": "markgrafs-lake"
+  },
+  {
+   "name": "Spring Lake",
+   "acres": 45,
+   "counties": [
+    "Anoka",
+    "Ramsey"
+   ],
+   "communities": [
+    "spring-lake-park",
+    "mounds-view",
+    "fridley"
+   ],
+   "center": [
+    -93.23223,
+    45.11018
+   ],
+   "bbox": [
+    -93.23312,
+    45.10733,
+    -93.22415,
+    45.11308
+   ],
+   "slug": "spring-lake-spring-lake-park"
+  },
+  {
+   "name": "Lake McKusick",
+   "acres": 45,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "stillwater"
+   ],
+   "center": [
+    -92.82962,
+    45.06233
+   ],
+   "bbox": [
+    -92.83288,
+    45.05922,
+    -92.82086,
+    45.06548
+   ],
+   "slug": "lake-mckusick"
+  },
+  {
+   "name": "Pike Lake",
+   "acres": 45,
+   "counties": [
+    "Scott"
+   ],
+   "communities": [
+    "prior-lake"
+   ],
+   "center": [
+    -93.42815,
+    44.75236
+   ],
+   "bbox": [
+    -93.43403,
+    44.7491,
+    -93.42671,
+    44.75565
+   ],
+   "slug": "pike-lake-prior-lake"
+  },
+  {
+   "name": "Barker Lake",
+   "acres": 44,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "hugo"
+   ],
+   "center": [
+    -92.8962,
+    45.18402
+   ],
+   "bbox": [
+    -92.90306,
+    45.18205,
+    -92.88905,
+    45.18615
+   ],
+   "slug": "barker-lake"
+  },
+  {
+   "name": "North School Section Lake",
+   "acres": 44,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "hugo"
+   ],
+   "center": [
+    -92.91061,
+    45.14458
+   ],
+   "bbox": [
+    -92.91528,
+    45.14214,
+    -92.9069,
+    45.14688
+   ],
+   "slug": "north-school-section-lake"
+  },
+  {
+   "name": "Carl Krey Lake",
+   "acres": 44,
+   "counties": [
+    "Carver"
+   ],
+   "communities": [
+    "victoria"
+   ],
+   "center": [
+    -93.68847,
+    44.85142
+   ],
+   "bbox": [
+    -93.69167,
+    44.84938,
+    -93.68542,
+    44.85362
+   ],
+   "slug": "carl-krey-lake"
+  },
+  {
+   "name": "Blackhawk Lake",
+   "acres": 43,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "eagan"
+   ],
+   "center": [
+    -93.183,
+    44.81896
+   ],
+   "bbox": [
+    -93.18806,
+    44.81599,
+    -93.17354,
+    44.82194
+   ],
+   "slug": "blackhawk-lake"
+  },
+  {
+   "name": "Schmidt Lake",
+   "acres": 42,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "plymouth"
+   ],
+   "center": [
+    -93.43245,
+    45.04081
+   ],
+   "bbox": [
+    -93.43597,
+    45.03731,
+    -93.4304,
+    45.04433
+   ],
+   "slug": "schmidt-lake"
+  },
+  {
+   "name": "Neilson Lake",
+   "acres": 42,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "scandia"
+   ],
+   "center": [
+    -92.87276,
+    45.28304
+   ],
+   "bbox": [
+    -92.87798,
+    45.28068,
+    -92.86973,
+    45.28541
+   ],
+   "slug": "neilson-lake"
+  },
+  {
+   "name": "Lake Augusta",
+   "acres": 42,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "mendota-heights"
+   ],
+   "center": [
+    -93.15693,
+    44.87817
+   ],
+   "bbox": [
+    -93.15996,
+    44.87453,
+    -93.15437,
+    44.88178
+   ],
+   "slug": "lake-augusta"
+  },
+  {
+   "name": "Poplar Lake",
+   "acres": 42,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "shoreview"
+   ],
+   "center": [
+    -93.10565,
+    45.12093
+   ],
+   "bbox": [
+    -93.1094,
+    45.1185,
+    -93.10258,
+    45.12336
+   ],
+   "slug": "poplar-lake-shoreview"
+  },
+  {
+   "name": "Charley Lake",
+   "acres": 42,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "north-oaks"
+   ],
+   "center": [
+    -93.11896,
+    45.10058
+   ],
+   "bbox": [
+    -93.12276,
+    45.09856,
+    -93.11518,
+    45.10255
+   ],
+   "slug": "charley-lake"
+  },
+  {
+   "name": "Duck Lake",
+   "acres": 42,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "eden-prairie"
+   ],
+   "center": [
+    -93.49118,
+    44.87881
+   ],
+   "bbox": [
+    -93.49731,
+    44.87675,
+    -93.48623,
+    44.88087
+   ],
+   "slug": "duck-lake"
+  },
+  {
+   "name": "Rogers Lake",
+   "acres": 41,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "ramsey",
+    "oak-grove",
+    "nowthen"
+   ],
+   "center": [
+    -93.3891,
+    45.29932
+   ],
+   "bbox": [
+    -93.39173,
+    45.29687,
+    -93.38455,
+    45.30174
+   ],
+   "slug": "rogers-lake-ramsey"
+  },
+  {
+   "name": "Shore Lake Minnetonka",
+   "acres": 41,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "mound",
+    "minnetrista"
+   ],
+   "center": [
+    -93.68712,
+    44.92165
+   ],
+   "bbox": [
+    -93.69281,
+    44.9202,
+    -93.68232,
+    44.92304
+   ],
+   "slug": "shore-lake-minnetonka"
+  },
+  {
+   "name": "Hickey Lake",
+   "acres": 40,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "oak-grove"
+   ],
+   "center": [
+    -93.34445,
+    45.32804
+   ],
+   "bbox": [
+    -93.34754,
+    45.32493,
+    -93.34229,
+    45.33105
+   ],
+   "slug": "hickey-lake"
+  },
+  {
+   "name": "Schendel Lake",
+   "acres": 40,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "greenfield"
+   ],
+   "center": [
+    -93.67291,
+    45.10108
+   ],
+   "bbox": [
+    -93.67574,
+    45.09809,
+    -93.67036,
+    45.10403
+   ],
+   "slug": "schendel-lake"
+  },
+  {
+   "name": "Hafften Lake",
+   "acres": 40,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "greenfield"
+   ],
+   "center": [
+    -93.6786,
+    45.09467
+   ],
+   "bbox": [
+    -93.68188,
+    45.09282,
+    -93.67528,
+    45.0964
+   ],
+   "slug": "hafften-lake"
+  },
+  {
+   "name": "Schwappauff Lake",
+   "acres": 40,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "greenfield"
+   ],
+   "center": [
+    -93.67526,
+    45.11572
+   ],
+   "bbox": [
+    -93.6787,
+    45.11223,
+    -93.67179,
+    45.11921
+   ],
+   "slug": "schwappauff-lake"
+  },
+  {
+   "name": "Crane Lake",
+   "acres": 39,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "minnetonka"
+   ],
+   "center": [
+    -93.42638,
+    44.96839
+   ],
+   "bbox": [
+    -93.43009,
+    44.96657,
+    -93.42196,
+    44.97021
+   ],
+   "slug": "crane-lake"
+  },
+  {
+   "name": "Long Lake",
+   "acres": 39,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "hugo"
+   ],
+   "center": [
+    -92.92399,
+    45.13319
+   ],
+   "bbox": [
+    -92.93074,
+    45.12827,
+    -92.91853,
+    45.13799
+   ],
+   "slug": "long-lake-hugo"
+  },
+  {
+   "name": "Goose Lake",
+   "acres": 39,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "lake-elmo"
+   ],
+   "center": [
+    -92.90522,
+    44.961
+   ],
+   "bbox": [
+    -92.91315,
+    44.95875,
+    -92.90364,
+    44.96531
+   ],
+   "slug": "goose-lake-lake-elmo"
+  },
+  {
+   "name": "Lake Plaisted",
+   "acres": 38,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "hugo"
+   ],
+   "center": [
+    -92.91131,
+    45.15035
+   ],
+   "bbox": [
+    -92.91591,
+    45.14821,
+    -92.90719,
+    45.1525
+   ],
+   "slug": "lake-plaisted"
+  },
+  {
+   "name": "Sandshore Lake",
+   "acres": 38,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "bethel"
+   ],
+   "center": [
+    -93.27498,
+    45.40031
+   ],
+   "bbox": [
+    -93.27936,
+    45.39729,
+    -93.27191,
+    45.40333
+   ],
+   "slug": "sandshore-lake"
+  },
+  {
+   "name": "Ward Lake",
+   "acres": 38,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "andover"
+   ],
+   "center": [
+    -93.28439,
+    45.2855
+   ],
+   "bbox": [
+    -93.28776,
+    45.28347,
+    -93.28116,
+    45.28752
+   ],
+   "slug": "ward-lake"
+  },
+  {
+   "name": "Pike Lake",
+   "acres": 37,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "new-brighton"
+   ],
+   "center": [
+    -93.20845,
+    45.06806
+   ],
+   "bbox": [
+    -93.21079,
+    45.06504,
+    -93.20556,
+    45.07121
+   ],
+   "slug": "pike-lake-new-brighton"
+  },
+  {
+   "name": "Jenson Lake",
+   "acres": 37,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "eagan"
+   ],
+   "center": [
+    -93.158,
+    44.77804
+   ],
+   "bbox": [
+    -93.16622,
+    44.77641,
+    -93.15119,
+    44.77966
+   ],
+   "slug": "jenson-lake"
+  },
+  {
+   "name": "Bucks Lake",
+   "acres": 37,
+   "counties": [
+    "Sibley"
+   ],
+   "communities": [
+    "le-sueur"
+   ],
+   "center": [
+    -93.9098,
+    44.48823
+   ],
+   "bbox": [
+    -93.91515,
+    44.48451,
+    -93.90741,
+    44.49181
+   ],
+   "slug": "bucks-lake"
+  },
+  {
+   "name": "Lake Grace",
+   "acres": 37,
+   "counties": [
+    "Carver"
+   ],
+   "communities": [
+    "chaska"
+   ],
+   "center": [
+    -93.60518,
+    44.82912
+   ],
+   "bbox": [
+    -93.60737,
+    44.82301,
+    -93.60302,
+    44.83502
+   ],
+   "slug": "lake-grace"
+  },
+  {
+   "name": "Pinnaker Lake",
+   "acres": 37,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "nowthen"
+   ],
+   "center": [
+    -93.43877,
+    45.3662
+   ],
+   "bbox": [
+    -93.44241,
+    45.36374,
+    -93.43444,
+    45.36857
+   ],
+   "slug": "pinnaker-lake"
+  },
+  {
+   "name": "Wirth Lake",
+   "acres": 37,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "golden-valley"
+   ],
+   "center": [
+    -93.32324,
+    44.98155
+   ],
+   "bbox": [
+    -93.32678,
+    44.97899,
+    -93.31999,
+    44.9841
+   ],
+   "slug": "wirth-lake"
+  },
+  {
+   "name": "Saunders Lake",
+   "acres": 37,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "minnetrista"
+   ],
+   "center": [
+    -93.69247,
+    44.92974
+   ],
+   "bbox": [
+    -93.6968,
+    44.92762,
+    -93.68797,
+    44.93199
+   ],
+   "slug": "saunders-lake"
+  },
+  {
+   "name": "Cowley Lake",
+   "acres": 37,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "rogers"
+   ],
+   "center": [
+    -93.59126,
+    45.19549
+   ],
+   "bbox": [
+    -93.59524,
+    45.19326,
+    -93.58757,
+    45.19778
+   ],
+   "slug": "cowley-lake"
+  },
+  {
+   "name": "Wolsfield Lake",
+   "acres": 37,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "medina"
+   ],
+   "center": [
+    -93.57211,
+    45.00519
+   ],
+   "bbox": [
+    -93.57712,
+    45.00204,
+    -93.56847,
+    45.00804
+   ],
+   "slug": "wolsfield-lake"
+  },
+  {
+   "name": "Lemays Lake",
+   "acres": 36,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "eagan"
+   ],
+   "center": [
+    -93.16104,
+    44.84426
+   ],
+   "bbox": [
+    -93.16583,
+    44.84158,
+    -93.15844,
+    44.84691
+   ],
+   "slug": "lemays-lake"
+  },
+  {
+   "name": "Downs Lake",
+   "acres": 36,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "lake-elmo"
+   ],
+   "center": [
+    -92.86609,
+    44.98194
+   ],
+   "bbox": [
+    -92.86863,
+    44.97965,
+    -92.86303,
+    44.98419
+   ],
+   "slug": "downs-lake"
+  },
+  {
+   "name": "Benz Lake",
+   "acres": 36,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "grant"
+   ],
+   "center": [
+    -92.89118,
+    45.11107
+   ],
+   "bbox": [
+    -92.89475,
+    45.10931,
+    -92.88754,
+    45.11281
+   ],
+   "slug": "benz-lake"
+  },
+  {
+   "name": "Lily Lake",
+   "acres": 36,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "stillwater"
+   ],
+   "center": [
+    -92.82345,
+    45.04812
+   ],
+   "bbox": [
+    -92.82695,
+    45.04612,
+    -92.82034,
+    45.05018
+   ],
+   "slug": "lily-lake"
+  },
+  {
+   "name": "O Brien Lake",
+   "acres": 35,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "eagan"
+   ],
+   "center": [
+    -93.14444,
+    44.78072
+   ],
+   "bbox": [
+    -93.14664,
+    44.77803,
+    -93.13669,
+    44.78341
+   ],
+   "slug": "o-brien-lake"
+  },
+  {
+   "name": "Lake Laura",
+   "acres": 35,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "dayton"
+   ],
+   "center": [
+    -93.51286,
+    45.21229
+   ],
+   "bbox": [
+    -93.51614,
+    45.21005,
+    -93.50795,
+    45.21451
+   ],
+   "slug": "lake-laura"
+  },
+  {
+   "name": "Sunfish Lake",
+   "acres": 35,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "ramsey"
+   ],
+   "center": [
+    -93.42639,
+    45.23861
+   ],
+   "bbox": [
+    -93.42895,
+    45.23516,
+    -93.42395,
+    45.24191
+   ],
+   "slug": "sunfish-lake-ramsey"
+  },
+  {
+   "name": "Lake Kohlmier",
+   "acres": 34,
+   "counties": [
+    "Steele"
+   ],
+   "communities": [
+    "owatonna"
+   ],
+   "center": [
+    -93.24461,
+    44.06785
+   ],
+   "bbox": [
+    -93.24608,
+    44.06443,
+    -93.24234,
+    44.07125
+   ],
+   "slug": "lake-kohlmier"
+  },
+  {
+   "name": "Lower Penn Lake",
+   "acres": 33,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "bloomington"
+   ],
+   "center": [
+    -93.30531,
+    44.84542
+   ],
+   "bbox": [
+    -93.30739,
+    44.84279,
+    -93.30343,
+    44.84812
+   ],
+   "slug": "lower-penn-lake"
+  },
+  {
+   "name": "Swan Lake",
+   "acres": 33,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "oak-grove"
+   ],
+   "center": [
+    -93.28099,
+    45.31859
+   ],
+   "bbox": [
+    -93.28432,
+    45.31573,
+    -93.27931,
+    45.32148
+   ],
+   "slug": "swan-lake"
+  },
+  {
+   "name": "Braunworth Lake",
+   "acres": 33,
+   "counties": [
+    "Carver"
+   ],
+   "communities": [
+    "norwood-young-america"
+   ],
+   "center": [
+    -93.91272,
+    44.78788
+   ],
+   "bbox": [
+    -93.9153,
+    44.7855,
+    -93.90998,
+    44.79055
+   ],
+   "slug": "braunworth-lake"
+  },
+  {
+   "name": "Twin Lake",
+   "acres": 32,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "little-canada",
+    "vadnais-heights"
+   ],
+   "center": [
+    -93.09032,
+    45.0405
+   ],
+   "bbox": [
+    -93.09346,
+    45.03845,
+    -93.08648,
+    45.04256
+   ],
+   "slug": "twin-lake-little-canada"
+  },
+  {
+   "name": "Thomas Lake",
+   "acres": 31,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "eagan"
+   ],
+   "center": [
+    -93.17281,
+    44.79382
+   ],
+   "bbox": [
+    -93.17679,
+    44.79143,
+    -93.16721,
+    44.79621
+   ],
+   "slug": "thomas-lake"
+  },
+  {
+   "name": "Mud Lake",
+   "acres": 31,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "oakdale"
+   ],
+   "center": [
+    -92.9719,
+    45.01656
+   ],
+   "bbox": [
+    -92.97359,
+    45.01465,
+    -92.9658,
+    45.01847
+   ],
+   "slug": "mud-lake-oakdale"
+  },
+  {
+   "name": "Fish Lake",
+   "acres": 31,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "eagan"
+   ],
+   "center": [
+    -93.16267,
+    44.82158
+   ],
+   "bbox": [
+    -93.16792,
+    44.81943,
+    -93.1602,
+    44.82374
+   ],
+   "slug": "fish-lake-eagan"
+  },
+  {
+   "name": "Hay Lake",
+   "acres": 31,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "scandia"
+   ],
+   "center": [
+    -92.81401,
+    45.23352
+   ],
+   "bbox": [
+    -92.81608,
+    45.23125,
+    -92.81131,
+    45.23586
+   ],
+   "slug": "hay-lake"
+  },
+  {
+   "name": "Crystal Lake",
+   "acres": 31,
+   "counties": [
+    "Scott"
+   ],
+   "communities": [
+    "prior-lake"
+   ],
+   "center": [
+    -93.44024,
+    44.70083
+   ],
+   "bbox": [
+    -93.44263,
+    44.69906,
+    -93.43416,
+    44.70259
+   ],
+   "slug": "crystal-lake-prior-lake"
+  },
+  {
+   "name": "Halfmoon Lake",
+   "acres": 31,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "medina"
+   ],
+   "center": [
+    -93.6268,
+    45.02933
+   ],
+   "bbox": [
+    -93.62979,
+    45.02735,
+    -93.62381,
+    45.03157
+   ],
+   "slug": "halfmoon-lake"
+  },
+  {
+   "name": "Kegan Lake",
+   "acres": 31,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "rosemount"
+   ],
+   "center": [
+    -93.11644,
+    44.75834
+   ],
+   "bbox": [
+    -93.11923,
+    44.75634,
+    -93.11103,
+    44.76031
+   ],
+   "slug": "kegan-lake"
+  },
+  {
+   "name": "Wilmes Lake",
+   "acres": 31,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "woodbury"
+   ],
+   "center": [
+    -92.91691,
+    44.93331
+   ],
+   "bbox": [
+    -92.91877,
+    44.92534,
+    -92.91141,
+    44.93602
+   ],
+   "slug": "wilmes-lake"
+  },
+  {
+   "name": "Tamarack Lake",
+   "acres": 30,
+   "counties": [
+    "Carver"
+   ],
+   "communities": [
+    "victoria"
+   ],
+   "center": [
+    -93.63488,
+    44.87348
+   ],
+   "bbox": [
+    -93.63753,
+    44.87141,
+    -93.63203,
+    44.8755
+   ],
+   "slug": "tamarack-lake"
+  },
+  {
+   "name": "Bennett Lake",
+   "acres": 29,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "roseville"
+   ],
+   "center": [
+    -93.14093,
+    45.01771
+   ],
+   "bbox": [
+    -93.14518,
+    45.01553,
+    -93.13788,
+    45.01989
+   ],
+   "slug": "bennett-lake"
+  },
+  {
+   "name": "Grass Lake",
+   "acres": 29,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "oak-grove"
+   ],
+   "center": [
+    -93.30487,
+    45.35733
+   ],
+   "bbox": [
+    -93.30911,
+    45.35557,
+    -93.3008,
+    45.35918
+   ],
+   "slug": "grass-lake-oak-grove"
+  },
+  {
+   "name": "Lower Twin Lake",
+   "acres": 29,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "robbinsdale"
+   ],
+   "center": [
+    -93.33871,
+    45.03634
+   ],
+   "bbox": [
+    -93.34028,
+    45.03415,
+    -93.33352,
+    45.03872
+   ],
+   "slug": "lower-twin-lake"
+  },
+  {
+   "name": "Sandy Lake",
+   "acres": 29,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "maplewood"
+   ],
+   "center": [
+    -93.09448,
+    45.00407
+   ],
+   "bbox": [
+    -93.09772,
+    45.00229,
+    -93.09166,
+    45.00586
+   ],
+   "slug": "sandy-lake"
+  },
+  {
+   "name": "Lake Lemay",
+   "acres": 29,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "mendota-heights"
+   ],
+   "center": [
+    -93.15758,
+    44.87341
+   ],
+   "bbox": [
+    -93.16093,
+    44.86945,
+    -93.15495,
+    44.87739
+   ],
+   "slug": "lake-lemay"
+  },
+  {
+   "name": "Savage Lake",
+   "acres": 29,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "little-canada"
+   ],
+   "center": [
+    -93.08771,
+    45.02063
+   ],
+   "bbox": [
+    -93.09349,
+    45.01819,
+    -93.08611,
+    45.02192
+   ],
+   "slug": "savage-lake"
+  },
+  {
+   "name": "Twin Lks",
+   "acres": 29,
+   "counties": [
+    "Rice"
+   ],
+   "communities": [
+    "faribault"
+   ],
+   "center": [
+    -93.27772,
+    44.32666
+   ],
+   "bbox": [
+    -93.28262,
+    44.32374,
+    -93.27512,
+    44.32791
+   ],
+   "slug": "twin-lks-faribault"
+  },
+  {
+   "name": "Pomerleau Lake",
+   "acres": 28,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "plymouth"
+   ],
+   "center": [
+    -93.46606,
+    45.05262
+   ],
+   "bbox": [
+    -93.46834,
+    45.05043,
+    -93.46385,
+    45.05484
+   ],
+   "slug": "pomerleau-lake"
+  },
+  {
+   "name": "Round Lake",
+   "acres": 28,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "eden-prairie"
+   ],
+   "center": [
+    -93.49282,
+    44.86852
+   ],
+   "bbox": [
+    -93.49542,
+    44.86693,
+    -93.4903,
+    44.87022
+   ],
+   "slug": "round-lake-eden-prairie"
+  },
+  {
+   "name": "Long Lake",
+   "acres": 28,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "apple-valley"
+   ],
+   "center": [
+    -93.1747,
+    44.75668
+   ],
+   "bbox": [
+    -93.17946,
+    44.75526,
+    -93.17001,
+    44.75811
+   ],
+   "slug": "long-lake-apple-valley"
+  },
+  {
+   "name": "Edward Lake",
+   "acres": 28,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "maple-grove"
+   ],
+   "center": [
+    -93.46584,
+    45.07362
+   ],
+   "bbox": [
+    -93.46779,
+    45.07151,
+    -93.4631,
+    45.07581
+   ],
+   "slug": "edward-lake"
+  },
+  {
+   "name": "Henry Lake",
+   "acres": 27,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "rogers"
+   ],
+   "center": [
+    -93.60673,
+    45.16859
+   ],
+   "bbox": [
+    -93.61052,
+    45.16624,
+    -93.60289,
+    45.1709
+   ],
+   "slug": "henry-lake"
+  },
+  {
+   "name": "Prairie Lake",
+   "acres": 27,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "rogers"
+   ],
+   "center": [
+    -93.64512,
+    45.191
+   ],
+   "bbox": [
+    -93.64801,
+    45.18943,
+    -93.64201,
+    45.19253
+   ],
+   "slug": "prairie-lake"
+  },
+  {
+   "name": "Marcott Lake",
+   "acres": 27,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "inver-grove-heights"
+   ],
+   "center": [
+    -93.07486,
+    44.82031
+   ],
+   "bbox": [
+    -93.08279,
+    44.8188,
+    -93.07216,
+    44.82437
+   ],
+   "slug": "marcott-lake"
+  },
+  {
+   "name": "Shields Lake",
+   "acres": 26,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "forest-lake"
+   ],
+   "center": [
+    -92.94514,
+    45.2529
+   ],
+   "bbox": [
+    -92.94742,
+    45.25076,
+    -92.9432,
+    45.25491
+   ],
+   "slug": "shields-lake"
+  },
+  {
+   "name": "Gem Lake",
+   "acres": 26,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "gem-lake"
+   ],
+   "center": [
+    -93.04184,
+    45.05838
+   ],
+   "bbox": [
+    -93.04473,
+    45.05579,
+    -93.03655,
+    45.06046
+   ],
+   "slug": "gem-lake"
+  },
+  {
+   "name": "Lake Alice",
+   "acres": 26,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "scandia",
+    "marine-on-st-croix"
+   ],
+   "center": [
+    -92.76117,
+    45.22025
+   ],
+   "bbox": [
+    -92.76198,
+    45.21698,
+    -92.7586,
+    45.22363
+   ],
+   "slug": "lake-alice"
+  },
+  {
+   "name": "Clear Lake",
+   "acres": 26,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "lake-elmo"
+   ],
+   "center": [
+    -92.89849,
+    45.0216
+   ],
+   "bbox": [
+    -92.90289,
+    45.0192,
+    -92.89647,
+    45.024
+   ],
+   "slug": "clear-lake-lake-elmo"
+  },
+  {
+   "name": "Horse Shoe Lake",
+   "acres": 25,
+   "counties": [
+    "Scott"
+   ],
+   "communities": [
+    "belle-plaine"
+   ],
+   "center": [
+    -93.74156,
+    44.64172
+   ],
+   "bbox": [
+    -93.74658,
+    44.63893,
+    -93.7405,
+    44.64414
+   ],
+   "slug": "horse-shoe-lake-belle-plaine"
+  },
+  {
+   "name": "Lost Lake",
+   "acres": 25,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "mahtomedi",
+    "birchwood-village"
+   ],
+   "center": [
+    -92.96761,
+    45.05122
+   ],
+   "bbox": [
+    -92.97158,
+    45.04993,
+    -92.96599,
+    45.05415
+   ],
+   "slug": "lost-lake-mahtomedi"
+  },
+  {
+   "name": "Echo Lake",
+   "acres": 24,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "dellwood"
+   ],
+   "center": [
+    -92.95945,
+    45.08608
+   ],
+   "bbox": [
+    -92.96354,
+    45.08461,
+    -92.95551,
+    45.08759
+   ],
+   "slug": "echo-lake"
+  },
+  {
+   "name": "Benjamin Lake",
+   "acres": 24,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "nowthen"
+   ],
+   "center": [
+    -93.39323,
+    45.31805
+   ],
+   "bbox": [
+    -93.39605,
+    45.3164,
+    -93.39087,
+    45.31967
+   ],
+   "slug": "benjamin-lake"
+  },
+  {
+   "name": "Meuwissen Lake",
+   "acres": 24,
+   "counties": [
+    "Carver"
+   ],
+   "communities": [
+    "cologne"
+   ],
+   "center": [
+    -93.79577,
+    44.771
+   ],
+   "bbox": [
+    -93.79855,
+    44.76968,
+    -93.79332,
+    44.77239
+   ],
+   "slug": "meuwissen-lake"
+  },
+  {
+   "name": "Langton Lake",
+   "acres": 23,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "roseville"
+   ],
+   "center": [
+    -93.18207,
+    45.02801
+   ],
+   "bbox": [
+    -93.18311,
+    45.02469,
+    -93.17957,
+    45.03136
+   ],
+   "slug": "langton-lake"
+  },
+  {
+   "name": "Wakefield Lake",
+   "acres": 23,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "maplewood"
+   ],
+   "center": [
+    -93.03538,
+    44.99459
+   ],
+   "bbox": [
+    -93.03802,
+    44.99251,
+    -93.03371,
+    44.99666
+   ],
+   "slug": "wakefield-lake"
+  },
+  {
+   "name": "Richfield Lake",
+   "acres": 23,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "richfield"
+   ],
+   "center": [
+    -93.29136,
+    44.88662
+   ],
+   "bbox": [
+    -93.29342,
+    44.88476,
+    -93.28862,
+    44.88787
+   ],
+   "slug": "richfield-lake"
+  },
+  {
+   "name": "Lake Rose",
+   "acres": 23,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "minnetonka"
+   ],
+   "center": [
+    -93.48064,
+    44.8989
+   ],
+   "bbox": [
+    -93.4828,
+    44.89704,
+    -93.47365,
+    44.90042
+   ],
+   "slug": "lake-rose"
+  },
+  {
+   "name": "Three M Lake",
+   "acres": 22,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "maplewood"
+   ],
+   "center": [
+    -93.00112,
+    44.95967
+   ],
+   "bbox": [
+    -93.00378,
+    44.95824,
+    -92.99697,
+    44.96118
+   ],
+   "slug": "three-m-lake"
+  },
+  {
+   "name": "Hadley Lake",
+   "acres": 22,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "plymouth"
+   ],
+   "center": [
+    -93.51488,
+    44.98653
+   ],
+   "bbox": [
+    -93.52003,
+    44.98337,
+    -93.51198,
+    44.9896
+   ],
+   "slug": "hadley-lake"
+  },
+  {
+   "name": "Lake Camelot",
+   "acres": 22,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "plymouth"
+   ],
+   "center": [
+    -93.45873,
+    45.05976
+   ],
+   "bbox": [
+    -93.46174,
+    45.05783,
+    -93.45667,
+    45.06155
+   ],
+   "slug": "lake-camelot"
+  },
+  {
+   "name": "Grass Lake",
+   "acres": 22,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "minneapolis"
+   ],
+   "center": [
+    -93.29836,
+    44.89325
+   ],
+   "bbox": [
+    -93.29997,
+    44.89115,
+    -93.29577,
+    44.89522
+   ],
+   "slug": "grass-lake-minneapolis"
+  },
+  {
+   "name": "Hornbeam Lake",
+   "acres": 22,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "sunfish-lake",
+    "inver-grove-heights"
+   ],
+   "center": [
+    -93.10334,
+    44.86269
+   ],
+   "bbox": [
+    -93.10476,
+    44.86016,
+    -93.09754,
+    44.86526
+   ],
+   "slug": "hornbeam-lake"
+  },
+  {
+   "name": "Arrowhead Lake",
+   "acres": 21,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "edina"
+   ],
+   "center": [
+    -93.39556,
+    44.88639
+   ],
+   "bbox": [
+    -93.39701,
+    44.88447,
+    -93.39201,
+    44.88831
+   ],
+   "slug": "arrowhead-lake"
+  },
+  {
+   "name": "Bear Lake",
+   "acres": 21,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "nowthen"
+   ],
+   "center": [
+    -93.48124,
+    45.34768
+   ],
+   "bbox": [
+    -93.48408,
+    45.3463,
+    -93.47832,
+    45.34908
+   ],
+   "slug": "bear-lake"
+  },
+  {
+   "name": "Twin Lake",
+   "acres": 21,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "golden-valley"
+   ],
+   "center": [
+    -93.33634,
+    44.99179
+   ],
+   "bbox": [
+    -93.33818,
+    44.9891,
+    -93.33386,
+    44.99456
+   ],
+   "slug": "twin-lake-golden-valley"
+  },
+  {
+   "name": "Locke Lake",
+   "acres": 21,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "fridley"
+   ],
+   "center": [
+    -93.27264,
+    45.09152
+   ],
+   "bbox": [
+    -93.2752,
+    45.08955,
+    -93.27007,
+    45.0935
+   ],
+   "slug": "locke-lake"
+  },
+  {
+   "name": "Lee Lake",
+   "acres": 20,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "lakeville"
+   ],
+   "center": [
+    -93.2873,
+    44.71142
+   ],
+   "bbox": [
+    -93.29086,
+    44.70972,
+    -93.28577,
+    44.71312
+   ],
+   "slug": "lee-lake"
+  },
+  {
+   "name": "Karth Lake",
+   "acres": 20,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "arden-hills",
+    "shoreview"
+   ],
+   "center": [
+    -93.15145,
+    45.07509
+   ],
+   "bbox": [
+    -93.15509,
+    45.07225,
+    -93.14762,
+    45.07802
+   ],
+   "slug": "karth-lake"
+  },
+  {
+   "name": "Mud Lake",
+   "acres": 20,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "east-bethel"
+   ],
+   "center": [
+    -93.21763,
+    45.34643
+   ],
+   "bbox": [
+    -93.2198,
+    45.34511,
+    -93.214,
+    45.34773
+   ],
+   "slug": "mud-lake-east-bethel"
+  },
+  {
+   "name": "Libbs Lake",
+   "acres": 20,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "minnetonka"
+   ],
+   "center": [
+    -93.48694,
+    44.94591
+   ],
+   "bbox": [
+    -93.49122,
+    44.94317,
+    -93.48531,
+    44.94863
+   ],
+   "slug": "libbs-lake"
+  },
+  {
+   "name": "Cranberry Lake",
+   "acres": 20,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "forest-lake"
+   ],
+   "center": [
+    -92.91245,
+    45.27394
+   ],
+   "bbox": [
+    -92.91521,
+    45.27243,
+    -92.90992,
+    45.27535
+   ],
+   "slug": "cranberry-lake"
+  },
+  {
+   "name": "Mirror Lake",
+   "acres": 20,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "edina"
+   ],
+   "center": [
+    -93.37794,
+    44.91036
+   ],
+   "bbox": [
+    -93.3833,
+    44.90682,
+    -93.37493,
+    44.91371
+   ],
+   "slug": "mirror-lake"
+  },
+  {
+   "name": "French Lake",
+   "acres": 20,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "orono"
+   ],
+   "center": [
+    -93.58187,
+    44.95842
+   ],
+   "bbox": [
+    -93.58549,
+    44.957,
+    -93.57937,
+    44.95977
+   ],
+   "slug": "french-lake-orono"
+  },
+  {
+   "name": "Lost Lake",
+   "acres": 19,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "plymouth"
+   ],
+   "center": [
+    -93.41572,
+    45.03061
+   ],
+   "bbox": [
+    -93.4175,
+    45.02876,
+    -93.41361,
+    45.03246
+   ],
+   "slug": "lost-lake-plymouth"
+  },
+  {
+   "name": "Lake Irene",
+   "acres": 19,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "independence"
+   ],
+   "center": [
+    -93.6972,
+    45.01114
+   ],
+   "bbox": [
+    -93.69931,
+    45.00956,
+    -93.69541,
+    45.01281
+   ],
+   "slug": "lake-irene"
+  },
+  {
+   "name": "Goose Lake",
+   "acres": 19,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "maple-grove",
+    "corcoran"
+   ],
+   "center": [
+    -93.52349,
+    45.10766
+   ],
+   "bbox": [
+    -93.52568,
+    45.10634,
+    -93.52122,
+    45.10901
+   ],
+   "slug": "goose-lake-maple-grove"
+  },
+  {
+   "name": "Wood Lake",
+   "acres": 19,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "richfield"
+   ],
+   "center": [
+    -93.29192,
+    44.87883
+   ],
+   "bbox": [
+    -93.29418,
+    44.87717,
+    -93.28912,
+    44.88053
+   ],
+   "slug": "wood-lake"
+  },
+  {
+   "name": "Oxboro Lake",
+   "acres": 19,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "bloomington"
+   ],
+   "center": [
+    -93.28322,
+    44.83394
+   ],
+   "bbox": [
+    -93.28553,
+    44.83238,
+    -93.28098,
+    44.83548
+   ],
+   "slug": "oxboro-lake"
+  },
+  {
+   "name": "Lake Minnetonka Bay",
+   "acres": 18,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "minnetonka"
+   ],
+   "center": [
+    -93.48355,
+    44.95007
+   ],
+   "bbox": [
+    -93.48661,
+    44.94561,
+    -93.47657,
+    44.95459
+   ],
+   "slug": "lake-minnetonka-bay"
+  },
+  {
+   "name": "Silver Lake",
+   "acres": 18,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "shorewood"
+   ],
+   "center": [
+    -93.53465,
+    44.89453
+   ],
+   "bbox": [
+    -93.53801,
+    44.89163,
+    -93.53124,
+    44.89775
+   ],
+   "slug": "silver-lake-shorewood"
+  },
+  {
+   "name": "Mud Lake",
+   "acres": 17,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "shoreview"
+   ],
+   "center": [
+    -93.13762,
+    45.04139
+   ],
+   "bbox": [
+    -93.14019,
+    45.04022,
+    -93.13496,
+    45.04257
+   ],
+   "slug": "mud-lake-shoreview"
+  },
+  {
+   "name": "Lake St Joe",
+   "acres": 17,
+   "counties": [
+    "Carver"
+   ],
+   "communities": [
+    "chanhassen"
+   ],
+   "center": [
+    -93.62309,
+    44.87438
+   ],
+   "bbox": [
+    -93.62411,
+    44.87216,
+    -93.62082,
+    44.87651
+   ],
+   "slug": "lake-st-joe"
+  },
+  {
+   "name": "Shore Unmd Lake",
+   "acres": 17,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "inver-grove-heights"
+   ],
+   "center": [
+    -93.03737,
+    44.85444
+   ],
+   "bbox": [
+    -93.03975,
+    44.85295,
+    -93.03443,
+    44.85592
+   ],
+   "slug": "shore-unmd-lake"
+  },
+  {
+   "name": "Columbus Lake",
+   "acres": 17,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "columbus"
+   ],
+   "center": [
+    -93.05339,
+    45.24514
+   ],
+   "bbox": [
+    -93.06211,
+    45.24267,
+    -93.05145,
+    45.24801
+   ],
+   "slug": "columbus-lake"
+  },
+  {
+   "name": "Palmer Lake",
+   "acres": 16,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "brooklyn-center"
+   ],
+   "center": [
+    -93.31811,
+    45.08204
+   ],
+   "bbox": [
+    -93.32231,
+    45.08072,
+    -93.31597,
+    45.08333
+   ],
+   "slug": "palmer-lake"
+  },
+  {
+   "name": "Goose Lake",
+   "acres": 16,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "lakeville"
+   ],
+   "center": [
+    -93.26955,
+    44.70181
+   ],
+   "bbox": [
+    -93.27331,
+    44.69993,
+    -93.2686,
+    44.70366
+   ],
+   "slug": "goose-lake-lakeville"
+  },
+  {
+   "name": "Rice Lake",
+   "acres": 16,
+   "counties": [
+    "Scott"
+   ],
+   "communities": [
+    "prior-lake"
+   ],
+   "center": [
+    -93.44096,
+    44.69608
+   ],
+   "bbox": [
+    -93.44334,
+    44.69486,
+    -93.43812,
+    44.69726
+   ],
+   "slug": "rice-lake-prior-lake"
+  },
+  {
+   "name": "Arbor Lake",
+   "acres": 16,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "maple-grove"
+   ],
+   "center": [
+    -93.43549,
+    45.09697
+   ],
+   "bbox": [
+    -93.44025,
+    45.09579,
+    -93.43343,
+    45.0981
+   ],
+   "slug": "arbor-lake"
+  },
+  {
+   "name": "Wards Lake",
+   "acres": 16,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "lino-lakes"
+   ],
+   "center": [
+    -93.08233,
+    45.15289
+   ],
+   "bbox": [
+    -93.08447,
+    45.15168,
+    -93.07926,
+    45.15409
+   ],
+   "slug": "wards-lake"
+  },
+  {
+   "name": "Coleman Lake",
+   "acres": 16,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "bloomington"
+   ],
+   "center": [
+    -93.31802,
+    44.79557
+   ],
+   "bbox": [
+    -93.3223,
+    44.7946,
+    -93.31406,
+    44.79693
+   ],
+   "slug": "coleman-lake"
+  },
+  {
+   "name": "Church Lake",
+   "acres": 16,
+   "counties": [
+    "Carver"
+   ],
+   "communities": [
+    "victoria"
+   ],
+   "center": [
+    -93.6663,
+    44.85574
+   ],
+   "bbox": [
+    -93.66798,
+    44.85388,
+    -93.66518,
+    44.85761
+   ],
+   "slug": "church-lake"
+  },
+  {
+   "name": "Lone Lake",
+   "acres": 16,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "minnetonka"
+   ],
+   "center": [
+    -93.43067,
+    44.90167
+   ],
+   "bbox": [
+    -93.43242,
+    44.90006,
+    -93.42893,
+    44.90321
+   ],
+   "slug": "lone-lake"
+  },
+  {
+   "name": "Lake Rauchle",
+   "acres": 16,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "blaine"
+   ],
+   "center": [
+    -93.21975,
+    45.13011
+   ],
+   "bbox": [
+    -93.22402,
+    45.12868,
+    -93.21813,
+    45.13168
+   ],
+   "slug": "lake-rauchle"
+  },
+  {
+   "name": "Highland Lake",
+   "acres": 16,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "columbia-heights"
+   ],
+   "center": [
+    -93.23319,
+    45.05851
+   ],
+   "bbox": [
+    -93.23472,
+    45.05665,
+    -93.23122,
+    45.06029
+   ],
+   "slug": "highland-lake"
+  },
+  {
+   "name": "Sullivan Lake",
+   "acres": 16,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "columbia-heights"
+   ],
+   "center": [
+    -93.25351,
+    45.06255
+   ],
+   "bbox": [
+    -93.25575,
+    45.0611,
+    -93.25163,
+    45.06399
+   ],
+   "slug": "sullivan-lake"
+  },
+  {
+   "name": "Elwell Lake",
+   "acres": 16,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "forest-lake",
+    "scandia"
+   ],
+   "center": [
+    -92.89808,
+    45.2693
+   ],
+   "bbox": [
+    -92.90005,
+    45.26716,
+    -92.89646,
+    45.27132
+   ],
+   "slug": "elwell-lake"
+  },
+  {
+   "name": "Winterhalter Lake",
+   "acres": 16,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "medina"
+   ],
+   "center": [
+    -93.61127,
+    45.04346
+   ],
+   "bbox": [
+    -93.61319,
+    45.04202,
+    -93.60959,
+    45.04492
+   ],
+   "slug": "winterhalter-lake"
+  },
+  {
+   "name": "Twin Lks",
+   "acres": 15,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "columbus"
+   ],
+   "center": [
+    -93.11512,
+    45.29655
+   ],
+   "bbox": [
+    -93.11665,
+    45.29475,
+    -93.11369,
+    45.29821
+   ],
+   "slug": "twin-lks-columbus"
+  },
+  {
+   "name": "Horse Shoe Lake",
+   "acres": 15,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "sunfish-lake",
+    "inver-grove-heights"
+   ],
+   "center": [
+    -93.0864,
+    44.8634
+   ],
+   "bbox": [
+    -93.08844,
+    44.86191,
+    -93.08474,
+    44.86493
+   ],
+   "slug": "horse-shoe-lake-sunfish-lake"
+  },
+  {
+   "name": "Quigley Lake",
+   "acres": 15,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "eagan"
+   ],
+   "center": [
+    -93.1556,
+    44.802
+   ],
+   "bbox": [
+    -93.15707,
+    44.8001,
+    -93.15389,
+    44.80393
+   ],
+   "slug": "quigley-lake"
+  },
+  {
+   "name": "Markley Lake",
+   "acres": 15,
+   "counties": [
+    "Scott"
+   ],
+   "communities": [
+    "prior-lake",
+    "credit-river"
+   ],
+   "center": [
+    -93.40206,
+    44.70928
+   ],
+   "bbox": [
+    -93.40424,
+    44.7076,
+    -93.39471,
+    44.71106
+   ],
+   "slug": "markley-lake"
+  },
+  {
+   "name": "Lake William",
+   "acres": 15,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "shorewood",
+    "greenwood"
+   ],
+   "center": [
+    -93.54659,
+    44.91736
+   ],
+   "bbox": [
+    -93.54859,
+    44.91562,
+    -93.54435,
+    44.91898
+   ],
+   "slug": "lake-william"
+  },
+  {
+   "name": "Dubay Lake",
+   "acres": 15,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "dayton"
+   ],
+   "center": [
+    -93.48297,
+    45.17065
+   ],
+   "bbox": [
+    -93.48579,
+    45.16947,
+    -93.48054,
+    45.17169
+   ],
+   "slug": "dubay-lake"
+  },
+  {
+   "name": "Martha Lake",
+   "acres": 15,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "shoreview"
+   ],
+   "center": [
+    -93.1385,
+    45.08283
+   ],
+   "bbox": [
+    -93.13982,
+    45.08125,
+    -93.13536,
+    45.08441
+   ],
+   "slug": "martha-lake"
+  },
+  {
+   "name": "Powers Lake",
+   "acres": 15,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "dayton"
+   ],
+   "center": [
+    -93.44479,
+    45.16337
+   ],
+   "bbox": [
+    -93.44855,
+    45.16214,
+    -93.44291,
+    45.16447
+   ],
+   "slug": "powers-lake-dayton"
+  },
+  {
+   "name": "Southeast Lake",
+   "acres": 14,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "blaine"
+   ],
+   "center": [
+    -93.1928,
+    45.18072
+   ],
+   "bbox": [
+    -93.19558,
+    45.17983,
+    -93.19051,
+    45.18157
+   ],
+   "slug": "southeast-lake"
+  },
+  {
+   "name": "Sherman Lake",
+   "acres": 14,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "lino-lakes"
+   ],
+   "center": [
+    -93.07134,
+    45.15397
+   ],
+   "bbox": [
+    -93.07299,
+    45.15274,
+    -93.0686,
+    45.15533
+   ],
+   "slug": "sherman-lake"
+  },
+  {
+   "name": "Shore Lake Girard",
+   "acres": 14,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "bloomington"
+   ],
+   "center": [
+    -93.32685,
+    44.84802
+   ],
+   "bbox": [
+    -93.32882,
+    44.84628,
+    -93.32564,
+    44.84969
+   ],
+   "slug": "shore-lake-girard"
+  },
+  {
+   "name": "Emily Lake",
+   "acres": 14,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "shoreview"
+   ],
+   "center": [
+    -93.12851,
+    45.04046
+   ],
+   "bbox": [
+    -93.13032,
+    45.03798,
+    -93.12785,
+    45.04295
+   ],
+   "slug": "emily-lake"
+  },
+  {
+   "name": "Kreatz Lake",
+   "acres": 14,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "plymouth"
+   ],
+   "center": [
+    -93.50156,
+    45.00135
+   ],
+   "bbox": [
+    -93.50372,
+    44.99979,
+    -93.49961,
+    45.00299
+   ],
+   "slug": "kreatz-lake"
+  },
+  {
+   "name": "Hurley Lake",
+   "acres": 14,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "eagan"
+   ],
+   "center": [
+    -93.15081,
+    44.81142
+   ],
+   "bbox": [
+    -93.15384,
+    44.80929,
+    -93.14994,
+    44.81354
+   ],
+   "slug": "hurley-lake"
+  },
+  {
+   "name": "Sunnybrook Lake",
+   "acres": 14,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "grant"
+   ],
+   "center": [
+    -92.91128,
+    45.05108
+   ],
+   "bbox": [
+    -92.91319,
+    45.04931,
+    -92.90939,
+    45.05281
+   ],
+   "slug": "sunnybrook-lake"
+  },
+  {
+   "name": "Morin Lake",
+   "acres": 14,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "corcoran"
+   ],
+   "center": [
+    -93.59125,
+    45.07133
+   ],
+   "bbox": [
+    -93.59294,
+    45.07016,
+    -93.58956,
+    45.07243
+   ],
+   "slug": "morin-lake"
+  },
+  {
+   "name": "Hannan Lake",
+   "acres": 14,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "st-louis-park"
+   ],
+   "center": [
+    -93.39409,
+    44.95328
+   ],
+   "bbox": [
+    -93.39753,
+    44.95245,
+    -93.39189,
+    44.95411
+   ],
+   "slug": "hannan-lake"
+  },
+  {
+   "name": "Rice Lake",
+   "acres": 14,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "eden-prairie"
+   ],
+   "center": [
+    -93.49517,
+    44.8132
+   ],
+   "bbox": [
+    -93.49723,
+    44.81201,
+    -93.49299,
+    44.8144
+   ],
+   "slug": "rice-lake-eden-prairie-2"
+  },
+  {
+   "name": "Twin Lake",
+   "acres": 13,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "forest-lake"
+   ],
+   "center": [
+    -92.9058,
+    45.28579
+   ],
+   "bbox": [
+    -92.90719,
+    45.28445,
+    -92.90438,
+    45.2873
+   ],
+   "slug": "twin-lake-forest-lake"
+  },
+  {
+   "name": "Pat Lake",
+   "acres": 13,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "grant"
+   ],
+   "center": [
+    -92.89201,
+    45.10249
+   ],
+   "bbox": [
+    -92.89435,
+    45.10145,
+    -92.88864,
+    45.10341
+   ],
+   "slug": "pat-lake"
+  },
+  {
+   "name": "Minnetoga Lake",
+   "acres": 13,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "minnetonka"
+   ],
+   "center": [
+    -93.44259,
+    44.90874
+   ],
+   "bbox": [
+    -93.4445,
+    44.90726,
+    -93.44116,
+    44.91047
+   ],
+   "slug": "minnetoga-lake"
+  },
+  {
+   "name": "Gerhardt Lake",
+   "acres": 13,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "eagan"
+   ],
+   "center": [
+    -93.18422,
+    44.77779
+   ],
+   "bbox": [
+    -93.18674,
+    44.77626,
+    -93.1831,
+    44.77933
+   ],
+   "slug": "gerhardt-lake"
+  },
+  {
+   "name": "Ryan Lake",
+   "acres": 13,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "robbinsdale",
+    "minneapolis",
+    "brooklyn-center"
+   ],
+   "center": [
+    -93.3219,
+    45.04021
+   ],
+   "bbox": [
+    -93.32426,
+    45.03932,
+    -93.31992,
+    45.04132
+   ],
+   "slug": "ryan-lake"
+  },
+  {
+   "name": "Cook Lake",
+   "acres": 13,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "maple-grove"
+   ],
+   "center": [
+    -93.52012,
+    45.09186
+   ],
+   "bbox": [
+    -93.52155,
+    45.09032,
+    -93.51887,
+    45.09353
+   ],
+   "slug": "cook-lake"
+  },
+  {
+   "name": "Lake Zimmerman",
+   "acres": 13,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "roseville"
+   ],
+   "center": [
+    -93.16211,
+    45.01187
+   ],
+   "bbox": [
+    -93.16348,
+    45.01056,
+    -93.1607,
+    45.01321
+   ],
+   "slug": "lake-zimmerman"
+  },
+  {
+   "name": "Lake Marion",
+   "acres": 13,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "woodland",
+    "deephaven"
+   ],
+   "center": [
+    -93.5179,
+    44.94713
+   ],
+   "bbox": [
+    -93.51926,
+    44.94579,
+    -93.51631,
+    44.94856
+   ],
+   "slug": "lake-marion"
+  },
+  {
+   "name": "Krenz Lake",
+   "acres": 13,
+   "counties": [
+    "Dakota",
+    "Scott"
+   ],
+   "communities": [
+    "credit-river",
+    "lakeville"
+   ],
+   "center": [
+    -93.3214,
+    44.70451
+   ],
+   "bbox": [
+    -93.32346,
+    44.70333,
+    -93.318,
+    44.7057
+   ],
+   "slug": "krenz-lake"
+  },
+  {
+   "name": "Smith Lake",
+   "acres": 13,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "st-francis"
+   ],
+   "center": [
+    -93.29301,
+    45.41088
+   ],
+   "bbox": [
+    -93.29559,
+    45.40964,
+    -93.29161,
+    45.41224
+   ],
+   "slug": "smith-lake"
+  },
+  {
+   "name": "Sunfish Lake",
+   "acres": 13,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "arden-hills"
+   ],
+   "center": [
+    -93.15342,
+    45.08199
+   ],
+   "bbox": [
+    -93.15713,
+    45.07993,
+    -93.15081,
+    45.08398
+   ],
+   "slug": "sunfish-lake-arden-hills"
+  },
+  {
+   "name": "Casey Lake",
+   "acres": 13,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "north-st-paul",
+    "maplewood"
+   ],
+   "center": [
+    -93.0137,
+    45.02274
+   ],
+   "bbox": [
+    -93.0152,
+    45.02127,
+    -93.01138,
+    45.02413
+   ],
+   "slug": "casey-lake"
+  },
+  {
+   "name": "Poplar Lake",
+   "acres": 13,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "new-brighton"
+   ],
+   "center": [
+    -93.20352,
+    45.04553
+   ],
+   "bbox": [
+    -93.2051,
+    45.04405,
+    -93.20202,
+    45.04698
+   ],
+   "slug": "poplar-lake-new-brighton"
+  },
+  {
+   "name": "Lochness Lake",
+   "acres": 13,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "blaine"
+   ],
+   "center": [
+    -93.15404,
+    45.17251
+   ],
+   "bbox": [
+    -93.15661,
+    45.17039,
+    -93.15316,
+    45.17464
+   ],
+   "slug": "lochness-lake"
+  },
+  {
+   "name": "Indian Head Lake",
+   "acres": 12,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "edina"
+   ],
+   "center": [
+    -93.38747,
+    44.87952
+   ],
+   "bbox": [
+    -93.38932,
+    44.87757,
+    -93.38594,
+    44.88154
+   ],
+   "slug": "indian-head-lake"
+  },
+  {
+   "name": "Leary Lake",
+   "acres": 12,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "eagan"
+   ],
+   "center": [
+    -93.14927,
+    44.82889
+   ],
+   "bbox": [
+    -93.15358,
+    44.82736,
+    -93.14801,
+    44.83047
+   ],
+   "slug": "leary-lake"
+  },
+  {
+   "name": "Round Lake",
+   "acres": 12,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "little-canada"
+   ],
+   "center": [
+    -93.10012,
+    45.02424
+   ],
+   "bbox": [
+    -93.10204,
+    45.02312,
+    -93.09822,
+    45.02535
+   ],
+   "slug": "round-lake-little-canada"
+  },
+  {
+   "name": "Carlson Lake",
+   "acres": 12,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "eagan"
+   ],
+   "center": [
+    -93.15964,
+    44.79988
+   ],
+   "bbox": [
+    -93.16167,
+    44.79885,
+    -93.15782,
+    44.80092
+   ],
+   "slug": "carlson-lake"
+  },
+  {
+   "name": "Wood Pile Lake",
+   "acres": 12,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "grant"
+   ],
+   "center": [
+    -92.90343,
+    45.06845
+   ],
+   "bbox": [
+    -92.90507,
+    45.06735,
+    -92.90129,
+    45.06952
+   ],
+   "slug": "wood-pile-lake"
+  },
+  {
+   "name": "Goose Lake",
+   "acres": 12,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "east-bethel"
+   ],
+   "center": [
+    -93.1744,
+    45.32466
+   ],
+   "bbox": [
+    -93.17624,
+    45.32334,
+    -93.17232,
+    45.32601
+   ],
+   "slug": "goose-lake-east-bethel"
+  },
+  {
+   "name": "Wing Lake",
+   "acres": 12,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "minnetonka"
+   ],
+   "center": [
+    -93.47561,
+    44.9037
+   ],
+   "bbox": [
+    -93.4786,
+    44.90183,
+    -93.47352,
+    44.90554
+   ],
+   "slug": "wing-lake"
+  },
+  {
+   "name": "Ria Lake",
+   "acres": 11,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "newport",
+    "woodbury"
+   ],
+   "center": [
+    -92.98139,
+    44.88772
+   ],
+   "bbox": [
+    -92.98292,
+    44.88629,
+    -92.97831,
+    44.88916
+   ],
+   "slug": "ria-lake"
+  },
+  {
+   "name": "Upper Penn Lake",
+   "acres": 11,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "bloomington"
+   ],
+   "center": [
+    -93.30629,
+    44.85087
+   ],
+   "bbox": [
+    -93.30808,
+    44.84866,
+    -93.30537,
+    44.85288
+   ],
+   "slug": "upper-penn-lake"
+  },
+  {
+   "name": "Black Lake",
+   "acres": 11,
+   "counties": [
+    "Ramsey"
+   ],
+   "communities": [
+    "north-oaks"
+   ],
+   "center": [
+    -93.06863,
+    45.09694
+   ],
+   "bbox": [
+    -93.07111,
+    45.09615,
+    -93.06611,
+    45.09777
+   ],
+   "slug": "black-lake"
+  },
+  {
+   "name": "Fish Lake",
+   "acres": 11,
+   "counties": [
+    "Washington"
+   ],
+   "communities": [
+    "woodbury"
+   ],
+   "center": [
+    -92.88817,
+    44.92378
+   ],
+   "bbox": [
+    -92.88983,
+    44.92262,
+    -92.88537,
+    44.9248
+   ],
+   "slug": "fish-lake-woodbury"
+  },
+  {
+   "name": "Powderhorn Lake",
+   "acres": 11,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "minneapolis"
+   ],
+   "center": [
+    -93.25718,
+    44.94201
+   ],
+   "bbox": [
+    -93.25853,
+    44.94068,
+    -93.25512,
+    44.94336
+   ],
+   "slug": "powderhorn-lake"
+  },
+  {
+   "name": "Lake Ardmore",
+   "acres": 11,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "medina"
+   ],
+   "center": [
+    -93.6366,
+    45.03346
+   ],
+   "bbox": [
+    -93.63809,
+    45.03198,
+    -93.63572,
+    45.03499
+   ],
+   "slug": "lake-ardmore"
+  },
+  {
+   "name": "Twin Lks",
+   "acres": 11,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "columbus"
+   ],
+   "center": [
+    -93.12006,
+    45.29872
+   ],
+   "bbox": [
+    -93.12171,
+    45.29762,
+    -93.11834,
+    45.29954
+   ],
+   "slug": "twin-lks-columbus-2"
+  },
+  {
+   "name": "Bald Lake",
+   "acres": 10,
+   "counties": [
+    "Dakota"
+   ],
+   "communities": [
+    "eagan"
+   ],
+   "center": [
+    -93.12939,
+    44.81561
+   ],
+   "bbox": [
+    -93.131,
+    44.81442,
+    -93.12774,
+    44.81681
+   ],
+   "slug": "bald-lake"
+  },
+  {
+   "name": "Cemetary Lake",
+   "acres": 10,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "minneapolis"
+   ],
+   "center": [
+    -93.30592,
+    44.93285
+   ],
+   "bbox": [
+    -93.3078,
+    44.93181,
+    -93.30427,
+    44.93387
+   ],
+   "slug": "cemetary-lake"
+  },
+  {
+   "name": "Thies Lake",
+   "acres": 10,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "medina"
+   ],
+   "center": [
+    -93.58823,
+    45.01061
+   ],
+   "bbox": [
+    -93.59061,
+    45.00943,
+    -93.5858,
+    45.01172
+   ],
+   "slug": "thies-lake"
+  },
+  {
+   "name": "Lake Leeman",
+   "acres": 10,
+   "counties": [
+    "Anoka"
+   ],
+   "communities": [
+    "andover"
+   ],
+   "center": [
+    -93.27478,
+    45.27869
+   ],
+   "bbox": [
+    -93.27673,
+    45.27754,
+    -93.27336,
+    45.27992
+   ],
+   "slug": "lake-leeman"
+  },
+  {
+   "name": "Meadow Lake",
+   "acres": 10,
+   "counties": [
+    "Hennepin"
+   ],
+   "communities": [
+    "new-hope"
+   ],
+   "center": [
+    -93.38689,
+    45.06083
+   ],
+   "bbox": [
+    -93.3897,
+    45.05925,
+    -93.38532,
+    45.06245
+   ],
+   "slug": "meadow-lake"
+  }
+ ]
+}

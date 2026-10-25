@@ -1,0 +1,188 @@
+---
+// One lake: its lakefront homes for sale (map search around the lake, and live listings in its shoreline
+// communities), size and shoreline from Census water maps, the communities around it and the lakes nearby.
+import Base from '../../layouts/Base.astro';
+import AreaMap from '../../components/AreaMap.astro';
+import YlopoListings from '../../components/YlopoListings.astro';
+import {
+  lakes, lakeHref, lakeCommunities, lakeSearchUrl, lakefrontWidgetSearch, lakeInfo, lakeGeoUrl, lakeSources, INDEX_MIN_ACRES, type Lake,
+} from '../../data/lakes';
+import { ylopoPlace } from '../../data/ylopo';
+import { hasMarket, marketFor, latest, monthLabel, moneyK, signed } from '../../data/market';
+import { origin } from '../../data/schema';
+import { site } from '../../data/site';
+
+export function getStaticPaths() {
+  return lakes.map((l) => ({ params: { slug: l.slug }, props: { l } }));
+}
+const { l } = Astro.props as { l: Lake };
+const fmt = (n: number) => n.toLocaleString('en-US');
+const towns = lakeCommunities(l);
+const townNames = towns.map((c) => c.name);
+const list = (a: string[]) => (a.length < 2 ? a.join('') : `${a.slice(0, -1).join(', ')} and ${a.at(-1)}`);
+const rank = lakes.indexOf(l) + 1;
+const searchable = towns.some((c) => ylopoPlace(c.slug).city);
+const miles = (a: number[], b: number[]) => {
+  const k = Math.PI / 180, dLat = (b[1] - a[1]) * k, dLon = (b[0] - a[0]) * k;
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(a[1] * k) * Math.cos(b[1] * k) * Math.sin(dLon / 2) ** 2;
+  return 3958.8 * 2 * Math.asin(Math.sqrt(h));
+};
+const nearby = lakes.filter((x) => x !== l).map((x) => ({ x, d: miles(l.center, x.center) })).sort((a, b) => a.d - b.d).slice(0, 8);
+const url = `${origin}${lakeHref(l)}`;
+
+const faq = [
+  { q: `How big is ${l.name}?`, a: `About ${fmt(l.acres)} acres of water on US Census Bureau maps${l.name === 'Lake Minnetonka' ? ', including its named bays' : ''}, making it number ${rank} of the ${lakes.length} lakes of 10 acres or more in our communities. The Minnesota DNR's LakeFinder has its official acreage, depth and water quality.` },
+  { q: `What cities are on ${l.name}?`, a: `${l.name} touches ${list(townNames)}, in ${list(l.counties)} County.` },
+  { q: `How do I find lakefront homes on ${l.name}?`, a: `Use the "Lakefront homes on ${l.name}" search on this page. It shows homes marked lakefront in the MLS on a map around the lake. A few homes on nearby smaller lakes inside the same map area can show up too, and we can confirm which lake any home is on.` },
+];
+const ld = JSON.stringify([
+  {
+    '@context': 'https://schema.org', '@type': 'LakeBodyOfWater', '@id': `${url}#lake`, name: l.name, url,
+    geo: { '@type': 'GeoCoordinates', latitude: l.center[1], longitude: l.center[0] },
+    containedInPlace: towns.map((c) => ({ '@type': 'City', name: `${c.name}, Minnesota`, url: `${origin}/communities/${c.slug}` })),
+  },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+]);
+---
+<Base
+  breadcrumbs={[{ name: 'Lake homes', href: '/lake-homes' }, { name: l.name, href: lakeHref(l) }]}
+  title={`${l.name} Homes for Sale, ${townNames[0]}, MN | Lakefront Homes | ${site.name}`}
+  description={`Lakefront homes for sale on ${l.name} (${fmt(l.acres)} acres) in ${list(townNames.slice(0, 3))}, MN. See every listing on the lake, the communities around it and nearby lakes.`}
+  noindex={l.acres < INDEX_MIN_ACRES}>
+  <script slot="head" type="application/ld+json" set:html={ld} />
+
+  <section class="lhead">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/lake-homes">Lake homes</a><span aria-hidden="true">/</span><span>{l.name}</span></nav>
+      <h1>{l.name} <span>homes for sale</span></h1>
+      <p class="lede">{fmt(l.acres)} acres · {list(l.counties)} County · {list(townNames)}</p>
+      <div class="actions">
+        <a class="btn" href={lakeSearchUrl(l)} rel="noopener">Lakefront homes on {l.name}</a>
+        <a class="btn btn--ghost" href="#contact">Get new {l.name} listings</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="about-title">
+    <div class="wrap split">
+      <div class="prose">
+        <p class="eyebrow">The lake</p>
+        <h2 id="about-title">About {l.name}</h2>
+        <p>{l.name} covers about {fmt(l.acres)} acres{l.name === 'Lake Minnetonka' ? ', counting its named bays' : ''}, number {rank} by size of the {lakes.length} lakes of 10 acres or more in our communities. Its shoreline touches {list(townNames)}.</p>
+        <p>Our lakefront search shows homes marked lakefront in the MLS on a map around {l.name}. Ask us about frontage, water depth, the shoreline and any lake association before you buy.</p>
+        <ul class="facts">
+          <li><span>Size</span><strong>{fmt(l.acres)} acres</strong></li>
+          <li><span>County</span><strong>{l.counties.join(', ')}</strong></li>
+          <li><span>Rank by size</span><strong>{rank} of {lakes.length}</strong></li>
+        </ul>
+      </div>
+      <AreaMap src={lakeGeoUrl} info={lakeInfo} mode="focus" focus={l.slug} label="Hover a lake" height="440px" />
+    </div>
+  </section>
+
+  {searchable && (
+    <section class="section section--paper" id="listings" aria-labelledby="listings-title">
+      <div class="wrap">
+        <div class="head">
+          <p class="eyebrow">Live MLS listings · lakefront only</p>
+          <h2 id="listings-title">Lakefront homes in {list(townNames.slice(0, 4))}</h2>
+          <p>Every lakefront listing in {townNames.length > 1 ? 'these communities' : townNames[0]}, which can include other lakes there. For homes on {l.name} only, use the map search.</p>
+        </div>
+        <YlopoListings search={lakefrontWidgetSearch(l.communities, 12)} layout="scroll" moreHref={lakeSearchUrl(l)} moreLabel={`Lakefront homes on ${l.name}, on the map`} />
+      </div>
+    </section>
+  )}
+
+  <section class="section" aria-labelledby="towns-title">
+    <div class="wrap">
+      <div class="head"><p class="eyebrow">On the shore</p><h2 id="towns-title">Communities on {l.name}</h2></div>
+      <ul class="towns">
+        {towns.map((c) => {
+          const m = hasMarket(c.slug) ? marketFor(c.slug) : undefined;
+          return (
+            <li><a href={`/communities/${c.slug}`}>
+              <strong>{c.name}</strong>
+              <span>{m?.medianPrice?.r12[1] != null ? `${moneyK(m.medianPrice.r12[1])} median sale price (${signed(m.medianPrice.r12[2])}), 12 months through ${monthLabel(latest)}` : 'Community guide'}</span>
+            </a></li>
+          );
+        })}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--paper" aria-labelledby="faq-title">
+    <div class="wrap faq">
+      <div class="head"><p class="eyebrow">Quick answers</p><h2 id="faq-title">{l.name} questions</h2></div>
+      {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+    </div>
+  </section>
+
+  <section class="section section--dark" id="contact" aria-labelledby="contact-title">
+    <div class="wrap split">
+      <div class="prose">
+        <p class="eyebrow">Buying or selling on {l.name}?</p>
+        <h2 id="contact-title">Get {l.name} listings <em>first.</em></h2>
+        <p>Tell us what you're looking for and we'll send new lakefront listings on {l.name} as soon as they come on the market. Selling on the lake? Ask what your home would sell for.</p>
+        <p><a href={site.phoneHref}>{site.phone}</a></p>
+      </div>
+      <form class="form" data-lead="lake-homes">
+        <input type="hidden" name="lake" value={l.name} />
+        <div class="form__row">
+          <div class="field"><label for="lk-first">First name</label><input id="lk-first" name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for="lk-last">Last name</label><input id="lk-last" name="lastName" autocomplete="family-name" required /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="lk-email">Email</label><input id="lk-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="lk-phone">Phone</label><input id="lk-phone" name="phone" type="tel" autocomplete="tel" /></div>
+        </div>
+        <div class="field">
+          <label for="lk-goal">I want to</label>
+          <select id="lk-goal" name="goal"><option value="">Choose one</option><option>Buy on {l.name}</option><option>Sell on {l.name}</option></select>
+        </div>
+        <button class="btn" type="submit">Send me {l.name} listings</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="near-title">
+    <div class="wrap">
+      <div class="head"><p class="eyebrow">Nearby</p><h2 id="near-title">Lakes near {l.name}</h2></div>
+      <ul class="near">
+        {nearby.map(({ x, d }) => <li><a href={lakeHref(x)}><strong>{x.name}</strong><span>{fmt(x.acres)} acres · {d < 1 ? 'under a mile' : `${d.toFixed(1)} miles`} away</span></a></li>)}
+      </ul>
+      <p class="more"><a class="link-arrow" href="/lake-homes#lakes">All {lakes.length} lakes</a></p>
+      <p class="source">Lake size and shoreline: {lakeSources.water}. Lakefront homes: listings marked lakefront in NorthstarMLS. Official DNR acreage, depth and water quality: <a href="https://www.dnr.state.mn.us/lakefind/index.html">Minnesota DNR LakeFinder</a>.</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .lhead { padding-block: clamp(2rem, 5vw, 3.5rem); background: var(--night); color: #fff; }
+  .lhead .wrap { display: grid; gap: .9rem; }
+  .crumbs { display: flex; gap: .5rem; font: 700 .72rem/1.3 var(--ui); letter-spacing: .14em; text-transform: uppercase; color: var(--on-dark); }
+  .crumbs a { color: var(--rose); text-decoration: none; }
+  .lhead h1 { font: 500 clamp(2.4rem, 5.5vw, 4rem)/1.05 var(--serif-display); }
+  .lhead h1 span { display: block; font-size: .5em; color: var(--on-dark); }
+  .lede { color: var(--on-dark); }
+  .actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: .25rem; }
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+  .prose p:not(.eyebrow) { font-size: 1.05rem; line-height: 1.7; }
+  .facts { list-style: none; margin: .5rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .facts li { display: grid; gap: .2rem; padding: .9rem 1rem; background: var(--paper); }
+  .facts span { font: 700 .68rem/1.2 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--crimson); }
+  .facts strong { font: 500 1.25rem/1.2 var(--serif); }
+  .towns, .near { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); gap: .75rem 1.5rem; }
+  .towns a, .near a { display: grid; gap: .15rem; padding: .8rem 0; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--text); }
+  .towns strong, .near strong { font: 600 1.2rem/1.2 var(--serif); }
+  .towns span, .near span { color: var(--text-soft); font-size: .9rem; }
+  .towns a:hover strong, .near a:hover strong { color: var(--crimson); }
+  .faq { display: grid; gap: .75rem; max-width: 52rem; }
+  .faq details { padding: 1rem 1.2rem; background: var(--paper); border: 1px solid var(--line); }
+  .faq summary { cursor: pointer; font: 600 1.15rem/1.3 var(--serif); }
+  .faq details p { margin-top: .6rem; color: var(--text-soft); }
+  .contact a, .section--dark .prose a { color: #fff; }
+  .more { margin-top: 1.5rem; }
+  .source { margin-top: 1rem; font-size: .85rem; color: var(--text-soft); }
+</style>

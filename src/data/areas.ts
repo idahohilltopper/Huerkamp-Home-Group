@@ -1,17 +1,12 @@
-// Community and lake data plus the hover text the maps show.
+// Community data plus the hover text the community maps show. (Lakes: src/data/lakes.ts)
 import communityData from './communities.json';
-import lakeData from './lakes.json';
 import communityShapesUrl from './geo/communities.geojson?url';
-import lakeShapes from './geo/lakes.geojson?raw';
 
 export type Community = (typeof communityData.communities)[number];
-export type Lake = (typeof lakeData.lakes)[number];
 
 export const communities: Community[] = communityData.communities;
-export const lakes: Lake[] = lakeData.lakes;
 // 149 outlines: served as one cached file rather than inlined into every page.
 export const communityGeoUrl: string = communityShapesUrl;
-export const lakeGeo = JSON.parse(lakeShapes);
 
 export const regions = ['Minneapolis & Saint Paul', 'North Metro', 'East Metro', 'South Metro', 'West Metro', 'Southern Minnesota'];
 
@@ -23,14 +18,6 @@ export const communityInfo = Object.fromEntries(
     name: c.name,
     detail: `${fmt(c.population2024)} residents · ${c.counties.join(' & ')} County`,
     href: `/communities/${c.slug}`,
-  }]),
-);
-
-export const lakeInfo = Object.fromEntries(
-  lakes.map((l) => [l.slug, {
-    name: l.name,
-    detail: `About ${fmt(l.acres)} acres · ${l.shorelineCities.length ? l.shorelineCities.slice(0, 3).join(', ') + (l.shorelineCities.length > 3 ? ' and more' : '') : l.areaNote}`,
-    href: `/lake-homes#${l.slug}`,
   }]),
 );
 

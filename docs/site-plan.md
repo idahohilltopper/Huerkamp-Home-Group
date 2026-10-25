@@ -329,3 +329,20 @@ Google and AI search favor sites that keep adding real, useful, accurate informa
   - The Minneapolis neighborhoods add up to 421,790 residents against the city's ACS total of 427,246.
 - **Homes for sale:** 77 neighborhoods match a Ylopo neighborhood exactly, so they get the listings widget and a neighborhood search. The other 24 link to Ylopo's map, zoomed to the neighborhood. Run `scripts/match-ylopo-neighborhoods.py` to redo the matching.
 - **Videos and stories:** a neighborhood shows a video or post only when it names the neighborhood. Names that are also ordinary words (Field, Page, Central, Downtown…) must appear with the city's name.
+
+## Lake homes (/lake-homes and /lake-homes/<lake>), rebuilt October 2026
+
+- **Which lakes:** every named lake or reservoir of 10 acres or more touching one of our community guides: 390 lakes in 108 communities, from US Census Bureau TIGER 2024 water maps.
+  - Rivers, creeks and ponds are left out.
+  - Touching water is joined, so Lake Minnetonka includes its bays.
+  - Same-named parts within 150 m (Upper and Lower Prior Lake) are one lake.
+  - Built by `scripts/build-lake-list.py`; its header explains the inputs.
+- **Lakefront homes:** Ylopo's MLS "Lakefront" filter (`s[amenities][0]=sa_has_waterfront_lake`).
+  - **Each lake's search:** a map around the lake (400 m margin) with its main shoreline city named, because Ylopo's map stalls on phones without a city. It works on phones and desktop.
+  - **"Every lakefront home":** a list search across all 101 lake communities, because a map that large stalls on phones. About 235 homes when tested.
+  - **Listings widget:** it accepts the lakefront filter, but not a map area, so it shows lakefront homes in the lake's shoreline communities.
+- **Pages:**
+  - The hub has the lakefront search, newest lakefront listings, a map of all 390 lakes, the 21 lakes of 500+ acres, and a searchable directory grouped by area.
+  - Each lake page has its map, lakefront search and listings, shoreline communities with their median sale price, nearby lakes, quick answers, LakeBodyOfWater schema and a lead form tagged with the lake.
+  - Lakes under 50 acres have pages but stay out of Google.
+- Community guides list every lake touching the city and link to its page.

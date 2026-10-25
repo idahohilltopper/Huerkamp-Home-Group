@@ -12,7 +12,8 @@ import { videosAbout } from '../../data/youtube';
 import AreaMap from '../../components/AreaMap.astro';
 import LineChart from '../../components/LineChart.astro';
 import BarList from '../../components/BarList.astro';
-import { communities, communityGeoUrl, communityInfo, lakes, fmt, type Community } from '../../data/areas';
+import { communities, communityGeoUrl, communityInfo, fmt, type Community } from '../../data/areas';
+import { lakesTouching, lakeHref, lakeSearchUrl } from '../../data/lakes';
 import detailData from '../../data/community-details.json';
 import reviewData from '../../data/reviews.json';
 import team from '../../data/team.json';
@@ -63,7 +64,8 @@ const stories = postsAbout(c.slug, await getPosts());
 
 // ---------- derived content ----------
 const mainDistrict = d.schoolDistricts[0];
-const cityLakes = lakes.filter((l) => l.shorelineCities.includes(c.censusName));
+// Every lake of 10+ acres touching the city (Census water maps), biggest first.
+const cityLakes = lakesTouching(c.slug);
 const nearest = Object.entries(d.driveMinutesToCommunities as Record<string, number>)
   .sort((x, y) => x[1] - y[1]).slice(0, 4)
   .map(([slug, min]) => ({ ...bySlug[slug], min, value: (detailData.communities as any)[slug].acs.medianHomeValue }));
@@ -420,14 +422,16 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
       <div class="prose">
         <p class="eyebrow">Outdoor living</p>
         <h2 id="outdoors-title">What lakes and water are in <em>{c.name}?</em></h2>
-        <p>{c.waterSqMi >= 0.5 ? `${c.name} has about ${c.waterSqMi} square miles of water inside city limits.` : `${c.name} has little open water inside city limits, but lakes and regional parks are a short drive away.`}{cityLakes.length ? ` It borders ${list(cityLakes.map((l) => l.name))}, one of the lakes on our Lake Homes page.` : ''}</p>
-        {cityLakes.length > 0 && <p><a class="btn" href="/lake-homes">See lake homes</a></p>}
+        <p>{c.waterSqMi >= 0.5 ? `${c.name} has about ${c.waterSqMi} square miles of water inside city limits.` : `${c.name} has little open water inside city limits, but lakes and regional parks are a short drive away.`}{cityLakes.length ? ` ${cityLakes.length === 1 ? 'One lake' : `${cityLakes.length} lakes`} of 10 acres or more ${cityLakes.length === 1 ? 'touches' : 'touch'} ${c.name}; each has its own page with the lakefront homes for sale on it.` : ''}</p>
+        {cityLakes.length > 0 && <p><a class="btn" href={lakeSearchUrl(cityLakes[0])} rel="noopener">Lakefront homes on {cityLakes[0].name}</a></p>}
+        <p><a class="link-arrow" href="/lake-homes">All Twin Cities lake homes</a></p>
       </div>
-      {d.lakes.length > 0 ? (
+      {cityLakes.length > 0 ? (
         <ul class="lakes-list">
-          {d.lakes.map((l: any) => <li><span>{l.name}</span><strong>{fmt(l.acresInCity)} acres</strong></li>)}
+          {cityLakes.slice(0, 12).map((l) => <li><a href={lakeHref(l)}>{l.name}</a><strong>{fmt(l.acres)} acres</strong></li>)}
+          {cityLakes.length > 12 && <li><a href="/lake-homes#lakes">{cityLakes.length - 12} more lakes</a><strong></strong></li>}
         </ul>
-      ) : <p class="prose">No named lakes of 10 acres or more lie inside the city on Census maps.</p>}
+      ) : <p class="prose">No named lakes of 10 acres or more touch the city on Census maps.</p>}
     </div>
   </section>
 
@@ -828,7 +832,8 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
 
   .lakes-list { list-style: none; padding: 0; margin: 0; display: grid; }
   .lakes-list li { display: flex; justify-content: space-between; gap: 1rem; padding: .85rem 0; border-bottom: 1px solid rgba(255,255,255,.14); }
-  .lakes-list span { font: 400 1.25rem/1.2 var(--serif); color: var(--on-dark); }
+  .lakes-list a { font: 400 1.25rem/1.2 var(--serif); color: var(--on-dark); text-decoration: none; }
+  .lakes-list a:hover { color: #fff; text-decoration: underline; }
   .lakes-list strong { color: var(--on-dark-soft); font-weight: 500; font-variant-numeric: tabular-nums; }
 
   .stats--4 { margin-bottom: 1rem; }
