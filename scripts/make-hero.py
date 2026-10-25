@@ -1,7 +1,8 @@
 """Make the hero skyline images (public/hero/minneapolis-skyline-*.webp and -1920.jpg) from the original photo.
 
-The original, public/hero/minneapolis-skyline-3840.jpg, is kept unaltered (see public/hero/CREDITS.md). The site
-versions are only resized, with a light sharpen after each resize so the buildings stay crisp.
+The source, public/hero/minneapolis-skyline-3840.jpg, is the Commons photo with the power lines removed by
+scripts/remove-power-lines.py (the unaltered original is in photos/; see public/hero/CREDITS.md). The site versions
+are only resized, with a light sharpen after each resize so the buildings stay crisp.
 Usage:  python3 scripts/make-hero.py
 """
 from pathlib import Path
