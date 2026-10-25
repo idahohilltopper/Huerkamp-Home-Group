@@ -64,7 +64,7 @@ const stories = postsAbout(c.slug, await getPosts());
 
 // ---------- derived content ----------
 const mainDistrict = d.schoolDistricts[0];
-// Every lake of 10+ acres touching the city (Census water maps), biggest first.
+// Every lake of 10+ acres touching the city (Minnesota DNR lakes), biggest first.
 const cityLakes = lakesTouching(c.slug);
 const nearest = Object.entries(d.driveMinutesToCommunities as Record<string, number>)
   .sort((x, y) => x[1] - y[1]).slice(0, 4)

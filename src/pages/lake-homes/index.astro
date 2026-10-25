@@ -1,5 +1,5 @@
 ---
-// Lake homes: every named lake of 10 acres or more touching one of our communities (Census water maps), and the
+// Lake homes: every named lake of 10 acres or more touching one of our communities (Minnesota DNR lakes), and the
 // lakefront homes for sale on them (Ylopo's MLS "Lakefront" filter). Each lake has its own page.
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
@@ -23,7 +23,7 @@ const groups = regions.map((reg) => ({
 })).filter((g) => g.list.length);
 
 const faq = [
-  { q: 'Which lakes are on this page?', a: `Every named lake or reservoir of 10 acres or more that touches one of our ${communityCount} lake communities, ${counts.all} in all, from US Census Bureau water maps. Rivers, creeks and ponds are left out, and the named bays of a lake (like Lake Minnetonka's) count as part of it.` },
+  { q: 'Which lakes are on this page?', a: `Every named lake or reservoir of 10 acres or more that touches one of our ${communityCount} lake communities, ${counts.all} in all, from the Minnesota DNR's lake map, with the DNR's official acreage. Rivers, creeks and ponds are left out, and a lake the DNR splits into bays (like Lake Minnetonka) counts as one lake.` },
   { q: 'What counts as a lakefront home?', a: 'A home the listing agent marked as lakefront in the MLS (NorthstarMLS). Our lakefront searches use that field, so homes that are only near a lake or have a lake view are left out.' },
   { q: 'How do I see the homes on one lake?', a: 'Open the lake from the map or the list. Each lake has a "lakefront homes" search on a map around that lake. A few homes on nearby smaller lakes inside the same map area can show up too.' },
   { q: 'What should I check before buying on a lake?', a: 'Frontage, water depth at the dock, the shoreline (sand, rock or muck), lake rules and access, any lake association, and the shoreland rules that limit what you can build. We help with all of it.' },
@@ -127,7 +127,7 @@ const ld = JSON.stringify([
           </div>
         </details>
       ))}
-      <p class="source">Lakes: {lakeSources.water}. {lakeSources.rule}. Acreage is the Census water area, rounded; for depth, water quality and official DNR acreage see the <a href="https://www.dnr.state.mn.us/lakefind/index.html">Minnesota DNR LakeFinder</a>. Lakefront homes: listings marked lakefront in NorthstarMLS.</p>
+      <p class="source">Lakes: {lakeSources.water}. {lakeSources.rule}. Acreage is the DNR's official figure, rounded; for depth and water quality see the <a href="https://www.dnr.state.mn.us/lakefind/index.html">Minnesota DNR LakeFinder</a>. Lakefront homes: listings marked lakefront in NorthstarMLS.</p>
     </div>
   </section>
 

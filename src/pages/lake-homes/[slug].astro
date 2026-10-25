@@ -1,6 +1,6 @@
 ---
 // One lake: its lakefront homes for sale (map search around the lake, and live listings in its shoreline
-// communities), size and shoreline from Census water maps, the communities around it and the lakes nearby.
+// communities), size and shoreline from the Minnesota DNR, the communities around it and the lakes nearby.
 import Base from '../../layouts/Base.astro';
 import AreaMap from '../../components/AreaMap.astro';
 import YlopoListings from '../../components/YlopoListings.astro';
@@ -32,7 +32,7 @@ const nearby = lakes.filter((x) => x !== l).map((x) => ({ x, d: miles(l.center, 
 const url = `${origin}${lakeHref(l)}`;
 
 const faq = [
-  { q: `How big is ${l.name}?`, a: `About ${fmt(l.acres)} acres of water on US Census Bureau maps${l.name === 'Lake Minnetonka' ? ', including its named bays' : ''}, making it number ${rank} of the ${lakes.length} lakes of 10 acres or more in our communities. The Minnesota DNR's LakeFinder has its official acreage, depth and water quality.` },
+  { q: `How big is ${l.name}?`, a: `${fmt(l.acres)} acres with ${l.shoreMiles} miles of shoreline, according to the Minnesota DNR${l.name === 'Lake Minnetonka' ? ' (all its bays together)' : ''}, making it number ${rank} of the ${lakes.length} lakes of 10 acres or more in our communities. The DNR's LakeFinder has its depth and water quality (DNR lake number ${l.dnrId}).` },
   { q: `What cities are on ${l.name}?`, a: `${l.name} touches ${list(townNames)}, in ${list(l.counties)} County.` },
   { q: `How do I find lakefront homes on ${l.name}?`, a: `Use the "Lakefront homes on ${l.name}" search on this page. It shows homes marked lakefront in the MLS on a map around the lake. A few homes on nearby smaller lakes inside the same map area can show up too, and we can confirm which lake any home is on.` },
 ];
@@ -69,10 +69,11 @@ const ld = JSON.stringify([
       <div class="prose">
         <p class="eyebrow">The lake</p>
         <h2 id="about-title">About {l.name}</h2>
-        <p>{l.name} covers about {fmt(l.acres)} acres{l.name === 'Lake Minnetonka' ? ', counting its named bays' : ''}, number {rank} by size of the {lakes.length} lakes of 10 acres or more in our communities. Its shoreline touches {list(townNames)}.</p>
+        <p>{l.name} covers {fmt(l.acres)} acres{l.name === 'Lake Minnetonka' ? ' across all its bays' : ''} with {l.shoreMiles} miles of shoreline, according to the Minnesota DNR. It's number {rank} by size of the {lakes.length} lakes of 10 acres or more in our communities. Its shoreline touches {list(townNames)}.</p>
         <p>Our lakefront search shows homes marked lakefront in the MLS on a map around {l.name}. Ask us about frontage, water depth, the shoreline and any lake association before you buy.</p>
         <ul class="facts">
           <li><span>Size</span><strong>{fmt(l.acres)} acres</strong></li>
+          <li><span>Shoreline</span><strong>{l.shoreMiles} miles</strong></li>
           <li><span>County</span><strong>{l.counties.join(', ')}</strong></li>
           <li><span>Rank by size</span><strong>{rank} of {lakes.length}</strong></li>
         </ul>
@@ -155,7 +156,7 @@ const ld = JSON.stringify([
         {nearby.map(({ x, d }) => <li><a href={lakeHref(x)}><strong>{x.name}</strong><span>{fmt(x.acres)} acres · {d < 1 ? 'under a mile' : `${d.toFixed(1)} miles`} away</span></a></li>)}
       </ul>
       <p class="more"><a class="link-arrow" href="/lake-homes#lakes">All {lakes.length} lakes</a></p>
-      <p class="source">Lake size and shoreline: {lakeSources.water}. Lakefront homes: listings marked lakefront in NorthstarMLS. Official DNR acreage, depth and water quality: <a href="https://www.dnr.state.mn.us/lakefind/index.html">Minnesota DNR LakeFinder</a>.</p>
+      <p class="source">Lake outline, acreage and shoreline: {lakeSources.water}. Lakefront homes: listings marked lakefront in NorthstarMLS. Depth and water quality: <a href={`https://www.dnr.state.mn.us/lakefind/lake.html?id=${l.dnrId}`}>Minnesota DNR LakeFinder</a>.</p>
     </div>
   </section>
 </Base>
@@ -172,7 +173,7 @@ const ld = JSON.stringify([
   .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
   @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
   .prose p:not(.eyebrow) { font-size: 1.05rem; line-height: 1.7; }
-  .facts { list-style: none; margin: .5rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .facts { list-style: none; margin: .5rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
   .facts li { display: grid; gap: .2rem; padding: .9rem 1rem; background: var(--paper); }
   .facts span { font: 700 .68rem/1.2 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--crimson); }
   .facts strong { font: 500 1.25rem/1.2 var(--serif); }

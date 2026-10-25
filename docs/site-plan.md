@@ -332,17 +332,17 @@ Google and AI search favor sites that keep adding real, useful, accurate informa
 
 ## Lake homes (/lake-homes and /lake-homes/<lake>), rebuilt October 2026
 
-- **Which lakes:** every named lake or reservoir of 10 acres or more touching one of our community guides: 390 lakes in 108 communities, from US Census Bureau TIGER 2024 water maps.
+- **Which lakes:** every named Minnesota DNR lake of 10 acres or more touching one of our community guides: 442 lakes in 108 communities.
+  - Outlines, acreage, shoreline miles and DNR lake numbers come from the DNR's lake map (DNR Hydrography), so the figures match the DNR. A lake the DNR splits into bays (Lake Minnetonka, 14,206 acres) is one lake; Upper and Lower Prior Lake are two, as the DNR counts them.
+  - Everyday names ("Lake Minnetonka", "Bde Maka Ska") come from the Census water map where they match the DNR name.
   - Rivers, creeks and ponds are left out.
-  - Touching water is joined, so Lake Minnetonka includes its bays.
-  - Same-named parts within 150 m (Upper and Lower Prior Lake) are one lake.
-  - Built by `scripts/build-lake-list.py`; its header explains the inputs.
+  - Rebuild: `python3 scripts/fetch-dnr-lakes.py <dnr.geojson>`, then `scripts/build-lake-list.py <dnr.geojson> <tiger folder>`, then `scripts/build-lake-shores.py`. The script headers explain the inputs.
 - **Lakefront homes:** Ylopo's MLS "Lakefront" filter (`s[amenities][0]=sa_has_waterfront_lake`).
   - **Each lake's search:** a map around the lake (400 m margin) with its main shoreline city named, because Ylopo's map stalls on phones without a city. It works on phones and desktop.
   - **"Every lakefront home":** a list search across all 101 lake communities, because a map that large stalls on phones. About 235 homes when tested.
   - **Listings widget:** it accepts the lakefront filter, but not a map area, so it shows lakefront homes in the lake's shoreline communities.
 - **Pages:**
-  - The hub has the lakefront search, newest lakefront listings, a map of all 390 lakes, the 21 lakes of 500+ acres, and a searchable directory grouped by area.
+  - The hub has the lakefront search, newest lakefront listings, a map of all 442 lakes, the 22 lakes of 500+ acres, and a searchable directory grouped by area.
   - Each lake page has its map, lakefront search and listings, shoreline communities with their median sale price, nearby lakes, quick answers, LakeBodyOfWater schema and a lead form tagged with the lake.
   - Lakes under 50 acres have pages but stay out of Google.
 - Community guides list every lake touching the city and link to its page.

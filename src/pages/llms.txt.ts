@@ -47,7 +47,7 @@ Source: ${mSource.name} (data from ${mSource.data}), current as of ${mAsOf}. 12 
 ${communities.filter((c) => hasMarket(c.slug)).map((c) => { const x = marketFor(c.slug)!; return `- [${c.name}](${url(`/market/${c.slug}`)}): ${money(x.medianPrice?.r12[1])}, ${signed(x.medianPrice?.r12[2])}, ${count(x.closedSales?.r12[1])} sold`; }).join('\n')}
 
 ## Lakes (${INDEX_MIN_ACRES}+ acres)
-Size from US Census Bureau water maps; each page links to the lakefront homes for sale on that lake (NorthstarMLS lakefront listings).
+Size from the Minnesota DNR (official acreage); each page links to the lakefront homes for sale on that lake (NorthstarMLS lakefront listings).
 ${lakes.filter((l) => l.acres >= INDEX_MIN_ACRES).map((l) => `- [${l.name}](${url(lakeHref(l))}): ${l.acres.toLocaleString('en-US')} acres; ${lakeCommunities(l).map((c) => c.name).join(', ')}`).join('\n')}
 
 ## Minneapolis and Saint Paul neighborhoods
