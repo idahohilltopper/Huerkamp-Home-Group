@@ -11,6 +11,7 @@ const vals = points.map((p) => p.value);
 let lo = Math.min(...vals), hi = Math.max(...vals);
 const span = hi - lo || hi * 0.05;
 lo -= span * 0.35; hi += span * 0.35;
+if (Math.min(...vals) >= 0) lo = Math.max(lo, 0); // counts and prices never go below zero
 // Round the axis to tidy steps.
 const step = (() => {
   const raw = (hi - lo) / 3, pow = 10 ** Math.floor(Math.log10(raw));
