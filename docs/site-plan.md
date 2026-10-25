@@ -103,7 +103,7 @@ _Status: Step 3 — home page approved 2026-09-26; Buy, Sell, Invest, Ramsey ELP
 - Zillow: 54 verbatim 5-star reviews, taken from huerkamphomegroup.com/testimonials, which imports them from Zillow with each review's URL. zillow.com blocks automated access, so these haven't been re-checked on Zillow directly. The site template adds "…" to every review; that was removed and flagged.
 - The home page shows 4 Google and 2 Zillow reviews: complete text, 5 stars, short enough to fit a card.
 
-**Hero photo:** Unsplash blocks automated browsers (BotStopper at difficulty 16), so its free license couldn't be confirmed. Used instead: "Minneapolis Moonlight Skyline" by Tony Webster, CC BY 2.0, from Wikimedia Commons, credited in the footer (details in `public/hero/CREDITS.md`). To switch to an Unsplash photo, send the photo link or an Unsplash API access key.
+**Hero photo:** "Downtown Minneapolis skyline across the Mississippi River" (August 2026) by Guywelch2000, CC BY 4.0, from Wikimedia Commons. It replaced the 2009 "Minneapolis Moonlight Skyline" in October 2026 because it is much sharper. It is credited in the footer, with details in `public/hero/CREDITS.md`. `scripts/make-hero.py` makes the site sizes. Unsplash and Pexels block automated access, so their photos can only be used if someone sends the photo link.
 
 **Confirmed by Jason (2026-09-26):** founding year 2002; main phone (612) 843-9620, the Google listing number (2026-09-27; replaces 612-502-SOLD on the new site); hero photo approved; roster of 39 (32 agents, 7 staff) confirmed accurate; Ramsey ELP 15+ years confirmed.
 
