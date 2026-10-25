@@ -12,8 +12,10 @@ const json = (status, body, cache = true) =>
     status,
     headers: {
       'content-type': 'application/json',
-      'cache-control': 'public, max-age=300',
-      ...(cache && status === 200 ? { 'netlify-cdn-cache-control': 'public, s-maxage=900, stale-while-revalidate=3600, durable', 'netlify-vary': 'query' } : {}),
+      // Good answers: browsers keep them 5 minutes, Netlify 15. Errors are never kept, so a fix shows at once.
+      ...(cache && status === 200
+        ? { 'cache-control': 'public, max-age=300', 'netlify-cdn-cache-control': 'public, s-maxage=900, stale-while-revalidate=3600, durable', 'netlify-vary': 'query' }
+        : { 'cache-control': 'no-store' }),
     },
   });
 
