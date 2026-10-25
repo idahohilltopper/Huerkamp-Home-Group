@@ -1,12 +1,10 @@
 ---
 import Skyline from './Skyline.astro';
-import Twinkle from './Twinkle.astro';
 interface Props { eyebrow: string; title: string; lede?: string; }
 const { eyebrow, title, lede } = Astro.props;
 ---
 <section class="page-hero">
   <Skyline class="page-hero__photo" />
-  <Twinkle />
   <div class="wrap">
     <p class="eyebrow">{eyebrow}</p>
     <h1>{title}</h1>

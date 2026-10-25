@@ -7,5 +7,5 @@ const widths = [640, 960, 1280, 1920, 2560];
 ---
 <picture>
   <source type="image/webp" srcset={widths.map((w) => `/hero/minneapolis-skyline-${w}.webp ${w}w`).join(', ')} sizes="100vw" />
-  <img class={cls} src="/hero/minneapolis-skyline-1920.jpg" alt="" width="1920" height="895" fetchpriority="high" decoding="async" />
+  <img class={cls} src="/hero/minneapolis-skyline-1920.jpg" alt="" width="1920" height="1280" fetchpriority="high" decoding="async" />
 </picture>

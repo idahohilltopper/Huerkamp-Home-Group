@@ -104,12 +104,12 @@ p { margin: 0; }
 
 /* Inner-page banner: the home hero's photo, shorter */
 .page-hero { position: relative; overflow: hidden; background: var(--espresso-deep); color: #fff; padding-block: clamp(3.5rem, 8vw, 5.5rem); }
-.page-hero__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 55% 72%; }
+.page-hero__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
 /* Shade only behind the words, so the skyline stays bright on the right. Phones stack text over the
    whole photo, so they get an even, lighter shade instead. */
 .page-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(21,18,19,.74) 0%, rgba(21,18,19,.42) 50%, rgba(21,18,19,.08) 100%); }
 @media (max-width: 700px) { .page-hero::after { background: linear-gradient(180deg, rgba(21,18,19,.38) 0%, rgba(21,18,19,.62) 100%); } }
-.page-hero .twinkle { z-index: 1; }
+
 .page-hero .wrap { position: relative; z-index: 2; display: grid; gap: 1rem; justify-items: start; text-align: left; }
 .page-hero .eyebrow { color: var(--rose); }
 .page-hero h1 { font: 400 clamp(2.4rem, 5.5vw, 4.2rem)/1.05 var(--serif-display); max-width: 22ch; text-shadow: 0 2px 18px rgba(0,0,0,.45); }

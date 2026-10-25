@@ -1,10 +1,9 @@
 # Hero photo
 
-- File: `minneapolis-skyline-*.jpg`
-- Title: Minneapolis Moonlight Skyline (4 July 2009)
-- Photographer: Tony Webster
-- License: CC BY 2.0 — https://creativecommons.org/licenses/by/2.0/
-- Source: https://commons.wikimedia.org/wiki/File:Minneapolis_Moonlight_Skyline_(15674738158).jpg
-  (originally https://www.flickr.com/photos/diversey/15674738158/)
-- Requirement: visible credit to the photographer with a link to the license, and a note that it was changed (both in the site footer).
-- Changes: the site versions are brightened, with a glow added around the lights (scripts/make-hero.py). minneapolis-skyline-3840.jpg is the unaltered original.
+- File: `minneapolis-skyline-*`
+- Title: Downtown Minneapolis skyline across the Mississippi River (August 2026)
+- Photographer: Guywelch2000 (Wikimedia Commons)
+- License: CC BY 4.0, https://creativecommons.org/licenses/by/4.0/
+- Source: https://commons.wikimedia.org/wiki/File:Downtown_Minneapolis_skyline_across_the_Mississippi_River.jpg
+- Requirement: visible credit to the photographer with a link to the license and source (done in the site footer).
+- Changes: resized only. `minneapolis-skyline-3840.jpg` is Wikimedia's 3840-pixel rendering of the original. The site sizes are made by scripts/make-hero.py.
