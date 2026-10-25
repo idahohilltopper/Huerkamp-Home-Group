@@ -1,0 +1,145 @@
+---
+// One "best places for…" guide: places ranked by one sourced measure (src/data/guides.ts), with how the list was
+// made, the sources, quick answers and a contact form. Rebuilt with the data, so it updates every month.
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { guides, guideHref, type Guide } from '../../data/guides';
+import { source, latest, asOf, monthLabel } from '../../data/market';
+import details from '../../data/community-details.json';
+import { lakeSources } from '../../data/lakes';
+import { origin } from '../../data/schema';
+import { site } from '../../data/site';
+
+export function getStaticPaths() {
+  return guides.map((g) => ({ params: { slug: g.slug }, props: { g } }));
+}
+const { g } = Astro.props as { g: Guide };
+const url = `${origin}${guideHref(g)}`;
+const month = monthLabel(latest);
+const asOfText = new Date(asOf + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+const sourceText = {
+  market: `${source.name} reports for each city and neighborhood, ${month} (12 months through ${month}). Data from ${source.data}; produced by ${source.producer}; current as of ${asOfText}. ${source.note}`,
+  acs: `US Census Bureau, American Community Survey 2020–2024 5-year estimates.`,
+  drive: `Drive times: ${details.sources.driveTimes}.`,
+  lakes: `Lakes: ${lakeSources.water}.`,
+};
+const others = guides.filter((x) => x !== g);
+const ld = JSON.stringify([
+  { '@context': 'https://schema.org', '@type': 'ItemList', '@id': `${url}#list`, name: g.title, description: g.description, url,
+    numberOfItems: g.rows.length, itemListOrder: 'https://schema.org/ItemListOrderAscending',
+    itemListElement: g.rows.map((r, i) => ({ '@type': 'ListItem', position: i + 1, name: r.name, url: `${origin}${r.href}` })) },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: g.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+]);
+---
+<Base breadcrumbs={[{ name: 'Area guides', href: '/guides' }, { name: g.short, href: guideHref(g) }]}
+  title={`${g.title} | ${site.name}`} description={g.description}>
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <PageHero eyebrow={g.eyebrow} title={g.title} lede={g.intro} />
+
+  <section class="section" aria-labelledby="list-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">{g.rows.length} places</p>
+        <h2 id="list-title">The list</h2>
+        <p class="how"><strong>How we made it:</strong> {g.how}</p>
+      </div>
+      <ol class="rank">
+        {g.rows.map((r, i) => (
+          <li>
+            <span class="rank__n">{i + 1}</span>
+            <div class="rank__name"><a href={r.href}>{r.name}</a>{r.sub && <span>{r.sub}</span>}</div>
+            <dl class="rank__cells">{r.cells.map((v, k) => <div><dt>{g.columns[k]}</dt><dd>{v}</dd></div>)}</dl>
+            <p class="rank__links">{r.links.map(([t, h]) => <a href={h} rel={h.startsWith('http') ? 'noopener' : undefined}>{t}</a>)}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  {g.hoodRows && g.hoodRows.length > 0 && (
+    <section class="section section--paper" aria-labelledby="hoods-title">
+      <div class="wrap">
+        <div class="head"><p class="eyebrow">Inside the cities</p><h2 id="hoods-title">Minneapolis and Saint Paul neighborhoods</h2></div>
+        <div class="table-scroll">
+          <table class="data">
+            <thead><tr><th scope="col">Neighborhood</th>{g.hoodColumns!.map((c) => <th scope="col" class="num">{c}</th>)}</tr></thead>
+            <tbody>{g.hoodRows.map((r) => <tr><th scope="row"><a href={r.href}>{r.name}</a> <span class="city">{r.sub}</span></th>{r.cells.map((v) => <td class="num">{v}</td>)}</tr>)}</tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section" aria-labelledby="faq-title">
+    <div class="wrap faq">
+      <div class="head"><p class="eyebrow">Quick answers</p><h2 id="faq-title">Questions about this list</h2></div>
+      {g.faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+      <p class="source">Sources: {g.sources.map((s) => sourceText[s]).join(' ')} Every place links to our guide to it; open it for schools, Census facts, drive times and homes for sale.</p>
+    </div>
+  </section>
+
+  <section class="section section--dark" id="contact" aria-labelledby="contact-title">
+    <div class="wrap split">
+      <div class="prose">
+        <p class="eyebrow">Not sure where to start?</p>
+        <h2 id="contact-title">Tell us what matters to you.</h2>
+        <p>Price, drive time, lakes, newer homes: tell us what you want and we'll send you the places and homes that fit. You decide where to live; we bring the facts.</p>
+        <p><a href={site.phoneHref}>{site.phone}</a></p>
+      </div>
+      <form class="form" data-lead="guide">
+        <input type="hidden" name="guide" value={g.title} />
+        <div class="form__row">
+          <div class="field"><label for="gd-first">First name</label><input id="gd-first" name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for="gd-last">Last name</label><input id="gd-last" name="lastName" autocomplete="family-name" required /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="gd-email">Email</label><input id="gd-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="gd-phone">Phone</label><input id="gd-phone" name="phone" type="tel" autocomplete="tel" /></div>
+        </div>
+        <div class="field"><label for="gd-msg">What are you looking for?</label><textarea id="gd-msg" name="message" rows="3"></textarea></div>
+        <button class="btn" type="submit">Send me places that fit</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="more-title">
+    <div class="wrap">
+      <div class="head"><p class="eyebrow">More guides</p><h2 id="more-title">Other ways to compare</h2></div>
+      <ul class="more">{others.map((x) => <li><a href={guideHref(x)}>{x.short}</a></li>)}</ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .how { max-width: 52rem; color: var(--text-soft); }
+  .rank { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .rank li { display: grid; grid-template-columns: 3rem minmax(10rem, 1.1fr) minmax(0, 2fr); grid-template-areas: 'n name cells' 'n links links'; gap: .35rem 1.25rem; align-items: center; padding: 1rem 1.25rem; background: var(--paper); }
+  .rank__n { grid-area: n; align-self: start; font: 500 2rem/1 var(--serif); color: var(--crimson); }
+  .rank__name { grid-area: name; display: grid; }
+  .rank__name a { font: 600 1.25rem/1.25 var(--serif); color: var(--text); text-decoration: none; }
+  .rank__name a:hover { color: var(--crimson); }
+  .rank__name span, .city { font-size: .8rem; color: var(--text-soft); }
+  .rank__cells { grid-area: cells; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; margin: 0; }
+  .rank__cells div { display: flex; flex-direction: column; justify-content: space-between; }
+  .rank__cells dt { font: 700 .66rem/1.25 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--text-soft); }
+  .rank__cells dd { margin: .15rem 0 0; font: 600 1.05rem/1.3 var(--ui); font-variant-numeric: tabular-nums; }
+  .rank__links { grid-area: links; display: flex; flex-wrap: wrap; gap: .4rem 1.25rem; margin: 0; font-size: .85rem; }
+  .rank__links a { color: var(--crimson); font-weight: 600; }
+  @media (max-width: 760px) {
+    .rank li { grid-template-columns: 2.25rem minmax(0, 1fr); grid-template-areas: 'n name' 'cells cells' 'links links'; padding: 1rem; }
+    .rank__cells { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; }
+    .rank__cells dd { font-size: .95rem; }
+  }
+  .table-scroll { position: relative; overflow-x: auto; }
+  .data { width: 100%; border-collapse: collapse; font-size: .95rem; background: var(--paper); }
+  .data th, .data td { padding: .55rem .75rem; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+  .data thead th { font: 700 .72rem/1.3 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--text-soft); }
+  .data .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .data tbody th a { color: var(--text); font-weight: 600; }
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+  .more { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); gap: .75rem; }
+  .more a { display: block; padding: 1rem 1.25rem; border: 1px solid var(--line); background: var(--paper); color: var(--text); font-weight: 600; text-decoration: none; }
+  .more a:hover { border-color: var(--crimson); color: var(--crimson); }
+</style>

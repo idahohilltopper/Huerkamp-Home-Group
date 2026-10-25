@@ -28,6 +28,11 @@ export function lastmods() {
   const market = JSON.parse(read('src/data/market.json'));
   const latest = market.months[market.latest];
   map.set('/market', latest.asOf);
+  // Area guides are rebuilt from the market report and the community data (slugs read from src/data/guides.ts).
+  map.set('/guides', latest.asOf);
+  for (const line of read('src/data/guides.ts').split('\n').filter((l) => /^\s+slug: /.test(l))) {
+    for (const [, slug] of line.matchAll(/'([a-z0-9-]+)'/g)) map.set(`/guides/${slug}`, latest.asOf);
+  }
   for (const slug of Object.keys(latest.areas)) {
     // Neighborhood keys look like "minneapolis/linden-hills"; their report is on the neighborhood guide.
     map.set(slug.includes('/') ? `/communities/${slug}` : `/market/${slug}`, latest.asOf);

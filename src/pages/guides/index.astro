@@ -1,0 +1,44 @@
+---
+// Area guides hub: every "best places for…" list (src/data/guides.ts).
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { guides, guideHref } from '../../data/guides';
+import { origin } from '../../data/schema';
+import { site } from '../../data/site';
+
+const ld = JSON.stringify({
+  '@context': 'https://schema.org', '@type': 'ItemList', name: 'Twin Cities area guides', url: `${origin}/guides`,
+  itemListElement: guides.map((g, i) => ({ '@type': 'ListItem', position: i + 1, name: g.title, url: `${origin}${guideHref(g)}` })),
+});
+---
+<Base breadcrumbs={[{ name: 'Area guides', href: '/guides' }]}
+  title={`Twin Cities Area Guides: Compare Cities and Neighborhoods | ${site.name}`}
+  description="Compare Twin Cities cities and neighborhoods by home prices, how fast homes sell, drive time downtown, lakes and the age of the homes. Every list is built from sourced data and updated monthly.">
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <PageHero eyebrow="Area guides" title="Compare Twin Cities places"
+    lede="Lists that answer the questions buyers ask most: where homes are affordable, where they sell fastest, what's closest to downtown, where the lakes are. Every number has a source and updates with the data." />
+  <section class="section">
+    <div class="wrap">
+      <ul class="guides">
+        {guides.map((g) => (
+          <li><a href={guideHref(g)}>
+            <span class="eyebrow">{g.eyebrow}</span>
+            <strong>{g.title}</strong>
+            <span>{g.description}</span>
+          </a></li>
+        ))}
+      </ul>
+      <p class="note">We rank places only by facts about the homes, the market and the location, never by who lives there. Where you live is your choice; we'll help you compare.</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .guides { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); gap: 1.25rem; }
+  .guides a { display: grid; gap: .5rem; height: 100%; padding: 1.5rem; border: 1px solid var(--line); background: var(--paper); color: var(--text); text-decoration: none; }
+  .guides a:hover { border-color: var(--crimson); }
+  .guides strong { font: 500 1.4rem/1.2 var(--serif); }
+  .guides a:hover strong { color: var(--crimson); }
+  .guides span:not(.eyebrow) { font-size: .92rem; color: var(--text-soft); }
+  .note { margin-top: 2rem; font-size: .9rem; color: var(--text-soft); max-width: 48rem; }
+</style>

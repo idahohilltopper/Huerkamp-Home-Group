@@ -11,6 +11,7 @@ import { source as mSource, latest as mLatest, asOf as mAsOf, REGION, marketFor,
 import reviews from '../data/reviews.json';
 import { getPosts, postUrl } from '../data/blog';
 import { watchable, channel } from '../data/youtube';
+import { guides, guideHref } from '../data/guides';
 
 export async function GET(context: APIContext) {
   const url = (p: string) => new URL(p, context.site).href;
@@ -35,6 +36,7 @@ Facts (with sources on ${url('/')}):
 - [Communities](${url('/communities')}): guides to ${communities.length} Minnesota cities
 - [Lake homes](${url('/lake-homes')}): lakefront homes for sale on every lake of 10+ acres in our communities (${lakes.length} lakes), with a page per lake
 - [Market reports](${url('/market')}): monthly home prices, sales and inventory for the Twin Cities and each city
+- [Area guides](${url('/guides')}): Twin Cities places ranked by price, speed of sale, drive time, lakes and age of homes
 - [Team](${url('/team')}): every agent and staff member
 - [Reviews](${url('/reviews')}): verbatim Google and Zillow reviews
 - [Ramsey ELP](${url('/ramsey')}): working with a Ramsey Endorsed Local Provider
@@ -45,6 +47,10 @@ Facts (with sources on ${url('/')}):
 Source: ${mSource.name} (data from ${mSource.data}), current as of ${mAsOf}. 12 months through ${monthLabel(mLatest)}: median sale price, change from the prior 12 months, homes sold. Full reports: ${url('/market')}
 - Twin Cities 16-county region: ${money(marketFor(REGION)?.medianPrice?.r12[1])}, ${signed(marketFor(REGION)?.medianPrice?.r12[2])}, ${count(marketFor(REGION)?.closedSales?.r12[1])} sold
 ${communities.filter((c) => hasMarket(c.slug)).map((c) => { const x = marketFor(c.slug)!; return `- [${c.name}](${url(`/market/${c.slug}`)}): ${money(x.medianPrice?.r12[1])}, ${signed(x.medianPrice?.r12[2])}, ${count(x.closedSales?.r12[1])} sold`; }).join('\n')}
+
+## Area guides
+Places ranked by one sourced measure each (never by who lives there); updated with the data.
+${guides.map((g) => `- [${g.title}](${url(guideHref(g))}): ${g.rows.slice(0, 3).map((r) => `${r.name} (${r.cells[0]})`).join(', ')}`).join('\n')}
 
 ## Lakes (${INDEX_MIN_ACRES}+ acres)
 Size from the Minnesota DNR (official acreage); each page links to the lakefront homes for sale on that lake (NorthstarMLS lakefront listings).

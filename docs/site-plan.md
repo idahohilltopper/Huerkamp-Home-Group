@@ -360,3 +360,14 @@ Ylopo stays the main home search, ads and follow-up. Repliers (NorthstarMLS data
 - **Listing page:** /homes/listing?mls=<number> (noindex for now) with photos, facts, listing brokerage and a "Listing page form" lead to Follow Up Boss.
 - **Display rules:** the notice in src/data/mls.ts and "Listing courtesy of <brokerage>" on every card and listing. Confirm the exact wording and any required logo with the broker's NorthstarMLS IDX license.
 - **Next:** listing pages at their own addresses (/homes/<address>) that search engines can read, and listings inside each Minneapolis and Saint Paul neighborhood boundary.
+
+## Area guides (/guides and /guides/<guide>), October 2026
+
+- **What they are:** lists that answer the questions buyers ask Google and AI assistants, each ranking our community guides (and, for market lists, Minneapolis and Saint Paul neighborhoods) by one sourced measure:
+  - homes under $400K, highest-priced markets, fastest-selling, rising prices, most homes to choose from (Minneapolis Area REALTORS® / NorthstarMLS market reports)
+  - closest to downtown Minneapolis and to downtown Saint Paul (OpenStreetMap drive times, Census commute)
+  - most lakes (Minnesota DNR lakes)
+  - newest homes (Census median year built)
+- **Fair housing:** places are ranked only by facts about the homes, the market and the location, never by who lives there (no "best for families", "safest", schools rankings or demographics). Keep it that way when adding guides.
+- **Small samples:** market lists need 30+ sales in 12 months for a city and 20+ for a neighborhood (rising prices: 50+ and cities only).
+- **Updates:** built from the same data files as the rest of the site (src/data/guides.ts), so they change when the monthly market data or the community data changes. Each page has ItemList and FAQPage schema, a "Area guide form" lead to Follow Up Boss, and is listed in llms.txt.
