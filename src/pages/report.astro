@@ -35,6 +35,8 @@ const visFound = vis.results.filter((r) => r.ourSite).length;
 const visMentioned = vis.results.filter((r) => r.mentioned).length;
 const yt = report.social.filter((s) => s.platform === 'YouTube');
 const first = yt[0], last = yt.at(-1)!;
+// A week read from YouTube's public page may not show total views; use the newest week that has them.
+const lastViews = [...yt].reverse().find((s) => s.views != null)!;
 const fmt = (n: number) => n.toLocaleString('en-US');
 const times = (a: number, b: number) => (b / a).toFixed(1);
 const maxSubs = Math.max(...yt.map((s) => s.followers));
@@ -72,8 +74,8 @@ const dateText = (d: string) => new Date(d + 'T12:00:00').toLocaleDateString('en
         <h2 id="social-title">YouTube: Living in Minneapolis</h2>
         <div class="kpis">
           <div><span>Subscribers</span><strong>{fmt(last.followers)}</strong><em>{times(first.followers, last.followers)}× since {dateText(first.date)}</em></div>
-          <div><span>Total views</span><strong>{fmt(last.views)}</strong><em>+{fmt(last.views - first.views)} since {dateText(first.date)}</em></div>
-          <div><span>Videos</span><strong>{fmt(last.posts)}</strong><em>+{fmt(last.posts - first.posts)} since {dateText(first.date)}</em></div>
+          <div><span>Total views</span><strong>{fmt(lastViews.views)}</strong><em>+{fmt(lastViews.views - first.views)} since {dateText(first.date)}{lastViews !== last && ` (as of ${dateText(lastViews.date)})`}</em></div>
+          <div><span>Videos</span><strong>{fmt(last.posts ?? first.posts)}</strong><em>+{fmt((last.posts ?? first.posts) - first.posts)} since {dateText(first.date)}</em></div>
         </div>
         <h3>Subscribers by month</h3>
         <div class="bars">
