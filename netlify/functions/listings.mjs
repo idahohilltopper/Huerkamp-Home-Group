@@ -25,9 +25,15 @@ const failed = (r) => {
 
 export default async (req) => {
   const q = new URL(req.url).searchParams;
-  const key = process.env.REPLIERS_API_KEY;
-  if (!key) return json(503, { ok: false, error: 'not-configured' }, false);
   const debug = q.get('debug') === '1';
+  const key = (globalThis.Netlify?.env?.get('REPLIERS_API_KEY') ?? process.env.REPLIERS_API_KEY ?? '').trim();
+  if (!key) {
+    if (!debug) return json(503, { ok: false, error: 'not-configured' }, false);
+    // With &debug=1, help find a missing key: the NAMES of the Repliers / Follow Up Boss settings this site sees
+    // (never their values), and which site and deploy answered.
+    const names = Object.keys({ ...process.env, ...(globalThis.Netlify?.env?.toObject?.() ?? {}) }).filter((n) => /repl|fub/i.test(n)).sort();
+    return json(503, { ok: false, error: 'not-configured', settingsFound: names, site: process.env.SITE_NAME ?? process.env.URL ?? null, context: process.env.CONTEXT ?? globalThis.Netlify?.context?.deploy?.context ?? null }, false);
+  }
 
   const mls = q.get('mls');
   if (mls) {
