@@ -12,13 +12,13 @@ export default function Terms() {
     <>
       <SiteHeader />
       <PageHero eyebrow="Terms and conditions" title="Terms for our offers">
-        The details behind the 401(k), the recruiting bonus, and the Agent+ buy-side bonus.
+        The details behind the income guarantee, the 401(k), the recruiting bonus, and the Agent+ buy-side bonus.
       </PageHero>
       <article className="section prose">
         <p className="updated">Last updated October 19, 2026</p>
 
         <h2>1. About these terms</h2>
-        <p>These terms apply to the offers advertised on joinhhg.com by Huerkamp Home Group of Keller Williams Preferred Realty (&ldquo;HHG,&rdquo; &ldquo;we,&rdquo; &ldquo;us&rdquo;). They cover three offers: the 401(k), the agent recruiting bonus, and the Agent+ buy-side bonus. Where an asterisk (*) appears next to an offer on this site, these terms apply to it.</p>
+        <p>These terms apply to the offers advertised on joinhhg.com by Huerkamp Home Group of Keller Williams Preferred Realty (&ldquo;HHG,&rdquo; &ldquo;we,&rdquo; &ldquo;us&rdquo;). They cover four offers: the $150,000 income guarantee, the 401(k), the agent recruiting bonus, and the Agent+ buy-side bonus. Where an asterisk (*) appears next to an offer on this site, these terms apply to it.</p>
         <p>Nothing on this site is an offer of employment, a contract, or a guarantee of income. Offers are described in general terms for informational purposes. If these terms conflict with a written agreement you sign with HHG, Keller Williams Preferred Realty, or Mutual of Omaha Mortgage, the written agreement controls.</p>
 
         <h2>2. General conditions for all offers</h2>
@@ -63,13 +63,29 @@ export default function Terms() {
           <li>HHG does not make loans, does not guarantee loan approval, and does not control the terms of the Agent+ program.</li>
         </ul>
 
-        <h2>6. Earnings and results</h2>
-        <p>Numbers on this site, including volume, units, ranking, and the values shown for team benefits, reflect HHG&rsquo;s own information at the time they were published and may change. They are not a promise of what any agent will earn or receive.</p>
+        <h2 id="income-guarantee">6. $150,000 income guarantee*</h2>
+        <ul>
+          <li>HHG guarantees $150,000 of income to an agent who meets <strong>all</strong> of the following requirements:
+            <ul>
+              <li>A minimum of 100 contacts every week, tracked through HHG&rsquo;s CRM system, Follow Up Boss.</li>
+              <li>Attendance at 48 weekly accountability meetings (WAM) every year.</li>
+              <li>No more than 100 leads assigned to the agent in Follow Up Boss at any time.</li>
+              <li>Attendance at 46 team meetings every year, in person.</li>
+            </ul>
+          </li>
+          <li>The guarantee applies only while the agent meets every requirement. An agent who does not meet all four requirements is not eligible for the guarantee.</li>
+          <li>Contacts are counted only when they are logged in Follow Up Boss. HHG&rsquo;s Follow Up Boss records are the official record of contacts and lead assignments.</li>
+          <li>Meetings are counted only when attendance is recorded by HHG. Team meetings must be attended in person.</li>
+          <li>The guarantee is separate from the offers in Sections 3, 4 and 5, and the requirements for those offers still apply to them.</li>
+        </ul>
 
-        <h2>7. Third-party names and links</h2>
+        <h2>7. Earnings and results</h2>
+        <p>Except for the income guarantee in Section 6, which applies only to agents who meet all of its requirements, numbers on this site, including volume, units, ranking, and the values shown for team benefits, reflect HHG&rsquo;s own information at the time they were published and may change. They are not a promise of what any agent will earn or receive.</p>
+
+        <h2>8. Third-party names and links</h2>
         <p>This site mentions and links to third-party companies and products. HHG is not responsible for their content or terms. All trademarks belong to their owners.</p>
 
-        <h2>8. Questions</h2>
+        <h2>9. Questions</h2>
         <p>To ask about these terms or about joining the team, use the <a href="/apply">Join</a> form on this site and a member of our recruiting team will respond.</p>
       </article>
       <SiteFooter />

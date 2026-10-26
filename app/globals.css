@@ -305,3 +305,18 @@ input, select, textarea { border:1px solid #9a9ca0; border-radius:6px; }
 
 .video-alt { margin:.9rem 0 0; font-size:.9rem; color:var(--char); }
 .video-alt a { color:var(--red); font-weight:700; }
+
+.ig-band { background:var(--red); color:#fff; padding:3.75rem 1.25rem; margin-top:2.5rem; text-align:center; border-top:6px solid #000; border-bottom:6px solid #000; }
+.ig-inner { max-width:1100px; margin:0 auto; }
+.ig-eyebrow { text-transform:uppercase; letter-spacing:.18em; font-weight:800; font-size:.85rem; margin:0 0 .5rem; }
+.ig-band h2 { font-size:clamp(2rem,5vw,3.4rem); margin:0 0 .75rem; line-height:1.05; }
+.ig-amount { background:#000; color:#fff; padding:0 .5rem; border-radius:6px; }
+.ig-lead { max-width:680px; margin:0 auto 2rem; font-size:1.1rem; color:#fff; }
+.ig-grid { display:grid; gap:1.25rem; grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr)); }
+.ig-card { background:#fff; color:#000; border-radius:8px; padding:1.75rem 1.25rem; }
+.ig-card strong { display:block; font-size:clamp(2.4rem,4.5vw,3.4rem); line-height:1; color:var(--red); letter-spacing:-.02em; }
+.ig-label { display:block; text-transform:uppercase; letter-spacing:.1em; font-weight:800; font-size:.8rem; margin:.5rem 0 .75rem; }
+.ig-card p { margin:0; color:#222; font-size:.98rem; }
+.ig-fine { max-width:760px; margin:1.75rem auto 0; font-size:.88rem; color:#fff; }
+.ig-fine a { color:#fff; font-weight:700; text-decoration:underline; }
+.prose li ul { margin-top:.5rem; }

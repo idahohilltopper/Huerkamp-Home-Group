@@ -6,6 +6,7 @@ import PerkCards from '../PerkCards';
 import GrowthCards from '../GrowthCards';
 import FlashList from '../FlashList';
 import AgentPlusBand from '../AgentPlusBand';
+import IncomeGuaranteeBand from '../IncomeGuaranteeBand';
 
 export const metadata = { title: 'Why HHG | Huerkamp Home Group', description: 'Everything you need to build a real estate business with Huerkamp Home Group.' };
 
@@ -18,6 +19,7 @@ export default function WhyHHG() {
       <PageHero eyebrow="Why HHG" title="Everything you need to build a business">
         A team built to help you win, with real systems behind it. Tap any benefit to see what it means for you.
       </PageHero>
+      <IncomeGuaranteeBand />
       <AgentPlusBand />
       <section className="section">
         <PerkCards />
