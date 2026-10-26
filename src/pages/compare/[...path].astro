@@ -61,7 +61,8 @@ const morePairs = p ? [p.a, p.b].map((s) => ({ s, list: pairsFor(s.key).filter((
 let title: string, h1: string, description: string, eyebrow: string, intro: string, crumbs: { name: string; href: string }[], index = true;
 if (p) {
   h1 = `${p.a.short} vs. ${p.b.short}`;
-  title = `${p.a.short} vs. ${p.b.short}${p.kind === 'community' ? ', MN' : ''}: Home Prices, Market and Location Compared`;
+  const st = `${p.a.short} vs. ${p.b.short}${p.kind === 'community' ? ', MN' : ''}`;
+  title = [`${st}: Home Prices, Market and Location Compared`, `${st}: Home Prices and Market Compared`, `${st}: Homes Compared`].find((t) => t.length <= 70) ?? st;
   eyebrow = p.kind === 'community' ? `Compare cities · ${compareMonth}` : `Compare neighborhoods · ${compareMonth}`;
   intro = lede.join(' ');
   description = `${lede.slice(0, 2).join(' ')} Side-by-side home prices, days on market, homes and drive times for ${p.a.name} and ${p.b.name}.`;

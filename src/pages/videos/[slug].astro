@@ -50,7 +50,7 @@ const ld = JSON.stringify({
 ---
 <Base
   breadcrumbs={[{ name: 'Videos', href: '/videos' }, { name: v.title, href: `/videos/${v.slug}` }]}
-  title={`${v.title} | Living in Minneapolis`}
+  title={v.title.length > 50 ? v.title : `${v.title} | Living in Minneapolis`}
   description={metaDescription}
   image={`https://i.ytimg.com/vi/${v.id}/hq720.jpg`}
   article={{ published: date }}>

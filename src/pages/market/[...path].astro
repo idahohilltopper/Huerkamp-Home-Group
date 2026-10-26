@@ -34,8 +34,6 @@ const { month, place } = Astro.props as { month: string; place: Place | null };
 const label = monthLabel(month);
 const asOf = asOfFor(month);
 const asOfText = new Date(`${asOf}T12:00:00`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-const i = monthKeys.indexOf(month);
-const prev = monthKeys[i - 1], next = monthKeys[i + 1];
 const region = areaIn(month, REGION)!;
 const yearAgo = `${Number(month.slice(0, 4)) - 1}${month.slice(4)}`;
 const yearAgoLabel = monthLabel(yearAgo);
@@ -67,6 +65,10 @@ const rows: [string, keyof AreaMarket, (n: number | null) => string][] = [
 const upTo = (pts: { month: string; value: number }[]) => pts.filter((p) => p.month <= month).slice(-24);
 const prices = upTo(history(place?.key ?? REGION, 'medianPrice'));
 const otherMonths = monthKeys.filter((x) => x !== month && (!place || sold(areaIn(x, place.key)) > 0)).reverse();
+// Previous and next months that have a page for this place (a month with no sales has none).
+const withPage = monthKeys.filter((x) => !place || sold(areaIn(x, place.key)) > 0 || x === latest);
+const i = withPage.indexOf(month);
+const prev = withPage[i - 1], next = withPage[i + 1];
 const hrefFor = (x: string) => (place ? archiveHref(place.key, x, place.main) : x === latest ? '/market' : `/market/${x}`);
 
 const faq = place ? [

@@ -52,7 +52,7 @@ const ld = JSON.stringify([
 ---
 <Base
   breadcrumbs={[{ name: 'Lake homes', href: '/lake-homes' }, { name: l.name, href: lakeHref(l) }]}
-  title={`${l.name} Homes for Sale, ${townNames[0]}, MN | Lakefront Homes | ${site.name}`}
+  title={`${l.name} Homes for Sale, ${townNames[0]}, MN${`${l.name}${townNames[0]}`.length > 38 ? '' : ' | Lakefront Homes'} | ${site.name}`}
   description={`Lakefront homes for sale on ${l.name} (${fmt(l.acres)} acres) in ${list(townNames.slice(0, 3))}, MN. See every listing on the lake, the communities around it and nearby lakes.`}
   noindex={l.acres < INDEX_MIN_ACRES}>
   <script slot="head" type="application/ld+json" set:html={ld} />
