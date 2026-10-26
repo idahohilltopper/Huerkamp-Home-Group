@@ -48,12 +48,30 @@ export function summarizeLeads(people, now = new Date(), weeks = 12) {
 
 // ---------- Google Search Console ----------
 
+/** The private key as pasted into Netlify, forgiving common slips: surrounding quotes, \n written out, Windows line
+ *  breaks, spaces at the ends, or the whole downloaded .json file pasted in. */
+export function cleanKey(raw) {
+  let k = String(raw ?? '').trim();
+  if (k.startsWith('{')) { try { k = JSON.parse(k).private_key ?? k; } catch { /* not JSON after all */ } }
+  k = k.replace(/^["']+|["',]+$/g, '').replace(/\\n/g, '\n').replace(/\r/g, '').trim();
+  const body = k.match(/-----BEGIN PRIVATE KEY-----([\s\S]*?)-----END PRIVATE KEY-----/);
+  if (body) k = `-----BEGIN PRIVATE KEY-----\n${body[1].replace(/\s+/g, '').match(/.{1,64}/g).join('\n')}\n-----END PRIVATE KEY-----\n`;
+  return k;
+}
+
+/** The service account email, also accepted from a pasted .json file. */
+export function cleanEmail(raw) {
+  const v = String(raw ?? '').trim();
+  if (v.startsWith('{')) { try { return JSON.parse(v).client_email ?? v; } catch { /* fall through */ } }
+  return v.replace(/^["']+|["',]+$/g, '').trim();
+}
+
 /** OAuth token for a Google service account (the key is Netlify's GSC_PRIVATE_KEY; newlines may be written as \n). */
 export async function googleToken(email, privateKey, fetchFn = fetch) {
   const now = Math.floor(Date.now() / 1000);
   const b64 = (o) => Buffer.from(JSON.stringify(o)).toString('base64url');
-  const unsigned = `${b64({ alg: 'RS256', typ: 'JWT' })}.${b64({ iss: email, scope: 'https://www.googleapis.com/auth/webmasters.readonly', aud: 'https://oauth2.googleapis.com/token', iat: now, exp: now + 3600 })}`;
-  const sig = createSign('RSA-SHA256').update(unsigned).sign(privateKey.replace(/\\n/g, '\n'), 'base64url');
+  const unsigned = `${b64({ alg: 'RS256', typ: 'JWT' })}.${b64({ iss: cleanEmail(email), scope: 'https://www.googleapis.com/auth/webmasters.readonly', aud: 'https://oauth2.googleapis.com/token', iat: now, exp: now + 3600 })}`;
+  const sig = createSign('RSA-SHA256').update(unsigned).sign(cleanKey(privateKey), 'base64url');
   const res = await fetchFn('https://oauth2.googleapis.com/token', {
     method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded' },
     body: new URLSearchParams({ grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer', assertion: `${unsigned}.${sig}` }),
