@@ -29,7 +29,12 @@ export default async (req) => {
     })(),
     (async () => {
       const email = env('GSC_CLIENT_EMAIL'), pk = env('GSC_PRIVATE_KEY');
-      if (!email || !pk) return { ok: false, error: 'Search Console not connected yet' };
+      if (!email || !pk) {
+        // Say which setting is missing, and list similar setting NAMES the site can see (never values).
+        const missing = [!email && 'GSC_CLIENT_EMAIL', !pk && 'GSC_PRIVATE_KEY'].filter(Boolean).join(' and ');
+        const names = Object.keys({ ...process.env, ...(globalThis.Netlify?.env?.toObject?.() ?? {}) }).filter((n) => /gsc|csg|google|client_email|private_key/i.test(n)).sort();
+        return { ok: false, error: `Search Console not connected yet: ${missing} not found (settings with similar names: ${names.join(', ') || 'none'})` };
+      }
       try { return { ok: true, ...(await searchConsole(await googleToken(email, pk), env('GSC_SITE') || 'sc-domain:huerkamphomegroup.com')) }; }
       catch (e) { console.error('GSC', e.message); return { ok: false, error: 'Search Console did not answer (check the service account has access)' }; }
     })(),
