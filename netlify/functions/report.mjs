@@ -36,7 +36,12 @@ export default async (req) => {
         return { ok: false, error: `Search Console not connected yet: ${missing} not found (settings with similar names: ${names.join(', ') || 'none'})` };
       }
       try { return { ok: true, ...(await searchConsole(await googleToken(email, pk), env('GSC_SITE') || 'sc-domain:huerkamphomegroup.com')) }; }
-      catch (e) { console.error('GSC', e.message); return { ok: false, error: 'Search Console did not answer (check the service account has access)' }; }
+      catch (e) {
+        console.error('GSC', e.message);
+        // Google's own reason helps find the fix (wrong key, API not enabled, no access). It never contains the key.
+        const why = String(e.message ?? '').replace(/-----BEGIN[\s\S]*?-----END[^-]*-----/g, '[key]').replace(/\s+/g, ' ').slice(0, 300);
+        return { ok: false, error: `Search Console did not answer. Google says: ${why}` };
+      }
     })(),
   ]);
   return json(200, { ok: true, updated: new Date().toISOString(), leads, search });
