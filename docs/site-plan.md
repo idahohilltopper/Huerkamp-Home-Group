@@ -355,7 +355,8 @@ Ylopo stays the main home search, ads and follow-up. Repliers (NorthstarMLS data
 - **`/api/listings`** (netlify/functions/listings.mjs, trimming in src/lib/repliers.mjs), cached 15 minutes:
   - `?lake=<slug>`: active homes for sale inside the lake's shoreline zone (200 m out from the water, src/data/geo/lake-shores.json from scripts/build-lake-shores.py), kept only when the MLS marks them lakefront.
   - `?mls=<number>`: one listing.
-  - `&debug=1`: shows the MLS's water fields, to check the lakefront filter.
+  - `&debug=1&key=<report passcode>`: counts per shoreline zone, the MLS's total, photos, and the MLS's water fields (to check the lakefront filter).
+- **Go-live switch:** listings are served to the site only when `MLS_PUBLIC=yes` is set in Netlify. Set it only after the NorthstarMLS IDX license is approved; until then the lake sections stay hidden.
 - **Lake pages:** a "Homes for sale on <lake>" section above the Ylopo widget. It stays hidden if the feed isn't working; add `?mls-debug` to the page address to see why ("not-authorized" usually means the NorthstarMLS license isn't approved yet).
 - **Listing page:** /homes/listing?mls=<number> (noindex for now) with photos, facts, listing brokerage and a "Listing page form" lead to Follow Up Boss.
 - **Display rules:** the notice in src/data/mls.ts and "Listing courtesy of <brokerage>" on every card and listing. Confirm the exact wording and any required logo with the broker's NorthstarMLS IDX license.

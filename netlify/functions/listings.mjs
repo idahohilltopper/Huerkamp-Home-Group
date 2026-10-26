@@ -1,9 +1,12 @@
 // MLS listings for the site's pages, from Repliers (NorthstarMLS).
 //   /api/listings?lake=<slug>    active lakefront listings on one lake (inside its shoreline zone)
 //   /api/listings?mls=<number>   one listing
-// Add &debug=1 to see the MLS's water fields for the first few listings (to check the lakefront filter).
+// Listings show on the site only once MLS_PUBLIC=yes is set in Netlify (after the NorthstarMLS IDX license is
+// approved); until then the lake sections stay hidden.
+// Add &debug=1&key=<report passcode> to see counts and the MLS's water fields (to check the lakefront filter).
 // The API key lives in Netlify (REPLIERS_API_KEY), never in this repository. Answers are cached for 15 minutes.
 
+import { timingSafeEqual } from 'node:crypto';
 import shores from '../../src/data/geo/lake-shores.json' with { type: 'json' };
 import { repliers, card, detail, isLakefront, waterFields } from '../../src/lib/repliers.mjs';
 
@@ -25,10 +28,17 @@ const failed = (r) => {
   return json(502, { ok: false, error: r.status === 401 || r.status === 403 ? 'not-authorized' : 'mls-error', status: r.status }, false);
 };
 
+const env = (k) => (globalThis.Netlify?.env?.get(k) ?? process.env[k] ?? '').trim();
+const same = (a, b) => a.length === b.length && timingSafeEqual(Buffer.from(a), Buffer.from(b));
+
 export default async (req) => {
   const q = new URL(req.url).searchParams;
-  const debug = q.get('debug') === '1';
-  const key = (globalThis.Netlify?.env?.get('REPLIERS_API_KEY') ?? process.env.REPLIERS_API_KEY ?? '').trim();
+  // Debug answers need the report passcode; normal answers need the MLS go-ahead.
+  const pass = env('REPORT_KEY');
+  const debug = q.get('debug') === '1' && !!pass && same(q.get('key') ?? '', pass);
+  if (q.get('debug') === '1' && !debug) return json(401, { ok: false, error: 'debug-needs-passcode' }, false);
+  if (!debug && env('MLS_PUBLIC').toLowerCase() !== 'yes') return json(403, { ok: false, error: 'not-public-yet' }, false);
+  const key = env('REPLIERS_API_KEY');
   if (!key) {
     if (!debug) return json(503, { ok: false, error: 'not-configured' }, false);
     // With &debug=1, help find a missing key: the NAMES of the Repliers / Follow Up Boss settings this site sees
@@ -50,19 +60,26 @@ export default async (req) => {
   const zone = lake && shores[lake];
   if (!zone) return json(400, { ok: false, error: 'unknown-lake' }, false);
 
-  // One request per part of the shoreline zone (most lakes have one); active homes for sale.
-  const all = new Map();
+  // One request per part of the shoreline zone (most lakes have one); active homes for sale, every page.
+  const all = new Map(), parts = [];
   for (const part of zone) {
-    const r = await repliers(key, '/listings', { status: 'A', type: 'Sale', resultsPerPage: 100 }, { map: part });
-    if (!r.data) return failed(r);
-    for (const l of r.data.listings ?? []) all.set(l.mlsNumber, l);
+    let page = 1, info;
+    do {
+      const r = await repliers(key, '/listings', { status: 'A', type: 'Sale', resultsPerPage: 100, pageNum: page }, { map: part });
+      if (!r.data) return failed(r);
+      for (const l of r.data.listings ?? []) all.set(l.mlsNumber, l);
+      info = { points: part[0].length, count: r.data.count, numPages: r.data.numPages, returned: (r.data.listings ?? []).length };
+      page += 1;
+    } while (page <= Math.min(info.numPages ?? 1, 10));
+    parts.push(info);
   }
   const inZone = [...all.values()];
   const lakefront = inZone.filter(isLakefront);
   const listings = lakefront.map(card).sort((a, b) => String(b.listed).localeCompare(String(a.listed)));
   return json(200, {
     ok: true, updated: new Date().toISOString(), lake, listings, nearby: inZone.length - lakefront.length,
-    ...(debug ? { sample: inZone.slice(0, 6).map((l) => ({ mls: l.mlsNumber, address: l.address, lakefront: isLakefront(l), water: waterFields(l) })) } : {}),
+    ...(debug ? { parts, mlsTotal: (await repliers(key, '/listings', { status: 'A', type: 'Sale', resultsPerPage: 1 })).data?.count ?? null,
+      photos: inZone.filter((l) => l.images?.length).length, sample: inZone.slice(0, 6).map((l) => ({ mls: l.mlsNumber, address: l.address, lakefront: isLakefront(l), water: waterFields(l) })) } : {}),
   }, !debug);
 };
 
