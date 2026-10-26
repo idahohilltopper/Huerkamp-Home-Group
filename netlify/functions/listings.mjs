@@ -32,6 +32,19 @@ const failed = (r) => {
 const env = (k) => (globalThis.Netlify?.env?.get(k) ?? process.env[k] ?? '').trim();
 const same = (a, b) => a.length === b.length && timingSafeEqual(Buffer.from(a), Buffer.from(b));
 
+/** Is the point inside any part of the zone? (ray casting on each part's outer ring) */
+export function inside(x, y, zone) {
+  if (!isFinite(x) || !isFinite(y)) return false;
+  return zone.some(([ring]) => {
+    let hit = false;
+    for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+      const [xi, yi] = ring[i], [xj, yj] = ring[j];
+      if ((yi > y) !== (yj > y) && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) hit = !hit;
+    }
+    return hit;
+  });
+}
+
 export default async (req) => {
   const q = new URL(req.url).searchParams;
   // Debug answers need the report passcode; normal answers need the MLS go-ahead.
@@ -62,25 +75,28 @@ export default async (req) => {
   const zone = lake && shores[lake];
   if (!zone) return json(400, { ok: false, error: 'unknown-lake' }, false);
 
-  // One request per part of the shoreline zone (most lakes have one); active homes for sale, every page.
-  const all = new Map(), parts = [];
-  for (const part of zone) {
-    let page = 1, info;
-    do {
-      const r = await repliers(key, '/listings', { status: 'A', type: 'Sale', resultsPerPage: 100, pageNum: page }, { map: part });
-      if (!r.data) return failed(r);
-      for (const l of r.data.listings ?? []) all.set(l.mlsNumber, l);
-      info = { points: part[0].length, count: r.data.count, numPages: r.data.numPages, returned: (r.data.listings ?? []).length };
-      page += 1;
-    } while (page <= Math.min(info.numPages ?? 1, 10));
-    parts.push(info);
-  }
-  const inZone = [...all.values()];
+  // Ask Repliers for every active home for sale in a plain rectangle around the zone (a detailed outline came back
+  // with too few homes), then keep the ones whose map point is inside the shoreline zone ourselves.
+  const pts = zone.flatMap((part) => part[0]);
+  const [w, s0, e, n] = [Math.min(...pts.map((p) => p[0])), Math.min(...pts.map((p) => p[1])), Math.max(...pts.map((p) => p[0])), Math.max(...pts.map((p) => p[1]))];
+  const box = [[[w, n], [e, n], [e, s0], [w, s0], [w, n]]];
+  const all = new Map();
+  let page = 1, boxInfo;
+  do {
+    const r = await repliers(key, '/listings', { status: 'A', type: 'Sale', resultsPerPage: 100, pageNum: page }, { map: box });
+    if (!r.data) return failed(r);
+    for (const l of r.data.listings ?? []) all.set(l.mlsNumber, l);
+    boxInfo = { count: r.data.count, numPages: r.data.numPages };
+    page += 1;
+  } while (page <= Math.min(boxInfo.numPages ?? 1, 15));
+  const inBox = [...all.values()];
+  const noPoint = inBox.filter((l) => !isFinite(parseFloat(l.map?.longitude)) || !isFinite(parseFloat(l.map?.latitude))).length;
+  const inZone = inBox.filter((l) => inside(parseFloat(l.map?.longitude), parseFloat(l.map?.latitude), zone));
   const lakefront = inZone.filter(isLakefront);
   const listings = lakefront.map(card).sort((a, b) => String(b.listed).localeCompare(String(a.listed)));
   return json(200, {
     ok: true, updated: new Date().toISOString(), lake, listings, nearby: inZone.length - lakefront.length,
-    ...(debug ? { parts, mlsTotal: (await repliers(key, '/listings', { status: 'A', type: 'Sale', resultsPerPage: 1 })).data?.count ?? null,
+    ...(debug ? { parts: [{ count: inZone.length }], box: { ...boxInfo, fetched: inBox.length, withoutMapPoint: noPoint }, mlsTotal: (await repliers(key, '/listings', { status: 'A', type: 'Sale', resultsPerPage: 1 })).data?.count ?? null,
       photos: inZone.filter((l) => l.images?.length).length, sample: inZone.slice(0, 6).map((l) => ({ mls: l.mlsNumber, address: l.address, lakefront: isLakefront(l), water: waterFields(l) })) } : {}),
   }, !debug);
 };

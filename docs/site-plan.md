@@ -353,7 +353,7 @@ Ylopo stays the main home search, ads and follow-up. Repliers (NorthstarMLS data
 
 - **Key:** `REPLIERS_API_KEY` in Netlify (secret, set for Production, Deploy Previews and Branch deploys). Never in the repo or chat.
 - **`/api/listings`** (netlify/functions/listings.mjs, trimming in src/lib/repliers.mjs), cached 15 minutes:
-  - `?lake=<slug>`: active homes for sale inside the lake's shoreline zone (200 m out from the water, src/data/geo/lake-shores.json from scripts/build-lake-shores.py), kept only when the MLS marks them lakefront.
+  - `?lake=<slug>`: active homes for sale inside the lake's shoreline zone (Repliers is asked for a plain rectangle around the zone, since a detailed outline returned too few homes, and the function keeps the map points inside the zone itself) (200 m out from the water, src/data/geo/lake-shores.json from scripts/build-lake-shores.py), kept only when the MLS marks them lakefront.
   - `?mls=<number>`: one listing.
   - `&debug=1&key=<report passcode>`: counts per shoreline zone, the MLS's total, photos, and the MLS's water fields (to check the lakefront filter).
 - **Go-live switch:** listings are served to the site only when `MLS_PUBLIC=yes` is set in Netlify. Set it only after the NorthstarMLS IDX license is approved; until then the lake sections stay hidden.
