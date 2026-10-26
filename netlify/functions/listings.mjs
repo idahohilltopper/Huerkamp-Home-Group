@@ -3,7 +3,8 @@
 //   /api/listings?mls=<number>   one listing
 // Listings show on the site only once MLS_PUBLIC=yes is set in Netlify (after the NorthstarMLS IDX license is
 // approved); until then the lake sections stay hidden.
-// Add &debug=1&key=<report passcode> to see counts and the MLS's water fields (to check the lakefront filter).
+// Add &debug=1 with the report passcode (x-report-key header, as the /report page's "Check MLS feed" button sends it,
+// or &key=) to see counts and the MLS's water fields (to check the lakefront filter).
 // The API key lives in Netlify (REPLIERS_API_KEY), never in this repository. Answers are cached for 15 minutes.
 
 import { timingSafeEqual } from 'node:crypto';
@@ -35,7 +36,8 @@ export default async (req) => {
   const q = new URL(req.url).searchParams;
   // Debug answers need the report passcode; normal answers need the MLS go-ahead.
   const pass = env('REPORT_KEY');
-  const debug = q.get('debug') === '1' && !!pass && same(q.get('key') ?? '', pass);
+  const given = (req.headers.get('x-report-key') ?? q.get('key') ?? '').trim();
+  const debug = q.get('debug') === '1' && !!pass && same(given, pass);
   if (q.get('debug') === '1' && !debug) return json(401, { ok: false, error: 'debug-needs-passcode' }, false);
   if (!debug && env('MLS_PUBLIC').toLowerCase() !== 'yes') return json(403, { ok: false, error: 'not-public-yet' }, false);
   const key = env('REPLIERS_API_KEY');

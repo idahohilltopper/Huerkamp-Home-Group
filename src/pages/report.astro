@@ -66,6 +66,10 @@ const dateText = (d: string) => new Date(d + 'T12:00:00').toLocaleDateString('en
           <p class="source" id="lead-src">Source: Follow Up Boss, people whose source is the website or the YouTube form. Counts only.</p>
 
           <div id="search"></div>
+
+          <h3>MLS listings feed (Repliers)</h3>
+          <p><button class="btn btn--ghost" type="button" id="mls-check">Check MLS feed</button></p>
+          <div id="mls-out"></div>
         </div>
       </section>
 
@@ -164,6 +168,23 @@ const dateText = (d: string) => new Date(d + 'T12:00:00').toLocaleDateString('en
       <p class="source">Source: Google Search Console. Google reports about 3 days behind.</p>`
       : `<h3>Google search</h3><p class="warn">${esc(S.error)}.</p>`;
   }
+  // MLS feed check: the same lookup a lake page makes, with the debug counts (needs the passcode).
+  $('#mls-check').addEventListener('click', async () => {
+    const out = $('#mls-out');
+    out.innerHTML = '<p>Checking Lake Minnetonka…</p>';
+    const res = await fetch('/api/listings?lake=lake-minnetonka&debug=1', { headers: { 'x-report-key': store.get() } }).catch(() => null);
+    const d = res ? await res.json().catch(() => null) : null;
+    const why: Record<string, string> = { 'not-configured': 'The Repliers key isn\'t reaching the site (REPLIERS_API_KEY in Netlify).', 'not-authorized': 'Repliers says the key isn\'t approved for this data yet.', 'debug-needs-passcode': 'The passcode didn\'t match.', 'mls-error': 'Repliers didn\'t answer.' };
+    if (!d?.ok) { out.innerHTML = `<p class="warn">${esc(why[d?.error] ?? d?.error ?? 'No answer')}</p>`; return; }
+    const zone = (d.parts ?? []).reduce((a: number, p: any) => a + (p.count ?? 0), 0);
+    out.innerHTML = `<div class="kpis">
+        <div><span>Active listings the key can see (whole MLS)</span><strong>${d.mlsTotal == null ? '—' : n(d.mlsTotal)}</strong></div>
+        <div><span>For sale in Lake Minnetonka's shoreline zone</span><strong>${n(zone)}</strong></div>
+        <div><span>Marked lakefront by the MLS</span><strong>${n(d.listings.length)}</strong></div>
+        <div><span>With photos</span><strong>${n(d.photos ?? 0)}</strong></div>
+      </div>
+      <p class="source">Live from Repliers (NorthstarMLS), ${new Date(d.updated).toLocaleString('en-US')}. Listings appear on the lake pages only after MLS_PUBLIC=yes is set in Netlify, once the NorthstarMLS license is approved.</p>`;
+  });
   const saved = store.get();
   if (saved) load(saved); else $('#pass').hidden = false;
   $('#pass').addEventListener('submit', (e) => { e.preventDefault(); load(($('#pass-key') as HTMLInputElement).value.trim()); });
