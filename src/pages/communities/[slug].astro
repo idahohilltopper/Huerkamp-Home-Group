@@ -20,6 +20,8 @@ import team from '../../data/team.json';
 import { site } from '../../data/site';
 import { communitySearch, searchUrl, ylopoPlace } from '../../data/ylopo';
 import PostCard from '../../components/PostCard.astro';
+import HomesStrip from '../../components/HomesStrip.astro';
+import { listingsData, homesHref } from '../../data/listings';
 import { getPosts, postsAbout } from '../../data/blog';
 import { hoodsIn, hoodHref, hoodKey, hoodInfo, hoodGeoUrl } from '../../data/neighborhoods';
 import { marketFor, hasMarket, latest as marketMonth, asOf as marketAsOf, monthLabel, money, count, change, signed } from '../../data/market';
@@ -28,6 +30,9 @@ export function getStaticPaths() {
   return communities.map((c) => ({ params: { slug: c.slug }, props: { c } }));
 }
 const { c } = Astro.props as { c: Community };
+// Homes for sale from the MLS feed, once it's switched on: shown in the page itself, linking to /homes-for-sale.
+const homesData = await listingsData;
+const homes = homesData.collections.find((k) => k.path === c.slug && !k.facet);
 const d = (detailData.communities as any)[c.slug];
 const a = d.acs;
 const county = (detailData.baselines.counties as any)[d.primaryCounty.fips];
@@ -195,9 +200,10 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
         <h2 id="listings-title">Where can I find <em>{c.name} homes for sale?</em></h2>
         <p>The newest {c.name} listings, live from the NorthstarMLS. Open any home for photos, maps and saved-search alerts.</p>
       </div>
-      {searchable && <YlopoListings search={widgetSearch} moreHref={allHomes} moreLabel={`See all ${c.name} homes for sale`} showMore={false} />}
+      {homes && <HomesStrip listings={homes.listings} allHref={homesHref(c.slug)} allLabel={`See all ${homes.listings.length} ${c.name} homes for sale`} collections={homesData.collections} area={c.slug} at={homesData.at} />}
+      {!homes && searchable && <YlopoListings search={widgetSearch} moreHref={allHomes} moreLabel={`See all ${c.name} homes for sale`} showMore={false} />}
       <div class="search-row">
-        <a class="btn" href={allHomes} rel="noopener">{searchable ? `See all ${c.name} homes for sale` : 'Search all Twin Cities homes'}</a>
+        <a class="btn" href={allHomes} rel="noopener">{homes ? `Search ${c.name} on the map` : searchable ? `See all ${c.name} homes for sale` : 'Search all Twin Cities homes'}</a>
         <a class="btn btn--ghost-dark" href="#alerts">Get new-listing alerts</a>
       </div>
       {place.zips && (
@@ -207,7 +213,7 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
         <p class="search-note">{c.name} homes are listed under neighboring cities' mailing addresses. <a href="#contact">Tell us what you're looking for</a> and we'll set up a {c.name} search for you.</p>
       )}
 
-      {searchable && (
+      {!homes && searchable && (
         <>
           <h3 class="subhead">Browse {c.name} homes by price</h3>
           <ul class="bands">

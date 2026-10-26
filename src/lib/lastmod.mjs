@@ -1,7 +1,7 @@
 // Real "last changed" dates for the sitemap, so Google and AI crawlers re-read pages that actually changed.
 // Only real changes count: a post's date, a video's upload date, a town's data or its newest local story.
 // Pages without a known date are listed without one rather than with a made-up date.
-import { readFileSync, readdirSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 
 // The project folder (builds run from it; this file's own location moves when Astro bundles it).
@@ -45,4 +45,19 @@ export function lastmods() {
     map.set(`/communities/${slug}`, max([details.updated, latest.areas[slug] && latest.asOf, ...posts.filter((p) => p.towns.includes(slug)).map((p) => p.date)]));
   }
   return map;
+}
+
+// Homes-for-sale and listing pages: read after the build from the MLS download it used (src/lib/mls-feed.mjs).
+// A listing's date is its last MLS update; the collection pages change with every download.
+let homes;
+export function homeLastmod(path) {
+  if (!path.startsWith('/homes')) return undefined;
+  homes ??= (() => {
+    const file = new URL('.cache/mls-feed.json', root);
+    if (!existsSync(file)) return { at: null, bySlug: new Map() };
+    const feed = JSON.parse(readFileSync(file, 'utf8'));
+    return { at: feed.at?.slice(0, 10), bySlug: new Map(feed.listings.map((l) => [l.slug, l.updated || l.listed])) };
+  })();
+  if (path.startsWith('/homes-for-sale')) return homes.at ?? undefined;
+  return homes.bySlug.get(path.slice('/homes/'.length)) ?? undefined;
 }

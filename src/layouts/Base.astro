@@ -17,6 +17,7 @@ import '../styles/global.css';
 import { site } from '../data/site';
 import { business, website } from '../data/schema';
 import { agentDirectory } from '../data/agents';
+import { listingsData } from '../data/listings';
 
 interface Crumb { name: string; href: string }
 interface Props {
@@ -48,6 +49,9 @@ const crumbLd = breadcrumbs.length > 0 && JSON.stringify({
   })),
 });
 const year = new Date().getFullYear();
+// "Homes for sale" pages exist only once the MLS feed is switched on (src/data/listings.ts).
+const homesData = await listingsData;
+const homesForSale = homesData.mode !== 'off' && homesData.listings.length > 0;
 
 const menu = [
   { label: 'Communities', href: '/communities', items: [
@@ -56,8 +60,8 @@ const menu = [
     ['Edina', '/communities/edina'], ['Lakeville', '/communities/lakeville'], ['Plymouth', '/communities/plymouth'],
     ['Woodbury', '/communities/woodbury'], ['Area guides: compare places', '/guides'], ['Lake homes', '/lake-homes'],
   ] },
-  { label: 'Homes', href: site.searchUrl, items: [
-    ['Search all homes', site.searchUrl], ['Buy a home', '/buy'], ['Lake homes', '/lake-homes'], ['Investment property', '/invest'], ['Market reports', '/market'],
+  { label: 'Homes', href: homesForSale ? '/homes-for-sale' : site.searchUrl, items: [
+    ...(homesForSale ? [['Homes for sale by city', '/homes-for-sale']] : []), ['Search all homes', site.searchUrl], ['Buy a home', '/buy'], ['Lake homes', '/lake-homes'], ['Investment property', '/invest'], ['Market reports', '/market'],
   ] },
   { label: 'Sell', href: '/sell', items: [
     ['Sell your home', '/sell'], ['Free home valuation', '/sell#value'], ['Get a cash offer', '/sell#cash'],
@@ -74,7 +78,7 @@ const menu = [
 
 const footerCols = [
   { title: 'Communities', links: [['Minneapolis', '/communities/minneapolis'], ['Saint Paul', '/communities/saint-paul'], ['Burnsville', '/communities/burnsville'], ['Lakeville', '/communities/lakeville'], ['Eagan', '/communities/eagan'], ['Apple Valley', '/communities/apple-valley'], ['Edina', '/communities/edina'], ['Area guides', '/guides'], ['All communities', '/communities']] },
-  { title: 'Homes', links: [['Search all homes', site.searchUrl], ['Buy a home', '/buy'], ['Lake homes', '/lake-homes'], ['Investment property', '/invest'], ['Market reports', '/market']] },
+  { title: 'Homes', links: [...(homesForSale ? [['Homes for sale by city', '/homes-for-sale']] : []), ['Search all homes', site.searchUrl], ['Buy a home', '/buy'], ['Lake homes', '/lake-homes'], ['Investment property', '/invest'], ['Market reports', '/market']] },
   { title: 'Sell', links: [['Sell your home', '/sell'], ['Free home valuation', '/sell#value'], ['Get a cash offer', '/sell#cash']] },
   { title: 'Company', links: [['Our team', '/team'], ['Ramsey ELP', '/ramsey'], ['Reviews', '/reviews'], ['Videos', '/videos'], ['Blog', '/blog'], ['Contact', '/contact']] },
 ];

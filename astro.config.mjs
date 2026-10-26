@@ -3,7 +3,7 @@ import sitemap from '@astrojs/sitemap';
 import { unified } from '@astrojs/markdown-remark';
 import { remarkYoutube } from './src/lib/youtube.mjs';
 import { remarkHeadingFloor } from './src/lib/headings.mjs';
-import { lastmods } from './src/lib/lastmod.mjs';
+import { lastmods, homeLastmod } from './src/lib/lastmod.mjs';
 import sitemapNoindex from './src/lib/sitemap-noindex.mjs';
 
 const changed = lastmods();
@@ -17,7 +17,8 @@ export default defineConfig({
   // The sitemap carries each page's real last-changed date (src/lib/lastmod.mjs).
   integrations: [sitemap({
     serialize(item) {
-      const date = changed.get(new URL(item.url).pathname.replace(/\/$/, '') || '/');
+      const path = new URL(item.url).pathname.replace(/\/$/, '') || '/';
+      const date = changed.get(path) ?? homeLastmod(path);
       return date ? { ...item, lastmod: new Date(date).toISOString() } : item;
     },
   }), sitemapNoindex('https://www.huerkamphomegroup.com')],

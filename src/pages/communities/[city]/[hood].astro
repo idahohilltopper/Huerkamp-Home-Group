@@ -9,6 +9,8 @@ import LineChart from '../../../components/LineChart.astro';
 import YlopoListings from '../../../components/YlopoListings.astro';
 import VideoCard from '../../../components/VideoCard.astro';
 import PostCard from '../../../components/PostCard.astro';
+import HomesStrip from '../../../components/HomesStrip.astro';
+import { listingsData, homesHref } from '../../../data/listings';
 import {
   hoods, hoodKey, hoodHref, hoodByKey, hoodGroup, hoodSearchUrl, hoodWidgetSearch, hasYlopoHood, hoodInfo, hoodGeoUrl, hoodPattern, hoodSources, CITY_NAME, type Hood,
 } from '../../../data/neighborhoods';
@@ -23,6 +25,8 @@ export function getStaticPaths() {
   return hoods.map((h) => ({ params: { city: h.city, hood: h.slug }, props: { h } }));
 }
 const { h } = Astro.props as { h: Hood };
+const homesData = await listingsData;
+const homes = homesData.collections.find((k) => k.path === `${h.city}/${h.slug}` && !k.facet);
 const cityName = CITY_NAME[h.city];
 const key = hoodKey(h);
 const url = `${origin}${hoodHref(h)}`;
@@ -152,11 +156,11 @@ const ld = JSON.stringify([
     </section>
   )}
 
-  {hasYlopoHood(h) && (
+  {(homes || hasYlopoHood(h)) && (
     <section class="section section--paper" id="listings" aria-labelledby="listings-title">
       <div class="wrap">
         <div class="head"><p class="eyebrow">Live MLS listings</p><h2 id="listings-title">Homes for sale in {h.name}</h2></div>
-        <YlopoListings search={hoodWidgetSearch(h)} layout="scroll" moreHref={hoodSearchUrl(h)} moreLabel={`See every ${h.name} listing`} />
+        {homes ? <HomesStrip listings={homes.listings} allHref={homesHref(homes.path)} allLabel={`See all ${homes.listings.length} ${h.name} homes for sale`} collections={homesData.collections} area={homes.path} at={homesData.at} /> : <YlopoListings search={hoodWidgetSearch(h)} layout="scroll" moreHref={hoodSearchUrl(h)} moreLabel={`See every ${h.name} listing`} />}
       </div>
     </section>
   )}

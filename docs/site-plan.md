@@ -394,3 +394,22 @@ Every licensed agent (32) has a site inside the main site, like Sierra Interacti
 - **Areas:** `src/data/agent-sites.json` (`areas`, community slugs) if set; else towns named in their bio (plus the nearest communities when the bio names only one or two); else the team's core south-metro areas (`defaultAreas`).
 - **Lead routing:** forms on an agent's pages send `agentSlug`. A visitor who opens an agent's pages (or any link with `?agent=<slug>`) is "working with" that agent for 30 days: a bar shows the agent at the top of every page, and every form anywhere on the site carries the agent. `src/lib/lead.mjs` then assigns the lead to that agent in Follow Up Boss (`person.assignedTo`, the agent's name or `fubName` in agent-sites.json) and tags it "Team lead" and "Agent site: <name>". Only licensed agents on the team can be assigned. Visitors can dismiss the bar (×), which clears it.
 - **Share links:** agents share huerkamphomegroup.com/team/<their-slug>. For any other page, add `?agent=<their-slug>` (e.g. /lake-homes?agent=jason-oliver).
+
+## Homes for sale pages (/homes-for-sale/..., /homes/<address>), October 2026
+Thousands of pages built from the MLS feed, so we compete with Zillow, Homes.com and Realtor.com on "homes for sale in <place>" searches.
+- **Switch:** nothing is built until `MLS_PUBLIC` is set in Netlify, together with the live `REPLIERS_API_KEY`. `MLS_PUBLIC=preview` builds every page but keeps them out of Google (noindex, left out of the sitemap); `MLS_PUBLIC=yes` makes them public. Set either only after the NorthstarMLS IDX license is approved.
+- **Data:** `src/lib/mls-feed.mjs` downloads every active listing once per build, sorts each into a community, Minneapolis/Saint Paul neighborhood, ZIP and lake (inside 200 m of the DNR shoreline), and drops homes outside our communities.
+- **Pages** (`src/data/listings.ts`):
+  - `/homes-for-sale`: every community with its count.
+  - `/homes-for-sale/<community>` plus narrower pages: 13 price bands, luxury, 6 home types, 3+/4+/5+ bedrooms, new construction, lakefront and 1+ acre.
+  - `/homes-for-sale/<city>/<neighborhood>` with price and type pages.
+  - `/homes-for-sale/zip/<zip>`.
+  - `/homes/<address-mls>`: one page per home, with photos, facts, how its price compares with the same kind of home in the community, its lake, neighborhood and market report, similar homes, and a form that reaches Follow Up Boss as a Property Inquiry with the home attached.
+- **Quality rules:** a page exists only if it has a home. Google sees it only if it has at least 5 homes and is narrower than its parent page, which keeps out thin and duplicate pages. Every page opens with a one-sentence answer, has quick answers (FAQ schema) and adds local facts the portals don't have.
+- **Wiring:**
+  - Community, neighborhood and lake pages show the homes inside the page and link to these pages.
+  - The menu and footer get "Homes for sale by city".
+  - llms.txt lists counts and median prices (live mode only).
+  - Sitemap dates come from each listing's last MLS update.
+- **Freshness:** `netlify/functions/rebuild.mjs` rebuilds the site at 6 AM and 6 PM Central. It needs `BUILD_HOOK_URL` (Netlify > Build & deploy > Build hooks). Each rebuild takes a few minutes of Netlify build time, so check the plan's monthly build minutes.
+- **Testing without the MLS:** run `MLS_FIXTURE=<file of sample listings> npm run build` locally. Netlify refuses the sample file. Pages built from it say "Sample data".

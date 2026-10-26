@@ -1,0 +1,28 @@
+---
+// A few homes for sale, rendered into the page at build time (so search engines and AI crawlers see them),
+// with links to the full homes-for-sale pages. Used on community, neighborhood and lake pages once the MLS feed
+// is on (src/data/listings.ts); pages fall back to the live search widget when it isn't.
+import ListingCard from './ListingCard.astro';
+import { homesHref, FACETS, type Collection, type Listing } from '../data/listings';
+import { mls } from '../data/mls';
+interface Props { listings: Listing[]; allHref: string; allLabel: string; collections?: Collection[]; area?: string; at?: string | null; show?: number }
+const { listings, allHref, allLabel, collections = [], area, at, show = 6 } = Astro.props;
+// Narrower pages for this place that were built, with their counts.
+const facets = area ? FACETS.map((f) => ({ f, k: collections.find((k) => k.path === `${area}/${f.slug}`) })).filter((r) => r.k) : [];
+const updated = at ? new Date(at).toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/Chicago' }) : '';
+---
+<ul class="lcards">{listings.slice(0, show).map((l) => <ListingCard l={l} />)}</ul>
+<p class="hstrip__all"><a class="btn" href={allHref}>{allLabel}</a></p>
+{facets.length > 0 && (
+  <ul class="hstrip__facets">{facets.map(({ f, k }) => <li><a href={homesHref(k!.path)}>{f.label} <em>{k!.listings.length}</em></a></li>)}</ul>
+)}
+<p class="hstrip__notice">{mls.notice}{updated && ` Updated ${updated} (Central).`}</p>
+
+<style>
+  .hstrip__all { margin: 1.5rem 0 0; }
+  .hstrip__facets { list-style: none; margin: 1.25rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: .45rem; }
+  .hstrip__facets a { display: inline-block; padding: .45rem .7rem; border: 1px solid var(--line); background: var(--paper); color: var(--text); font: 500 .85rem/1.2 var(--ui); text-decoration: none; }
+  .hstrip__facets a:hover { border-color: var(--crimson); color: var(--crimson); }
+  .hstrip__facets em { font-style: normal; color: var(--text-soft); font-size: .78rem; }
+  .hstrip__notice { margin-top: 1.25rem; font-size: .72rem; color: var(--text-soft); }
+</style>

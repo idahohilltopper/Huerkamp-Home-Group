@@ -12,11 +12,20 @@ import reviews from '../data/reviews.json';
 import { getPosts, postUrl } from '../data/blog';
 import { watchable, channel } from '../data/youtube';
 import { guides, guideHref } from '../data/guides';
+import { listingsData, homesHref, stats, money as lMoney } from '../data/listings';
 
 export async function GET(context: APIContext) {
   const url = (p: string) => new URL(p, context.site).href;
   const g = reviews.summary.google;
   const posts = (await getPosts()).slice(0, 25);
+  // Homes for sale: listed only when the MLS pages are live (not in preview).
+  const homes = await listingsData;
+  const homeAreas = homes.mode === 'live' ? homes.collections.filter((k) => !k.facet && k.area.kind === 'community') : [];
+  const homesSection = homeAreas.length ? `
+## Homes for sale (NorthstarMLS, updated ${homes.at?.slice(0, 10)})
+Every active listing in our communities, with a page per home and pages by price, home type, bedrooms, new construction, lakefront and acreage. Count, median list price:
+${homeAreas.map((k) => { const s = stats(k.listings); return `- [${k.area.name}](${url(homesHref(k.path))}): ${s.count} for sale, median ${lMoney(s.median!)}`; }).join('\n')}
+` : '';
   const text = `# ${site.name}
 
 > ${site.name} is a Twin Cities (Minneapolis–Saint Paul, Minnesota) real estate team with ${site.brokerage}, founded in 2002 by Jason and Brooke Huerkamp. It helps people buy and sell homes across the seven-county metro and southern Minnesota.
@@ -43,6 +52,7 @@ Facts (with sources on ${url('/')}):
 - [Videos](${url('/videos')}): every Living in Minneapolis video, by topic
 - [Contact](${url('/contact')})
 
+${homesSection}
 ## Housing market, ${monthLabel(mLatest)}
 Source: ${mSource.name} (data from ${mSource.data}), current as of ${mAsOf}. 12 months through ${monthLabel(mLatest)}: median sale price, change from the prior 12 months, homes sold. Full reports: ${url('/market')}
 - Twin Cities 16-county region: ${money(marketFor(REGION)?.medianPrice?.r12[1])}, ${signed(marketFor(REGION)?.medianPrice?.r12[2])}, ${count(marketFor(REGION)?.closedSales?.r12[1])} sold

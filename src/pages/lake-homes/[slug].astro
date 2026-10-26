@@ -5,6 +5,8 @@ import Base from '../../layouts/Base.astro';
 import AreaMap from '../../components/AreaMap.astro';
 import YlopoListings from '../../components/YlopoListings.astro';
 import MlsListings from '../../components/MlsListings.astro';
+import HomesStrip from '../../components/HomesStrip.astro';
+import { listingsData } from '../../data/listings';
 import {
   lakes, lakeHref, lakeCommunities, lakeSearchUrl, lakefrontWidgetSearch, lakeInfo, lakeGeoUrl, lakeSources, INDEX_MIN_ACRES, type Lake,
 } from '../../data/lakes';
@@ -17,6 +19,9 @@ export function getStaticPaths() {
   return lakes.map((l) => ({ params: { slug: l.slug }, props: { l } }));
 }
 const { l } = Astro.props as { l: Lake };
+// With the MLS feed on, this lake's lakefront homes are built into the page; otherwise they load in the browser.
+const homesData = await listingsData;
+const onLake = homesData.mode === 'off' ? null : homesData.listings.filter((x) => x.lakes.includes(l.slug));
 const fmt = (n: number) => n.toLocaleString('en-US');
 const towns = lakeCommunities(l);
 const townNames = towns.map((c) => c.name);
@@ -82,7 +87,19 @@ const ld = JSON.stringify([
     </div>
   </section>
 
-  <MlsListings lake={l.slug} lakeName={l.name} moreHref={lakeSearchUrl(l)} />
+  {!onLake && <MlsListings lake={l.slug} lakeName={l.name} moreHref={lakeSearchUrl(l)} />}
+  {onLake && onLake.length > 0 && (
+    <section class="section" id="on-the-lake" aria-labelledby="onlake-title">
+      <div class="wrap">
+        <div class="head">
+          <p class="eyebrow">MLS listings · on {l.name} only</p>
+          <h2 id="onlake-title">Homes for sale on {l.name}</h2>
+          <p>{onLake.length === 1 ? 'One lakefront home is' : `${onLake.length} lakefront homes are`} for sale on {l.name}: homes the MLS marks as lakefront, inside 200 meters of the DNR shoreline.</p>
+        </div>
+        <HomesStrip listings={onLake} show={12} allHref={lakeSearchUrl(l)} allLabel="See them on the map and save a search" at={homesData.at} />
+      </div>
+    </section>
+  )}
 
   {searchable && (
     <section class="section section--paper" id="listings" aria-labelledby="listings-title">
