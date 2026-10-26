@@ -58,7 +58,7 @@ const menu = [
     ['All communities', '/communities'], ['Minneapolis', '/communities/minneapolis'], ['Saint Paul', '/communities/saint-paul'],
     ['Bloomington', '/communities/bloomington'], ['Burnsville', '/communities/burnsville'], ['Eagan', '/communities/eagan'],
     ['Edina', '/communities/edina'], ['Lakeville', '/communities/lakeville'], ['Plymouth', '/communities/plymouth'],
-    ['Woodbury', '/communities/woodbury'], ['Area guides: compare places', '/guides'], ['Lake homes', '/lake-homes'],
+    ['Woodbury', '/communities/woodbury'], ['Area guides: compare places', '/guides'], ['Compare two cities', '/compare'], ['Lake homes', '/lake-homes'],
   ] },
   { label: 'Homes', href: homesForSale ? '/homes-for-sale' : site.searchUrl, items: [
     ...(homesForSale ? [['Homes for sale by city', '/homes-for-sale']] : []), ['Search all homes', site.searchUrl], ['Buy a home', '/buy'], ['Lake homes', '/lake-homes'], ['Investment property', '/invest'], ['Market reports', '/market'],
@@ -77,7 +77,7 @@ const menu = [
 ] as { label: string; href: string; items?: [string, string][] }[];
 
 const footerCols = [
-  { title: 'Communities', links: [['Minneapolis', '/communities/minneapolis'], ['Saint Paul', '/communities/saint-paul'], ['Burnsville', '/communities/burnsville'], ['Lakeville', '/communities/lakeville'], ['Eagan', '/communities/eagan'], ['Apple Valley', '/communities/apple-valley'], ['Edina', '/communities/edina'], ['Area guides', '/guides'], ['All communities', '/communities']] },
+  { title: 'Communities', links: [['Minneapolis', '/communities/minneapolis'], ['Saint Paul', '/communities/saint-paul'], ['Burnsville', '/communities/burnsville'], ['Lakeville', '/communities/lakeville'], ['Eagan', '/communities/eagan'], ['Apple Valley', '/communities/apple-valley'], ['Edina', '/communities/edina'], ['Area guides', '/guides'], ['Compare cities', '/compare'], ['All communities', '/communities']] },
   { title: 'Homes', links: [...(homesForSale ? [['Homes for sale by city', '/homes-for-sale']] : []), ['Search all homes', site.searchUrl], ['Buy a home', '/buy'], ['Lake homes', '/lake-homes'], ['Investment property', '/invest'], ['Market reports', '/market']] },
   { title: 'Sell', links: [['Sell your home', '/sell'], ['Free home valuation', '/sell#value'], ['Get a cash offer', '/sell#cash']] },
   { title: 'Company', links: [['Our team', '/team'], ['Ramsey ELP', '/ramsey'], ['Reviews', '/reviews'], ['Videos', '/videos'], ['Blog', '/blog'], ['Contact', '/contact']] },

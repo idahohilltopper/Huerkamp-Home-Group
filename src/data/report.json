@@ -359,6 +359,39 @@
       "redfin": null
      },
      "first": "homelight.com"
+    },
+    {
+     "query": "Lakeville vs Apple Valley MN",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": null,
+      "realtor": null,
+      "redfin": null
+     },
+     "first": "stats.mnhockeyhub.com"
+    },
+    {
+     "query": "Eagan vs Burnsville MN",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": null,
+      "realtor": null,
+      "redfin": null
+     },
+     "first": "patch.com"
+    },
+    {
+     "query": "Edina vs Minnetonka",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": null,
+      "realtor": null,
+      "redfin": null
+     },
+     "first": "kstp.com"
     }
    ]
   }

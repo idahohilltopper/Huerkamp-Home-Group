@@ -9,6 +9,8 @@ const root = pathToFileURL(`${process.cwd()}/`);
 const read = (p) => readFileSync(new URL(p, root), 'utf8');
 const max = (dates) => dates.filter(Boolean).sort().at(-1);
 
+let compareDate; // set by lastmods(): pair pages change with the monthly market report
+
 export function lastmods() {
   const map = new Map();
   const posts = readdirSync(new URL('src/content/blog/', root)).filter((f) => f.endsWith('.md')).map((f) => {
@@ -35,6 +37,9 @@ export function lastmods() {
   for (const line of read('src/data/guides.ts').split('\n').filter((l) => /^\s+slug: /.test(l))) {
     for (const [, slug] of line.matchAll(/'([a-z0-9-]+)'/g)) map.set(`/guides/${slug}`, latest.asOf);
   }
+  // Comparison pages are built from the market report and community data.
+  map.set('/compare', latest.asOf);
+  for (const slug of Object.keys(JSON.parse(read('src/data/community-details.json')).communities)) map.set(`/compare/${slug}`, latest.asOf);
   for (const slug of Object.keys(latest.areas)) {
     // Neighborhood keys look like "minneapolis/linden-hills"; their report is on the neighborhood guide.
     map.set(slug.includes('/') ? `/communities/${slug}` : `/market/${slug}`, latest.asOf);
@@ -44,6 +49,7 @@ export function lastmods() {
   for (const slug of Object.keys(details.communities)) {
     map.set(`/communities/${slug}`, max([details.updated, latest.areas[slug] && latest.asOf, ...posts.filter((p) => p.towns.includes(slug)).map((p) => p.date)]));
   }
+  compareDate = latest.asOf;
   return map;
 }
 
@@ -51,6 +57,7 @@ export function lastmods() {
 // A listing's date is its last MLS update; the collection pages change with every download.
 let homes;
 export function homeLastmod(path) {
+  if (path.startsWith('/compare/')) return compareDate;
   if (!path.startsWith('/homes')) return undefined;
   homes ??= (() => {
     const file = new URL('.cache/mls-feed.json', root);

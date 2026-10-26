@@ -10,6 +10,7 @@ import YlopoListings from '../../../components/YlopoListings.astro';
 import VideoCard from '../../../components/VideoCard.astro';
 import PostCard from '../../../components/PostCard.astro';
 import HomesStrip from '../../../components/HomesStrip.astro';
+import { pairsFor, other, compareHref } from '../../../data/compare';
 import { listingsData, homesHref } from '../../../data/listings';
 import {
   hoods, hoodKey, hoodHref, hoodByKey, hoodGroup, hoodSearchUrl, hoodWidgetSearch, hasYlopoHood, hoodInfo, hoodGeoUrl, hoodPattern, hoodSources, CITY_NAME, type Hood,
@@ -286,6 +287,9 @@ const ld = JSON.stringify([
       <ul class="near">
         {neighbors.map((x) => <li><a href={hoodHref(x)}><strong>{x.name}</strong><span>{x.city !== h.city ? `${CITY_NAME[x.city]} · ` : ''}{hasMarket(hoodKey(x)) ? `${moneyK(marketFor(hoodKey(x))?.medianPrice?.r12[1])} median sale` : hoodGroup(x)}</span></a></li>)}
       </ul>
+      {pairsFor(hoodKey(h)).length > 0 && (
+        <p class="compare">Compare side by side: {pairsFor(hoodKey(h)).map((p, i) => <>{i > 0 && ' · '}<a href={compareHref(p)}>{h.name} vs. {other(p, hoodKey(h)).short}</a></>)}</p>
+      )}
       <p class="more"><a class="link-arrow" href={`/communities/${h.city}#neighborhoods`}>All {cityName} neighborhoods</a></p>
     </div>
   </section>
@@ -343,4 +347,6 @@ const ld = JSON.stringify([
   .near span { color: var(--text-soft); font-size: .88rem; }
   .near a:hover strong { color: var(--crimson); }
   .more { margin-top: 1.5rem; }
+  .compare { margin-top: 1.5rem; font-size: .92rem; line-height: 1.8; }
+  .compare a { color: var(--crimson); font-weight: 600; }
 </style>

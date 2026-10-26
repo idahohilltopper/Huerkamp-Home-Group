@@ -413,3 +413,24 @@ Thousands of pages built from the MLS feed, so we compete with Zillow, Homes.com
   - Sitemap dates come from each listing's last MLS update.
 - **Freshness:** `netlify/functions/rebuild.mjs` rebuilds the site at 6 AM and 6 PM Central. It needs `BUILD_HOOK_URL` (Netlify > Build & deploy > Build hooks). Each rebuild takes a few minutes of Netlify build time, so check the plan's monthly build minutes.
 - **Testing without the MLS:** run `MLS_FIXTURE=<file of sample listings> npm run build` locally. Netlify refuses the sample file. Pages built from it say "Sample data".
+
+## Comparison pages (/compare), October 2026
+"Lakeville vs. Apple Valley"-style pages. Web searches for these comparisons today return hockey scores and thin data sites; Zillow, Homes.com, Realtor.com and Redfin aren't in the top 10, so this is open ground.
+- **Pages** (`src/data/compare.ts`, `src/pages/compare/[...path].astro`):
+  - every pair of communities within 15 miles: 2,645 pages at `/compare/<a>-vs-<b>`;
+  - every pair of touching Minneapolis/Saint Paul neighborhoods: 277 pages at `/compare/neighborhoods/<a>-vs-<b>`;
+  - one table per community against all of its neighbors: `/compare/<community>`;
+  - a hub at `/compare`.
+- **Each pair page includes:**
+  - an answer-first summary of price, speed of sale, age of homes and drive to downtown;
+  - side-by-side tables: housing market (Minneapolis Area REALTORS®), the homes (Census ACS) and the place (population, drive times, lakes);
+  - school district names, with no ratings;
+  - quick answers with FAQ schema;
+  - links to both guides, market reports and homes for sale;
+  - more comparisons;
+  - a lead form that reaches Follow Up Boss tagged "Comparing places".
+- **Fair housing:** places are compared only by homes, market and location. Income, age, education and school ratings are never shown.
+- **Indexing:** Google sees a pair only if both places had at least 30 sales in 12 months (20 for neighborhoods), so the numbers are stable. That is 1,959 pages today; the rest stay noindex.
+- **Linking:** community and neighborhood pages link to their comparisons. The Communities menu and footer have "Compare". llms.txt lists the section.
+- **Updates:** pages refresh automatically with the monthly market report. The sitemap date follows the report.
+- **Tracking:** three "vs" searches were added to the weekly portal tracker in the results report.

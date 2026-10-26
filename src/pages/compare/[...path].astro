@@ -1,0 +1,291 @@
+---
+// Comparison pages (src/data/compare.ts):
+//   /compare                           every community, each linking to its own comparison page
+//   /compare/<community>               that community against every community within 15 miles, in one table
+//   /compare/<a>-vs-<b>                two communities side by side
+//   /compare/neighborhoods/<a>-vs-<b>  two neighboring Minneapolis or Saint Paul neighborhoods
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { communities, regions, type Community } from '../../data/areas';
+import { pairs, pairsFor, other, compareHref, hubHref, groups, summary, faq, sideLakes, sideDistricts, sideCounty, compareMonth, PAIR_MILES, MIN_SALES, MIN_HOOD_SALES, type Pair } from '../../data/compare';
+import { marketFor, money, count } from '../../data/market';
+import { communitySearch } from '../../data/ylopo';
+import { hoodByKey, hoodSearchUrl } from '../../data/neighborhoods';
+import { listingsData, homesHref } from '../../data/listings';
+import details from '../../data/community-details.json';
+import { origin } from '../../data/schema';
+import { site } from '../../data/site';
+
+type Props = { kind: 'hub' } | { kind: 'city'; c: Community } | { kind: 'pair'; p: Pair };
+export function getStaticPaths() {
+  return [
+    { params: { path: undefined }, props: { kind: 'hub' } },
+    ...communities.filter((c) => pairsFor(c.slug).length).map((c) => ({ params: { path: c.slug }, props: { kind: 'city', c } })),
+    ...pairs.map((p) => ({ params: { path: p.path }, props: { kind: 'pair', p } })),
+  ];
+}
+const props = Astro.props as Props;
+const D = details.communities as Record<string, any>;
+const homes = await listingsData;
+// Homes-for-sale link for a place: our own pages once the MLS feed is on, the home search until then.
+const homesFor = (key: string, kind: 'community' | 'hood') => {
+  const k = homes.collections.find((x) => x.path === key && !x.facet);
+  if (k) return homesHref(k.path);
+  if (kind === 'hood') { const h = hoodByKey(key); return h ? hoodSearchUrl(h) : site.searchUrl; }
+  return communitySearch(key);
+};
+const r12 = (slug: string, k: 'medianPrice' | 'daysOnMarket' | 'closedSales') => (marketFor(slug)?.[k]?.r12[1] ?? null);
+
+// ---------- hub ----------
+const hubGroups = props.kind === 'hub' ? regions.map((reg) => ({ reg, list: communities.filter((c) => c.region === reg && pairsFor(c.slug).length) })).filter((g) => g.list.length) : [];
+const hoodPairs = props.kind === 'hub' ? pairs.filter((p) => p.kind === 'hood') : [];
+
+// ---------- one community against its neighbors ----------
+const city = props.kind === 'city' ? props.c : null;
+const cityPairs = city ? pairsFor(city.slug).filter((p) => p.kind === 'community') : [];
+const cityRows = city ? [city.slug, ...cityPairs.map((p) => other(p, city.slug).key)].map((slug) => ({
+  c: communities.find((x) => x.slug === slug)!, p: cityPairs.find((x) => other(x, city.slug).key === slug),
+  price: r12(slug, 'medianPrice'), dom: r12(slug, 'daysOnMarket'), sold: r12(slug, 'closedSales'),
+  built: D[slug]?.acs?.medianYearBuilt ?? null, mpls: D[slug]?.driveMinutes?.downtownMinneapolis ?? null,
+})) : [];
+const cheaper = city ? cityRows.filter((r) => r.p && r.price && cityRows[0].price && r.price < cityRows[0].price).length : 0;
+
+// ---------- a pair ----------
+const p = props.kind === 'pair' ? props.p : null;
+const g = p ? groups(p) : [];
+const lede = p ? summary(p) : [];
+const qa = p ? faq(p) : [];
+const morePairs = p ? [p.a, p.b].map((s) => ({ s, list: pairsFor(s.key).filter((x) => x !== p).slice(0, 8) })) : [];
+
+// ---------- page text ----------
+let title: string, h1: string, description: string, eyebrow: string, intro: string, crumbs: { name: string; href: string }[], index = true;
+if (p) {
+  h1 = `${p.a.short} vs. ${p.b.short}`;
+  title = `${p.a.short} vs. ${p.b.short}${p.kind === 'community' ? ', MN' : ''}: Home Prices, Market and Location Compared`;
+  eyebrow = p.kind === 'community' ? `Compare cities · ${compareMonth}` : `Compare neighborhoods · ${compareMonth}`;
+  intro = lede.join(' ');
+  description = `${lede.slice(0, 2).join(' ')} Side-by-side home prices, days on market, homes and drive times for ${p.a.name} and ${p.b.name}.`;
+  crumbs = [{ name: 'Compare', href: '/compare' }, ...(p.kind === 'community' ? [{ name: p.a.short, href: `/compare/${p.a.key}` }] : []), { name: h1, href: compareHref(p) }];
+  index = p.index;
+} else if (city) {
+  h1 = `${city.name} compared with nearby cities`;
+  title = `${city.name}, MN vs. Nearby Cities: Home Prices, Market and Drive Times`;
+  eyebrow = `Compare · ${compareMonth}`;
+  intro = cityRows[0].price
+    ? `Homes in ${city.name} sold for a median ${money(cityRows[0].price)} over the 12 months through ${compareMonth}. ${cheaper} of the ${cityPairs.length} cities within ${PAIR_MILES} miles had a lower median price. Pick any city for a full side-by-side comparison.`
+    : `${city.name} against the ${cityPairs.length} cities within ${PAIR_MILES} miles. Pick any city for a full side-by-side comparison.`;
+  description = `${intro} Median sale price, days on market, age of homes and drive times, from NorthstarMLS and Census data.`;
+  crumbs = [{ name: 'Compare', href: '/compare' }, { name: city.name, href: hubHref(city) }];
+  index = cityRows.filter((r) => (r.sold ?? 0) >= MIN_SALES).length >= 3;
+} else {
+  h1 = 'Compare Twin Cities communities';
+  title = 'Compare Twin Cities Cities and Neighborhoods Side by Side';
+  eyebrow = `Compare · ${compareMonth}`;
+  intro = `${pairs.filter((x) => x.kind === 'community').length.toLocaleString('en-US')} side-by-side comparisons of nearby cities and ${hoodPairs.length} of neighboring Minneapolis and Saint Paul neighborhoods: home prices, how fast homes sell, the age and type of homes, drive times and lakes. Updated monthly.`;
+  description = intro;
+  crumbs = [{ name: 'Compare', href: '/compare' }];
+}
+const url = `${origin}${Astro.url.pathname.replace(/\.html$/, '')}`;
+const ld = p ? JSON.stringify([
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: qa.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+  { '@context': 'https://schema.org', '@type': 'WebPage', '@id': url, url, name: h1, description,
+    about: [p.a, p.b].map((s) => ({ '@type': 'Place', name: s.name, url: `${origin}${s.href}` })), publisher: { '@id': `${origin}/#organization` } },
+]) : null;
+---
+<Base breadcrumbs={crumbs} title={`${title} | ${site.name}`} description={description} noindex={!index}>
+  {ld && <script slot="head" type="application/ld+json" set:html={ld} />}
+  <PageHero eyebrow={eyebrow} title={h1} lede={intro} />
+
+  {props.kind === 'hub' && (
+    <section class="section">
+      <div class="wrap">
+        <p class="how">Pick a city to see it against every city within {PAIR_MILES} miles, then open any pair for the full comparison. Places are compared only by their homes, housing market and location.</p>
+        {hubGroups.map((grp) => (
+          <div class="hub-group">
+            <h2>{grp.reg}</h2>
+            <ul class="hub">{grp.list.map((c) => <li><a href={hubHref(c)}><strong>{c.name}</strong><span>vs. {pairsFor(c.slug).filter((x) => x.kind === 'community').length} nearby cities</span></a></li>)}</ul>
+          </div>
+        ))}
+        <div class="hub-group">
+          <h2>Minneapolis and Saint Paul neighborhoods</h2>
+          <ul class="chips">{hoodPairs.sort((x, y) => x.a.short.localeCompare(y.a.short)).map((x) => <li><a href={compareHref(x)}>{x.a.short} vs. {x.b.short}</a></li>)}</ul>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {city && (
+    <section class="section">
+      <div class="wrap">
+        <div class="table-scroll">
+          <table class="data">
+            <caption class="visually-hidden">{city.name} and nearby cities</caption>
+            <thead><tr><th scope="col">City</th><th class="num" scope="col">Median sale price</th><th class="num" scope="col">Days on market</th><th class="num" scope="col">Homes sold</th><th class="num" scope="col">Median year built</th><th class="num" scope="col">To downtown Mpls</th><th scope="col">Compare</th></tr></thead>
+            <tbody>
+              {cityRows.map((r) => (
+                <tr class={r.p ? undefined : 'self'}>
+                  <th scope="row"><a href={`/communities/${r.c.slug}`}>{r.c.name}</a>{r.p && <span class="mi">{Math.round(r.p.miles)} mi</span>}</th>
+                  <td class="num">{r.price ? money(r.price) : '—'}</td>
+                  <td class="num">{count(r.dom)}</td>
+                  <td class="num">{count(r.sold)}</td>
+                  <td class="num">{r.built ?? '—'}</td>
+                  <td class="num">{r.mpls != null ? `${r.mpls} min` : '—'}</td>
+                  <td>{r.p ? <a class="cmp" href={compareHref(r.p)}>{city.name} vs. {r.c.name}</a> : <span class="cmp-self">This city</span>}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="source">Sale price, days on market and homes sold: Minneapolis Area REALTORS® Local Market Update (NorthstarMLS data), 12 months through {compareMonth}. Year built: US Census Bureau, American Community Survey 2020–2024. Drive times: OpenStreetMap routing, light traffic. Cities within {PAIR_MILES} miles, closest first.</p>
+        <p class="links"><a class="link-arrow" href={`/communities/${city.slug}`}>{city.name} community guide</a> <a class="link-arrow" href={homesFor(city.slug, 'community')}>{city.name} homes for sale</a></p>
+      </div>
+    </section>
+  )}
+
+  {p && (
+    <>
+      <section class="section">
+        <div class="wrap">
+          <div class="vs">
+            {[p.a, p.b].map((s) => (
+              <div class="vs__side">
+                <p class="vs__sub">{sideCounty(s)}</p>
+                <h2><a href={s.href}>{s.short}</a></h2>
+                <p class="vs__price">{marketFor(s.key)?.medianPrice?.r12[1] ? money(marketFor(s.key)!.medianPrice!.r12[1]) : '—'}<span>median sale price</span></p>
+                <p class="vs__links"><a href={homesFor(s.key, s.kind)}>Homes for sale</a>{s.marketHref && <a href={s.marketHref}>Market report</a>}<a href={s.href}>{s.kind === 'community' ? 'Community' : 'Neighborhood'} guide</a></p>
+              </div>
+            ))}
+          </div>
+
+          {g.map((grp) => (
+            <div class="cmp-group">
+              <h2>{grp.title}</h2>
+              <div class="table-scroll">
+                <table class="data cmp-table">
+                  <thead><tr><th scope="col"><span class="visually-hidden">Measure</span></th><th class="num" scope="col">{p.a.short}</th><th class="num" scope="col">{p.b.short}</th></tr></thead>
+                  <tbody>{grp.rows.map((r) => <tr><th scope="row">{r.label}{r.note && <span class="note">{r.note}</span>}</th><td class="num">{r.a}</td><td class="num">{r.b}</td></tr>)}</tbody>
+                </table>
+              </div>
+              <p class="source">Source: {grp.source}.</p>
+            </div>
+          ))}
+
+          {p.kind === 'community' && (
+            <div class="places">
+              {[p.a, p.b].map((s) => (
+                <div>
+                  <h3>{s.short}</h3>
+                  {sideDistricts(s).length > 0 && <p><strong>School districts:</strong> {sideDistricts(s).join(', ')}</p>}
+                  {sideLakes(s).length > 0 && <p><strong>Largest lakes:</strong> {sideLakes(s).map((l, i) => <>{i > 0 && ', '}<a href={l.href}>{l.name}</a> ({l.acres.toLocaleString('en-US')} acres)</>)}</p>}
+                </div>
+              ))}
+            </div>
+          )}
+          <p class="how">How we compare places: by their homes, housing market and location only, from public sources, never by who lives there. Medians describe the middle home; both places have homes well above and below them.</p>
+        </div>
+      </section>
+
+      <section class="section section--paper" aria-labelledby="faq-title">
+        <div class="wrap faq">
+          <div class="head"><p class="eyebrow">Quick answers</p><h2 id="faq-title">{p.a.short} or {p.b.short}?</h2></div>
+          {qa.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="more-title">
+        <div class="wrap">
+          <div class="head"><p class="eyebrow">Keep comparing</p><h2 id="more-title">More comparisons</h2></div>
+          <div class="more-cols">
+            {morePairs.map(({ s, list }) => list.length > 0 && (
+              <div>
+                <h3>{s.short} vs.</h3>
+                <ul class="chips">{list.map((x) => <li><a href={compareHref(x)}>{other(x, s.key).short}</a></li>)}</ul>
+                {s.kind === 'community' && <p><a class="link-arrow" href={`/compare/${s.key}`}>{s.short} against every nearby city</a></p>}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--dark" id="contact" aria-labelledby="contact-title">
+        <div class="wrap split">
+          <div class="prose">
+            <p class="eyebrow">Deciding between them?</p>
+            <h2 id="contact-title">See homes in {p.a.short} <em>and {p.b.short}.</em></h2>
+            <p>A {site.name} agent can show you homes in both, tell you what's selling and for how much right now, and help you decide. There's no cost to buyers.</p>
+            <p><a href={site.phoneHref}>{site.phone}</a></p>
+          </div>
+          <form class="form" data-lead="compare">
+            <input type="hidden" name="interest" value={`Comparing ${p.a.name} and ${p.b.name}`} />
+            <div class="form__row">
+              <div class="field"><label for="cp-first">First name</label><input id="cp-first" name="firstName" autocomplete="given-name" required /></div>
+              <div class="field"><label for="cp-last">Last name</label><input id="cp-last" name="lastName" autocomplete="family-name" required /></div>
+            </div>
+            <div class="form__row">
+              <div class="field"><label for="cp-email">Email</label><input id="cp-email" name="email" type="email" autocomplete="email" required /></div>
+              <div class="field"><label for="cp-phone">Phone</label><input id="cp-phone" name="phone" type="tel" autocomplete="tel" /></div>
+            </div>
+            <div class="field">
+              <label for="cp-goal">I want to</label>
+              <select id="cp-goal" name="goal"><option value="">Choose one</option><option>Buy</option><option>Sell</option><option>Buy and sell</option></select>
+            </div>
+            <div class="field"><label for="cp-msg">Anything else?</label><textarea id="cp-msg" name="message"></textarea></div>
+            <button class="btn" type="submit">Talk to an agent</button>
+            <p class="form__status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </>
+  )}
+</Base>
+
+<style>
+  .how { max-width: 52rem; color: var(--text-soft); font-size: .92rem; }
+  .head { margin-bottom: 1.5rem; }
+  .hub-group { margin-top: 2.5rem; }
+  .hub-group h2 { margin: 0 0 1rem; font: 500 1.6rem/1.2 var(--serif); }
+  .hub { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); gap: .6rem; }
+  .hub a { display: grid; gap: .15rem; padding: .85rem 1rem; border: 1px solid var(--line); background: var(--paper); color: var(--text); text-decoration: none; }
+  .hub a:hover strong { color: var(--crimson); }
+  .hub span { font-size: .82rem; color: var(--text-soft); }
+  .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .45rem; }
+  .chips a { display: inline-block; padding: .45rem .75rem; border: 1px solid var(--line); background: var(--paper); color: var(--text); font: 500 .86rem/1.2 var(--ui); text-decoration: none; }
+  .chips a:hover { border-color: var(--crimson); color: var(--crimson); }
+  .table-scroll { position: relative; overflow-x: auto; }
+  .data { width: 100%; border-collapse: collapse; font-size: .95rem; background: var(--paper); }
+  .data th, .data td { padding: .6rem .8rem; border-bottom: 1px solid var(--line); text-align: left; }
+  .data thead th { font: 700 .72rem/1.3 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--text-soft); white-space: nowrap; }
+  .data .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .data tbody th { font-weight: 600; }
+  .data tbody th a { color: var(--text); }
+  .data .self { background: var(--sand); }
+  .mi { display: block; font: 500 .75rem/1.2 var(--ui); color: var(--text-soft); }
+  .cmp { color: var(--crimson); font-weight: 600; white-space: nowrap; }
+  .cmp-self { font-size: .82rem; color: var(--text-soft); }
+  .source { margin-top: .6rem; font-size: .75rem; color: var(--text-soft); }
+  .links { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 1.5rem; }
+  .vs { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); margin-bottom: 2.5rem; }
+  .vs__side { padding: 1.25rem 1.5rem; background: var(--paper); }
+  .vs__sub { margin: 0; font: 700 .68rem/1.3 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--text-soft); }
+  .vs__side h2 { margin: .25rem 0 .5rem; font: 500 clamp(1.5rem, 3vw, 2.1rem)/1.1 var(--serif); }
+  .vs__side h2 a { color: var(--text); text-decoration: none; }
+  .vs__price { margin: 0; font: 500 clamp(1.4rem, 3vw, 1.9rem)/1.2 var(--serif); color: var(--crimson); }
+  .vs__price span { display: block; font: 600 .75rem/1.3 var(--ui); color: var(--text-soft); }
+  .vs__links { display: flex; flex-wrap: wrap; gap: .3rem 1rem; margin: .8rem 0 0; font-size: .86rem; }
+  .vs__links a { color: var(--crimson); font-weight: 600; }
+  @media (max-width: 560px) { .vs__side { padding: 1rem; } }
+  .cmp-group { margin-bottom: 2.25rem; }
+  .cmp-group h2 { margin: 0 0 .75rem; font: 500 1.45rem/1.2 var(--serif); }
+  .cmp-table th[scope='row'] { width: 50%; }
+  .note { display: block; font: 400 .75rem/1.3 var(--ui); color: var(--text-soft); }
+  .places { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 1.5rem; }
+  @media (max-width: 700px) { .places { grid-template-columns: 1fr; } }
+  .places h3 { margin: 0 0 .5rem; font: 500 1.3rem/1.2 var(--serif); }
+  .places p { font-size: .92rem; }
+  .more-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  @media (max-width: 700px) { .more-cols { grid-template-columns: 1fr; } }
+  .more-cols h3 { margin: 0 0 .75rem; font: 500 1.3rem/1.2 var(--serif); }
+  .more-cols p { margin-top: 1rem; }
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+</style>

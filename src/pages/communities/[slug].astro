@@ -21,6 +21,7 @@ import { site } from '../../data/site';
 import { communitySearch, searchUrl, ylopoPlace } from '../../data/ylopo';
 import PostCard from '../../components/PostCard.astro';
 import HomesStrip from '../../components/HomesStrip.astro';
+import { pairsFor, other, compareHref } from '../../data/compare';
 import { listingsData, homesHref } from '../../data/listings';
 import { getPosts, postsAbout } from '../../data/blog';
 import { hoodsIn, hoodHref, hoodKey, hoodInfo, hoodGeoUrl } from '../../data/neighborhoods';
@@ -33,6 +34,7 @@ const { c } = Astro.props as { c: Community };
 // Homes for sale from the MLS feed, once it's switched on: shown in the page itself, linking to /homes-for-sale.
 const homesData = await listingsData;
 const homes = homesData.collections.find((k) => k.path === c.slug && !k.facet);
+const comparisons = pairsFor(c.slug).filter((p) => p.kind === 'community').slice(0, 10);
 const d = (detailData.communities as any)[c.slug];
 const a = d.acs;
 const county = (detailData.baselines.counties as any)[d.primaryCounty.fips];
@@ -708,6 +710,13 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
           </a>
         ))}
       </div>
+      {comparisons.length > 0 && (
+        <>
+          <h3 class="subhead">Compare {c.name} side by side</h3>
+          <ul class="chips">{comparisons.map((p) => <li><a class="chip" href={compareHref(p)}>{c.name} vs. {other(p, c.slug).short}</a></li>)}</ul>
+          <p><a class="link-arrow" href={`/compare/${c.slug}`}>{c.name} against every nearby city</a></p>
+        </>
+      )}
     </div>
   </section>
 </Base>
