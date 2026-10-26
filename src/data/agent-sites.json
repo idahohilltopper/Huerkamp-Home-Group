@@ -1,0 +1,23 @@
+{
+ "about": "Settings for each agent's site (/team/<slug>). Optional per agent, keyed by the slug in their page address. areas: community slugs they serve, most important first (otherwise taken from their bio, else the team's core south-metro areas). fubName: their user name in Follow Up Boss exactly, if it differs from the name on the website (leads from their site are assigned to that name).",
+ "defaultAreas": [
+  "burnsville",
+  "lakeville",
+  "apple-valley",
+  "eagan",
+  "savage",
+  "prior-lake"
+ ],
+ "agents": {
+  "brooke-huerkamp": {
+   "areas": [
+    "burnsville",
+    "lakeville",
+    "apple-valley",
+    "eagan",
+    "savage",
+    "prior-lake"
+   ]
+  }
+ }
+}

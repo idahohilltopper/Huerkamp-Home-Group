@@ -16,6 +16,7 @@ import cormorantMedium from '@fontsource/cormorant-garamond/files/cormorant-gara
 import '../styles/global.css';
 import { site } from '../data/site';
 import { business, website } from '../data/schema';
+import { agentDirectory } from '../data/agents';
 
 interface Crumb { name: string; href: string }
 interface Props {
@@ -164,6 +165,10 @@ const isExternal = (href: string) => href.startsWith('http');
     </div>
   </header>
 
+  <!-- "Working with" an agent: shown after a visitor arrives through an agent's site (filled in by the script below). -->
+  <div class="agentbar" id="agentbar" hidden></div>
+  <script type="application/json" id="agent-dir" set:html={JSON.stringify(agentDirectory)} />
+
   <main id="main">
     <slot />
   </main>
@@ -206,6 +211,26 @@ const isExternal = (href: string) => href.startsWith('http');
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
     }
 
+    // Agent sites: a visitor who opens an agent's pages (/team/<slug>…) or a link with ?agent=<slug> is working with
+    // that agent for 30 days. Their forms anywhere on the site are assigned to the agent (src/lib/lead.mjs).
+    const AGENT_KEY = 'hhg-agent', DAYS30 = 30 * 864e5;
+    const dir = JSON.parse(document.getElementById('agent-dir')?.textContent ?? '{}');
+    const store = {
+      get: () => { try { const v = JSON.parse(localStorage.getItem(AGENT_KEY) ?? 'null'); return v && Date.now() - v.at < DAYS30 && dir[v.slug] ? v.slug : null; } catch { return null; } },
+      set: (slug: string | null) => { try { slug ? localStorage.setItem(AGENT_KEY, JSON.stringify({ slug, at: Date.now() })) : localStorage.removeItem(AGENT_KEY); } catch {} },
+    };
+    const fromUrl = new URLSearchParams(location.search).get('agent') ?? location.pathname.match(/^\/team\/([a-z0-9-]+)/)?.[1];
+    if (fromUrl && dir[fromUrl]) store.set(fromUrl);
+    const working = store.get();
+    const bar = document.getElementById('agentbar');
+    if (working && bar) {
+      const a = dir[working];
+      const esc = (s: string) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+      bar.innerHTML = `<div class="agentbar__inner"><img src="${esc(a.photo)}" alt="" width="32" height="32" /><span>You're working with <a href="${esc(a.href)}">${esc(a.name)}</a></span><a class="agentbar__tel" href="tel:+1${a.phone.replace(/\D/g, '')}">${esc(a.phone)}</a><button type="button" aria-label="Stop working with ${esc(a.first)}">×</button></div>`;
+      bar.hidden = false;
+      bar.querySelector('button')?.addEventListener('click', () => { store.set(null); bar.hidden = true; });
+    }
+
     // Forms: send to Follow Up Boss through /api/lead (netlify/functions/lead.mjs).
     const loadedAt = Date.now();
     document.querySelectorAll<HTMLFormElement>('form[data-lead]').forEach((form) => {
@@ -222,6 +247,8 @@ const isExternal = (href: string) => href.startsWith('http');
         e.preventDefault();
         const data = Object.fromEntries(new FormData(form)) as Record<string, string>;
         const { website_url: hp = '', ...fields } = data;
+        const agentNow = store.get();
+        if (agentNow && !fields.agentSlug) fields.agentSlug = agentNow;
         if (button) { button.disabled = true; button.dataset.label = button.textContent ?? ''; button.textContent = 'Sending…'; }
         if (status) status.textContent = '';
         try {

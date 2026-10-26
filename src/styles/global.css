@@ -177,3 +177,13 @@ p { margin: 0; }
 .consent input { margin-top: .2rem; width: 1.05rem; height: 1.05rem; accent-color: var(--crimson); }
 .consent__privacy { font-size: .78rem; color: var(--text-soft); }
 .consent__privacy a { color: inherit; }
+
+/* "You're working with …" bar (agent sites; see Base.astro) */
+.agentbar { background: var(--night); color: var(--on-dark); border-bottom: 3px solid var(--crimson); }
+.agentbar[hidden] { display: none; }
+.agentbar__inner { max-width: var(--wrap); margin: 0 auto; padding: .45rem var(--gutter); display: flex; align-items: center; gap: .75rem; font: 600 .85rem/1.3 var(--ui); }
+.agentbar img { width: 2rem; height: 2rem; border-radius: 50%; object-fit: cover; background: var(--sand); }
+.agentbar a { color: #fff; }
+.agentbar__tel { margin-left: auto; white-space: nowrap; }
+.agentbar button { background: none; border: 0; color: var(--on-dark); font-size: 1.3rem; line-height: 1; cursor: pointer; padding: .2rem .4rem; }
+.agentbar button:hover { color: #fff; }

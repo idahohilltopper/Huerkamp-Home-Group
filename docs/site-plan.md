@@ -384,3 +384,12 @@ A private page (noindex, not linked, left out of the sitemap) showing what the s
   - `visibility`: the same 10 buyer/seller searches each week; does our site come up, are we named elsewhere, who ranks first. Never edit past entries.
   - `social`: follower/view/post counts per platform (YouTube from vidIQ; other platforms once their handles are known).
 - **The website:** page counts by type and pages with a real change in the last 7/30 days (the sitemap's dates).
+
+## Agent sites (/team/<agent>, /team/<agent>/sell, /team/<agent>/buy), October 2026
+
+Every licensed agent (32) has a site inside the main site, like Sierra Interactive's agent subsites, so every link to an agent also strengthens huerkamphomegroup.com.
+- **Home** (/team/<agent>, indexed when the agent has a bio or reviews): photo, bio, license, verbatim reviews, the areas they serve with this month's market numbers, newest listings there, contact form, and links to their Sell and Buy pages.
+- **Sell** (/team/<agent>/sell) and **Buy** (/team/<agent>/buy): home-value form and new-listing alerts with searches in their areas. Noindex: they're near-identical for every agent.
+- **Areas:** `src/data/agent-sites.json` (`areas`, community slugs) if set; else towns named in their bio (plus the nearest communities when the bio names only one or two); else the team's core south-metro areas (`defaultAreas`).
+- **Lead routing:** forms on an agent's pages send `agentSlug`. A visitor who opens an agent's pages (or any link with `?agent=<slug>`) is "working with" that agent for 30 days: a bar shows the agent at the top of every page, and every form anywhere on the site carries the agent. `src/lib/lead.mjs` then assigns the lead to that agent in Follow Up Boss (`person.assignedTo`, the agent's name or `fubName` in agent-sites.json) and tags it "Team lead" and "Agent site: <name>". Only licensed agents on the team can be assigned. Visitors can dismiss the bar (×), which clears it.
+- **Share links:** agents share huerkamphomegroup.com/team/<their-slug>. For any other page, add `?agent=<their-slug>` (e.g. /lake-homes?agent=jason-oliver).

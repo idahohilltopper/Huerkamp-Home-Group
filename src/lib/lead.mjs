@@ -1,7 +1,14 @@
 // Turns a website form submission into a Follow Up Boss event.
 // Used by netlify/functions/lead.mjs; kept separate so it can be tested without sending anything.
 
+import team from '../data/team.json' with { type: 'json' };
+import sites from '../data/agent-sites.json' with { type: 'json' };
+
 export const SOURCE = 'huerkamphomegroup.com';
+
+// Agents who can be assigned leads from their agent site (licensed agents only, matched by page slug).
+export const AGENTS = Object.fromEntries(team.members.filter((m) => /realtor|broker/i.test(m.title ?? ''))
+  .map((m) => [m.profileUrl.split('/').pop(), { name: m.name, fubName: sites.agents[m.profileUrl.split('/').pop()]?.fubName ?? m.name }]));
 
 // One entry per form (the form's data-lead attribute). `type` is the Follow Up Boss event type;
 // `tags` are added to the person. Seller forms carry "Seller lead" so Fello can pick them up.
@@ -60,6 +67,9 @@ export function buildEvent(input) {
   if (buys) tags.add('Buyer lead');
   if (f.community) tags.add(f.community);
   if (f.agent) tags.add(`Asked for ${clean(f.agent, 60)}`);
+  // From an agent's site (or a visitor who came through it): assign to that agent, credit the team.
+  const agentSite = AGENTS[String(f.agentSlug ?? '').toLowerCase()];
+  if (agentSite) { tags.add('Team lead'); tags.add(`Agent site: ${agentSite.name}`); }
   // Text-message consent is opt-in only (unchecked box on every form).
   if (f.smsConsent === 'yes') tags.add('SMS consent');
   if (f.lake) tags.add(f.lake);
@@ -69,7 +79,8 @@ export function buildEvent(input) {
   const details = Object.entries(f)
     .filter(([k, v]) => v && !CONTACT.has(k) && LABELS[k])
     .map(([k, v]) => `${LABELS[k]}: ${v}`)
-    .concat(f.smsConsent === 'yes' ? ['Agreed to receive text messages (website checkbox)'] : []);
+    .concat(f.smsConsent === 'yes' ? ['Agreed to receive text messages (website checkbox)'] : [])
+    .concat(agentSite ? [`Came through ${agentSite.name}'s agent site: assigned to ${agentSite.fubName}, team lead`] : []);
   const pageUrl = page ? `https://www.huerkamphomegroup.com${clean(page, 300)}` : undefined;
   const message = [`${cfg.label}${title ? ` on "${clean(title, 200)}"` : ''}`, ...details].join('\n');
 
@@ -86,6 +97,7 @@ export function buildEvent(input) {
       emails: [{ value: f.email }],
       ...(f.phone && { phones: [{ value: f.phone }] }),
       tags: [...tags],
+      ...(agentSite && { assignedTo: agentSite.fubName }),
     },
     ...(f.address && { property: { street: f.address } }),
   };

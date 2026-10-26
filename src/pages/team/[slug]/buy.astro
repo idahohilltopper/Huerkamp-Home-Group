@@ -1,0 +1,89 @@
+---
+// An agent's "Buy with me" page (part of their agent site): new-listing alerts and home searches in their areas.
+// Alerts requested here are assigned to the agent in Follow Up Boss and tagged "Team lead". Stays out of search results.
+import Base from '../../../layouts/Base.astro';
+import TeamPhoto from '../../../components/TeamPhoto.astro';
+import YlopoListings from '../../../components/YlopoListings.astro';
+import { agents, slugOf, agentHref, agentSiteHref, firstName, agentAreas, reviewsFor, type Member } from '../../../data/agents';
+import { communities } from '../../../data/areas';
+import { communitySearch, ylopoPlace, searchUrl } from '../../../data/ylopo';
+import { site } from '../../../data/site';
+
+export function getStaticPaths() {
+  return agents.map((m) => ({ params: { slug: slugOf(m) }, props: { m } }));
+}
+const { m } = Astro.props as { m: Member };
+const first = firstName(m);
+const areas = agentAreas(m);
+const reviews = reviewsFor(m);
+const tel = `tel:+1${m.phone.replace(/\D/g, '')}`;
+const places = areas.list.map((c) => ylopoPlace(c.slug)).filter((p) => p.city || p.zips);
+const others = communities.filter((c) => !areas.list.some((a) => a.slug === c.slug)).sort((a, b) => a.name.localeCompare(b.name));
+const prices = ['$300,000', '$400,000', '$500,000', '$600,000', '$750,000', '$1,000,000', '$1,500,000'];
+---
+<Base breadcrumbs={[{ name: 'Our team', href: '/team' }, { name: m.name, href: agentHref(m) }, { name: 'Buy', href: agentSiteHref(m, 'buy') }]}
+  title={`Buy a Home with ${m.name} | ${site.name}`} description={`Search Twin Cities homes and get new listings first with ${m.name}, ${m.title} with ${site.name}.`} image={m.photo} noindex>
+  <section class="agent-hero">
+    <div class="wrap agent-hero__grid">
+      <TeamPhoto photo={m.photo} alt={m.name} size={320} sizes="9rem" loading="eager" />
+      <div>
+        <p class="eyebrow">Buy with {first}</p>
+        <h1>Find your next home.</h1>
+        <p>Get new listings the day they hit the market, search every home for sale, and have {first} on your side from first showing to closing.</p>
+        <p class="agent-hero__links"><a href={agentHref(m)}>About {first}</a>{reviews.length > 0 && <a href={`${agentHref(m)}#reviews`}>{reviews.length} five-star {reviews.length === 1 ? 'review' : 'reviews'}</a>}<a href={tel}>{m.phone}</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="alert-title">
+    <div class="wrap split">
+      <div class="prose">
+        <h2 id="alert-title">Get new listings first</h2>
+        <p>Pick an area and a price, and {first} will set up alerts so you see new homes as soon as they're listed.</p>
+        <p class="searches">{areas.list.map((c) => <a href={communitySearch(c.slug)} rel="noopener">Homes for sale in {c.name}</a>)}</p>
+        <p>New to buying? See <a href="/buy">how buying with our team works</a>.</p>
+      </div>
+      <form class="form" data-lead="community-alert">
+        <input type="hidden" name="agent" value={m.name} />
+        <input type="hidden" name="agentSlug" value={slugOf(m)} />
+        <div class="form__row">
+          <div class="field"><label for="ba-first">First name</label><input id="ba-first" name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for="ba-last">Last name</label><input id="ba-last" name="lastName" autocomplete="family-name" required /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="ba-email">Email</label><input id="ba-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="ba-phone">Phone</label><input id="ba-phone" name="phone" type="tel" autocomplete="tel" /></div>
+        </div>
+        <div class="form__row">
+          <div class="field">
+            <label for="ba-area">Area</label>
+            <select id="ba-area" name="community">
+              <optgroup label={areas.own ? `${first}'s areas` : 'Near our office'}>{areas.list.map((c) => <option>{c.name}</option>)}</optgroup>
+              <optgroup label="All communities">{others.map((c) => <option>{c.name}</option>)}</optgroup>
+            </select>
+          </div>
+          <div class="field">
+            <label for="ba-price">Max price</label>
+            <select id="ba-price" name="maxPrice"><option value="">Any</option>{prices.map((p) => <option>{p}</option>)}</select>
+          </div>
+        </div>
+        <button class="btn" type="submit">Send me new listings</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  {places.length > 0 && (
+    <section class="section section--paper" aria-labelledby="new-title">
+      <div class="wrap">
+        <div class="head"><p class="eyebrow">Live MLS listings</p><h2 id="new-title">Newest homes in {areas.own ? `${first}'s areas` : 'these areas'}</h2></div>
+        <YlopoListings search={{ locations: places.flatMap((p) => (p.city ? [{ city: p.city, state: 'MN' }] : (p.zips ?? []).map((z) => ({ postalCode: z })))), limit: 12 }} moreHref={searchUrl(places)} moreLabel="Search all of them" />
+      </div>
+    </section>
+  )}
+</Base>
+
+<style is:global>
+  .searches { display: flex; flex-wrap: wrap; gap: .4rem 1rem; }
+  .searches a { color: var(--crimson); font-weight: 600; }
+</style>

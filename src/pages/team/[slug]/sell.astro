@@ -1,0 +1,93 @@
+---
+// An agent's "Sell with me" page (part of their agent site). Home-value requests from here are assigned to the
+// agent in Follow Up Boss and tagged "Team lead". Near-identical for every agent, so it stays out of search results.
+import Base from '../../../layouts/Base.astro';
+import TeamPhoto from '../../../components/TeamPhoto.astro';
+import { agents, slugOf, agentHref, agentSiteHref, firstName, agentAreas, reviewsFor, type Member } from '../../../data/agents';
+import { hasMarket, marketFor, latest, monthLabel, money, count, signed } from '../../../data/market';
+import { site } from '../../../data/site';
+
+export function getStaticPaths() {
+  return agents.map((m) => ({ params: { slug: slugOf(m) }, props: { m } }));
+}
+const { m } = Astro.props as { m: Member };
+const first = firstName(m);
+const areas = agentAreas(m);
+const reviews = reviewsFor(m);
+const tel = `tel:+1${m.phone.replace(/\D/g, '')}`;
+---
+<Base breadcrumbs={[{ name: 'Our team', href: '/team' }, { name: m.name, href: agentHref(m) }, { name: 'Sell', href: agentSiteHref(m, 'sell') }]}
+  title={`Sell Your Home with ${m.name} | ${site.name}`} description={`Get a free home value from ${m.name}, ${m.title} with ${site.name} at ${site.brokerage}.`} image={m.photo} noindex>
+  <section class="agent-hero">
+    <div class="wrap agent-hero__grid">
+      <TeamPhoto photo={m.photo} alt={m.name} size={320} sizes="9rem" loading="eager" />
+      <div>
+        <p class="eyebrow">Sell with {first}</p>
+        <h1>What's your home worth?</h1>
+        <p>{first} will prepare a free, no-obligation value for your home from recent sales near you, and walk you through what selling would look like.</p>
+        <p class="agent-hero__links"><a href={agentHref(m)}>About {first}</a>{reviews.length > 0 && <a href={`${agentHref(m)}#reviews`}>{reviews.length} five-star {reviews.length === 1 ? 'review' : 'reviews'}</a>}<a href={tel}>{m.phone}</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="value-title">
+    <div class="wrap split">
+      <div class="prose">
+        <h2 id="value-title">Request your home value</h2>
+        <p>Tell {first} where your home is and when you might sell. You'll hear back personally, usually the same day.</p>
+        <p>{site.name} has helped Twin Cities families buy and sell since 2002. See <a href="/sell">how we market and sell homes</a>.</p>
+        <p><a href={tel}>{m.phone}</a> · <a href={`mailto:${m.email}`}>{m.email}</a></p>
+      </div>
+      <form class="form" data-lead="home-value">
+        <input type="hidden" name="agent" value={m.name} />
+        <input type="hidden" name="agentSlug" value={slugOf(m)} />
+        <div class="field"><label for="sv-address">Home address</label><input id="sv-address" name="address" autocomplete="street-address" required /></div>
+        <div class="form__row">
+          <div class="field"><label for="sv-first">First name</label><input id="sv-first" name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for="sv-last">Last name</label><input id="sv-last" name="lastName" autocomplete="family-name" required /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="sv-email">Email</label><input id="sv-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="sv-phone">Phone</label><input id="sv-phone" name="phone" type="tel" autocomplete="tel" /></div>
+        </div>
+        <div class="field">
+          <label for="sv-timeline">When might you sell?</label>
+          <select id="sv-timeline" name="timeline"><option value="">Choose one</option><option>Within 3 months</option><option>3 to 6 months</option><option>6 to 12 months</option><option>Just curious</option></select>
+        </div>
+        <button class="btn" type="submit">Send to {first}</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section section--paper" aria-labelledby="market-title">
+    <div class="wrap">
+      <div class="head"><p class="eyebrow">12 months through {monthLabel(latest)}</p><h2 id="market-title">{areas.own ? `Home sales in ${first}'s areas` : 'Home sales near our office'}</h2></div>
+      <div class="table-scroll">
+        <table class="data">
+          <thead><tr><th scope="col">Area</th><th scope="col" class="num">Median sale price</th><th scope="col" class="num">Change</th><th scope="col" class="num">Homes sold</th><th scope="col" class="num">Days on market</th></tr></thead>
+          <tbody>{areas.list.filter((c) => hasMarket(c.slug)).map((c) => { const x = marketFor(c.slug)!; return <tr><th scope="row"><a href={`/market/${c.slug}`}>{c.name}</a></th><td class="num">{money(x.medianPrice?.r12[1])}</td><td class="num">{signed(x.medianPrice?.r12[2])}</td><td class="num">{count(x.closedSales?.r12[1])}</td><td class="num">{count(x.daysOnMarket?.r12[1])}</td></tr>; })}</tbody>
+        </table>
+      </div>
+      <p class="source">Source: Minneapolis Area REALTORS® Local Market Update reports, data from NorthstarMLS.</p>
+    </div>
+  </section>
+</Base>
+
+<style is:global>
+  .agent-hero { padding-block: clamp(2rem, 5vw, 3.5rem); background: var(--sand); }
+  .agent-hero__grid { display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: clamp(1.25rem, 4vw, 2.5rem); align-items: center; }
+  .agent-hero__grid img { width: 9rem; height: 9rem; border-radius: 50%; object-fit: cover; background: var(--night); }
+  @media (max-width: 600px) { .agent-hero__grid { grid-template-columns: 1fr; } .agent-hero__grid img { width: 6.5rem; height: 6.5rem; } }
+  .agent-hero h1 { font: 500 clamp(2.2rem, 5vw, 3.4rem)/1.05 var(--serif-display); margin: .3rem 0 .6rem; }
+  .agent-hero__links { display: flex; flex-wrap: wrap; gap: .4rem 1.25rem; margin-top: .75rem; font: 600 .9rem/1.3 var(--ui); }
+  .agent-hero__links a { color: var(--crimson); }
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 860px) { .split { grid-template-columns: 1fr; } }
+  .table-scroll { overflow-x: auto; }
+  .data { width: 100%; border-collapse: collapse; font-size: .95rem; background: var(--paper); }
+  .data th, .data td { padding: .55rem .75rem; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+  .data thead th { font: 700 .72rem/1.3 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--text-soft); }
+  .data .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .data tbody th a { color: var(--text); font-weight: 600; }
+</style>
