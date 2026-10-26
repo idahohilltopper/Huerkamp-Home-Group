@@ -297,3 +297,11 @@ input, select, textarea { border:1px solid #9a9ca0; border-radius:6px; }
 .checks.flash-list li.flash { background:var(--red); color:#fff; border-color:var(--red); }
 .checks.flash-list li::before { transition:color .9s ease-in-out; }
 .checks.flash-list li.flash::before { color:#fff; }
+
+.video-section { max-width:1100px; margin:0 auto; padding:3.5rem 1.25rem 0; text-align:center; }
+.video-section h2 { margin:0 0 1.5rem; }
+.video-frame { position:relative; width:100%; aspect-ratio:16/9; background:#000; border:4px solid #000; border-radius:8px; overflow:hidden; box-shadow:0 0 0 3px var(--red); }
+.video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+
+.video-alt { margin:.9rem 0 0; font-size:.9rem; color:var(--char); }
+.video-alt a { color:var(--red); font-weight:700; }

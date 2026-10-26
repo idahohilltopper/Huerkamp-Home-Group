@@ -3,6 +3,7 @@ import SiteHeader from './SiteHeader';
 import SiteFooter from './SiteFooter';
 import ApplySection from './ApplySection';
 import Stats from './Stats';
+import VideoSection from './VideoSection';
 import FlashList from './FlashList';
 import YouTubeBanner from './YouTubeBanner';
 import AgentPlusBand from './AgentPlusBand';
@@ -51,6 +52,8 @@ export default function Home() {
       </section>
 
       <div className="strip">#1 Keller Williams team in the North Central region · Burnsville, MN · Serving the Twin Cities since 2002</div>
+
+      <VideoSection />
 
       <Stats />
 

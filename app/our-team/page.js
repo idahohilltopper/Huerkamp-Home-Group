@@ -3,6 +3,7 @@ import SiteFooter from '../SiteFooter';
 import PageHero from '../PageHero';
 import ApplySection from '../ApplySection';
 import Stats from '../Stats';
+import VideoSection from '../VideoSection';
 import YouTubeBanner from '../YouTubeBanner';
 
 export const metadata = { title: 'Our Team | Huerkamp Home Group', description: 'Meet the Huerkamp Home Group team: how we work, give back, and have fun together.' };
@@ -14,6 +15,7 @@ export default function OurTeam() {
       <PageHero eyebrow="Our team" title="People who want you to win">
         We plan together, train together, give back together, and enjoy it, as the #1 Keller Williams team in the North Central region, closing $190 million in volume and 520 units a year.
       </PageHero>
+      <VideoSection />
       <Stats />
       <YouTubeBanner />
       <section className="section split team" id="team">
