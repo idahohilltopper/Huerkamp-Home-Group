@@ -50,3 +50,13 @@ export const change = (n: number | null | undefined) => (n == null ? '—' : n =
 export const signed = (n: number | null | undefined) => (n == null ? '—' : `${n > 0 ? '+' : n < 0 ? '−' : ''}${Math.abs(n).toFixed(1)}%`);
 /** Fewer than this many sales in a month and the month's numbers can swing wildly. */
 export const SMALL_SAMPLE = 10;
+
+// ---------- past months (the archive at /market/<area>/<yyyy-mm>) ----------
+/** Every month we have a report for, oldest first. */
+export const monthKeys = Object.keys(months).sort();
+/** Months before the newest; the newest month is the area's main report page. */
+export const pastMonths = monthKeys.filter((m) => m !== latest);
+export const areaIn = (month: string, key: string): AreaMarket | undefined => months[month]?.areas[key];
+export const asOfFor = (month: string) => months[month]?.asOf;
+/** Archive address of one area's report for one month (the newest month is the main report). */
+export const archiveHref = (key: string, month: string, mainHref: string) => (month === latest ? mainHref : `/market/${key}/${month}`);

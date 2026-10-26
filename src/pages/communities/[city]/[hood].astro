@@ -15,7 +15,7 @@ import { listingsData, homesHref } from '../../../data/listings';
 import {
   hoods, hoodKey, hoodHref, hoodByKey, hoodGroup, hoodSearchUrl, hoodWidgetSearch, hasYlopoHood, hoodInfo, hoodGeoUrl, hoodPattern, hoodSources, CITY_NAME, type Hood,
 } from '../../../data/neighborhoods';
-import { source, latest, asOf, marketFor, hasMarket, history, monthLabel, money, moneyK, count, change, signed, SMALL_SAMPLE, type Metric, type AreaMarket } from '../../../data/market';
+import { source, latest, asOf, marketFor, pastMonths, areaIn, hasMarket, history, monthLabel, money, moneyK, count, change, signed, SMALL_SAMPLE, type Metric, type AreaMarket } from '../../../data/market';
 import { longVideos } from '../../../data/youtube';
 import { getPosts } from '../../../data/blog';
 import detailData from '../../../data/community-details.json';
@@ -26,6 +26,7 @@ export function getStaticPaths() {
   return hoods.map((h) => ({ params: { city: h.city, hood: h.slug }, props: { h } }));
 }
 const { h } = Astro.props as { h: Hood };
+const pastFor = pastMonths.filter((x) => (areaIn(x, hoodKey(h))?.closedSales?.month[1] ?? 0) > 0).reverse();
 const homesData = await listingsData;
 const homes = homesData.collections.find((k) => k.path === `${h.city}/${h.slug}` && !k.facet);
 const cityName = CITY_NAME[h.city];
@@ -195,6 +196,7 @@ const ld = JSON.stringify([
           </table>
         </div>
         <p class="source">Source: <a href={mk.url} rel="noopener">{source.name}, {h.name}, {month}</a>. Data from {source.data}; current as of {asOfText}. {source.note} <a href={`/market/${h.city}`}>{cityName} market report</a></p>
+        {pastFor.length > 0 && <p class="compare">Past months: {pastFor.map((x, i) => <>{i > 0 && ' · '}<a href={`/market/${key}/${x}`}>{monthLabel(x)}</a></>)}</p>}
       </div>
     </section>
   )}

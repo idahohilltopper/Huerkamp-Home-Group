@@ -434,3 +434,20 @@ Thousands of pages built from the MLS feed, so we compete with Zillow, Homes.com
 - **Linking:** community and neighborhood pages link to their comparisons. The Communities menu and footer have "Compare". llms.txt lists the section.
 - **Updates:** pages refresh automatically with the monthly market report. The sitemap date follows the report.
 - **Tracking:** three "vs" searches were added to the weekly portal tracker in the results report.
+
+## Market report archive (/market/<area>/<yyyy-mm>), October 2026
+Every past month's Minneapolis Area REALTORS® report keeps its own page, so searches like "Burnsville housing market March 2026" have an answer.
+- **Pages** (`src/pages/market/[...path].astro`):
+  - `/market/<yyyy-mm>`: every city and neighborhood that month.
+  - `/market/<city>/<yyyy-mm>`: one city.
+  - `/market/minneapolis/<neighborhood>/<yyyy-mm>`: one Minneapolis neighborhood (Saint Paul planning districts use the same pattern).
+  - The newest month stays on the main report pages, so there are no duplicates.
+- **What each page shows:**
+  - a short summary of that month: sales, median price against a year earlier, days on market, supply, and the 12-month figures;
+  - where the city ranked by median price among cities with 10+ sales;
+  - the price chart up to that month and the full table, including the region's median;
+  - quick answers with FAQ schema and Dataset schema;
+  - previous/next month links and every month.
+- **Indexing:** months with fewer than 10 sales stay noindex because one or two sales swing them. Today that leaves about 1,000 of the 2,354 archive pages indexed.
+- **Growth:** nothing to do. When the monthly routine adds a new month, the previous one becomes an archive page automatically, adding about 240 pages a month. Sitemap dates use the date each report came in.
+- **Linking:** each city's report, the /market hub and each neighborhood guide link to their past months. llms.txt describes the archive.

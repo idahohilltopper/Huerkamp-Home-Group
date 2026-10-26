@@ -9,7 +9,7 @@ import { business, origin } from '../../data/schema';
 import { site } from '../../data/site';
 import {
   source, latest, asOf, REGION, marketFor, hasMarket, history, monthLabel, money, moneyK, count, change, signed, SMALL_SAMPLE,
-  type AreaMarket, type Metric,
+  pastMonths, areaIn, type AreaMarket, type Metric,
 } from '../../data/market';
 
 export function getStaticPaths() {
@@ -44,6 +44,7 @@ const compare = [
   { label: c.name, m },
   { label: '16-county Twin Cities region', m: region },
 ];
+const past = pastMonths.filter((x) => (areaIn(x, c.slug)?.closedSales?.month[1] ?? 0) > 0).reverse();
 const nearby = communities.filter((x) => x.slug !== c.slug && x.region === c.region && hasMarket(x.slug)).slice(0, 12);
 
 const faq = [
@@ -151,6 +152,12 @@ const ld = JSON.stringify([
     <div class="wrap">
       <div class="head"><p class="eyebrow">Keep exploring</p><h2 id="more-title">More about {c.name}</h2></div>
       <p class="links"><a class="link-arrow" href={`/communities/${c.slug}`}>{c.name} community guide</a> <a class="link-arrow" href="/market">Twin Cities market report</a></p>
+      {past.length > 0 && (
+        <>
+          <h3 class="nearby-title">Past {c.name} reports</h3>
+          <ul class="past">{past.map((x) => <li><a href={`/market/${c.slug}/${x}`}>{monthLabel(x)}</a></li>)}</ul>
+        </>
+      )}
       {nearby.length > 0 && (
         <>
           <h3 class="nearby-title">Nearby market reports</h3>
@@ -196,5 +203,8 @@ const ld = JSON.stringify([
   .nearby-title { margin-top: 2rem; font: 600 1.3rem/1.2 var(--serif); }
   .nearby { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); gap: .5rem 1.5rem; }
   .nearby li { display: flex; justify-content: space-between; gap: 1rem; padding: .45rem 0; border-bottom: 1px solid var(--line); }
+  .past { list-style: none; margin: 1rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: .45rem; }
+  .past a { display: inline-block; padding: .45rem .75rem; border: 1px solid var(--line); background: var(--paper); color: var(--text); font: 500 .88rem/1.2 var(--ui); text-decoration: none; }
+  .past a:hover { border-color: var(--crimson); color: var(--crimson); }
   .nearby span { color: var(--text-soft); font-variant-numeric: tabular-nums; }
 </style>

@@ -37,6 +37,12 @@ export function lastmods() {
   for (const line of read('src/data/guides.ts').split('\n').filter((l) => /^\s+slug: /.test(l))) {
     for (const [, slug] of line.matchAll(/'([a-z0-9-]+)'/g)) map.set(`/guides/${slug}`, latest.asOf);
   }
+  // Past monthly reports (/market/<area>/<yyyy-mm>) were last changed when that month's report came in.
+  for (const [m, data] of Object.entries(market.months)) {
+    if (m === market.latest) continue;
+    map.set(`/market/${m}`, data.asOf);
+    for (const slug of Object.keys(data.areas)) map.set(`/market/${slug}/${m}`, data.asOf);
+  }
   // Comparison pages are built from the market report and community data.
   map.set('/compare', latest.asOf);
   for (const slug of Object.keys(JSON.parse(read('src/data/community-details.json')).communities)) map.set(`/compare/${slug}`, latest.asOf);

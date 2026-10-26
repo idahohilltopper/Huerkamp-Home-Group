@@ -8,7 +8,7 @@ import { communities, regions } from '../../data/areas';
 import { business, origin } from '../../data/schema';
 import { site } from '../../data/site';
 import { hoodsIn, hoodHref, hoodKey } from '../../data/neighborhoods';
-import { source, latest, asOf, REGION, marketFor, hasMarket, history, monthLabel, money, moneyK, count, change, signed } from '../../data/market';
+import { pastMonths, source, latest, asOf, REGION, marketFor, hasMarket, history, monthLabel, money, moneyK, count, change, signed } from '../../data/market';
 
 const r = marketFor(REGION)!;
 const month = monthLabel(latest);
@@ -48,6 +48,7 @@ const ld = JSON.stringify({
         <p>Over the 12 months through {month}, the median sale price across the region was {money(r.medianPrice?.r12[1])}, {change(r.medianPrice?.r12[2])} from the 12 months before. {count(r.closedSales?.r12[1])} homes sold ({change(r.closedSales?.r12[2])}) and {count(r.newListings?.r12[1])} new listings came on the market ({change(r.newListings?.r12[2])}).</p>
         <p>In {month} itself, {count(r.closedSales?.month[1])} homes sold at a median {money(r.medianPrice?.month[1])}, spending {count(r.daysOnMarket?.month[1])} days on market. The month ended with {count(r.inventory?.month[1])} homes for sale, {r.monthsSupply?.month[1]} months of supply.</p>
         <p class="source">Source: <a href={r.url} rel="noopener">{source.name}, 16-County Twin Cities Region, {month}</a>. Data from {source.data}; current as of {asOfText}. {source.note}</p>
+        <p class="past">Past months: {[...pastMonths].reverse().map((x, i) => <>{i > 0 && ' · '}<a href={`/market/${x}`}>{monthLabel(x)}</a></>)}</p>
       </div>
       {prices.length > 3 && <LineChart points={prices.map((p) => ({ label: monthLabel(p.month, true), value: p.value, display: money(p.value) }))} title="Median sale price by month, Twin Cities region" valueName="Median price" />}
     </div>
@@ -138,4 +139,6 @@ const ld = JSON.stringify({
   .data tbody th a:hover { color: var(--crimson); }
   .cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2rem; }
   .cta__actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+  .past { font-size: .92rem; line-height: 1.8; }
+  .past a { color: var(--crimson); font-weight: 600; }
 </style>

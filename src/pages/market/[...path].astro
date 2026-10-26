@@ -1,0 +1,240 @@
+---
+// The market report archive: every past month, kept at its own address so "Burnsville housing market March 2026"
+// has an answer. The newest month lives on the main report (/market, /market/<city>, the neighborhood guides).
+//   /market/<yyyy-mm>                     every city and neighborhood that month
+//   /market/<city>/<yyyy-mm>              one city's report for that month
+//   /market/<city>/<neighborhood>/<yyyy-mm>  one Minneapolis or Saint Paul neighborhood
+// Every number comes from that month's Minneapolis Area REALTORS® Local Market Update (NorthstarMLS data).
+import Base from '../../layouts/Base.astro';
+import LineChart from '../../components/LineChart.astro';
+import { communities, regions, type Community } from '../../data/areas';
+import { hoods, hoodKey, hoodHref, CITY_NAME, type Hood } from '../../data/neighborhoods';
+import { business, origin } from '../../data/schema';
+import { site } from '../../data/site';
+import {
+  source, latest, REGION, history, monthLabel, money, moneyK, count, change, signed, SMALL_SAMPLE,
+  pastMonths, monthKeys, areaIn, asOfFor, archiveHref, type AreaMarket, type Metric,
+} from '../../data/market';
+
+type Place = { key: string; name: string; full: string; main: string; guide: string; c?: Community; h?: Hood };
+const sold = (m?: AreaMarket) => m?.closedSales?.month[1] ?? 0;
+
+export function getStaticPaths() {
+  // (getStaticPaths runs on its own, so it can't use the page's other helpers.)
+  const placeOf = (c: Community): Place => ({ key: c.slug, name: c.name, full: `${c.name}, MN`, main: `/market/${c.slug}`, guide: `/communities/${c.slug}`, c });
+  const placeOfHood = (h: Hood): Place => ({ key: hoodKey(h), name: h.name, full: `${h.name}, ${CITY_NAME[h.city]}`, main: `${hoodHref(h)}#market`, guide: hoodHref(h), h });
+  const sold = (m?: AreaMarket) => m?.closedSales?.month[1] ?? 0;
+  const places = [...communities.map(placeOf), ...hoods.map(placeOfHood)];
+  return [
+    ...pastMonths.map((month) => ({ params: { path: month }, props: { month, place: null } })),
+    ...pastMonths.flatMap((month) => places.filter((p) => sold(areaIn(month, p.key)) > 0).map((place) => ({ params: { path: `${place.key}/${month}` }, props: { month, place } }))),
+  ];
+}
+const { month, place } = Astro.props as { month: string; place: Place | null };
+const label = monthLabel(month);
+const asOf = asOfFor(month);
+const asOfText = new Date(`${asOf}T12:00:00`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+const i = monthKeys.indexOf(month);
+const prev = monthKeys[i - 1], next = monthKeys[i + 1];
+const region = areaIn(month, REGION)!;
+const yearAgo = `${Number(month.slice(0, 4)) - 1}${month.slice(4)}`;
+const yearAgoLabel = monthLabel(yearAgo);
+
+// ---------- one place ----------
+const m = place ? areaIn(month, place.key)! : region;
+const v = (k: keyof AreaMarket, p: 'month' | 'r12' = 'month', n = 1) => ((m[k] as Metric | undefined)?.[p][n] ?? null);
+const where = place?.name ?? 'the Twin Cities region';
+const small = place ? sold(m) < SMALL_SAMPLE : false;
+const summary = [
+  v('closedSales') != null && `In ${label}, ${count(v('closedSales'))} ${v('closedSales') === 1 ? 'home' : 'homes'} sold in ${where}${v('closedSales', 'month', 0) != null ? `, against ${count(v('closedSales', 'month', 0))} in ${yearAgoLabel}` : ''}.`,
+  v('medianPrice') != null && `The median sale price was ${money(v('medianPrice'))}${v('medianPrice', 'month', 2) != null ? `, ${change(v('medianPrice', 'month', 2))} from a year earlier` : ''}, and homes spent ${count(v('daysOnMarket'))} days on market, with sellers receiving ${v('pctOfList') ?? '—'}% of their original list price.`,
+  v('inventory') != null && `The month ended with ${count(v('inventory'))} homes for sale${v('monthsSupply') != null ? `, ${v('monthsSupply')} months of supply${(v('monthsSupply') ?? 0) < 4 ? ' (a seller’s market by the usual measure)' : (v('monthsSupply') ?? 0) > 6 ? ' (a buyer’s market by the usual measure)' : ''}` : ''}.`,
+  v('medianPrice', 'r12') != null && `Over the 12 months through ${label}, the median was ${money(v('medianPrice', 'r12'))} (${change(v('medianPrice', 'r12', 2))}) across ${count(v('closedSales', 'r12'))} sales.`,
+].filter(Boolean) as string[];
+
+// Where the place stood among cities that month (by median sale price, cities with enough sales to compare).
+const ranked = place?.c ? communities.map((c) => ({ c, m: areaIn(month, c.slug) })).filter((x) => sold(x.m) >= SMALL_SAMPLE && x.m?.medianPrice?.month[1] != null)
+  .sort((a, b) => b.m!.medianPrice!.month[1]! - a.m!.medianPrice!.month[1]!) : [];
+const ordinal = (n: number) => { const s = ['th', 'st', 'nd', 'rd'], r = n % 100; return n + (s[(r - 20) % 10] || s[r] || s[0]); };
+const rank = place?.c && !small ? ranked.findIndex((x) => x.c.slug === place.key) + 1 : 0;
+
+const rows: [string, keyof AreaMarket, (n: number | null) => string][] = [
+  ['Median sale price', 'medianPrice', money], ['Average sale price', 'averagePrice', money], ['Price per square foot', 'pricePerSqft', money],
+  ['Closed sales', 'closedSales', count], ['New listings', 'newListings', count], ['Days on market', 'daysOnMarket', count],
+  ['% of original list price received', 'pctOfList', (n) => (n == null ? '—' : `${n}%`)],
+  ['Homes for sale (end of month)', 'inventory', count], ['Months of supply', 'monthsSupply', (n) => (n == null ? '—' : String(n))],
+];
+const upTo = (pts: { month: string; value: number }[]) => pts.filter((p) => p.month <= month).slice(-24);
+const prices = upTo(history(place?.key ?? REGION, 'medianPrice'));
+const otherMonths = monthKeys.filter((x) => x !== month && (!place || sold(areaIn(x, place.key)) > 0)).reverse();
+const hrefFor = (x: string) => (place ? archiveHref(place.key, x, place.main) : x === latest ? '/market' : `/market/${x}`);
+
+const faq = place ? [
+  v('medianPrice') != null && { q: `What was the median home price in ${place.full} in ${label}?`, a: `${money(v('medianPrice'))}, from ${count(v('closedSales'))} sales${v('medianPrice', 'month', 2) != null ? ` (${change(v('medianPrice', 'month', 2))} from ${yearAgoLabel})` : ''}, according to the ${source.name} (NorthstarMLS data).${small ? ' With so few sales, a single month can swing a lot; the 12-month median was ' + money(v('medianPrice', 'r12')) + '.' : ''}` },
+  v('closedSales') != null && { q: `How many homes sold in ${place.full} in ${label}?`, a: `${count(v('closedSales'))}, against ${count(v('closedSales', 'month', 0))} in ${yearAgoLabel}. ${count(v('newListings'))} new listings came on the market that month.` },
+  v('monthsSupply') != null && { q: `Was ${place.name} a buyer's or seller's market in ${label}?`, a: `${place.name} ended ${label} with ${v('monthsSupply')} months of supply (${count(v('inventory'))} homes for sale). Under about 4 months usually favors sellers; over about 6 favors buyers.` },
+].filter(Boolean) as { q: string; a: string }[] : [];
+
+// ---------- the month's hub ----------
+const hubGroups = !place ? regions.map((reg) => ({ reg, list: communities.filter((c) => c.region === reg && sold(areaIn(month, c.slug)) > 0).sort((a, b) => a.name.localeCompare(b.name)) })).filter((g) => g.list.length) : [];
+const hubHoods = !place ? (['minneapolis', 'saint-paul'] as const).map((city) => ({ city, list: hoods.filter((h) => h.city === city && sold(areaIn(month, hoodKey(h))) > 0) })).filter((t) => t.list.length) : [];
+
+const title = place ? `${place.full} Housing Market, ${label}` : `Twin Cities Housing Market by City, ${label}`;
+const description = place ? (summary.slice(0, 2).join(' ') || `${place.full} home sales and prices for ${label}.`) : `${label}: the Twin Cities median sale price was ${money(region.medianPrice?.month[1])} (${change(region.medianPrice?.month[2])} from a year earlier). Every city and neighborhood's numbers for the month, from NorthstarMLS data.`;
+const url = `${origin}${place ? `/market/${place.key}/${month}` : `/market/${month}`}`;
+const ld = JSON.stringify([
+  { '@context': 'https://schema.org', '@type': 'Dataset', '@id': `${url}#data`, name: title, url,
+    description: `Home sales, prices, days on market and inventory for ${place?.full ?? 'the Twin Cities and its cities'} in ${label}.`,
+    temporalCoverage: month, dateModified: asOf, spatialCoverage: { '@type': 'Place', name: place?.full ?? 'Minneapolis–Saint Paul, Minnesota' },
+    creator: { '@type': 'Organization', name: source.publisher }, publisher: { '@id': business['@id'] },
+    citation: `${source.name}, ${place?.name ?? '16-County Twin Cities Region'}, ${label}. Data from ${source.data}. Current as of ${asOfText}.` },
+  ...(faq.length ? [{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }] : []),
+]);
+const crumbs = [{ name: 'Market reports', href: '/market' },
+  ...(place ? [{ name: place.name, href: place.main }, { name: label, href: `/market/${place.key}/${month}` }] : [{ name: label, href: `/market/${month}` }])];
+---
+<Base breadcrumbs={crumbs} title={`${title} | ${site.name}`} description={description} noindex={small}>
+  <script slot="head" type="application/ld+json" set:html={ld} />
+
+  <section class="mhead">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/market">Market reports</a>{place && <><span aria-hidden="true">/</span><a href={place.main}>{place.name}</a></>}<span aria-hidden="true">/</span><span>{label}</span></nav>
+      <h1>{place ? `${place.name} housing market, ${label}` : `Twin Cities housing market, ${label}`}</h1>
+      <p class="lede">Past report · {source.name} · current as of {asOfText}. <a href={place?.main ?? '/market'}>See the newest report ({monthLabel(latest)})</a></p>
+      <ul class="kpis">
+        <li><span>Median sale price</span><strong>{moneyK(v('medianPrice'))}</strong><em>{signed(v('medianPrice', 'month', 2))} vs. {yearAgoLabel}</em></li>
+        <li><span>Homes sold</span><strong>{count(v('closedSales'))}</strong><em>{signed(v('closedSales', 'month', 2))} vs. {yearAgoLabel}</em></li>
+        <li><span>Days on market</span><strong>{count(v('daysOnMarket'))}</strong><em>{label}</em></li>
+        <li><span>Months of supply</span><strong>{v('monthsSupply') ?? '—'}</strong><em>end of {label}</em></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="sum-title">
+    <div class="wrap split">
+      <div class="prose">
+        <p class="eyebrow">The short version</p>
+        <h2 id="sum-title">{place?.name ?? 'The Twin Cities'} in {label}</h2>
+        {summary.map((s) => <p>{s}</p>)}
+        {rank > 0 && <p>That was the {rank === 1 ? 'highest' : `${ordinal(rank)} highest`} median sale price of the {ranked.length} cities in our guides with at least {SMALL_SAMPLE} sales that month.</p>}
+        {small && <p class="warn">Only {count(v('closedSales'))} {v('closedSales') === 1 ? 'home' : 'homes'} sold here in {label}, so this month's numbers can swing a lot. The 12-month figures are steadier.</p>}
+      </div>
+      {prices.length > 3 && <LineChart points={prices.map((p) => ({ label: monthLabel(p.month, true), value: p.value, display: money(p.value) }))} title={`Median sale price by month through ${label}, ${place?.name ?? 'Twin Cities region'}`} valueName="Median price" caption="Single months can swing when few homes sell." />}
+    </div>
+  </section>
+
+  {place && (
+    <section class="section section--paper" aria-labelledby="table-title">
+      <div class="wrap">
+        <div class="head"><p class="eyebrow">All the numbers</p><h2 id="table-title">{place.name}, {label} vs. {yearAgoLabel}</h2></div>
+        <div class="table-scroll">
+          <table class="data">
+            <thead>
+              <tr><th scope="col"></th><th scope="col" colspan="3">{label}</th><th scope="col" colspan="3">12 months through {label}</th></tr>
+              <tr><th scope="col">Measure</th><th scope="col" class="num">Year before</th><th scope="col" class="num">This year</th><th scope="col" class="num">Change</th><th scope="col" class="num">Year before</th><th scope="col" class="num">This year</th><th scope="col" class="num">Change</th></tr>
+            </thead>
+            <tbody>
+              {rows.map(([lbl, k, f]) => (
+                <tr><th scope="row">{lbl}</th>
+                  <td class="num">{f(v(k, 'month', 0))}</td><td class="num">{f(v(k, 'month', 1))}</td><td class="num">{signed(v(k, 'month', 2))}</td>
+                  <td class="num">{f(v(k, 'r12', 0))}</td><td class="num">{f(v(k, 'r12', 1))}</td><td class="num">{signed(v(k, 'r12', 2))}</td></tr>
+              ))}
+              <tr class="region"><th scope="row">Twin Cities region, median price</th><td class="num">{money(region.medianPrice?.month[0])}</td><td class="num">{money(region.medianPrice?.month[1])}</td><td class="num">{signed(region.medianPrice?.month[2])}</td><td class="num">{money(region.medianPrice?.r12[0])}</td><td class="num">{money(region.medianPrice?.r12[1])}</td><td class="num">{signed(region.medianPrice?.r12[2])}</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="source">Source: {source.name}, {place.name}, {label}. Data from {source.data}; produced by {source.producer}; current as of {asOfText}. {source.note}</p>
+      </div>
+    </section>
+  )}
+
+  {!place && (
+    <section class="section section--paper" aria-labelledby="cities-title">
+      <div class="wrap">
+        <div class="head"><p class="eyebrow">Every city</p><h2 id="cities-title">{label}, city by city</h2><p>Single-month numbers; pick a city for its full {label} report.</p></div>
+        {hubGroups.map((g) => (
+          <div class="group">
+            <h3>{g.reg}</h3>
+            <div class="table-scroll">
+              <table class="data">
+                <thead><tr><th scope="col">City</th><th scope="col" class="num">Median price</th><th scope="col" class="num">Change</th><th scope="col" class="num">Homes sold</th><th scope="col" class="num">Days on market</th><th scope="col" class="num">Months of supply</th></tr></thead>
+                <tbody>{g.list.map((c) => { const x = areaIn(month, c.slug)!; return <tr><th scope="row"><a href={`/market/${c.slug}/${month}`}>{c.name}</a></th><td class="num">{moneyK(x.medianPrice?.month[1])}</td><td class="num">{signed(x.medianPrice?.month[2])}</td><td class="num">{count(x.closedSales?.month[1])}</td><td class="num">{count(x.daysOnMarket?.month[1])}</td><td class="num">{x.monthsSupply?.month[1] ?? '—'}</td></tr>; })}</tbody>
+              </table>
+            </div>
+          </div>
+        ))}
+        {hubHoods.map((t) => (
+          <div class="group">
+            <h3>{CITY_NAME[t.city]} {t.city === 'minneapolis' ? 'neighborhoods' : 'planning districts'}</h3>
+            <ul class="hoodlist">{t.list.map((h) => <li><a href={`/market/${hoodKey(h)}/${month}`}>{h.name}</a> <span>{moneyK(areaIn(month, hoodKey(h))?.medianPrice?.month[1])}</span></li>)}</ul>
+          </div>
+        ))}
+        <p class="source">Source: {source.name} for each area, {label}. Data from {source.data}; current as of {asOfText}. {source.note}</p>
+      </div>
+    </section>
+  )}
+
+  {faq.length > 0 && (
+    <section class="section" aria-labelledby="faq-title">
+      <div class="wrap faq">
+        <div class="head"><p class="eyebrow">Quick answers</p><h2 id="faq-title">{place!.name} in {label}: questions</h2></div>
+        {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+      </div>
+    </section>
+  )}
+
+  <section class="section section--paper" aria-labelledby="more-title">
+    <div class="wrap">
+      <nav class="monthnav" aria-label="Other months">
+        {prev ? <a href={hrefFor(prev)}>← {monthLabel(prev)}</a> : <span></span>}
+        {next && <a href={hrefFor(next)}>{monthLabel(next)} →</a>}
+      </nav>
+      <div class="head"><p class="eyebrow">Every month</p><h2 id="more-title">{place?.name ?? 'Twin Cities'} market reports by month</h2></div>
+      <ul class="months">{otherMonths.map((x) => <li><a href={hrefFor(x)}>{monthLabel(x)}{x === latest && ' (newest)'}</a></li>)}</ul>
+      {place && <p class="links"><a class="link-arrow" href={place.guide}>{place.name} {place.h ? 'neighborhood' : 'community'} guide</a>{place.c && <a class="link-arrow" href={`/compare/${place.key}`}>Compare {place.name} with nearby cities</a>}<a class="link-arrow" href={`/market/${month}`}>Every city in {label}</a></p>}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .mhead { padding-block: clamp(2rem, 5vw, 3.5rem); background: var(--night); color: #fff; }
+  .mhead .wrap { display: grid; gap: .9rem; }
+  .crumbs { display: flex; flex-wrap: wrap; gap: .5rem; font: 700 .72rem/1.3 var(--ui); letter-spacing: .14em; text-transform: uppercase; color: var(--on-dark); }
+  .crumbs a { color: var(--rose); text-decoration: none; }
+  .mhead h1 { font: 500 clamp(2rem, 5vw, 3.4rem)/1.05 var(--serif-display); }
+  .lede { color: var(--on-dark); }
+  .lede a { color: var(--rose); }
+  .kpis { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: rgba(255,255,255,.14); }
+  @media (max-width: 760px) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .kpis li { display: grid; gap: .3rem; padding: 1.1rem 1.2rem; background: var(--night); }
+  .kpis span { font: 700 .7rem/1.2 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--rose); }
+  .kpis strong { font: 500 clamp(1.8rem, 4vw, 2.6rem)/1 var(--serif-display); }
+  .kpis em { font-style: normal; font-size: .85rem; color: var(--on-dark); }
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+  .prose p:not(.eyebrow) { font-size: 1.05rem; line-height: 1.7; }
+  .warn { padding: .9rem 1rem; background: var(--sand); border-left: 4px solid var(--crimson); font-size: .95rem !important; }
+  .head { margin-bottom: 1.25rem; }
+  .table-scroll { position: relative; overflow-x: auto; }
+  .data { width: 100%; border-collapse: collapse; font-size: .95rem; background: var(--paper); }
+  .data th, .data td { padding: .6rem .75rem; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+  .data thead th { font: 700 .72rem/1.3 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--text-soft); }
+  .data .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .data .region th, .data .region td { color: var(--text-soft); }
+  .group { margin-top: 2rem; }
+  .group h3 { margin-bottom: .75rem; font: 600 1.35rem/1.2 var(--serif); }
+  .hoodlist { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); gap: .4rem 1.5rem; }
+  .hoodlist li { display: flex; justify-content: space-between; gap: 1rem; padding: .4rem 0; border-bottom: 1px solid var(--line); }
+  .hoodlist span { color: var(--text-soft); font-variant-numeric: tabular-nums; }
+  .source { margin-top: 1.25rem; font-size: .85rem; color: var(--text-soft); max-width: 60rem; }
+  .faq { display: grid; gap: .75rem; max-width: 52rem; }
+  .faq details { padding: 1rem 1.2rem; background: var(--paper); border: 1px solid var(--line); }
+  .faq summary { cursor: pointer; font: 600 1.15rem/1.3 var(--serif); }
+  .faq details p { margin-top: .6rem; color: var(--text-soft); }
+  .monthnav { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: 2rem; font-weight: 600; }
+  .monthnav a { color: var(--crimson); }
+  .months { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .45rem; }
+  .months a { display: inline-block; padding: .45rem .75rem; border: 1px solid var(--line); background: var(--paper); color: var(--text); font: 500 .88rem/1.2 var(--ui); text-decoration: none; }
+  .months a:hover { border-color: var(--crimson); color: var(--crimson); }
+  .links { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 2rem; }
+</style>
