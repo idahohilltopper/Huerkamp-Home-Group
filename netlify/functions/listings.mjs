@@ -32,6 +32,18 @@ const failed = (r) => {
 const env = (k) => (globalThis.Netlify?.env?.get(k) ?? process.env[k] ?? '').trim();
 const same = (a, b) => a.length === b.length && timingSafeEqual(Buffer.from(a), Buffer.from(b));
 
+/** Debug: the same rectangle asked three ways, plus one town by name, to see how Repliers reads the map. */
+async function diagnose(key, box) {
+  const count = async (params, body) => { const r = await repliers(key, '/listings', { status: 'A', type: 'Sale', resultsPerPage: 1, ...params }, body); return r.data ? r.data.count : `error ${r.status}`; };
+  const [[w, n], [e], , [, s0]] = [box[0][0], box[0][1], box[0][2], box[0][3]];
+  return {
+    postMap: await count({}, { map: box }),
+    getMap: await count({ map: JSON.stringify(box) }),
+    latLongRange: await count({ minLat: s0, maxLat: n, minLng: w, maxLng: e }),
+    cityWayzata: await count({ city: 'Wayzata' }),
+  };
+}
+
 /** Is the point inside any part of the zone? (ray casting on each part's outer ring) */
 export function inside(x, y, zone) {
   if (!isFinite(x) || !isFinite(y)) return false;
@@ -96,7 +108,8 @@ export default async (req) => {
   const listings = lakefront.map(card).sort((a, b) => String(b.listed).localeCompare(String(a.listed)));
   return json(200, {
     ok: true, updated: new Date().toISOString(), lake, listings, nearby: inZone.length - lakefront.length,
-    ...(debug ? { parts: [{ count: inZone.length }], box: { ...boxInfo, fetched: inBox.length, withoutMapPoint: noPoint }, mlsTotal: (await repliers(key, '/listings', { status: 'A', type: 'Sale', resultsPerPage: 1 })).data?.count ?? null,
+    ...(debug ? { version: 'box-2', parts: [{ count: inZone.length }], box: { ...boxInfo, fetched: inBox.length, withoutMapPoint: noPoint, corners: box[0] },
+      tests: await diagnose(key, box), mlsTotal: (await repliers(key, '/listings', { status: 'A', type: 'Sale', resultsPerPage: 1 })).data?.count ?? null,
       photos: inZone.filter((l) => l.images?.length).length, sample: inZone.slice(0, 6).map((l) => ({ mls: l.mlsNumber, address: l.address, lakefront: isLakefront(l), water: waterFields(l) })) } : {}),
   }, !debug);
 };

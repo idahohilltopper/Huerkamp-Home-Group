@@ -183,6 +183,7 @@ const dateText = (d: string) => new Date(d + 'T12:00:00').toLocaleDateString('en
         <div><span>Marked lakefront by the MLS</span><strong>${n(d.listings.length)}</strong></div>
         <div><span>With photos</span><strong>${n(d.photos ?? 0)}</strong></div>
       </div>
+      <p class="source">Details for Claude: ${esc(JSON.stringify({ version: d.version, box: d.box && { count: d.box.count, fetched: d.box.fetched, noPoint: d.box.withoutMapPoint }, tests: d.tests }))}</p>
       <p class="source">Live from Repliers (NorthstarMLS), ${new Date(d.updated).toLocaleString('en-US')}. Listings appear on the lake pages only after MLS_PUBLIC=yes is set in Netlify, once the NorthstarMLS license is approved.</p>`;
   });
   const saved = store.get();
