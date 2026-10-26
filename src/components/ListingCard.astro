@@ -1,0 +1,36 @@
+---
+// One home for sale, as a card linking to its own page. Shows the listing brokerage on every card (MLS rules).
+import type { Listing } from '../data/listings';
+import { listingHref, TYPE_LABEL } from '../data/listings';
+interface Props { l: Listing; eager?: boolean }
+const { l, eager = false } = Astro.props;
+const specs = [l.beds && `${l.beds} bd`, l.baths && `${l.baths} ba`, l.sqft && `${l.sqft.toLocaleString('en-US')} sq ft`, l.type === 'land' && l.lotAcres && `${l.lotAcres} acres`].filter(Boolean).join(' · ');
+const photo = l.photos[0] ? `${l.photos[0]}?class=small` : null;
+---
+<li class="lcard">
+  <a href={listingHref(l)}>
+    <span class="lcard__photo">{photo ? <img src={photo} alt={`${l.street}, ${l.city}`} width="400" height="267" loading={eager ? 'eager' : 'lazy'} decoding="async" /> : <span class="lcard__nophoto">Photo coming soon</span>}
+      {l.newConstruction && <span class="lcard__flag">New construction</span>}{!l.newConstruction && l.lakefront && <span class="lcard__flag">Lakefront</span>}</span>
+    <strong class="lcard__price">${l.price.toLocaleString('en-US')}</strong>
+    {specs && <span class="lcard__specs">{specs}</span>}
+    <span class="lcard__addr">{l.street}, {l.city}, MN {l.zip}</span>
+    <span class="lcard__type">{TYPE_LABEL[l.type] ?? 'home'}</span>
+    <span class="lcard__broker">Listing courtesy of {l.brokerage || 'the listing brokerage'}</span>
+  </a>
+</li>
+
+<style is:global>
+  .lcards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16.5rem), 1fr)); gap: 1.25rem; }
+  .lcard a { display: grid; gap: .3rem; height: 100%; padding-bottom: 1rem; border: 1px solid var(--line); background: var(--paper); color: var(--text); text-decoration: none; }
+  .lcard a:hover .lcard__price { color: var(--crimson); }
+  .lcard__photo { position: relative; display: block; aspect-ratio: 3 / 2; background: var(--sand); overflow: hidden; margin-bottom: .45rem; }
+  .lcard__photo img { width: 100%; height: 100%; object-fit: cover; }
+  .lcard__nophoto { position: absolute; inset: 0; display: grid; place-items: center; color: var(--text-soft); font: 600 .8rem/1 var(--ui); }
+  .lcard__flag { position: absolute; top: .6rem; left: .6rem; padding: .35rem .55rem; background: rgba(21, 18, 19, .82); color: #fff; font: 700 .68rem/1 var(--ui); letter-spacing: .08em; text-transform: uppercase; }
+  .lcard a > :not(.lcard__photo) { padding-inline: 1rem; }
+  .lcard__price { font: 500 1.45rem/1.2 var(--serif); }
+  .lcard__specs { font: 600 .9rem/1.3 var(--ui); }
+  .lcard__addr { font-size: .93rem; }
+  .lcard__type { font-size: .8rem; color: var(--text-soft); text-transform: capitalize; }
+  .lcard__broker { font-size: .72rem; color: var(--text-soft); }
+</style>

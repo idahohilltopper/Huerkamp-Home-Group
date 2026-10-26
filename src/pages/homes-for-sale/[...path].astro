@@ -1,0 +1,244 @@
+---
+// Homes for sale pages, built from the MLS feed (src/data/listings.ts):
+//   /homes-for-sale                         every community with homes for sale
+//   /homes-for-sale/<community>[/<facet>]   a community, or one slice of it (price, home type, bedrooms, ...)
+//   /homes-for-sale/<city>/<neighborhood>   a Minneapolis or Saint Paul neighborhood
+//   /homes-for-sale/zip/<zip>               a ZIP code
+// Each page answers first (how many homes, what they cost), then lists the homes, then adds what portals don't:
+// this month's market report, the community guide, lakes, neighborhoods, quick answers and a local agent.
+// No pages are built until MLS_PUBLIC is set in Netlify (after the NorthstarMLS license is approved).
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ListingCard from '../../components/ListingCard.astro';
+import { listingsData, homesHref, facetsFor, stats, money, median, SHOW, MIN_INDEX, TYPE_LABEL, type Collection } from '../../data/listings';
+import { communities, regions, nearby } from '../../data/areas';
+import { hoods, hoodKey, hoodSearchUrl, CITY_NAME } from '../../data/neighborhoods';
+import { lakesTouching, lakeHref } from '../../data/lakes';
+import { communitySearch, searchUrl } from '../../data/ylopo';
+import { hasMarket, marketFor, latest, monthLabel, money as mMoney, count, signed } from '../../data/market';
+import { mls } from '../../data/mls';
+import { origin } from '../../data/schema';
+import { site } from '../../data/site';
+
+export async function getStaticPaths() {
+  const data = await listingsData;
+  if (data.mode === 'off' || !data.listings.length) return [];
+  return [{ params: { path: undefined }, props: { c: null } }, ...data.collections.map((c) => ({ params: { path: c.path }, props: { c } }))];
+}
+const { c } = Astro.props as { c: Collection | null };
+const data = await listingsData;
+const updated = data.at ? new Date(data.at) : new Date();
+const updatedText = updated.toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/Chicago' });
+const updatedDay = updated.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' });
+
+// ---------- hub ----------
+const hubGroups = !c ? regions.map((reg) => ({ reg, list: communities.filter((x) => x.region === reg).map((x) => ({ x, n: data.collections.find((k) => k.path === x.slug)?.listings.length ?? 0 })).filter((r) => r.n > 0) })).filter((g) => g.list.length) : [];
+
+// ---------- one collection ----------
+const area = c?.area;
+const place = area?.place ?? 'the Twin Cities';
+const st = c ? stats(c.listings) : stats(data.listings);
+const h1 = c ? (c.facet ? c.facet.title(place) : `${place} homes for sale`) : 'Twin Cities homes for sale';
+const titleText = c ? (c.facet ? c.facet.title(place) : `${place} Homes for Sale`) : 'Twin Cities Homes for Sale by City';
+const facetLower = c?.facet ? c.facet.label.charAt(0).toLowerCase() + c.facet.label.slice(1) : '';
+const answer = c
+  ? `${st.count.toLocaleString('en-US')} ${st.count === 1 ? 'home is' : 'homes are'} for sale in ${place}${c.facet ? ` (${facetLower})` : ''} as of ${updatedDay}${st.count > 1 ? `, from ${money(st.min)} to ${money(st.max)}, with a median list price of ${money(st.median!)}` : ` at ${money(st.min)}`}.`
+  : `${st.count.toLocaleString('en-US')} homes are for sale across our ${hubGroups.reduce((n, g) => n + g.list.length, 0)} Twin Cities communities as of ${updatedDay}.`;
+const description = c ? `${answer} See every one, plus ${place}'s market report, schools and local guide from ${site.name}.`.slice(0, 300) : `${answer} Pick a city for its homes for sale, prices and local guide.`;
+
+const mk = area?.kind === 'community' && hasMarket(area.key) ? marketFor(area.key) : area?.kind === 'hood' && hasMarket(area.key) ? marketFor(area.key) : undefined;
+const sibling = (slug: string) => data.collections.find((k) => k.path === (slug ? `${area!.path}/${slug}` : area!.path));
+const facetLinks = area ? facetsFor(area).map((f) => ({ f, k: sibling(f.slug) })).filter((r) => r.k) : [];
+const groups = [...new Set(facetLinks.map((r) => r.f.group))];
+const parent = area && c?.facet ? sibling('') : null;
+const shown = c ? c.listings.slice(0, SHOW) : [];
+const community = area?.communitySlug ? communities.find((x) => x.slug === area.communitySlug) : undefined;
+const areaLakes = area?.kind === 'community' ? lakesTouching(area.key).slice(0, 8) : [];
+const cityHoods = area?.kind === 'community' && !c?.facet && (area.key === 'minneapolis' || area.key === 'saint-paul')
+  ? hoods.filter((h) => h.city === area.key).map((h) => ({ h, k: data.collections.find((k) => k.path === hoodKey(h)) })).filter((r) => r.k).sort((a, b) => a.h.name.localeCompare(b.h.name)) : [];
+const near = area?.kind === 'community' && community
+  ? nearby(community, 8).map((n) => ({ n, k: data.collections.find((k) => k.path === (c?.facet ? `${n.slug}/${c.facet.slug}` : n.slug)) })).filter((r) => r.k).slice(0, 6) : [];
+
+// The full, always-current search for the same slice (homes beyond the first SHOW, and live updates).
+const filters: any = {};
+if (c?.facet?.slug.startsWith('under-')) filters.maxPrice = Number(c.facet.slug.slice(6));
+if (c?.facet?.slug === 'luxury-homes') filters.minPrice = 1000000;
+const typeFilter: Record<string, string> = { 'single-family-homes': 'house', townhomes: 'townhouse', condos: 'condo' };
+if (c?.facet && typeFilter[c.facet.slug]) filters.type = typeFilter[c.facet.slug];
+const bedMatch = c?.facet?.slug.match(/^(\d)-bedroom/); if (bedMatch) filters.beds = Number(bedMatch[1]);
+const hood = area?.kind === 'hood' ? hoods.find((h) => hoodKey(h) === area.key) : undefined;
+const fullSearch = !area ? site.searchUrl : area.kind === 'community' ? communitySearch(area.key, filters) : area.kind === 'hood' && hood ? hoodSearchUrl(hood) : searchUrl({ zips: [area.key] }, filters);
+
+const faq = c ? [
+  { q: `How many homes are for sale in ${place}${c.facet ? ` (${facetLower})` : ''}?`, a: `${answer} Listings update twice a day from NorthstarMLS.` },
+  ...(st.count > 1 && st.median ? [{ q: `What is the median list price${c.facet ? ` for ${facetLower}` : ''} in ${place}?`, a: `${money(st.median)} across ${st.count} active listings as of ${updatedDay}${st.medianPpsf ? `, about ${money(Math.round(st.medianPpsf))} per finished square foot` : ''}.` }] : []),
+  { q: `What is the least expensive ${c.facet ? facetLower.replace(/^under .*|^\$.*/, 'home') : 'home'} for sale in ${place}?`, a: `${st.cheapest.street}, ${st.cheapest.city}, listed at ${money(st.cheapest.price)}${st.cheapest.beds ? ` with ${st.cheapest.beds} bedrooms` : ''} (${st.cheapest.brokerage || 'listing brokerage'}), as of ${updatedDay}.` },
+  ...(mk?.medianPrice?.r12[1] != null ? [{ q: `What are homes actually selling for in ${place}?`, a: `The median sale price was ${mMoney(mk.medianPrice.r12[1])} over the 12 months through ${monthLabel(latest)} (${signed(mk.medianPrice.r12[2])} from a year earlier), with ${count(mk.closedSales?.r12[1])} homes sold and ${count(mk.daysOnMarket?.r12[1])} days on market on average, according to the Minneapolis Area REALTORS® Local Market Update (NorthstarMLS data).` }] : []),
+  { q: `How do I get new ${place} listings first?`, a: `Use the form on this page and a ${site.name} agent will set up alerts so you see new listings as soon as they hit the market. There's no cost to buyers.` },
+] : [];
+
+const url = `${origin}${homesHref(c?.path ?? '')}`;
+const ld = c ? JSON.stringify([
+  { '@context': 'https://schema.org', '@type': 'ItemList', '@id': `${url}#homes`, name: h1, url, numberOfItems: st.count,
+    itemListElement: shown.slice(0, 30).map((l, i) => ({ '@type': 'ListItem', position: i + 1, url: `${origin}/homes/${l.slug}`, name: `${l.street}, ${l.city}, MN ${l.zip}` })) },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+]) : null;
+const crumbs = [{ name: 'Homes for sale', href: homesHref() },
+  ...(area?.kind === 'hood' ? [{ name: CITY_NAME[area.communitySlug!], href: homesHref(area.communitySlug!) }] : []),
+  ...(area ? [{ name: area.name, href: homesHref(area.path) }] : []),
+  ...(c?.facet ? [{ name: c.facet.label, href: homesHref(c.path) }] : [])];
+---
+<Base breadcrumbs={crumbs} title={`${titleText} | ${site.name}`} description={description} noindex={c ? !c.index : data.preview}>
+  {ld && <script slot="head" type="application/ld+json" set:html={ld} />}
+  <PageHero eyebrow={`Homes for sale · updated ${updatedDay}`} title={h1} lede={answer} />
+
+  {!c && (
+    <section class="section">
+      <div class="wrap">
+        {hubGroups.map((g) => (
+          <div class="hub-group">
+            <h2>{g.reg}</h2>
+            <ul class="hub">{g.list.map(({ x, n }) => <li><a href={homesHref(x.slug)}><strong>{x.name}</strong><span>{n} {n === 1 ? 'home' : 'homes'} for sale</span></a></li>)}</ul>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {c && (
+    <>
+      <section class="section section--tight">
+        <div class="wrap">
+          <dl class="facts">
+            <div><dt>For sale now</dt><dd>{st.count.toLocaleString('en-US')}</dd></div>
+            {st.median && <div><dt>Median list price</dt><dd>{money(st.median)}</dd></div>}
+            {st.count > 1 && <div><dt>Price range</dt><dd>{money(st.min)}–{money(st.max)}</dd></div>}
+            {st.medianPpsf && <div><dt>Median per sq ft</dt><dd>{money(Math.round(st.medianPpsf))}</dd></div>}
+            {mk?.medianPrice?.r12[1] != null && <div><dt>Median sold (12 mo.)</dt><dd>{mMoney(mk.medianPrice.r12[1])}</dd></div>}
+          </dl>
+
+          {facetLinks.length > 0 && (
+            <nav class="filters" aria-label="Narrow these homes">
+              {parent && <a class="filters__all" href={homesHref(area!.path)}>All {parent.listings.length} homes in {area!.name}</a>}
+              {groups.map((g) => (
+                <div class="filters__group">
+                  <span>{g}</span>
+                  {facetLinks.filter((r) => r.f.group === g).map((r) => <a href={homesHref(r.k!.path)} aria-current={r.k === c ? 'page' : undefined}>{r.f.label} <em>{r.k!.listings.length}</em></a>)}
+                </div>
+              ))}
+            </nav>
+          )}
+
+          <h2 class="visually-hidden">The homes</h2>
+          <ul class="lcards">{shown.map((l, i) => <ListingCard l={l} eager={i < 3} />)}</ul>
+          <p class="more">
+            {c.listings.length > SHOW ? <>Showing the {SHOW} newest of {c.listings.length}. </> : null}
+            <a class="link-arrow" href={fullSearch} rel="noopener">{c.listings.length > SHOW ? `See all ${c.listings.length} on the map` : 'Search these homes on the map'}</a>
+          </p>
+          <p class="notice">{mls.notice} Listing data updated {updatedText} (Central). {data.fixture && <strong>Sample data for layout testing: not real homes.</strong>}</p>
+        </div>
+      </section>
+
+      {(community || cityHoods.length > 0 || areaLakes.length > 0) && (
+        <section class="section section--paper" aria-labelledby="local-title">
+          <div class="wrap">
+            <div class="head"><p class="eyebrow">Local knowledge</p><h2 id="local-title">Before you buy in {area!.name}</h2></div>
+            <div class="local">
+              {area!.guide && <a href={area!.guide}><strong>{area!.name} {area!.kind === 'hood' ? 'neighborhood' : 'community'} guide</strong><span>Schools, commutes, home values, things to do and local stories.</span></a>}
+              {mk && <a href={area!.kind === 'community' ? `/market/${area!.key}` : `${area!.guide}#market`}><strong>{area!.name} housing market, {monthLabel(latest)}</strong><span>{mMoney(mk.medianPrice?.r12[1])} median sale price ({signed(mk.medianPrice?.r12[2])}), {count(mk.daysOnMarket?.r12[1])} days on market, over 12 months.</span></a>}
+              {area!.kind === 'hood' && <a href={homesHref(area!.communitySlug!)}><strong>All of {CITY_NAME[area!.communitySlug!]}</strong><span>Every home for sale in the city.</span></a>}
+            </div>
+            {areaLakes.length > 0 && (
+              <>
+                <h3 class="sub">Lakes in {area!.name}</h3>
+                <ul class="chips">{areaLakes.map((l) => <li><a href={lakeHref(l)}>{l.name} <em>{l.acres.toLocaleString('en-US')} acres</em></a></li>)}</ul>
+              </>
+            )}
+            {cityHoods.length > 0 && (
+              <>
+                <h3 class="sub">Homes for sale by neighborhood</h3>
+                <ul class="chips">{cityHoods.map(({ h, k }) => <li><a href={homesHref(k!.path)}>{h.name} <em>{k!.listings.length}</em></a></li>)}</ul>
+              </>
+            )}
+          </div>
+        </section>
+      )}
+
+      <section class="section" aria-labelledby="faq-title">
+        <div class="wrap faq">
+          <div class="head"><p class="eyebrow">Quick answers</p><h2 id="faq-title">{c.facet ? c.facet.title(area!.name) : `${area!.name} homes for sale`}: questions</h2></div>
+          {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+        </div>
+      </section>
+
+      {near.length > 0 && (
+        <section class="section section--paper" aria-labelledby="near-title">
+          <div class="wrap">
+            <div class="head"><p class="eyebrow">Nearby</p><h2 id="near-title">{c.facet ? `${c.facet.label} nearby` : 'Homes for sale nearby'}</h2></div>
+            <ul class="chips">{near.map(({ n, k }) => <li><a href={homesHref(k!.path)}>{n.name} <em>{k!.listings.length}</em></a></li>)}</ul>
+          </div>
+        </section>
+      )}
+
+      <section class="section section--dark" id="contact" aria-labelledby="contact-title">
+        <div class="wrap split">
+          <div class="prose">
+            <p class="eyebrow">New listings first</p>
+            <h2 id="contact-title">Get new {area!.name} listings <em>the day they list.</em></h2>
+            <p>Tell us what you're looking for and a {site.name} agent will send matching homes as soon as they hit the market, and help you see them. There's no cost to buyers.</p>
+            <p><a href={site.phoneHref}>{site.phone}</a></p>
+          </div>
+          <form class="form" data-lead="community-alert">
+            <input type="hidden" name="community" value={area!.name} />
+            {c.facet && <input type="hidden" name="interest" value={c.facet.title(area!.name)} />}
+            <div class="form__row">
+              <div class="field"><label for="hf-first">First name</label><input id="hf-first" name="firstName" autocomplete="given-name" required /></div>
+              <div class="field"><label for="hf-last">Last name</label><input id="hf-last" name="lastName" autocomplete="family-name" required /></div>
+            </div>
+            <div class="form__row">
+              <div class="field"><label for="hf-email">Email</label><input id="hf-email" name="email" type="email" autocomplete="email" required /></div>
+              <div class="field"><label for="hf-phone">Phone</label><input id="hf-phone" name="phone" type="tel" autocomplete="tel" /></div>
+            </div>
+            <button class="btn" type="submit">Send me new listings</button>
+            <p class="form__status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </>
+  )}
+</Base>
+
+<style>
+  .section--tight { padding-top: 2rem; }
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); gap: 1px; margin: 0 0 1.5rem; background: var(--line); border: 1px solid var(--line); }
+  .facts div { padding: .85rem 1rem; background: var(--paper); }
+  .facts dt { font: 700 .66rem/1.25 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--crimson); }
+  .facts dd { margin: .2rem 0 0; font: 500 1.4rem/1.2 var(--serif); }
+  .filters { display: grid; gap: .6rem; margin-bottom: 1.75rem; padding: 1rem 1.1rem; border: 1px solid var(--line); background: var(--paper); }
+  .filters__all { font-weight: 700; color: var(--crimson); }
+  .filters__group { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem .5rem; }
+  .filters__group > span { width: 6.5rem; font: 700 .68rem/1.3 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--text-soft); }
+  .filters__group a { padding: .3rem .6rem; border: 1px solid var(--line); color: var(--text); text-decoration: none; font-size: .85rem; white-space: nowrap; }
+  .filters__group a:hover, .filters__group a[aria-current] { border-color: var(--crimson); color: var(--crimson); }
+  .filters em, .chips em { font-style: normal; color: var(--text-soft); font-size: .8em; }
+  .more { margin-top: 1.5rem; text-align: center; }
+  .notice { margin-top: 1.5rem; font-size: .75rem; line-height: 1.5; color: var(--text-soft); }
+  .local { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1rem; }
+  .local a { display: grid; gap: .3rem; padding: 1.25rem; background: var(--paper); border: 1px solid var(--line); border-top: 3px solid var(--crimson); text-decoration: none; color: var(--text); }
+  .local strong { font: 600 1.2rem/1.25 var(--serif); }
+  .local span { font-size: .92rem; color: var(--text-soft); }
+  .local a:hover strong { color: var(--crimson); }
+  .sub { margin: 2rem 0 .75rem; font: 700 .75rem/1.3 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--text-soft); }
+  .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+  .chips a { display: inline-block; padding: .45rem .75rem; border: 1px solid var(--line); background: var(--paper); color: var(--text); text-decoration: none; font-size: .9rem; }
+  .chips a:hover { border-color: var(--crimson); color: var(--crimson); }
+  .hub-group { margin-bottom: 2.25rem; }
+  .hub-group h2 { font: 600 1.5rem/1.2 var(--serif); margin-bottom: .75rem; }
+  .hub { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); gap: .6rem; }
+  .hub a { display: grid; gap: .1rem; padding: .8rem 1rem; border: 1px solid var(--line); background: var(--paper); color: var(--text); text-decoration: none; }
+  .hub strong { font: 600 1.1rem/1.2 var(--serif); }
+  .hub span { font-size: .85rem; color: var(--text-soft); }
+  .hub a:hover strong { color: var(--crimson); }
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+</style>
