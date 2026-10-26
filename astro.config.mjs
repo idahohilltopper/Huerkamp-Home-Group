@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import { unified } from '@astrojs/markdown-remark';
 import { remarkYoutube } from './src/lib/youtube.mjs';
+import { remarkHeadingFloor } from './src/lib/headings.mjs';
 import { lastmods } from './src/lib/lastmod.mjs';
 import sitemapNoindex from './src/lib/sitemap-noindex.mjs';
 
@@ -21,5 +22,5 @@ export default defineConfig({
     },
   }), sitemapNoindex('https://www.huerkamphomegroup.com')],
   // Blog posts are Markdown; a YouTube link on its own line becomes a fast video player.
-  markdown: { processor: unified({ remarkPlugins: [remarkYoutube] }) },
+  markdown: { processor: unified({ remarkPlugins: [remarkYoutube, remarkHeadingFloor] }) },
 });

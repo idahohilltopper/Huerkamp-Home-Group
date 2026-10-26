@@ -83,7 +83,7 @@ const ld = JSON.stringify({
       ? <div class="post__media wrap" set:html={youtubeHtml(videoId, title)} />
       : showCover && (
         <div class="post__media wrap">
-          <img src={cover.src} alt={cover.alt ?? ''} width={cover.width} height={cover.height} fetchpriority="high" decoding="async" />
+          <img src={cover.src} alt={cover.alt || title} width={cover.width} height={cover.height} fetchpriority="high" decoding="async" />
         </div>
       )}
 

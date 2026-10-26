@@ -25,7 +25,7 @@ from pathlib import Path
 import shapefile
 from pyproj import Transformer
 from shapely.geometry import mapping, shape
-from shapely.ops import transform
+from shapely.ops import transform, unary_union
 from shapely.strtree import STRtree
 from shapely.validation import make_valid
 
@@ -48,6 +48,13 @@ def nice(name):
     return re.sub(r'\s+\d+$', '', name).strip()
 
 
+def polygons(g):
+    # make_valid can return a mix of shapes (a polygon plus stray lines); keep only the water area.
+    if g.geom_type == 'GeometryCollection':
+        return unary_union([x for x in g.geoms if x.geom_type in ('Polygon', 'MultiPolygon')])
+    return g
+
+
 def key(n):
     return re.sub(r'[^a-z]', '', re.sub(r'\b(lake|lakes|lk|lks|the|of)\b', '', (n or '').lower()))
 
@@ -58,7 +65,7 @@ for f in json.loads(DNR.read_text())['features']:
     p = f['properties']
     if p['dowlknum'] in dnr or not f['geometry'] or NOT_A_LAKE.search(p['pw_basin_name'] or 'Unnamed'):
         continue
-    dnr[p['dowlknum']] = {**p, 'geom': transform(to_utm, make_valid(shape(f['geometry'])))}
+    dnr[p['dowlknum']] = {**p, 'geom': transform(to_utm, polygons(make_valid(shape(f['geometry']))))}
 
 # Census named water, for everyday names and counties
 census = []

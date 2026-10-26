@@ -26,7 +26,7 @@ const who = audience[name] ?? 'Twin Cities buyers, sellers and homeowners';
 <Base
   breadcrumbs={[{ name: 'Blog', href: '/blog' }, { name, href: base }, ...(n > 1 ? [{ name: `Page ${n}`, href: `${base}/${n}` }] : [])]}
   title={`${name} Articles${n > 1 ? `, Page ${n}` : ''} | Huerkamp Home Group Blog`}
-  description={`Real estate advice for ${who} in the Twin Cities from Huerkamp Home Group. ${page.total} articles.`}>
+  description={`Real estate advice for ${who} in the Twin Cities from Huerkamp Home Group. ${page.total} articles${n > 1 ? `, page ${n} of ${page.lastPage}` : ''}.`}>
   <PageHero eyebrow="Blog" title={`Advice for ${who}.`} lede={`${page.total} articles${n > 1 ? `, page ${n} of ${page.lastPage}` : ''}.`} />
   <BlogList posts={page.data} categories={cats} current={name} page={n} pages={page.lastPage}
     pageHref={(k) => (k === 1 ? base : `${base}/${k}`)} />

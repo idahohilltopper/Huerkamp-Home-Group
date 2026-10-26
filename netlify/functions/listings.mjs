@@ -64,7 +64,7 @@ export default async (req) => {
   const given = (req.headers.get('x-report-key') ?? q.get('key') ?? '').trim();
   const debug = q.get('debug') === '1' && !!pass && same(given, pass);
   if (q.get('debug') === '1' && !debug) return json(401, { ok: false, error: 'debug-needs-passcode' }, false);
-  if (!debug && env('MLS_PUBLIC').toLowerCase() !== 'yes') return json(403, { ok: false, error: 'not-public-yet' }, false);
+  if (!debug && env('MLS_PUBLIC').toLowerCase() !== 'yes') return json(200, { ok: false, error: 'not-public-yet' }, false);  // 200, so browsers don't log it as an error
   const key = env('REPLIERS_API_KEY');
   if (!key) {
     if (!debug) return json(503, { ok: false, error: 'not-configured' }, false);

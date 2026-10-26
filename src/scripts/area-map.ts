@@ -12,8 +12,8 @@ const INK = '#1b1819';
 
 function bounds(features: any[]) {
   const b = new maplibregl.LngLatBounds();
-  const walk = (c: any) => (typeof c[0] === 'number' ? b.extend(c as [number, number]) : c.forEach(walk));
-  features.forEach((f) => walk(f.geometry.coordinates));
+  const walk = (c: any) => (!Array.isArray(c) ? undefined : typeof c[0] === 'number' ? b.extend(c as [number, number]) : c.forEach(walk));
+  features.forEach((f) => walk(f.geometry?.coordinates));  // skips shapes without coordinates
   return b;
 }
 

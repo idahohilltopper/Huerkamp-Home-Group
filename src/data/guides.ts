@@ -7,7 +7,7 @@ import { communities, type Community } from './areas';
 import { hoods, hoodHref, hoodKey, CITY_NAME, type Hood } from './neighborhoods';
 import { lakesTouching, lakeHref } from './lakes';
 import { communitySearch } from './ylopo';
-import { marketFor, latest, monthLabel, money, moneyK, count, signed, type AreaMarket } from './market';
+import { marketFor, hasMarket, latest, monthLabel, money, moneyK, count, signed, type AreaMarket } from './market';
 
 const month = monthLabel(latest);
 const D = details.communities as Record<string, any>;
@@ -44,7 +44,7 @@ export interface Guide {
 const county = (c: Community) => `${c.counties[0]} County`;
 const cityLinks = (c: Community, f = {}): [string, string][] => [
   ['Homes for sale', communitySearch(c.slug, f)],
-  ...(marketFor(c.slug) ? [['Market report', `/market/${c.slug}`] as [string, string]] : []),
+  ...(hasMarket(c.slug) ? [['Market report', `/market/${c.slug}`] as [string, string]] : []),
 ];
 const hoodRow = (h: Hood, cells: string[]): Row => ({
   name: h.name, href: hoodHref(h), sub: CITY_NAME[h.city], cells, links: [],

@@ -28,7 +28,11 @@ interface Props {
   /** Blog posts: publish/update dates for social and search previews. */
   article?: { published: Date; modified?: Date };
 }
-const { title, description, image = '/brand/og-default.jpg', breadcrumbs = [], noindex = false, article } = Astro.props;
+const { title: fullTitle, description: fullDescription, image = '/brand/og-default.jpg', breadcrumbs = [], noindex = false, article } = Astro.props;
+// Google shows about 60–70 characters of a title and 155–160 of a description. A long title drops the
+// " | Huerkamp Home Group" ending (the brand is still in the site name Google shows); a long description is cut at a word.
+const title = fullTitle.length > 70 ? fullTitle.replace(/ \| Huerkamp Home Group( Blog)?$/, '') : fullTitle;
+const description = fullDescription.length > 160 ? `${fullDescription.slice(0, 157).replace(/[\s,;:.]+\S*$/, '')}…` : fullDescription;
 const { phone, phoneHref } = site;
 const origin = Astro.site ?? 'https://www.huerkamphomegroup.com';
 // Pages build to /team.html but are served at /team, so drop the .html (and /index) from the address.
