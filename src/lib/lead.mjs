@@ -40,6 +40,19 @@ const CONTACT = new Set(['firstName', 'lastName', 'email', 'phone']);
 const clean = (v, max = 2000) => String(v ?? '').replace(/\s+/g, ' ').trim().slice(0, max);
 const isEmail = (s) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
 
+// The home a listing-page lead asked about (Follow Up Boss shows it on the lead), or a seller's address.
+const n = (v) => { const x = Number(String(v ?? '').replace(/[^0-9.]/g, '')); return Number.isFinite(x) && x > 0 ? x : undefined; };
+function property(f, url) {
+  if (f.propStreet) {
+    return Object.fromEntries(Object.entries({
+      street: f.propStreet, city: f.propCity, state: 'MN', code: f.propZip, mlsNumber: f.propMls,
+      price: n(f.propPrice), bedrooms: n(f.propBeds), bathrooms: n(f.propBaths), area: n(f.propSqft),
+      url,
+    }).filter(([, v]) => v !== undefined && v !== ''));
+  }
+  return f.address ? { street: f.address } : null;
+}
+
 /**
  * input: { form, fields: {...}, page, title, hp, elapsed }
  * returns { event } | { error } | { spam: true }
@@ -99,7 +112,7 @@ export function buildEvent(input) {
       tags: [...tags],
       ...(agentSite && { assignedTo: agentSite.fubName }),
     },
-    ...(f.address && { property: { street: f.address } }),
+    ...(property(f, pageUrl) && { property: property(f, pageUrl) }),
   };
   return { event };
 }
