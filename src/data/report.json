@@ -188,5 +188,179 @@
    "posts": 300,
    "source": "vidIQ channel stats"
   }
+ ],
+ "rankings": [
+  {
+   "date": "2026-10-26",
+   "engine": "Web search (Claude's search tool, US results, first 10)",
+   "note": "Baseline before launch. Rank = position of the site's first result (1 = top); blank = not in the first 10.",
+   "results": [
+    {
+     "query": "Burnsville MN homes for sale",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": 7,
+      "realtor": null,
+      "redfin": 1
+     },
+     "first": "redfin.com"
+    },
+    {
+     "query": "Lakeville MN homes for sale",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": 7,
+      "realtor": null,
+      "redfin": 1
+     },
+     "first": "redfin.com"
+    },
+    {
+     "query": "Apple Valley MN homes for sale",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": 9,
+      "realtor": null,
+      "redfin": 1
+     },
+     "first": "redfin.com"
+    },
+    {
+     "query": "Eagan MN homes for sale",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": null,
+      "realtor": null,
+      "redfin": 1
+     },
+     "first": "redfin.com"
+    },
+    {
+     "query": "Prior Lake MN homes for sale",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": null,
+      "realtor": null,
+      "redfin": 1
+     },
+     "first": "redfin.com"
+    },
+    {
+     "query": "Savage MN homes for sale",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": null,
+      "realtor": null,
+      "redfin": 1
+     },
+     "first": "redfin.com"
+    },
+    {
+     "query": "Lake Minnetonka homes for sale",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": null,
+      "realtor": null,
+      "redfin": 1
+     },
+     "first": "redfin.com"
+    },
+    {
+     "query": "Prior Lake lakefront homes for sale",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": null,
+      "realtor": null,
+      "redfin": null
+     },
+     "first": "lakeplace.com"
+    },
+    {
+     "query": "Linden Hills Minneapolis homes for sale",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": null,
+      "realtor": null,
+      "redfin": 1
+     },
+     "first": "redfin.com"
+    },
+    {
+     "query": "Minneapolis homes for sale under 400k",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": 10,
+      "realtor": null,
+      "redfin": 1
+     },
+     "first": "redfin.com"
+    },
+    {
+     "query": "Burnsville MN housing market",
+     "ranks": {
+      "ours": null,
+      "zillow": 2,
+      "homes": null,
+      "realtor": null,
+      "redfin": 1
+     },
+     "first": "redfin.com"
+    },
+    {
+     "query": "Lakeville MN housing market 2026",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": null,
+      "realtor": null,
+      "redfin": null
+     },
+     "first": "houzeo.com"
+    },
+    {
+     "query": "Twin Cities housing market",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": null,
+      "realtor": null,
+      "redfin": null
+     },
+     "first": "iimu.ac.in"
+    },
+    {
+     "query": "Burnsville MN real estate",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": null,
+      "realtor": null,
+      "redfin": 9
+     },
+     "first": "attomdata.com"
+    },
+    {
+     "query": "Lakeville MN real estate agent",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": null,
+      "realtor": null,
+      "redfin": null
+     },
+     "first": "homelight.com"
+    }
+   ]
+  }
  ]
 }

@@ -383,6 +383,7 @@ A private page (noindex, not linked, left out of the sitemap) showing what the s
 - **Weekly data** in src/data/report.json, appended by the "Weekly results report" routine:
   - `visibility`: the same 10 buyer/seller searches each week; does our site come up, are we named elsewhere, who ranks first. Never edit past entries.
   - `social`: follower/view/post counts per platform (YouTube from vidIQ; other platforms once their handles are known).
+- **Us vs. the portals** (`rankings` in report.json): the same 15 "homes for sale", "housing market" and "real estate" searches each week, with the position of our first result and of Zillow, Homes.com, Realtor.com and Redfin (first 10 results). Baseline 2026-10-26: Redfin ranks first on most "homes for sale" searches with narrow pages per city (price bands, townhouses, new construction, waterfront); the new site isn't live yet.
 - **The website:** page counts by type and pages with a real change in the last 7/30 days (the sitemap's dates).
 
 ## Agent sites (/team/<agent>, /team/<agent>/sell, /team/<agent>/buy), October 2026

@@ -88,6 +88,27 @@ const dateText = (d: string) => new Date(d + 'T12:00:00').toLocaleDateString('en
         <p class="source">Source: {last.source}, {dateText(last.date)}. Instagram, Facebook and TikTok are added once their accounts are connected.</p>
       </section>
 
+      <!-- Us vs. the portals -->
+      {report.rankings?.length > 0 && (() => {
+        const r = report.rankings.at(-1)!;
+        const cols: [string, string][] = [['ours', 'Us'], ['zillow', 'Zillow'], ['homes', 'Homes.com'], ['realtor', 'Realtor.com'], ['redfin', 'Redfin']];
+        const beat = r.results.filter((x: any) => x.ranks.ours && ['zillow', 'homes', 'realtor'].every((k) => !x.ranks[k] || x.ranks.ours < x.ranks[k])).length;
+        return (
+          <section class="block" aria-labelledby="portals-title">
+            <h2 id="portals-title">Us vs. Zillow, Homes.com and Realtor.com</h2>
+            <p>{r.results.length} searches buyers and sellers make, checked {dateText(r.date)}: we rank ahead of all three portals on <strong>{beat}</strong>. {r.note}</p>
+            <div class="table-scroll">
+              <table class="data">
+                <thead><tr><th scope="col">Search</th>{cols.map(([, l]) => <th scope="col" class="num">{l}</th>)}<th scope="col">Top result</th></tr></thead>
+                <tbody>{r.results.map((x: any) => <tr><th scope="row">{x.query}</th>{cols.map(([k]) => <td class={`num ${k === 'ours' && x.ranks[k] ? 'yes' : ''}`}>{x.ranks[k] ?? '—'}</td>)}<td>{x.first}</td></tr>)}</tbody>
+              </table>
+            </div>
+            {report.rankings.length > 1 && <p>History (searches where we beat all three): {report.rankings.map((v: any) => `${dateText(v.date)}: ${v.results.filter((x: any) => x.ranks.ours && ['zillow', 'homes', 'realtor'].every((k) => !x.ranks[k] || x.ranks.ours < x.ranks[k])).length}`).join(' · ')}</p>}
+            <p class="source">Source: {r.engine}. Google's own positions for our pages are in the Google search section above (Search Console), which is the number to trust once the new site is live.</p>
+          </section>
+        );
+      })()}
+
       <!-- Visibility -->
       <section class="block" aria-labelledby="vis-title">
         <h2 id="vis-title">Do people find us when they search?</h2>
