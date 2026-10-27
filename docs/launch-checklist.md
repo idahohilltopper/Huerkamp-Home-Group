@@ -51,6 +51,7 @@ search.huerkamphomegroup.com. Later, the Luxury Presence site (huerkamphomes.com
 
 - [ ] **Google Search Console:** add a Domain property for huerkamphomegroup.com (verified with a TXT record in GoDaddy), submit `https://www.huerkamphomegroup.com/sitemap-index.xml`, and request indexing of the home page.
 - [ ] **Bing Webmaster Tools:** import the site from Google Search Console and submit the same sitemap. ChatGPT search and Microsoft Copilot use Bing.
+- [ ] **IndexNow (automatic):** after the first production deploy on the live domain, Netlify → Logs → Functions → `deploy-succeeded` should say "IndexNow: 4,7xx of 4,7xx submitted". From then on every deploy sends only the pages whose last-changed date moved. Bing Webmaster Tools → IndexNow shows what arrived. To pause it, set `INDEXNOW=off` in Netlify's environment variables. Key file: `/56ee55cf631cd22cfd6bfd56e35556fa.txt` (public by design).
 - [ ] **Google Business Profile:** set the website to https://www.huerkamphomegroup.com.
 - [ ] Update the website link on Facebook, the YouTube channel's About page, Zillow, Realtor.com, KW and the Ramsey ELP listing. The monthly backlinks routine will check these.
 
