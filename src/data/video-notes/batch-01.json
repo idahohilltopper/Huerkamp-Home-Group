@@ -1,0 +1,21 @@
+[
+  {
+    "id": "o427aHe-m7U",
+    "takeaways": [
+      "Mortgage rates are back above 7%. Jason cites Freddie Mac's 30-year fixed average of 7.28% as of October 1, 2026, up from 6.34% a year earlier.",
+      "The Federal Reserve doesn't set mortgage rates. They follow the 10-year Treasury yield, and your own rate also depends on your credit, down payment, loan type and points.",
+      "On a $415,000 Dakota County home with 20% down (a loan of about $332,000), principal and interest rise from about $2,064 a month at 6.34% to about $2,272 at 7.28%: about $208 more a month, close to $2,500 a year.",
+      "Fannie Mae's September forecast, as quoted in the video, has rates around 6.8% for the rest of 2026 and 6.7% for 2027, so waiting for much lower rates could take more than a year.",
+      "Homes are still selling: in Dakota County in August, closed sales were up over 7%, the median price rose almost 4%, homes averaged about 43 days on market and sellers got about 98% of their original list price.",
+      "Assumable FHA and VA loans let a buyer take over the seller's lower rate. The buyer must cover the gap between the price and the loan balance with cash or a second loan, and assumptions usually take 45 days or more.",
+      "Sellers with a low-rate FHA or VA loan should advertise that it's assumable, and price carefully, since higher rates mean fewer buyers qualify."
+    ],
+    "faq": [
+      { "q": "Does the Federal Reserve set mortgage rates?", "a": "No. Mortgage rates follow the 10-year Treasury yield, which the bond market trades every day. Your own rate also depends on your credit, down payment, loan type and any points you pay." },
+      { "q": "Can someone who isn't a veteran assume a VA loan?", "a": "Yes. A non-veteran can assume a VA loan, but the seller's VA entitlement may stay tied to that loan until it's paid off, so sellers should understand that before agreeing." },
+      { "q": "How much does a higher mortgage rate add to a monthly payment?", "a": "In Jason's example, a loan of about $332,000 costs about $2,064 a month in principal and interest at 6.34% and about $2,272 at 7.28%, roughly $208 more a month before taxes, insurance and association dues." }
+    ],
+    "places": [],
+    "links": [["Twin Cities market report", "/market"], ["Buy a home", "/buy"]]
+  }
+]

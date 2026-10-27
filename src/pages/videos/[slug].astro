@@ -7,6 +7,7 @@ import VideoCard from '../../components/VideoCard.astro';
 import { youtubeHtml } from '../../lib/youtube.mjs';
 import { channel, watchable, longVideos, videosAbout, youtubeUrl, clock, isoDuration, views, type Video } from '../../data/youtube';
 import { communities } from '../../data/areas';
+import { videoNotes } from '../../data/videoNotes';
 import { business, origin } from '../../data/schema';
 import { site } from '../../data/site';
 
@@ -21,12 +22,14 @@ const description = v.summary.join(' ');
 const metaDescription = description.length > 158 ? description.slice(0, 155).replace(/\s+\S*$/, '') + '…' : description;
 // Community guides this video talks about.
 const inTitle = (c: { name: string }) => videosAbout([c.name], 400).some((x) => x.id === v.id && x.title === v.title && new RegExp(`\\b${c.name.replace(/^St\. /, '(St\\.|Saint) ')}\\b`, 'i').test(v.title));
-const places = communities.filter((c) => videosAbout([c.name], 400).some((x) => x.id === v.id))
-  .sort((a, b) => Number(inTitle(b)) - Number(inTitle(a))).slice(0, 8);
+const note = videoNotes.get(v.id);
+const noted = communities.filter((c) => note?.places?.includes(c.slug));
+const places = [...noted, ...communities.filter((c) => !noted.includes(c) && videosAbout([c.name], 400).some((x) => x.id === v.id))
+  .sort((a, b) => Number(inTitle(b)) - Number(inTitle(a)))].slice(0, 8);
 const related = longVideos.filter((x) => x.id !== v.id && x.topic === v.topic).slice(0, 6);
 const chapters = v.chapters.map((c, i) => ({ ...c, end: v.chapters[i + 1]?.t ?? v.seconds ?? undefined }));
 
-const ld = JSON.stringify({
+const ld = JSON.stringify([{
   '@context': 'https://schema.org',
   '@type': 'VideoObject',
   '@id': `${url}#video`,
@@ -46,7 +49,7 @@ const ld = JSON.stringify({
   ...(chapters.length > 1 && {
     hasPart: chapters.map((c) => ({ '@type': 'Clip', name: c.label, startOffset: c.t, ...(c.end && { endOffset: c.end }), url: `${youtubeUrl(v)}&t=${c.t}s` })),
   }),
-});
+}, ...(note?.faq.length ? [{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: note.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }] : [])]);
 ---
 <Base
   breadcrumbs={[{ name: 'Videos', href: '/videos' }, { name: v.title, href: `/videos/${v.slug}` }]}
@@ -72,6 +75,20 @@ const ld = JSON.stringify({
         <div class="watch__body">
           <h2>About this video</h2>
           {v.summary.map((p) => <p>{p}</p>)}
+          {note && (
+            <>
+              <h2>Key takeaways</h2>
+              <ul class="takeaways">{note.takeaways.map((t) => <li>{t}</li>)}</ul>
+              {note.faq.length > 0 && (
+                <>
+                  <h2>Questions this video answers</h2>
+                  <div class="vfaq">{note.faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}</div>
+                </>
+              )}
+              {note.links && note.links.length > 0 && <p class="vlinks">Read more: {note.links.map(([t, h], i) => <>{i > 0 && ' · '}<a href={h}>{t}</a></>)}</p>}
+              <p class="vnote">Notes written by Huerkamp Home Group from this video. Figures are as stated in the video on {dateText}; check the current numbers in our <a href="/market">market reports</a>.</p>
+            </>
+          )}
           {chapters.length > 1 && (
             <>
               <h2>Chapters</h2>
@@ -128,6 +145,13 @@ const ld = JSON.stringify({
   .chapters a:hover { color: var(--crimson); }
   .chapters span { font: 700 .9rem/1.7 var(--ui); color: var(--crimson); font-variant-numeric: tabular-nums; }
   .watch__yt { margin-top: .5rem; }
+  .takeaways { margin: 0; padding-left: 1.2rem; display: grid; gap: .55rem; }
+  .vfaq { display: grid; gap: .6rem; }
+  .vfaq details { padding: .85rem 1rem; background: var(--paper); border: 1px solid var(--line); }
+  .vfaq summary { cursor: pointer; font: 600 1.08rem/1.35 var(--serif); }
+  .vfaq details p { margin-top: .5rem; font-size: 1rem; }
+  .vlinks a { color: var(--crimson); font-weight: 600; }
+  .vnote { font-size: .85rem; color: var(--text-soft); }
   .watch__aside { display: grid; gap: 1.25rem; }
   .box { display: grid; gap: .75rem; padding: 1.5rem; background: var(--paper); border: 1px solid var(--line); }
   .box ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .45rem; }
