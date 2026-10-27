@@ -93,20 +93,37 @@ export function compact(l, now = new Date()) {
 const FIELDS = 'mlsNumber,listPrice,listDate,updatedOn,timestamps,status,lastStatus,class,type,address,map,details,lot,images,office,agents,taxes,condominium';
 
 async function download(key, box) {
-  // Small tiles keep each search well inside Repliers' paging limits.
-  const [w, s, e, n] = box, step = 0.12, out = new Map();
-  for (let x = w; x < e; x += step) {
-    for (let y = s; y < n; y += step) {
-      const tile = [[[x, y + step], [x + step, y + step], [x + step, y], [x, y], [x, y + step]]];
-      for (let page = 1, pages = 1; page <= pages && page <= 50; page++) {
-        const r = await repliers(key, '/listings', { status: 'A', type: 'Sale', resultsPerPage: 100, pageNum: page, fields: FIELDS }, { map: tile });
-        if (!r.data) throw new Error(`Repliers ${r.status}: ${r.error}`);
-        pages = r.data.numPages ?? 1;
-        for (const l of r.data.listings ?? []) out.set(l.mlsNumber, l);
-      }
+  // Small tiles keep each search well inside Repliers' paging limits; 4 run at a time.
+  // A tile that keeps failing is skipped and reported, so one bad request can't stop the whole site build.
+  const [w, s, e, n] = box, step = 0.12, out = new Map(), stats = { tiles: 0, requests: 0, failedTiles: 0, errors: [], cappedTiles: 0 };
+  const tiles = [];
+  for (let x = w; x < e; x += step) for (let y = s; y < n; y += step) tiles.push([[[x, y + step], [x + step, y + step], [x + step, y], [x, y], [x, y + step]]]);
+  stats.tiles = tiles.length;
+  const ask = async (tile, page) => {
+    for (let attempt = 1; ; attempt++) {
+      stats.requests++;
+      const r = await repliers(key, '/listings', { status: 'A', type: 'Sale', resultsPerPage: 100, pageNum: page, fields: FIELDS }, { map: tile }).catch((err) => ({ status: 0, data: null, error: String(err?.message ?? err) }));
+      if (r.data) return r.data;
+      if (attempt >= 3 || r.status === 401 || r.status === 403) throw new Error(`Repliers ${r.status}: ${r.error}`);
+      await new Promise((ok) => setTimeout(ok, 1500 * attempt));
     }
-  }
-  return [...out.values()];
+  };
+  const one = async (tile) => {
+    try {
+      for (let page = 1, pages = 1; page <= pages && page <= 50; page++) {
+        const d = await ask(tile, page);
+        pages = d.numPages ?? 1;
+        if (page === 1 && pages > 50) stats.cappedTiles++;
+        for (const l of d.listings ?? []) out.set(l.mlsNumber, l);
+      }
+    } catch (err) {
+      stats.failedTiles++;
+      if (stats.errors.length < 5) stats.errors.push(String(err.message).slice(0, 200));
+      if (/Repliers (401|403)/.test(err.message)) throw err; // a bad or unauthorized key: stop right away
+    }
+  };
+  for (let i = 0; i < tiles.length; i += 4) await Promise.all(tiles.slice(i, i + 4).map(one));
+  return { listings: [...out.values()], stats };
 }
 
 let feed;
@@ -117,34 +134,48 @@ export function loadFeed() {
     const fixture = process.env.MLS_FIXTURE;
     if (fixture && process.env.NETLIFY !== 'true') return { mode: mode === 'off' ? 'preview' : mode, at: new Date().toISOString(), listings: JSON.parse(readFileSync(fixture, 'utf8')), fixture: true };
     const key = (process.env.REPLIERS_API_KEY ?? '').trim();
-    if (mode === 'off' || !key) return { mode: 'off', at: null, listings: [] };
+    const env = { MLS_PUBLIC: process.env.MLS_PUBLIC ?? null, REPLIERS_API_KEY: key ? 'set' : 'missing' };
+    if (mode === 'off' || !key) {
+      if (mode !== 'off') console.warn('MLS feed: MLS_PUBLIC is set but REPLIERS_API_KEY is not available to the build (check its Builds scope).');
+      return { mode: 'off', at: null, listings: [], status: { env, reason: mode === 'off' ? 'MLS_PUBLIC is not "yes" or "preview"' : 'REPLIERS_API_KEY not available during the build' } };
+    }
     // One download per build: later pages reuse the file written by the first.
     if (existsSync(CACHE) && Date.now() - statSync(CACHE).mtimeMs < 3 * 3600e3) return JSON.parse(readFileSync(CACHE, 'utf8'));
 
-    const comm = areaIndex(read('src/data/geo/communities.geojson').features);
-    const hoods = areaIndex(read('src/data/geo/neighborhoods.geojson').features);
-    const shores = Object.entries(read('src/data/geo/lake-shores.json')).map(([slug, parts]) => {
-      const pts = parts.flat(2);
-      return { slug, polys: parts, box: [Math.min(...pts.map((p) => p[0])), Math.min(...pts.map((p) => p[1])), Math.max(...pts.map((p) => p[0])), Math.max(...pts.map((p) => p[1]))] };
-    });
-    const all = comm.flatMap((c) => [[c.box[0], c.box[1]], [c.box[2], c.box[3]]]);
-    const box = [Math.min(...all.map((p) => p[0])), Math.min(...all.map((p) => p[1])), Math.max(...all.map((p) => p[0])), Math.max(...all.map((p) => p[1]))];
+    try {
+      const comm = areaIndex(read('src/data/geo/communities.geojson').features);
+      const hoods = areaIndex(read('src/data/geo/neighborhoods.geojson').features);
+      const shores = Object.entries(read('src/data/geo/lake-shores.json')).map(([slug, parts]) => {
+        const pts = parts.flat(2);
+        return { slug, polys: parts, box: [Math.min(...pts.map((p) => p[0])), Math.min(...pts.map((p) => p[1])), Math.max(...pts.map((p) => p[0])), Math.max(...pts.map((p) => p[1]))] };
+      });
+      const all = comm.flatMap((c) => [[c.box[0], c.box[1]], [c.box[2], c.box[3]]]);
+      const box = [Math.min(...all.map((p) => p[0])), Math.min(...all.map((p) => p[1])), Math.max(...all.map((p) => p[0])), Math.max(...all.map((p) => p[1]))];
 
-    const raw = await download(key, box);
-    const now = new Date();
-    const listings = [];
-    for (const l of raw) {
-      const c = compact(l, now);
-      if (!c.mls || !c.price || !c.street || !Number.isFinite(c.lat) || !Number.isFinite(c.lng)) continue;
-      c.community = findArea(comm, c.lng, c.lat)[0] ?? null;
-      if (!c.community) continue; // outside the communities we cover
-      c.hood = findArea(hoods, c.lng, c.lat)[0] ?? null;
-      c.lakes = c.lakefront ? findArea(shores, c.lng, c.lat) : [];
-      listings.push(c);
+      const started = Date.now();
+      const { listings: raw, stats } = await download(key, box);
+      const now = new Date();
+      const listings = [];
+      const dropped = { incomplete: 0, outside: 0 };
+      for (const l of raw) {
+        const c = compact(l, now);
+        if (!c.mls || !c.price || !c.street || !Number.isFinite(c.lat) || !Number.isFinite(c.lng)) { dropped.incomplete++; continue; }
+        c.community = findArea(comm, c.lng, c.lat)[0] ?? null;
+        if (!c.community) { dropped.outside++; continue; } // outside the communities we cover
+        c.hood = findArea(hoods, c.lng, c.lat)[0] ?? null;
+        c.lakes = c.lakefront ? findArea(shores, c.lng, c.lat) : [];
+        listings.push(c);
+      }
+      const status = { env, downloaded: raw.length, kept: listings.length, dropped, seconds: Math.round((Date.now() - started) / 1000), ...stats };
+      console.log(`MLS feed: ${raw.length} listings downloaded, ${listings.length} in our communities (${JSON.stringify(status)})`);
+      const out = { mode, at: now.toISOString(), listings, status };
+      mkdirSync(new URL('.cache/', root), { recursive: true });
+      writeFileSync(CACHE, JSON.stringify(out));
+      return out;
+    } catch (err) {
+      // Never fail the whole site over the listings: build without them and say why.
+      console.error(`MLS feed: download failed, building without listing pages: ${err.message}`);
+      return { mode: 'off', at: null, listings: [], status: { env, reason: 'download failed', error: String(err.message).slice(0, 300) } };
     }
-    const out = { mode, at: now.toISOString(), listings };
-    mkdirSync(new URL('.cache/', root), { recursive: true });
-    writeFileSync(CACHE, JSON.stringify(out));
-    return out;
   })());
 }
