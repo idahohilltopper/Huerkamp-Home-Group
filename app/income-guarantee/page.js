@@ -19,11 +19,12 @@ export default function IncomeGuarantee() {
       <IncomeGuaranteeBand compact />
       <article className="section prose">
         <h2>1. What it is</h2>
-        <p>The guarantee is built for full-time agents at Huerkamp Home Group who commit to our system and show up every week. If you meet every requirement for a full 12 months and your commission income comes in under $150,000, HHG pays you the difference.</p>
+        <p>The guarantee is built for full-time agents at Huerkamp Home Group who commit to our system and show up week after week. If you meet every requirement for a full 12 months and your commission income comes in under $150,000, HHG pays you the difference.</p>
         <p>It is not a handout. It is a safety net for people who do the work.</p>
 
         <h2>2. How the payout works</h2>
         <ul>
+          <li>Your 12-month period starts on the date you sign the program acknowledgment, and you can sign only during your first year on the team.</li>
           <li>At the end of your 12-month period, we review your records to confirm you met every requirement.</li>
           <li>We total your commission income for the period. That means your own share of each commission after the team split, on transactions that closed.</li>
           <li>If you met every requirement and your total is below $150,000, HHG pays you the difference between your total and $150,000, as a lump sum or in another way we agree on in writing.</li>
@@ -35,7 +36,7 @@ export default function IncomeGuarantee() {
         <h2>3. The four requirements</h2>
         <p>You must meet all four. They are tracked in Follow Up Boss, except for meeting attendance, which HHG records.</p>
         <ul>
-          <li><strong>100 contacts every week.</strong> A minimum of 100 contacts a week, logged in Follow Up Boss.</li>
+          <li><strong>100 contacts a week.</strong> You reach at least 100 contacts in a week, logged in Follow Up Boss, in at least 48 of the 52 weeks of your 12-month period. A week counts only if you hit 100.</li>
           <li><strong>48 weekly accountability meetings a year.</strong> You attend 48 of our weekly accountability meetings (WAM) over the 12 months.</li>
           <li><strong>No more than 100 leads.</strong> You never have more than 100 leads assigned to you in Follow Up Boss at one time.</li>
           <li><strong>46 team meetings a year, in person.</strong> You attend 46 team meetings over the 12 months, in person.</li>
@@ -47,6 +48,7 @@ export default function IncomeGuarantee() {
           <li>You are licensed with HHG through Keller Williams Preferred Realty, and you stay in good standing for the full 12 months.</li>
           <li>You follow team policies, brokerage rules, and all applicable legal and ethical standards.</li>
           <li>You sign the program acknowledgment in writing. The guarantee applies only to agents who have signed.</li>
+          <li>You can join the program only during your first year on the team.</li>
           <li>Referral-only agents, part-time agents, and agents whose role is mainly inside sales or admin and support are not eligible unless we agree otherwise in writing.</li>
         </ul>
 
@@ -59,6 +61,7 @@ export default function IncomeGuarantee() {
           <li>you leave the team before your 12 months are complete;</li>
           <li>you are terminated for cause or for violating team or brokerage policy;</li>
           <li>you do not log your activity consistently in Follow Up Boss;</li>
+          <li>you fall below 90% of the weekly contact standard, meaning fewer than 90 contacts, in more than 4 weeks during the 12 months;</li>
           <li>you fall short of any of the four requirements; or</li>
           <li>you take part in conduct that harms the team&rsquo;s reputation, operations, or clients.</li>
         </ul>
