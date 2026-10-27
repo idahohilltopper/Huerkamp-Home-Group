@@ -90,7 +90,7 @@ export function compact(l, now = new Date()) {
 }
 
 // ---------- download ----------
-const FIELDS = 'mlsNumber,listPrice,listDate,updatedOn,timestamps,status,lastStatus,class,type,address,map,details,lot,images,office,agents,taxes,condominium';
+const FIELDS = 'boardId,mlsNumber,listPrice,listDate,updatedOn,timestamps,status,lastStatus,class,type,address,map,details,lot,images,office,agents,taxes,condominium';
 
 async function download(key, box) {
   // Small tiles keep each search well inside Repliers' paging limits; 4 run at a time.
@@ -123,6 +123,12 @@ async function download(key, box) {
     }
   };
   for (let i = 0; i < tiles.length; i += 4) await Promise.all(tiles.slice(i, i + 4).map(one));
+  // What the key can see in total, and from which MLS ("boards"), to spot a key with only partial data.
+  const boards = {};
+  for (const l of out.values()) boards[l.boardId ?? 'unknown'] = (boards[l.boardId ?? 'unknown'] ?? 0) + 1;
+  stats.boards = boards;
+  const probe = async (params) => { const r = await repliers(key, '/listings', { status: 'A', type: 'Sale', resultsPerPage: 1, fields: 'mlsNumber', ...params }).catch(() => null); return r?.data ? (r.data.count ?? r.data.numListings ?? null) : `error ${r?.status}`; };
+  stats.keySees = { allActiveForSale: await probe({}), minneapolis: await probe({ city: 'Minneapolis' }), lakeville: await probe({ city: 'Lakeville' }) };
   return { listings: [...out.values()], stats };
 }
 
