@@ -18,6 +18,7 @@ import { site } from '../data/site';
 import { business, website } from '../data/schema';
 import { agentDirectory } from '../data/agents';
 import { listingsData } from '../data/listings';
+import { consentText, submitNotice } from '../lib/consent.mjs';
 
 interface Crumb { name: string; href: string }
 interface Props {
@@ -115,7 +116,7 @@ const isExternal = (href: string) => href.startsWith('http');
   {crumbLd && <script type="application/ld+json" set:html={crumbLd} />}
   <slot name="head" />
 </head>
-<body data-privacy={site.privacyUrl}>
+<body data-privacy={site.privacyUrl} data-consent={consentText()} data-submit-notice={submitNotice}>
   <a class="skip" href="#main">Skip to content</a>
   <div class="utility">
     <div class="utility__inner">
@@ -200,7 +201,7 @@ const isExternal = (href: string) => href.startsWith('http');
     </div>
     <div class="wrap footer__legal">
       <p>© {year} {site.name}. {site.brokerage}. Each office independently owned and operated.</p>
-      <p><span aria-hidden="true">⌂</span> Equal Housing Opportunity. Skyline photo: <a href="https://commons.wikimedia.org/wiki/File:Downtown_Minneapolis_skyline_across_the_Mississippi_River.jpg">Guywelch2000</a>, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, power lines removed. <a href={site.facebookUrl} rel="noopener">Facebook</a> · <a href={site.youtubeUrl} rel="noopener">YouTube</a> · <a href={site.privacyUrl} rel="noopener">Privacy policy</a></p>
+      <p><span aria-hidden="true">⌂</span> Equal Housing Opportunity. Skyline photo: <a href="https://commons.wikimedia.org/wiki/File:Downtown_Minneapolis_skyline_across_the_Mississippi_River.jpg">Guywelch2000</a>, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, power lines removed. <a href={site.facebookUrl} rel="noopener">Facebook</a> · <a href={site.youtubeUrl} rel="noopener">YouTube</a> · <a href={site.privacyUrl}>Privacy policy</a> · <a href="/sms-terms">SMS terms</a></p>
     </div>
   </footer>
 
@@ -241,10 +242,14 @@ const isExternal = (href: string) => href.startsWith('http');
       form.dataset.privacy = document.body.dataset.privacy;
       // Hidden field people never see; bots that fill every field get ignored.
       form.insertAdjacentHTML('beforeend', '<div class="visually-hidden" aria-hidden="true"><label>Leave empty<input name="website_url" tabindex="-1" autocomplete="off"></label></div>');
-      // Text-message consent (opt-in) and privacy notice, placed just above the submit button.
+      // Call/text consent (opt-in, never pre-checked, never required) and what submitting means, just above the
+      // submit button. The wording lives in src/lib/consent.mjs; the lead records the same words.
+      const linked = (document.body.dataset.consent ?? '')
+        .replace('SMS Terms', '<a href="/sms-terms">SMS Terms</a>')
+        .replace('Privacy Policy', `<a href="${form.dataset.privacy}">Privacy Policy</a>`);
       form.querySelector('button[type="submit"]')?.insertAdjacentHTML('beforebegin',
-        `<label class="consent"><input type="checkbox" name="smsConsent" value="yes"> <span>Yes, ${form.dataset.brand ?? 'Huerkamp Home Group'} may text me about my real estate questions. Message frequency varies; message and data rates may apply. Reply STOP to opt out. Not required to submit.</span></label>` +
-        `<p class="consent__privacy">By submitting, you agree we may contact you about your inquiry. See our <a href="${form.dataset.privacy}" rel="noopener">privacy policy</a>.</p>`);
+        `<label class="consent"><input type="checkbox" name="smsConsent" value="yes"> <span>${linked}</span></label>` +
+        `<p class="consent__privacy">${document.body.dataset.submitNotice ?? ''}</p>`);
       const status = form.querySelector<HTMLElement>('[role="status"]') ?? form.nextElementSibling as HTMLElement | null;
       const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
       form.addEventListener('submit', async (e) => {

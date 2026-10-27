@@ -281,7 +281,7 @@ Channel: **Living in Minneapolis Minnesota**, https://www.youtube.com/@livinginm
 - **Blog posts copied over (October 2026):** 46 posts existed only on Luxury Presence. They were copied with their text as written and the same address (/blog/<slug>), along with their 75 images. Most are local stories, now in the new "Neighborhoods" category. The other 51 Luxury Presence-only addresses were posts already on this blog under a different address, so they redirect to those posts. To re-run the copy: `scripts/import-luxury-presence-blog.py`.
 - **Domain:** the team controls huerkamphomes.com. When the new site launches, add huerkamphomes.com and www.huerkamphomes.com in Netlify under Domain management, then point the domain's DNS at Netlify. Do both before Luxury Presence shuts off in December.
 - **To rebuild the rules:** `python3 scripts/build-lp-redirects.py <saved LP sitemaps>` and then `node scripts/write-redirects.mjs`.
-- **Text-message consent:** every form now has an unchecked, optional text-message consent box and a privacy-policy link. Checking the box adds the "SMS consent" tag in Follow Up Boss.
+- **Call/text consent (TCPA):** every form has an unchecked, optional call/text consent box (wording in `src/lib/consent.mjs`) linking to `/sms-terms` and `/privacy`. Checking it adds the "Call/text consent" tag in Follow Up Boss and saves a consent record; see `docs/tcpa-compliance.md`.
 
 ## Keeping the whole site current (automatic routines)
 

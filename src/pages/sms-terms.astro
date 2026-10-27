@@ -1,0 +1,42 @@
+---
+// Text-message (SMS) terms for the website's call/text consent box (src/lib/consent.mjs).
+// Wording to be reviewed by the team's attorney before launch.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site';
+import { CONSENT_VERSION, consentText } from '../lib/consent.mjs';
+const updated = new Date(`${CONSENT_VERSION}T12:00:00`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+---
+<Base breadcrumbs={[{ name: 'SMS terms', href: '/sms-terms' }]} title={`Text Message (SMS) Terms | ${site.name}`}
+  description={`How ${site.name} text messages work: what you agree to, how often we text, how to stop (reply STOP) and how to get help.`}>
+  <PageHero eyebrow="Text messages" title="Text message (SMS) terms" lede={`Last updated ${updated}.`} />
+  <section class="section">
+    <div class="wrap prose legal">
+      <h2>The program</h2>
+      <p>{site.name}, a real estate team with {site.brokerage}, texts and calls people who ask us to, about buying or selling a home and their real estate questions: replies to your questions, showing and appointment details, new listings that match what you're looking for, market updates and follow-ups.</p>
+
+      <h2>How you join</h2>
+      <p>Only by checking the unchecked box on one of our website forms, entering your phone number, or by texting us first. The box says:</p>
+      <blockquote>{consentText()}</blockquote>
+      <p>Consent is never required to submit a form, to work with us, or to buy or sell anything. Without it, we answer your inquiry by email or a personal phone call only.</p>
+
+      <h2>How often</h2>
+      <p>Message frequency varies with your search or sale; it's usually more often while you're actively buying or selling. Message and data rates may apply, based on your mobile plan.</p>
+
+      <h2>How to stop</h2>
+      <p>Reply <strong>STOP</strong> to any text (or END, QUIT, CANCEL, UNSUBSCRIBE, REVOKE or OPT OUT). You may also tell an agent on a call, email <a href={`mailto:${site.email}`}>{site.email}</a>, call <a href={site.phoneHref}>{site.phone}</a>, or let us know any other reasonable way. We'll stop as soon as possible and no later than 10 business days. After you reply STOP we may send one text confirming you're unsubscribed.</p>
+
+      <h2>Help</h2>
+      <p>Reply <strong>HELP</strong> for help, or contact us at <a href={site.phoneHref}>{site.phone}</a> or <a href={`mailto:${site.email}`}>{site.email}</a>, {site.street}, {site.cityStateZip}.</p>
+
+      <h2>Your information</h2>
+      <p>We do not sell your phone number, and we do not share mobile numbers or text-message consent with third parties or affiliates for their marketing. See our <a href={site.privacyUrl}>privacy policy</a>. Carriers are not liable for delayed or undelivered messages.</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .legal { max-width: 48rem; }
+  .legal h2 { margin-top: 2rem; font: 500 1.5rem/1.2 var(--serif); }
+  .legal blockquote { margin: 1rem 0; padding: 1rem 1.25rem; border-left: 4px solid var(--crimson); background: var(--paper); font-size: .95rem; }
+</style>

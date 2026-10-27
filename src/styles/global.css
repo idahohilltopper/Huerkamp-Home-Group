@@ -173,7 +173,8 @@ p { margin: 0; }
 .yt--short { aspect-ratio: 9 / 16; }
 
 /* Form consent (added to every lead form by Base.astro) */
-.consent { display: grid; grid-template-columns: auto 1fr; gap: .6rem; align-items: start; font-size: .82rem; line-height: 1.45; color: var(--text-soft); }
+.consent { display: grid; grid-template-columns: auto 1fr; gap: .6rem; align-items: start; font-size: .86rem; line-height: 1.5; color: var(--text); }
+.consent a { color: inherit; text-decoration: underline; }
 .consent input { margin-top: .2rem; width: 1.05rem; height: 1.05rem; accent-color: var(--crimson); }
 .consent__privacy { font-size: .78rem; color: var(--text-soft); }
 .consent__privacy a { color: inherit; }

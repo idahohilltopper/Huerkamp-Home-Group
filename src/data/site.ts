@@ -13,8 +13,9 @@ export const site = {
   // Ylopo's map view, about 15 miles around downtown Minneapolis (bbox = north,east,south,west).
   // Minneapolis is named too: on phones, Ylopo's map gets stuck loading when only given an area.
   mapSearchUrl: 'https://search.huerkamphomegroup.com/search/map?s[orderBy]=sourceCreationDate%2Cdesc&s[page]=1&s[locations][0][city]=Minneapolis&s[locations][0][state]=MN&s[bbox]=45.195,-92.9584,44.7606,-93.5716',
-  // The team's current privacy policy (hosted by Ylopo); the forms link to it.
-  privacyUrl: 'https://search.huerkamphomegroup.com/privacy-policy',
+  // The website's own privacy policy (src/pages/privacy.astro); the forms and footer link to it.
+  // The home search at search.huerkamphomegroup.com (Ylopo) has its own.
+  privacyUrl: '/privacy',
   // YouTube leads are tracked with their own phone number and email (shown only on /youtube-form).
   youtubePhone: '(952) 900-3025',
   youtubePhoneHref: 'tel:+19529003025',

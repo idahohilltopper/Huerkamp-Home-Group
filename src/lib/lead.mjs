@@ -3,6 +3,7 @@
 
 import team from '../data/team.json' with { type: 'json' };
 import sites from '../data/agent-sites.json' with { type: 'json' };
+import { CONSENT_VERSION, consentText } from './consent.mjs';
 
 export const SOURCE = 'huerkamphomegroup.com';
 
@@ -56,9 +57,10 @@ function property(f, url) {
 
 /**
  * input: { form, fields: {...}, page, title, hp, elapsed }
- * returns { event } | { error } | { spam: true }
+ * meta (from the server, not the browser): { at, ip, userAgent }
+ * returns { event, consent } | { error } | { spam: true }; consent is the record to keep when the box was checked.
  */
-export function buildEvent(input) {
+export function buildEvent(input, meta = {}) {
   const { form, fields = {}, page = '', title = '', hp = '', elapsed = 0 } = input ?? {};
   // Honeypot filled in, or submitted faster than a person could type: a bot.
   if (clean(hp) || Number(elapsed) < 2500) return { spam: true };
@@ -84,16 +86,21 @@ export function buildEvent(input) {
   // From an agent's site (or a visitor who came through it): assign to that agent, credit the team.
   const agentSite = AGENTS[String(f.agentSlug ?? '').toLowerCase()];
   if (agentSite) { tags.add('Team lead'); tags.add(`Agent site: ${agentSite.name}`); }
-  // Text-message consent is opt-in only (unchecked box on every form).
-  if (f.smsConsent === 'yes') tags.add('SMS consent');
+  // Call/text consent is opt-in only (unchecked box on every form) and counts only with a phone number.
+  // Follow Up Boss and Ylopo automations must only call or text people tagged "Call/text consent".
+  const consented = f.smsConsent === 'yes' && (f.phone ?? '').replace(/\D/g, '').length >= 10;
+  if (consented) { tags.add('Call/text consent'); tags.add('SMS consent'); }
+  else if (f.phone) tags.add('No call/text consent');
   if (f.lake) tags.add(f.lake);
   // Test submissions are labeled so the team can find and delete them.
   if (/^test\b/i.test(f.firstName) || /@example\.(com|org)$/i.test(f.email)) tags.add('TEST – website');
 
+  const at = meta.at ?? new Date().toISOString();
   const details = Object.entries(f)
     .filter(([k, v]) => v && !CONTACT.has(k) && LABELS[k])
     .map(([k, v]) => `${LABELS[k]}: ${v}`)
-    .concat(f.smsConsent === 'yes' ? ['Agreed to receive text messages (website checkbox)'] : [])
+    .concat(consented ? [`Call/text consent: checked the box on ${at} for ${f.phone} (wording version ${CONSENT_VERSION}${meta.ip ? `, IP ${meta.ip}` : ''}): "${consentText()}"`] : [])
+    .concat(!consented && f.phone ? ['No call/text consent: did not check the box. Personal replies only; no automated calls or texts.'] : [])
     .concat(agentSite ? [`Came through ${agentSite.name}'s agent site: assigned to ${agentSite.fubName}, team lead`] : []);
   const pageUrl = page ? `https://www.huerkamphomegroup.com${clean(page, 300)}` : undefined;
   const message = [`${cfg.label}${title ? ` on "${clean(title, 200)}"` : ''}`, ...details].join('\n');
@@ -115,5 +122,9 @@ export function buildEvent(input) {
     },
     ...(property(f, pageUrl) && { property: property(f, pageUrl) }),
   };
-  return { event };
+  const consent = consented ? {
+    at, version: CONSENT_VERSION, text: consentText(), phone: f.phone, email: f.email, name: `${f.firstName} ${f.lastName}`,
+    form, page: pageUrl ?? null, ip: meta.ip ?? null, userAgent: clean(meta.userAgent, 300) || null,
+  } : null;
+  return { event, consent };
 }

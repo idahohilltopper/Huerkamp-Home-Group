@@ -4,6 +4,7 @@
 // The API key lives in Netlify (FUB_API_KEY), never in this repository.
 // Fello picks up sellers from Follow Up Boss through its own integration.
 
+import { getStore } from '@netlify/blobs';
 import { buildEvent } from '../../src/lib/lead.mjs';
 
 const FUB_URL = 'https://api.followupboss.com/v1/events';
@@ -21,9 +22,23 @@ export default async (req) => {
     return json(400, { ok: false, error: 'Bad request' });
   }
 
-  const built = buildEvent(input);
+  const built = buildEvent(input, {
+    at: new Date().toISOString(),
+    ip: req.headers.get('x-nf-client-connection-ip') ?? req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? null,
+    userAgent: req.headers.get('user-agent') ?? '',
+  });
   if (built.spam) return json(200, { ok: true });          // quietly ignore bots
   if (built.error) return json(400, { ok: false, error: built.error });
+
+  // Proof of call/text consent, kept by the website itself (Netlify Blobs store "consent-records") so it
+  // survives edits in Follow Up Boss. Never blocks the lead: a storage hiccup is logged, the lead still goes.
+  if (built.consent) {
+    try {
+      await getStore('consent-records').setJSON(`${built.consent.at.slice(0, 10)}/${built.consent.at}-${crypto.randomUUID()}`, built.consent);
+    } catch (e) {
+      console.error('Could not save consent record', e?.message, JSON.stringify(built.consent));
+    }
+  }
 
   const key = process.env.FUB_API_KEY;
   if (!key) {

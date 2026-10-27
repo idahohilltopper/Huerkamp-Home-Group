@@ -1,0 +1,62 @@
+---
+// The website's privacy policy. Describes what this site actually does (src/lib/lead.mjs, netlify/functions/*).
+// The home search at search.huerkamphomegroup.com is run by Ylopo under its own policy.
+// Wording to be reviewed by the team's attorney before launch.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site';
+const updated = 'October 27, 2026';
+---
+<Base breadcrumbs={[{ name: 'Privacy policy', href: '/privacy' }]} title={`Privacy Policy | ${site.name}`}
+  description={`What ${site.name} collects on huerkamphomegroup.com, how we use it, how calls and texts work, and how to reach us about your information.`}>
+  <PageHero eyebrow="Privacy" title="Privacy policy" lede={`Last updated ${updated}. This policy covers huerkamphomegroup.com.`} />
+  <section class="section">
+    <div class="wrap prose legal">
+      <p>{site.name} is a real estate team with {site.brokerage} at {site.street}, {site.cityStateZip}. This policy explains what we collect on this website and what we do with it. Our home search at <a href={site.searchUrl}>search.huerkamphomegroup.com</a> is run by our search provider, Ylopo, and has <a href={`${site.searchUrl}/privacy-policy`}>its own privacy policy</a>.</p>
+
+      <h2>What we collect</h2>
+      <ul>
+        <li><strong>What you send us on a form:</strong> name, email, phone number, and anything you write or choose (for example the home you asked about, your timeline or price range), with the page you sent it from.</li>
+        <li><strong>Your call/text choice:</strong> whether you checked the consent box, the exact wording you agreed to, the time, the page, and your IP address and browser, so we can prove what you agreed to and honor it.</li>
+        <li><strong>Basic visit information:</strong> pages viewed and how you arrived, through analytics and advertising tools (Google Analytics and Google Ads) that use cookies. Our hosting provider also keeps standard server logs.</li>
+        <li><strong>Which agent you're working with:</strong> if you open one of our agents' pages, your browser remembers that agent for 30 days so your inquiry goes to them. You can clear it with the × on the agent bar.</li>
+      </ul>
+
+      <h2>How we use it</h2>
+      <ul>
+        <li>To answer your inquiry and help you buy or sell a home: by email, by a personal phone call, and, only if you checked the consent box, by calls and texts that may be sent with automated technology or an artificial or prerecorded voice.</li>
+        <li>To send listings, market updates and follow-ups you asked for or that relate to your inquiry. You can unsubscribe from any email.</li>
+        <li>To understand which pages and ads are useful, and to keep the site secure and free of spam.</li>
+      </ul>
+
+      <h2>Who we share it with</h2>
+      <ul>
+        <li><strong>Service providers that run our business for us:</strong> Follow Up Boss (our client database), Ylopo (home search and marketing), Fello (home-value tools for sellers), Netlify (website hosting) and Google (analytics and advertising). They may use your information only to provide their service to us.</li>
+        <li><strong>Our brokerage and agents:</strong> {site.brokerage} and the {site.name} agent helping you.</li>
+        <li><strong>When required by law,</strong> or to protect our rights or someone's safety.</li>
+      </ul>
+      <p><strong>We do not sell your personal information. We do not share mobile phone numbers or text-message consent with third parties or affiliates for their marketing or promotional purposes.</strong></p>
+
+      <h2>Calls and texts</h2>
+      <p>We call or text using automated technology, or an artificial or prerecorded voice, only if you checked the consent box, and you can take that consent back at any time: reply STOP to a text, tell an agent, email <a href={`mailto:${site.email}`}>{site.email}</a>, call <a href={site.phoneHref}>{site.phone}</a>, or any other reasonable way. We honor it as soon as possible and within 10 business days. Details are in our <a href="/sms-terms">SMS terms</a>.</p>
+
+      <h2>How long we keep it</h2>
+      <p>We keep inquiries and client records while we're working with you and afterward as our brokerage and the law require. We keep records of call/text consent and opt-outs for at least five years.</p>
+
+      <h2>Your choices</h2>
+      <p>You can ask us what information we have about you, ask us to correct or delete it (unless the law requires us to keep it), or ask us to stop contacting you. Email <a href={`mailto:${site.email}`}>{site.email}</a> or call <a href={site.phoneHref}>{site.phone}</a>. You can also block or delete cookies in your browser.</p>
+
+      <h2>Children</h2>
+      <p>This website is for adults and isn't meant for children under 13. We don't knowingly collect their information.</p>
+
+      <h2>Changes</h2>
+      <p>If we change this policy, we'll update the date at the top. The consent wording you agreed to stays on record with your inquiry.</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .legal { max-width: 48rem; }
+  .legal h2 { margin-top: 2rem; font: 500 1.5rem/1.2 var(--serif); }
+  .legal li { margin-bottom: .5rem; }
+</style>
