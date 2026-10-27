@@ -1,0 +1,50 @@
+---
+// Printable downsizing checklist: every step from the guides on one page, with print styles.
+import Base from '../../layouts/Base.astro';
+import DownsizingForm from '../../components/DownsizingForm.astro';
+import { site } from '../../data/site';
+const steps: [string, string[]][] = [
+  ['Decide', ['List your must-haves: main-floor bedroom and laundry, no-step entry, attached garage, guest room', 'List who and what you want to be near: family, doctors, church, the cabin', 'Set a monthly budget that includes taxes, insurance and any association fee', 'Pick the kind of home: one-level house, townhome, condo, 55+ community, co-op']],
+  ['Know your numbers', ['Get a free home value from a local agent', 'Find your mortgage payoff, if any', 'Ask your CPA about taxes on the sale (the $250,000 / $500,000 exclusion)', 'If you’re on Minnesota’s senior property tax deferral, request the payoff', 'Talk to a lender if you’ll borrow, or confirm you can pay cash']],
+  ['Sort', ['Measure the rooms in your next home', 'Go room by room: keep, give to family, sell or donate, toss', 'Give family a date to pick up what they want', 'Book an estate sale, donation pickup or junk removal']],
+  ['Get the house ready', ['Find your purchase papers and receipts for improvements', 'Fix what an inspector would flag: leaks, furnace, roof, electrical', 'Clean, declutter and paint dated colors', 'Decide: list it, sell as-is, or take a cash offer']],
+  ['Time the move', ['Choose: buy first, sell first with time to stay after closing, or a short-term rental', 'Book movers early (spring and summer fill fast)', 'Forward mail; update Social Security, Medicare, banks and insurance', 'Transfer or cancel utilities, internet and trash']],
+  ['After closing', ['Keep your settlement statement for taxes', 'File for homestead on your new home with the county', 'Update your will, trust or transfer-on-death deed for the new address']],
+];
+---
+<Base breadcrumbs={[{ name: 'Downsizing & 55+', href: '/downsizing' }, { name: 'Checklist', href: '/downsizing/checklist' }]}
+  title={`Printable Downsizing Checklist | ${site.name}`}
+  description="A one-page, printable downsizing checklist: decide, know your numbers, sort, get the house ready, time the move, and what to do after closing.">
+  <section class="section">
+    <div class="wrap check">
+      <p class="eyebrow">Downsizing & 55+</p>
+      <h1>Downsizing checklist</h1>
+      <p class="lede">Print it, check it off, and call us when you have questions: <strong>{site.phone}</strong>.</p>
+      <button class="btn noprint" type="button" onclick="window.print()">Print this checklist</button>
+      {steps.map(([h, items]) => (
+        <div class="block"><h2>{h}</h2><ul>{items.map((t) => <li><span class="box" aria-hidden="true"></span>{t}</li>)}</ul></div>
+      ))}
+      <p class="foot">{site.name} · {site.brokerage} · {site.street}, {site.cityStateZip} · {site.phone} · huerkamphomegroup.com/downsizing</p>
+      <p class="noprint"><a class="link-arrow" href="/downsizing">All downsizing guides</a></p>
+    </div>
+  </section>
+  <div class="noprint"><DownsizingForm topic="Downsizing checklist" /></div>
+</Base>
+
+<style>
+  .check { max-width: 46rem; }
+  .check h1 { margin: .3rem 0 .5rem; font: 500 clamp(2.2rem, 5vw, 3.2rem)/1.05 var(--serif-display); }
+  .lede { font-size: 1.15rem; }
+  .btn { margin: 1rem 0 1.5rem; }
+  .block { margin-top: 1.75rem; break-inside: avoid; }
+  .block h2 { font: 500 1.6rem/1.2 var(--serif); border-bottom: 2px solid var(--crimson); padding-bottom: .3rem; }
+  .block ul { list-style: none; margin: .75rem 0 0; padding: 0; display: grid; gap: .55rem; }
+  .block li { display: grid; grid-template-columns: 1.3rem 1fr; gap: .7rem; font-size: 1.1rem; line-height: 1.45; }
+  .box { width: 1.1rem; height: 1.1rem; margin-top: .2rem; border: 2px solid var(--ink); }
+  .foot { margin-top: 2rem; font-size: .9rem; color: var(--text-soft); }
+  @media print {
+    :global(header), :global(footer), :global(.utility), :global(.agentbar), :global(nav.crumbs), .noprint { display: none !important; }
+    .check { max-width: none; }
+    .block li { font-size: 12pt; }
+  }
+</style>

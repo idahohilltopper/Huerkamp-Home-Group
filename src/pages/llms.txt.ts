@@ -13,6 +13,7 @@ import { getPosts, postUrl } from '../data/blog';
 import { watchable, channel } from '../data/youtube';
 import { guides, guideHref } from '../data/guides';
 import { pairs, compareHref } from '../data/compare';
+import { dguides, dguideHref } from '../data/downsizing';
 import { listingsData, homesHref, stats, money as lMoney } from '../data/listings';
 
 export async function GET(context: APIContext) {
@@ -47,6 +48,7 @@ Facts (with sources on ${url('/')}):
 - [Lake homes](${url('/lake-homes')}): lakefront homes for sale on every lake of 10+ acres in our communities (${lakes.length} lakes), with a page per lake
 - [Market reports](${url('/market')}): monthly home prices, sales and inventory for the Twin Cities and each city
 - [Compare places](${url('/compare')}): ${pairs.length.toLocaleString('en-US')} side-by-side comparisons of nearby cities and neighboring Minneapolis/Saint Paul neighborhoods (e.g. ${url(compareHref(pairs.find((p) => p.path === 'apple-valley-vs-lakeville') ?? pairs[0]))}), and one page per city against every city within 15 miles (e.g. ${url('/compare/lakeville')})
+- [Downsizing & 55+](${url('/downsizing')}): guides for selling a longtime home and moving to one-level, 55+ or co-op living: ${dguides.map((g) => `[${g.title}](${url(dguideHref(g))})`).join('; ')}; plus a [printable checklist](${url('/downsizing/checklist')})
 - [Area guides](${url('/guides')}): Twin Cities places ranked by price, speed of sale, drive time, lakes and age of homes
 - [Team](${url('/team')}): every agent and staff member
 - [Reviews](${url('/reviews')}): verbatim Google and Zillow reviews

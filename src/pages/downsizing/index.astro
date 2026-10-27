@@ -1,0 +1,88 @@
+---
+// Downsizing & 55+ hub: every guide, the printable checklist, Jason's retirement videos, the team's
+// downsizing posts, and the free downsizing plan form.
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import PostCard from '../../components/PostCard.astro';
+import DownsizingForm from '../../components/DownsizingForm.astro';
+import { dguides, dguideHref } from '../../data/downsizing';
+import { getPosts } from '../../data/blog';
+import { videos } from '../../data/youtube';
+import { youtubeHtml } from '../../lib/youtube.mjs';
+import reviews from '../../data/reviews.json';
+import { site } from '../../data/site';
+
+const postPaths = [...new Set(dguides.flatMap((g) => g.posts ?? []))];
+const posts = (await getPosts()).filter((p) => postPaths.includes(p.data.path)).slice(0, 6);
+const vids = ['qYUMQZRD3t8', 'DW90Dkg8BFk', 'LbWw1DCYNns', '6Ag_UjGAD9w', 'Ju_gAUwFTdc'].map((id) => videos.find((v) => v.id === id)).filter(Boolean) as typeof videos;
+const g = reviews.summary.google;
+const faq = [
+  { q: 'How do I start downsizing?', a: 'Decide what your next home needs to do for you, find out what your current home is worth, start sorting belongings early, line up the money for the next home, then time the sale and purchase so you move once. Our step-by-step guide walks through each part.' },
+  { q: 'Is there help for selling a parent’s home?', a: 'Yes. We work with families handling a power of attorney, a transfer-on-death deed, a trust or probate, and coordinate cleanout, estate-sale and repair crews, including for family members who live out of state.' },
+  { q: 'What does it cost to talk with you?', a: 'Nothing. A downsizing plan and home value are free and come with no obligation.' },
+];
+const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
+---
+<Base breadcrumbs={[{ name: 'Downsizing & 55+', href: '/downsizing' }]}
+  title={`Downsizing & 55+ Living in the Twin Cities | ${site.name}`}
+  description="Plain-English guides to downsizing in the Twin Cities: selling a longtime home, one-level living, 55+ communities and co-ops, senior property tax help, and selling a parent’s home.">
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <PageHero eyebrow="Downsizing & 55+" title="Your next chapter, without the stairs"
+    lede="Selling the family home is a big decision. These guides answer the questions we hear every week: what your home is worth, where to go next, how to time the move, and what it means for your taxes. When you're ready, we'll make a plan with you." />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="head"><p class="eyebrow">Start here</p><h2>Downsizing guides</h2></div>
+      <ul class="dcards">
+        {dguides.map((x) => <li><a href={dguideHref(x)}><strong>{x.title}</strong><span>{x.short}</span></a></li>)}
+        <li><a href="/downsizing/checklist"><strong>Printable downsizing checklist</strong><span>Every step on one page, to print and check off.</span></a></li>
+      </ul>
+      <p class="dcall">Rather talk? Call <a href={site.phoneHref}>{site.phone}</a>. Rated {g.rating.toFixed(1)} stars across {g.count} Google reviews, and a Ramsey Endorsed Local Provider for more than 15 years.</p>
+    </div>
+  </section>
+
+  {vids.length > 0 && (
+    <section class="section section--paper" aria-labelledby="vid-title">
+      <div class="wrap">
+        <div class="head"><p class="eyebrow">Watch</p><h2 id="vid-title">Jason Huerkamp on retiring in the Twin Cities</h2></div>
+        <ul class="dvids">{vids.map((v) => <li class={v.kind === 'short' ? 'is-short' : ''}><Fragment set:html={youtubeHtml(v.id, v.title, { short: v.kind === 'short' })} /><p>{v.title}</p></li>)}</ul>
+      </div>
+    </section>
+  )}
+
+  {posts.length > 0 && (
+    <section class="section" aria-labelledby="posts-title">
+      <div class="wrap">
+        <div class="head"><p class="eyebrow">Read</p><h2 id="posts-title">Downsizing articles</h2></div>
+        <div class="post-grid">{posts.map((p) => <PostCard post={p} />)}</div>
+      </div>
+    </section>
+  )}
+
+  <section class="section section--paper" aria-labelledby="faq-title">
+    <div class="wrap faq">
+      <div class="head"><p class="eyebrow">Quick answers</p><h2 id="faq-title">Questions we hear most</h2></div>
+      {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+    </div>
+  </section>
+
+  <DownsizingForm topic="Downsizing hub" />
+</Base>
+
+<style>
+  .head { margin-bottom: 1.5rem; }
+  .dcards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); gap: 1rem; }
+  .dcards a { display: grid; gap: .4rem; height: 100%; padding: 1.25rem 1.4rem; border: 1px solid var(--line); background: var(--paper); color: var(--text); text-decoration: none; }
+  .dcards strong { font: 600 1.3rem/1.25 var(--serif); }
+  .dcards span { font-size: 1.02rem; color: var(--text-soft); }
+  .dcards a:hover strong { color: var(--crimson); }
+  .dcall { margin-top: 2rem; font-size: 1.15rem; }
+  .dvids { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); gap: 1.5rem; align-items: start; }
+  .dvids .is-short { max-width: 16rem; }
+  .dvids p { margin-top: .5rem; font-weight: 600; }
+  .post-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); gap: 1.5rem; }
+  .faq { display: grid; gap: .75rem; max-width: 52rem; }
+  .faq details { padding: 1rem 1.2rem; background: var(--paper); border: 1px solid var(--line); }
+  .faq summary { cursor: pointer; font: 600 1.2rem/1.3 var(--serif); }
+  .faq details p { margin-top: .6rem; font-size: 1.05rem; }
+</style>

@@ -36,6 +36,7 @@ export const FACETS: Facet[] = [
   ...[3, 4, 5].map((n): Facet => ({ slug: `${n}-bedroom-homes`, label: `${n}+ bedrooms`, group: 'Bedrooms', title: (p) => `${n}-bedroom homes for sale in ${p}`, test: (l) => (l.beds ?? 0) >= n })),
   { slug: 'new-construction', label: 'New construction', group: 'More', title: (p) => `New construction homes for sale in ${p}`, test: (l) => l.newConstruction },
   { slug: 'lakefront-homes', label: 'Lakefront', group: 'More', title: (p) => `Lakefront homes for sale in ${p}`, test: (l) => l.lakefront },
+  { slug: 'one-level-homes', label: 'One-level', group: 'More', title: (p) => `One-level homes for sale in ${p}`, test: (l) => l.type !== 'land' && /one stor|1 stor|rambler|one level|single level|ranch/i.test(l.style) },
   { slug: 'homes-with-acreage', label: '1+ acre', group: 'More', title: (p) => `Homes for sale in ${p} with acreage (1+ acre)`, test: (l) => (l.lotAcres ?? 0) >= 1 && l.type !== 'land' },
 ];
 

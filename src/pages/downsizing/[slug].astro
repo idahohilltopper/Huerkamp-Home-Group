@@ -1,0 +1,112 @@
+---
+// One downsizing / 55+ guide (src/data/downsizing.ts): direct answer first, then the steps, quick answers,
+// sources, Jason's videos, related posts, and the free downsizing plan form.
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import PostCard from '../../components/PostCard.astro';
+import DownsizingForm from '../../components/DownsizingForm.astro';
+import { dguides, dguideHref, type DGuide } from '../../data/downsizing';
+import { getPosts } from '../../data/blog';
+import { videos } from '../../data/youtube';
+import { youtubeHtml } from '../../lib/youtube.mjs';
+import { business, origin } from '../../data/schema';
+import { site } from '../../data/site';
+
+export function getStaticPaths() {
+  return dguides.map((g) => ({ params: { slug: g.slug }, props: { g } }));
+}
+const { g } = Astro.props as { g: DGuide };
+const posts = (await getPosts()).filter((p) => g.posts?.includes(p.data.path));
+const vids = (g.videos ?? []).map((id) => videos.find((v) => v.id === id)).filter(Boolean) as typeof videos;
+const others = dguides.filter((x) => x !== g);
+const url = `${origin}${dguideHref(g)}`;
+const ld = JSON.stringify([
+  { '@context': 'https://schema.org', '@type': 'Article', '@id': `${url}#article`, headline: g.title, description: g.description, url,
+    author: { '@type': 'Person', name: 'Jason Huerkamp' }, publisher: { '@id': business['@id'] }, dateModified: '2026-10-27',
+    ...(g.sources?.length && { citation: g.sources.map((s) => s.url) }) },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: g.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+]);
+---
+<Base breadcrumbs={[{ name: 'Downsizing & 55+', href: '/downsizing' }, { name: g.title, href: dguideHref(g) }]}
+  title={`${g.seo} | ${site.name}`} description={g.description} article={{ published: new Date('2026-10-27') }}>
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <PageHero eyebrow="Downsizing & 55+ guide" title={g.title} lede={g.answer} />
+
+  <section class="section">
+    <div class="wrap dguide">
+      <article class="prose big">
+        <nav class="toc" aria-label="On this page"><strong>On this page</strong><ol>{g.sections.map((s, i) => <li><a href={`#s${i + 1}`}>{s.h.replace(/^\d+\.\s*/, '')}</a></li>)}</ol></nav>
+        {g.sections.map((s, i) => (<><h2 id={`s${i + 1}`}>{s.h}</h2><Fragment set:html={s.html} /></>))}
+        {g.sources && g.sources.length > 0 && (
+          <div class="dsources"><h2>Sources</h2><ul>{g.sources.map((s) => <li><a href={s.url} rel="noopener">{s.name}</a></li>)}</ul></div>
+        )}
+      </article>
+      <aside class="dside">
+        <div class="dcard">
+          <h2>Talk it through</h2>
+          <p>Questions about your situation? Call <a href={site.phoneHref}>{site.phone}</a> or get a <a href="#plan">free downsizing plan</a>. We'll never pressure you.</p>
+          <a class="btn" href="#plan">Get my free plan</a>
+          <a class="dcard__alt" href="/sell#value">What's my home worth?</a>
+        </div>
+        <div class="dcard">
+          <h2>More guides</h2>
+          <ul>{others.map((x) => <li><a href={dguideHref(x)}>{x.title}</a></li>)}<li><a href="/downsizing/checklist">Printable downsizing checklist</a></li></ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--paper" aria-labelledby="faq-title">
+    <div class="wrap faq">
+      <div class="head"><p class="eyebrow">Quick answers</p><h2 id="faq-title">Common questions</h2></div>
+      {g.faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+    </div>
+  </section>
+
+  {vids.length > 0 && (
+    <section class="section" aria-labelledby="vid-title">
+      <div class="wrap">
+        <div class="head"><p class="eyebrow">Watch</p><h2 id="vid-title">Jason Huerkamp on this topic</h2></div>
+        <ul class="dvids">{vids.map((v) => <li class={v.kind === 'short' ? 'is-short' : ''}><Fragment set:html={youtubeHtml(v.id, v.title, { short: v.kind === 'short' })} /><p>{v.title}</p></li>)}</ul>
+      </div>
+    </section>
+  )}
+
+  {posts.length > 0 && (
+    <section class="section section--paper" aria-labelledby="posts-title">
+      <div class="wrap">
+        <div class="head"><p class="eyebrow">Read next</p><h2 id="posts-title">From our blog</h2></div>
+        <div class="post-grid">{posts.map((p) => <PostCard post={p} />)}</div>
+      </div>
+    </section>
+  )}
+
+  <DownsizingForm topic={g.topic} />
+</Base>
+
+<style>
+  .dguide { display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, 21rem); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 900px) { .dguide { grid-template-columns: 1fr; } }
+  .big { font-size: 1.12rem; line-height: 1.75; }
+  .big h2 { margin-top: 2.25rem; font: 500 clamp(1.5rem, 3vw, 1.9rem)/1.2 var(--serif); }
+  .big li { margin-bottom: .45rem; }
+  .toc { margin-bottom: 1.5rem; padding: 1rem 1.25rem; border: 1px solid var(--line); background: var(--paper); font-size: 1rem; }
+  .toc ol { margin: .5rem 0 0; padding-left: 1.25rem; }
+  .dsources { margin-top: 2rem; font-size: .95rem; }
+  .dside { position: sticky; top: 6rem; display: grid; gap: 1.25rem; }
+  @media (max-width: 900px) { .dside { position: static; } }
+  .dcard { padding: 1.25rem 1.4rem; border: 1px solid var(--line); background: var(--paper); }
+  .dcard h2 { margin: 0 0 .6rem; font: 500 1.35rem/1.2 var(--serif); }
+  .dcard p { font-size: 1rem; }
+  .dcard ul { margin: 0; padding-left: 1.1rem; display: grid; gap: .45rem; font-size: .98rem; }
+  .dcard__alt { display: block; margin-top: .85rem; font-weight: 600; color: var(--crimson); }
+  .head { margin-bottom: 1.5rem; }
+  .faq { display: grid; gap: .75rem; max-width: 52rem; }
+  .faq details { padding: 1rem 1.2rem; background: var(--paper); border: 1px solid var(--line); }
+  .faq summary { cursor: pointer; font: 600 1.2rem/1.3 var(--serif); }
+  .faq details p { margin-top: .6rem; font-size: 1.05rem; }
+  .dvids { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); gap: 1.5rem; align-items: start; }
+  .dvids .is-short { max-width: 16rem; }
+  .dvids p { margin-top: .5rem; font-weight: 600; }
+  .post-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); gap: 1.5rem; }
+</style>

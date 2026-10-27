@@ -1,0 +1,53 @@
+---
+// "Get your free downsizing plan" form, used on every /downsizing page. Goes to Follow Up Boss as a seller
+// inquiry tagged "Downsizing" (src/lib/lead.mjs), with the guide the person was reading.
+import { site } from '../data/site';
+interface Props { topic: string; id?: string }
+const { topic, id = 'ds' } = Astro.props;
+---
+<section class="section section--dark" id="plan" aria-labelledby={`${id}-title`}>
+  <div class="wrap dsplit">
+    <div class="prose">
+      <p class="eyebrow">Free, no obligation</p>
+      <h2 id={`${id}-title`}>Get your free <em>downsizing plan.</em></h2>
+      <p>Tell us a little about your home and what's next. A {site.name} agent will put together what your home is likely worth today, what your next home could cost, and a timeline that gets you moved once. No pressure, and no cost.</p>
+      <p class="dcall">Prefer to talk? Call <a href={site.phoneHref}>{site.phone}</a>. A real person answers.</p>
+    </div>
+    <form class="form" data-lead="downsizing">
+      <input type="hidden" name="topic" value={topic} />
+      <div class="form__row">
+        <div class="field"><label for={`${id}-first`}>First name</label><input id={`${id}-first`} name="firstName" autocomplete="given-name" required /></div>
+        <div class="field"><label for={`${id}-last`}>Last name</label><input id={`${id}-last`} name="lastName" autocomplete="family-name" required /></div>
+      </div>
+      <div class="form__row">
+        <div class="field"><label for={`${id}-email`}>Email</label><input id={`${id}-email`} name="email" type="email" autocomplete="email" required /></div>
+        <div class="field"><label for={`${id}-phone`}>Phone</label><input id={`${id}-phone`} name="phone" type="tel" autocomplete="tel" /></div>
+      </div>
+      <div class="field"><label for={`${id}-addr`}>Your current home's address (optional)</label><input id={`${id}-addr`} name="address" autocomplete="street-address" /></div>
+      <div class="form__row">
+        <div class="field">
+          <label for={`${id}-help`}>I'm planning for</label>
+          <select id={`${id}-help`} name="helping"><option value="">Choose one</option><option>Myself or my spouse</option><option>A parent or family member</option><option>An estate I'm handling</option></select>
+        </div>
+        <div class="field">
+          <label for={`${id}-when`}>When</label>
+          <select id={`${id}-when`} name="timeline"><option value="">Choose one</option><option>Within 3 months</option><option>3 to 6 months</option><option>6 to 12 months</option><option>More than a year</option><option>Just exploring</option></select>
+        </div>
+      </div>
+      <div class="field">
+        <label for={`${id}-next`}>Next home</label>
+        <select id={`${id}-next`} name="nextHome"><option value="">Not sure yet</option><option>One-level house (rambler)</option><option>Townhome or twin home</option><option>Condo</option><option>55+ community</option><option>Senior co-op</option><option>Assisted or independent living</option><option>Near family, out of state</option></select>
+      </div>
+      <div class="field"><label for={`${id}-msg`}>Questions or anything we should know?</label><textarea id={`${id}-msg`} name="message" rows="3"></textarea></div>
+      <button class="btn" type="submit">Send me my plan</button>
+      <p class="form__status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .dsplit { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 900px) { .dsplit { grid-template-columns: 1fr; } }
+  .dcall { font-size: 1.15rem; }
+  .dcall a { color: #fff; font-weight: 700; }
+</style>

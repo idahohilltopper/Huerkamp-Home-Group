@@ -451,3 +451,20 @@ Every past month's Minneapolis Area REALTORS® report keeps its own page, so sea
 - **Indexing:** months with fewer than 10 sales stay noindex because one or two sales swing them. Today that leaves about 1,000 of the 2,354 archive pages indexed.
 - **Growth:** nothing to do. When the monthly routine adds a new month, the previous one becomes an archive page automatically, adding about 240 pages a month. Sitemap dates use the date each report came in.
 - **Linking:** each city's report, the /market hub and each neighborhood guide link to their past months. llms.txt describes the archive.
+
+## Downsizing & 55+ (/downsizing), October 2026
+A section for longtime homeowners: people downsizing, retiring, moving to one-level, 55+ or co-op living, or selling a parent's home.
+- **Pages:** `/downsizing` (hub), 11 guides at `/downsizing/<guide>` (content in `src/data/downsizing.ts`), and a printable `/downsizing/checklist`.
+- **Each guide:**
+  - a direct answer first;
+  - steps with a table of contents;
+  - quick answers with FAQ schema and Article schema;
+  - official sources for every figure (IRS Topic 701 and Publication 523, Minnesota Department of Revenue, Minnesota Statutes, 24 CFR 100.305);
+  - Jason's retirement videos and the team's existing downsizing posts.
+- **Leads:** every page ends with "Get your free downsizing plan". The form asks for address, who it's for (myself / a parent / an estate), timeline and next home type. It reaches Follow Up Boss as a Seller Inquiry tagged "Downsizing", with the guide as the topic. The phone number is shown prominently.
+- **Linking:** the Sell menu and footer link the section, as does a band on /sell. llms.txt lists every guide.
+- **MLS pages:** a "One-level homes for sale in <city>" facet is ready for when the MLS feed is on.
+- **Content rules:**
+  - guides describe homes, money and steps, never which places suit which people (fair housing);
+  - tax and legal points say to confirm with a CPA or attorney;
+  - reverse mortgages are left out because the team is a Ramsey Endorsed Local Provider.
