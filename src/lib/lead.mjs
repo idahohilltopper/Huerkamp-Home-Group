@@ -30,6 +30,9 @@ export const FORMS = {
   'commute':           { type: 'Property Search', label: 'Commute page form',     tags: ['Buyer lead', 'Commute search'] },
   'compare':           { type: 'General Inquiry', label: 'Comparison page form',  tags: ['Comparing places'] },
   'listing':           { type: 'Property Inquiry', label: 'Listing page form',    tags: ['Buyer lead', 'Listing inquiry'] },
+  'calc-seller':       { type: 'Seller Inquiry',  label: 'Net proceeds calculator', tags: ['Seller lead', 'Net proceeds calculator'] },
+  'calc-buyer':        { type: 'General Inquiry', label: 'Affordability calculator', tags: ['Buyer lead', 'Affordability calculator'] },
+  'calc-rentbuy':      { type: 'General Inquiry', label: 'Rent vs. buy calculator', tags: ['Buyer lead', 'Rent vs. buy calculator'] },
   'youtube':           { type: 'General Inquiry', label: 'YouTube viewer form',    tags: ['YouTube'], source: 'YouTube - Living in Minneapolis' },
 };
 
@@ -37,7 +40,7 @@ export const FORMS = {
 const LABELS = {
   address: 'Property address', timeline: 'Selling timeline', topic: 'Topic', goal: 'Goal',
   notes: 'Notes', message: 'Message', lake: 'Lake', priceRange: 'Price range', maxPrice: 'Price range',
-  community: 'Community', ramseyReferral: 'Referred by Ramsey', interest: 'Interested in', moveFrom: 'Moving from', agent: 'Wants to work with', listing: 'Listing', guide: 'Guide', nextHome: 'Next home', helping: 'Asking for',
+  community: 'Community', ramseyReferral: 'Referred by Ramsey', interest: 'Interested in', moveFrom: 'Moving from', agent: 'Wants to work with', listing: 'Listing', guide: 'Guide', nextHome: 'Next home', helping: 'Asking for', calc: 'Calculator results',
 };
 const CONTACT = new Set(['firstName', 'lastName', 'email', 'phone']);
 
@@ -70,7 +73,7 @@ export function buildEvent(input, meta = {}) {
   const cfg = FORMS[form];
   if (!cfg) return { error: 'Unknown form' };
 
-  const f = Object.fromEntries(Object.entries(fields).map(([k, v]) => [k, clean(v, k === 'message' || k === 'notes' ? 4000 : 300)]));
+  const f = Object.fromEntries(Object.entries(fields).map(([k, v]) => [k, clean(v, k === 'message' || k === 'notes' || k === 'calc' ? 4000 : 300)]));
   if (!f.firstName || !f.lastName) return { error: 'Name is required' };
   if (!isEmail(f.email)) return { error: 'A valid email is required' };
 

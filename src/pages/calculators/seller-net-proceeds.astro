@@ -1,0 +1,137 @@
+---
+// Seller net proceeds ("net sheet") calculator. Minnesota deed tax from the Department of Revenue; property tax
+// estimate from Census medians per city. Commission and title fees start blank: they're the seller's own numbers.
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CalcLead from '../../components/CalcLead.astro';
+import { MN, calcCities, taxSource, stateTaxRate } from '../../data/calculators';
+import { site } from '../../data/site';
+
+const data = { cities: calcCities.map(({ slug, name, rate, erf }) => ({ slug, name, rate, erf })), deed: MN.deedTax, erf: MN.erf, stateRate: stateTaxRate };
+const faq = [
+  { q: 'Who pays the deed tax when you sell a house in Minnesota?', a: `Minnesota's deed tax is ${(MN.deedTax * 100).toFixed(2)}% of the sale price (plus ${(MN.erf * 100).toFixed(2)}% in Hennepin and Ramsey counties), due when the deed is recorded. In most Minnesota sales the seller pays it, but the purchase agreement decides.` },
+  { q: 'How are property taxes split at closing in Minnesota?', a: 'Minnesota property taxes are paid during the year they are due, in two halves (generally May 15 and October 15). At closing, the seller is usually charged for taxes from January 1 through the closing date and credited for any half already paid. The purchase agreement and closing statement set the exact split.' },
+  { q: 'Are real estate commissions set by law?', a: 'No. Commissions are not set by law and are negotiable. Enter the listing commission you agree to and any compensation you choose to offer a buyer’s agent.' },
+  { q: 'What else can come out of my proceeds?', a: 'Your mortgage and any home equity line payoff, title and closing fees, any seller-paid closing costs or repair credits you agree to, and liens such as unpaid taxes or judgments. Your title company’s closing statement is the final word.' },
+];
+const ld = JSON.stringify([
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+  { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Minnesota seller net proceeds calculator', applicationCategory: 'FinanceApplication', operatingSystem: 'Any', url: "https://www.huerkamphomegroup.com/calculators/seller-net-proceeds", offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }, provider: { '@type': 'RealEstateAgent', name: site.name } },
+]);
+---
+<Base breadcrumbs={[{ name: 'Calculators', href: '/calculators' }, { name: 'Seller net proceeds', href: '/calculators/seller-net-proceeds' }]}
+  title={`Minnesota Seller Net Proceeds Calculator | ${site.name}`}
+  description="See what you could walk away with when you sell a Twin Cities home: mortgage payoff, Minnesota deed tax, commission, closing costs and property tax proration.">
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <PageHero eyebrow="Calculator" title="What will I walk away with?"
+    lede="Estimate your proceeds from selling a Minnesota home, including the state deed tax and how property taxes are split at closing." />
+
+  <section class="section">
+    <div class="wrap calc" id="calc-seller">
+      <form onsubmit="return false" aria-label="Seller net proceeds inputs">
+        <fieldset>
+          <legend>Your sale</legend>
+          <div class="field"><label for="s-price">Expected sale price ($)</label><input id="s-price" inputmode="decimal" value="400,000" /></div>
+          <div class="field"><label for="s-city">City</label>
+            <select id="s-city">{calcCities.map((c) => <option value={c.slug} selected={c.slug === 'minneapolis'}>{c.name}</option>)}</select>
+            <small>Sets the county deed tax and the property tax estimate below.</small></div>
+          <div class="field"><label for="s-date">Expected closing date</label><input id="s-date" type="date" /></div>
+        </fieldset>
+        <fieldset>
+          <legend>What you owe</legend>
+          <div class="field"><label for="s-payoff">Mortgage and home equity payoff ($)</label><input id="s-payoff" inputmode="decimal" placeholder="0" /><small>From your latest statement; the payoff quote will add a few days of interest.</small></div>
+        </fieldset>
+        <fieldset>
+          <legend>Costs of selling</legend>
+          <div class="two">
+            <div class="field"><label for="s-list">Listing commission (%)</label><input id="s-list" inputmode="decimal" placeholder="your rate" /></div>
+            <div class="field"><label for="s-buyer">Buyer’s agent compensation, if offered (%)</label><input id="s-buyer" inputmode="decimal" placeholder="0" /></div>
+          </div>
+          <small>Commissions are not set by law and are negotiable.</small>
+          <div class="two" style="margin-top:.85rem">
+            <div class="field"><label for="s-title">Title and closing fees ($)</label><input id="s-title" inputmode="decimal" placeholder="ask your title company" /></div>
+            <div class="field"><label for="s-credits">Closing cost or repair credits to buyer ($)</label><input id="s-credits" inputmode="decimal" placeholder="0" /></div>
+          </div>
+          <div class="field"><label for="s-other">Other costs: repairs, moving, liens ($)</label><input id="s-other" inputmode="decimal" placeholder="0" /></div>
+        </fieldset>
+        <fieldset>
+          <legend>Property taxes this year</legend>
+          <div class="field"><label for="s-tax">Annual property tax ($)</label><input id="s-tax" inputmode="decimal" /><small id="s-taxnote">Estimated from the city’s typical tax rate. Replace it with the amount on your tax statement.</small></div>
+          <div class="field"><label for="s-paid">Already paid this year</label>
+            <select id="s-paid"><option value="auto">Based on closing date</option><option value="0">Neither half</option><option value="1">First half (due May 15)</option><option value="2">Both halves (October 15 too)</option></select></div>
+        </fieldset>
+      </form>
+
+      <aside class="calc__out" aria-live="polite">
+        <p class="eyebrow">Estimated net proceeds</p>
+        <p class="calc__big" id="s-net">$0</p>
+        <table><tbody id="s-rows"></tbody></table>
+        <p class="calc__note">An estimate, not a closing statement. Your title company’s settlement statement is final. Deed tax: Minnesota Department of Revenue.</p>
+        <p><a class="btn" href="#numbers">Get my exact net sheet</a></p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="wrap prose">
+      <h2>How this calculator works</h2>
+      <ul>
+        <li><strong>Deed tax:</strong> {(MN.deedTax * 100).toFixed(2)}% of the sale price, plus a {(MN.erf * 100).toFixed(2)}% Environmental Response Fund tax in Hennepin and Ramsey counties (<a href={MN.deedTaxUrl} rel="noopener">Minnesota Department of Revenue</a>).</li>
+        <li><strong>Property tax estimate:</strong> each city’s typical effective rate, the Census median real estate taxes paid divided by the median home value. Statewide it’s about {stateTaxRate}%. Source: {taxSource}</li>
+        <li><strong>Proration:</strong> you’re charged for the share of this year’s taxes from January 1 to closing and credited for any half you’ve already paid (first half due May 15, second half October 15).</li>
+        <li><strong>Commission and title fees</strong> start blank because they’re yours to set or quote. Commissions are negotiable.</li>
+      </ul>
+      <h2>Common questions</h2>
+      {faq.map((f) => <><h3>{f.q}</h3><p>{f.a}</p></>)}
+      <p>More: <a href="/sell">Selling with us</a> · <a href="/downsizing/taxes-when-you-sell">Taxes when you sell</a> · <a href="/calculators">All calculators</a></p>
+    </div>
+  </section>
+
+  <CalcLead form="calc-seller" address title="Get your exact net sheet" button="Send me my net sheet"
+    text="An agent will price your home from recent sales nearby and send a net sheet with real title fees and your payoff. No cost, no obligation." />
+
+  <script type="application/json" id="seller-data" set:html={JSON.stringify(data)} />
+  <script>
+    const D = JSON.parse(document.getElementById('seller-data')!.textContent!);
+    const $ = (id: string) => document.getElementById(id) as HTMLInputElement;
+    const num = (id: string) => { const v = Number(($(id).value || '').replace(/[^0-9.\-]/g, '')); return Number.isFinite(v) ? v : 0; };
+    const usd = (v: number) => (v < 0 ? '−' : '') + '$' + Math.round(Math.abs(v)).toLocaleString('en-US');
+    const city = () => D.cities.find((c: any) => c.slug === $('s-city').value) ?? { rate: D.stateRate, erf: false, name: '' };
+    let taxEdited = false;
+    const d = new Date(); d.setDate(d.getDate() + 60);
+    $('s-date').value = d.toISOString().slice(0, 10);
+    const setTax = () => { if (!taxEdited) $('s-tax').value = Math.round(num('s-price') * city().rate / 100).toLocaleString('en-US'); };
+    $('s-tax').addEventListener('input', () => { taxEdited = true; });
+
+    function calc() {
+      setTax();
+      const price = num('s-price'), c = city();
+      const deed = price * (D.deed + (c.erf ? D.erf : 0));
+      const list = price * num('s-list') / 100, buyer = price * num('s-buyer') / 100;
+      const annual = num('s-tax');
+      const close = new Date(($('s-date').value || new Date().toISOString().slice(0, 10)) + 'T12:00:00');
+      const y = close.getFullYear(), start = new Date(y, 0, 1), days = (Date.UTC(y + 1, 0, 1) - Date.UTC(y, 0, 1)) / 864e5;
+      const elapsed = Math.round((close.getTime() - start.getTime()) / 864e5);
+      const halves = $('s-paid').value === 'auto' ? (close >= new Date(y, 9, 15) ? 2 : close >= new Date(y, 4, 15) ? 1 : 0) : Number($('s-paid').value);
+      const prorate = annual * halves / 2 - annual * elapsed / days;
+      const rows: [string, number][] = [
+        ['Sale price', price], ['Mortgage payoff', -num('s-payoff')],
+        [`Listing commission${num('s-list') ? ` (${num('s-list')}%)` : ' (enter your rate)'}`, -list],
+        ...(buyer ? [[`Buyer’s agent compensation (${num('s-buyer')}%)`, -buyer]] as [string, number][] : []),
+        [`Minnesota deed tax (${((D.deed + (c.erf ? D.erf : 0)) * 100).toFixed(2)}%)`, -deed],
+        ['Title and closing fees', -num('s-title')], ['Credits to buyer', -num('s-credits')], ['Other costs', -num('s-other')],
+        [prorate >= 0 ? 'Property tax proration (credit)' : 'Property tax proration', prorate],
+      ];
+      const net = rows.reduce((s, [, v]) => s + v, 0);
+      $('s-net').textContent = usd(net);
+      document.getElementById('s-rows')!.innerHTML = rows.filter(([l, v]) => v !== 0 || /commission/.test(l)).map(([l, v]) => `<tr><td>${l}</td><td>${usd(v)}</td></tr>`).join('') + `<tr class="total"><td>Estimated net</td><td>${usd(net)}</td></tr>`;
+      const sum = document.querySelector<HTMLInputElement>('[data-calc-summary]');
+      if (sum) sum.value = `Net proceeds estimate ${usd(net)} on a ${usd(price)} sale in ${c.name}, closing ${$('s-date').value}. Payoff ${usd(num('s-payoff'))}, listing commission ${num('s-list')}%, buyer agent ${num('s-buyer')}%, deed tax ${usd(deed)}, title ${usd(num('s-title'))}, credits ${usd(num('s-credits'))}, other ${usd(num('s-other'))}, tax proration ${usd(prorate)}.`;
+    }
+    document.getElementById('calc-seller')!.addEventListener('input', calc);
+    document.getElementById('calc-seller')!.addEventListener('change', calc);
+    $('s-city').addEventListener('change', () => { taxEdited = false; calc(); });
+    $('s-price').addEventListener('input', () => { if (!taxEdited) setTax(); });
+    calc();
+  </script>
+</Base>

@@ -62,10 +62,10 @@ const menu = [
     ['Woodbury', '/communities/woodbury'], ['Area guides: compare places', '/guides'], ['Compare two cities', '/compare'], ['Commute times', '/commute'], ['Lake homes', '/lake-homes'],
   ] },
   { label: 'Homes', href: homesForSale ? '/homes-for-sale' : site.searchUrl, items: [
-    ...(homesForSale ? [['Homes for sale by city', '/homes-for-sale']] : []), ['Search all homes', site.searchUrl], ['Buy a home', '/buy'], ['Lake homes', '/lake-homes'], ['Investment property', '/invest'], ['Market reports', '/market'],
+    ...(homesForSale ? [['Homes for sale by city', '/homes-for-sale']] : []), ['Search all homes', site.searchUrl], ['Buy a home', '/buy'], ['Lake homes', '/lake-homes'], ['Investment property', '/invest'], ['Market reports', '/market'], ['Affordability calculator', '/calculators/affordability'], ['Rent vs. buy', '/calculators/rent-vs-buy'],
   ] },
   { label: 'Sell', href: '/sell', items: [
-    ['Sell your home', '/sell'], ['Free home valuation', '/sell#value'], ['Get a cash offer', '/sell#cash'], ['Downsizing & 55+', '/downsizing'],
+    ['Sell your home', '/sell'], ['Free home valuation', '/sell#value'], ['Get a cash offer', '/sell#cash'], ['Net proceeds calculator', '/calculators/seller-net-proceeds'], ['Downsizing & 55+', '/downsizing'],
   ] },
   { label: 'Team', href: '/team' },
   { label: 'Ramsey ELP', href: '/ramsey' },
@@ -79,7 +79,7 @@ const menu = [
 
 const footerCols = [
   { title: 'Communities', links: [['Minneapolis', '/communities/minneapolis'], ['Saint Paul', '/communities/saint-paul'], ['Burnsville', '/communities/burnsville'], ['Lakeville', '/communities/lakeville'], ['Eagan', '/communities/eagan'], ['Apple Valley', '/communities/apple-valley'], ['Edina', '/communities/edina'], ['Area guides', '/guides'], ['Compare cities', '/compare'], ['Commute times', '/commute'], ['All communities', '/communities']] },
-  { title: 'Homes', links: [...(homesForSale ? [['Homes for sale by city', '/homes-for-sale']] : []), ['Search all homes', site.searchUrl], ['Buy a home', '/buy'], ['Lake homes', '/lake-homes'], ['Investment property', '/invest'], ['Market reports', '/market']] },
+  { title: 'Homes', links: [...(homesForSale ? [['Homes for sale by city', '/homes-for-sale']] : []), ['Search all homes', site.searchUrl], ['Buy a home', '/buy'], ['Lake homes', '/lake-homes'], ['Investment property', '/invest'], ['Market reports', '/market'], ['Calculators', '/calculators']] },
   { title: 'Sell', links: [['Sell your home', '/sell'], ['Free home valuation', '/sell#value'], ['Get a cash offer', '/sell#cash'], ['Downsizing & 55+', '/downsizing'], ['Selling a parent’s home', '/downsizing/selling-a-parents-home']] },
   { title: 'Company', links: [['Our team', '/team'], ['Ramsey ELP', '/ramsey'], ['Reviews', '/reviews'], ['Videos', '/videos'], ['Blog', '/blog'], ['Contact', '/contact']] },
 ];

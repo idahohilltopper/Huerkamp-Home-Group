@@ -1,0 +1,762 @@
+{
+ "source": "US Census Bureau, American Community Survey 2020-2024 5-year estimates: B25103 (median real estate taxes paid, owner-occupied homes) and B25077 (median home value). Rate = median taxes \u00f7 median value.",
+ "stateMedianTax": 3357,
+ "cities": {
+  "minneapolis": {
+   "medianTax": 4339,
+   "medianValue": 362200,
+   "rate": 1.2
+  },
+  "saint-paul": {
+   "medianTax": 3822,
+   "medianValue": 294500,
+   "rate": 1.3
+  },
+  "bloomington": {
+   "medianTax": 3881,
+   "medianValue": 361700,
+   "rate": 1.07
+  },
+  "brooklyn-park": {
+   "medianTax": 3744,
+   "medianValue": 336200,
+   "rate": 1.11
+  },
+  "woodbury": {
+   "medianTax": 4688,
+   "medianValue": 450200,
+   "rate": 1.04
+  },
+  "plymouth": {
+   "medianTax": 5160,
+   "medianValue": 491200,
+   "rate": 1.05
+  },
+  "lakeville": {
+   "medianTax": 4498,
+   "medianValue": 452500,
+   "rate": 0.99
+  },
+  "blaine": {
+   "medianTax": 3301,
+   "medianValue": 352400,
+   "rate": 0.94
+  },
+  "maple-grove": {
+   "medianTax": 4502,
+   "medianValue": 418300,
+   "rate": 1.08
+  },
+  "eagan": {
+   "medianTax": 3826,
+   "medianValue": 397100,
+   "rate": 0.96
+  },
+  "burnsville": {
+   "medianTax": 3451,
+   "medianValue": 355200,
+   "rate": 0.97
+  },
+  "coon-rapids": {
+   "medianTax": 2773,
+   "medianValue": 305800,
+   "rate": 0.91
+  },
+  "eden-prairie": {
+   "medianTax": 5158,
+   "medianValue": 473900,
+   "rate": 1.09
+  },
+  "apple-valley": {
+   "medianTax": 3657,
+   "medianValue": 370400,
+   "rate": 0.99
+  },
+  "edina": {
+   "medianTax": 6951,
+   "medianValue": 646300,
+   "rate": 1.08
+  },
+  "minnetonka": {
+   "medianTax": 5285,
+   "medianValue": 475800,
+   "rate": 1.11
+  },
+  "st-louis-park": {
+   "medianTax": 4380,
+   "medianValue": 386800,
+   "rate": 1.13
+  },
+  "shakopee": {
+   "medianTax": 3700,
+   "medianValue": 374800,
+   "rate": 0.99
+  },
+  "cottage-grove": {
+   "medianTax": 3994,
+   "medianValue": 378800,
+   "rate": 1.05
+  },
+  "maplewood": {
+   "medianTax": 3929,
+   "medianValue": 323200,
+   "rate": 1.22
+  },
+  "richfield": {
+   "medianTax": 3905,
+   "medianValue": 344000,
+   "rate": 1.14
+  },
+  "inver-grove-heights": {
+   "medianTax": 3464,
+   "medianValue": 363400,
+   "rate": 0.95
+  },
+  "roseville": {
+   "medianTax": 4355,
+   "medianValue": 352100,
+   "rate": 1.24
+  },
+  "andover": {
+   "medianTax": 3632,
+   "medianValue": 410200,
+   "rate": 0.89
+  },
+  "savage": {
+   "medianTax": 4458,
+   "medianValue": 432300,
+   "rate": 1.03
+  },
+  "brooklyn-center": {
+   "medianTax": 3377,
+   "medianValue": 274300,
+   "rate": 1.23
+  },
+  "fridley": {
+   "medianTax": 3320,
+   "medianValue": 302900,
+   "rate": 1.1
+  },
+  "rosemount": {
+   "medianTax": 3932,
+   "medianValue": 424100,
+   "rate": 0.93
+  },
+  "oakdale": {
+   "medianTax": 3145,
+   "medianValue": 318100,
+   "rate": 0.99
+  },
+  "chaska": {
+   "medianTax": 4194,
+   "medianValue": 404700,
+   "rate": 1.04
+  },
+  "ramsey": {
+   "medianTax": 3481,
+   "medianValue": 359600,
+   "rate": 0.97
+  },
+  "prior-lake": {
+   "medianTax": 4467,
+   "medianValue": 450700,
+   "rate": 0.99
+  },
+  "shoreview": {
+   "medianTax": 4717,
+   "medianValue": 383700,
+   "rate": 1.23
+  },
+  "owatonna": {
+   "medianTax": 3222,
+   "medianValue": 245200,
+   "rate": 1.31
+  },
+  "chanhassen": {
+   "medianTax": 5383,
+   "medianValue": 566300,
+   "rate": 0.95
+  },
+  "faribault": {
+   "medianTax": 2316,
+   "medianValue": 241500,
+   "rate": 0.96
+  },
+  "farmington": {
+   "medianTax": 4240,
+   "medianValue": 366200,
+   "rate": 1.16
+  },
+  "white-bear-lake": {
+   "medianTax": 3576,
+   "medianValue": 331800,
+   "rate": 1.08
+  },
+  "champlin": {
+   "medianTax": 3739,
+   "medianValue": 358700,
+   "rate": 1.04
+  },
+  "lino-lakes": {
+   "medianTax": 4237,
+   "medianValue": 407200,
+   "rate": 1.04
+  },
+  "hastings": {
+   "medianTax": 3160,
+   "medianValue": 322400,
+   "rate": 0.98
+  },
+  "new-brighton": {
+   "medianTax": 4235,
+   "medianValue": 364700,
+   "rate": 1.16
+  },
+  "columbia-heights": {
+   "medianTax": 3003,
+   "medianValue": 277600,
+   "rate": 1.08
+  },
+  "crystal": {
+   "medianTax": 3643,
+   "medianValue": 296100,
+   "rate": 1.23
+  },
+  "west-st-paul": {
+   "medianTax": 3142,
+   "medianValue": 301300,
+   "rate": 1.04
+  },
+  "northfield": {
+   "medianTax": 4522,
+   "medianValue": 329400,
+   "rate": 1.37
+  },
+  "golden-valley": {
+   "medianTax": 5350,
+   "medianValue": 431400,
+   "rate": 1.24
+  },
+  "new-hope": {
+   "medianTax": 4378,
+   "medianValue": 337000,
+   "rate": 1.3
+  },
+  "forest-lake": {
+   "medianTax": 3751,
+   "medianValue": 393500,
+   "rate": 0.95
+  },
+  "south-st-paul": {
+   "medianTax": 3347,
+   "medianValue": 281600,
+   "rate": 1.19
+  },
+  "hopkins": {
+   "medianTax": 4796,
+   "medianValue": 375600,
+   "rate": 1.28
+  },
+  "stillwater": {
+   "medianTax": 4026,
+   "medianValue": 414200,
+   "rate": 0.97
+  },
+  "anoka": {
+   "medianTax": 2735,
+   "medianValue": 308700,
+   "rate": 0.89
+  },
+  "ham-lake": {
+   "medianTax": 3583,
+   "medianValue": 442500,
+   "rate": 0.81
+  },
+  "hugo": {
+   "medianTax": 4079,
+   "medianValue": 408900,
+   "rate": 1.0
+  },
+  "rogers": {
+   "medianTax": 4891,
+   "medianValue": 459700,
+   "rate": 1.06
+  },
+  "lake-elmo": {
+   "medianTax": 4841,
+   "medianValue": 597000,
+   "rate": 0.81
+  },
+  "robbinsdale": {
+   "medianTax": 3467,
+   "medianValue": 295600,
+   "rate": 1.17
+  },
+  "waconia": {
+   "medianTax": 4392,
+   "medianValue": 431000,
+   "rate": 1.02
+  },
+  "vadnais-heights": {
+   "medianTax": 4039,
+   "medianValue": 363100,
+   "rate": 1.11
+  },
+  "mounds-view": {
+   "medianTax": 3615,
+   "medianValue": 324200,
+   "rate": 1.12
+  },
+  "north-st-paul": {
+   "medianTax": 3669,
+   "medianValue": 298500,
+   "rate": 1.23
+  },
+  "east-bethel": {
+   "medianTax": 3173,
+   "medianValue": 363900,
+   "rate": 0.87
+  },
+  "victoria": {
+   "medianTax": 5776,
+   "medianValue": 581200,
+   "rate": 0.99
+  },
+  "mendota-heights": {
+   "medianTax": 4491,
+   "medianValue": 520300,
+   "rate": 0.86
+  },
+  "dayton": {
+   "medianTax": 5324,
+   "medianValue": 511300,
+   "rate": 1.04
+  },
+  "little-canada": {
+   "medianTax": 3309,
+   "medianValue": 319800,
+   "rate": 1.03
+  },
+  "st-anthony": {
+   "medianTax": 5946,
+   "medianValue": 387500,
+   "rate": 1.53
+  },
+  "arden-hills": {
+   "medianTax": 5072,
+   "medianValue": 441900,
+   "rate": 1.15
+  },
+  "oak-grove": {
+   "medianTax": 3003,
+   "medianValue": 423300,
+   "rate": 0.71
+  },
+  "minnetrista": {
+   "medianTax": 6038,
+   "medianValue": 658300,
+   "rate": 0.92
+  },
+  "mound": {
+   "medianTax": 3580,
+   "medianValue": 370800,
+   "rate": 0.97
+  },
+  "st-francis": {
+   "medianTax": 2708,
+   "medianValue": 327600,
+   "rate": 0.83
+  },
+  "corcoran": {
+   "medianTax": 6023,
+   "medianValue": 569400,
+   "rate": 1.06
+  },
+  "new-prague": {
+   "medianTax": 3591,
+   "medianValue": 350500,
+   "rate": 1.02
+  },
+  "orono": {
+   "medianTax": 8722,
+   "medianValue": 1004500,
+   "rate": 0.87
+  },
+  "mahtomedi": {
+   "medianTax": 4875,
+   "medianValue": 476000,
+   "rate": 1.02
+  },
+  "shorewood": {
+   "medianTax": 7414,
+   "medianValue": 703200,
+   "rate": 1.05
+  },
+  "belle-plaine": {
+   "medianTax": 4410,
+   "medianValue": 318200,
+   "rate": 1.39
+  },
+  "medina": {
+   "medianTax": 7666,
+   "medianValue": 736700,
+   "rate": 1.04
+  },
+  "spring-lake-park": {
+   "medianTax": 2933,
+   "medianValue": 290100,
+   "rate": 1.01
+  },
+  "jordan": {
+   "medianTax": 3470,
+   "medianValue": 336200,
+   "rate": 1.03
+  },
+  "carver": {
+   "medianTax": 4680,
+   "medianValue": 445800,
+   "rate": 1.05
+  },
+  "credit-river": {
+   "medianTax": 4934,
+   "medianValue": 595000,
+   "rate": 0.83
+  },
+  "newport": {
+   "medianTax": 3974,
+   "medianValue": 378100,
+   "rate": 1.05
+  },
+  "st-paul-park": {
+   "medianTax": 3102,
+   "medianValue": 263500,
+   "rate": 1.18
+  },
+  "north-oaks": {
+   "medianTax": 7964,
+   "medianValue": 821200,
+   "rate": 0.97
+  },
+  "elko-new-market": {
+   "medianTax": 4601,
+   "medianValue": 433100,
+   "rate": 1.06
+  },
+  "falcon-heights": {
+   "medianTax": 4691,
+   "medianValue": 384500,
+   "rate": 1.22
+  },
+  "circle-pines": {
+   "medianTax": 3476,
+   "medianValue": 293600,
+   "rate": 1.18
+  },
+  "rockford": {
+   "medianTax": 3703,
+   "medianValue": 329200,
+   "rate": 1.12
+  },
+  "watertown": {
+   "medianTax": 3438,
+   "medianValue": 337200,
+   "rate": 1.02
+  },
+  "oak-park-heights": {
+   "medianTax": 3486,
+   "medianValue": 354800,
+   "rate": 0.98
+  },
+  "nowthen": {
+   "medianTax": 3701,
+   "medianValue": 460000,
+   "rate": 0.8
+  },
+  "wayzata": {
+   "medianTax": 10001,
+   "medianValue": 1153400,
+   "rate": 0.87,
+   "topCoded": true
+  },
+  "columbus": {
+   "medianTax": 4843,
+   "medianValue": 460200,
+   "rate": 1.05
+  },
+  "le-sueur": {
+   "medianTax": 3486,
+   "medianValue": 244000,
+   "rate": 1.43
+  },
+  "hanover": {
+   "medianTax": 4755,
+   "medianValue": 447900,
+   "rate": 1.06
+  },
+  "centerville": {
+   "medianTax": 4481,
+   "medianValue": 376900,
+   "rate": 1.19
+  },
+  "scandia": {
+   "medianTax": 4352,
+   "medianValue": 475800,
+   "rate": 0.91
+  },
+  "grant": {
+   "medianTax": 5420,
+   "medianValue": 683400,
+   "rate": 0.79
+  },
+  "bayport": {
+   "medianTax": 2987,
+   "medianValue": 376900,
+   "rate": 0.79
+  },
+  "norwood-young-america": {
+   "medianTax": 3351,
+   "medianValue": 299300,
+   "rate": 1.12
+  },
+  "deephaven": {
+   "medianTax": 10001,
+   "medianValue": 935900,
+   "rate": 1.07,
+   "topCoded": true
+  },
+  "independence": {
+   "medianTax": 6406,
+   "medianValue": 663400,
+   "rate": 0.97
+  },
+  "empire": {
+   "medianTax": 4505,
+   "medianValue": 469500,
+   "rate": 0.96
+  },
+  "lexington": {
+   "medianTax": 3358,
+   "medianValue": 289800,
+   "rate": 1.16
+  },
+  "afton": {
+   "medianTax": 6120,
+   "medianValue": 679300,
+   "rate": 0.9
+  },
+  "greenfield": {
+   "medianTax": 6602,
+   "medianValue": 567700,
+   "rate": 1.16
+  },
+  "mayer": {
+   "medianTax": 3603,
+   "medianValue": 342700,
+   "rate": 1.05
+  },
+  "osseo": {
+   "medianTax": 3612,
+   "medianValue": 306500,
+   "rate": 1.18
+  },
+  "lauderdale": {
+   "medianTax": 3340,
+   "medianValue": 283300,
+   "rate": 1.18
+  },
+  "excelsior": {
+   "medianTax": 10001,
+   "medianValue": 909200,
+   "rate": 1.1,
+   "topCoded": true
+  },
+  "st-bonifacius": {
+   "medianTax": 3537,
+   "medianValue": 355800,
+   "rate": 0.99
+  },
+  "cologne": {
+   "medianTax": 4318,
+   "medianValue": 383600,
+   "rate": 1.13
+  },
+  "long-lake": {
+   "medianTax": 4381,
+   "medianValue": 422600,
+   "rate": 1.04
+  },
+  "dundas": {
+   "medianTax": 4271,
+   "medianValue": 325800,
+   "rate": 1.31
+  },
+  "lakeland": {
+   "medianTax": 3368,
+   "medianValue": 373900,
+   "rate": 0.9
+  },
+  "maple-plain": {
+   "medianTax": 4271,
+   "medianValue": 359900,
+   "rate": 1.19
+  },
+  "spring-park": {
+   "medianTax": 5484,
+   "medianValue": 661600,
+   "rate": 0.83
+  },
+  "tonka-bay": {
+   "medianTax": 10001,
+   "medianValue": 917100,
+   "rate": 1.09,
+   "topCoded": true
+  },
+  "medicine-lake": {
+   "medianTax": 10001,
+   "medianValue": 1083300,
+   "rate": 0.92,
+   "topCoded": true
+  },
+  "dellwood": {
+   "medianTax": 7406,
+   "medianValue": 873600,
+   "rate": 0.85
+  },
+  "lake-st-croix-beach": {
+   "medianTax": 2826,
+   "medianValue": 363800,
+   "rate": 0.78
+  },
+  "hilltop": {
+   "medianTax": 199,
+   "medianValue": 23900,
+   "rate": 0.83
+  },
+  "landfall": {
+   "medianTax": 219,
+   "medianValue": 18900,
+   "rate": 1.16
+  },
+  "birchwood-village": {
+   "medianTax": 4563,
+   "medianValue": 462800,
+   "rate": 0.99
+  },
+  "lilydale": {
+   "medianTax": 3522,
+   "medianValue": 404800,
+   "rate": 0.87
+  },
+  "hampton": {
+   "medianTax": 2655,
+   "medianValue": 318300,
+   "rate": 0.83
+  },
+  "greenwood": {
+   "medianTax": 10001,
+   "medianValue": 1240400,
+   "rate": 0.81,
+   "topCoded": true
+  },
+  "marine-on-st-croix": {
+   "medianTax": 4559,
+   "medianValue": 470100,
+   "rate": 0.97
+  },
+  "loretto": {
+   "medianTax": 4594,
+   "medianValue": 361500,
+   "rate": 1.27
+  },
+  "hamburg": {
+   "medianTax": 3057,
+   "medianValue": 239900,
+   "rate": 1.27
+  },
+  "minnetonka-beach": {
+   "medianTax": 10001,
+   "medianValue": 2000001,
+   "rate": 0.5,
+   "topCoded": true
+  },
+  "sunfish-lake": {
+   "medianTax": 10001,
+   "medianValue": 1115600,
+   "rate": 0.9,
+   "topCoded": true
+  },
+  "gem-lake": {
+   "medianTax": 6520,
+   "medianValue": 568900,
+   "rate": 1.15
+  },
+  "willernie": {
+   "medianTax": 3000,
+   "medianValue": 331300,
+   "rate": 0.91
+  },
+  "bethel": {
+   "medianTax": 2422,
+   "medianValue": 267800,
+   "rate": 0.9
+  },
+  "randolph": {
+   "medianTax": 2267,
+   "medianValue": 291000,
+   "rate": 0.78
+  },
+  "new-germany": {
+   "medianTax": 3183,
+   "medianValue": 258000,
+   "rate": 1.23
+  },
+  "vermillion": {
+   "medianTax": 2649,
+   "medianValue": 319300,
+   "rate": 0.83
+  },
+  "pine-springs": {
+   "medianTax": 4796,
+   "medianValue": 626600,
+   "rate": 0.77
+  },
+  "woodland": {
+   "medianTax": 10001,
+   "medianValue": 1185300,
+   "rate": 0.84,
+   "topCoded": true
+  },
+  "st-marys-point": {
+   "medianTax": 3417,
+   "medianValue": 523000,
+   "rate": 0.65
+  },
+  "lakeland-shores": {
+   "medianTax": 3622,
+   "medianValue": 455400,
+   "rate": 0.8
+  },
+  "mendota": {
+   "medianTax": 2385,
+   "medianValue": 320000,
+   "rate": 0.75
+  },
+  "coates": {
+   "medianTax": 2167,
+   "medianValue": 240000,
+   "rate": 0.9
+  },
+  "miesville": {
+   "medianTax": 2696,
+   "medianValue": 348200,
+   "rate": 0.77
+  },
+  "new-trier": {
+   "medianTax": 2450,
+   "medianValue": 275000,
+   "rate": 0.89
+  }
+ },
+ "stateMedianValue": 329300,
+ "stateRate": 1.02
+}

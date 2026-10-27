@@ -1,0 +1,28 @@
+---
+// Calculators hub.
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { calculators } from '../../data/calculators';
+import { site } from '../../data/site';
+
+const ld = JSON.stringify({
+  '@context': 'https://schema.org', '@type': 'ItemList', name: 'Twin Cities real estate calculators',
+  itemListElement: calculators.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.title, url: `https://www.huerkamphomegroup.com/calculators/${c.slug}` })),
+});
+---
+<Base breadcrumbs={[{ name: 'Calculators', href: '/calculators' }]}
+  title={`Twin Cities Real Estate Calculators | ${site.name}`}
+  description="Free Minnesota home calculators: seller net proceeds with deed tax, how much house you can afford with real property tax rates, and rent vs. buy.">
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <PageHero eyebrow="Calculators" title="Run the numbers"
+    lede="Free calculators built for Minnesota: the state’s deed and mortgage registry taxes, real property tax rates for each Twin Cities city, and today’s average mortgage rates." />
+  <section class="section">
+    <div class="wrap">
+      <ul class="calc-cards">
+        {calculators.map((c) => <li><a href={`/calculators/${c.slug}`}><strong>{c.title}</strong><span>{c.short}</span></a></li>)}
+        <li><a href="/data"><strong>Twin Cities housing data</strong><span>Monthly prices, sales and inventory, mortgage rates and the metro home price index, with downloads.</span></a></li>
+      </ul>
+      <p style="margin-top:1.5rem">Want real numbers instead of estimates? Call <a href={site.phoneHref}>{site.phone}</a> or <a href="/contact">send us a note</a>.</p>
+    </div>
+  </section>
+</Base>

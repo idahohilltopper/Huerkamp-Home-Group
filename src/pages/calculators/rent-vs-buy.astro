@@ -1,0 +1,151 @@
+---
+// Rent vs. buy: compares wealth after N years. Home price growth defaults to the long-run FHFA index for the
+// Minneapolis-St. Paul metro; rent growth, investment return and upkeep are labeled assumptions people can change.
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CalcLead from '../../components/CalcLead.astro';
+import { MN, calcCities, taxSource, stateTaxRate, rate, rateSource, appreciation, fmtDate } from '../../data/calculators';
+import { site } from '../../data/site';
+
+const data = { cities: calcCities.map(({ slug, name, rate, erf }) => ({ slug, name, rate, erf })), mtax: MN.mortgageTax, deed: MN.deedTax, erf: MN.erf, stateRate: stateTaxRate };
+const faq = [
+  { q: 'Is it better to rent or buy in the Twin Cities?', a: 'It depends mostly on how long you’ll stay. Buying has up-front and selling costs that take several years to earn back through equity and price growth. This calculator shows the year when buying pulls ahead under your assumptions.' },
+  { q: 'How fast have Twin Cities home prices risen?', a: `The FHFA House Price Index for the Minneapolis-St. Paul metro rose about ${appreciation['30']}% a year over the last 30 years, ${appreciation['20']}% a year over 20 years (a period that includes the 2008 downturn) and ${appreciation['10']}% a year over 10 years, through ${appreciation.latest}. Past growth doesn’t guarantee future growth.` },
+  { q: 'What does this calculator leave out?', a: 'Income tax effects such as the mortgage interest deduction, renter’s insurance, moving costs and changes in your rate or rent beyond the growth you enter. Treat it as a comparison, not a forecast.' },
+];
+const ld = JSON.stringify([
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+  { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Twin Cities rent vs. buy calculator', applicationCategory: 'FinanceApplication', operatingSystem: 'Any', url: 'https://www.huerkamphomegroup.com/calculators/rent-vs-buy', offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }, provider: { '@type': 'RealEstateAgent', name: site.name } },
+]);
+---
+<Base breadcrumbs={[{ name: 'Calculators', href: '/calculators' }, { name: 'Rent vs. buy', href: '/calculators/rent-vs-buy' }]}
+  title={`Rent vs. Buy Calculator for the Twin Cities | ${site.name}`}
+  description="Compare renting and buying in Minneapolis-Saint Paul year by year, with real property tax rates, today's mortgage rates, Minnesota closing taxes and the metro home price index.">
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <PageHero eyebrow="Calculator" title="Rent or buy?"
+    lede="See how your wealth compares after renting or buying in the Twin Cities, year by year, and when buying pulls ahead." />
+
+  <section class="section">
+    <div class="wrap calc" id="calc-rb">
+      <form onsubmit="return false" aria-label="Rent vs. buy inputs">
+        <fieldset>
+          <legend>Renting</legend>
+          <div class="two">
+            <div class="field"><label for="r-rent">Monthly rent ($)</label><input id="r-rent" inputmode="decimal" value="2,000" /></div>
+            <div class="field"><label for="r-years">Years you’d stay</label><input id="r-years" inputmode="numeric" value="7" /></div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Buying</legend>
+          <div class="two">
+            <div class="field"><label for="r-price">Home price ($)</label><input id="r-price" inputmode="decimal" value="400,000" /></div>
+            <div class="field"><label for="r-down">Down payment (%)</label><input id="r-down" inputmode="decimal" value="10" /></div>
+          </div>
+          <div class="two">
+            <div class="field"><label for="r-rate">30-year rate (%)</label><input id="r-rate" inputmode="decimal" value={rate.rate30.toFixed(2)} /><small>Freddie Mac average, week of {fmtDate(rate.date)}.</small></div>
+            <div class="field"><label for="r-city">City</label><select id="r-city">{calcCities.map((c) => <option value={c.slug} selected={c.slug === 'minneapolis'}>{c.name}</option>)}</select></div>
+          </div>
+          <div class="two">
+            <div class="field"><label for="r-ins">Homeowners insurance ($/year)</label><input id="r-ins" inputmode="decimal" placeholder="your quote" /></div>
+            <div class="field"><label for="r-hoa">HOA dues ($/month)</label><input id="r-hoa" inputmode="decimal" placeholder="0" /></div>
+          </div>
+          <div class="two">
+            <div class="field"><label for="r-close">Other closing costs to buy ($)</label><input id="r-close" inputmode="decimal" placeholder="lender estimate" /></div>
+            <div class="field"><label for="r-comm">Commission when you sell (%)</label><input id="r-comm" inputmode="decimal" placeholder="0" /></div>
+          </div>
+          <div class="field"><label for="r-pmi">Mortgage insurance if under 20% down (% of loan per year)</label><input id="r-pmi" inputmode="decimal" placeholder="ask your lender" /></div>
+        </fieldset>
+        <fieldset>
+          <legend>Assumptions (change these)</legend>
+          <div class="two">
+            <div class="field"><label for="r-app">Home price growth (%/year)</label><input id="r-app" inputmode="decimal" value={String(appreciation['30'])} /><small>Twin Cities metro, FHFA index: {appreciation['30']}% over 30 years, {appreciation['20']}% over 20, {appreciation['10']}% over 10.</small></div>
+            <div class="field"><label for="r-rg">Rent increase (%/year)</label><input id="r-rg" inputmode="decimal" value="3" /></div>
+          </div>
+          <div class="two">
+            <div class="field"><label for="r-ret">Return on money you invest instead (%/year)</label><input id="r-ret" inputmode="decimal" value="5" /></div>
+            <div class="field"><label for="r-maint">Upkeep and repairs (% of value/year)</label><input id="r-maint" inputmode="decimal" value="1" /></div>
+          </div>
+        </fieldset>
+      </form>
+
+      <aside class="calc__out" aria-live="polite">
+        <p class="eyebrow" id="r-head">After 7 years</p>
+        <p class="calc__big" id="r-verdict"></p>
+        <table><tbody id="r-rows"></tbody></table>
+        <p class="calc__note" id="r-break"></p>
+        <p class="calc__note">A comparison under your assumptions, not a forecast. Leaves out income tax effects.</p>
+        <p><a class="btn" href="#numbers">Talk through my numbers</a></p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="wrap prose">
+      <h2>How this calculator works</h2>
+      <ul>
+        <li><strong>Buying:</strong> you pay the down payment, Minnesota’s mortgage registry tax ({(MN.mortgageTax * 100).toFixed(2)}% of the loan, plus {(MN.erf * 100).toFixed(2)}% in Hennepin and Ramsey counties) and other closing costs. Each year you pay principal and interest, property taxes, insurance, HOA dues, mortgage insurance and upkeep. When you sell, you pay the deed tax ({(MN.deedTax * 100).toFixed(2)}%, plus {(MN.erf * 100).toFixed(2)}% in Hennepin and Ramsey) and any commission. Tax rates: <a href={MN.deedTaxUrl} rel="noopener">Minnesota Department of Revenue</a>.</li>
+        <li><strong>Renting:</strong> the money you didn’t spend on the down payment and closing costs is invested, and so is any month when renting costs less than owning (and vice versa for the buyer).</li>
+        <li><strong>Home price growth:</strong> <a href={appreciation.url} rel="noopener">{appreciation.source}</a>, {appreciation.area}, through {appreciation.latest}.</li>
+        <li><strong>Property taxes:</strong> each city’s typical effective rate. Source: {taxSource}</li>
+        <li><strong>Mortgage rate:</strong> <a href={rateSource.url} rel="noopener">{rateSource.name}</a>.</li>
+      </ul>
+      <h2>Common questions</h2>
+      {faq.map((f) => <><h3>{f.q}</h3><p>{f.a}</p></>)}
+      <p>More: <a href="/calculators/affordability">How much house can I afford?</a> · <a href="/buy">Buying with us</a> · <a href="/data">Twin Cities housing data</a> · <a href="/calculators">All calculators</a></p>
+    </div>
+  </section>
+
+  <CalcLead form="calc-rentbuy" title="Talk through your numbers" button="Help me decide"
+    text="We’ll look at your timeline, the neighborhoods you like and what homes there really cost, and give you a straight answer, even if it’s “keep renting for now.”" />
+
+  <script type="application/json" id="rb-data" set:html={JSON.stringify(data)} />
+  <script>
+    const D = JSON.parse(document.getElementById('rb-data')!.textContent!);
+    const $ = (id: string) => document.getElementById(id) as HTMLInputElement;
+    const num = (id: string) => { const v = Number(($(id).value || '').replace(/[^0-9.\-]/g, '')); return Number.isFinite(v) ? v : 0; };
+    const usd = (v: number) => (v < 0 ? '−' : '') + '$' + Math.round(Math.abs(v)).toLocaleString('en-US');
+
+    function run(yearsOut: number) {
+      const c = D.cities.find((x: any) => x.slug === $('r-city').value) ?? { rate: D.stateRate, erf: false };
+      const erf = c.erf ? D.erf : 0;
+      const price = num('r-price'), down = price * num('r-down') / 100, loan = price - down;
+      const r = num('r-rate') / 1200, n = 360, pay = r ? loan * r / (1 - Math.pow(1 + r, -n)) : loan / n;
+      const upfront = down + loan * (D.mtax + erf) + num('r-close');
+      const app = num('r-app') / 100, rg = num('r-rg') / 100, ret = num('r-ret') / 100, maint = num('r-maint') / 100;
+      const ins = num('r-ins'), hoa = num('r-hoa') * 12, pmi = num('r-pmi') / 100;
+      let bal = loan, value = price, rent = num('r-rent') * 12, renterPot = upfront, buyerPot = 0;
+      const out: { year: number; buyer: number; renter: number }[] = [];
+      for (let y = 1; y <= yearsOut; y++) {
+        let interest = 0, principal = 0;
+        for (let m = 0; m < 12 && bal > 0; m++) { const i = bal * r; interest += i; const p = Math.min(bal, pay - i); principal += p; bal -= p; }
+        const own = interest + principal + value * c.rate / 100 + ins + hoa + (bal > 0.8 * price ? bal * pmi : 0) + value * maint;
+        // Whoever spends less this year invests the difference.
+        renterPot = renterPot * (1 + ret) + Math.max(0, own - rent);
+        buyerPot = buyerPot * (1 + ret) + Math.max(0, rent - own);
+        value *= 1 + app; rent *= 1 + rg;
+        const sell = value * (D.deed + erf + num('r-comm') / 100);
+        out.push({ year: y, buyer: value - bal - sell + buyerPot, renter: renterPot });
+      }
+      return out;
+    }
+
+    function calc() {
+      const years = Math.min(30, Math.max(1, Math.round(num('r-years')) || 7));
+      const res = run(30), at = res[years - 1];
+      const be = res.find((x) => x.buyer > x.renter);
+      document.getElementById('r-head')!.textContent = `After ${years} year${years > 1 ? 's' : ''}`;
+      const diff = at.buyer - at.renter;
+      document.getElementById('r-verdict')!.textContent = diff >= 0 ? `Buying ahead by ${usd(diff)}` : `Renting ahead by ${usd(-diff)}`;
+      document.getElementById('r-rows')!.innerHTML =
+        `<tr><td>Your wealth if you buy (home equity after selling costs, plus savings)</td><td>${usd(at.buyer)}</td></tr>` +
+        `<tr><td>Your wealth if you rent (invested savings)</td><td>${usd(at.renter)}</td></tr>` +
+        [1, 3, 5, 10, 15].filter((y) => y !== years).map((y) => `<tr><td>Year ${y}: buy vs. rent</td><td>${usd(res[y - 1].buyer - res[y - 1].renter)}</td></tr>`).join('');
+      document.getElementById('r-break')!.textContent = be ? `Buying pulls ahead in year ${be.year} under these assumptions.` : 'Under these assumptions, renting stays ahead for 30 years.';
+      const sum = document.querySelector<HTMLInputElement>('[data-calc-summary]');
+      if (sum) sum.value = `Rent vs. buy over ${years} years: ${document.getElementById('r-verdict')!.textContent}. Rent ${usd(num('r-rent'))}/mo, price ${usd(num('r-price'))}, ${num('r-down')}% down, rate ${num('r-rate')}%, growth ${num('r-app')}%/yr. ${document.getElementById('r-break')!.textContent}`;
+    }
+    document.getElementById('calc-rb')!.addEventListener('input', calc);
+    document.getElementById('calc-rb')!.addEventListener('change', calc);
+    calc();
+  </script>
+</Base>

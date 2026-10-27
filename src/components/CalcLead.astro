@@ -1,0 +1,42 @@
+---
+// "Get your exact numbers" form under each calculator. The calculator page keeps the hidden "calc" field
+// filled with the person's current inputs and results, so the agent sees them in Follow Up Boss.
+import { site } from '../data/site';
+interface Props { form: 'calc-seller' | 'calc-buyer' | 'calc-rentbuy'; title: string; text: string; button: string; address?: boolean }
+const { form, title, text, button, address = false } = Astro.props;
+const id = form;
+---
+<section class="section section--dark" id="numbers" aria-labelledby={`${id}-title`}>
+  <div class="wrap clsplit">
+    <div class="prose">
+      <p class="eyebrow">Free, no obligation</p>
+      <h2 id={`${id}-title`}>{title}</h2>
+      <p>{text}</p>
+      <p class="clcall">Prefer to talk? Call <a href={site.phoneHref}>{site.phone}</a>.</p>
+    </div>
+    <form class="form" data-lead={form}>
+      <input type="hidden" name="calc" value="" data-calc-summary />
+      <div class="form__row">
+        <div class="field"><label for={`${id}-first`}>First name</label><input id={`${id}-first`} name="firstName" autocomplete="given-name" required /></div>
+        <div class="field"><label for={`${id}-last`}>Last name</label><input id={`${id}-last`} name="lastName" autocomplete="family-name" required /></div>
+      </div>
+      <div class="form__row">
+        <div class="field"><label for={`${id}-email`}>Email</label><input id={`${id}-email`} name="email" type="email" autocomplete="email" required /></div>
+        <div class="field"><label for={`${id}-phone`}>Phone</label><input id={`${id}-phone`} name="phone" type="tel" autocomplete="tel" /></div>
+      </div>
+      {address && <div class="field"><label for={`${id}-addr`}>Home address (optional)</label><input id={`${id}-addr`} name="address" autocomplete="street-address" /></div>}
+      <div class="field"><label for={`${id}-msg`}>Questions? (optional)</label><textarea id={`${id}-msg`} name="message" rows="3"></textarea></div>
+      <p class="clnote">Your calculator numbers are included so we can start from them.</p>
+      <button class="btn" type="submit">{button}</button>
+      <p class="form__status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .clsplit { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 900px) { .clsplit { grid-template-columns: 1fr; } }
+  .clcall { font-size: 1.15rem; }
+  .clcall a { color: #fff; font-weight: 700; }
+  .clnote { font-size: .9rem; color: var(--on-dark-soft); margin: .25rem 0 .75rem; }
+</style>

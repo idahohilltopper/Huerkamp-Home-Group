@@ -1,0 +1,151 @@
+---
+// "How much house can I afford?" Rates default to Freddie Mac's latest weekly survey; property taxes come from
+// each city's Census effective rate; the Ramsey guideline is 25% of take-home pay on a 15-year fixed loan.
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CalcLead from '../../components/CalcLead.astro';
+import { MN, calcCities, taxSource, stateTaxRate, rate, rateSource, fmtDate } from '../../data/calculators';
+import { site } from '../../data/site';
+
+const data = { cities: calcCities.map(({ slug, name, rate, erf }) => ({ slug, name, rate, erf })), mtax: MN.mortgageTax, erf: MN.erf, stateRate: stateTaxRate };
+const faq = [
+  { q: 'How much house can I afford in the Twin Cities?', a: 'It depends on your income, debts, down payment, interest rate and the city’s property taxes. Lenders commonly look at your total monthly debts, including the new house payment, as a share of your gross income. This calculator lets you test limits from 36% to 50%; a lender’s pre-approval is the real answer.' },
+  { q: 'What is the Ramsey guideline for a mortgage?', a: 'Ramsey Solutions recommends a 15-year fixed-rate mortgage with a monthly payment, including taxes, insurance, PMI and HOA dues, of no more than 25% of your take-home pay. Huerkamp Home Group is a Ramsey Endorsed Local Provider.' },
+  { q: 'What is Minnesota’s mortgage registry tax?', a: `It’s ${(MN.mortgageTax * 100).toFixed(2)}% of the loan amount (plus ${(MN.erf * 100).toFixed(2)}% in Hennepin and Ramsey counties), paid at closing when the mortgage is recorded. On a $320,000 loan that’s about $${Math.round(320000 * MN.mortgageTax).toLocaleString('en-US')}.` },
+  { q: 'Is there down payment help in Minnesota?', a: 'Yes. Minnesota Housing offers first-time buyer loans and down payment assistance with income and price limits, and some cities and counties have their own programs. Check current rules at mnhousing.gov.' },
+];
+const ld = JSON.stringify([
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+  { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Twin Cities home affordability calculator', applicationCategory: 'FinanceApplication', operatingSystem: 'Any', url: 'https://www.huerkamphomegroup.com/calculators/affordability', offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }, provider: { '@type': 'RealEstateAgent', name: site.name } },
+]);
+---
+<Base breadcrumbs={[{ name: 'Calculators', href: '/calculators' }, { name: 'Affordability', href: '/calculators/affordability' }]}
+  title={`How Much House Can I Afford? Twin Cities Calculator | ${site.name}`}
+  description="Find your Twin Cities price range from income, debts and down payment, with each city's real property tax rate, Minnesota mortgage registry tax and the Ramsey 25% guideline.">
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <PageHero eyebrow="Calculator" title="How much house can I afford?"
+    lede="Your price range using today’s average mortgage rates, real property tax rates for each Twin Cities city, and two ways to set your budget: a lender’s limit and the Ramsey guideline." />
+
+  <section class="section">
+    <div class="wrap calc" id="calc-buy">
+      <form onsubmit="return false" aria-label="Affordability inputs">
+        <fieldset>
+          <legend>Income and debts</legend>
+          <div class="two">
+            <div class="field"><label for="a-income">Household income before taxes ($/year)</label><input id="a-income" inputmode="decimal" value="120,000" /></div>
+            <div class="field"><label for="a-debts">Monthly debt payments ($)</label><input id="a-debts" inputmode="decimal" placeholder="0" /><small>Car, student loans, card minimums.</small></div>
+          </div>
+          <div class="field"><label for="a-take">Monthly take-home pay ($, optional)</label><input id="a-take" inputmode="decimal" placeholder="for the Ramsey guideline" /></div>
+          <div class="field"><label for="a-dti">Total debt limit</label>
+            <select id="a-dti"><option value="36">36% of gross income (comfortable)</option><option value="43" selected>43% of gross income</option><option value="50">50% of gross income (upper end for many loans)</option></select></div>
+        </fieldset>
+        <fieldset>
+          <legend>Loan</legend>
+          <div class="two">
+            <div class="field"><label for="a-down">Down payment ($)</label><input id="a-down" inputmode="decimal" value="40,000" /></div>
+            <div class="field"><label for="a-term">Loan term</label><select id="a-term"><option value="30">30-year fixed</option><option value="15">15-year fixed</option></select></div>
+          </div>
+          <div class="two">
+            <div class="field"><label for="a-rate">Interest rate, 30-year (%)</label><input id="a-rate" inputmode="decimal" value={rate.rate30.toFixed(2)} /></div>
+            <div class="field"><label for="a-rate15">Interest rate, 15-year (%)</label><input id="a-rate15" inputmode="decimal" value={(rate.rate15 ?? rate.rate30).toFixed(2)} /></div>
+          </div>
+          <small>National averages from Freddie Mac’s survey for the week of {fmtDate(rate.date)}. Your rate depends on your credit and loan.</small>
+          <div class="field" style="margin-top:.85rem"><label for="a-pmi">Mortgage insurance if under 20% down (% of loan per year)</label><input id="a-pmi" inputmode="decimal" placeholder="ask your lender" /></div>
+        </fieldset>
+        <fieldset>
+          <legend>The home</legend>
+          <div class="field"><label for="a-city">City</label>
+            <select id="a-city">{calcCities.map((c) => <option value={c.slug} selected={c.slug === 'minneapolis'}>{c.name}</option>)}</select>
+            <small id="a-citynote"></small></div>
+          <div class="two">
+            <div class="field"><label for="a-ins">Homeowners insurance ($/year)</label><input id="a-ins" inputmode="decimal" placeholder="your quote" /></div>
+            <div class="field"><label for="a-hoa">HOA dues ($/month)</label><input id="a-hoa" inputmode="decimal" placeholder="0" /></div>
+          </div>
+        </fieldset>
+      </form>
+
+      <aside class="calc__out" aria-live="polite">
+        <p class="eyebrow">Price you could afford</p>
+        <p class="calc__big" id="a-price">$0</p>
+        <table><tbody id="a-rows"></tbody></table>
+        <div id="a-ramsey"></div>
+        <p class="calc__note">An estimate for planning, not a loan approval. A lender’s pre-approval is the real number.</p>
+        <p><a class="btn" href="#numbers">Get my real numbers</a></p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="wrap prose">
+      <h2>How this calculator works</h2>
+      <ul>
+        <li><strong>Budget:</strong> your chosen share of gross monthly income, minus your other monthly debts, is the most the full house payment can be.</li>
+        <li><strong>House payment:</strong> principal and interest, property taxes, homeowners insurance, HOA dues and mortgage insurance when the down payment is under 20%.</li>
+        <li><strong>Rates:</strong> <a href={rateSource.url} rel="noopener">{rateSource.name}</a>, week of {fmtDate(rate.date)}: {rate.rate30}% (30-year) and {rate.rate15}% (15-year).</li>
+        <li><strong>Property taxes:</strong> each city’s typical effective rate (statewide about {stateTaxRate}%). Source: {taxSource}</li>
+        <li><strong>Mortgage registry tax:</strong> {(MN.mortgageTax * 100).toFixed(2)}% of the loan, plus {(MN.erf * 100).toFixed(2)}% in Hennepin and Ramsey counties (<a href={MN.mortgageTaxUrl} rel="noopener">Minnesota Department of Revenue</a>).</li>
+        <li><strong>Ramsey guideline:</strong> a 15-year fixed loan with the full payment at no more than 25% of take-home pay (<a href="https://www.ramseysolutions.com/real-estate/how-much-house-can-i-afford" rel="noopener">Ramsey Solutions</a>).</li>
+      </ul>
+      <h2>Common questions</h2>
+      {faq.map((f) => <><h3>{f.q}</h3><p>{f.a}</p></>)}
+      <p>More: <a href="/buy">Buying with us</a> · <a href="/ramsey">Ramsey Endorsed Local Provider</a> · <a href="/guides/homes-under-400k">Where homes sell for under $400K</a> · <a href="/calculators">All calculators</a></p>
+    </div>
+  </section>
+
+  <CalcLead form="calc-buyer" title="Get your real numbers" button="Help me get pre-approved"
+    text="We’ll connect you with a trusted local lender for a free pre-approval and show you homes in your range in the cities you’re considering." />
+
+  <script type="application/json" id="buy-data" set:html={JSON.stringify(data)} />
+  <script>
+    const D = JSON.parse(document.getElementById('buy-data')!.textContent!);
+    const $ = (id: string) => document.getElementById(id) as HTMLInputElement;
+    const num = (id: string) => { const v = Number(($(id).value || '').replace(/[^0-9.\-]/g, '')); return Number.isFinite(v) ? v : 0; };
+    const usd = (v: number) => '$' + Math.round(Math.max(0, v)).toLocaleString('en-US');
+    const factor = (ratePct: number, years: number) => { const r = ratePct / 1200, n = years * 12; return r ? r / (1 - Math.pow(1 + r, -n)) : 1 / n; };
+
+    // Highest price whose full monthly payment fits the budget.
+    function solve(budget: number, down: number, ratePct: number, years: number, taxRate: number, ins: number, hoa: number, pmi: number) {
+      const k = factor(ratePct, years), fixed = ins / 12 + hoa;
+      const noPmi = (budget - fixed + down * k) / (k + taxRate / 1200);
+      if (down >= 0.2 * noPmi || !pmi) return Math.max(0, noPmi);
+      const m = pmi / 1200;
+      return Math.max(0, (budget - fixed + down * (k + m)) / (k + taxRate / 1200 + m));
+    }
+    function breakdown(price: number, down: number, ratePct: number, years: number, taxRate: number, ins: number, hoa: number, pmi: number) {
+      const loan = Math.max(0, price - down);
+      return { loan, pi: loan * factor(ratePct, years), tax: price * taxRate / 1200, ins: ins / 12, hoa, pmi: down < 0.2 * price ? loan * pmi / 1200 : 0 };
+    }
+
+    function calc() {
+      const c = D.cities.find((x: any) => x.slug === $('a-city').value) ?? { rate: D.stateRate, erf: false, name: '' };
+      document.getElementById('a-citynote')!.textContent = `Typical property tax rate in ${c.name}: about ${c.rate}% of value per year.`;
+      const years = Number($('a-term').value), r = years === 15 ? num('a-rate15') : num('a-rate');
+      const down = num('a-down'), ins = num('a-ins'), hoa = num('a-hoa'), pmi = num('a-pmi');
+      const budget = num('a-income') / 12 * Number($('a-dti').value) / 100 - num('a-debts');
+      const price = solve(budget, down, r, years, c.rate, ins, hoa, pmi);
+      const b = breakdown(price, down, r, years, c.rate, ins, hoa, pmi);
+      const total = b.pi + b.tax + b.ins + b.hoa + b.pmi;
+      const reg = b.loan * (D.mtax + (c.erf ? D.erf : 0));
+      $('a-price').textContent = usd(price);
+      const row = (l: string, v: number) => `<tr><td>${l}</td><td>${usd(v)}</td></tr>`;
+      document.getElementById('a-rows')!.innerHTML =
+        row(`Principal and interest (${years}-yr at ${r}%)`, b.pi) + row('Property taxes', b.tax) + row(ins ? 'Homeowners insurance' : 'Homeowners insurance (add your quote)', b.ins) +
+        (b.hoa ? row('HOA dues', b.hoa) : '') + (b.pmi ? row('Mortgage insurance', b.pmi) : '') +
+        `<tr class="total"><td>Monthly payment</td><td>${usd(total)}</td></tr>` +
+        row('Loan amount', b.loan) + row('Down payment', down) + row('MN mortgage registry tax at closing', reg);
+      let ramsey = '';
+      const take = num('a-take');
+      if (take) {
+        const rp = solve(take * 0.25, down, num('a-rate15'), 15, c.rate, ins, hoa, pmi);
+        const rb = breakdown(rp, down, num('a-rate15'), 15, c.rate, ins, hoa, pmi);
+        ramsey = `<p class="eyebrow" style="margin-top:1.25rem">Ramsey guideline</p><p class="calc__big" style="font-size:1.8rem">${usd(rp)}</p><p class="calc__note" style="margin-top:0">15-year fixed at ${num('a-rate15')}%, payment ${usd(rb.pi + rb.tax + rb.ins + rb.hoa + rb.pmi)}/month = 25% of your ${usd(take)} take-home pay.</p>`;
+      }
+      document.getElementById('a-ramsey')!.innerHTML = ramsey;
+      const sum = document.querySelector<HTMLInputElement>('[data-calc-summary]');
+      if (sum) sum.value = `Affordability: about ${usd(price)} in ${c.name} at ${$('a-dti').value}% debt limit. Income ${usd(num('a-income'))}/yr, debts ${usd(num('a-debts'))}/mo, down ${usd(down)}, ${years}-yr at ${r}%, payment ${usd(total)}/mo.${take ? ` Ramsey 25% guideline: about ${ramsey.match(/\$[\d,]+/)?.[0]} (take-home ${usd(take)}/mo).` : ''}`;
+    }
+    document.getElementById('calc-buy')!.addEventListener('input', calc);
+    document.getElementById('calc-buy')!.addEventListener('change', calc);
+    calc();
+  </script>
+</Base>
