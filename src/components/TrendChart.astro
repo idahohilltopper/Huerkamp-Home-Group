@@ -1,0 +1,65 @@
+---
+// One-series line chart drawn as inline SVG at build time, with a hover/tap crosshair and tooltip.
+// The surrounding page always shows the same numbers as a table, so nothing depends on the chart alone.
+interface Props { points: { label: string; value: number }[]; format: 'money' | 'pct' | 'index'; label: string; ticks?: number }
+const { points, format, label, ticks = 6 } = Astro.props;
+const W = 720, H = 280, L = 64, R = 16, T = 16, B = 34;
+const vals = points.map((p) => p.value);
+let lo = Math.min(...vals), hi = Math.max(...vals);
+const pad = (hi - lo) * 0.08 || hi * 0.05 || 1;
+lo -= pad; hi += pad;
+const step = (() => { const raw = (hi - lo) / 4, mag = 10 ** Math.floor(Math.log10(raw)); return [1, 2, 2.5, 5, 10].map((m) => m * mag).find((s) => s >= raw)!; })();
+lo = Math.floor(lo / step) * step; hi = Math.ceil(hi / step) * step;
+const x = (i: number) => L + (i * (W - L - R)) / Math.max(1, points.length - 1);
+const y = (v: number) => T + ((hi - v) * (H - T - B)) / (hi - lo);
+const fmt = (v: number) => format === 'money' ? (v >= 1e6 ? `$${(v / 1e6).toFixed(1)}M` : `$${Math.round(v / 1000)}K`) : format === 'pct' ? `${v.toFixed(v < 10 ? 1 : 0)}%` : `${Math.round(v)}`;
+const full = (v: number) => format === 'money' ? `$${Math.round(v).toLocaleString('en-US')}` : format === 'pct' ? `${v.toFixed(2)}%` : v.toFixed(1);
+const grid: number[] = []; for (let v = lo; v <= hi + step / 2; v += step) grid.push(v);
+const every = Math.max(1, Math.ceil(points.length / ticks));
+const path = points.map((p, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(p.value).toFixed(1)}`).join('');
+const data = JSON.stringify(points.map((p, i) => [p.label, full(p.value), +x(i).toFixed(1), +y(p.value).toFixed(1)]));
+---
+<figure class="tchart" data-points={data} data-w={W} data-h={H}>
+  <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={label}>
+    {grid.map((v) => <g><line x1={L} x2={W - R} y1={y(v)} y2={y(v)} class="tchart__grid" /><text x={L - 8} y={y(v) + 4} text-anchor="end" class="tchart__tick">{fmt(v)}</text></g>)}
+    {points.map((p, i) => ((i % every === 0 && points.length - 1 - i >= every * 0.7) || i === points.length - 1) && <text x={x(i)} y={H - 10} text-anchor={i === points.length - 1 ? 'end' : i === 0 ? 'start' : 'middle'} class="tchart__tick">{p.label}</text>)}
+    <path d={path} class="tchart__line" />
+    <circle cx={x(points.length - 1)} cy={y(points[points.length - 1].value)} r="4" class="tchart__end" />
+    <line class="tchart__cross" y1={T} y2={H - B} x1="0" x2="0" visibility="hidden" />
+    <circle class="tchart__dot" r="5" cx="0" cy="0" visibility="hidden" />
+  </svg>
+  <div class="tchart__tip" hidden></div>
+</figure>
+
+<style>
+  .tchart { position: relative; margin: 0; }
+  .tchart svg { width: 100%; height: auto; display: block; touch-action: pan-y; }
+  .tchart__grid { stroke: var(--line); stroke-width: 1; }
+  .tchart__tick { fill: var(--ink-soft); font-size: 12px; font-variant-numeric: tabular-nums; }
+  .tchart__line { fill: none; stroke: var(--crimson); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+  .tchart__end { fill: var(--crimson); stroke: #fff; stroke-width: 2; }
+  .tchart__cross { stroke: var(--ink-soft); stroke-width: 1; stroke-dasharray: 3 3; }
+  .tchart__dot { fill: var(--crimson); stroke: #fff; stroke-width: 2; }
+  .tchart__tip { position: absolute; top: 0; transform: translateX(-50%); background: var(--ink); color: #fff; padding: .3rem .55rem; font-size: .85rem; white-space: nowrap; pointer-events: none; }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.tchart').forEach((fig) => {
+    const pts: [string, string, number, number][] = JSON.parse(fig.dataset.points!);
+    const W = Number(fig.dataset.w);
+    const svg = fig.querySelector('svg')!, cross = fig.querySelector<SVGLineElement>('.tchart__cross')!, dot = fig.querySelector<SVGCircleElement>('.tchart__dot')!, tip = fig.querySelector<HTMLElement>('.tchart__tip')!;
+    const show = (clientX: number) => {
+      const box = svg.getBoundingClientRect(), vx = ((clientX - box.left) / box.width) * W;
+      let best = 0; pts.forEach((p, i) => { if (Math.abs(p[2] - vx) < Math.abs(pts[best][2] - vx)) best = i; });
+      const [lab, val, px, py] = pts[best];
+      cross.setAttribute('x1', String(px)); cross.setAttribute('x2', String(px)); cross.setAttribute('visibility', 'visible');
+      dot.setAttribute('cx', String(px)); dot.setAttribute('cy', String(py)); dot.setAttribute('visibility', 'visible');
+      tip.hidden = false; tip.textContent = `${lab}: ${val}`;
+      tip.style.left = `${Math.min(Math.max((px / W) * box.width, 70), box.width - 70)}px`;
+    };
+    const hide = () => { cross.setAttribute('visibility', 'hidden'); dot.setAttribute('visibility', 'hidden'); tip.hidden = true; };
+    svg.addEventListener('pointermove', (e) => show(e.clientX));
+    svg.addEventListener('pointerdown', (e) => show(e.clientX));
+    svg.addEventListener('pointerleave', hide);
+  });
+</script>

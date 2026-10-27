@@ -1,0 +1,140 @@
+---
+// Twin Cities housing data: one citable page with the numbers we already publish elsewhere, each with its
+// source and a CSV download. Refreshed by scripts/update-market.py (monthly) and scripts/update-rates.py.
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import TrendChart from '../../components/TrendChart.astro';
+import { datasets } from '../../lib/datasets';
+import { origin, business } from '../../data/schema';
+import { site } from '../../data/site';
+import { latest, asOf, REGION, marketFor, history, monthLabel, money, count, change, source as msrc } from '../../data/market';
+import rates from '../../data/rates.json';
+import hpi from '../../data/hpi.json';
+import tax from '../../data/property-tax.json';
+import communities from '../../data/communities.json';
+
+const r = marketFor(REGION)!;
+const month = monthLabel(latest);
+const fmt = (iso: string) => new Date(`${iso}T12:00:00`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+const prices = history(REGION, 'medianPrice').slice(-24);
+const supply = history(REGION, 'monthsSupply').slice(-24);
+const metro = datasets[0];
+const rateSeries = rates.monthly.filter((w) => w.date >= '2000');
+const hpiSeries = hpi.quarterly.filter((q) => q.q >= '1995');
+const names = new Map(communities.communities.map((c) => [c.slug, c.name]));
+const taxRows = Object.entries(tax.cities as Record<string, any>).map(([k, v]) => ({ name: names.get(k) ?? k, ...v })).sort((a, b) => a.name.localeCompare(b.name));
+const tiles = [
+  { label: `Median sale price, ${month}`, value: money(r.medianPrice?.month[1]), note: `${change(r.medianPrice?.month[2])} from a year earlier` },
+  { label: 'Homes sold', value: count(r.closedSales?.month[1]), note: change(r.closedSales?.month[2]) },
+  { label: 'Homes for sale', value: count(r.inventory?.month[1]), note: change(r.inventory?.month[2]) },
+  { label: 'Months of supply', value: String(r.monthsSupply?.month[1] ?? '—'), note: change(r.monthsSupply?.month[2]) },
+  { label: 'Days on market', value: count(r.daysOnMarket?.month[1]), note: change(r.daysOnMarket?.month[2]) },
+  { label: `30-year mortgage rate`, value: `${rates.latest.rate30}%`, note: `national average, week of ${fmt(rates.latest.date)}` },
+];
+const ld = JSON.stringify(datasets.map((d) => ({
+  '@context': 'https://schema.org', '@type': 'Dataset', name: d.title, description: `${d.description} Source: ${d.source}.`,
+  url: `${origin}/data`, isBasedOn: d.sourceUrl, creator: { '@type': 'Organization', name: d.source }, publisher: { '@id': business['@id'] },
+  spatialCoverage: { '@type': 'Place', name: 'Minneapolis–Saint Paul, Minnesota' }, dateModified: asOf,
+  distribution: { '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: `${origin}/data/${d.slug}.csv` },
+})));
+---
+<Base breadcrumbs={[{ name: 'Housing data', href: '/data' }]}
+  title={`Twin Cities Housing Data: Prices, Rates, Taxes | ${site.name}`}
+  description={`Twin Cities housing numbers with sources and CSV downloads: monthly prices, sales and inventory (${month}), mortgage rates, the metro home price index and property tax rates by city.`}>
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <PageHero eyebrow={`Updated ${fmt(asOf)}`} title="Twin Cities housing data"
+    lede="The numbers behind our market reports and calculators in one place, each with its source and a free download. Reporters, bloggers and researchers are welcome to use them with a link back." />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="head"><p class="eyebrow">16-county Twin Cities region</p><h2>{month} at a glance</h2></div>
+      <ul class="tiles">{tiles.map((t) => <li><span class="tiles__label">{t.label}</span><strong>{t.value}</strong><span class="tiles__note">{t.note}</span></li>)}</ul>
+      <p class="source">Market numbers: <a href={msrc.url} rel="noopener">{msrc.name}</a>, data from {msrc.data}, current as of {fmt(asOf)}. {msrc.note} Mortgage rate: <a href={rates.url} rel="noopener">Freddie Mac PMMS</a>.</p>
+    </div>
+  </section>
+
+  <section class="section section--paper" aria-labelledby="price-title">
+    <div class="wrap">
+      <div class="head"><h2 id="price-title">Median sale price by month</h2><p>16-county Twin Cities region, last 24 months.</p></div>
+      <TrendChart points={prices.map((p) => ({ label: monthLabel(p.month, true), value: p.value }))} format="money" label="Median sale price by month, Twin Cities region" />
+      <h3 class="sub">Months of supply</h3>
+      <p>How long the homes for sale would last at the current pace of sales. Around 5 to 6 months is traditionally called balanced.</p>
+      <TrendChart points={supply.map((p) => ({ label: monthLabel(p.month, true), value: p.value }))} format="index" label="Months of supply by month, Twin Cities region" />
+      <details class="tbl"><summary>Show the monthly table</summary>
+        <div class="table-scroll"><table class="data">
+          <thead><tr><th scope="col">Month</th><th class="num" scope="col">Median price</th><th class="num" scope="col">Sold</th><th class="num" scope="col">New listings</th><th class="num" scope="col">For sale</th><th class="num" scope="col">Months supply</th><th class="num" scope="col">Days on market</th><th class="num" scope="col">% of list</th></tr></thead>
+          <tbody>{[...metro.rows].reverse().map((row) => <tr><th scope="row">{monthLabel(String(row[0]))}</th><td class="num">{money(row[1] as number)}</td><td class="num">{count(row[2] as number)}</td><td class="num">{count(row[3] as number)}</td><td class="num">{count(row[4] as number)}</td><td class="num">{row[5] ?? '—'}</td><td class="num">{row[6] ?? '—'}</td><td class="num">{row[7] != null ? `${row[7]}%` : '—'}</td></tr>)}</tbody>
+        </table></div>
+      </details>
+      <p class="source">Every city’s numbers: <a href="/market">Twin Cities market reports</a>.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="rate-title">
+    <div class="wrap">
+      <div class="head"><h2 id="rate-title">30-year mortgage rates since 2000</h2><p>National average 30-year fixed rate, last survey of each month. Latest: {rates.latest.rate30}% (30-year) and {rates.latest.rate15}% (15-year), week of {fmt(rates.latest.date)}.</p></div>
+      <TrendChart points={rateSeries.map((w) => ({ label: new Date(`${w.date}T12:00:00`).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }), value: w.rate30 }))} format="pct" label="30-year fixed mortgage rate by month since 2000" ticks={9} />
+      <p class="source">Source: <a href={rates.url} rel="noopener">{rates.source}</a>.</p>
+    </div>
+  </section>
+
+  <section class="section section--paper" aria-labelledby="hpi-title">
+    <div class="wrap">
+      <div class="head"><h2 id="hpi-title">Twin Cities home prices over 30 years</h2><p>Home price index for the {hpi.area} (1995 Q1 = 100), through {hpi.latest.q}. It tracks repeat sales of the same homes, so it shows price change rather than the mix of homes sold.</p></div>
+      <TrendChart points={hpiSeries.map((q) => ({ label: q.q.replace('-', ' '), value: q.index }))} format="index" label="FHFA home price index, Minneapolis-St. Paul metro, 1995 to present" ticks={8} />
+      <div class="table-scroll"><table class="data narrow">
+        <thead><tr><th scope="col">Period through {hpi.latest.q}</th><th class="num" scope="col">Average yearly change</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Last year</th><td class="num">{hpi.yearOverYear}%</td></tr>
+          {(['5', '10', '20', '30'] as const).map((y) => <tr><th scope="row">Last {y} years</th><td class="num">{hpi.annualized[y]}%</td></tr>)}
+        </tbody>
+      </table></div>
+      <p class="source">Source: <a href={hpi.url} rel="noopener">{hpi.source}</a>. The 20-year figure starts near the 2006 peak.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="tax-title">
+    <div class="wrap">
+      <div class="head"><h2 id="tax-title">Property tax rates by city</h2><p>Typical effective rate: the median real estate taxes paid by homeowners divided by the median home value. Statewide it’s about {tax.stateRate}%. Your own bill depends on your home’s assessed value, school district and levies.</p></div>
+      <details class="tbl" open><summary>{taxRows.length} cities</summary>
+        <div class="table-scroll"><table class="data">
+          <thead><tr><th scope="col">City</th><th class="num" scope="col">Median taxes</th><th class="num" scope="col">Median value</th><th class="num" scope="col">Effective rate</th></tr></thead>
+          <tbody>{taxRows.map((t) => <tr><th scope="row">{t.name}</th><td class="num">{t.topCoded ? '$10,000+' : money(t.medianTax)}</td><td class="num">{money(t.medianValue)}</td><td class="num">{t.topCoded ? `at least ${t.rate}%` : `${t.rate}%`}</td></tr>)}</tbody>
+        </table></div>
+      </details>
+      <p class="source">Source: {tax.source}</p>
+    </div>
+  </section>
+
+  <section class="section section--paper" id="downloads" aria-labelledby="dl-title">
+    <div class="wrap prose">
+      <h2 id="dl-title">Download the data</h2>
+      <ul class="dl">{datasets.map((d) => <li><a href={`/data/${d.slug}.csv`} download><strong>{d.title}</strong> (CSV)</a><br /><span>{d.description} Source: <a href={d.sourceUrl} rel="noopener">{d.source}</a>.</span></li>)}</ul>
+      <h2>Using these numbers</h2>
+      <p>You’re welcome to quote, chart or republish this data. Please credit the original source shown with each table and link to this page: <code>https://www.huerkamphomegroup.com/data</code>. Questions about the numbers, or need a custom cut for a story? Call {site.name} at <a href={site.phoneHref}>{site.phone}</a>.</p>
+      <p>Related: <a href="/market">Market reports by city</a> · <a href="/calculators">Calculators</a> · <a href="/compare">Compare two cities</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .tiles { list-style: none; padding: 0; margin: 0 0 1rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 1rem; }
+  .tiles li { border: 1px solid var(--line); padding: 1rem 1.1rem; display: flex; flex-direction: column; gap: .25rem; }
+  .tiles strong { font-size: 1.9rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .tiles__label { font: 700 .72rem/1.3 var(--ui); letter-spacing: .08em; text-transform: uppercase; color: var(--text-soft); }
+  .tiles__note { font-size: .88rem; color: var(--text-soft); }
+  .source { font-size: .85rem; color: var(--text-soft); margin-top: 1rem; }
+  .sub { font: 600 1.4rem/1.2 var(--serif); margin: 2rem 0 .25rem; }
+  .tbl { margin-top: 1.25rem; }
+  .tbl summary { cursor: pointer; font-weight: 700; margin-bottom: .75rem; }
+  .table-scroll { position: relative; overflow-x: auto; max-height: 34rem; }
+  .data { width: 100%; border-collapse: collapse; font-size: .95rem; background: var(--paper); }
+  .data.narrow { max-width: 28rem; margin-top: 1.25rem; }
+  .data th, .data td { padding: .5rem .75rem; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+  .data thead th { position: sticky; top: 0; background: var(--paper); font: 700 .72rem/1.3 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--text-soft); }
+  .data .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .dl { padding-left: 1.1rem; }
+  .dl li { margin-bottom: .9rem; }
+  .dl span { font-size: .92rem; color: var(--text-soft); }
+  #downloads code { overflow-wrap: anywhere; }
+</style>
