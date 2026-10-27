@@ -64,18 +64,20 @@ export default function Terms() {
         </ul>
 
         <h2 id="income-guarantee">6. $150,000 income guarantee*</h2>
+        <p>The full program is described on the <a href="/income-guarantee">income guarantee page</a>. In summary:</p>
         <ul>
-          <li>HHG guarantees $150,000 of income to an agent who meets <strong>all</strong> of the following requirements:
+          <li>HHG guarantees $150,000 of income to a full-time agent who meets <strong>all</strong> of the following for a full 12 consecutive months:
             <ul>
               <li>A minimum of 100 contacts every week, tracked through HHG&rsquo;s CRM system, Follow Up Boss.</li>
-              <li>Attendance at 48 weekly accountability meetings (WAM) every year.</li>
+              <li>Attendance at 48 weekly accountability meetings (WAM) during the 12 months.</li>
               <li>No more than 100 leads assigned to the agent in Follow Up Boss at any time.</li>
-              <li>Attendance at 46 team meetings every year, in person.</li>
+              <li>Attendance at 46 team meetings during the 12 months, in person.</li>
             </ul>
           </li>
-          <li>The guarantee applies only while the agent meets every requirement. An agent who does not meet all four requirements is not eligible for the guarantee.</li>
-          <li>Contacts are counted only when they are logged in Follow Up Boss. HHG&rsquo;s Follow Up Boss records are the official record of contacts and lead assignments.</li>
-          <li>Meetings are counted only when attendance is recorded by HHG. Team meetings must be attended in person.</li>
+          <li>If the agent meets every requirement and the agent&rsquo;s own commission income for the period, meaning the agent&rsquo;s share after the team split on closed transactions, is less than $150,000, HHG pays the difference as a lump sum or as otherwise agreed in writing. If the income is $150,000 or more, no payment is due.</li>
+          <li>The agent must be licensed with HHG through Keller Williams Preferred Realty, be in good standing, and sign the program acknowledgment in writing. Referral-only, part-time, inside sales, and admin or support roles are not eligible unless agreed otherwise in writing.</li>
+          <li>If an agent does not meet every requirement, leaves the team before the 12 months are complete, is terminated for cause, or does not consistently log activity in Follow Up Boss, no payment is due.</li>
+          <li>Contacts and lead assignments count only when logged in Follow Up Boss, and HHG&rsquo;s records are the official record. Team meetings must be attended in person, and attendance is recorded by HHG.</li>
           <li>The guarantee is separate from the offers in Sections 3, 4 and 5, and the requirements for those offers still apply to them.</li>
         </ul>
 

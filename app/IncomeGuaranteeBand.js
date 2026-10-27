@@ -7,7 +7,7 @@ const reqs = [
   ['46', 'in-person team meetings', 'Attend 46 team meetings a year, in person.'],
 ];
 
-export default function IncomeGuaranteeBand() {
+export default function IncomeGuaranteeBand({ compact = false }) {
   return (
     <section className="ig-band" id="income-guarantee">
       <div className="ig-inner">
@@ -23,7 +23,8 @@ export default function IncomeGuaranteeBand() {
             </div>
           ))}
         </div>
-        <p className="ig-fine">*The guarantee applies only to agents who meet all four requirements. <Link href="/terms#income-guarantee">Terms and conditions apply.</Link></p>
+        {!compact && <Link href="/income-guarantee" className="btn ig-btn">See exactly how the guarantee works</Link>}
+        <p className="ig-fine">*The guarantee applies only to agents who meet all four requirements. If your income falls short, HHG pays the difference up to $150,000. <Link href="/terms#income-guarantee">Terms and conditions apply.</Link></p>
       </div>
     </section>
   );
