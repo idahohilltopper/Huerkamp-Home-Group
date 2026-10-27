@@ -1,0 +1,106 @@
+[
+  {
+    "id": "aTPdtz2xs8k",
+    "takeaways": [
+      "A 2022 overview of Prior Lake, filmed at Sand Point Beach on Lower Prior Lake. Upper and Lower Prior Lake together cover roughly 1,200 acres, and Prior Lake ranks among Minnesota's most popular recreational lakes.",
+      "About 30 minutes to Minneapolis and 30 to 45 minutes to Saint Paul. Neighbors include Shakopee, Savage, Credit River and Jordan.",
+      "About 28,000 residents, roughly 85% homeownership and an average home value near $485,000 at the time. See the market report for current prices.",
+      "You'll mostly drive: walkability is limited, but MVTA buses connect to transit hubs, and Highway 169, Highway 13 and I-35W are close.",
+      "55 parks, about 1,000 acres of parkland and nearly 80 miles of sidewalks and trails, including Spring Lake and Cleary Lake regional parks. Spring Lake (just under 600 acres) is a quieter recreational lake, and there are about 15 smaller lakes.",
+      "Mystic Lake Casino, owned by the Shakopee Mdewakanton Sioux Community, hosts big-name concerts. Golfers have The Meadows at Mystic Lake and The Wilds, and Charlie's on Prior is the lakeside restaurant you can reach by boat."
+    ],
+    "faq": [
+      { "q": "How big is Prior Lake?", "a": "Upper and Lower Prior Lake together cover roughly 1,200 acres, according to the video. Nearby Spring Lake adds just under 600 acres." },
+      { "q": "How far is Prior Lake from Minneapolis?", "a": "About 30 minutes on a typical day, and 30 to 45 minutes to Saint Paul. Snow can add 15 to 20 minutes." }
+    ],
+    "places": ["prior-lake", "shakopee", "savage", "credit-river", "jordan"],
+    "links": [["Prior Lake market report", "/market/prior-lake"], ["Lower Prior Lake homes", "/lake-homes/lower-prior-lake"], ["Spring Lake homes", "/lake-homes/spring-lake"], ["Prior Lake vs. Savage", "/compare/prior-lake-vs-savage"]]
+  },
+  {
+    "id": "g-wFtoX_3wo",
+    "takeaways": [
+      "Minneapolis (about 428,000 people) is bigger, busier and changes faster; Saint Paul (just over 300,000) is quieter, more traditional and more settled. Jason compares them to Times Square and Boston.",
+      "Minneapolis's skyway connects about 80 blocks with more than 10 miles of indoor walkways. Neighborhoods like Lyn-Lake (Walk Score about 96) and Downtown West (about 93) let you walk to almost everything, and Northeast is an arts hub, home to the Northrup King Building and Art-A-Whirl.",
+      "Saint Paul's highlights include the State Capitol, 4.5-mile Summit Avenue, Irvine Park, Lowertown (lofts, galleries, the farmers market and Union Depot), CHS Field and the free Como Zoo.",
+      "Prices: the Minneapolis median is in the mid-$300,000s but swings block to block, from about $250,000 to $300,000 in Powderhorn and the low to upper $300,000s in Longfellow to low to mid-$500,000s in the North Loop and high $600,000s to $800,000s in Linden Hills. Saint Paul's median is closer to the mid-$290,000s and more consistent.",
+      "Taxes: Minneapolis property taxes average about 1.3% of value, and the city approved an 8% levy increase for 2026. Saint Paul's rates are similar, but you often start from a lower price. Minnesota doesn't charge sales tax on most clothing.",
+      "Jobs and transit: downtown Minneapolis hosts Target, U.S. Bank and Xcel Energy; Saint Paul leans toward government, health care and education. The Green Line links both downtowns, and the Green Line Extension (16 stations) is expected in 2027.",
+      "Jason's rule: pick the city that matches your normal week, not the one with the better stats."
+    ],
+    "faq": [
+      { "q": "Is Saint Paul cheaper than Minneapolis?", "a": "Usually. In the video, Saint Paul's median was in the mid-$290,000s versus the mid-$300,000s in Minneapolis, with more consistent prices from block to block." },
+      { "q": "What's the difference between Minneapolis and Saint Paul?", "a": "Minneapolis is bigger, more modern and more walkable, with more nightlife and corporate jobs. Saint Paul is quieter and more historic, with more single-family homes, steadier neighborhoods and government, health care and education jobs." },
+      { "q": "How long is the Minneapolis skyway?", "a": "More than 10 miles of enclosed walkways connecting about 80 city blocks downtown." }
+    ],
+    "places": ["minneapolis", "saint-paul"],
+    "links": [["Minneapolis vs. Saint Paul", "/compare/minneapolis-vs-saint-paul"], ["North Loop", "/communities/minneapolis/north-loop"], ["Powderhorn Park", "/communities/minneapolis/powderhorn-park"], ["Downtown Saint Paul", "/communities/saint-paul/downtown"]]
+  },
+  {
+    "id": "eAZKrr7CKTY",
+    "takeaways": [
+      "Twin Cities homes run from about $300,000 to a record $50 million listing. Jason sorts places into price tiers, with prices as stated in the video.",
+      "$200,000 to $350,000: Richfield (mid-$300,000s, just south of Minneapolis, Wood Lake Nature Center), Northfield (mid to high $300,000s, a river and college town about 40 miles south) and Bloomington (mid to high $300,000s, Mall of America, the Minnesota Valley National Wildlife Refuge).",
+      "$350,000 to $500,000: Maple Grove (mid-$400,000s and up, Elm Creek Park Reserve) and Savage (low $400,000s, Murphy-Hanrehan Park Reserve).",
+      "$500,000 to $750,000: Woodbury (about 3,500 acres of parkland and a renovated Central Park), Lakeville (high $400,000s to low $500,000s, more than 100 parks, Lake Marion) and Chanhassen (high $500,000s and up, 12 lakes, Paisley Park).",
+      "$750,000 and up: Edina (high $700,000s average, 50th and France) and Medina (from the low $800,000s, acreage estates, car-dependent).",
+      "$1 million to $5 million: homes facing Bde Maka Ska (across the parkway from the lake), Orono on Lake Minnetonka and Lake of the Isles (condos from about $400,000, estates up to about $8 million). $5 million and up: Wayzata, home to the $50 million Lake Point Estate listing."
+    ],
+    "faq": [
+      { "q": "Where can I buy a home for under $350,000 near Minneapolis?", "a": "Jason points to Richfield, Northfield and Bloomington, where homes were typically in the mid to high $300,000s at the time of the video." },
+      { "q": "Do homes on Bde Maka Ska have lake access?", "a": "Not directly. The homes face the lake across a parkway and trail, according to the video, so you get the views and the trails without private shoreline." }
+    ],
+    "places": ["richfield", "northfield", "bloomington", "maple-grove", "savage", "woodbury", "lakeville", "chanhassen", "edina", "medina", "orono", "wayzata", "minneapolis"],
+    "links": [["Where homes sell for under $400K", "/guides/homes-under-400k"], ["Bloomington vs. Richfield", "/compare/bloomington-vs-richfield"], ["Bde Maka Ska homes", "/lake-homes/bde-maka-ska"], ["Highest-priced markets", "/guides/highest-priced-markets"]]
+  },
+  {
+    "id": "Mij_7RppcWk",
+    "takeaways": [
+      "A February driving tour of Lakeville, Jason's hometown and Minnesota's fastest-growing city: about 60,000 people in 2020, about 70,000 in 2025 and a projected 80,000 by 2030. With so much land, some forecasts have it eventually becoming the state's largest city.",
+      "Three main lakes. Orchard Lake has one road all the way around, homes from the mid-1950s to mid-1980s, few sales a year (roughly $800,000 to $1.5 million) and good muskie fishing. Lake Marion is the busiest, with the longest lakeside trail; its homes mostly sell for about $1.5 million to $2 million, with a record near $4 million. Crystal Lake is the third.",
+      "Parks: Ritter Farm Park on Lake Marion (trails, a dog park, an archery range, apple picking), Antlers Park (likely the best beach in town), Casperson Park, and Murphy-Hanrehan Park Reserve to the west.",
+      "Airlake Industrial Park (with an airport and active rail) adds a big commercial tax base that helps keep residential property taxes lower, according to Jason. The city also owns all the liquor stores in town.",
+      "Historic downtown has been revived, with restaurants, the Lakeville Area Arts Center in a former church and Pan-O-Prog each summer. Big-box retail arrived only in about the last 15 years.",
+      "The median sale price was about $580,000 at the time, from the low $300,000s for homes needing work to multimillion-dollar lake homes. The most new construction is within about a half mile of Cedar Avenue, and anywhere in Lakeville is about 15 to 25 minutes from MSP Airport."
+    ],
+    "faq": [
+      { "q": "What lakes are in Lakeville?", "a": "The three main lakes are Lake Marion (the largest and busiest), Orchard Lake and Crystal Lake. All three have public beaches and boat launches." },
+      { "q": "Why are Lakeville property taxes lower?", "a": "Jason credits Airlake Industrial Park: its warehouses, manufacturing and rail-served businesses generate commercial tax revenue that eases the residential share." },
+      { "q": "How far is Lakeville from the airport?", "a": "About 15 to 20 minutes from north Lakeville and up to about 25 minutes from anywhere in the city, according to the video." }
+    ],
+    "places": ["lakeville", "credit-river", "farmington", "apple-valley"],
+    "links": [["Lakeville market report", "/market/lakeville"], ["Lake Marion homes", "/lake-homes/marion-lake"], ["Orchard Lake homes", "/lake-homes/orchard-lake"], ["Lakeville to MSP Airport", "/commute/msp-airport/lakeville"]]
+  },
+  {
+    "id": "bTJm4oeK5sQ",
+    "takeaways": [
+      "A 2022 overview of Lakeville, filmed at Ritter Farm Park on Lake Marion (just over 500 acres, a full recreational lake with swimming beaches).",
+      "Just under 73,000 residents, growing quickly, about 30 to 35 minutes to either downtown via I-35W or I-35E. Neighbors include Apple Valley, Elko New Market, Burnsville and Credit River.",
+      "Close to 90% homeownership and a median sale price around $470,000 at the time, with homes from about $200,000 to $2 million. See the market report for current prices.",
+      "About 125 miles of trails, 1,700 acres of parks and open space, and 65 parks and playgrounds. Of eight lakes, Lake Marion and Orchard Lake are the main recreational ones, both with beaches, boat launches and good ice fishing.",
+      "Local favorites: Applewood Orchard, Lakeville Brewing and Angry Inch Brewing, B-52 Burgers, Porterhouse, the Chart House, the Buckboard and Teresa's.",
+      "MVTA buses serve the south metro, and the I-35W express lane (free for carpools and motorcycles) runs toward downtown Minneapolis."
+    ],
+    "faq": [
+      { "q": "How far is Lakeville from Minneapolis?", "a": "About 30 to 35 minutes to downtown Minneapolis or Saint Paul via I-35W or I-35E, according to the video." },
+      { "q": "How big is Lake Marion in Lakeville?", "a": "Just over 500 acres, a full recreational lake with swimming beaches, according to the video." }
+    ],
+    "places": ["lakeville", "apple-valley", "elko-new-market", "burnsville", "credit-river"],
+    "links": [["Lakeville market report", "/market/lakeville"], ["Lake Marion homes", "/lake-homes/marion-lake"], ["Credit River vs. Lakeville", "/compare/credit-river-vs-lakeville"], ["Apple Valley vs. Lakeville", "/compare/apple-valley-vs-lakeville"]]
+  },
+  {
+    "id": "W31fuKwmvkg",
+    "takeaways": [
+      "A 2024 tour of a HighMark custom home in The Ranch, an acreage development in Credit River in the south metro, with lots of about 2.5 acres minimum. Thirteen Phase 1 lots were still available at the time.",
+      "The home is a one-level-living rambler: about 4,300 finished square feet (about 2,600 on the main level), four bedrooms, five baths and a heated, insulated three-car garage. Listed at $1,995,000 when filmed.",
+      "The main level has roughly 10-foot windows, smooth ceilings, 8-foot solid-core doors, oak cabinets and floors, a seamless stone island, a Thermador range, a hidden fridge and panel-matched dishwasher, and a butler's pantry with the microwave and a beverage fridge.",
+      "The owner's suite, laundry and an office/bedroom are on the main floor. The lookout lower level adds a family room, exercise room, two bedrooms with a shared bath and plenty of storage.",
+      "The lot is a little over 2 acres with irrigation and boulder retaining walls, and the home has two heating and cooling zones."
+    ],
+    "faq": [
+      { "q": "Are there acreage lots in Credit River?", "a": "Yes. The Ranch in Credit River has lots of about 2.5 acres or more for custom homes, according to this 2024 video." },
+      { "q": "What is a rambler?", "a": "A one-story home with all the main living spaces, including the owner's suite and laundry, on one level, often with a finished lower level for guests." }
+    ],
+    "places": ["credit-river", "lakeville", "prior-lake"],
+    "links": [["Credit River vs. Lakeville", "/compare/credit-river-vs-lakeville"], ["One-level living", "/downsizing/one-level-living"], ["Newest homes", "/guides/newest-homes"]]
+  }
+]
