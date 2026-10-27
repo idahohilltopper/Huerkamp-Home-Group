@@ -27,6 +27,7 @@ export const FORMS = {
   'agent':             { type: 'General Inquiry', label: 'Agent page form',        tags: ['Agent page'] },
   'guide':             { type: 'General Inquiry', label: 'Area guide form',       tags: ['Area guide'] },
   'downsizing':        { type: 'Seller Inquiry',  label: 'Downsizing plan request', tags: ['Downsizing', 'Seller lead'] },
+  'commute':           { type: 'Property Search', label: 'Commute page form',     tags: ['Buyer lead', 'Commute search'] },
   'compare':           { type: 'General Inquiry', label: 'Comparison page form',  tags: ['Comparing places'] },
   'listing':           { type: 'Property Inquiry', label: 'Listing page form',    tags: ['Buyer lead', 'Listing inquiry'] },
   'youtube':           { type: 'General Inquiry', label: 'YouTube viewer form',    tags: ['YouTube'], source: 'YouTube - Living in Minneapolis' },

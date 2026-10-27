@@ -1,0 +1,238 @@
+---
+// Commute pages (src/data/commute.ts):
+//   /commute                         pick a destination
+//   /commute/<destination>           every community by drive time, with home prices
+//   /commute/<destination>/<city>    one community: the drive, its rank, other drives, and shorter drives at a similar price
+// Places are described only by the drive and the homes (fair housing).
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { communities, type Community } from '../../data/areas';
+import { DESTS, EXTRA, INDEX_MINUTES, MIN_SALES, BANDS, minutes, median, sales, dom, meanCommute, miles, commuteHref, byDrive, placed, type Dest } from '../../data/commute';
+import { pairs, compareHref } from '../../data/compare';
+import { hasMarket, monthLabel, latest, money, count } from '../../data/market';
+import { communitySearch } from '../../data/ylopo';
+import { listingsData, homesHref } from '../../data/listings';
+import { origin } from '../../data/schema';
+import { site } from '../../data/site';
+
+type Props = { kind: 'hub' } | { kind: 'dest'; d: Dest } | { kind: 'city'; d: Dest; c: Community };
+export function getStaticPaths() {
+  return [
+    { params: { path: undefined }, props: { kind: 'hub' } },
+    ...DESTS.map((d) => ({ params: { path: d.slug }, props: { kind: 'dest', d } })),
+    ...DESTS.flatMap((d) => byDrive(d).map((c) => ({ params: { path: `${d.slug}/${c.slug}` }, props: { kind: 'city', d, c } }))),
+  ];
+}
+const props = Astro.props as Props;
+const month = monthLabel(latest);
+const homes = await listingsData;
+const homesFor = (c: Community) => { const k = homes.collections.find((x) => x.path === c.slug && !x.facet); return k ? homesHref(k.path) : communitySearch(c.slug); };
+const pairOf = (a: Community, b: Community) => pairs.find((p) => p.kind === 'community' && ((p.a.key === a.slug && p.b.key === b.slug) || (p.a.key === b.slug && p.b.key === a.slug)));
+const ordinal = (n: number) => { const s = ['th', 'st', 'nd', 'rd'], r = n % 100; return n + (s[(r - 20) % 10] || s[r] || s[0]); };
+const priced = (list: Community[]) => list.filter((c) => sales(c) >= MIN_SALES && median(c));
+const note = 'Drive times are light-traffic estimates from each city’s center (OpenStreetMap routing). Your trip depends on your address and the time of day; allow more at rush hour.';
+
+let title: string, h1: string, eyebrow: string, lede: string, description: string, crumbs: { name: string; href: string }[], index = true;
+let faq: { q: string; a: string }[] = [];
+
+// ---------- one destination ----------
+const d = props.kind === 'hub' ? null : props.d;
+const list = d ? byDrive(d) : [];
+const bands = d ? BANDS.map(([lo, hi, label]) => ({ label, rows: list.filter((c) => minutes(c, d.key)! >= lo && minutes(c, d.key)! <= hi) })).filter((b) => b.rows.length) : [];
+
+// ---------- one city ----------
+const c = props.kind === 'city' ? props.c : null;
+const mins = c && d ? minutes(c, d.key)! : 0;
+const rank = c && d ? list.indexOf(c) + 1 : 0;
+const price = c ? median(c) : null;
+// Shorter drives where homes sold for no more than 15% above this city's median (cities with enough sales).
+const shorter = c && d ? priced(list.filter((x) => x !== c && minutes(x, d.key)! < mins && (!price || median(x)! <= price * 1.15))).slice(-6).reverse() : [];
+const others = c ? [...DESTS.filter((x) => x !== d).map((x) => ({ name: x.name, min: minutes(c, x.key), href: commuteHref(x, c) })), ...EXTRA.map((x) => ({ name: x.name, min: minutes(c, x.key), href: null as string | null }))].filter((x) => x.min != null) : [];
+
+if (c && d) {
+  h1 = `Living in ${c.name} and commuting to ${d.short}`;
+  title = [`${c.name}, MN to ${d.name}: Commute and Home Prices`, `${c.name} to ${d.name}: Commute and Home Prices`, `${c.name} to ${d.name} Commute`].find((t) => t.length <= 70) ?? `${c.name} to ${d.name}`;
+  eyebrow = `Commute · ${d.name}`;
+  lede = `${c.name} is about ${mins} minutes from ${d.short} by car in light traffic, the ${ordinal(rank)} shortest drive of the ${list.length} cities in our guides.${price && sales(c) >= 10 ? ` Homes there sold for a median ${money(price)} over the 12 months through ${month}.` : ''}`;
+  description = `${lede} Shorter drives at a similar price, drive times to other job centers, and ${c.name} homes for sale.`;
+  crumbs = [{ name: 'Commute', href: '/commute' }, { name: d.name, href: commuteHref(d) }, { name: c.name, href: commuteHref(d, c) }];
+  index = mins <= INDEX_MINUTES;
+  faq = [
+    { q: `How long is the drive from ${c.name} to ${d.short}?`, a: `About ${mins} minutes in light traffic from the center of ${c.name}, roughly ${Math.round(miles(c, d))} miles in a straight line. Rush hour and your exact address can add time.` },
+    ...(meanCommute(c) ? [{ q: `How long is the average commute in ${c.name}?`, a: `${meanCommute(c)} minutes each way, the average travel time to work for ${c.name} residents in the US Census Bureau’s American Community Survey (2020–2024), to all destinations.` }] : []),
+    ...(shorter.length ? [{ q: `Which cities have a shorter drive to ${d.short} at a similar price?`, a: `${shorter.slice(0, 4).map((x) => `${x.name} (${minutes(x, d.key)} minutes, median ${money(median(x))})`).join(', ')}, among cities in our guides with at least ${MIN_SALES} sales over the 12 months through ${month}.` }] : []),
+    ...(price && sales(c) >= 10 ? [{ q: `What do homes cost in ${c.name}?`, a: `The median sale price was ${money(price)} over the 12 months through ${month} (${count(sales(c))} sales), according to the Minneapolis Area REALTORS® Local Market Update.` }] : []),
+  ];
+} else if (d) {
+  h1 = `Commuting to ${d.short}: drive times and home prices`;
+  title = `Twin Cities Suburbs by Drive Time to ${d.name}`;
+  eyebrow = `Commute · ${month}`;
+  const within = (m: number) => list.filter((x) => minutes(x, d.key)! <= m);
+  const cheap30 = priced(within(30)).sort((a, b) => median(a)! - median(b)!)[0];
+  lede = `${within(20).length} cities in our guides are within 20 minutes of ${d.short} by car in light traffic, and ${within(30).length} are within 30. Here is every one, closest first, with what homes sold for.`;
+  description = `${lede} Light-traffic drive times and median sale prices for ${list.length} Twin Cities-area cities.`;
+  crumbs = [{ name: 'Commute', href: '/commute' }, { name: d.name, href: commuteHref(d) }];
+  faq = [
+    { q: `Which suburbs are within 20 minutes of ${d.short}?`, a: `${within(20).filter((x) => x.slug !== 'minneapolis' && x.slug !== 'saint-paul').map((x) => x.name).slice(0, 15).join(', ')}, by light-traffic drive time from each city’s center.` },
+    ...(cheap30 ? [{ q: `What is the most affordable city within 30 minutes of ${d.short}?`, a: `${cheap30.name}, about ${minutes(cheap30, d.key)} minutes away, where homes sold for a median ${money(median(cheap30))} over the 12 months through ${month} (cities in our guides with at least ${MIN_SALES} sales).` }] : []),
+  ];
+} else {
+  h1 = 'Commute times from every Twin Cities community';
+  title = 'Twin Cities Commute Times and Home Prices by City';
+  eyebrow = 'Commute';
+  lede = `Pick where you need to get to. Each page lists all ${placed.length} cities in our guides by drive time, with what homes sell for, so you can weigh the drive against the price.`;
+  description = lede;
+  crumbs = [{ name: 'Commute', href: '/commute' }];
+}
+const url = `${origin}${Astro.url.pathname.replace(/\.html$/, '')}`;
+const ld = faq.length ? JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }) : null;
+---
+<Base breadcrumbs={crumbs} title={`${title} | ${site.name}`} description={description} noindex={!index}>
+  {ld && <script slot="head" type="application/ld+json" set:html={ld} />}
+  <PageHero eyebrow={eyebrow} title={h1} lede={lede} />
+
+  {props.kind === 'hub' && (
+    <section class="section">
+      <div class="wrap">
+        <ul class="dests">{DESTS.map((x) => <li><a href={commuteHref(x)}><strong>{x.name}</strong><span>{byDrive(x).filter((c2) => minutes(c2, x.key)! <= 30).length} cities within 30 minutes</span></a></li>)}</ul>
+        <p class="note">{note}</p>
+      </div>
+    </section>
+  )}
+
+  {d && !c && (
+    <section class="section">
+      <div class="wrap">
+        {bands.map((b) => (
+          <div class="band">
+            <h2>{b.label}</h2>
+            <div class="table-scroll">
+              <table class="data">
+                <thead><tr><th scope="col">City</th><th class="num" scope="col">Drive</th><th class="num" scope="col">Median sale price</th><th class="num" scope="col">Days on market</th><th scope="col">County</th></tr></thead>
+                <tbody>{b.rows.map((x) => <tr><th scope="row"><a href={commuteHref(d, x)}>{x.name}</a></th><td class="num">{minutes(x, d.key)} min</td><td class="num">{sales(x) >= 10 ? money(median(x)) : '—'}</td><td class="num">{sales(x) >= 10 ? count(dom(x)) : '—'}</td><td>{x.counties[0]}</td></tr>)}</tbody>
+              </table>
+            </div>
+          </div>
+        ))}
+        <p class="note">{note} Prices: Minneapolis Area REALTORS® Local Market Update (NorthstarMLS data), 12 months through {month}; shown where at least 10 homes sold.</p>
+        <p class="links">{DESTS.filter((x) => x !== d).map((x) => <a class="link-arrow" href={commuteHref(x)}>Commuting to {x.short}</a>)}</p>
+      </div>
+    </section>
+  )}
+
+  {c && d && (
+    <>
+      <section class="section">
+        <div class="wrap cmain">
+          <ul class="kpis">
+            <li><span>Drive to {d.short}</span><strong>{mins} min</strong><em>light traffic, from the city center</em></li>
+            <li><span>Rank</span><strong>{ordinal(rank)}</strong><em>shortest of {list.length} cities</em></li>
+            <li><span>Median sale price</span><strong>{price && sales(c) >= 10 ? money(price) : '—'}</strong><em>12 months through {month}</em></li>
+            {meanCommute(c) && <li><span>Average commute</span><strong>{meanCommute(c)} min</strong><em>residents, all destinations (Census)</em></li>}
+          </ul>
+
+          {shorter.length > 0 && (
+            <>
+              <h2>Shorter drives to {d.short} at a similar price</h2>
+              <p class="sub">Cities with a shorter drive where homes sold for no more than 15% above {c.name}'s median.</p>
+              <div class="table-scroll">
+                <table class="data">
+                  <thead><tr><th scope="col">City</th><th class="num" scope="col">Drive</th><th class="num" scope="col">Median sale price</th><th scope="col">Compare</th></tr></thead>
+                  <tbody>{shorter.map((x) => { const p = pairOf(c, x); return <tr><th scope="row"><a href={commuteHref(d, x)}>{x.name}</a></th><td class="num">{minutes(x, d.key)} min</td><td class="num">{money(median(x))}</td><td>{p ? <a href={compareHref(p)}>{c.name} vs. {x.name}</a> : <a href={`/communities/${x.slug}`}>{x.name} guide</a>}</td></tr>; })}</tbody>
+                </table>
+              </div>
+            </>
+          )}
+
+          <h2>Other drives from {c.name}</h2>
+          <ul class="others">{others.map((x) => <li>{x.href ? <a href={x.href}>{x.name}</a> : x.name}<strong>{x.min} min</strong></li>)}</ul>
+          <p class="note">{note}</p>
+          <p class="links">
+            <a class="link-arrow" href={`/communities/${c.slug}`}>{c.name} community guide</a>
+            {hasMarket(c.slug) && <a class="link-arrow" href={`/market/${c.slug}`}>{c.name} market report</a>}
+            <a class="link-arrow" href={homesFor(c)}>{c.name} homes for sale</a>
+            <a class="link-arrow" href={commuteHref(d)}>Every city by drive to {d.short}</a>
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--paper" aria-labelledby="faq-title">
+        <div class="wrap faq">
+          <div class="head"><p class="eyebrow">Quick answers</p><h2 id="faq-title">{c.name} to {d.short}</h2></div>
+          {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+        </div>
+      </section>
+
+      <section class="section section--dark" id="contact" aria-labelledby="contact-title">
+        <div class="wrap split">
+          <div class="prose">
+            <p class="eyebrow">Shorter commute, right home</p>
+            <h2 id="contact-title">Find a home that makes <em>the drive easy.</em></h2>
+            <p>Tell us where you need to be each day and your budget. A {site.name} agent will send homes that fit both, and tell you how the drive really feels at rush hour. There's no cost to buyers.</p>
+            <p><a href={site.phoneHref}>{site.phone}</a></p>
+          </div>
+          <form class="form" data-lead="commute">
+            <input type="hidden" name="interest" value={`Commuting from ${c.name} to ${d.name}`} />
+            <input type="hidden" name="community" value={c.name} />
+            <div class="form__row">
+              <div class="field"><label for="cm-first">First name</label><input id="cm-first" name="firstName" autocomplete="given-name" required /></div>
+              <div class="field"><label for="cm-last">Last name</label><input id="cm-last" name="lastName" autocomplete="family-name" required /></div>
+            </div>
+            <div class="form__row">
+              <div class="field"><label for="cm-email">Email</label><input id="cm-email" name="email" type="email" autocomplete="email" required /></div>
+              <div class="field"><label for="cm-phone">Phone</label><input id="cm-phone" name="phone" type="tel" autocomplete="tel" /></div>
+            </div>
+            <div class="field"><label for="cm-price">Price range</label><input id="cm-price" name="priceRange" placeholder="e.g. $400,000 to $500,000" /></div>
+            <div class="field"><label for="cm-msg">Where do you commute to, and anything else?</label><textarea id="cm-msg" name="message" rows="3"></textarea></div>
+            <button class="btn" type="submit">Send me homes</button>
+            <p class="form__status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </>
+  )}
+
+  {d && !c && faq.length > 0 && (
+    <section class="section section--paper" aria-labelledby="faq-title">
+      <div class="wrap faq">
+        <div class="head"><p class="eyebrow">Quick answers</p><h2 id="faq-title">Living near {d.short}</h2></div>
+        {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+      </div>
+    </section>
+  )}
+</Base>
+
+<style>
+  .dests { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); gap: 1rem; }
+  .dests a { display: grid; gap: .3rem; padding: 1.25rem; border: 1px solid var(--line); background: var(--paper); color: var(--text); text-decoration: none; }
+  .dests strong { font: 600 1.35rem/1.2 var(--serif); }
+  .dests span { color: var(--text-soft); }
+  .dests a:hover strong { color: var(--crimson); }
+  .band { margin-bottom: 2rem; }
+  .band h2, .cmain h2 { margin: 2rem 0 .75rem; font: 500 1.5rem/1.2 var(--serif); }
+  .band:first-child h2 { margin-top: 0; }
+  .table-scroll { position: relative; overflow-x: auto; }
+  .data { width: 100%; border-collapse: collapse; font-size: .95rem; background: var(--paper); }
+  .data th, .data td { padding: .55rem .75rem; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+  .data thead th { font: 700 .72rem/1.3 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--text-soft); }
+  .data .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .data tbody th a, .data td a { color: var(--crimson); font-weight: 600; }
+  .kpis { list-style: none; margin: 0 0 1rem; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .kpis li { display: grid; gap: .25rem; padding: 1rem 1.15rem; background: var(--paper); }
+  .kpis span { font: 700 .68rem/1.25 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--crimson); }
+  .kpis strong { font: 500 1.8rem/1.1 var(--serif); }
+  .kpis em { font-style: normal; font-size: .82rem; color: var(--text-soft); }
+  .sub { color: var(--text-soft); margin-bottom: .75rem; }
+  .others { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); gap: .5rem 2rem; }
+  .others li { display: flex; justify-content: space-between; gap: 1rem; padding: .5rem 0; border-bottom: 1px solid var(--line); }
+  .others a { color: var(--crimson); font-weight: 600; }
+  .note { margin-top: 1rem; font-size: .82rem; color: var(--text-soft); max-width: 60rem; }
+  .links { display: flex; flex-wrap: wrap; gap: 1rem 2rem; margin-top: 1.5rem; }
+  .head { margin-bottom: 1.25rem; }
+  .faq { display: grid; gap: .75rem; max-width: 52rem; }
+  .faq details { padding: 1rem 1.2rem; background: var(--paper); border: 1px solid var(--line); }
+  .faq summary { cursor: pointer; font: 600 1.15rem/1.3 var(--serif); }
+  .faq details p { margin-top: .6rem; color: var(--text-soft); }
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+</style>

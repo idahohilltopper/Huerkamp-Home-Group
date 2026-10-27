@@ -1,4 +1,5 @@
-{"updated": "2026-09-27", 
+{
+ "updated": "2026-09-27",
  "sources": {
   "acs": "US Census Bureau, American Community Survey 2020-2024 5-year estimates (tables B01002, B01003, B08013, B08301, B08303, B11001, B15003, B19013, B19301, B23025, B25003, B25024, B25035, B25064, B25077, C24050)",
   "schoolDistricts": "US Census Bureau TIGER/Line 2024 unified school districts; districts covering at least 3% of the city",
@@ -10,7 +11,8 @@
   "downtownMinneapolis": "Downtown Minneapolis",
   "downtownSaintPaul": "Downtown Saint Paul",
   "mspAirport": "MSP Airport",
-  "mallOfAmerica": "Mall of America"
+  "mallOfAmerica": "Mall of America",
+  "universityOfMinnesota": "University of Minnesota"
  },
  "baselines": {
   "minnesota": {
@@ -1153,7 +1155,8 @@
     "downtownMinneapolis": 5,
     "downtownSaintPaul": 15,
     "mspAirport": 18,
-    "mallOfAmerica": 19
+    "mallOfAmerica": 19,
+    "universityOfMinnesota": 6
    },
    "driveMinutesToCommunities": {
     "lauderdale": 10,
@@ -1338,7 +1341,8 @@
     "downtownMinneapolis": 16,
     "downtownSaintPaul": 3,
     "mspAirport": 16,
-    "mallOfAmerica": 20
+    "mallOfAmerica": 20,
+    "universityOfMinnesota": 15
    },
    "driveMinutesToCommunities": {
     "lilydale": 11,
@@ -1507,7 +1511,8 @@
     "downtownMinneapolis": 21,
     "downtownSaintPaul": 28,
     "mspAirport": 16,
-    "mallOfAmerica": 13
+    "mallOfAmerica": 13,
+    "universityOfMinnesota": 24
    },
    "driveMinutesToCommunities": {
     "richfield": 12,
@@ -1644,7 +1649,8 @@
     "downtownMinneapolis": 20,
     "downtownSaintPaul": 31,
     "mspAirport": 36,
-    "mallOfAmerica": 36
+    "mallOfAmerica": 36,
+    "universityOfMinnesota": 25
    },
    "driveMinutesToCommunities": {
     "osseo": 7,
@@ -1796,7 +1802,8 @@
     "downtownMinneapolis": 33,
     "downtownSaintPaul": 21,
     "mspAirport": 28,
-    "mallOfAmerica": 29
+    "mallOfAmerica": 29,
+    "universityOfMinnesota": 32
    },
    "driveMinutesToCommunities": {
     "landfall": 12,
@@ -1966,7 +1973,8 @@
     "downtownMinneapolis": 20,
     "downtownSaintPaul": 33,
     "mspAirport": 33,
-    "mallOfAmerica": 30
+    "mallOfAmerica": 30,
+    "universityOfMinnesota": 25
    },
    "driveMinutesToCommunities": {
     "medicine-lake": 9,
@@ -2103,7 +2111,8 @@
     "downtownMinneapolis": 33,
     "downtownSaintPaul": 34,
     "mspAirport": 28,
-    "mallOfAmerica": 23
+    "mallOfAmerica": 23,
+    "universityOfMinnesota": 36
    },
    "driveMinutesToCommunities": {
     "farmington": 11,
@@ -2262,7 +2271,8 @@
     "downtownMinneapolis": 28,
     "downtownSaintPaul": 29,
     "mspAirport": 40,
-    "mallOfAmerica": 42
+    "mallOfAmerica": 42,
+    "universityOfMinnesota": 26
    },
    "driveMinutesToCommunities": {
     "lexington": 9,
@@ -2414,7 +2424,8 @@
     "downtownMinneapolis": 28,
     "downtownSaintPaul": 39,
     "mspAirport": 44,
-    "mallOfAmerica": 41
+    "mallOfAmerica": 41,
+    "universityOfMinnesota": 33
    },
    "driveMinutesToCommunities": {
     "osseo": 9,
@@ -2577,7 +2588,8 @@
     "downtownMinneapolis": 26,
     "downtownSaintPaul": 18,
     "mspAirport": 15,
-    "mallOfAmerica": 14
+    "mallOfAmerica": 14,
+    "universityOfMinnesota": 27
    },
    "driveMinutesToCommunities": {
     "mendota-heights": 12,
@@ -2717,7 +2729,8 @@
     "downtownMinneapolis": 24,
     "downtownSaintPaul": 28,
     "mspAirport": 20,
-    "mallOfAmerica": 15
+    "mallOfAmerica": 15,
+    "universityOfMinnesota": 27
    },
    "driveMinutesToCommunities": {
     "apple-valley": 10,
@@ -2841,7 +2854,8 @@
     "downtownMinneapolis": 27,
     "downtownSaintPaul": 31,
     "mspAirport": 42,
-    "mallOfAmerica": 42
+    "mallOfAmerica": 42,
+    "universityOfMinnesota": 29
    },
    "driveMinutesToCommunities": {
     "champlin": 13,
@@ -3000,7 +3014,8 @@
     "downtownMinneapolis": 26,
     "downtownSaintPaul": 34,
     "mspAirport": 22,
-    "mallOfAmerica": 18
+    "mallOfAmerica": 18,
+    "universityOfMinnesota": 28
    },
    "driveMinutesToCommunities": {
     "chanhassen": 12,
@@ -3125,7 +3140,8 @@
     "downtownMinneapolis": 28,
     "downtownSaintPaul": 26,
     "mspAirport": 19,
-    "mallOfAmerica": 14
+    "mallOfAmerica": 14,
+    "universityOfMinnesota": 30
    },
    "driveMinutesToCommunities": {
     "burnsville": 10,
@@ -3283,7 +3299,8 @@
     "downtownMinneapolis": 16,
     "downtownSaintPaul": 28,
     "mspAirport": 18,
-    "mallOfAmerica": 15
+    "mallOfAmerica": 15,
+    "universityOfMinnesota": 21
    },
    "driveMinutesToCommunities": {
     "hopkins": 10,
@@ -3453,7 +3470,8 @@
     "downtownMinneapolis": 20,
     "downtownSaintPaul": 34,
     "mspAirport": 28,
-    "mallOfAmerica": 25
+    "mallOfAmerica": 25,
+    "universityOfMinnesota": 25
    },
    "driveMinutesToCommunities": {
     "hopkins": 9,
@@ -3577,7 +3595,8 @@
     "downtownMinneapolis": 12,
     "downtownSaintPaul": 25,
     "mspAirport": 23,
-    "mallOfAmerica": 20
+    "mallOfAmerica": 20,
+    "universityOfMinnesota": 16
    },
    "driveMinutesToCommunities": {
     "hopkins": 8,
@@ -3706,7 +3725,8 @@
     "downtownMinneapolis": 33,
     "downtownSaintPaul": 40,
     "mspAirport": 28,
-    "mallOfAmerica": 25
+    "mallOfAmerica": 25,
+    "universityOfMinnesota": 36
    },
    "driveMinutesToCommunities": {
     "prior-lake": 10,
@@ -3830,7 +3850,8 @@
     "downtownMinneapolis": 37,
     "downtownSaintPaul": 25,
     "mspAirport": 29,
-    "mallOfAmerica": 31
+    "mallOfAmerica": 31,
+    "universityOfMinnesota": 36
    },
    "driveMinutesToCommunities": {
     "st-paul-park": 14,
@@ -3989,7 +4010,8 @@
     "downtownMinneapolis": 23,
     "downtownSaintPaul": 15,
     "mspAirport": 27,
-    "mallOfAmerica": 31
+    "mallOfAmerica": 31,
+    "universityOfMinnesota": 21
    },
    "driveMinutesToCommunities": {
     "north-st-paul": 5,
@@ -4106,7 +4128,8 @@
     "downtownMinneapolis": 16,
     "downtownSaintPaul": 25,
     "mspAirport": 13,
-    "mallOfAmerica": 9
+    "mallOfAmerica": 9,
+    "universityOfMinnesota": 19
    },
    "driveMinutesToCommunities": {
     "bloomington": 12,
@@ -4246,7 +4269,8 @@
     "downtownMinneapolis": 27,
     "downtownSaintPaul": 18,
     "mspAirport": 15,
-    "mallOfAmerica": 17
+    "mallOfAmerica": 17,
+    "universityOfMinnesota": 27
    },
    "driveMinutesToCommunities": {
     "st-paul-park": 16,
@@ -4383,7 +4407,8 @@
     "downtownMinneapolis": 16,
     "downtownSaintPaul": 15,
     "mspAirport": 26,
-    "mallOfAmerica": 29
+    "mallOfAmerica": 29,
+    "universityOfMinnesota": 13
    },
    "driveMinutesToCommunities": {
     "falcon-heights": 10,
@@ -4516,7 +4541,8 @@
     "downtownMinneapolis": 38,
     "downtownSaintPaul": 42,
     "mspAirport": 53,
-    "mallOfAmerica": 53
+    "mallOfAmerica": 53,
+    "universityOfMinnesota": 39
    },
    "driveMinutesToCommunities": {
     "anoka": 17,
@@ -4648,7 +4674,8 @@
     "downtownMinneapolis": 30,
     "downtownSaintPaul": 35,
     "mspAirport": 26,
-    "mallOfAmerica": 22
+    "mallOfAmerica": 22,
+    "universityOfMinnesota": 33
    },
    "driveMinutesToCommunities": {
     "burnsville": 12,
@@ -4784,7 +4811,8 @@
     "downtownMinneapolis": 17,
     "downtownSaintPaul": 27,
     "mspAirport": 33,
-    "mallOfAmerica": 30
+    "mallOfAmerica": 30,
+    "universityOfMinnesota": 21
    },
    "driveMinutesToCommunities": {
     "crystal": 8,
@@ -4920,7 +4948,8 @@
     "downtownMinneapolis": 17,
     "downtownSaintPaul": 24,
     "mspAirport": 33,
-    "mallOfAmerica": 32
+    "mallOfAmerica": 32,
+    "universityOfMinnesota": 19
    },
    "driveMinutesToCommunities": {
     "hilltop": 7,
@@ -5037,7 +5066,8 @@
     "downtownMinneapolis": 39,
     "downtownSaintPaul": 32,
     "mspAirport": 28,
-    "mallOfAmerica": 27
+    "mallOfAmerica": 27,
+    "universityOfMinnesota": 40
    },
    "driveMinutesToCommunities": {
     "coates": 13,
@@ -5154,7 +5184,8 @@
     "downtownMinneapolis": 29,
     "downtownSaintPaul": 18,
     "mspAirport": 29,
-    "mallOfAmerica": 30
+    "mallOfAmerica": 30,
+    "universityOfMinnesota": 27
    },
    "driveMinutesToCommunities": {
     "north-st-paul": 9,
@@ -5279,7 +5310,8 @@
     "downtownMinneapolis": 36,
     "downtownSaintPaul": 44,
     "mspAirport": 32,
-    "mallOfAmerica": 29
+    "mallOfAmerica": 29,
+    "universityOfMinnesota": 39
    },
    "driveMinutesToCommunities": {
     "chanhassen": 12,
@@ -5404,7 +5436,8 @@
     "downtownMinneapolis": 39,
     "downtownSaintPaul": 43,
     "mspAirport": 55,
-    "mallOfAmerica": 54
+    "mallOfAmerica": 54,
+    "universityOfMinnesota": 41
    },
    "driveMinutesToCommunities": {
     "anoka": 11,
@@ -5552,7 +5585,8 @@
     "downtownMinneapolis": 36,
     "downtownSaintPaul": 42,
     "mspAirport": 31,
-    "mallOfAmerica": 28
+    "mallOfAmerica": 28,
+    "universityOfMinnesota": 39
    },
    "driveMinutesToCommunities": {
     "shakopee": 10,
@@ -5697,7 +5731,8 @@
     "downtownMinneapolis": 21,
     "downtownSaintPaul": 19,
     "mspAirport": 30,
-    "mallOfAmerica": 34
+    "mallOfAmerica": 34,
+    "universityOfMinnesota": 19
    },
    "driveMinutesToCommunities": {
     "arden-hills": 6,
@@ -5810,7 +5845,8 @@
     "downtownMinneapolis": 76,
     "downtownSaintPaul": 76,
     "mspAirport": 71,
-    "mallOfAmerica": 66
+    "mallOfAmerica": 66,
+    "universityOfMinnesota": 78
    },
    "driveMinutesToCommunities": {
     "faribault": 21,
@@ -5969,7 +6005,8 @@
     "downtownMinneapolis": 32,
     "downtownSaintPaul": 40,
     "mspAirport": 28,
-    "mallOfAmerica": 24
+    "mallOfAmerica": 24,
+    "universityOfMinnesota": 34
    },
    "driveMinutesToCommunities": {
     "excelsior": 9,
@@ -6086,7 +6123,8 @@
     "downtownMinneapolis": 60,
     "downtownSaintPaul": 61,
     "mspAirport": 56,
-    "mallOfAmerica": 51
+    "mallOfAmerica": 51,
+    "universityOfMinnesota": 63
    },
    "driveMinutesToCommunities": {
     "dundas": 16,
@@ -6194,7 +6232,8 @@
     "downtownMinneapolis": 41,
     "downtownSaintPaul": 38,
     "mspAirport": 32,
-    "mallOfAmerica": 27
+    "mallOfAmerica": 27,
+    "universityOfMinnesota": 44
    },
    "driveMinutesToCommunities": {
     "empire": 17,
@@ -6315,7 +6354,8 @@
     "downtownMinneapolis": 27,
     "downtownSaintPaul": 19,
     "mspAirport": 30,
-    "mallOfAmerica": 34
+    "mallOfAmerica": 34,
+    "universityOfMinnesota": 25
    },
    "driveMinutesToCommunities": {
     "gem-lake": 6,
@@ -6432,7 +6472,8 @@
     "downtownMinneapolis": 28,
     "downtownSaintPaul": 39,
     "mspAirport": 44,
-    "mallOfAmerica": 42
+    "mallOfAmerica": 42,
+    "universityOfMinnesota": 33
    },
    "driveMinutesToCommunities": {
     "anoka": 9,
@@ -6588,7 +6629,8 @@
     "downtownMinneapolis": 32,
     "downtownSaintPaul": 29,
     "mspAirport": 41,
-    "mallOfAmerica": 45
+    "mallOfAmerica": 45,
+    "universityOfMinnesota": 30
    },
    "driveMinutesToCommunities": {
     "circle-pines": 9,
@@ -6705,7 +6747,8 @@
     "downtownMinneapolis": 43,
     "downtownSaintPaul": 32,
     "mspAirport": 35,
-    "mallOfAmerica": 37
+    "mallOfAmerica": 37,
+    "universityOfMinnesota": 42
    },
    "driveMinutesToCommunities": {
     "cottage-grove": 14,
@@ -6834,7 +6877,8 @@
     "downtownMinneapolis": 18,
     "downtownSaintPaul": 19,
     "mspAirport": 30,
-    "mallOfAmerica": 31
+    "mallOfAmerica": 31,
+    "universityOfMinnesota": 16
    },
    "driveMinutesToCommunities": {
     "arden-hills": 8,
@@ -6951,7 +6995,8 @@
     "downtownMinneapolis": 16,
     "downtownSaintPaul": 23,
     "mspAirport": 30,
-    "mallOfAmerica": 32
+    "mallOfAmerica": 32,
+    "universityOfMinnesota": 16
    },
    "driveMinutesToCommunities": {
     "hilltop": 2,
@@ -7085,7 +7130,8 @@
     "downtownMinneapolis": 15,
     "downtownSaintPaul": 29,
     "mspAirport": 30,
-    "mallOfAmerica": 27
+    "mallOfAmerica": 27,
+    "universityOfMinnesota": 20
    },
    "driveMinutesToCommunities": {
     "new-hope": 5,
@@ -7193,7 +7239,8 @@
     "downtownMinneapolis": 25,
     "downtownSaintPaul": 10,
     "mspAirport": 15,
-    "mallOfAmerica": 19
+    "mallOfAmerica": 19,
+    "universityOfMinnesota": 24
    },
    "driveMinutesToCommunities": {
     "sunfish-lake": 7,
@@ -7301,7 +7348,8 @@
     "downtownMinneapolis": 54,
     "downtownSaintPaul": 55,
     "mspAirport": 49,
-    "mallOfAmerica": 45
+    "mallOfAmerica": 45,
+    "universityOfMinnesota": 56
    },
    "driveMinutesToCommunities": {
     "dundas": 7,
@@ -7447,7 +7495,8 @@
     "downtownMinneapolis": 13,
     "downtownSaintPaul": 26,
     "mspAirport": 28,
-    "mallOfAmerica": 25
+    "mallOfAmerica": 25,
+    "universityOfMinnesota": 18
    },
    "driveMinutesToCommunities": {
     "robbinsdale": 9,
@@ -7567,7 +7616,8 @@
     "downtownMinneapolis": 18,
     "downtownSaintPaul": 31,
     "mspAirport": 32,
-    "mallOfAmerica": 30
+    "mallOfAmerica": 30,
+    "universityOfMinnesota": 23
    },
    "driveMinutesToCommunities": {
     "crystal": 5,
@@ -7708,7 +7758,8 @@
     "downtownMinneapolis": 42,
     "downtownSaintPaul": 40,
     "mspAirport": 51,
-    "mallOfAmerica": 55
+    "mallOfAmerica": 55,
+    "universityOfMinnesota": 39
    },
    "driveMinutesToCommunities": {
     "hugo": 27,
@@ -7821,7 +7872,8 @@
     "downtownMinneapolis": 27,
     "downtownSaintPaul": 16,
     "mspAirport": 17,
-    "mallOfAmerica": 18
+    "mallOfAmerica": 18,
+    "universityOfMinnesota": 27
    },
    "driveMinutesToCommunities": {
     "newport": 8,
@@ -7936,7 +7988,8 @@
     "downtownMinneapolis": 16,
     "downtownSaintPaul": 29,
     "mspAirport": 23,
-    "mallOfAmerica": 20
+    "mallOfAmerica": 20,
+    "universityOfMinnesota": 21
    },
    "driveMinutesToCommunities": {
     "st-louis-park": 8,
@@ -8057,7 +8110,8 @@
     "downtownMinneapolis": 39,
     "downtownSaintPaul": 31,
     "mspAirport": 42,
-    "mallOfAmerica": 46
+    "mallOfAmerica": 46,
+    "universityOfMinnesota": 36
    },
    "driveMinutesToCommunities": {
     "oak-park-heights": 9,
@@ -8165,7 +8219,8 @@
     "downtownMinneapolis": 33,
     "downtownSaintPaul": 37,
     "mspAirport": 49,
-    "mallOfAmerica": 48
+    "mallOfAmerica": 48,
+    "universityOfMinnesota": 35
    },
    "driveMinutesToCommunities": {
     "champlin": 9,
@@ -8294,7 +8349,8 @@
     "downtownMinneapolis": 41,
     "downtownSaintPaul": 42,
     "mspAirport": 53,
-    "mallOfAmerica": 55
+    "mallOfAmerica": 55,
+    "universityOfMinnesota": 39
    },
    "driveMinutesToCommunities": {
     "columbus": 25,
@@ -8454,7 +8510,8 @@
     "downtownMinneapolis": 48,
     "downtownSaintPaul": 40,
     "mspAirport": 51,
-    "mallOfAmerica": 56
+    "mallOfAmerica": 56,
+    "universityOfMinnesota": 46
    },
    "driveMinutesToCommunities": {
     "dellwood": 23,
@@ -8590,7 +8647,8 @@
     "downtownMinneapolis": 36,
     "downtownSaintPaul": 47,
     "mspAirport": 52,
-    "mallOfAmerica": 49
+    "mallOfAmerica": 49,
+    "universityOfMinnesota": 40
    },
    "driveMinutesToCommunities": {
     "hanover": 15,
@@ -8739,7 +8797,8 @@
     "downtownMinneapolis": 35,
     "downtownSaintPaul": 24,
     "mspAirport": 34,
-    "mallOfAmerica": 35
+    "mallOfAmerica": 35,
+    "universityOfMinnesota": 32
    },
    "driveMinutesToCommunities": {
     "oakdale": 8,
@@ -8856,7 +8915,8 @@
     "downtownMinneapolis": 15,
     "downtownSaintPaul": 27,
     "mspAirport": 30,
-    "mallOfAmerica": 28
+    "mallOfAmerica": 28,
+    "universityOfMinnesota": 18
    },
    "driveMinutesToCommunities": {
     "crystal": 5,
@@ -8964,7 +9024,8 @@
     "downtownMinneapolis": 48,
     "downtownSaintPaul": 57,
     "mspAirport": 45,
-    "mallOfAmerica": 41
+    "mallOfAmerica": 41,
+    "universityOfMinnesota": 51
    },
    "driveMinutesToCommunities": {
     "st-bonifacius": 10,
@@ -9096,7 +9157,8 @@
     "downtownMinneapolis": 26,
     "downtownSaintPaul": 18,
     "mspAirport": 29,
-    "mallOfAmerica": 33
+    "mallOfAmerica": 33,
+    "universityOfMinnesota": 24
    },
    "driveMinutesToCommunities": {
     "gem-lake": 11,
@@ -9209,7 +9271,8 @@
     "downtownMinneapolis": 22,
     "downtownSaintPaul": 22,
     "mspAirport": 33,
-    "mallOfAmerica": 35
+    "mallOfAmerica": 35,
+    "universityOfMinnesota": 19
    },
    "driveMinutesToCommunities": {
     "spring-lake-park": 5,
@@ -9326,7 +9389,8 @@
     "downtownMinneapolis": 24,
     "downtownSaintPaul": 16,
     "mspAirport": 28,
-    "mallOfAmerica": 32
+    "mallOfAmerica": 32,
+    "universityOfMinnesota": 22
    },
    "driveMinutesToCommunities": {
     "maplewood": 6,
@@ -9485,7 +9549,8 @@
     "downtownMinneapolis": 44,
     "downtownSaintPaul": 46,
     "mspAirport": 57,
-    "mallOfAmerica": 59
+    "mallOfAmerica": 59,
+    "universityOfMinnesota": 43
    },
    "driveMinutesToCommunities": {
     "bethel": 14,
@@ -9648,7 +9713,8 @@
     "downtownMinneapolis": 36,
     "downtownSaintPaul": 46,
     "mspAirport": 34,
-    "mallOfAmerica": 30
+    "mallOfAmerica": 30,
+    "universityOfMinnesota": 40
    },
    "driveMinutesToCommunities": {
     "chaska": 12,
@@ -9780,7 +9846,8 @@
     "downtownMinneapolis": 22,
     "downtownSaintPaul": 13,
     "mspAirport": 11,
-    "mallOfAmerica": 14
+    "mallOfAmerica": 14,
+    "universityOfMinnesota": 23
    },
    "driveMinutesToCommunities": {
     "mendota": 7,
@@ -9932,7 +9999,8 @@
     "downtownMinneapolis": 33,
     "downtownSaintPaul": 43,
     "mspAirport": 49,
-    "mallOfAmerica": 46
+    "mallOfAmerica": 46,
+    "universityOfMinnesota": 37
    },
    "driveMinutesToCommunities": {
     "anoka": 13,
@@ -10068,7 +10136,8 @@
     "downtownMinneapolis": 21,
     "downtownSaintPaul": 13,
     "mspAirport": 24,
-    "mallOfAmerica": 28
+    "mallOfAmerica": 28,
+    "universityOfMinnesota": 19
    },
    "driveMinutesToCommunities": {
     "vadnais-heights": 8,
@@ -10188,7 +10257,8 @@
     "downtownMinneapolis": 14,
     "downtownSaintPaul": 21,
     "mspAirport": 26,
-    "mallOfAmerica": 27
+    "mallOfAmerica": 27,
+    "universityOfMinnesota": 12
    },
    "driveMinutesToCommunities": {
     "columbia-heights": 9,
@@ -10328,7 +10398,8 @@
     "downtownMinneapolis": 20,
     "downtownSaintPaul": 20,
     "mspAirport": 31,
-    "mallOfAmerica": 33
+    "mallOfAmerica": 33,
+    "universityOfMinnesota": 18
    },
    "driveMinutesToCommunities": {
     "shoreview": 6,
@@ -10479,7 +10550,8 @@
     "downtownMinneapolis": 51,
     "downtownSaintPaul": 55,
     "mspAirport": 66,
-    "mallOfAmerica": 66
+    "mallOfAmerica": 66,
+    "universityOfMinnesota": 52
    },
    "driveMinutesToCommunities": {
     "st-francis": 18,
@@ -10656,7 +10728,8 @@
     "downtownMinneapolis": 42,
     "downtownSaintPaul": 55,
     "mspAirport": 50,
-    "mallOfAmerica": 47
+    "mallOfAmerica": 47,
+    "universityOfMinnesota": 46
    },
    "driveMinutesToCommunities": {
     "mound": 9,
@@ -10797,7 +10870,8 @@
     "downtownMinneapolis": 36,
     "downtownSaintPaul": 49,
     "mspAirport": 46,
-    "mallOfAmerica": 42
+    "mallOfAmerica": 42,
+    "universityOfMinnesota": 40
    },
    "driveMinutesToCommunities": {
     "spring-park": 5,
@@ -10917,7 +10991,8 @@
     "downtownMinneapolis": 55,
     "downtownSaintPaul": 59,
     "mspAirport": 70,
-    "mallOfAmerica": 70
+    "mallOfAmerica": 70,
+    "universityOfMinnesota": 56
    },
    "driveMinutesToCommunities": {
     "nowthen": 21,
@@ -11060,7 +11135,8 @@
     "downtownMinneapolis": 37,
     "downtownSaintPaul": 50,
     "mspAirport": 50,
-    "mallOfAmerica": 47
+    "mallOfAmerica": 47,
+    "universityOfMinnesota": 42
    },
    "driveMinutesToCommunities": {
     "loretto": 14,
@@ -11168,7 +11244,8 @@
     "downtownMinneapolis": 60,
     "downtownSaintPaul": 61,
     "mspAirport": 56,
-    "mallOfAmerica": 51
+    "mallOfAmerica": 51,
+    "universityOfMinnesota": 63
    },
    "driveMinutesToCommunities": {
     "jordan": 16,
@@ -11338,7 +11415,8 @@
     "downtownMinneapolis": 28,
     "downtownSaintPaul": 41,
     "mspAirport": 42,
-    "mallOfAmerica": 38
+    "mallOfAmerica": 38,
+    "universityOfMinnesota": 32
    },
    "driveMinutesToCommunities": {
     "minnetonka-beach": 7,
@@ -11459,7 +11537,8 @@
     "downtownMinneapolis": 32,
     "downtownSaintPaul": 24,
     "mspAirport": 35,
-    "mallOfAmerica": 39
+    "mallOfAmerica": 39,
+    "universityOfMinnesota": 30
    },
    "driveMinutesToCommunities": {
     "birchwood-village": 3,
@@ -11592,7 +11671,8 @@
     "downtownMinneapolis": 31,
     "downtownSaintPaul": 44,
     "mspAirport": 36,
-    "mallOfAmerica": 32
+    "mallOfAmerica": 32,
+    "universityOfMinnesota": 35
    },
    "driveMinutesToCommunities": {
     "tonka-bay": 6,
@@ -11700,7 +11780,8 @@
     "downtownMinneapolis": 58,
     "downtownSaintPaul": 66,
     "mspAirport": 54,
-    "mallOfAmerica": 50
+    "mallOfAmerica": 50,
+    "universityOfMinnesota": 60
    },
    "driveMinutesToCommunities": {
     "jordan": 14,
@@ -11877,7 +11958,8 @@
     "downtownMinneapolis": 33,
     "downtownSaintPaul": 46,
     "mspAirport": 47,
-    "mallOfAmerica": 44
+    "mallOfAmerica": 44,
+    "universityOfMinnesota": 38
    },
    "driveMinutesToCommunities": {
     "loretto": 12,
@@ -11994,7 +12076,8 @@
     "downtownMinneapolis": 20,
     "downtownSaintPaul": 25,
     "mspAirport": 36,
-    "mallOfAmerica": 36
+    "mallOfAmerica": 36,
+    "universityOfMinnesota": 22
    },
    "driveMinutesToCommunities": {
     "mounds-view": 5,
@@ -12107,7 +12190,8 @@
     "downtownMinneapolis": 50,
     "downtownSaintPaul": 56,
     "mspAirport": 46,
-    "mallOfAmerica": 42
+    "mallOfAmerica": 42,
+    "universityOfMinnesota": 53
    },
    "driveMinutesToCommunities": {
     "carver": 17,
@@ -12227,7 +12311,8 @@
     "downtownMinneapolis": 41,
     "downtownSaintPaul": 50,
     "mspAirport": 37,
-    "mallOfAmerica": 34
+    "mallOfAmerica": 34,
+    "universityOfMinnesota": 44
    },
    "driveMinutesToCommunities": {
     "chaska": 11,
@@ -12344,7 +12429,8 @@
     "downtownMinneapolis": 38,
     "downtownSaintPaul": 39,
     "mspAirport": 34,
-    "mallOfAmerica": 29
+    "mallOfAmerica": 29,
+    "universityOfMinnesota": 41
    },
    "driveMinutesToCommunities": {
     "lakeville": 14,
@@ -12452,7 +12538,8 @@
     "downtownMinneapolis": 28,
     "downtownSaintPaul": 16,
     "mspAirport": 20,
-    "mallOfAmerica": 21
+    "mallOfAmerica": 21,
+    "universityOfMinnesota": 27
    },
    "driveMinutesToCommunities": {
     "south-st-paul": 9,
@@ -12565,7 +12652,8 @@
     "downtownMinneapolis": 33,
     "downtownSaintPaul": 21,
     "mspAirport": 25,
-    "mallOfAmerica": 27
+    "mallOfAmerica": 27,
+    "universityOfMinnesota": 32
    },
    "driveMinutesToCommunities": {
     "newport": 8,
@@ -12710,7 +12798,8 @@
     "downtownMinneapolis": 30,
     "downtownSaintPaul": 24,
     "mspAirport": 36,
-    "mallOfAmerica": 40
+    "mallOfAmerica": 40,
+    "universityOfMinnesota": 27
    },
    "driveMinutesToCommunities": {
     "shoreview": 10,
@@ -12829,7 +12918,8 @@
     "downtownMinneapolis": 42,
     "downtownSaintPaul": 43,
     "mspAirport": 37,
-    "mallOfAmerica": 33
+    "mallOfAmerica": 33,
+    "universityOfMinnesota": 44
    },
    "driveMinutesToCommunities": {
     "credit-river": 20,
@@ -12944,7 +13034,8 @@
     "downtownMinneapolis": 17,
     "downtownSaintPaul": 17,
     "mspAirport": 24,
-    "mallOfAmerica": 29
+    "mallOfAmerica": 29,
+    "universityOfMinnesota": 14
    },
    "driveMinutesToCommunities": {
     "lauderdale": 7,
@@ -13057,7 +13148,8 @@
     "downtownMinneapolis": 26,
     "downtownSaintPaul": 27,
     "mspAirport": 38,
-    "mallOfAmerica": 40
+    "mallOfAmerica": 40,
+    "universityOfMinnesota": 24
    },
    "driveMinutesToCommunities": {
     "lexington": 4,
@@ -13172,7 +13264,8 @@
     "downtownMinneapolis": 42,
     "downtownSaintPaul": 55,
     "mspAirport": 55,
-    "mallOfAmerica": 51
+    "mallOfAmerica": 51,
+    "universityOfMinnesota": 46
    },
    "driveMinutesToCommunities": {
     "greenfield": 8,
@@ -13280,7 +13373,8 @@
     "downtownMinneapolis": 44,
     "downtownSaintPaul": 57,
     "mspAirport": 54,
-    "mallOfAmerica": 51
+    "mallOfAmerica": 51,
+    "universityOfMinnesota": 48
    },
    "driveMinutesToCommunities": {
     "mayer": 15,
@@ -13388,7 +13482,8 @@
     "downtownMinneapolis": 37,
     "downtownSaintPaul": 29,
     "mspAirport": 40,
-    "mallOfAmerica": 44
+    "mallOfAmerica": 44,
+    "universityOfMinnesota": 35
    },
    "driveMinutesToCommunities": {
     "bayport": 6,
@@ -13544,7 +13639,8 @@
     "downtownMinneapolis": 52,
     "downtownSaintPaul": 56,
     "mspAirport": 67,
-    "mallOfAmerica": 67
+    "mallOfAmerica": 67,
+    "universityOfMinnesota": 54
    },
    "driveMinutesToCommunities": {
     "st-francis": 21,
@@ -13665,7 +13761,8 @@
     "downtownMinneapolis": 19,
     "downtownSaintPaul": 32,
     "mspAirport": 33,
-    "mallOfAmerica": 30
+    "mallOfAmerica": 30,
+    "universityOfMinnesota": 24
    },
    "driveMinutesToCommunities": {
     "woodland": 10,
@@ -13806,7 +13903,8 @@
     "downtownMinneapolis": 41,
     "downtownSaintPaul": 42,
     "mspAirport": 53,
-    "mallOfAmerica": 54
+    "mallOfAmerica": 54,
+    "universityOfMinnesota": 39
    },
    "driveMinutesToCommunities": {
     "ham-lake": 26,
@@ -13919,7 +14017,8 @@
     "downtownMinneapolis": 74,
     "downtownSaintPaul": 81,
     "mspAirport": 69,
-    "mallOfAmerica": 66
+    "mallOfAmerica": 66,
+    "universityOfMinnesota": 77
    },
    "driveMinutesToCommunities": {
     "belle-plaine": 21,
@@ -14038,7 +14137,8 @@
     "downtownMinneapolis": 44,
     "downtownSaintPaul": 55,
     "mspAirport": 60,
-    "mallOfAmerica": 56
+    "mallOfAmerica": 56,
+    "universityOfMinnesota": 48
    },
    "driveMinutesToCommunities": {
     "greenfield": 18,
@@ -14155,7 +14255,8 @@
     "downtownMinneapolis": 36,
     "downtownSaintPaul": 30,
     "mspAirport": 41,
-    "mallOfAmerica": 45
+    "mallOfAmerica": 45,
+    "universityOfMinnesota": 34
    },
    "driveMinutesToCommunities": {
     "lino-lakes": 11,
@@ -14307,7 +14408,8 @@
     "downtownMinneapolis": 50,
     "downtownSaintPaul": 48,
     "mspAirport": 59,
-    "mallOfAmerica": 63
+    "mallOfAmerica": 63,
+    "universityOfMinnesota": 47
    },
    "driveMinutesToCommunities": {
     "marine-on-st-croix": 14,
@@ -14458,7 +14560,8 @@
     "downtownMinneapolis": 38,
     "downtownSaintPaul": 30,
     "mspAirport": 42,
-    "mallOfAmerica": 45
+    "mallOfAmerica": 45,
+    "universityOfMinnesota": 36
    },
    "driveMinutesToCommunities": {
     "dellwood": 7,
@@ -14566,7 +14669,8 @@
     "downtownMinneapolis": 40,
     "downtownSaintPaul": 29,
     "mspAirport": 40,
-    "mallOfAmerica": 42
+    "mallOfAmerica": 42,
+    "universityOfMinnesota": 37
    },
    "driveMinutesToCommunities": {
     "oak-park-heights": 6,
@@ -14681,7 +14785,8 @@
     "downtownMinneapolis": 54,
     "downtownSaintPaul": 62,
     "mspAirport": 50,
-    "mallOfAmerica": 47
+    "mallOfAmerica": 47,
+    "universityOfMinnesota": 57
    },
    "driveMinutesToCommunities": {
     "hamburg": 11,
@@ -14805,7 +14910,8 @@
     "downtownMinneapolis": 25,
     "downtownSaintPaul": 38,
     "mspAirport": 34,
-    "mallOfAmerica": 31
+    "mallOfAmerica": 31,
+    "universityOfMinnesota": 30
    },
    "driveMinutesToCommunities": {
     "woodland": 8,
@@ -14953,7 +15059,8 @@
     "downtownMinneapolis": 35,
     "downtownSaintPaul": 48,
     "mspAirport": 49,
-    "mallOfAmerica": 46
+    "mallOfAmerica": 46,
+    "universityOfMinnesota": 40
    },
    "driveMinutesToCommunities": {
     "maple-plain": 8,
@@ -15057,7 +15164,8 @@
     "downtownMinneapolis": 51,
     "downtownSaintPaul": 46,
     "mspAirport": 41,
-    "mallOfAmerica": 37
+    "mallOfAmerica": 37,
+    "universityOfMinnesota": 53
    },
    "driveMinutesToCommunities": {
     "coates": 24,
@@ -15165,7 +15273,8 @@
     "downtownMinneapolis": 24,
     "downtownSaintPaul": 24,
     "mspAirport": 35,
-    "mallOfAmerica": 37
+    "mallOfAmerica": 37,
+    "universityOfMinnesota": 21
    },
    "driveMinutesToCommunities": {
     "circle-pines": 4,
@@ -15286,7 +15395,8 @@
     "downtownMinneapolis": 41,
     "downtownSaintPaul": 30,
     "mspAirport": 34,
-    "mallOfAmerica": 35
+    "mallOfAmerica": 35,
+    "universityOfMinnesota": 40
    },
    "driveMinutesToCommunities": {
     "st-marys-point": 10,
@@ -15426,7 +15536,8 @@
     "downtownMinneapolis": 43,
     "downtownSaintPaul": 56,
     "mspAirport": 55,
-    "mallOfAmerica": 52
+    "mallOfAmerica": 52,
+    "universityOfMinnesota": 47
    },
    "driveMinutesToCommunities": {
     "rockford": 8,
@@ -15534,7 +15645,8 @@
     "downtownMinneapolis": 53,
     "downtownSaintPaul": 66,
     "mspAirport": 54,
-    "mallOfAmerica": 51
+    "mallOfAmerica": 51,
+    "universityOfMinnesota": 57
    },
    "driveMinutesToCommunities": {
     "new-germany": 9,
@@ -15642,7 +15754,8 @@
     "downtownMinneapolis": 23,
     "downtownSaintPaul": 33,
     "mspAirport": 38,
-    "mallOfAmerica": 35
+    "mallOfAmerica": 35,
+    "universityOfMinnesota": 27
    },
    "driveMinutesToCommunities": {
     "brooklyn-park": 7,
@@ -15757,7 +15870,8 @@
     "downtownMinneapolis": 12,
     "downtownSaintPaul": 14,
     "mspAirport": 23,
-    "mallOfAmerica": 25
+    "mallOfAmerica": 25,
+    "universityOfMinnesota": 9
    },
    "driveMinutesToCommunities": {
     "falcon-heights": 6,
@@ -15874,7 +15988,8 @@
     "downtownMinneapolis": 28,
     "downtownSaintPaul": 41,
     "mspAirport": 32,
-    "mallOfAmerica": 28
+    "mallOfAmerica": 28,
+    "universityOfMinnesota": 32
    },
    "driveMinutesToCommunities": {
     "greenwood": 4,
@@ -15982,7 +16097,8 @@
     "downtownMinneapolis": 41,
     "downtownSaintPaul": 54,
     "mspAirport": 43,
-    "mallOfAmerica": 39
+    "mallOfAmerica": 39,
+    "universityOfMinnesota": 46
    },
    "driveMinutesToCommunities": {
     "minnetrista": 11,
@@ -16099,7 +16215,8 @@
     "downtownMinneapolis": 47,
     "downtownSaintPaul": 55,
     "mspAirport": 43,
-    "mallOfAmerica": 39
+    "mallOfAmerica": 39,
+    "universityOfMinnesota": 49
    },
    "driveMinutesToCommunities": {
     "waconia": 14,
@@ -16212,7 +16329,8 @@
     "downtownMinneapolis": 24,
     "downtownSaintPaul": 37,
     "mspAirport": 38,
-    "mallOfAmerica": 35
+    "mallOfAmerica": 35,
+    "universityOfMinnesota": 29
    },
    "driveMinutesToCommunities": {
     "orono": 8,
@@ -16320,7 +16438,8 @@
     "downtownMinneapolis": 56,
     "downtownSaintPaul": 57,
     "mspAirport": 51,
-    "mallOfAmerica": 47
+    "mallOfAmerica": 47,
+    "universityOfMinnesota": 58
    },
    "driveMinutesToCommunities": {
     "northfield": 7,
@@ -16433,7 +16552,8 @@
     "downtownMinneapolis": 37,
     "downtownSaintPaul": 26,
     "mspAirport": 37,
-    "mallOfAmerica": 38
+    "mallOfAmerica": 38,
+    "universityOfMinnesota": 36
    },
    "driveMinutesToCommunities": {
     "lakeland-shores": 2,
@@ -16541,7 +16661,8 @@
     "downtownMinneapolis": 28,
     "downtownSaintPaul": 41,
     "mspAirport": 42,
-    "mallOfAmerica": 39
+    "mallOfAmerica": 39,
+    "universityOfMinnesota": 33
    },
    "driveMinutesToCommunities": {
     "independence": 8,
@@ -16662,7 +16783,8 @@
     "downtownMinneapolis": 31,
     "downtownSaintPaul": 44,
     "mspAirport": 45,
-    "mallOfAmerica": 42
+    "mallOfAmerica": 42,
+    "universityOfMinnesota": 36
    },
    "driveMinutesToCommunities": {
     "mound": 5,
@@ -16775,7 +16897,8 @@
     "downtownMinneapolis": 33,
     "downtownSaintPaul": 46,
     "mspAirport": 38,
-    "mallOfAmerica": 34
+    "mallOfAmerica": 34,
+    "universityOfMinnesota": 37
    },
    "driveMinutesToCommunities": {
     "shorewood": 6,
@@ -16888,7 +17011,8 @@
     "downtownMinneapolis": 16,
     "downtownSaintPaul": 30,
     "mspAirport": 30,
-    "mallOfAmerica": 27
+    "mallOfAmerica": 27,
+    "universityOfMinnesota": 21
    },
    "driveMinutesToCommunities": {
     "plymouth": 8,
@@ -17005,7 +17129,8 @@
     "downtownMinneapolis": 34,
     "downtownSaintPaul": 26,
     "mspAirport": 37,
-    "mallOfAmerica": 41
+    "mallOfAmerica": 41,
+    "universityOfMinnesota": 31
    },
    "driveMinutesToCommunities": {
     "birchwood-village": 13,
@@ -17118,7 +17243,8 @@
     "downtownMinneapolis": 41,
     "downtownSaintPaul": 30,
     "mspAirport": 40,
-    "mallOfAmerica": 41
+    "mallOfAmerica": 41,
+    "universityOfMinnesota": 40
    },
    "driveMinutesToCommunities": {
     "st-marys-point": 5,
@@ -17226,7 +17352,8 @@
     "downtownMinneapolis": 17,
     "downtownSaintPaul": 23,
     "mspAirport": 31,
-    "mallOfAmerica": 32
+    "mallOfAmerica": 32,
+    "universityOfMinnesota": 17
    },
    "driveMinutesToCommunities": {
     "columbia-heights": 2,
@@ -17339,7 +17466,8 @@
     "downtownMinneapolis": 26,
     "downtownSaintPaul": 14,
     "mspAirport": 26,
-    "mallOfAmerica": 28
+    "mallOfAmerica": 28,
+    "universityOfMinnesota": 25
    },
    "driveMinutesToCommunities": {
     "oakdale": 8,
@@ -17447,7 +17575,8 @@
     "downtownMinneapolis": 31,
     "downtownSaintPaul": 23,
     "mspAirport": 34,
-    "mallOfAmerica": 38
+    "mallOfAmerica": 38,
+    "universityOfMinnesota": 28
    },
    "driveMinutesToCommunities": {
     "mahtomedi": 3,
@@ -17560,7 +17689,8 @@
     "downtownMinneapolis": 21,
     "downtownSaintPaul": 11,
     "mspAirport": 12,
-    "mallOfAmerica": 15
+    "mallOfAmerica": 15,
+    "universityOfMinnesota": 20
    },
    "driveMinutesToCommunities": {
     "mendota-heights": 8,
@@ -17672,7 +17802,8 @@
     "downtownMinneapolis": 46,
     "downtownSaintPaul": 37,
     "mspAirport": 34,
-    "mallOfAmerica": 37
+    "mallOfAmerica": 37,
+    "universityOfMinnesota": 46
    },
    "driveMinutesToCommunities": {
     "new-trier": 7,
@@ -17785,7 +17916,8 @@
     "downtownMinneapolis": 28,
     "downtownSaintPaul": 41,
     "mspAirport": 33,
-    "mallOfAmerica": 29
+    "mallOfAmerica": 29,
+    "universityOfMinnesota": 32
    },
    "driveMinutesToCommunities": {
     "excelsior": 4,
@@ -17893,7 +18025,8 @@
     "downtownMinneapolis": 57,
     "downtownSaintPaul": 49,
     "mspAirport": 60,
-    "mallOfAmerica": 64
+    "mallOfAmerica": 64,
+    "universityOfMinnesota": 54
    },
    "driveMinutesToCommunities": {
     "scandia": 15,
@@ -18001,7 +18134,8 @@
     "downtownMinneapolis": 32,
     "downtownSaintPaul": 45,
     "mspAirport": 46,
-    "mallOfAmerica": 43
+    "mallOfAmerica": 43,
+    "universityOfMinnesota": 37
    },
    "driveMinutesToCommunities": {
     "medina": 12,
@@ -18109,7 +18243,8 @@
     "downtownMinneapolis": 64,
     "downtownSaintPaul": 72,
     "mspAirport": 60,
-    "mallOfAmerica": 57
+    "mallOfAmerica": 57,
+    "universityOfMinnesota": 67
    },
    "driveMinutesToCommunities": {
     "norwood-young-america": 11,
@@ -18214,7 +18349,8 @@
     "downtownMinneapolis": 26,
     "downtownSaintPaul": 39,
     "mspAirport": 40,
-    "mallOfAmerica": 36
+    "mallOfAmerica": 36,
+    "universityOfMinnesota": 30
    },
    "driveMinutesToCommunities": {
     "orono": 7,
@@ -18342,7 +18478,8 @@
     "downtownMinneapolis": 25,
     "downtownSaintPaul": 16,
     "mspAirport": 14,
-    "mallOfAmerica": 15
+    "mallOfAmerica": 15,
+    "universityOfMinnesota": 26
    },
    "driveMinutesToCommunities": {
     "west-st-paul": 7,
@@ -18455,7 +18592,8 @@
     "downtownMinneapolis": 30,
     "downtownSaintPaul": 21,
     "mspAirport": 33,
-    "mallOfAmerica": 37
+    "mallOfAmerica": 37,
+    "universityOfMinnesota": 27
    },
    "driveMinutesToCommunities": {
     "white-bear-lake": 6,
@@ -18570,7 +18708,8 @@
     "downtownMinneapolis": 31,
     "downtownSaintPaul": 23,
     "mspAirport": 35,
-    "mallOfAmerica": 38
+    "mallOfAmerica": 38,
+    "universityOfMinnesota": 29
    },
    "driveMinutesToCommunities": {
     "mahtomedi": 5,
@@ -18683,7 +18822,8 @@
     "downtownMinneapolis": 50,
     "downtownSaintPaul": 52,
     "mspAirport": 63,
-    "mallOfAmerica": 65
+    "mallOfAmerica": 65,
+    "universityOfMinnesota": 49
    },
    "driveMinutesToCommunities": {
     "east-bethel": 14,
@@ -18791,7 +18931,8 @@
     "downtownMinneapolis": 54,
     "downtownSaintPaul": 44,
     "mspAirport": 42,
-    "mallOfAmerica": 44
+    "mallOfAmerica": 44,
+    "universityOfMinnesota": 54
    },
    "driveMinutesToCommunities": {
     "hampton": 10,
@@ -18899,7 +19040,8 @@
     "downtownMinneapolis": 59,
     "downtownSaintPaul": 72,
     "mspAirport": 61,
-    "mallOfAmerica": 57
+    "mallOfAmerica": 57,
+    "universityOfMinnesota": 64
    },
    "driveMinutesToCommunities": {
     "mayer": 9,
@@ -19014,7 +19156,8 @@
     "downtownMinneapolis": 43,
     "downtownSaintPaul": 34,
     "mspAirport": 32,
-    "mallOfAmerica": 34
+    "mallOfAmerica": 34,
+    "universityOfMinnesota": 44
    },
    "driveMinutesToCommunities": {
     "coates": 10,
@@ -19138,7 +19281,8 @@
     "downtownMinneapolis": 28,
     "downtownSaintPaul": 21,
     "mspAirport": 32,
-    "mallOfAmerica": 35
+    "mallOfAmerica": 35,
+    "universityOfMinnesota": 26
    },
    "driveMinutesToCommunities": {
     "willernie": 5,
@@ -19255,7 +19399,8 @@
     "downtownMinneapolis": 23,
     "downtownSaintPaul": 37,
     "mspAirport": 35,
-    "mallOfAmerica": 32
+    "mallOfAmerica": 32,
+    "universityOfMinnesota": 28
    },
    "driveMinutesToCommunities": {
     "deephaven": 8,
@@ -19363,7 +19508,8 @@
     "downtownMinneapolis": 43,
     "downtownSaintPaul": 32,
     "mspAirport": 39,
-    "mallOfAmerica": 40
+    "mallOfAmerica": 40,
+    "universityOfMinnesota": 42
    },
    "driveMinutesToCommunities": {
     "lake-st-croix-beach": 5,
@@ -19471,7 +19617,8 @@
     "downtownMinneapolis": 38,
     "downtownSaintPaul": 27,
     "mspAirport": 38,
-    "mallOfAmerica": 40
+    "mallOfAmerica": 40,
+    "universityOfMinnesota": 37
    },
    "driveMinutesToCommunities": {
     "lakeland": 2,
@@ -19579,7 +19726,8 @@
     "downtownMinneapolis": 20,
     "downtownSaintPaul": 13,
     "mspAirport": 8,
-    "mallOfAmerica": 12
+    "mallOfAmerica": 12,
+    "universityOfMinnesota": 20
    },
    "driveMinutesToCommunities": {
     "mendota-heights": 7,
@@ -19687,7 +19835,8 @@
     "downtownMinneapolis": 37,
     "downtownSaintPaul": 27,
     "mspAirport": 25,
-    "mallOfAmerica": 27
+    "mallOfAmerica": 27,
+    "universityOfMinnesota": 37
    },
    "driveMinutesToCommunities": {
     "rosemount": 10,
@@ -19802,7 +19951,8 @@
     "downtownMinneapolis": 57,
     "downtownSaintPaul": 46,
     "mspAirport": 46,
-    "mallOfAmerica": 48
+    "mallOfAmerica": 48,
+    "universityOfMinnesota": 57
    },
    "driveMinutesToCommunities": {
     "new-trier": 8,
@@ -19910,7 +20060,8 @@
     "downtownMinneapolis": 50,
     "downtownSaintPaul": 41,
     "mspAirport": 38,
-    "mallOfAmerica": 41
+    "mallOfAmerica": 41,
+    "universityOfMinnesota": 50
    },
    "driveMinutesToCommunities": {
     "hampton": 7,

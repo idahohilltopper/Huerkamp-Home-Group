@@ -22,6 +22,7 @@ import { communitySearch, searchUrl, ylopoPlace } from '../../data/ylopo';
 import PostCard from '../../components/PostCard.astro';
 import HomesStrip from '../../components/HomesStrip.astro';
 import { pairsFor, other, compareHref } from '../../data/compare';
+import { DESTS, commuteHref } from '../../data/commute';
 import { listingsData, homesHref } from '../../data/listings';
 import { getPosts, postsAbout } from '../../data/blog';
 import { hoodsIn, hoodHref, hoodKey, hoodInfo, hoodGeoUrl } from '../../data/neighborhoods';
@@ -459,7 +460,7 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
       </div>
       <h3 class="subhead">Drive times from {c.name}</h3>
       <ul class="drives">
-        {Object.entries(d.driveMinutes as Record<string, number>).map(([k, m]) => <li><strong>{m} min</strong><span>{dests[k]}</span></li>)}
+        {Object.entries(d.driveMinutes as Record<string, number>).map(([k, m]) => { const dest = DESTS.find((x) => x.key === k); return <li><strong>{m} min</strong><span>{dest ? <a href={commuteHref(dest, c)}>{dests[k]}</a> : dests[k]}</span></li>; })}
       </ul>
       <p class="source">Drive times: OSRM routing on OpenStreetMap data from the city's Census center point, light traffic. Rush hour takes longer.</p>
     </div>

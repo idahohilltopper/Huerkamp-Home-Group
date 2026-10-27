@@ -209,7 +209,7 @@ json.dump({
     },
     'driveDestinations': {
         'downtownMinneapolis': 'Downtown Minneapolis', 'downtownSaintPaul': 'Downtown Saint Paul',
-        'mspAirport': 'MSP Airport', 'mallOfAmerica': 'Mall of America',
+        'mspAirport': 'MSP Airport', 'mallOfAmerica': 'Mall of America', 'universityOfMinnesota': 'University of Minnesota',
     },
     'baselines': baselines,
     'communities': details,

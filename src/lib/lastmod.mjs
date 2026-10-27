@@ -63,7 +63,7 @@ export function lastmods() {
 // A listing's date is its last MLS update; the collection pages change with every download.
 let homes;
 export function homeLastmod(path) {
-  if (path.startsWith('/compare/')) return compareDate;
+  if (path.startsWith('/compare/') || path.startsWith('/commute')) return compareDate;
   if (!path.startsWith('/homes')) return undefined;
   homes ??= (() => {
     const file = new URL('.cache/mls-feed.json', root);

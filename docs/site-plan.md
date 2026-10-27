@@ -468,3 +468,24 @@ A section for longtime homeowners: people downsizing, retiring, moving to one-le
   - guides describe homes, money and steps, never which places suit which people (fair housing);
   - tax and legal points say to confirm with a CPA or attorney;
   - reverse mortgages are left out because the team is a Ramsey Endorsed Local Provider.
+
+## Commute pages (/commute), October 2026
+"Living in Lakeville and commuting to downtown Minneapolis".
+- **Destinations:** downtown Minneapolis, downtown Saint Paul, MSP Airport and the University of Minnesota. Mall of America appears as a fact but has no pages of its own. University of Minnesota drive times were added with `scripts/add-drive-destination.py`, using the same OSRM method as the other destinations.
+- **Pages** (`src/data/commute.ts`, `src/pages/commute/[...path].astro`):
+  - a hub at `/commute`;
+  - one page per destination listing all 149 cities by drive-time band, with median sale price and days on market;
+  - 596 city-to-destination pages, each showing:
+    - the drive and its rank;
+    - median price and the Census average commute;
+    - "shorter drives at a similar price" (cities with a shorter drive whose median price is no more than 15% higher), linked to the comparison pages;
+    - drives to the other destinations;
+    - quick answers with FAQ schema;
+    - a "Find a home that makes the drive easy" form (Follow Up Boss tags "Buyer lead" and "Commute search").
+- **Indexing:** a city page is open to search engines only if the drive is 50 minutes or less. That is 511 of the 596 today.
+- **Linking:**
+  - each community guide's drive-time list links to its commute pages;
+  - the Communities menu and footer have "Commute times";
+  - llms.txt describes the section;
+  - sitemap dates follow the monthly market report.
+- **Caveat on every page:** times are light-traffic estimates from the city center; rush hour and your address change them.

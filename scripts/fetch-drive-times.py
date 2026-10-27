@@ -20,6 +20,7 @@ DESTINATIONS = {  # [lon, lat]
     'downtownSaintPaul': [-93.0998, 44.9445],
     'mspAirport': [-93.2052, 44.8820],
     'mallOfAmerica': [-93.2422, 44.8549],
+    'universityOfMinnesota': [-93.2354, 44.9764],
 }
 communities = json.load(open('src/data/communities.json'))['communities']
 
