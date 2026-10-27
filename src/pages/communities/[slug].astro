@@ -26,6 +26,7 @@ import { DESTS, commuteHref } from '../../data/commute';
 import { listingsData, homesHref } from '../../data/listings';
 import { getPosts, postsAbout } from '../../data/blog';
 import { hoodsIn, hoodHref, hoodKey, hoodInfo, hoodGeoUrl } from '../../data/neighborhoods';
+import { ruleFor } from '../../data/sale-rules';
 import { marketFor, hasMarket, latest as marketMonth, asOf as marketAsOf, monthLabel, money, count, change, signed } from '../../data/market';
 
 export function getStaticPaths() {
@@ -124,6 +125,12 @@ const faqs = [
   { q: `How long does it take to close on a home in ${c.name}?`,
     a: `Most financed purchases close about 30 to 45 days after an accepted offer, and cash purchases can close sooner. Your lender, the appraisal and the title company set the actual timeline.` },
 ];
+const saleRule = ruleFor(c.slug);
+faqs.push({ q: `Does ${c.name} require an inspection to sell a home?`,
+  a: saleRule && saleRule.kind !== 'repealed'
+    ? `Yes. ${saleRule.summary} (${saleRule.program}.) Confirm current rules with the city before you list.`
+    : saleRule ? saleRule.summary
+    : `We haven't confirmed a city inspection requirement for ${c.name}. Every Minnesota seller still owes the state disclosures (property condition, wells, septic, radon and more), and some counties require a septic inspection. Check with the city before you list.` });
 const faqLd = JSON.stringify({
   '@context': 'https://schema.org', '@type': 'FAQPage',
   mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
@@ -531,6 +538,24 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
         <div class="field"><label for="calc-hoa">HOA ($ / month)</label><input id="calc-hoa" type="number" min="0" step="10" value="0" /></div>
         <output id="calc-out" class="calc__out" for="calc-price calc-down calc-rate calc-term calc-tax calc-ins calc-hoa">Enter an interest rate to see a monthly estimate.</output>
       </form>
+    </div>
+  </section>
+
+  <!-- 14b. Selling: city inspection rules -->
+  <section class="section" id="selling" aria-labelledby="selling-title">
+    <div class="wrap narrow">
+      <p class="eyebrow">Selling in {c.name}</p>
+      <h2 id="selling-title">What's required to sell a home in <em>{c.name}?</em></h2>
+      {saleRule && saleRule.kind !== 'repealed' ? (
+        <>
+          <p><strong>{saleRule.program}.</strong> {saleRule.summary}</p>
+          {saleRule.details.length > 0 && <ul>{saleRule.details.map((d) => <li>{d}</li>)}</ul>}
+          <p class="source">{saleRule.contact && <>{saleRule.contact}. </>}Source: <a href={saleRule.url} rel="noopener">City of {c.name}</a>. Confirm before you list; rules change.</p>
+        </>
+      ) : (
+        <p>{saleRule ? saleRule.summary : `We haven't confirmed a city pre-sale inspection for ${c.name}; check with the city before you list.`} Every Minnesota sale still includes the state disclosures: property condition, wells, septic systems, radon, lead paint for older homes and more.</p>
+      )}
+      <p><a href="/selling-in-minnesota">Selling in Minnesota: every city's rules and the state disclosures</a> · <a href="/calculators/seller-net-proceeds">Estimate your net proceeds</a></p>
     </div>
   </section>
 

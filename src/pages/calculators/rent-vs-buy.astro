@@ -26,7 +26,7 @@ const ld = JSON.stringify([
     lede="See how your wealth compares after renting or buying in the Twin Cities, year by year, and when buying pulls ahead." />
 
   <section class="section">
-    <div class="wrap calc" id="calc-rb">
+    <div class="wrap mcalc" id="calc-rb">
       <form onsubmit="return false" aria-label="Rent vs. buy inputs">
         <fieldset>
           <legend>Renting</legend>
@@ -68,12 +68,12 @@ const ld = JSON.stringify([
         </fieldset>
       </form>
 
-      <aside class="calc__out" aria-live="polite">
+      <aside class="mcalc__out" aria-live="polite">
         <p class="eyebrow" id="r-head">After 7 years</p>
-        <p class="calc__big" id="r-verdict"></p>
+        <p class="mcalc__big" id="r-verdict"></p>
         <table><tbody id="r-rows"></tbody></table>
-        <p class="calc__note" id="r-break"></p>
-        <p class="calc__note">A comparison under your assumptions, not a forecast. Leaves out income tax effects.</p>
+        <p class="mcalc__note" id="r-break"></p>
+        <p class="mcalc__note">A comparison under your assumptions, not a forecast. Leaves out income tax effects.</p>
         <p><a class="btn" href="#numbers">Talk through my numbers</a></p>
       </aside>
     </div>

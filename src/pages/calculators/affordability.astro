@@ -27,7 +27,7 @@ const ld = JSON.stringify([
     lede="Your price range using today’s average mortgage rates, real property tax rates for each Twin Cities city, and two ways to set your budget: a lender’s limit and the Ramsey guideline." />
 
   <section class="section">
-    <div class="wrap calc" id="calc-buy">
+    <div class="wrap mcalc" id="calc-buy">
       <form onsubmit="return false" aria-label="Affordability inputs">
         <fieldset>
           <legend>Income and debts</legend>
@@ -64,12 +64,12 @@ const ld = JSON.stringify([
         </fieldset>
       </form>
 
-      <aside class="calc__out" aria-live="polite">
+      <aside class="mcalc__out" aria-live="polite">
         <p class="eyebrow">Price you could afford</p>
-        <p class="calc__big" id="a-price">$0</p>
+        <p class="mcalc__big" id="a-price">$0</p>
         <table><tbody id="a-rows"></tbody></table>
         <div id="a-ramsey"></div>
-        <p class="calc__note">An estimate for planning, not a loan approval. A lender’s pre-approval is the real number.</p>
+        <p class="mcalc__note">An estimate for planning, not a loan approval. A lender’s pre-approval is the real number.</p>
         <p><a class="btn" href="#numbers">Get my real numbers</a></p>
       </aside>
     </div>
@@ -138,7 +138,7 @@ const ld = JSON.stringify([
       if (take) {
         const rp = solve(take * 0.25, down, num('a-rate15'), 15, c.rate, ins, hoa, pmi);
         const rb = breakdown(rp, down, num('a-rate15'), 15, c.rate, ins, hoa, pmi);
-        ramsey = `<p class="eyebrow" style="margin-top:1.25rem">Ramsey guideline</p><p class="calc__big" style="font-size:1.8rem">${usd(rp)}</p><p class="calc__note" style="margin-top:0">15-year fixed at ${num('a-rate15')}%, payment ${usd(rb.pi + rb.tax + rb.ins + rb.hoa + rb.pmi)}/month = 25% of your ${usd(take)} take-home pay.</p>`;
+        ramsey = `<p class="eyebrow" style="margin-top:1.25rem">Ramsey guideline</p><p class="mcalc__big" style="font-size:1.8rem">${usd(rp)}</p><p class="mcalc__note" style="margin-top:0">15-year fixed at ${num('a-rate15')}%, payment ${usd(rb.pi + rb.tax + rb.ins + rb.hoa + rb.pmi)}/month = 25% of your ${usd(take)} take-home pay.</p>`;
       }
       document.getElementById('a-ramsey')!.innerHTML = ramsey;
       const sum = document.querySelector<HTMLInputElement>('[data-calc-summary]');

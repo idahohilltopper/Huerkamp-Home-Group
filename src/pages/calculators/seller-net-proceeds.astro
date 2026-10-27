@@ -27,7 +27,7 @@ const ld = JSON.stringify([
     lede="Estimate your proceeds from selling a Minnesota home, including the state deed tax and how property taxes are split at closing." />
 
   <section class="section">
-    <div class="wrap calc" id="calc-seller">
+    <div class="wrap mcalc" id="calc-seller">
       <form onsubmit="return false" aria-label="Seller net proceeds inputs">
         <fieldset>
           <legend>Your sale</legend>
@@ -62,11 +62,11 @@ const ld = JSON.stringify([
         </fieldset>
       </form>
 
-      <aside class="calc__out" aria-live="polite">
+      <aside class="mcalc__out" aria-live="polite">
         <p class="eyebrow">Estimated net proceeds</p>
-        <p class="calc__big" id="s-net">$0</p>
+        <p class="mcalc__big" id="s-net">$0</p>
         <table><tbody id="s-rows"></tbody></table>
-        <p class="calc__note">An estimate, not a closing statement. Your title company’s settlement statement is final. Deed tax: Minnesota Department of Revenue.</p>
+        <p class="mcalc__note">An estimate, not a closing statement. Your title company’s settlement statement is final. Deed tax: Minnesota Department of Revenue.</p>
         <p><a class="btn" href="#numbers">Get my exact net sheet</a></p>
       </aside>
     </div>

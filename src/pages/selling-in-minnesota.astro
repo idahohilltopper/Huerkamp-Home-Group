@@ -1,0 +1,103 @@
+---
+// "Selling a home in Minnesota: what's required" — statewide disclosures plus the city-by-city inspection
+// rules in src/data/sale-rules.ts (each from the city's own website).
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { saleRules, statewide, CHECKED } from '../data/sale-rules';
+import communities from '../data/communities.json';
+import { site } from '../data/site';
+
+const name = new Map(communities.communities.map((c) => [c.slug, c.name]));
+const checked = new Date(`${CHECKED}T12:00:00`).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+const housing = saleRules.filter((r) => r.kind === 'housing');
+const sewer = saleRules.filter((r) => r.kind === 'sewer');
+const repealed = saleRules.filter((r) => r.kind === 'repealed');
+const faq = [
+  { q: 'Do I need a city inspection to sell my house in Minnesota?', a: `Only in some cities. Minnesota has no statewide pre-sale inspection, but ${housing.length} Twin Cities cities we confirmed require a housing evaluation or inspection (including Minneapolis, Saint Paul, Bloomington and Richfield), and ${sewer.length} more require a sewer inspection before a sale.` },
+  { q: 'What is a Truth in Sale of Housing (TISH) report?', a: 'A city-required evaluation of a home’s condition by a licensed evaluator, done before the home is marketed. Minneapolis and Saint Paul call it Truth in Sale of Housing; other cities call it Time of Sale or Point of Sale. Some programs are disclosure only; others require repairs.' },
+  { q: 'What is an I/I or sewer inspection at sale?', a: 'Some cities require the sewer line from the house to the street to be camera-inspected, and sump pumps and roof drains checked, before a sale, to keep clear water out of the sanitary sewer. Golden Valley, West St. Paul, Orono, Mounds View and St. Anthony are examples.' },
+  { q: 'What do all Minnesota sellers have to disclose?', a: 'Known material facts about the property (or an agreed waiver), any wells, any septic system, radon information, lead-based paint for homes built before 1978, and any known methamphetamine production.' },
+];
+const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
+---
+<Base breadcrumbs={[{ name: 'Sell', href: '/sell' }, { name: 'Selling in Minnesota', href: '/selling-in-minnesota' }]}
+  title={`Selling a Home in Minnesota: What’s Required by City | ${site.name}`}
+  description="Which Twin Cities cities require a Truth in Sale of Housing report, time-of-sale inspection or sewer inspection before you sell, plus the disclosures every Minnesota seller owes.">
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <PageHero eyebrow="Selling" title="Selling in Minnesota: what’s required"
+    lede="The disclosures every Minnesota seller owes, and the Twin Cities cities that require a housing or sewer inspection before you can list, show or close." />
+
+  <section class="section">
+    <div class="wrap prose narrowish">
+      <p>Minnesota doesn’t have a statewide pre-sale home inspection. Instead, some cities have their own programs, and a few counties require septic inspections. Each listing below comes from the city’s own website, checked {checked}. Rules change, so confirm with the city before you list. We handle this for our sellers as part of every listing.</p>
+      <nav class="jump" aria-label="On this page"><a href="#housing">Housing inspections</a><a href="#sewer">Sewer inspections</a><a href="#statewide">Every Minnesota sale</a><a href="#faq">Questions</a></nav>
+    </div>
+  </section>
+
+  <section class="section section--paper" id="housing" aria-labelledby="h-title">
+    <div class="wrap">
+      <div class="head"><h2 id="h-title">Cities that require a housing evaluation or inspection</h2><p>Truth in Sale of Housing, Time of Sale or Point of Sale programs.</p></div>
+      <div class="rules">{housing.map((r) => (
+        <article class="rule" id={r.slug}>
+          <h3><a href={`/communities/${r.slug}`}>{name.get(r.slug)}</a></h3>
+          <p class="rule__prog">{r.program}</p>
+          <p>{r.summary}</p>
+          {r.details.length > 0 && <ul>{r.details.map((d) => <li>{d}</li>)}</ul>}
+          <p class="rule__src">{r.contact && <>{r.contact} · </>}<a href={r.url} rel="noopener">City of {name.get(r.slug)}</a></p>
+        </article>
+      ))}</div>
+    </div>
+  </section>
+
+  <section class="section" id="sewer" aria-labelledby="s-title">
+    <div class="wrap">
+      <div class="head"><h2 id="s-title">Cities that require a sewer (I/I) inspection</h2><p>Inflow and infiltration programs check the private sewer line, sump pump and roof drains so clear water stays out of the sanitary sewer.</p></div>
+      <div class="rules">{sewer.map((r) => (
+        <article class="rule" id={r.slug}>
+          <h3><a href={`/communities/${r.slug}`}>{name.get(r.slug)}</a></h3>
+          <p class="rule__prog">{r.program}</p>
+          <p>{r.summary}</p>
+          {r.details.length > 0 && <ul>{r.details.map((d) => <li>{d}</li>)}</ul>}
+          <p class="rule__src">{r.contact && <>{r.contact} · </>}<a href={r.url} rel="noopener">City of {name.get(r.slug)}</a></p>
+        </article>
+      ))}</div>
+      {repealed.length > 0 && <p class="note">No longer required: {repealed.map((r, i) => <>{i > 0 && '; '}<a href={r.url} rel="noopener">{name.get(r.slug)}</a> ({r.summary.replace(/^[^.]*\. /, '')})</>)}</p>}
+      <p class="note">Not listed? That city’s requirement wasn’t on our confirmed list. Ask us or the city’s inspections department before you list.</p>
+    </div>
+  </section>
+
+  <section class="section section--paper" id="statewide" aria-labelledby="w-title">
+    <div class="wrap">
+      <div class="head"><h2 id="w-title">What every Minnesota seller owes</h2></div>
+      <div class="rules">{statewide.map((s) => (
+        <article class="rule"><h3>{s.title}</h3><p>{s.text}</p><p class="rule__src"><a href={s.url} rel="noopener">{s.cite}</a></p></article>
+      ))}</div>
+      <p class="note">This is general information, not legal advice. Your purchase agreement, title company and attorney have the final word.</p>
+    </div>
+  </section>
+
+  <section class="section" id="faq" aria-labelledby="f-title">
+    <div class="wrap narrow">
+      <h2 id="f-title">Common questions</h2>
+      <div class="faq">{faq.map((f, i) => <details open={i === 0}><summary>{f.q}</summary><p>{f.a}</p></details>)}</div>
+      <p style="margin-top:1.5rem">Next: <a href="/calculators/seller-net-proceeds">Estimate your net proceeds</a> · <a href="/sell">Sell with us</a> · <a href="/downsizing/selling-a-longtime-home">Selling a longtime home</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .narrowish { max-width: 52rem; }
+  .jump { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+  .jump a { padding: .5rem .9rem; border: 1px solid var(--line); background: var(--paper); font: 600 .85rem/1 var(--ui); text-decoration: none; color: var(--text); }
+  .rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); gap: 1rem; }
+  .rule { border: 1px solid var(--line); background: var(--paper); padding: 1.1rem 1.25rem; }
+  .rule h3 { font: 600 1.35rem/1.2 var(--serif); margin: 0 0 .2rem; }
+  .rule h3 a { color: inherit; }
+  .rule__prog { font: 700 .72rem/1.3 var(--ui); letter-spacing: .08em; text-transform: uppercase; color: var(--crimson); margin: 0 0 .5rem; }
+  .rule ul { padding-left: 1.1rem; margin: .5rem 0; }
+  .rule li { margin-bottom: .3rem; font-size: .95rem; }
+  .rule__src { font-size: .85rem; color: var(--text-soft); margin-top: .5rem; }
+  .note { font-size: .92rem; color: var(--text-soft); margin-top: 1.25rem; }
+  .faq details { border-bottom: 1px solid var(--line); padding: .9rem 0; }
+  .faq summary { cursor: pointer; font-weight: 700; }
+</style>
