@@ -1,0 +1,102 @@
+[
+  {
+    "id": "uAabF9FwdKk",
+    "takeaways": [
+      "Jason ranks neighborhoods good, better and best, admittedly by personal taste. Minneapolis: the North Loop (better) for nightlife and urban living but few single-family homes; Northeast (better) for single-family homes near restaurants and breweries; Uptown (good) for bars, restaurants and the lakes; and Linden Hills (best) for a calmer feel near Lake Harriet.",
+      "Saint Paul: Cathedral Hill and Summit Avenue (best) for historic mansions, the James J. Hill House and ghost tours; Macalester-Groveland (best) around $500,000 to $750,000 near Macalester and St. Thomas; Highland Park (better) for a bit less.",
+      "First-ring suburbs: Edina (best), with 50th and France, Southdale and single-family homes from about $400,000 into the millions; St. Louis Park (better), with livable homes from about $350,000 to $1 million along Highway 100; Richfield (better), from the mid to high $200,000s to about $700,000, close to the airport.",
+      "Outer suburbs: Maple Grove (best), with newer homes from about $450,000 to $2.5 million and about 35 to 45 minutes to the airport; Lakeville (best), with similar prices, three lakes, Ritter Farm Park and Airlake's commercial tax base helping keep property taxes down.",
+      "Prices are as stated in the video; see the market reports for current numbers."
+    ],
+    "faq": [
+      { "q": "What's the difference between Edina and St. Louis Park?", "a": "Both are centrally located first-ring suburbs. Edina has more homes over $1 million and the 50th and France district; St. Louis Park offers similar convenience with livable homes from about $350,000, according to the video." },
+      { "q": "Which Minneapolis neighborhood is quieter: Uptown or Linden Hills?", "a": "Linden Hills. It has more single-family homes and fewer bars than Uptown or the North Loop, with Lake Harriet close by." }
+    ],
+    "places": ["minneapolis", "saint-paul", "edina", "st-louis-park", "richfield", "maple-grove", "lakeville"],
+    "links": [["North Loop", "/communities/minneapolis/north-loop"], ["Linden Hills", "/communities/minneapolis/linden-hills"], ["Macalester-Groveland", "/communities/saint-paul/macalester-groveland"], ["Edina vs. St. Louis Park", "/compare/edina-vs-st-louis-park"], ["Edina vs. Richfield", "/compare/edina-vs-richfield"]]
+  },
+  {
+    "id": "Wvn1tntQA84",
+    "takeaways": [
+      "Mistake 1: underestimating winter. The cold season runs from late November through March, averaging about 20°F, with a record low of -34°F. Winter tires aren't required, but Jason strongly recommends them.",
+      "Mistake 2: ignoring winter commutes. Rush hours run about 7:30 to 8:30 a.m. and 4 to 6 p.m., snow slows everything, and the state announced nearly 180 road and bridge projects for 2025. Roads do get cleared fast, though.",
+      "Mistake 3: not budgeting for state income tax: 5.35%, 6.8%, 7.85% and a top rate of 9.85%. Talk to an accountant about your take-home pay before you move.",
+      "Mistake 4: expecting \"Minnesota nice\" to mean instant friends. People are friendly and polite, but about 7 in 10 Minnesotans were born here, and friendships can take time.",
+      "Mistake 5: skipping inspections on older homes. Many core-city homes were built before 1950; get a general inspection and a sewer-line inspection. The Minneapolis median was about $351,000 with about 24 days on market at the time.",
+      "Mistake 6: forgetting about mosquitoes and pollen. Metropolitan Mosquito Control keeps the metro manageable, but bring bug spray, and ragweed season has grown longer.",
+      "Mistake 7, the biggest: choosing the wrong area. The urban core, first-ring suburbs like Edina, Hopkins and St. Louis Park, and outer suburbs like Maple Grove, Woodbury and Blaine offer very different lifestyles and commutes."
+    ],
+    "faq": [
+      { "q": "Do I need winter tires in Minneapolis?", "a": "They aren't required by Minnesota law, but Jason uses them on his own vehicles and recommends them, especially for early-morning freeway driving on ice." },
+      { "q": "What is the biggest mistake people make moving to Minneapolis?", "a": "Choosing the wrong neighborhood or suburb. The urban core, first-ring suburbs and outer suburbs differ a lot in commute, home age, price and daily life, so visit before you decide." }
+    ],
+    "places": ["minneapolis", "edina", "hopkins", "st-louis-park", "maple-grove", "woodbury", "blaine"],
+    "links": [["Commute times", "/commute"], ["Compare cities side by side", "/compare"], ["Minneapolis market report", "/market/minneapolis"]]
+  },
+  {
+    "id": "rinMamgT4eM",
+    "takeaways": [
+      "A listing tour of a fully remodeled executive rambler townhome on Summit Shores Drive in Burnsville, listed at about $460,000 at the time: four bedrooms, three baths plus a den, two living rooms and more than 3,000 square feet.",
+      "One-level living: the main floor has the vaulted living room with a fireplace, the kitchen, laundry, a half bath, an office or bedroom and the owner's suite with a steam shower.",
+      "Everything was updated: new flooring, paint, light fixtures and hardware, plus a new furnace, air conditioner, humidifier, water heater and water softener with warranties.",
+      "The walkout lower level adds a large family room with radiant heat, two bedrooms, a three-quarter bath, a craft room and storage. Every bedroom looks out on a pond with a walking path, and the large backyard and covered porch make it feel like a single-family home."
+    ],
+    "faq": [
+      { "q": "What is an executive rambler townhome?", "a": "A larger one-level townhome with the owner's suite, kitchen and laundry on the main floor, often with a finished lower level for guests and hobbies." }
+    ],
+    "places": ["burnsville"],
+    "links": [["Burnsville market report", "/market/burnsville"], ["One-level living", "/downsizing/one-level-living"], ["Burnsville vs. Eagan", "/compare/burnsville-vs-eagan"]]
+  },
+  {
+    "id": "ZWe58NW1qJY",
+    "takeaways": [
+      "Most Minnesota data centers aren't in Minneapolis. They're going up south of the river (Rosemount, Farmington, Eagan, Apple Valley) and across greater Minnesota (Pine Island, Becker, Cannon Falls, near Duluth), where large sites of 200 to 500 acres, big power lines and water are available.",
+      "Meta's Rosemount campus is about 715,000 square feet and nearly $800 million. A Farmington park could hold up to 12 buildings, and Google is behind projects in Pine Island and near Duluth.",
+      "Eagan, Rosemount, Carver, Wright County and Minneapolis paused new large projects while writing rules. A pause isn't a ban, and an approval isn't final: lawsuits have slowed projects in Pine Island and Farmington.",
+      "Power bills: Xcel asked for about 13% over two years; regulators approved closer to 3% a year, and new rules require data centers to cover their own costs under long contracts. Water matters more, especially for homes on private wells; ask what cooling system a project uses and whether it has a state water permit.",
+      "Home values: a George Mason University study of northern Virginia found no evidence that nearby data centers lowered prices on average, but distance matters. A home a mile away may benefit from jobs and tax base; one a few hundred feet from cooling equipment may deal with noise and lights.",
+      "Five free checks before buying near open land: the city's future land use map, the planning department (ask about applications near the address), county records for large parcels sold to LLCs, any active moratorium, and the state environmental review database."
+    ],
+    "faq": [
+      { "q": "Do data centers lower nearby home values?", "a": "Not on average, according to a George Mason University study of northern Virginia. But Minnesota doesn't have local sales data yet, and homes very close to a campus can face noise, lights and blocked views, so distance matters." },
+      { "q": "How can I find out if a data center is planned near a home?", "a": "Check the city's future land use map, ask the planning department about applications near the address, look up recent large land sales in county records, check for a moratorium, and search the state's environmental review filings." },
+      { "q": "Will data centers raise my electric bill?", "a": "They're one factor. Minnesota regulators approved a smaller Xcel increase than requested and now require large data centers to cover their own costs under long-term contracts." }
+    ],
+    "places": ["rosemount", "farmington", "eagan", "apple-valley", "carver"],
+    "links": [["Rosemount market report", "/market/rosemount"], ["Farmington vs. Rosemount", "/compare/farmington-vs-rosemount"], ["Eagan vs. Rosemount", "/compare/eagan-vs-rosemount"]]
+  },
+  {
+    "id": "su6ynNKReH4",
+    "takeaways": [
+      "Jason argues the Twin Cities are one of the most underrated economies in the country, and that this supports home values here.",
+      "The metro has 15 Fortune 500 headquarters (eighth nationally, ahead of Boston, Miami and Seattle) and ranks first per capita among the 30 largest metros: UnitedHealth Group, Target, Best Buy, 3M, General Mills, U.S. Bancorp, Ameriprise, Hormel, Xcel Energy and Ecolab, plus Cargill, the largest private company in the U.S.",
+      "Minnesota's economy is among the most diverse in the nation (fifth, per IHS Markit), and per capita income has been above the national average since 1973.",
+      "Medical Alley: medical device employment here is about 9.9 times the national concentration, with Medtronic, Boston Scientific and hundreds of device, biotech and life sciences companies.",
+      "Talent: the University of Minnesota enrolls over 50,000 students, with nearly 50 colleges within 50 miles. Minnesota ranks second for labor force participation and sixth for patents per capita.",
+      "Housing: an estimated shortage of about 49,000 homes and about two months of supply. The 2025 median was about $390,000 with homes selling at about 98.7% of list. Jason's takeaway: buyers who stay 5 to 10 years have historically built real wealth here."
+    ],
+    "faq": [
+      { "q": "How many Fortune 500 companies are in Minneapolis?", "a": "The Minneapolis–Saint Paul metro has 15 Fortune 500 headquarters, eighth among U.S. metros and first per capita among the 30 largest, according to the video." },
+      { "q": "What is Medical Alley?", "a": "Minnesota's cluster of medical device, biotech and health companies, including Medtronic and Boston Scientific. Medical device employment here is about 10 times the national concentration." }
+    ],
+    "places": ["minneapolis", "saint-paul"],
+    "links": [["Twin Cities market report", "/market"], ["Buy a home", "/buy"]]
+  },
+  {
+    "id": "ogykiHrV1XM",
+    "takeaways": [
+      "Step 1: get pre-approved. Compare more than one lender; multiple mortgage credit checks within a short window usually count as one inquiry and have little effect on your score. Check lender reviews.",
+      "Step 2: sit down with your agent to set expectations and walk through the process before touring.",
+      "Step 3: narrow your search area. The metro stretches from Faribault to Blaine and Waconia to Hudson, so start with where you work and how far you're willing to commute, especially in snow.",
+      "Step 4: write a strong offer. What makes it stand out depends on the home, its time on market and competing offers.",
+      "Step 5: once accepted, the lender orders the appraisal and you schedule inspections. If the inspection finds problems, you can negotiate repairs or cancel within the inspection period.",
+      "Step 6: close, usually at the title company's office, where paperwork changes can be handled on the spot."
+    ],
+    "faq": [
+      { "q": "What are the steps to buying a house in Minnesota?", "a": "Get pre-approved, meet with your agent, narrow your search area, write an offer, complete the appraisal and inspection after acceptance, and close at the title company." },
+      { "q": "Does getting pre-approved by several lenders hurt my credit?", "a": "Only slightly. Mortgage credit checks within a short window are generally treated as one inquiry, so comparing lenders is worth it." }
+    ],
+    "places": ["blaine", "waconia"],
+    "links": [["Buy a home", "/buy"], ["Commute times", "/commute"]]
+  }
+]
