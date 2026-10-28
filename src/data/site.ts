@@ -22,5 +22,7 @@ export const site = {
   youtubeEmail: 'team@hhgus.com',
   youtubeUrl: 'https://www.youtube.com/@livinginminneapolis',
   facebookUrl: 'https://www.facebook.com/HuerkampHomeGroup/',
+  // Google Analytics 4 (the team's own property). Loads only on the live domains, so test sites don't count.
+  ga4: 'G-YY1H36L83S',
   mapsUrl: 'https://www.google.com/maps/place/Huerkamp+Home+Group/data=!4m2!3m1!1s0x87f630d14e326791:0x9b132b7aac652a24',
 };

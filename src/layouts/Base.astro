@@ -117,6 +117,18 @@ const isExternal = (href: string) => href.startsWith('http');
   <script type="application/ld+json" set:html={siteLd} />
   {crumbLd && <script type="application/ld+json" set:html={crumbLd} />}
   <script is:inline>try{if(sessionStorage.getItem('idx-eula')==='1')document.documentElement.classList.add('idx-ok')}catch(e){}</script>
+  {site.ga4 && <script is:inline define:vars={{ id: site.ga4 }}>
+    // Google Analytics 4, live domains only. The library loads after the page has, so it never slows it down.
+    if (/(^|\.)huerkamphome(group|s)\.com$/.test(location.hostname)) {
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { dataLayer.push(arguments); };
+      gtag('js', new Date());
+      gtag('config', id);
+      addEventListener('load', () => setTimeout(() => {
+        const s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id; document.head.append(s);
+      }, 1500));
+    }
+  </script>}
   <slot name="head" />
 </head>
 <body data-privacy={site.privacyUrl} data-consent={consentText()} data-submit-notice={submitNotice}>
@@ -292,7 +304,8 @@ const isExternal = (href: string) => href.startsWith('http');
           if (!res.ok) throw new Error(String(res.status));
           form.reset();
           if (status) status.textContent = "Thank you! We got your message and an agent will reach out shortly.";
-          (window as any).dataLayer?.push({ event: 'lead_submitted', form: form.dataset.lead });
+          // GA4's recommended lead event; mark it as a key event in Google Analytics (Admin > Events) to count leads.
+          (window as any).gtag?.('event', 'generate_lead', { form_name: form.dataset.lead, page_path: location.pathname });
         } catch {
           if (status) status.textContent = `Sorry, that didn't go through. Please call or text ${form.dataset.phone ?? '(612) 843-9620'}.`;
         } finally {

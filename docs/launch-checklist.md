@@ -24,7 +24,7 @@ search.huerkamphomegroup.com. Later, the Luxury Presence site (huerkamphomes.com
 ## 1. Before launch day (Jason)
 
 - [ ] **GoDaddy:** turn on auto-renew for huerkamphomegroup.com (expires Dec 30, 2026) and huerkamphomes.com.
-- [ ] **Google Analytics:** send the GA4 Measurement ID (starts with `G-`) for a property you own. Check whether G-2BPB1VVGWK is yours or Luxury Presence's.
+- [x] **Google Analytics:** G-YY1H36L83S (Jason, 2026-10-28), added. After launch, in Google Analytics go to Admin → Events and mark `generate_lead` as a key event.
 - [ ] **Google Ads:** send the conversion label for account AW-962410994, so website leads count as conversions.
 - [ ] **Follow Up Boss test:** submit Test / Seller / test@example.com on the preview's Sell page and confirm it arrives.
 - [ ] **Read-through:** look over the "New" text listed in docs/content-sources.md.

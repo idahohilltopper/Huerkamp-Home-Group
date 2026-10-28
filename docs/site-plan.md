@@ -576,3 +576,11 @@ Information and Technical Agreement (section 6 and Appendix D). Everything lives
   requires 12); $1 auction prices show "Auction"; contingencies are shown on the listing page; no wording that says or
   implies the public can search the MLS (Rule 13.1(b)); footer says "Licensed in Minnesota" (Rule 12.2(h)).
 - **Repliers:** confirmed full NorthstarMLS access on the "standard" key (email, 2026-10-28).
+
+## Google Analytics (2026-10-28)
+
+- GA4 property **G-YY1H36L83S** (`site.ga4` in src/data/site.ts). The tag runs only on huerkamphomegroup.com and
+  huerkamphomes.com (not Netlify previews or local tests), and its library loads 1.5 seconds after the page so speed
+  scores hold.
+- Every website form sends a `generate_lead` event (form name and page). Mark it as a key event in GA4 (Admin → Events)
+  to count leads, and import it into Google Ads once the Ads conversion label is set up.
