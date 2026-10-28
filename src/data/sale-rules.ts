@@ -1,5 +1,5 @@
 // What a seller has to do before selling, city by city. Every entry is from the city's own website, checked
-// 2026-10-27. Only cities whose requirement we confirmed are listed; for every other city the page says to
+// 2026-10-27 (Tonka Bay, Newport and Robbinsdale added 2026-10-28). Only cities whose requirement we confirmed are listed; for every other city the page says to
 // confirm with the city. Re-check yearly: cities add and repeal these programs (Hopkins repealed in 2021).
 
 export type RuleKind = 'housing' | 'sewer' | 'repealed';
@@ -121,15 +121,37 @@ export const saleRules: SaleRule[] = [
     url: 'https://www.savmn.com/622/Inflow-Infiltration',
   },
   {
+    slug: 'tonka-bay', kind: 'sewer', program: 'Inflow and infiltration (I&I) certificate',
+    summary: 'Sellers must get an I&I certificate before closing, based on a professional video inspection of the sewer line.',
+    details: ['The homeowner submits a televised scope of the sewer line from the house to the main; the Public Works Superintendent reviews it and approves the certificate.', 'Application fee: $150.'],
+    contact: 'Tonka Bay City Hall, 952-474-7994', url: 'https://www.cityoftonkabay.net/inflowandinfiltration',
+  },
+  {
+    slug: 'newport', kind: 'sewer', program: 'Sewer lateral inspection before sale',
+    summary: 'Homes on city sewer must have the sewer lateral inspected and certified to city standards before the sale or transfer.',
+    details: [
+      'The inspection is free; apply through West St. Paul’s permit office (651-259-2622), which handles it for Newport.',
+      'Unpaved or worn-out driveways and parking areas connected to a paved public road must be paved before the sale (City Code 18-73 and 36-161).',
+      'Call City Hall at least two business days before closing for a final water meter reading ($25).',
+    ],
+    contact: 'Newport City Hall, 651-459-5677', url: 'https://www.newportmn.gov/news_detail_T8_R94.php',
+  },
+  {
     slug: 'hopkins', kind: 'repealed', program: 'Truth-in-Housing (repealed)',
     summary: 'Hopkins no longer requires a Truth-in-Housing evaluation to sell a home. The requirement was repealed effective January 14, 2021.',
     details: [],
     url: 'https://hopkinsmn.com/758/Truth-in-Housing',
   },
+  {
+    slug: 'robbinsdale', kind: 'repealed', program: 'Point of Sale Housing Disclosure (repealed)',
+    summary: 'Robbinsdale no longer requires a point-of-sale housing evaluation to sell a home. The city repealed it by Ordinance 24-02 in 2024.',
+    details: [],
+    url: 'https://robbinsdalemn.com/city-government/city-code/ordinances',
+  },
 ];
 
 export const ruleFor = (slug: string) => saleRules.find((r) => r.slug === slug);
-export const CHECKED = '2026-10-27';
+export const CHECKED = '2026-10-28';
 
 // Statewide requirements for every Minnesota home sale (Minnesota Statutes, revisor.mn.gov).
 export const statewide = [
