@@ -14,6 +14,7 @@ import { watchable, channel } from '../data/youtube';
 import { guides, guideHref } from '../data/guides';
 import { pairs, compareHref } from '../data/compare';
 import { dguides, dguideHref } from '../data/downsizing';
+import { fguides, fguideHref } from '../data/foreclosure';
 import { DESTS, commuteHref } from '../data/commute';
 import { listingsData, homesHref, stats, money as lMoney } from '../data/listings';
 
@@ -51,6 +52,7 @@ Facts (with sources on ${url('/')}):
 - [Compare places](${url('/compare')}): ${pairs.length.toLocaleString('en-US')} side-by-side comparisons of nearby cities and neighboring Minneapolis/Saint Paul neighborhoods (e.g. ${url(compareHref(pairs.find((p) => p.path === 'apple-valley-vs-lakeville') ?? pairs[0]))}), and one page per city against every city within 15 miles (e.g. ${url('/compare/lakeville')})
 - [Commute times](${url('/commute')}): every community by light-traffic drive time with home prices, to ${DESTS.map((d) => `[${d.name}](${url(commuteHref(d))})`).join(', ')}; one page per city and destination (e.g. ${url('/commute/downtown-minneapolis/lakeville')})
 - [Downsizing & 55+](${url('/downsizing')}): guides for selling a longtime home and moving to one-level, 55+ or co-op living: ${dguides.map((g) => `[${g.title}](${url(dguideHref(g))})`).join('; ')}; plus a [printable checklist](${url('/downsizing/checklist')})
+- [Short sales & foreclosure](${url('/foreclosure')}): Minnesota foreclosure law in plain English, with statute citations: ${fguides.map((g) => `[${g.title}](${url(fguideHref(g))})`).join('; ')}
 - [Calculators](${url('/calculators')}): [seller net proceeds](${url('/calculators/seller-net-proceeds')}) with Minnesota deed tax, [how much house can I afford](${url('/calculators/affordability')}) with each city's property tax rate and the Ramsey 25% guideline, and [rent vs. buy](${url('/calculators/rent-vs-buy')})
 - [Twin Cities housing data](${url('/data')}): monthly prices, sales and inventory, mortgage rates since 2000, the metro home price index since 1995 and property tax rates by city, each sourced, with CSV downloads
 - [Selling in Minnesota: what's required](${url('/selling-in-minnesota')}): which cities require a Truth in Sale of Housing, time-of-sale or sewer inspection before a sale, and the disclosures every Minnesota seller owes

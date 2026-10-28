@@ -27,6 +27,8 @@ export const FORMS = {
   'agent':             { type: 'General Inquiry', label: 'Agent page form',        tags: ['Agent page'] },
   'guide':             { type: 'General Inquiry', label: 'Area guide form',       tags: ['Area guide'] },
   'downsizing':        { type: 'Seller Inquiry',  label: 'Downsizing plan request', tags: ['Downsizing', 'Seller lead'] },
+  'foreclosure':       { type: 'Seller Inquiry',  label: 'Short sale / foreclosure help', tags: ['Pre-foreclosure', 'Seller lead'] },
+  'foreclosure-buyer': { type: 'General Inquiry', label: 'Foreclosure buyer form', tags: ['Buyer lead', 'Foreclosure buyer'] },
   'commute':           { type: 'Property Search', label: 'Commute page form',     tags: ['Buyer lead', 'Commute search'] },
   'compare':           { type: 'General Inquiry', label: 'Comparison page form',  tags: ['Comparing places'] },
   'listing':           { type: 'Property Inquiry', label: 'Listing page form',    tags: ['Buyer lead', 'Listing inquiry'] },
@@ -40,7 +42,7 @@ export const FORMS = {
 const LABELS = {
   address: 'Property address', timeline: 'Selling timeline', topic: 'Topic', goal: 'Goal',
   notes: 'Notes', message: 'Message', lake: 'Lake', priceRange: 'Price range', maxPrice: 'Price range',
-  community: 'Community', ramseyReferral: 'Referred by Ramsey', interest: 'Interested in', moveFrom: 'Moving from', agent: 'Wants to work with', listing: 'Listing', guide: 'Guide', nextHome: 'Next home', helping: 'Asking for', calc: 'Calculator results',
+  community: 'Community', ramseyReferral: 'Referred by Ramsey', interest: 'Interested in', moveFrom: 'Moving from', agent: 'Wants to work with', listing: 'Listing', guide: 'Guide', nextHome: 'Next home', helping: 'Asking for', calc: 'Calculator results', situation: 'Situation', saleDate: 'Sheriff’s sale or deadline',
 };
 const CONTACT = new Set(['firstName', 'lastName', 'email', 'phone']);
 

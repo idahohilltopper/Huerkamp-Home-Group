@@ -1,0 +1,89 @@
+---
+// Short sales & foreclosure hub: the guides for homeowners (behind on payments, the Minnesota process, short
+// sales), the buyer guide, free counseling, related posts, and the confidential help form.
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import PostCard from '../../components/PostCard.astro';
+import ForeclosureForm from '../../components/ForeclosureForm.astro';
+import { fguides, fguideHref, HOC } from '../../data/foreclosure';
+import { getPosts } from '../../data/blog';
+import reviews from '../../data/reviews.json';
+import { site } from '../../data/site';
+
+const owners = fguides.filter((x) => x.audience === 'owner');
+const buyers = fguides.filter((x) => x.audience === 'buyer');
+const postPaths = [...new Set(fguides.flatMap((g) => g.posts ?? []))];
+const posts = (await getPosts()).filter((p) => postPaths.includes(p.data.path)).slice(0, 6);
+const g = reviews.summary.google;
+const faq = [
+  { q: 'What should I do first if I can’t make my mortgage payment?', a: `Call your loan servicer to ask about options, and call a free foreclosure prevention advisor at the ${HOC.name} (${HOC.phone}). Under federal rules a servicer generally can’t start foreclosure until you’re more than 120 days behind, so acting early gives you the most choices.` },
+  { q: 'What is the difference between a short sale and a foreclosure?', a: 'In a short sale you sell the home yourself, for less than you owe, with your lender’s approval. In a foreclosure the lender has the home sold at a sheriff’s sale; in Minnesota you usually then have six months to redeem or sell before you must move out.' },
+  { q: 'Can I still sell my house if it’s in foreclosure?', a: 'Usually, yes: before the sheriff’s sale, and in most Minnesota foreclosures during the redemption period after it. If the home is worth more than you owe, selling lets you keep the difference.' },
+  { q: 'Does it cost anything to talk with you?', a: 'No. A confidential call and a home value are free, with no obligation.' },
+];
+const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
+---
+<Base breadcrumbs={[{ name: 'Short sales & foreclosure', href: '/foreclosure' }]}
+  title={`Short Sales & Foreclosure Help in Minnesota | ${site.name}`}
+  description="Behind on your mortgage in Minnesota? Plain-English guides to your options, the foreclosure timeline and redemption period, short sales, and buying foreclosures in the Twin Cities.">
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <PageHero eyebrow="Short sales & foreclosure" title="Behind on your mortgage? You have more options than you think."
+    lede="Minnesota law gives homeowners real time and real choices, from catching up to selling on your own terms. These guides explain each step and deadline in plain English, with the law behind it. When you're ready, we'll talk it through privately." />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="head"><p class="eyebrow">For homeowners</p><h2>Start here</h2></div>
+      <ul class="dcards">{owners.map((x) => <li><a href={fguideHref(x)}><strong>{x.title}</strong><span>{x.short}</span></a></li>)}</ul>
+      <div class="hoc">
+        <h2>Free help, right now</h2>
+        <p>The <a href={HOC.url} rel="noopener">{HOC.name}</a> connects Minnesota homeowners with free, nonprofit foreclosure prevention advisors: <a href="tel:+18664626466"><strong>{HOC.phone}</strong></a> (toll free) or {HOC.local}. Never pay an upfront fee to anyone who promises to stop a foreclosure; Minnesota law doesn’t allow it.</p>
+      </div>
+      <p class="dcall">Want to know what your home would sell for? Call <a href={site.phoneHref}>{site.phone}</a> or <a href="#help">request a confidential call</a>. Rated {g.rating.toFixed(1)} stars across {g.count} Google reviews.</p>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="wrap">
+      <div class="head"><p class="eyebrow">For buyers</p><h2>Buying a foreclosure or short sale</h2></div>
+      <ul class="dcards">{buyers.map((x) => <li><a href={fguideHref(x)}><strong>{x.title}</strong><span>{x.short}</span></a></li>)}</ul>
+    </div>
+  </section>
+
+  {posts.length > 0 && (
+    <section class="section" aria-labelledby="posts-title">
+      <div class="wrap">
+        <div class="head"><p class="eyebrow">Read</p><h2 id="posts-title">Short sale and foreclosure articles</h2></div>
+        <div class="post-grid">{posts.map((p) => <PostCard post={p} />)}</div>
+      </div>
+    </section>
+  )}
+
+  <section class="section section--paper" aria-labelledby="faq-title">
+    <div class="wrap faq">
+      <div class="head"><p class="eyebrow">Quick answers</p><h2 id="faq-title">Questions we hear most</h2></div>
+      {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+      <p class="fine">General information about Minnesota law, not legal or tax advice.</p>
+    </div>
+  </section>
+
+  <ForeclosureForm topic="Short sale & foreclosure hub" />
+</Base>
+
+<style>
+  .head { margin-bottom: 1.5rem; }
+  .dcards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); gap: 1rem; }
+  .dcards a { display: grid; gap: .4rem; height: 100%; padding: 1.25rem 1.4rem; border: 1px solid var(--line); background: var(--paper); color: var(--text); text-decoration: none; }
+  .dcards strong { font: 600 1.3rem/1.25 var(--serif); }
+  .dcards span { font-size: 1.02rem; color: var(--text-soft); }
+  .dcards a:hover strong { color: var(--crimson); }
+  .hoc { margin-top: 2rem; padding: 1.25rem 1.4rem; border-left: 4px solid var(--crimson); background: var(--paper); max-width: 52rem; }
+  .hoc h2 { margin: 0 0 .5rem; font: 500 1.45rem/1.2 var(--serif); }
+  .hoc p { font-size: 1.08rem; }
+  .dcall { margin-top: 2rem; font-size: 1.15rem; }
+  .post-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); gap: 1.5rem; }
+  .faq { display: grid; gap: .75rem; max-width: 52rem; }
+  .faq details { padding: 1rem 1.2rem; background: var(--paper); border: 1px solid var(--line); }
+  .faq summary { cursor: pointer; font: 600 1.2rem/1.3 var(--serif); }
+  .faq details p { margin-top: .6rem; font-size: 1.05rem; }
+  .fine { font-size: .92rem; color: var(--text-soft); }
+</style>

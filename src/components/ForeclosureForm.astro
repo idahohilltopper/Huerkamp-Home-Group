@@ -1,0 +1,64 @@
+---
+// Confidential help form on every /foreclosure page. Homeowners go to Follow Up Boss as a seller inquiry tagged
+// "Pre-foreclosure"; the buyer guide's version goes as a buyer lead tagged "Foreclosure buyer" (src/lib/lead.mjs).
+import { site } from '../data/site';
+import { HOC } from '../data/foreclosure';
+interface Props { topic: string; buyer?: boolean; id?: string }
+const { topic, buyer = false, id = 'fc' } = Astro.props;
+---
+<section class="section section--dark" id="help" aria-labelledby={`${id}-title`}>
+  <div class="wrap fsplit">
+    <div class="prose">
+      <p class="eyebrow">{buyer ? 'Free, no obligation' : 'Confidential, no cost'}</p>
+      {buyer
+        ? <h2 id={`${id}-title`}>Find a <em>foreclosure or short sale.</em></h2>
+        : <h2 id={`${id}-title`}>Talk through your <em>options, privately.</em></h2>}
+      {buyer
+        ? <p>Tell us what you’re looking for. We’ll watch for short sales and bank-owned homes that fit, explain how each seller’s process works, and set up the inspections an as-is home needs.</p>
+        : <p>Tell us where things stand. A {site.name} agent will call you back to go over what your home is likely worth, whether a regular sale or a short sale makes sense, and the deadlines that matter. What you share stays private. For free foreclosure counseling, you can also call the {HOC.name} at <a href="tel:+18664626466">{HOC.phone}</a>.</p>}
+      <p class="fcall">Prefer to talk? Call <a href={site.phoneHref}>{site.phone}</a>.</p>
+    </div>
+    <form class="form" data-lead={buyer ? 'foreclosure-buyer' : 'foreclosure'}>
+      <input type="hidden" name="topic" value={topic} />
+      <div class="form__row">
+        <div class="field"><label for={`${id}-first`}>First name</label><input id={`${id}-first`} name="firstName" autocomplete="given-name" required /></div>
+        <div class="field"><label for={`${id}-last`}>Last name</label><input id={`${id}-last`} name="lastName" autocomplete="family-name" required /></div>
+      </div>
+      <div class="form__row">
+        <div class="field"><label for={`${id}-email`}>Email</label><input id={`${id}-email`} name="email" type="email" autocomplete="email" required /></div>
+        <div class="field"><label for={`${id}-phone`}>Phone</label><input id={`${id}-phone`} name="phone" type="tel" autocomplete="tel" /></div>
+      </div>
+      {buyer ? (
+        <>
+          <div class="form__row">
+            <div class="field">
+              <label for={`${id}-int`}>Interested in</label>
+              <select id={`${id}-int`} name="interest"><option value="">Any of these</option><option>Short sales</option><option>Bank-owned (REO) homes</option><option>Sheriff’s sales</option></select>
+            </div>
+            <div class="field"><label for={`${id}-price`}>Price range</label><input id={`${id}-price`} name="priceRange" placeholder="e.g. up to $350,000" /></div>
+          </div>
+          <div class="field"><label for={`${id}-area`}>Cities or areas</label><input id={`${id}-area`} name="community" placeholder="e.g. Burnsville, Apple Valley" /></div>
+        </>
+      ) : (
+        <>
+          <div class="field"><label for={`${id}-addr`}>Property address (optional)</label><input id={`${id}-addr`} name="address" autocomplete="street-address" /></div>
+          <div class="field">
+            <label for={`${id}-sit`}>Where things stand</label>
+            <select id={`${id}-sit`} name="situation"><option value="">Choose one</option><option>Worried I’ll fall behind</option><option>Behind on payments</option><option>Received a foreclosure notice</option><option>Sheriff’s sale date is set</option><option>Sheriff’s sale happened (in redemption)</option><option>Considering a short sale</option><option>Helping a family member</option></select>
+          </div>
+          <div class="field"><label for={`${id}-date`}>Sheriff’s sale or deadline date, if you have one (optional)</label><input id={`${id}-date`} name="saleDate" placeholder="e.g. March 12" /></div>
+        </>
+      )}
+      <div class="field"><label for={`${id}-msg`}>Anything else we should know?</label><textarea id={`${id}-msg`} name="message" rows="3"></textarea></div>
+      <button class="btn" type="submit">{buyer ? 'Send me matching homes' : 'Request a confidential call'}</button>
+      <p class="form__status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .fsplit { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 900px) { .fsplit { grid-template-columns: 1fr; } }
+  .fcall { font-size: 1.15rem; }
+  .fsplit a { color: #fff; font-weight: 700; }
+</style>
