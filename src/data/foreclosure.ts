@@ -12,8 +12,10 @@ export type FGuide = DGuide & { audience: 'owner' | 'buyer' };
 export const CHECKED = '2026-10-28';
 const MN = (cite: string) => `https://www.revisor.mn.gov/statutes/cite/${cite}`;
 export const HOC = { name: 'Minnesota Homeownership Center', phone: '866-462-6466', local: '651-659-9336', url: 'https://www.hocmn.org/for-homeowners/foreclosure-prevention/' };
-// Jason Huerkamp, 2026-10-28. The law firm isn't named or ranked until Jason confirms the name and a source.
-export const EXPERIENCE = 'Huerkamp Home Group has handled hundreds of short sales, and we work with a local Minnesota law firm that focuses on short sales.';
+// Jason Huerkamp, 2026-10-28 (hundreds of short sales; the partner firm). The firm's count is its own published
+// figure (mzlawshortsales.com, "Meet the team", checked 2026-10-28); no "most in Minnesota" claim without a source.
+export const LAWFIRM = { name: 'Markve, Zweifel & Heinrich, PLLC', url: 'https://www.mzlawshortsales.com/', closed: 'more than 4,000', since: 2009 };
+export const EXPERIENCE = `Huerkamp Home Group has handled hundreds of short sales, and we work with ${LAWFIRM.name}, a Minnesota law firm whose short sale team has closed ${LAWFIRM.closed} short sales for Minnesota homeowners since ${LAWFIRM.since}.`;
 const NOT_LEGAL = '<p class="fnote">This is general information about Minnesota law, not legal advice. Your notices, your loan and your lender’s rules decide the details; an attorney or a free foreclosure prevention advisor can look at your papers.</p>';
 
 export const fguides: FGuide[] = [
@@ -105,7 +107,7 @@ export const fguides: FGuide[] = [
       { h: '4. Get the deficiency answer in writing', html: `<p>The <strong>deficiency</strong> is the gap between what you owe and what the lender receives. Some approvals forgive it; others reserve the right to collect it or ask you to sign a note. Read the approval letter before you close, and have an attorney review it if the deficiency isn’t clearly waived. (After a Minnesota foreclosure by advertisement with a six-month redemption period, a deficiency judgment isn’t allowed, Minn. Stat. 582.30. A short sale is a negotiated deal, so its terms are what you agree to.)</p>` },
       { h: '5. Short sale vs. foreclosure vs. deed in lieu', html: `<ul><li><strong>Short sale:</strong> you sell; the lender approves the price and the terms for any shortfall.</li><li><strong>Foreclosure:</strong> the home is sold at a sheriff’s sale and you have a redemption period (<a href="/foreclosure/minnesota-foreclosure-process">see the process</a>).</li><li><strong>Deed in lieu:</strong> you sign the home over to the lender.</li></ul><p>The CFPB notes that a regular sale is usually better for your finances and credit than any of the three. Among them, which is best depends on your lender’s terms, your equity, your timeline and your tax situation, so compare them with a free advisor (<a href="tel:+18664626466">${HOC.phone}</a>) before you choose.</p>` },
       { h: '6. Taxes on forgiven debt', html: `<p>Forgiven debt is generally taxable income, and the lender may send you a Form 1099-C. The federal exclusion for forgiven debt on a main home (qualified principal residence indebtedness) applied to debt forgiven <strong>before January 1, 2026</strong>, or under a written agreement made before then; it doesn’t cover new short sales or foreclosures after 2025 (<a href="https://www.irs.gov/publications/p4681" rel="noopener">IRS Publication 4681</a>). Other exclusions can still apply, most often <strong>insolvency</strong> (when your debts were more than your assets right before the debt was forgiven). Talk to a CPA before you agree to the terms.</p>` },
-      { h: '7. Our short sale experience', html: `<p>${EXPERIENCE} We help you prepare the lender package and keep the lender and the buyer moving until closing. Call <a href="${site.phoneHref}">${site.phone}</a> to talk it through privately.</p>${NOT_LEGAL}` },
+      { h: '7. Our short sale experience', html: `<p>${EXPERIENCE} We list and sell the home and keep the buyer on track; the firm’s short sale team handles the lender negotiation and has an attorney review the final approval letter (<a href="${LAWFIRM.url}" rel="noopener">how their process works</a>). Call <a href="${site.phoneHref}">${site.phone}</a> to talk it through privately.</p>${NOT_LEGAL}` },
     ],
     faq: [
       { q: 'What is a short sale?', a: 'A sale where the lender agrees to accept less than the full loan balance so the home can be sold. It needs the lender’s written approval, and any other lien holders have to agree too.' },
@@ -119,6 +121,7 @@ export const fguides: FGuide[] = [
       { name: 'Minn. Stat. 582.30 (deficiency judgments)', url: MN('582.30') },
       { name: 'Minn. Stat. 580.23 (redemption; accepting a lesser sum)', url: MN('580.23') },
       { name: 'Minnesota Homeownership Center', url: HOC.url },
+      { name: `${LAWFIRM.name}, short sale team (firm’s published short sale count)`, url: LAWFIRM.url },
     ],
     posts: ['2023/6/9/what-is-the-difference-between-short-sales-and-foreclosures', '2022/10/27/how-to-find-the-best-agent-for-a-short-sale', '2022/10/27/top-qualities-to-look-for-in-a-short-sales-agent'],
   },
