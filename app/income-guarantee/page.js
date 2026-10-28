@@ -49,6 +49,8 @@ export default function IncomeGuarantee() {
           <li>You follow team policies, brokerage rules, and all applicable legal and ethical standards.</li>
           <li>You sign the program acknowledgment in writing. The guarantee applies only to agents who have signed.</li>
           <li>You can join the program only during your first year on the team.</li>
+          <li><strong>&ldquo;Full-time&rdquo;</strong> means real estate is your primary occupation and your main source of working income, you do not hold other full-time employment, and you are available to meet the weekly activity standards and attend the required meetings.</li>
+          <li><strong>&ldquo;Good standing&rdquo;</strong> means you hold an active real estate license with no suspension or disciplinary action that restricts it, you follow team policies, brokerage rules, and applicable ethical and legal standards, you are not under a written warning or corrective plan for a policy violation, and you are current on any fees or amounts owed to the team or brokerage.</li>
           <li>Referral-only agents, part-time agents, and agents whose role is mainly inside sales or admin and support are not eligible unless we agree otherwise in writing.</li>
         </ul>
 
