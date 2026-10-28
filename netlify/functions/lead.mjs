@@ -12,8 +12,14 @@ const FUB_URL = 'https://api.followupboss.com/v1/events';
 const json = (status, body) =>
   new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json' } });
 
+// Only the site's own pages may post leads (the live domains, Netlify previews, local testing). Browsers always
+// send Origin on a POST, so another website can't push spam into Follow Up Boss through this endpoint.
+const ALLOWED = /^https:\/\/((www\.)?huerkamphomegroup\.com|(www\.)?huerkamphomes\.com|[a-z0-9-]+(--[a-z0-9-]+)?\.netlify\.app)$|^http:\/\/localhost(:\d+)?$/;
+
 export default async (req) => {
   if (req.method !== 'POST') return json(405, { ok: false, error: 'POST only' });
+  const origin = req.headers.get('origin');
+  if (origin && !ALLOWED.test(origin)) return json(403, { ok: false, error: 'Forbidden' });
 
   let input;
   try {

@@ -3,8 +3,8 @@
 //   /api/listings?mls=<number>   one listing
 // Listings show on the site only once MLS_PUBLIC=yes is set in Netlify (after the NorthstarMLS IDX license is
 // approved); until then the lake sections stay hidden.
-// Add &debug=1 with the report passcode (x-report-key header, as the /report page's "Check MLS feed" button sends it,
-// or &key=) to see counts and the MLS's water fields (to check the lakefront filter).
+// Add &debug=1 with the report passcode (x-report-key header, as the /report page's "Check MLS feed" button sends it;
+// never in the address, where it would end up in logs and browser history) to see counts and the MLS's water fields (to check the lakefront filter).
 // The API key lives in Netlify (REPLIERS_API_KEY), never in this repository. Answers are cached for 15 minutes.
 
 import { timingSafeEqual } from 'node:crypto';
@@ -18,7 +18,7 @@ const json = (status, body, cache = true) =>
       'content-type': 'application/json',
       // Good answers: browsers keep them 5 minutes, Netlify 15. Errors are never kept, so a fix shows at once.
       ...(cache && status === 200
-        ? { 'cache-control': 'public, max-age=300', 'netlify-cdn-cache-control': 'public, s-maxage=900, stale-while-revalidate=3600, durable', 'netlify-vary': 'query' }
+        ? { 'cache-control': 'public, max-age=300', 'netlify-cdn-cache-control': 'public, s-maxage=900, stale-while-revalidate=3600, durable', 'netlify-vary': 'query=lake|mls' }
         : { 'cache-control': 'no-store' }),
     },
   });
@@ -61,7 +61,7 @@ export default async (req) => {
   const q = new URL(req.url).searchParams;
   // Debug answers need the report passcode; normal answers need the MLS go-ahead.
   const pass = env('REPORT_KEY');
-  const given = (req.headers.get('x-report-key') ?? q.get('key') ?? '').trim();
+  const given = (req.headers.get('x-report-key') ?? '').trim();
   const debug = q.get('debug') === '1' && !!pass && same(given, pass);
   if (q.get('debug') === '1' && !debug) return json(401, { ok: false, error: 'debug-needs-passcode' }, false);
   if (!debug && env('MLS_PUBLIC').toLowerCase() !== 'yes') return json(200, { ok: false, error: 'not-public-yet' }, false);  // 200, so browsers don't log it as an error

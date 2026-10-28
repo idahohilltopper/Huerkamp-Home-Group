@@ -2,6 +2,10 @@
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=31536000
+  X-Frame-Options: SAMEORIGIN
+  Content-Security-Policy: frame-ancestors 'self'
+  Permissions-Policy: camera=(), microphone=(), payment=(), usb=()
 
 # Built files have a fingerprint in their name, so browsers can keep them for a year.
 /_astro/*
