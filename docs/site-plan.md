@@ -514,6 +514,38 @@ A section for longtime homeowners: people downsizing, retiring, moving to one-le
 - **Secrets** live only in Netlify environment variables; none are in the repository or its history (scanned 2026-10-28). `.env` files are ignored by git.
 - **Packages:** `npm audit` clean after `npm audit fix` (was 12 issues in Vite, undici, Zod and others, mostly build tools).
 - **Headers** (`public/_headers`, mirrored in `vercel.json`): nosniff, Referrer-Policy, Strict-Transport-Security, X-Frame-Options SAMEORIGIN + CSP frame-ancestors 'self' (no one can frame the site), Permissions-Policy (no camera, microphone, payment, USB).
-- **Functions:** /api/lead accepts posts only from the site's own domains, Netlify previews and localhost (others get 403), plus the honeypot and timing spam checks. /api/report and /api/listings debug need the passcode in the x-report-key header (timing-safe compare; never in the address). /api/listings returns nothing before MLS_PUBLIC=yes, and its CDN cache varies only on lake/mls so junk query strings can't run up Repliers calls.
+- **Functions:** /api/search (once on) reads only the build's listing index, never the Repliers key, with validated filters and a CDN cache keyed on the filter names. /api/lead accepts posts only from the site's own domains, Netlify previews and localhost (others get 403), plus the honeypot and timing spam checks. /api/report and /api/listings debug need the passcode in the x-report-key header (timing-safe compare; never in the address). /api/listings returns nothing before MLS_PUBLIC=yes, and its CDN cache varies only on lake/mls so junk query strings can't run up Repliers calls.
 - **Recommendation:** use a long random REPORT_KEY (20+ characters); the passcode is the only lock on /report.
 - **Daily security check** routine re-checks all of this every night (see the routines table).
+
+## Own home search on Repliers, replacing Ylopo (built 2026-10-28, switches on with MLS_PUBLIC)
+
+Jason decided the site should use Repliers (NorthstarMLS) only, not Ylopo. Everything is built; nothing changes on the
+live site until `MLS_PUBLIC` is set to `yes` (or `preview`) in Netlify together with `REPLIERS_API_KEY`, which waits on
+the broker's NorthstarMLS IDX license, the required disclaimer/logo, and Repliers confirming the feed. That one switch
+(`OWN` in `src/data/search.ts`) moves the whole site over:
+
+- **/home-search** (`src/pages/home-search/[...rest].astro`, runtime `src/scripts/home-search.ts`, map `src/scripts/search-map.ts`):
+  filters for place (city, Minneapolis/Saint Paul neighborhood, lake, ZIP from links), price, beds, baths, home type,
+  lakefront, new construction, 1+ acre and the team's own listings; sort; list or map (MapLibre, one dot per home, "Search
+  this map area"); 24 per page. Filters live in the address, so every link opens a ready-made search. Noindex (the
+  homes-for-sale pages are the ones built to rank). Every card shows "Listing courtesy of <brokerage>" and the MLS notice.
+- **/api/search** (`netlify/functions/search.mjs`): answers from the listing index each build writes
+  (`.cache/search-index.json`, bundled via `netlify.toml` included_files; shared rules in `src/lib/search-index.mjs`).
+  No Repliers call and no API key per search; validated input; CDN cache keyed on the filter names only. Serves nothing
+  unless MLS_PUBLIC is yes/preview. Listings refresh with each build (twice a day with BUILD_HOOK_URL).
+- **Every Ylopo link** (`src/data/ylopo.ts`, `lakes.ts`, `neighborhoods.ts`, menus, footer, home page, Buy page search
+  box, blog "Search homes", 404, compare, commute, market and agent pages) returns a /home-search link instead.
+  Old blog posts that link to search.huerkamphomegroup.com are re-pointed at build time (`src/lib/own-search-links.mjs`);
+  their words stay as written.
+- **Every Ylopo widget** (`YlopoListings.astro`) renders the same homes from the feed into the page at build time
+  (`src/data/own-listings.ts`): the team's listings on the home page (brokerage Keller Williams Preferred + an agent on
+  the team roster), newest homes in our markets, community, neighborhood, lake and agent pages. No Ylopo script loads.
+- **New-listing alerts:** the form under every search sends the saved search (its link and a plain summary) to Follow Up
+  Boss as a Property Search tagged "Buyer lead" and "Listing alert". Automatic emails of new matches are not built yet;
+  options are Repliers' saved-search alerts or the team's own email from Follow Up Boss.
+- **Privacy page** names Repliers (listing data and photos) instead of Ylopo search when the switch is on.
+- **Still on Ylopo's side, Jason's call:** search.huerkamphomegroup.com (DNS points at Ylopo) and Ylopo ads/texting.
+  If Ylopo is cancelled, point that subdomain at Netlify and add a redirect to /home-search so old links keep working.
+- **Testing without the MLS:** `MLS_FIXTURE=<sample listings file> npm run build` builds the switched-on site locally
+  (refused on Netlify).

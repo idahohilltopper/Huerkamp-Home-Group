@@ -9,3 +9,7 @@
 
 # The MapTiler key is NOT stored here. Add it in Netlify:
 # Site configuration > Environment variables > PUBLIC_MAPTILER_KEY
+
+# The home search (/api/search) answers from the listing index each build writes (src/lib/search-index.mjs).
+[functions.search]
+  included_files = [".cache/search-index.json"]

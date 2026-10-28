@@ -7,6 +7,7 @@
 // Each page answers first (how many homes, what they cost), then lists the homes, then adds what portals don't:
 // this month's market report, the community guide, lakes, neighborhoods, quick answers and a local agent.
 // No pages are built until MLS_PUBLIC is set in Netlify (after the NorthstarMLS license is approved).
+import { homeSearchHref } from '../../data/search';
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import ListingCard from '../../components/ListingCard.astro';
@@ -67,7 +68,7 @@ const typeFilter: Record<string, string> = { 'single-family-homes': 'house', tow
 if (c?.facet && typeFilter[c.facet.slug]) filters.type = typeFilter[c.facet.slug];
 const bedMatch = c?.facet?.slug.match(/^(\d)-bedroom/); if (bedMatch) filters.beds = Number(bedMatch[1]);
 const hood = area?.kind === 'hood' ? hoods.find((h) => hoodKey(h) === area.key) : undefined;
-const fullSearch = !area ? site.searchUrl : area.kind === 'community' ? communitySearch(area.key, filters) : area.kind === 'hood' && hood ? hoodSearchUrl(hood) : searchUrl({ zips: [area.key] }, filters);
+const fullSearch = !area ? homeSearchHref : area.kind === 'community' ? communitySearch(area.key, filters) : area.kind === 'hood' && hood ? hoodSearchUrl(hood) : searchUrl({ zips: [area.key] }, filters);
 
 const faq = c ? [
   { q: `How many homes are for sale in ${place}${c.facet ? ` (${facetLower})` : ''}?`, a: `${answer} Listings update twice a day from NorthstarMLS.` },

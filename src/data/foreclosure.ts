@@ -6,6 +6,7 @@
 // Reverse mortgages are left out on purpose: the team is a Ramsey Endorsed Local Provider.
 import type { DGuide } from './downsizing';
 import { site } from './site';
+import { homeSearchHref } from './search';
 
 export type FGuide = DGuide & { audience: 'owner' | 'buyer' };
 
@@ -139,7 +140,7 @@ export const fguides: FGuide[] = [
       { h: '2. Bank-owned (REO) homes', html: `<p>When nobody redeems after a sheriff’s sale and the lender owns the home, it usually lists it with an agent. You can tour it, make an offer and use financing. Expect the lender’s own contract addendums and an <strong>as-is</strong> sale: the seller has never lived there, so it typically won’t make repairs or give the usual disclosures. Get a full inspection, and check the utilities, the water and heating systems, and any winterization.</p>` },
       { h: '3. Sheriff’s sales', html: `<p>At a sheriff’s sale the lender bids first, then anyone else may bid. In Hennepin County, a winning outside bidder pays the full bid at the sale, plus a $200 fee, with a cashier’s check or cash, and receives a <strong>sheriff’s certificate of sale</strong> to record (<a href="https://www.hennepinsheriff.org/services/foreclosure-sales/Slide-out-group/foreclosure-sale-process" rel="noopener">Hennepin County Sheriff</a>). Other counties have their own procedures.</p><ul><li>You can’t get a mortgage for the bid, and you usually can’t see inside the home.</li><li>The owner keeps the home during the <strong>redemption period</strong>, usually six months (Minn. Stat. 580.23). If they redeem, you get your money back with interest, not the house.</li><li>Tenants with a lease get at least 90 days’ notice after redemption ends (Minn. Stat. 504B.285).</li></ul><p>Sheriff’s sales are for experienced cash buyers who have checked title with an attorney or title company first.</p>` },
       { h: '4. Title, taxes and liens', html: `<p>Ask a title company to check for unpaid property taxes, assessments, association dues and other liens before you commit. On REO and short sales, title insurance at closing protects you. At a sheriff’s sale, what you get depends on the mortgage being foreclosed and what was recorded ahead of it.</p>` },
-      { h: '5. How we help buyers', html: `<p>We track short sales and bank-owned listings across the Twin Cities, write offers that fit each lender’s process, and set up the inspections that as-is homes need. Start with a <a href="${site.searchUrl}">home search</a> or tell us what you’re looking for below.</p>${NOT_LEGAL}` },
+      { h: '5. How we help buyers', html: `<p>We track short sales and bank-owned listings across the Twin Cities, write offers that fit each lender’s process, and set up the inspections that as-is homes need. Start with a <a href="${homeSearchHref}">home search</a> or tell us what you’re looking for below.</p>${NOT_LEGAL}` },
     ],
     faq: [
       { q: 'Can I get a mortgage to buy a foreclosure in Minnesota?', a: 'For short sales and bank-owned (REO) homes, usually yes, as long as the home meets the loan’s condition rules. At a sheriff’s sale, no: the winning bid is paid in full at the sale (in Hennepin County, by cashier’s check or cash).' },

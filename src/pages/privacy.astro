@@ -2,6 +2,7 @@
 // The website's privacy policy. Describes what this site actually does (src/lib/lead.mjs, netlify/functions/*).
 // The home search at search.huerkamphomegroup.com is run by Ylopo under its own policy.
 // Wording to be reviewed by the team's attorney before launch.
+import { OWN } from '../data/search';
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import { site } from '../data/site';
@@ -12,7 +13,7 @@ const updated = 'October 27, 2026';
   <PageHero eyebrow="Privacy" title="Privacy policy" lede={`Last updated ${updated}. This policy covers huerkamphomegroup.com.`} />
   <section class="section">
     <div class="wrap prose legal">
-      <p>{site.name} is a real estate team with {site.brokerage} at {site.street}, {site.cityStateZip}. This policy explains what we collect on this website and what we do with it. Our home search at <a href={site.searchUrl}>search.huerkamphomegroup.com</a> is run by our search provider, Ylopo, and has <a href={`${site.searchUrl}/privacy-policy`}>its own privacy policy</a>.</p>
+      <p>{site.name} is a real estate team with {site.brokerage} at {site.street}, {site.cityStateZip}. This policy explains what we collect on this website and what we do with it. {OWN ? <>Home listings on this site come from NorthstarMLS through our listing data provider, Repliers; listing photos load from Repliers’ servers.</> : <>Our home search at <a href={site.searchUrl}>search.huerkamphomegroup.com</a> is run by our search provider, Ylopo, and has <a href={`${site.searchUrl}/privacy-policy`}>its own privacy policy</a>.</>}</p>
 
       <h2>What we collect</h2>
       <ul>
@@ -31,7 +32,7 @@ const updated = 'October 27, 2026';
 
       <h2>Who we share it with</h2>
       <ul>
-        <li><strong>Service providers that run our business for us:</strong> Follow Up Boss (our client database), Ylopo (home search and marketing), Fello (home-value tools for sellers), Netlify (website hosting) and Google (analytics and advertising). They may use your information only to provide their service to us.</li>
+        <li><strong>Service providers that run our business for us:</strong> Follow Up Boss (our client database), {OWN ? 'Ylopo (marketing), Repliers (MLS listing data and photos),' : 'Ylopo (home search and marketing),'} Fello (home-value tools for sellers), Netlify (website hosting) and Google (analytics and advertising). They may use your information only to provide their service to us.</li>
         <li><strong>Our brokerage and agents:</strong> {site.brokerage} and the {site.name} agent helping you.</li>
         <li><strong>When required by law,</strong> or to protect our rights or someone's safety.</li>
       </ul>

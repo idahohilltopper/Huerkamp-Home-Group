@@ -4,6 +4,7 @@
 //   /compare/<community>               that community against every community within 15 miles, in one table
 //   /compare/<a>-vs-<b>                two communities side by side
 //   /compare/neighborhoods/<a>-vs-<b>  two neighboring Minneapolis or Saint Paul neighborhoods
+import { homeSearchHref } from '../../data/search';
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import { communities, regions, type Community } from '../../data/areas';
@@ -31,7 +32,7 @@ const homes = await listingsData;
 const homesFor = (key: string, kind: 'community' | 'hood') => {
   const k = homes.collections.find((x) => x.path === key && !x.facet);
   if (k) return homesHref(k.path);
-  if (kind === 'hood') { const h = hoodByKey(key); return h ? hoodSearchUrl(h) : site.searchUrl; }
+  if (kind === 'hood') { const h = hoodByKey(key); return h ? hoodSearchUrl(h) : homeSearchHref; }
   return communitySearch(key);
 };
 const r12 = (slug: string, k: 'medianPrice' | 'daysOnMarket' | 'closedSales') => (marketFor(slug)?.[k]?.r12[1] ?? null);

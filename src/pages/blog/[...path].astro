@@ -1,5 +1,6 @@
 ---
 // One blog post. Addresses match the old Squarespace blog exactly (e.g. /blog/2022/10/27/slug).
+import { homeSearchHref } from '../../data/search';
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import PostCard from '../../components/PostCard.astro';
@@ -120,7 +121,7 @@ const ld = JSON.stringify({
         <p>Talk with a local agent about your plans. There's no cost and no pressure.</p>
         <div class="cta__actions">
           <a class="btn" href="/sell#value">Get your home's value</a>
-          <a class="btn btn--ghost" href={site.searchUrl}>Search homes</a>
+          <a class="btn btn--ghost" href={homeSearchHref}>Search homes</a>
           <a class="btn btn--ghost" href={site.phoneHref}>Call {site.phone}</a>
         </div>
       </div>

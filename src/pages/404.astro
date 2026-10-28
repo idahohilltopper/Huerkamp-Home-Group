@@ -1,5 +1,6 @@
 ---
 // Shown by Netlify for any address that doesn't exist (and isn't redirected). Kept out of search results.
+import { mapSearchHref } from '../data/search';
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import { site } from '../data/site';
@@ -12,7 +13,7 @@ const popular = [['Minneapolis', 'minneapolis'], ['Saint Paul', 'saint-paul'], [
   <section class="section">
     <div class="wrap lost">
       <ul class="lost__links">
-        <li><a href={site.mapSearchUrl} rel="noopener"><strong>Search homes for sale</strong><span>Every MLS listing, on a map</span></a></li>
+        <li><a href={mapSearchHref} rel="noopener"><strong>Search homes for sale</strong><span>Every MLS listing, on a map</span></a></li>
         <li><a href="/communities"><strong>Community guides</strong><span>Homes, schools, commutes and market reports</span></a></li>
         <li><a href="/sell#value"><strong>What's my home worth?</strong><span>A free home value from a local agent</span></a></li>
         <li><a href="/blog"><strong>Blog and local stories</strong><span>Advice for buyers, sellers and homeowners</span></a></li>

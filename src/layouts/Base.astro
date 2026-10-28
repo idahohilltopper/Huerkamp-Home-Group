@@ -3,6 +3,7 @@
 // Layout after markzproperties.com; branding, text and code are Huerkamp Home Group's own.
 // Fonts are self-hosted (no request to Google); the ones used at the top of most pages are preloaded
 // so headings don't jump when the font arrives.
+import { homeSearchHref } from '../data/search';
 import '@fontsource-variable/figtree/wght.css';
 import '@fontsource/cormorant-garamond/latin-400.css';
 import '@fontsource/cormorant-garamond/latin-500.css';
@@ -61,8 +62,8 @@ const menu = [
     ['Edina', '/communities/edina'], ['Lakeville', '/communities/lakeville'], ['Plymouth', '/communities/plymouth'],
     ['Woodbury', '/communities/woodbury'], ['Area guides: compare places', '/guides'], ['Compare two cities', '/compare'], ['Commute times', '/commute'], ['Lake homes', '/lake-homes'],
   ] },
-  { label: 'Homes', href: homesForSale ? '/homes-for-sale' : site.searchUrl, items: [
-    ...(homesForSale ? [['Homes for sale by city', '/homes-for-sale']] : []), ['Search all homes', site.searchUrl], ['Buy a home', '/buy'], ['Lake homes', '/lake-homes'], ['Investment property', '/invest'], ['Market reports', '/market'], ['Housing data', '/data'], ['Affordability calculator', '/calculators/affordability'], ['Rent vs. buy', '/calculators/rent-vs-buy'], ['Foreclosures & short sales', '/foreclosure/buying-foreclosures'],
+  { label: 'Homes', href: homesForSale ? '/homes-for-sale' : homeSearchHref, items: [
+    ...(homesForSale ? [['Homes for sale by city', '/homes-for-sale']] : []), ['Search all homes', homeSearchHref], ['Buy a home', '/buy'], ['Lake homes', '/lake-homes'], ['Investment property', '/invest'], ['Market reports', '/market'], ['Housing data', '/data'], ['Affordability calculator', '/calculators/affordability'], ['Rent vs. buy', '/calculators/rent-vs-buy'], ['Foreclosures & short sales', '/foreclosure/buying-foreclosures'],
   ] },
   { label: 'Sell', href: '/sell', items: [
     ['Sell your home', '/sell'], ['Free home valuation', '/sell#value'], ['Get a cash offer', '/sell#cash'], ['Net proceeds calculator', '/calculators/seller-net-proceeds'], ['What’s required to sell', '/selling-in-minnesota'], ['Downsizing & 55+', '/downsizing'], ['Short sales & foreclosure help', '/foreclosure'],
@@ -79,7 +80,7 @@ const menu = [
 
 const footerCols = [
   { title: 'Communities', links: [['Minneapolis', '/communities/minneapolis'], ['Saint Paul', '/communities/saint-paul'], ['Burnsville', '/communities/burnsville'], ['Lakeville', '/communities/lakeville'], ['Eagan', '/communities/eagan'], ['Apple Valley', '/communities/apple-valley'], ['Edina', '/communities/edina'], ['Area guides', '/guides'], ['Compare cities', '/compare'], ['Commute times', '/commute'], ['All communities', '/communities']] },
-  { title: 'Homes', links: [...(homesForSale ? [['Homes for sale by city', '/homes-for-sale']] : []), ['Search all homes', site.searchUrl], ['Buy a home', '/buy'], ['Lake homes', '/lake-homes'], ['Investment property', '/invest'], ['Market reports', '/market'], ['Housing data', '/data'], ['Calculators', '/calculators']] },
+  { title: 'Homes', links: [...(homesForSale ? [['Homes for sale by city', '/homes-for-sale']] : []), ['Search all homes', homeSearchHref], ['Buy a home', '/buy'], ['Lake homes', '/lake-homes'], ['Investment property', '/invest'], ['Market reports', '/market'], ['Housing data', '/data'], ['Calculators', '/calculators']] },
   { title: 'Sell', links: [['Sell your home', '/sell'], ['Free home valuation', '/sell#value'], ['Get a cash offer', '/sell#cash'], ['Downsizing & 55+', '/downsizing'], ['Selling a parent’s home', '/downsizing/selling-a-parents-home'], ['What’s required to sell', '/selling-in-minnesota'], ['Short sales & foreclosure', '/foreclosure']] },
   { title: 'Company', links: [['Our team', '/team'], ['Ramsey ELP', '/ramsey'], ['Reviews', '/reviews'], ['Videos', '/videos'], ['Blog', '/blog'], ['Contact', '/contact']] },
 ];

@@ -1,10 +1,16 @@
 ---
-// Live MLS listings from the team's Ylopo search (Ylopo's official results widget, same as Mark Z's site).
-// The widget's script loads only when listings scroll near the screen, so pages stay fast.
-// `search` uses Ylopo's search fields: locations, propertyTypes, minPrice, maxPrice, featured ("t" = the team's own listings), limit, sortBy, sortOrder.
+// Live MLS listings. Until the MLS feed is on: the team's Ylopo search (Ylopo's official results widget, same as
+// Mark Z's site), whose script loads only when listings scroll near the screen. Once it's on (src/data/search.ts,
+// OWN): the same homes from the site's own feed, rendered into the page at build time, with no Ylopo code at all.
+// `search` uses Ylopo's search fields: locations, propertyTypes, minPrice, maxPrice, featured ("t" = the team's own
+// listings), amenities, limit; `own` overrides how it's read for the site's own search.
 import { site } from '../data/site';
+import { OWN, ownFromWidget, ownSearchHref, type OwnQuery } from '../data/search';
+import ListingCard from './ListingCard.astro';
+import { mls } from '../data/mls';
 interface Props {
   search: Record<string, unknown>;
+  own?: OwnQuery;
   layout?: 'grid' | 'scroll';
   /** Link to the full results; shown under the cards and if the widget can't load. */
   moreHref: string;
@@ -12,17 +18,34 @@ interface Props {
   /** Set false when the page already has its own "see all" button. */
   showMore?: boolean;
 }
-const { search, layout = 'grid', moreHref, moreLabel, showMore = true } = Astro.props;
+const { search, own, layout = 'grid', moreHref, moreLabel, showMore = true } = Astro.props;
 const domain = new URL(site.searchUrl).host;
 const data = JSON.stringify({ propertyTypes: ['house', 'condo', 'townhouse'], sortBy: 'listDate', sortOrder: 'desc', limit: 12, ...search });
+// The site's own listings (only loaded when the feed is on, so a build without it never touches the feed).
+const q = OWN ? { ...ownFromWidget(search), ...own } : null;
+const homes = q ? (await import('../data/own-listings')).ownListings(q, (q as { limit?: number }).limit ?? 12) : [];
+const ownMore = q ? ownSearchHref({ ...q, limit: undefined } as OwnQuery) : moreHref;
 ---
+{OWN ? (
+  <>
+    {homes.length
+      ? <ul class:list={['lcards', 'lcards--own', layout === 'scroll' && 'lcards--scroll']}>{homes.map((l) => <ListingCard l={l} />)}</ul>
+      : <p class="olist__none">No homes match this search right now. New listings are added twice a day.</p>}
+    {showMore && <p class="ylopo__more"><a class="link-arrow" href={ownMore}>{moreLabel}</a></p>}
+    {homes.length > 0 && <p class="olist__notice">{mls.notice}</p>}
+  </>
+) : (
+<>
 <div class:list={['ylopo', `ylopo--${layout}`]} data-ylopo={domain}>
   <div class="YLOPO_resultsWidget" data-search={data}></div>
   <p class="ylopo__loading" aria-hidden="true">Loading listings…</p>
 </div>
 {showMore && <p class="ylopo__more"><a class="link-arrow" href={moreHref} rel="noopener">{moreLabel}</a></p>}
+</>
+)}
 
 <script>
+  // (Does nothing on pages without a Ylopo box, e.g. once the site's own listings replace the widget.)
   // One loader for every widget on the page: add Ylopo's script the first time listings come near view.
   const boxes = document.querySelectorAll<HTMLElement>('[data-ylopo]');
   let loaded = false;
@@ -47,6 +70,12 @@ const data = JSON.stringify({ propertyTypes: ['house', 'condo', 'townhouse'], so
 </script>
 
 <style is:global>
+  /* The site's own listings (feed on) */
+  .lcards--scroll { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: .75rem; }
+  .lcards--scroll > li { flex: 0 0 min(85%, 19rem); scroll-snap-align: start; }
+  @media (max-width: 700px) { .lcards--own { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: .75rem; } .lcards--own > li { flex: 0 0 85%; scroll-snap-align: start; } }
+  .olist__none { padding: 2rem 0; color: var(--text-soft); }
+  .olist__notice { margin-top: 1rem; font-size: .72rem; color: var(--text-soft); }
   /* Ylopo widget, restyled to match the site */
   .ylopo { position: relative; min-height: 22rem; }
   .ylopo.is-ready { min-height: 0; }

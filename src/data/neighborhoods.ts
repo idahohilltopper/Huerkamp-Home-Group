@@ -4,6 +4,7 @@ import data from './neighborhoods.json';
 import ylopoHoods from './ylopo-neighborhoods.json';
 import shapesUrl from './geo/neighborhoods.geojson?url';
 import { site } from './site';
+import { OWN, ownSearchHref } from './search';
 
 export type Hood = (typeof data.neighborhoods)[number] & { community?: string; district?: number; councilName?: string };
 export const hoods: Hood[] = data.neighborhoods as Hood[];
@@ -20,6 +21,7 @@ export const hoodGroup = (h: Hood) => (h.community ? `${h.community} community` 
 
 /** Homes for sale: Ylopo's own neighborhood when it has one, otherwise the map around the neighborhood. */
 export function hoodSearchUrl(h: Hood) {
+  if (OWN) return ownSearchHref({ places: [`hood:${hoodKey(h)}`] });
   const city = CITY_NAME[h.city];
   const base = `${site.searchUrl}/search`;
   const name = (ylopoHoods as Record<string, string>)[hoodKey(h)];

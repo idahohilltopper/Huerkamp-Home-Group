@@ -1,6 +1,7 @@
 ---
 // Home page, laid out after markzproperties.com with Huerkamp Home Group's own facts.
 // Every number here has a source; homes-sold and sales-volume cards wait on Jason's figures.
+import { homeSearchHref, mapSearchHref } from '../data/search';
 import Base from '../layouts/Base.astro';
 import AreaMap from '../components/AreaMap.astro';
 import TeamPhoto from '../components/TeamPhoto.astro';
@@ -83,7 +84,7 @@ const ld = JSON.stringify({
         <div class="hero__ctas">
           <a class="btn" href="/sell#value">Get Your Home's Value</a>
           <a class="btn" href="/sell">Sell Your Home</a>
-          <a class="btn" href={site.mapSearchUrl} rel="noopener">Find a Home</a>
+          <a class="btn" href={mapSearchHref} rel="noopener">Find a Home</a>
         </div>
         <dl class="hero__stats">
           <div><dt>{google.count} Google reviews</dt><dd><span class="star" aria-hidden="true">★</span> {google.rating.toFixed(1)} / 5</dd></div>
@@ -157,7 +158,7 @@ const ld = JSON.stringify({
         <p>Our team's current listings, live from the MLS.</p>
       </div>
       <YlopoListings layout="scroll" search={{ featured: 't', limit: 24 }}
-        moreHref={`${site.searchUrl}/search?s[featured]=t`} moreLabel="See every team listing" />
+        moreHref={`${site.searchUrl}/search?s[featured]=t`} moreLabel="See every team listing" own={{ team: true }} />
     </div>
   </section>
 
@@ -188,7 +189,7 @@ const ld = JSON.stringify({
       </div>
       <YlopoListings search={marketSearch}
         moreHref={searchUrl(marketPlaces)} moreLabel="Search all Twin Cities homes" />
-      <a class="search-cta" href={site.searchUrl} rel="noopener">
+      <a class="search-cta" href={homeSearchHref} rel="noopener">
         <span>City, neighborhood, ZIP or address</span>
         <strong>Search homes →</strong>
       </a>

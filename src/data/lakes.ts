@@ -5,6 +5,7 @@ import shapesUrl from './geo/lake-list.geojson?url';
 import { communities } from './areas';
 import { ylopoPlace } from './ylopo';
 import { site } from './site';
+import { OWN, ownSearchHref } from './search';
 
 export type Lake = (typeof data.lakes)[number];
 export const lakes: Lake[] = data.lakes;
@@ -23,6 +24,7 @@ const base = `${site.searchUrl}/search/map?s[orderBy]=sourceCreationDate%2Cdesc&
 /** Lakefront homes for sale on the map around one lake (about 400 m of margin). Ylopo needs a city as well as
  *  the map box (phones get stuck without one), so the lake's main shoreline city is named too. */
 export function lakeSearchUrl(l: Lake) {
+  if (OWN) return ownSearchHref({ places: [`lake:${l.slug}`] });
   const city = lakeCommunities(l).map((c) => ylopoPlace(c.slug).city).find(Boolean) ?? 'Minneapolis';
   const pad = 0.004;
   const [w, s, e, n] = l.bbox;
@@ -39,6 +41,7 @@ export const lakeCommunitySlugs: string[] = (() => {
 
 /** Every lakefront home for sale in every lake community (a list search: a map this large stalls on phones). */
 export function allLakefrontUrl() {
+  if (OWN) return ownSearchHref({ lakefront: true });
   const cities = [...new Set(lakeCommunitySlugs.map((s) => ylopoPlace(s).city).filter(Boolean))] as string[];
   const locs = cities.map((c, i) => `s[locations][${i}][city]=${encodeURIComponent(c)}&s[locations][${i}][state]=MN`).join('&');
   return `${site.searchUrl}/search?s[orderBy]=sourceCreationDate%2Cdesc&s[page]=1&${locs}&s[amenities][0]=${LAKEFRONT}`;

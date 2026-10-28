@@ -1,0 +1,170 @@
+---
+// /home-search: the site's own home search, on the MLS feed (Repliers / NorthstarMLS). Built only once the feed is on
+// (src/data/search.ts, OWN); until then every search link still goes to Ylopo. Filters live in the address
+// (?place=burnsville&max=400000&beds=3 ...), so every link on the site can open a ready-made search. The first page of
+// newest homes is in the HTML; everything after that comes from /api/search (netlify/functions/search.mjs).
+// Kept out of search engines: the homes-for-sale pages are the ones built to rank.
+import Base from '../../layouts/Base.astro';
+import ListingCard from '../../components/ListingCard.astro';
+import { OWN, SEARCH_PATH } from '../../data/search';
+import { site } from '../../data/site';
+import { mls } from '../../data/mls';
+import { communities } from '../../data/areas';
+import { hoods, hoodKey, CITY_NAME } from '../../data/neighborhoods';
+import { lakes } from '../../data/lakes';
+import { TYPE_LABEL, homesHref, type Listing } from '../../data/listings';
+import { SORTS, TYPES, PAGE_SIZE } from '../../lib/search-index.mjs';
+
+export function getStaticPaths() {
+  return OWN ? [{ params: { rest: undefined } }] : [];
+}
+
+const { ownIndex, ownListings, ownCount, feedAt } = await import('../../data/own-listings');
+const first = ownListings({}, PAGE_SIZE) as Listing[];
+const total = ownIndex.rows.length;
+const count = (place: string) => ownCount({ places: [place] });
+const groups = [
+  { label: 'Cities', items: communities.map((c) => ({ v: c.slug, label: c.name, n: count(c.slug) })) },
+  { label: 'Minneapolis neighborhoods', items: hoods.filter((h) => h.city === 'minneapolis').map((h) => ({ v: `hood:${hoodKey(h)}`, label: h.name, n: count(`hood:${hoodKey(h)}`) })) },
+  { label: 'Saint Paul neighborhoods', items: hoods.filter((h) => h.city === 'saint-paul').map((h) => ({ v: `hood:${hoodKey(h)}`, label: h.name, n: count(`hood:${hoodKey(h)}`) })) },
+  { label: 'Lakes (lakefront homes)', items: lakes.map((l) => ({ v: `lake:${l.slug}`, label: l.name, n: count(`lake:${l.slug}`) })) },
+].map((g) => ({ ...g, items: g.items.filter((i) => i.n > 0).sort((a, b) => a.label.localeCompare(b.label)) })).filter((g) => g.items.length);
+const prices = [100000, 150000, 200000, 250000, 300000, 350000, 400000, 450000, 500000, 600000, 700000, 800000, 900000, 1000000, 1250000, 1500000, 2000000, 3000000, 5000000];
+const money = (n: number) => (n >= 1e6 ? `$${(n / 1e6).toString().replace(/\.0+$/, '')}M` : `$${n / 1000}K`);
+const updated = feedAt ? new Date(feedAt).toLocaleString('en-US', { month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/Chicago' }) : '';
+const key = import.meta.env.PUBLIC_MAPTILER_KEY ?? '';
+const mapStyle = key ? `https://api.maptiler.com/maps/dataviz-light/style.json?key=${key}` : 'https://tiles.openfreemap.org/styles/positron';
+const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, i.label])));
+---
+<Base breadcrumbs={[{ name: 'Home search', href: SEARCH_PATH }]} noindex
+  title={`Search Homes for Sale in the Twin Cities | ${site.name}`}
+  description="Search every home for sale in the Twin Cities communities we serve, by city, neighborhood, lake, price, bedrooms and home type, on a list or a map. Listings from NorthstarMLS.">
+  <section class="hs-top">
+    <div class="wrap">
+      <h1>Homes for sale</h1>
+      <form class="hs-filters" data-search action={SEARCH_PATH} method="get" role="search">
+        <div class="hs-f hs-f--place">
+          <label for="hs-place">Where</label>
+          <select id="hs-place" name="place">
+            <option value="">All {communities.length} communities</option>
+            {groups.map((g) => <optgroup label={g.label}>{g.items.map((i) => <option value={i.v}>{i.label} ({i.n})</option>)}</optgroup>)}
+          </select>
+        </div>
+        <div class="hs-f"><label for="hs-min">Min price</label><select id="hs-min" name="min"><option value="">No min</option>{prices.map((p) => <option value={p}>{money(p)}</option>)}</select></div>
+        <div class="hs-f"><label for="hs-max">Max price</label><select id="hs-max" name="max"><option value="">No max</option>{prices.map((p) => <option value={p}>{money(p)}</option>)}</select></div>
+        <div class="hs-f"><label for="hs-beds">Beds</label><select id="hs-beds" name="beds"><option value="">Any</option>{[1, 2, 3, 4, 5].map((n) => <option value={n}>{n}+</option>)}</select></div>
+        <div class="hs-f"><label for="hs-baths">Baths</label><select id="hs-baths" name="baths"><option value="">Any</option>{[1, 2, 3, 4].map((n) => <option value={n}>{n}+</option>)}</select></div>
+        <div class="hs-f"><label for="hs-type">Home type</label><select id="hs-type" name="type"><option value="">All types</option>{TYPES.map((t) => <option value={t}>{TYPE_LABEL[t]?.replace(/^./, (c) => c.toUpperCase()) ?? t}</option>)}</select></div>
+        <div class="hs-f"><label for="hs-sort">Sort</label><select id="hs-sort" name="sort">{Object.entries(SORTS).map(([v, l]) => <option value={v}>{l}</option>)}</select></div>
+        <fieldset class="hs-checks"><legend class="visually-hidden">More filters</legend>
+          <label><input type="checkbox" name="lakefront" value="1" /> Lakefront</label>
+          <label><input type="checkbox" name="new" value="1" /> New construction</label>
+          <label><input type="checkbox" name="acres" value="1" /> 1+ acre</label>
+          <label><input type="checkbox" name="team" value="1" /> Our team’s listings</label>
+        </fieldset>
+        <input type="hidden" name="bbox" value="" />
+        <input type="hidden" name="page" value="" />
+        <noscript><button class="btn" type="submit">Search</button></noscript>
+      </form>
+    </div>
+  </section>
+
+  <section class="hs-body" data-hs data-map-style={mapStyle} data-types={JSON.stringify(TYPE_LABEL)} data-names={JSON.stringify(names)}>
+    <div class="wrap hs-bar">
+      <p class="hs-count" aria-live="polite" data-count>{total.toLocaleString('en-US')} homes for sale</p>
+      <div class="hs-tools">
+        <button class="hs-area" type="button" data-area hidden>Search this map area</button>
+        <button class="hs-area" type="button" data-clear-area hidden>Clear map area</button>
+        <div class="hs-view" role="group" aria-label="View">
+          <button type="button" data-view="list" aria-pressed="true">List</button>
+          <button type="button" data-view="map" aria-pressed="false">Map</button>
+        </div>
+      </div>
+    </div>
+    <div class="wrap hs-main">
+      <div class="hs-list">
+        <ul class="lcards" data-results>{first.map((l, i) => <ListingCard l={l} eager={i < 3} />)}</ul>
+        <p class="hs-empty" data-empty hidden>No homes match these filters. Try a wider price range or another place, or <a href="#alerts">ask us to watch for one</a>.</p>
+        <p class="hs-error" data-error hidden>Search is temporarily unavailable. Browse <a href={homesHref()}>homes for sale by city</a> or call <a href={site.phoneHref}>{site.phone}</a>.</p>
+        <nav class="hs-pages" aria-label="Results pages" data-pages>
+          <button type="button" data-prev disabled>← Previous</button>
+          <span data-pageinfo>Page 1 of {Math.max(1, Math.ceil(total / PAGE_SIZE))}</span>
+          <button type="button" data-next disabled={total <= PAGE_SIZE}>Next →</button>
+        </nav>
+        <p class="hs-notice">{mls.notice}{updated && ` Listings updated ${updated} (Central).`}</p>
+      </div>
+      <div class="hs-map" data-mapbox hidden><div class="hs-map__canvas" data-map></div></div>
+    </div>
+  </section>
+
+  <section class="section section--dark" id="alerts" aria-labelledby="alerts-title">
+    <div class="wrap hs-alert">
+      <div class="prose">
+        <p class="eyebrow">Never miss a listing</p>
+        <h2 id="alerts-title">Get new homes <em>like these.</em></h2>
+        <p>We’ll save this search and let you know when a new home matches, often before the weekend rush. A {site.name} agent can also set up showings and answer questions about any home.</p>
+        <p class="hs-alert__search" data-alert-summary>Your search: all homes for sale</p>
+      </div>
+      <form class="form" data-lead="community-alert">
+        <input type="hidden" name="savedSearch" value="" data-saved-search />
+        <div class="form__row">
+          <div class="field"><label for="al-first">First name</label><input id="al-first" name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for="al-last">Last name</label><input id="al-last" name="lastName" autocomplete="family-name" required /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="al-email">Email</label><input id="al-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="al-phone">Phone</label><input id="al-phone" name="phone" type="tel" autocomplete="tel" /></div>
+        </div>
+        <div class="field"><label for="al-msg">Anything else? (optional)</label><textarea id="al-msg" name="message" rows="2"></textarea></div>
+        <button class="btn" type="submit">Send me new listings</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import { initSearch } from '../../scripts/home-search';
+  const root = document.querySelector<HTMLElement>('[data-hs]');
+  if (root) initSearch(root);
+</script>
+
+<style>
+  .hs-top { padding: 1.5rem 0 1rem; border-bottom: 1px solid var(--line); background: var(--paper); }
+  .hs-top h1 { margin: 0 0 1rem; font: 500 clamp(1.8rem, 3.5vw, 2.4rem)/1.1 var(--serif); }
+  .hs-filters { display: grid; grid-template-columns: 2fr repeat(6, minmax(0, 1fr)); gap: .6rem; align-items: end; }
+  @media (max-width: 1100px) { .hs-filters { grid-template-columns: repeat(4, minmax(0, 1fr)); } .hs-f--place { grid-column: 1 / -1; } }
+  @media (max-width: 560px) { .hs-filters { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .hs-f { display: grid; gap: .25rem; min-width: 0; }
+  .hs-f label { font: 700 .7rem/1 var(--ui); letter-spacing: .08em; text-transform: uppercase; color: var(--text-soft); }
+  .hs-f select { width: 100%; padding: .6rem .5rem; border: 1px solid var(--line); background: #fff; font: 500 .95rem/1.2 var(--ui); color: var(--text); }
+  .hs-checks { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; border: 0; margin: .25rem 0 0; padding: 0; font: 500 .92rem/1.2 var(--ui); }
+  .hs-checks label { display: inline-flex; gap: .4rem; align-items: center; cursor: pointer; }
+  .hs-body { padding: 1.25rem 0 3rem; }
+  .hs-bar { display: flex; flex-wrap: wrap; gap: .75rem; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+  .hs-count { margin: 0; font: 600 1.05rem/1.2 var(--ui); }
+  .hs-tools { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
+  .hs-area { padding: .5rem .8rem; border: 1px solid var(--crimson); background: #fff; color: var(--crimson); font: 600 .85rem/1 var(--ui); cursor: pointer; }
+  .hs-view { display: inline-flex; border: 1px solid var(--line); }
+  .hs-view button { padding: .5rem .9rem; border: 0; background: #fff; font: 600 .85rem/1 var(--ui); cursor: pointer; color: var(--text); }
+  .hs-view button[aria-pressed='true'] { background: var(--ink, #151213); color: #fff; }
+  .hs-main.is-map { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 1.25rem; align-items: start; }
+  .hs-main.is-map .hs-list .lcards { grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); }
+  .hs-map { position: sticky; top: 5.5rem; height: calc(100vh - 7rem); min-height: 420px; border: 1px solid var(--line); }
+  .hs-map__canvas { position: absolute; inset: 0; }
+  @media (max-width: 900px) {
+    .hs-main.is-map { display: block; }
+    .hs-main.is-map .hs-list { display: none; }
+    .hs-map { position: relative; top: 0; height: 70vh; }
+  }
+  .hs-empty, .hs-error { padding: 2rem 0; font-size: 1.05rem; }
+  .hs-pages { display: flex; gap: 1rem; align-items: center; justify-content: center; margin: 2rem 0 1rem; font: 600 .95rem/1 var(--ui); }
+  .hs-pages button { padding: .6rem 1rem; border: 1px solid var(--line); background: #fff; font: inherit; cursor: pointer; color: var(--text); }
+  .hs-pages button:disabled { opacity: .4; cursor: default; }
+  .hs-notice { font-size: .72rem; color: var(--text-soft); }
+  .hs-alert { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 900px) { .hs-alert { grid-template-columns: 1fr; } }
+  .hs-alert__search { font-weight: 600; }
+  .lcards.is-loading { opacity: .45; transition: opacity .15s; }
+  :global(.hs-pop a) { font: 600 .9rem/1.3 var(--ui); color: var(--text); }
+</style>

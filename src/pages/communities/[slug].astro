@@ -2,6 +2,7 @@
 // Community page, modeled section by section on nevadarealestategroup.com's city pages.
 // Every figure comes from src/data (Census, TIGER, OSRM). Listings open in the team's
 // Ylopo home search (src/data/ylopo.ts).
+import { OWN } from '../../data/search';
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import TeamPhoto from '../../components/TeamPhoto.astro';
@@ -236,7 +237,7 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
           <ul class="chips">{browse.map((b) => <li><a class="chip" href={b.href}>{b.label}</a></li>)}</ul>
         </>
       )}
-      <p class="source">Listings from NorthstarMLS through our home search at search.huerkamphomegroup.com.</p>
+      <p class="source">{OWN ? 'Listings from NorthstarMLS, updated twice a day.' : 'Listings from NorthstarMLS through our home search at search.huerkamphomegroup.com.'}</p>
     </div>
   </section>
 

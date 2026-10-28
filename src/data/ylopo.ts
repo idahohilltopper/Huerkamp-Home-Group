@@ -1,8 +1,10 @@
-// Links into the team's Ylopo home search (search.huerkamphomegroup.com), the IDX for now.
-// Parameter names were read from the search site's own URLs (2026-10-24); if Ylopo changes them,
+// Links into the team's Ylopo home search (search.huerkamphomegroup.com), the IDX until the MLS feed is on.
+// Once it is (src/data/search.ts, OWN), the same functions return links into the site's own search instead.
+// Ylopo parameter names were read from the search site's own URLs (2026-10-24); if Ylopo changes them,
 // this is the only file to update.
 import { site } from './site';
 import data from './ylopo-cities.json';
+import { OWN, ownSearchHref, ownTypeFromYlopo } from './search';
 
 type Where = { city?: string; zips?: string[] };
 export interface SearchFilters {
@@ -18,7 +20,17 @@ const places = data.communities as Record<string, Where>;
 export const ylopoPlace = (slug: string): Where => places[slug] ?? {};
 
 /** Search URL for one or more places, newest listings first. */
-export function searchUrl(where: Where | Where[], f: SearchFilters = {}) {
+export function searchUrl(where: Where | Where[], f: SearchFilters = {}, slugs?: string[]) {
+  if (OWN) {
+    // Each place by its community slug (the pages pass ylopoPlace(slug), so look the object up), else its ZIP codes.
+    const ws = Array.isArray(where) ? where : [where];
+    const own = slugs ?? ws.flatMap((w) => {
+      const slug = Object.entries(places).find(([, p]) => p === w)?.[0];
+      return slug ? [slug] : (w.zips ?? []).map((z) => `zip:${z}`);
+    });
+    const t = ownTypeFromYlopo(f.type);
+    return ownSearchHref({ places: [...new Set(own)], min: f.minPrice, max: f.maxPrice, beds: f.beds, types: t ? [t] : undefined });
+  }
   const all = (Array.isArray(where) ? where : [where]).flatMap((w): Record<string, string>[] =>
     w.city ? [{ city: w.city, state: 'MN' }] : (w.zips ?? []).map((z) => ({ postalCode: z })));
   const locs = all.filter((l, i) => all.findIndex((m) => JSON.stringify(m) === JSON.stringify(l)) === i);
@@ -33,4 +45,4 @@ export function searchUrl(where: Where | Where[], f: SearchFilters = {}) {
 }
 
 /** Shortcut: search one community by slug. */
-export const communitySearch = (slug: string, f: SearchFilters = {}) => searchUrl(ylopoPlace(slug), f);
+export const communitySearch = (slug: string, f: SearchFilters = {}) => searchUrl(ylopoPlace(slug), f, [slug]);
