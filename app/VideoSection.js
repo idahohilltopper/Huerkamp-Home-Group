@@ -8,7 +8,6 @@ export default function VideoSection() {
           src="https://player.vimeo.com/video/1223807819?h=08c015b9bb&title=0&byline=0&portrait=0&dnt=1"
           title="Huerkamp Home Group recruiting video"
           allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
-          allowFullScreen
           loading="lazy"
         />
       </div>

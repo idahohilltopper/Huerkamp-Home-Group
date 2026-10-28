@@ -1,7 +1,7 @@
 :root { --ink:#0a0a0b; --red:#d40000; --red-d:#a80000; --char:#3d3f42; --alt:#ffffff; --line:#d9dadd; }
 * { box-sizing:border-box; }
 html { scroll-behavior:smooth; }
-body { margin:0; font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,sans-serif; color:var(--ink); background:#fff; line-height:1.55; }
+body { margin:0; font-family:var(--font-poppins),Poppins,system-ui,-apple-system,Segoe UI,Roboto,sans-serif; color:var(--ink); background:#fff; line-height:1.55; }
 h1,h2,h3 { line-height:1.15; margin:0 0 .6rem; }
 h2 { font-size:clamp(1.7rem,3.5vw,2.4rem); }
 a { color:inherit; }
