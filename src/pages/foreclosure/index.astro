@@ -5,7 +5,7 @@ import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import PostCard from '../../components/PostCard.astro';
 import ForeclosureForm from '../../components/ForeclosureForm.astro';
-import { fguides, fguideHref, HOC } from '../../data/foreclosure';
+import { fguides, fguideHref, HOC, EXPERIENCE } from '../../data/foreclosure';
 import { getPosts } from '../../data/blog';
 import reviews from '../../data/reviews.json';
 import { site } from '../../data/site';
@@ -19,6 +19,7 @@ const faq = [
   { q: 'What should I do first if I can’t make my mortgage payment?', a: `Call your loan servicer to ask about options, and call a free foreclosure prevention advisor at the ${HOC.name} (${HOC.phone}). Under federal rules a servicer generally can’t start foreclosure until you’re more than 120 days behind, so acting early gives you the most choices.` },
   { q: 'What is the difference between a short sale and a foreclosure?', a: 'In a short sale you sell the home yourself, for less than you owe, with your lender’s approval. In a foreclosure the lender has the home sold at a sheriff’s sale; in Minnesota you usually then have six months to redeem or sell before you must move out.' },
   { q: 'Can I still sell my house if it’s in foreclosure?', a: 'Usually, yes: before the sheriff’s sale, and in most Minnesota foreclosures during the redemption period after it. If the home is worth more than you owe, selling lets you keep the difference.' },
+  { q: 'Have you done short sales before?', a: EXPERIENCE },
   { q: 'Does it cost anything to talk with you?', a: 'No. A confidential call and a home value are free, with no obligation.' },
 ];
 const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
@@ -38,7 +39,7 @@ const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage'
         <h2>Free help, right now</h2>
         <p>The <a href={HOC.url} rel="noopener">{HOC.name}</a> connects Minnesota homeowners with free, nonprofit foreclosure prevention advisors: <a href="tel:+18664626466"><strong>{HOC.phone}</strong></a> (toll free) or {HOC.local}. Never pay an upfront fee to anyone who promises to stop a foreclosure; Minnesota law doesn’t allow it.</p>
       </div>
-      <p class="dcall">Want to know what your home would sell for? Call <a href={site.phoneHref}>{site.phone}</a> or <a href="#help">request a confidential call</a>. Rated {g.rating.toFixed(1)} stars across {g.count} Google reviews.</p>
+      <p class="dcall">{EXPERIENCE} Want to know what your home would sell for? Call <a href={site.phoneHref}>{site.phone}</a> or <a href="#help">request a confidential call</a>. Rated {g.rating.toFixed(1)} stars across {g.count} Google reviews.</p>
     </div>
   </section>
 
