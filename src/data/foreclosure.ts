@@ -12,7 +12,7 @@ export type FGuide = DGuide & { audience: 'owner' | 'buyer' };
 export const CHECKED = '2026-10-28';
 const MN = (cite: string) => `https://www.revisor.mn.gov/statutes/cite/${cite}`;
 export const HOC = { name: 'Minnesota Homeownership Center', phone: '866-462-6466', local: '651-659-9336', url: 'https://www.hocmn.org/for-homeowners/foreclosure-prevention/' };
-// Jason Huerkamp, 2026-10-28 (hundreds of short sales; the partner firm). The firm's count is its own published
+// Jason Huerkamp, 2026-10-28 (hundreds of short sales; the partner firm, which agreed to be named). The firm's count is its own published
 // figure (mzlawshortsales.com, "Meet the team", checked 2026-10-28); no "most in Minnesota" claim without a source.
 export const LAWFIRM = { name: 'Markve, Zweifel & Heinrich, PLLC', url: 'https://www.mzlawshortsales.com/', closed: 'more than 4,000', since: 2009 };
 export const EXPERIENCE = `Huerkamp Home Group has handled hundreds of short sales, and we work with ${LAWFIRM.name}, a Minnesota law firm whose short sale team has closed ${LAWFIRM.closed} short sales for Minnesota homeowners since ${LAWFIRM.since}.`;
