@@ -7,7 +7,7 @@ import { join } from 'node:path';
 import { INDEX_FILE, parseQuery, search } from '../../src/lib/search-index.mjs';
 
 const env = (k) => (globalThis.Netlify?.env?.get(k) ?? process.env[k] ?? '').trim();
-const VARY = 'query=place|min|max|beds|baths|type|lakefront|new|acres|team|sort|bbox|page';
+const VARY = 'query=place|min|max|beds|baths|type|lakefront|new|acres|team|sort|bbox|page,header=x-idx-eula';
 const json = (status, body, cache = false) => new Response(JSON.stringify(body), {
   status,
   headers: {
@@ -32,6 +32,8 @@ export default async (req) => {
   if (req.method !== 'GET') return json(405, { ok: false, error: 'GET only' });
   const mode = env('MLS_PUBLIC').toLowerCase();
   if (!['yes', 'preview'].includes(mode)) return json(200, { ok: false, error: 'not-public-yet' });
+  // NorthstarMLS EULA: listings only after the visitor clicked I AGREE this visit (the page sends this header then).
+  if (req.headers.get('x-idx-eula') !== 'agreed') return json(403, { ok: false, error: 'license-not-agreed' });
   const idx = load();
   if (!idx?.rows?.length) return json(503, { ok: false, error: 'no-index' });
   const q = parseQuery(new URL(req.url).searchParams);

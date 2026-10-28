@@ -9,7 +9,9 @@ import { listingsData, homesHref, listingHref, stats, money, TYPE_LABEL, FACETS,
 import { communities } from '../../data/areas';
 import { hoodByKey, hoodHref, CITY_NAME } from '../../data/neighborhoods';
 import { hasMarket, marketFor, latest, monthLabel, money as mMoney, count, signed } from '../../data/market';
-import { mls } from '../../data/mls';
+import { CONTINGENCIES, EULA_PATH, isOwnBrokerage } from '../../data/mls';
+import { BR_LOGO } from '../../data/mls-logos';
+import IdxDisclosure from '../../components/IdxDisclosure.astro';
 import { origin } from '../../data/schema';
 import { site } from '../../data/site';
 
@@ -26,7 +28,7 @@ const day = (d: string | null) => (d ? new Date(`${d}T12:00:00`).toLocaleDateStr
 
 const community = communities.find((c) => c.slug === l.community)!;
 const hood = l.hood ? hoodByKey(l.hood) : undefined;
-const where = `${l.street}, ${l.city}, MN ${l.zip}`;
+const where = l.addressHidden ? `Home for sale in ${l.city}, MN ${l.zip}` : `${l.street}, ${l.city}, MN ${l.zip}`;
 const typeLabel = TYPE_LABEL[l.type] ?? 'home';
 const typeOne = typeLabel.replace(/s$/, '').replace(/^land and lot$/, 'lot');
 const ppsf = l.sqft && l.type !== 'land' ? Math.round(l.price / l.sqft) : null;
@@ -68,7 +70,6 @@ const facts: [string, string | null][] = [
   ['Bedrooms', l.beds ? String(l.beds) : null],
   ['Bathrooms', l.baths ? String(l.baths) : null],
   ['Finished sq ft', l.sqft ? l.sqft.toLocaleString('en-US') : null],
-  ['Price per sq ft', ppsf ? money(ppsf) : null],
   ['Lot', l.lotAcres ? `${l.lotAcres} acres` : null],
   ['Garage', l.garage ? `${l.garage} stalls` : null],
   ['Basement', l.basement || null],
@@ -89,8 +90,8 @@ const ld = JSON.stringify({
   offers: { '@type': 'Offer', price: l.price, priceCurrency: 'USD', availability: 'https://schema.org/InStock', seller: { '@type': 'RealEstateAgent', name: l.brokerage || undefined } },
   about: {
     '@type': schemaType, name: where,
-    address: { '@type': 'PostalAddress', streetAddress: l.street, addressLocality: l.city, addressRegion: 'MN', postalCode: l.zip, addressCountry: 'US' },
-    geo: { '@type': 'GeoCoordinates', latitude: l.lat, longitude: l.lng },
+    address: { '@type': 'PostalAddress', ...(!l.addressHidden && { streetAddress: l.street }), addressLocality: l.city, addressRegion: 'MN', postalCode: l.zip, addressCountry: 'US' },
+    ...(!l.addressHidden && { geo: { '@type': 'GeoCoordinates', latitude: l.lat, longitude: l.lng } }),
     ...(l.beds && { numberOfBedrooms: l.beds }), ...(l.baths && { numberOfBathroomsTotal: l.baths }),
     ...(l.sqft && { floorSize: { '@type': 'QuantitativeValue', value: l.sqft, unitCode: 'FTK' } }),
     ...(l.yearBuilt && { yearBuilt: l.yearBuilt }),
@@ -100,71 +101,79 @@ const ld = JSON.stringify({
 const title = `${where} | ${money(l.price)}${l.beds ? ` | ${l.beds} bd` : ''}`;
 const description = `${answer} ${specs.join(', ')}. Photos, details and local market facts from ${site.name}.`;
 const crumbs = [{ name: 'Homes for sale', href: homesHref() }, { name: community.name, href: homesHref(l.community) },
-  ...(hood && exists(l.hood!) ? [{ name: hood.name, href: homesHref(l.hood!) }] : []), { name: l.street, href: listingHref(l) }];
+  ...(hood && exists(l.hood!) ? [{ name: hood.name, href: homesHref(l.hood!) }] : []), { name: l.addressHidden ? `MLS #${l.mls}` : l.street, href: listingHref(l) }];
 ---
 <Base breadcrumbs={crumbs} title={title} description={description} image={l.photos[0] ? photo(l.photos[0], 'large') : undefined} noindex={data.preview}>
   <script slot="head" type="application/ld+json" set:html={ld} />
+  <!-- The listing (MLS data only). NorthstarMLS Rule 12.3(g)-(h): the listing broker, the Broker Reciprocity logo and the
+       RMLS copyright follow the property information; no contact form or team branding inside it. -->
   <section class="section home">
     <div class="wrap">
-      {l.photos.length > 0
-        ? <div class="home__photos" tabindex="0" aria-label={`${l.photos.length} photos`}>{l.photos.map((p, i) => <img src={photo(p, i ? 'medium' : 'large')} alt={`Photo ${i + 1} of ${l.photos.length}: ${where}`} width="1200" height="800" loading={i ? 'lazy' : 'eager'} fetchpriority={i ? undefined : 'high'} decoding="async" />)}</div>
-        : <div class="home__nophoto">Photos coming soon</div>}
-
-      <div class="home__grid">
+      <div class="home__body" data-idx>
         <div>
-          <p class="eyebrow">{[l.newConstruction && 'New construction', l.lakefront && 'Lakefront', `${community.name}${hood ? ` · ${hood.name}` : ''}`].filter(Boolean).join(' · ')}</p>
-          <h1 class="home__title">{l.street}<span>{l.city}, MN {l.zip}</span></h1>
-          <p class="home__price">{money(l.price)}</p>
+          {l.photos.length > 0
+            ? <div class="home__photos" tabindex="0" aria-label={`${l.photos.length} photos`}>{l.photos.map((p, i) => <img src={photo(p, i ? 'medium' : 'large')} alt={`Photo ${i + 1} of ${l.photos.length}: ${where}`} width="1200" height="800" loading={i ? 'lazy' : 'eager'} fetchpriority={i ? undefined : 'high'} decoding="async" />)}</div>
+            : <div class="home__nophoto">Photos coming soon</div>}
+          <h1 class="home__title">{l.addressHidden ? `Home for sale in ${l.city}` : l.street}<span>{l.city}, MN {l.zip}</span></h1>
+          <p class="home__price">{l.price > 1 ? money(l.price) : 'Auction'}</p>
           {specs.length > 0 && <p class="home__specs">{specs.join(' · ')}</p>}
-          <p class="home__broker">Listing courtesy of {l.brokerage || 'the listing brokerage'}{l.agent && ` (${l.agent})`}.</p>
-          <p class="home__answer">{answer} {compare}</p>
-
+          {l.contingency && <p class="home__status">Contingency: {l.contingency}{CONTINGENCIES[l.contingency] ? ` (${CONTINGENCIES[l.contingency]})` : ''} <a href={EULA_PATH}>What this means</a></p>}
           {l.description && (
             <>
               <h2>About this home</h2>
               <div class="prose"><p>{l.description}</p></div>
             </>
           )}
-
           <h2>Home facts</h2>
           <dl class="home__facts">{facts.filter(([, v]) => v).map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
-
-          <h2>The location</h2>
-          <ul class="home__local">
-            <li><a href={`/communities/${community.slug}`}><strong>{community.name} community guide</strong><span>Schools, commutes, parks, home values and local stories.</span></a></li>
-            {hood && <li><a href={hoodHref(hood)}><strong>{hood.name}, {CITY_NAME[hood.city]}</strong><span>The neighborhood guide: homes, history, parks and market numbers.</span></a></li>}
-            {lakes.filter((x) => x.href).map((x) => <li><a href={x.href!}><strong>{x.name}</strong><span>Lake facts from the Minnesota DNR, access and every lakefront home for sale.</span></a></li>)}
-            {mk?.medianPrice?.r12[1] != null && <li><a href={`/market/${community.slug}`}><strong>{community.name} housing market, {monthLabel(latest)}</strong><span>Homes sold for a median {mMoney(mk.medianPrice.r12[1])} over 12 months ({signed(mk.medianPrice.r12[2])}), {count(mk.daysOnMarket?.r12[1])} days on market. Source: Minneapolis Area REALTORS®.</span></a></li>}
-          </ul>
-          <p class="home__map"><a class="link-arrow" href={`https://www.google.com/maps/search/?api=1&query=${l.lat},${l.lng}`} rel="noopener">See it on the map</a></p>
+          <p class="home__broker">{!isOwnBrokerage(l.brokerage) && BR_LOGO && <img src={BR_LOGO} alt="Broker Reciprocity" width="95" height="35" />}Listing courtesy of {l.brokerage || 'the listing brokerage'}{l.agent && ` (${l.agent})`}. MLS #{l.mls}.</p>
         </div>
+      </div>
+      <IdxDisclosure at={data.at} copyright size="2rem" />
+      {data.fixture && <p class="notice"><strong>Sample data for layout testing: not a real home.</strong></p>}
+    </div>
+  </section>
 
-        <aside class="home__ask" id="contact">
-          <h2>Want to see it?</h2>
-          <p>Call <a href={site.phoneHref}>{site.phone}</a> or send a note. A {site.name} agent will set up a showing and tell you what we know about the home and the area.</p>
-          <form class="form" data-lead="listing">
-            <input type="hidden" name="listing" value={`${where} (MLS #${l.mls}), ${money(l.price)}`} />
-            <input type="hidden" name="propStreet" value={l.street} />
-            <input type="hidden" name="propCity" value={l.city} />
-            <input type="hidden" name="propZip" value={l.zip} />
-            <input type="hidden" name="propMls" value={l.mls} />
-            <input type="hidden" name="propPrice" value={String(l.price)} />
-            <input type="hidden" name="propBeds" value={l.beds ? String(l.beds) : ''} />
-            <input type="hidden" name="propBaths" value={l.baths ? String(l.baths) : ''} />
-            <input type="hidden" name="propSqft" value={l.sqft ? String(l.sqft) : ''} />
-            <input type="hidden" name="community" value={community.name} />
-            <div class="field"><label for="ls-first">First name</label><input id="ls-first" name="firstName" autocomplete="given-name" required /></div>
-            <div class="field"><label for="ls-last">Last name</label><input id="ls-last" name="lastName" autocomplete="family-name" required /></div>
-            <div class="field"><label for="ls-email">Email</label><input id="ls-email" name="email" type="email" autocomplete="email" required /></div>
-            <div class="field"><label for="ls-phone">Phone</label><input id="ls-phone" name="phone" type="tel" autocomplete="tel" /></div>
-            <div class="field"><label for="ls-msg">Message</label><textarea id="ls-msg" name="message" rows="3">I'd like to see {l.street}.</textarea></div>
-            <button class="btn" type="submit">Ask about this home</button>
-            <p class="form__status" role="status" aria-live="polite"></p>
-          </form>
-        </aside>
+  <!-- Our own information about the home, kept apart from the MLS data (Rule 12.3(b)), with its source. -->
+  <section class="section section--paper home home--ours" aria-labelledby="ours-title">
+    <div class="wrap home__grid">
+      <div>
+        <h2 id="ours-title">How it compares</h2>
+        <p class="home__answer">{answer} {compare}{ppsf ? ` That works out to ${money(ppsf)} per finished square foot.` : ''}</p>
+        <p class="home__source">Source: {site.name}, from the active listings in our communities on {updatedText} (Central). This is not an appraisal, competitive or comparative market analysis, CMA or home valuation.</p>
+        <h2>The location</h2>
+        <ul class="home__local">
+          <li><a href={`/communities/${community.slug}`}><strong>{community.name} community guide</strong><span>Schools, commutes, parks, home values and local stories.</span></a></li>
+          {hood && <li><a href={hoodHref(hood)}><strong>{hood.name}, {CITY_NAME[hood.city]}</strong><span>The neighborhood guide: homes, history, parks and market numbers.</span></a></li>}
+          {lakes.filter((x) => x.href).map((x) => <li><a href={x.href!}><strong>{x.name}</strong><span>Lake facts from the Minnesota DNR, access and every lakefront home for sale.</span></a></li>)}
+          {mk?.medianPrice?.r12[1] != null && <li><a href={`/market/${community.slug}`}><strong>{community.name} housing market, {monthLabel(latest)}</strong><span>Homes sold for a median {mMoney(mk.medianPrice.r12[1])} over 12 months ({signed(mk.medianPrice.r12[2])}), {count(mk.daysOnMarket?.r12[1])} days on market. Source: Minneapolis Area REALTORS®.</span></a></li>}
+        </ul>
+        {!l.addressHidden && <p class="home__map"><a class="link-arrow" href={`https://www.google.com/maps/search/?api=1&query=${l.lat},${l.lng}`} rel="noopener">See it on the map</a></p>}
       </div>
 
-      <p class="notice">MLS #{l.mls}. {mls.notice} Listing data updated {updatedText} (Central). {data.fixture && <strong>Sample data for layout testing: not a real home.</strong>}</p>
+      <aside class="home__ask" id="contact">
+        <h2>Want to see it?</h2>
+        <p>Call <a href={site.phoneHref}>{site.phone}</a> or send a note. A {site.name} agent will set up a showing and tell you what we know about the home and the area.</p>
+        <form class="form" data-lead="listing">
+          <input type="hidden" name="listing" value={`${where} (MLS #${l.mls}), ${money(l.price)}`} />
+          <input type="hidden" name="propStreet" value={l.addressHidden ? '' : l.street} />
+          <input type="hidden" name="propCity" value={l.city} />
+          <input type="hidden" name="propZip" value={l.zip} />
+          <input type="hidden" name="propMls" value={l.mls} />
+          <input type="hidden" name="propPrice" value={String(l.price)} />
+          <input type="hidden" name="propBeds" value={l.beds ? String(l.beds) : ''} />
+          <input type="hidden" name="propBaths" value={l.baths ? String(l.baths) : ''} />
+          <input type="hidden" name="propSqft" value={l.sqft ? String(l.sqft) : ''} />
+          <input type="hidden" name="community" value={community.name} />
+          <div class="field"><label for="ls-first">First name</label><input id="ls-first" name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for="ls-last">Last name</label><input id="ls-last" name="lastName" autocomplete="family-name" required /></div>
+          <div class="field"><label for="ls-email">Email</label><input id="ls-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="ls-phone">Phone</label><input id="ls-phone" name="phone" type="tel" autocomplete="tel" /></div>
+          <div class="field"><label for="ls-msg">Message</label><textarea id="ls-msg" name="message" rows="3">I'd like to see {l.addressHidden ? `MLS #${l.mls}` : l.street}.</textarea></div>
+          <button class="btn" type="submit">Ask about this home</button>
+          <p class="form__status" role="status" aria-live="polite"></p>
+        </form>
+      </aside>
     </div>
   </section>
 
@@ -172,7 +181,7 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() }, { name: community
     <section class="section section--paper" aria-labelledby="similar-title">
       <div class="wrap">
         <div class="head"><p class="eyebrow">Compare</p><h2 id="similar-title">Similar homes for sale in {community.name}</h2></div>
-        <ul class="lcards">{similar.map((x) => <ListingCard l={x} />)}</ul>
+        <div data-idx><ul class="lcards">{similar.map((x) => <ListingCard l={x} />)}</ul></div>
         <ul class="chips">{next.map((n) => <li><a href={n.href}>{n.label}</a></li>)}</ul>
       </div>
     </section>
@@ -186,13 +195,19 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() }, { name: community
   .home__nophoto { display: grid; place-items: center; aspect-ratio: 3 / 1; margin-bottom: 2rem; background: var(--sand); color: var(--text-soft); font: 600 .9rem/1 var(--ui); }
   .home__grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
   @media (max-width: 900px) { .home__grid { grid-template-columns: 1fr; } }
-  .home__title { margin: .3rem 0 .5rem; font: 500 clamp(1.9rem, 4vw, 2.9rem)/1.08 var(--serif-display); }
+  /* Listing text tops out at 2rem so the required MLS disclaimer (2rem, Rule 12.3(i)) is at least as large. */
+  .home__title { margin: .3rem 0 .5rem; font: 500 clamp(1.6rem, 3vw, 2rem)/1.1 var(--serif-display); }
   .home__title span { display: block; margin-top: .3rem; font: 500 1.05rem/1.3 var(--ui); color: var(--text-soft); }
-  .home__price { margin: 0; font: 500 clamp(1.7rem, 3vw, 2.2rem)/1.2 var(--serif); color: var(--crimson); }
+  .home__price { margin: 0; font: 500 clamp(1.6rem, 3vw, 2rem)/1.2 var(--serif); color: var(--crimson); }
+  .home__status { font-weight: 600; }
+  .home__source { font-size: .9rem; color: var(--text-soft); }
+  .home--ours { padding-top: 3rem; }
   .home__specs { margin: .35rem 0; font: 600 1rem/1.4 var(--ui); }
-  .home__broker { margin: 0 0 1.25rem; font-size: .82rem; color: var(--text-soft); }
+  .home__broker { margin: 1.5rem 0 0; font: 600 1rem/1.5 var(--ui); }
+  .home__broker img { float: left; width: 95px; height: auto; margin: .1rem .8rem 0 0; }
   .home__answer { font-size: 1.05rem; line-height: 1.65; }
   .home h2 { margin: 2.25rem 0 .9rem; font: 500 1.6rem/1.2 var(--serif); }
+  .home--ours h2:first-child { margin-top: 0; }
   .home__facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr)); gap: 1px; margin: 0; background: var(--line); border: 1px solid var(--line); }
   .home__facts div { padding: .7rem .9rem; background: var(--paper); }
   .home__facts dt { font: 700 .64rem/1.25 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--text-soft); }

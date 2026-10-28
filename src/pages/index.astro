@@ -155,7 +155,7 @@ const ld = JSON.stringify({
       <div class="head">
         <p class="eyebrow">Featured properties</p>
         <h2 id="featured-title">Homes we're proud <em>to represent.</em></h2>
-        <p>Our team's current listings, live from the MLS.</p>
+        <p>Our team's current listings.</p>
       </div>
       <YlopoListings layout="scroll" search={{ featured: 't', limit: 24 }}
         moreHref={`${site.searchUrl}/search?s[featured]=t`} moreLabel="See every team listing" own={{ team: true }} />
@@ -183,9 +183,9 @@ const ld = JSON.stringify({
   <section class="section section--paper" aria-labelledby="find-title">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow">Live from the MLS</p>
+        <p class="eyebrow">Homes for sale</p>
         <h2 id="find-title">Homes for sale <em>in our markets.</em></h2>
-        <p>The newest listings in {popular.map((c) => c.name).join(', ')}, updated straight from the NorthstarMLS.</p>
+        <p>The newest listings in {popular.map((c) => c.name).join(', ')}, updated several times a day.</p>
       </div>
       <YlopoListings search={marketSearch}
         moreHref={searchUrl(marketPlaces)} moreLabel="Search all Twin Cities homes" />

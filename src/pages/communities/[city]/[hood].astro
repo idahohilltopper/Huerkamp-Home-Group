@@ -161,7 +161,7 @@ const ld = JSON.stringify([
   {(homes || hasYlopoHood(h)) && (
     <section class="section section--paper" id="listings" aria-labelledby="listings-title">
       <div class="wrap">
-        <div class="head"><p class="eyebrow">Live MLS listings</p><h2 id="listings-title">Homes for sale in {h.name}</h2></div>
+        <div class="head"><p class="eyebrow">Homes for sale</p><h2 id="listings-title">Homes for sale in {h.name}</h2></div>
         {homes ? <HomesStrip listings={homes.listings} allHref={homesHref(homes.path)} allLabel={`See all ${homes.listings.length} ${h.name} homes for sale`} collections={homesData.collections} area={homes.path} at={homesData.at} /> : <YlopoListings search={hoodWidgetSearch(h)} layout="scroll" moreHref={hoodSearchUrl(h)} moreLabel={`See every ${h.name} listing`} />}
       </div>
     </section>

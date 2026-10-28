@@ -3,7 +3,8 @@
 // Layout after markzproperties.com; branding, text and code are Huerkamp Home Group's own.
 // Fonts are self-hosted (no request to Google); the ones used at the top of most pages are preloaded
 // so headings don't jump when the font arrives.
-import { homeSearchHref } from '../data/search';
+import { OWN, homeSearchHref } from '../data/search';
+import { LICENSED_IN, EULA_PATH } from '../data/mls';
 import '@fontsource-variable/figtree/wght.css';
 import '@fontsource/cormorant-garamond/latin-400.css';
 import '@fontsource/cormorant-garamond/latin-500.css';
@@ -115,6 +116,7 @@ const isExternal = (href: string) => href.startsWith('http');
   <link rel="preload" href={cormorantMedium} as="font" type="font/woff2" crossorigin />
   <script type="application/ld+json" set:html={siteLd} />
   {crumbLd && <script type="application/ld+json" set:html={crumbLd} />}
+  <script is:inline>try{if(sessionStorage.getItem('idx-eula')==='1')document.documentElement.classList.add('idx-ok')}catch(e){}</script>
   <slot name="head" />
 </head>
 <body data-privacy={site.privacyUrl} data-consent={consentText()} data-submit-notice={submitNotice}>
@@ -201,12 +203,32 @@ const isExternal = (href: string) => href.startsWith('http');
       ))}
     </div>
     <div class="wrap footer__legal">
-      <p>© {year} {site.name}. {site.brokerage}. Each office independently owned and operated.</p>
-      <p><span aria-hidden="true">⌂</span> Equal Housing Opportunity. Skyline photo: <a href="https://commons.wikimedia.org/wiki/File:Downtown_Minneapolis_skyline_across_the_Mississippi_River.jpg">Guywelch2000</a>, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, power lines removed. <a href={site.facebookUrl} rel="noopener">Facebook</a> · <a href={site.youtubeUrl} rel="noopener">YouTube</a> · <a href={site.privacyUrl}>Privacy policy</a> · <a href="/sms-terms">SMS terms</a></p>
+      <p>© {year} {site.name}. {site.brokerage}. Each office independently owned and operated. Licensed in {LICENSED_IN}.</p>
+      <p><span aria-hidden="true">⌂</span> Equal Housing Opportunity. Skyline photo: <a href="https://commons.wikimedia.org/wiki/File:Downtown_Minneapolis_skyline_across_the_Mississippi_River.jpg">Guywelch2000</a>, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, power lines removed. <a href={site.facebookUrl} rel="noopener">Facebook</a> · <a href={site.youtubeUrl} rel="noopener">YouTube</a> · <a href={site.privacyUrl}>Privacy policy</a> · <a href="/sms-terms">SMS terms</a>{OWN && <> · <a href={EULA_PATH}>Listing license agreement</a></>}</p>
     </div>
   </footer>
 
   <script>
+    // NorthstarMLS End-User License Agreement (src/pages/license-agreement.astro): before any listing data shows
+    // ([data-idx] blocks), the visitor clicks I AGREE once per visit (sessionStorage); until then listings stay covered.
+    const agree = () => {
+      try { sessionStorage.setItem('idx-eula', '1'); } catch {}
+      document.documentElement.classList.add('idx-ok');
+      document.querySelectorAll('.idx-lock').forEach((el) => el.remove());
+      window.dispatchEvent(new Event('idx-agreed'));
+    };
+    if (!document.documentElement.classList.contains('idx-ok')) {
+      document.querySelectorAll<HTMLElement>('[data-idx]').forEach((box) => {
+        const lock = document.createElement('div');
+        lock.className = 'idx-lock';
+        lock.innerHTML = '<div class="idx-lock__box" role="group" aria-label="Listing license agreement"><p><strong>Homes for sale</strong></p>'
+          + '<p>To view listings, please read and agree to the <a href="/license-agreement" target="_blank" rel="noopener">license agreement</a>. We ask once per visit.</p>'
+          + '<button type="button" class="btn">I AGREE</button></div>';
+        lock.querySelector('button')!.addEventListener('click', agree);
+        box.prepend(lock);
+      });
+    }
+
     // Phone menu.
     const burger = document.querySelector<HTMLButtonElement>('.burger');
     const panel = document.getElementById('mobile-menu');
@@ -294,6 +316,13 @@ const isExternal = (href: string) => href.startsWith('http');
       box.replaceChildren(frame);
     });
   </script>
+<style is:global>
+  [data-idx] { position: relative; }
+  html:not(.idx-ok) [data-idx] > :not(.idx-lock) { filter: blur(7px); pointer-events: none; user-select: none; }
+  .idx-lock { position: absolute; inset: 0; z-index: 5; display: grid; justify-items: center; align-content: start; padding: 2rem 1rem; background: rgba(250, 247, 242, .45); }
+  .idx-lock__box { position: sticky; top: 7rem; max-width: 30rem; padding: 1.25rem 1.5rem; border: 1px solid var(--line); background: #fff; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,.12); }
+  .idx-lock__box p { margin: 0 0 .6rem; }
+</style>
 </body>
 </html>
 

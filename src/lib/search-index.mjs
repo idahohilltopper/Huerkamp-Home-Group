@@ -6,21 +6,25 @@
 
 export const INDEX_FILE = '.cache/search-index.json';
 export const PAGE_SIZE = 24;
-export const MAX_PINS = 2000;
+// NorthstarMLS Rule 11.8: no more than 500 listings in response to any one inquiry.
+export const MAX_PINS = 500;
 export const TYPES = ['single-family', 'townhome', 'condo', 'multi-family', 'land', 'manufactured'];
 export const SORTS = { new: 'Newest', 'price-asc': 'Price: low to high', 'price-desc': 'Price: high to low', sqft: 'Largest' };
 
 // Row layout (arrays keep the file small).
-const F = ['mls', 'slug', 'street', 'city', 'zip', 'price', 'beds', 'baths', 'sqft', 'type', 'newConstruction', 'lotAcres', 'lakefront', 'community', 'hood', 'lakes', 'lat', 'lng', 'listed', 'brokerage', 'photo', 'team'];
+const F = ['mls', 'slug', 'street', 'city', 'zip', 'price', 'beds', 'baths', 'sqft', 'type', 'newConstruction', 'lotAcres', 'lakefront', 'community', 'hood', 'lakes', 'lat', 'lng', 'listed', 'brokerage', 'photo', 'team', 'ownBrokerage', 'addressHidden'];
 
 /** Build-time: listings (src/data/listings.ts shape) → index object. `teamNames` marks the team's own listings. */
 export function buildIndex(listings, { at = null, mode = 'off', teamNames = [], teamBrokerage = /keller williams preferred/i } = {}) {
+  // A seller who chose "Display Address: No" gets no map point either (it would show where the home is).
   const names = new Set(teamNames.map((n) => n.toLowerCase().trim()));
   const rows = listings.map((l) => [
     l.mls, l.slug, l.street, l.city, l.zip, l.price, l.beds ?? null, l.baths ?? null, l.sqft ?? null, l.type,
     l.newConstruction ? 1 : 0, l.lotAcres ?? null, l.lakefront ? 1 : 0, l.community ?? null, l.hood ?? null, (l.lakes ?? []).join('|'),
-    Math.round(l.lat * 1e5) / 1e5, Math.round(l.lng * 1e5) / 1e5, l.listed ?? null, l.brokerage ?? '', l.photos?.[0] ?? null,
+    l.addressHidden ? null : Math.round(l.lat * 1e5) / 1e5, l.addressHidden ? null : Math.round(l.lng * 1e5) / 1e5,
+    l.listed ?? null, l.brokerage ?? '', l.photos?.[0] ?? null,
     teamBrokerage.test(l.brokerage ?? '') && names.has(String(l.agent ?? '').toLowerCase().trim()) ? 1 : 0,
+    teamBrokerage.test(l.brokerage ?? '') ? 1 : 0, l.addressHidden ? 1 : 0,
   ]);
   return { v: 1, at, mode, fields: F, rows };
 }
@@ -73,8 +77,8 @@ function matchPlace(l, p) {
   return l.community === p;
 }
 
-/** Run a parsed query against the index. */
-export function search(index, q) {
+/** Run a parsed query against the index. `otherDetails`: see OTHER_THUMB_DETAILS in src/data/mls.ts (Rule 12.3(f)). */
+export function search(index, q, { otherDetails = false } = {}) {
   const all = (index?.rows ?? []).map((r) => obj(index.fields, r));
   const hits = all.filter((l) =>
     (!q.places.length || q.places.some((p) => matchPlace(l, p))) &&
@@ -94,7 +98,8 @@ export function search(index, q) {
   const page = Math.min(q.page, pages);
   return {
     total: hits.length, page, pages,
-    results: hits.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE).map(({ team, community, hood, lakes, ...l }) => l),
-    pins: hits.slice(0, MAX_PINS).map((l) => [l.lat, l.lng, l.price, l.slug]),
+    results: hits.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE).map(({ team, community, hood, lakes, ...l }) =>
+      l.ownBrokerage || otherDetails ? l : { ...l, beds: null, baths: null, sqft: null, type: null, newConstruction: 0, lakefront: 0, lotAcres: null }),
+    pins: hits.filter((l) => l.lat != null).slice(0, MAX_PINS).map((l) => [l.lat, l.lng, l.price, l.slug]),
   };
 }

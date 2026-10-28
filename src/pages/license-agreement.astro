@@ -1,0 +1,75 @@
+---
+// NorthstarMLS End-User License Agreement (EULA) for consumers viewing Broker Reciprocity listings. The agreement text
+// is RMLS's required language, word for word (Broker Reciprocity Information and Technical Agreement, Appendix D);
+// it may not be changed without RMLS's written approval. [broker firm name] is the site's broker Participant; the
+// developer clause is left out because no outside web-site vendor firm builds this site. Also carries the DMCA notice
+// (section 6.1.5) and the contingency definitions (section 10). Visitors agree with the I AGREE button that covers
+// listings once per visit (src/layouts/Base.astro).
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { BROKER, CONTINGENCIES } from '../data/mls';
+import { site } from '../data/site';
+---
+<Base breadcrumbs={[{ name: 'Listing license agreement', href: '/license-agreement' }]} noindex
+  title={`End-User License Agreement for Listings | ${site.name}`}
+  description="The NorthstarMLS End-User License Agreement that governs use of the home listings on this website.">
+  <PageHero eyebrow="Home listings" title="End-User License Agreement" lede="The terms for viewing the home-for-sale listings on this site, required by the Regional Multiple Listing Service of Minnesota (NorthstarMLS)." />
+  <section class="section">
+    <div class="wrap prose eula">
+      <p><button type="button" class="btn" data-eula-agree>I AGREE</button> <span class="eula__done" data-eula-done hidden>Thank you. Listings are now shown for this visit.</span></p>
+
+      <p>The following terms and conditions govern all access to and use of this site. You accept, without limitation or alteration, all the terms and conditions contained herein. THIS AGREEMENT IS A BINDING CONTRACT AND INCLUDES TERMS THAT LIMIT YOUR LEGAL RIGHTS AND LICENSORS’ LIABILITY TO YOU. CONSULT YOUR ATTORNEY BEFORE AGREEING IF YOU DO NOT UNDERSTAND ANY OF THE TERMS HERE.</p>
+
+      <h2>End-User License Agreement</h2>
+      <p>This End-User License Agreement (“EULA”) is a legally binding contract between you; and the owner of this site, {BROKER} (“Broker”); and Regional Multiple Listing Service of Minnesota, Inc., d/b/a NorthstarMLS and NorthstarMLS.com (“RMLS”). (Collectively, Broker and RMLS are the “Licensors.”)</p>
+      <p>You seek access to real estate listings that are made up of factual information and creative content. This “Licensed Content” appears on this “Licensed Site.” Licensors wish to grant you access to the Licensed Site, but use of this information is limited by the terms of this license.</p>
+      <p>In consideration of the mutual covenants contained herein, you and Licensors hereby agree as follows:</p>
+      <ol>
+        <li><p><strong>Access permitted.</strong> Licensors agree to provide you online access via the World-Wide-Web to the Licensed Content and the Licensed Site for the duration of the current viewing session. You acknowledge that you will be required to execute a new EULA upon your next visit to the Licensed Site. You agree not to attempt to access the Licensed Site after the termination of this EULA.</p></li>
+        <li><p><strong>Acknowledgement of Title.</strong> You acknowledge that all right, title, and interest in the copyrights and other intellectual property rights in the Licensed Site and the Licensed Content reside at all times in Licensors and their licensors.</p>
+          <p>The trademarks, logos, and service marks (collectively the “Marks” or “Mark”) appearing on the Licensed Site are registered and unregistered marks of Licensors and others. Neither this EULA nor the Licensed Site grants you any right to use any Mark displayed on the Licensed Site or any other Marks of Licensors.</p></li>
+        <li><p><strong>License.</strong> Licensors hereby grant you a revocable, limited, nonexclusive license during the term of this EULA to duplicate, distribute and display the Licensed Content and the Licensed Site, solely for your personal, non-commercial use, and subject to the limitations set forth in this EULA. Licensors grant nonexclusive licenses and not exclusive licenses or assignments. All rights not expressly granted in this EULA are reserved.</p></li>
+        <li><p><strong>Limited Use.</strong> You will not:</p>
+          <p>(a) Use the Licensed Site, Licensed Content, or both for any purpose other than a personal, non-commercial one;</p>
+          <p>(b) Disclose any of the Licensed Content, including factual content, to any third party except in furtherance of your personal real estate transaction, and then only to the extent necessary;</p>
+          <p>(c) Gather, or attempt to gather, by any automated means, including “screen scraping” or “database scraping,” factual content or any other portion of the Licensed Content from the Licensed Site; or</p>
+          <p>(d) Employ the Licensed Content, the Licensed Site, or both for any unlawful purpose.</p></li>
+        <li><p><strong>License revoked.</strong> Your license to use the Licensed Content and the Licensed Site is immediately revoked, without notice from Licensors, in the event that you breach any provision of this EULA.</p></li>
+        <li><p><strong>General terms.</strong></p>
+          <p>(a) <strong>Term and termination.</strong> Any party may terminate this EULA upon notice to another. In the event of termination, all licenses hereunder immediately terminate, and you agree to discontinue accessing and attempting to access the Licensed Site. The terms of sections 2, 4, and 6 of this EULA shall survive its termination.</p>
+          <p>(b) <strong>Disclaimer of warranties.</strong> LICENSORS PROVIDE THE LICENSED SITE AND LICENSED CONTENT ON AN “AS IS,” “AS AVAILABLE” BASIS. LICENSORS MAKE NO WARRANTY AS TO THE ACCURACY, COMPLETENESS, CURRENCY, OR RELIABILITY OF THE LICENSED CONTENT. YOU ARE ADVISED THAT FACTUAL MATERIAL IN THE LICENSED CONTENT, THOUGH DEEMED RELIABLE, MAY CONTAIN ERRORS AND IS SUBJECT TO REVISION AT ALL TIMES. YOU ARE ADVISED TO CONFIRM ALL FACTUAL MATERIAL UPON WHICH YOU INTEND TO RELY IN ANY TRANSACTION. THE LICENSORS EXPRESSLY DISCLAIM ALL WARRANTIES WITH RESPECT TO THE LICENSED SITE AND THE LICENSED CONTENT, INCLUDING THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. Possible errors in the Licensed Content include, but are not limited to, incorrect measurements, improper classification of rooms and features according to local zoning codes, incorrect status with regard to availability for sale, incorrect photograph, and incorrect information about improvements.</p>
+          <p>(c) <strong>Limitations and exclusions of liability.</strong> UNDER NO CIRCUMSTANCES SHALL THE LICENSORS BE LIABLE TO YOU OR ANYONE ELSE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES THAT RESULT FROM THE USE OF, OR INABILITY TO USE, THE LICENSED SITE, THE LICENSED CONTENT, OR BOTH. YOUR SOLE REMEDY, IN THE EVENT THE LICENSORS OR ANY ONE OF THEM BREACH THIS EULA, SHALL BE TO TERMINATE THIS EULA. IN THE EVENT THE LIMITATIONS SET FORTH IN THE PRECEDING TWO SENTENCES ARE HELD BY ANY COURT TO BE UNENFORCEABLE, LICENSORS SHALL NOT IN ANY EVENT BE LIABLE TO YOU OR ANYONE ELSE FOR DAMAGES OF ANY KIND IN EXCESS OF $500.</p>
+          <p>(d) <strong>Indemnification.</strong> You will defend, indemnify and hold the Licensors harmless from and against any and all liability, damages, loss or expense (including reasonable fees of attorneys and other professionals) in any claim, demand, action or proceeding initiated by any third-party against the Licensors arising from any of your acts, including without limitation violating this or any other agreement or any law.</p>
+          <p>(e) <strong>Assignment.</strong> You may not assign or delegate this EULA or any obligations, rights, or duties hereunder. Any attempted or purported assignment or delegation in contravention of this section is null and void.</p>
+          <p>(f) <strong>Integration and severability.</strong> This EULA contains the entire understanding of the parties and supersedes all previous oral and written agreements on the subject matter hereof. Each provision of this EULA is severable from the whole, and if one provision is declared invalid, the other provisions shall remain in full force and effect.</p>
+          <p>(g) <strong>Governing law.</strong> This EULA shall be governed by, and construed in accordance with, the laws of the State of Minnesota applicable to contacts made and performed in Minnesota, but without regard to the choice of law and conflicts of law provisions thereof. The parties hereby agree that any dispute under this EULA shall have its forum in the state or federal courts located in Ramsey County, Minnesota, in the United States of America, and the parties hereby consent to personal jurisdiction therein and expressly waive any defenses to personal jurisdiction, including forum non conveniens</p></li>
+      </ol>
+      <p><button type="button" class="btn" data-eula-agree>I AGREE</button></p>
+
+      <h2>Digital Millennium Copyright Act (DMCA) Notices</h2>
+      <p>The Digital Millennium Copyright Act of 1998, 17 U.S.C. § 512 (the "DMCA"), provides recourse for copyright owners who believe that material appearing on the Internet infringes their rights under U.S. copyright law. If you believe in good faith that any content or material made available in connection with our website or services infringes your copyright, you (or your agent) may send us a notice requesting that the content or material be removed, or access to it blocked. Notices and counter-notices should be sent in writing by mail to: Michael Bisping, Director of Customer Relations at Regional Multiple Listing Service of Minnesota, Inc., 2550 University Avenue West, Suite 259S, Saint Paul, MN 55114 or by email to mbisping@northstarmls.com.</p>
+      <p>The DMCA requires that your notice of alleged copyright infringement include the following information: (1) description of the copyrighted work that is the subject of claimed infringement; (2) description of the alleged infringing content and information sufficient to permit us to locate the content; (3) contact information for you, including your address, telephone number and e-mail address; (4) a statement by you that you have a good faith belief that the content in the manner complained of is not authorized by the copyright owner, or its agent, or by the operation of any law; (5) a statement by you, signed under penalty of perjury, that the information in the notification is accurate and that you have the authority to enforce the copyrights that are claimed to be infringed; and (6) a physical or electronic signature of the copyright owner or a person authorized to act on the copyright owner's behalf. Failure to include all of the above information may result in the delay of the processing of your complaint.</p>
+
+      <h2>Listing status terms</h2>
+      <p>When a listing shows a contingency, it means:</p>
+      <dl>{Object.entries(CONTINGENCIES).map(([k, v]) => <><dt><strong>{k}</strong></dt><dd>{v}</dd></>)}</dl>
+
+      <h2>Questions about listing data</h2>
+      <p>To report an error in information we add to a listing, or anything else about this site, call <a href={site.phoneHref}>{site.phone}</a> or email <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+    </div>
+  </section>
+</Base>
+
+<script>
+  document.querySelectorAll('[data-eula-agree]').forEach((b) => b.addEventListener('click', () => {
+    try { sessionStorage.setItem('idx-eula', '1'); } catch {}
+    document.documentElement.classList.add('idx-ok');
+    document.querySelectorAll<HTMLElement>('[data-eula-done]').forEach((el) => (el.hidden = false));
+  }));
+</script>
+
+<style>
+  .eula ol > li { margin-bottom: 1rem; }
+  .eula dd { margin: 0 0 .75rem; }
+  .eula__done { margin-left: .75rem; font-weight: 600; }
+</style>

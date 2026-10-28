@@ -8,7 +8,8 @@ import Base from '../../layouts/Base.astro';
 import ListingCard from '../../components/ListingCard.astro';
 import { OWN, SEARCH_PATH } from '../../data/search';
 import { site } from '../../data/site';
-import { mls } from '../../data/mls';
+import { BR_THUMB } from '../../data/mls-logos';
+import IdxDisclosure from '../../components/IdxDisclosure.astro';
 import { communities } from '../../data/areas';
 import { hoods, hoodKey, CITY_NAME } from '../../data/neighborhoods';
 import { lakes } from '../../data/lakes';
@@ -31,7 +32,6 @@ const groups = [
 ].map((g) => ({ ...g, items: g.items.filter((i) => i.n > 0).sort((a, b) => a.label.localeCompare(b.label)) })).filter((g) => g.items.length);
 const prices = [100000, 150000, 200000, 250000, 300000, 350000, 400000, 450000, 500000, 600000, 700000, 800000, 900000, 1000000, 1250000, 1500000, 2000000, 3000000, 5000000];
 const money = (n: number) => (n >= 1e6 ? `$${(n / 1e6).toString().replace(/\.0+$/, '')}M` : `$${n / 1000}K`);
-const updated = feedAt ? new Date(feedAt).toLocaleString('en-US', { month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/Chicago' }) : '';
 const key = import.meta.env.PUBLIC_MAPTILER_KEY ?? '';
 const mapStyle = key ? `https://api.maptiler.com/maps/dataviz-light/style.json?key=${key}` : 'https://tiles.openfreemap.org/styles/positron';
 const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, i.label])));
@@ -69,7 +69,7 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
     </div>
   </section>
 
-  <section class="hs-body" data-hs data-map-style={mapStyle} data-types={JSON.stringify(TYPE_LABEL)} data-names={JSON.stringify(names)}>
+  <section class="hs-body" data-hs data-br-thumb={BR_THUMB ?? undefined} data-map-style={mapStyle} data-types={JSON.stringify(TYPE_LABEL)} data-names={JSON.stringify(names)}>
     <div class="wrap hs-bar">
       <p class="hs-count" aria-live="polite" data-count>{total.toLocaleString('en-US')} homes for sale</p>
       <div class="hs-tools">
@@ -81,7 +81,7 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
         </div>
       </div>
     </div>
-    <div class="wrap hs-main">
+    <div class="wrap hs-main" data-idx>
       <div class="hs-list">
         <ul class="lcards" data-results>{first.map((l, i) => <ListingCard l={l} eager={i < 3} />)}</ul>
         <p class="hs-empty" data-empty hidden>No homes match these filters. Try a wider price range or another place, or <a href="#alerts">ask us to watch for one</a>.</p>
@@ -91,10 +91,10 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
           <span data-pageinfo>Page 1 of {Math.max(1, Math.ceil(total / PAGE_SIZE))}</span>
           <button type="button" data-next disabled={total <= PAGE_SIZE}>Next →</button>
         </nav>
-        <p class="hs-notice">{mls.notice}{updated && ` Listings updated ${updated} (Central).`}</p>
       </div>
       <div class="hs-map" data-mapbox hidden><div class="hs-map__canvas" data-map></div></div>
     </div>
+    <div class="wrap"><IdxDisclosure at={feedAt} /></div>
   </section>
 
   <section class="section section--dark" id="alerts" aria-labelledby="alerts-title">
@@ -161,7 +161,6 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
   .hs-pages { display: flex; gap: 1rem; align-items: center; justify-content: center; margin: 2rem 0 1rem; font: 600 .95rem/1 var(--ui); }
   .hs-pages button { padding: .6rem 1rem; border: 1px solid var(--line); background: #fff; font: inherit; cursor: pointer; color: var(--text); }
   .hs-pages button:disabled { opacity: .4; cursor: default; }
-  .hs-notice { font-size: .72rem; color: var(--text-soft); }
   .hs-alert { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
   @media (max-width: 900px) { .hs-alert { grid-template-columns: 1fr; } }
   .hs-alert__search { font-weight: 600; }

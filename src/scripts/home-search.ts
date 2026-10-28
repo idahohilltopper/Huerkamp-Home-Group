@@ -1,7 +1,8 @@
 // Runtime for /home-search: reads the filters from the address, asks /api/search, draws the cards, the page buttons
 // and (when "Map" is on) the map. The map library loads only when the map is first opened.
-type Card = { slug: string; street: string; city: string; zip: string; price: number; beds: number | null; baths: number | null;
-  sqft: number | null; type: string; newConstruction: 0 | 1; lakefront: 0 | 1; lotAcres: number | null; brokerage: string; photo: string | null };
+type Card = { mls: string; slug: string; street: string; city: string; zip: string; price: number; beds: number | null; baths: number | null;
+  sqft: number | null; type: string | null; newConstruction: 0 | 1; lakefront: 0 | 1; lotAcres: number | null; brokerage: string; photo: string | null;
+  ownBrokerage: 0 | 1; addressHidden: 0 | 1 };
 type Answer = { ok: boolean; error?: string; total: number; page: number; pages: number; results: Card[]; pins: [number, number, number, string][] };
 
 const KEYS = ['place', 'min', 'max', 'beds', 'baths', 'type', 'lakefront', 'new', 'acres', 'team', 'sort', 'bbox', 'page'];
@@ -67,14 +68,19 @@ export function initSearch(root: HTMLElement) {
   };
 
   // ---- drawing ----
+  // Same rules as src/components/ListingCard.astro (NorthstarMLS Rule 12.3(d)-(f)): the API already leaves out the
+  // details of other brokerages' listings; their cards carry the Broker Reciprocity thumbnail logo.
+  const thumb = root.dataset.brThumb;
   const card = (l: Card) => {
     const specs = [l.beds && `${l.beds} bd`, l.baths && `${l.baths} ba`, l.sqft && `${l.sqft.toLocaleString('en-US')} sq ft`, l.type === 'land' && l.lotAcres && `${l.lotAcres} acres`].filter(Boolean).join(' · ');
     const flag = l.newConstruction ? 'New construction' : l.lakefront ? 'Lakefront' : '';
-    const img = l.photo ? `<img src="${esc(l.photo)}?class=small" alt="${esc(`${l.street}, ${l.city}`)}" width="400" height="267" loading="lazy" decoding="async" />` : '<span class="lcard__nophoto">Photo coming soon</span>';
+    const addr = l.addressHidden ? `${l.city}, MN ${l.zip}` : `${l.street}, ${l.city}, MN ${l.zip}`;
+    const img = l.photo ? `<img src="${esc(l.photo)}?class=small" alt="${esc(addr)}" width="400" height="267" loading="lazy" decoding="async" />` : '<span class="lcard__nophoto">Photo coming soon</span>';
+    const icon = !l.ownBrokerage && thumb ? `<img src="${esc(thumb)}" alt="Broker Reciprocity listing" width="35" height="35" />` : '';
     return `<li class="lcard"><a href="/homes/${esc(l.slug)}"><span class="lcard__photo">${img}${flag ? `<span class="lcard__flag">${flag}</span>` : ''}</span>`
-      + `<strong class="lcard__price">${money(l.price)}</strong>${specs ? `<span class="lcard__specs">${esc(specs)}</span>` : ''}`
-      + `<span class="lcard__addr">${esc(l.street)}, ${esc(l.city)}, MN ${esc(l.zip)}</span><span class="lcard__type">${esc(types[l.type] ?? 'home')}</span>`
-      + `<span class="lcard__broker">Listing courtesy of ${esc(l.brokerage || 'the listing brokerage')}</span></a></li>`;
+      + `<strong class="lcard__price">${l.price > 1 ? money(l.price) : 'Auction'}</strong>${specs ? `<span class="lcard__specs">${esc(specs)}</span>` : ''}`
+      + `<span class="lcard__addr">${esc(addr)}</span>${l.type ? `<span class="lcard__type">${esc(types[l.type] ?? 'home')}</span>` : ''}`
+      + `<span class="lcard__mls">MLS #${esc(l.mls)}</span><span class="lcard__broker">${icon}Listing courtesy of ${esc(l.brokerage || 'the listing brokerage')}</span></a></li>`;
   };
   const draw = (a: Answer) => {
     last = a;
@@ -102,7 +108,7 @@ export function initSearch(root: HTMLElement) {
     const mine = ++seq;
     list.classList.add('is-loading');
     try {
-      const r = await fetch(`/api/search?${qs}`);
+      const r = await fetch(`/api/search?${qs}`, { headers: { 'x-idx-eula': 'agreed' } });
       const a = (await r.json()) as Answer;
       if (mine !== seq) return;
       if (!a.ok) throw new Error(a.error);
@@ -146,14 +152,19 @@ export function initSearch(root: HTMLElement) {
   });
   clearBtn.addEventListener('click', () => { (form.elements.namedItem('bbox') as HTMLInputElement).value = ''; setPage(1); run(); });
 
-  // ---- start: the first page of newest homes is already in the HTML; ask the server only if the address has filters ----
+  // ---- start: the first page of newest homes is already in the HTML; ask the server only if the address has filters.
+  // Nothing is asked until the visitor has agreed to the license agreement this visit (src/layouts/Base.astro). ----
   const start = new URLSearchParams(location.search);
   fill(start);
-  const filtered = KEYS.some((k) => start.get(k));
-  if (filtered) run(false);
-  else {
-    if (saved) saved.value = `${location.origin}${location.pathname}`;
-    fetch('/api/search').then((r) => r.json()).then((a: Answer) => { if (a.ok && seq === 0) draw(a); }).catch(() => {});
-  }
-  if (start.get('view') === 'map') showMap(true);
+  const begin = () => {
+    const filtered = KEYS.some((k) => start.get(k));
+    if (filtered) run(false);
+    else {
+      if (saved) saved.value = `${location.origin}${location.pathname}`;
+      fetch('/api/search', { headers: { 'x-idx-eula': 'agreed' } }).then((r) => r.json()).then((a: Answer) => { if (a.ok && seq === 0) draw(a); }).catch(() => {});
+    }
+    if (start.get('view') === 'map') showMap(true);
+  };
+  if (document.documentElement.classList.contains('idx-ok')) begin();
+  else window.addEventListener('idx-agreed', begin, { once: true });
 }

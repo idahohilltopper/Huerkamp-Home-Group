@@ -59,8 +59,32 @@ export function homeType(l) {
   return 'single-family';
 }
 
+/** Any value in the listing whose key matches (the MLS field names vary). */
+function findField(obj, re, depth = 0) {
+  if (!obj || typeof obj !== 'object' || depth > 3) return undefined;
+  for (const [k, v] of Object.entries(obj)) {
+    if (re.test(k) && v != null && typeof v !== 'object' && String(v).trim() !== '') return v;
+    const deep = typeof v === 'object' ? findField(v, re, depth + 1) : undefined;
+    if (deep !== undefined) return deep;
+  }
+  return undefined;
+}
+const no = (v) => /^(n|no|false|0)$/i.test(String(v ?? '').trim());
+
+/** NorthstarMLS seller choices (Broker Reciprocity agreement, section 13): "Advertising: No" means the listing may not
+ *  appear on any website; "Display Address: No" means it may appear without its address. */
+export function sellerChoices(l) {
+  const p = l.permissions ?? {};
+  return {
+    hide: no(p.displayPublic) || no(p.displayInternetEntireListing) || no(findField(l, /^(internetEntireListingDisplay|advertising)(yn)?$/i)),
+    hideAddress: no(p.displayAddressOnInternet) || no(findField(l, /^(internetAddressDisplay|displayAddress)(yn)?$/i)),
+  };
+}
+
 export function compact(l, now = new Date()) {
   const a = l.address ?? {}, d = l.details ?? {};
+  const choices = sellerChoices(l);
+  const contingency = text(findField(l, /contingen/i));
   const street = [a.streetNumber, a.streetDirectionPrefix, a.streetName, a.streetSuffix, a.streetDirection].map(text).filter(Boolean).join(' ')
     + (text(a.unitNumber) ? ` #${text(a.unitNumber)}` : '');
   const city = text(a.city), zip = text(a.zip).slice(0, 5);
@@ -68,8 +92,10 @@ export function compact(l, now = new Date()) {
   const year = now.getFullYear();
   return {
     mls: text(l.mlsNumber),
-    slug: slugify(`${street} ${city} mn ${zip} ${l.mlsNumber}`),
-    street, city, zip,
+    slug: slugify(`${choices.hideAddress ? 'home-for-sale' : street} ${city} mn ${zip} ${l.mlsNumber}`),
+    street: choices.hideAddress ? 'Address withheld by the seller' : street, city, zip,
+    addressHidden: choices.hideAddress, hide: choices.hide,
+    contingency: contingency && !/^none$/i.test(contingency) ? contingency : '',
     price: num(l.listPrice),
     beds: num(d.numBedrooms), baths: num(d.numBathrooms), sqft: num(d.sqft),
     type: homeType(l), style: text(d.style), yearBuilt,
@@ -90,7 +116,7 @@ export function compact(l, now = new Date()) {
 }
 
 // ---------- download ----------
-const FIELDS = 'boardId,mlsNumber,listPrice,listDate,updatedOn,timestamps,status,lastStatus,class,type,address,map,details,lot,images,office,agents,taxes,condominium';
+const FIELDS = 'boardId,mlsNumber,listPrice,listDate,updatedOn,timestamps,status,lastStatus,class,type,address,map,details,lot,images,office,agents,taxes,condominium,permissions';
 
 async function download(key, box) {
   // Small tiles keep each search well inside Repliers' paging limits; 4 run at a time.
@@ -165,6 +191,7 @@ export function loadFeed() {
       const dropped = { incomplete: 0, outside: 0 };
       for (const l of raw) {
         const c = compact(l, now);
+        if (c.hide) { dropped.sellerOptOut = (dropped.sellerOptOut ?? 0) + 1; continue; } // "Advertising: No"
         if (!c.mls || !c.price || !c.street || !Number.isFinite(c.lat) || !Number.isFinite(c.lng)) { dropped.incomplete++; continue; }
         c.community = findArea(comm, c.lng, c.lat)[0] ?? null;
         if (!c.community) { dropped.outside++; continue; } // outside the communities we cover

@@ -1,6 +1,7 @@
 ---
 // One lake: its lakefront homes for sale (map search around the lake, and live listings in its shoreline
 // communities), size and shoreline from the Minnesota DNR, the communities around it and the lakes nearby.
+import { OWN } from '../../data/search';
 import Base from '../../layouts/Base.astro';
 import AreaMap from '../../components/AreaMap.astro';
 import YlopoListings from '../../components/YlopoListings.astro';
@@ -87,7 +88,7 @@ const ld = JSON.stringify([
     </div>
   </section>
 
-  {!onLake && <MlsListings lake={l.slug} lakeName={l.name} moreHref={lakeSearchUrl(l)} />}
+  {!onLake && !OWN && <MlsListings lake={l.slug} lakeName={l.name} moreHref={lakeSearchUrl(l)} />}
   {onLake && onLake.length > 0 && (
     <section class="section" id="on-the-lake" aria-labelledby="onlake-title">
       <div class="wrap">
@@ -105,7 +106,7 @@ const ld = JSON.stringify([
     <section class="section section--paper" id="listings" aria-labelledby="listings-title">
       <div class="wrap">
         <div class="head">
-          <p class="eyebrow">Live MLS listings · lakefront only</p>
+          <p class="eyebrow">Lakefront homes for sale</p>
           <h2 id="listings-title">Lakefront homes in {list(townNames.slice(0, 4))}</h2>
           <p>Every lakefront listing in {townNames.length > 1 ? 'these communities' : townNames[0]}, which can include other lakes there. For homes on {l.name} only, use the map search.</p>
         </div>

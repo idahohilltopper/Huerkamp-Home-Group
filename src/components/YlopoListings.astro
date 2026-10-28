@@ -7,7 +7,7 @@
 import { site } from '../data/site';
 import { OWN, ownFromWidget, ownSearchHref, type OwnQuery } from '../data/search';
 import ListingCard from './ListingCard.astro';
-import { mls } from '../data/mls';
+import IdxDisclosure from './IdxDisclosure.astro';
 interface Props {
   search: Record<string, unknown>;
   own?: OwnQuery;
@@ -23,16 +23,18 @@ const domain = new URL(site.searchUrl).host;
 const data = JSON.stringify({ propertyTypes: ['house', 'condo', 'townhouse'], sortBy: 'listDate', sortOrder: 'desc', limit: 12, ...search });
 // The site's own listings (only loaded when the feed is on, so a build without it never touches the feed).
 const q = OWN ? { ...ownFromWidget(search), ...own } : null;
-const homes = q ? (await import('../data/own-listings')).ownListings(q, (q as { limit?: number }).limit ?? 12) : [];
+const own$ = q ? await import('../data/own-listings') : null;
+const homes = own$ && q ? own$.ownListings(q, (q as { limit?: number }).limit ?? 12) : [];
+const feedAt = own$?.feedAt ?? null;
 const ownMore = q ? ownSearchHref({ ...q, limit: undefined } as OwnQuery) : moreHref;
 ---
 {OWN ? (
   <>
     {homes.length
-      ? <ul class:list={['lcards', 'lcards--own', layout === 'scroll' && 'lcards--scroll']}>{homes.map((l) => <ListingCard l={l} />)}</ul>
-      : <p class="olist__none">No homes match this search right now. New listings are added twice a day.</p>}
+      ? <div data-idx><ul class:list={['lcards', 'lcards--own', layout === 'scroll' && 'lcards--scroll']}>{homes.map((l) => <ListingCard l={l} />)}</ul></div>
+      : <p class="olist__none">No homes match this search right now. New listings are added several times a day.</p>}
     {showMore && <p class="ylopo__more"><a class="link-arrow" href={ownMore}>{moreLabel}</a></p>}
-    {homes.length > 0 && <p class="olist__notice">{mls.notice}</p>}
+    {homes.length > 0 && <IdxDisclosure at={feedAt} />}
   </>
 ) : (
 <>
@@ -75,7 +77,6 @@ const ownMore = q ? ownSearchHref({ ...q, limit: undefined } as OwnQuery) : more
   .lcards--scroll > li { flex: 0 0 min(85%, 19rem); scroll-snap-align: start; }
   @media (max-width: 700px) { .lcards--own { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: .75rem; } .lcards--own > li { flex: 0 0 85%; scroll-snap-align: start; } }
   .olist__none { padding: 2rem 0; color: var(--text-soft); }
-  .olist__notice { margin-top: 1rem; font-size: .72rem; color: var(--text-soft); }
   /* Ylopo widget, restyled to match the site */
   .ylopo { position: relative; min-height: 22rem; }
   .ylopo.is-ready { min-height: 0; }

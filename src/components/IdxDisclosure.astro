@@ -1,0 +1,24 @@
+---
+// NorthstarMLS Broker Reciprocity disclosures, shown with every display of listing data (src/data/mls.ts has the
+// rules and wording). The Rule 12.3(i) disclaimer is set at least as large as the largest listing text on the page:
+// pass `size` when the page's listing text is larger than the card prices.
+import { mls, EULA_PATH } from '../data/mls';
+import { BR_LOGO } from '../data/mls-logos';
+interface Props { at?: string | null; size?: string; copyright?: boolean }
+const { at, size = '1.45rem', copyright = false } = Astro.props;
+const updated = at ? new Date(at).toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/Chicago' }) : '';
+---
+<div class="idx-disc">
+  {copyright && <p class="idx-disc__copy">{mls.copyright()}</p>}
+  <p class="idx-disc__big" style={`font-size:${size}`}>{mls.disclaimer}</p>
+  <p class="idx-disc__src">{BR_LOGO && <img src={BR_LOGO} alt="Broker Reciprocity" width="95" height="35" />}{mls.source}</p>
+  <p class="idx-disc__more">{mls.partial} {mls.freshness}{updated && ` Listing data last updated ${updated} (Central).`} Use of listing data is subject to the <a href={EULA_PATH}>license agreement</a>.</p>
+</div>
+
+<style>
+  .idx-disc { display: grid; gap: .6rem; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--line); color: var(--text); }
+  .idx-disc__copy { margin: 0; font: 600 1rem/1.4 var(--ui); }
+  .idx-disc__big { margin: 0; font-family: var(--serif); font-weight: 500; line-height: 1.3; }
+  .idx-disc__src, .idx-disc__more { margin: 0; font-size: 1rem; line-height: 1.5; }
+  .idx-disc__src img { float: left; width: 95px; height: auto; margin: .2rem .8rem .3rem 0; }
+</style>

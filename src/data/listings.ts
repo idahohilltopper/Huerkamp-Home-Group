@@ -17,6 +17,7 @@ export type Listing = {
   brokerage: string; agent: string; lat: number; lng: number; lakefront: boolean;
   taxes: number | null; hoa: number | null; heating: string; cooling: string; basement: string;
   community: string; hood: string | null; lakes: string[];
+  addressHidden?: boolean; contingency?: string;
 };
 
 export const MIN_INDEX = 5;

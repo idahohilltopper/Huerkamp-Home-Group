@@ -76,7 +76,7 @@ const prices = ['$300,000', '$400,000', '$500,000', '$600,000', '$750,000', '$1,
   {places.length > 0 && (
     <section class="section section--paper" aria-labelledby="new-title">
       <div class="wrap">
-        <div class="head"><p class="eyebrow">Live MLS listings</p><h2 id="new-title">Newest homes in {areas.own ? `${first}'s areas` : 'these areas'}</h2></div>
+        <div class="head"><p class="eyebrow">Homes for sale</p><h2 id="new-title">Newest homes in {areas.own ? `${first}'s areas` : 'these areas'}</h2></div>
         <YlopoListings search={{ locations: places.flatMap((p) => (p.city ? [{ city: p.city, state: 'MN' }] : (p.zips ?? []).map((z) => ({ postalCode: z })))), limit: 12 }} moreHref={searchUrl(places)} moreLabel="Search all of them" />
       </div>
     </section>

@@ -549,3 +549,30 @@ the broker's NorthstarMLS IDX license, the required disclaimer/logo, and Replier
   If Ylopo is cancelled, point that subdomain at Netlify and add a redirect to /home-search so old links keep working.
 - **Testing without the MLS:** `MLS_FIXTURE=<sample listings file> npm run build` builds the switched-on site locally
   (refused on Netlify).
+
+## NorthstarMLS display rules (2026-10-28)
+
+Built from the RMLS Rules and Regulations (effective January 1, 2025), Section 12, and the Broker Reciprocity
+Information and Technical Agreement (section 6 and Appendix D). Everything lives in `src/data/mls.ts`.
+
+- **License agreement (EULA):** /license-agreement has RMLS's required text word for word, with Keller Williams
+  Preferred Realty as Broker and the "developer" clause left out (no outside web vendor builds the site), plus the
+  required DMCA paragraphs and the contingency definitions. Every listing block (`data-idx`) is covered until the
+  visitor clicks **I AGREE**, once per visit (sessionStorage); /api/search answers only after that.
+- **Disclosures** (`src/components/IdxDisclosure.astro`) under every listing display: the Rule 12.3(i) disclaimer, at
+  least as large as the largest listing text (card prices 1.45rem; listing pages cap their title and price at 2rem and
+  set the disclaimer at 2rem); the data-source explanation with the Broker Reciprocity logo; the "only listings in our
+  communities" note; last-updated time; link to the EULA. Listing pages add the RMLS copyright notice and the listing
+  broker and MLS number right after the property information, keep the contact form and our own analysis ("How it
+  compares", with its source and the not-an-appraisal disclaimer) in a separate section below.
+- **Thumbnails** (`ListingCard.astro`, the search page): other brokerages' listings show only photo, price, address,
+  MLS number, listing brokerage and the thumbnail logo (Rule 12.3(f)); Keller Williams Preferred Realty listings show
+  everything. `OTHER_THUMB_DETAILS` in mls.ts turns details back on if NorthstarMLS confirms in writing that's allowed.
+- **Logos:** save RMLS's files unaltered as `public/mls/br-logo.png` (95x35 or larger) and `public/mls/br-thumb.png`
+  (35x35 or larger); they appear automatically once the files exist (`src/data/mls-logos.ts`).
+- **Seller choices:** "Advertising: No" listings are dropped; "Display Address: No" listings show no street, no map
+  point and an address-free page address (`sellerChoices` in src/lib/mls-feed.mjs, reading Repliers' `permissions`).
+- **Other rules:** at most 500 listings per search answer (Rule 11.8); refresh every 8 hours (rebuild.mjs, Rule 12.2(f)
+  requires 12); $1 auction prices show "Auction"; contingencies are shown on the listing page; no wording that says or
+  implies the public can search the MLS (Rule 13.1(b)); footer says "Licensed in Minnesota" (Rule 12.2(h)).
+- **Repliers:** confirmed full NorthstarMLS access on the "standard" key (email, 2026-10-28).
