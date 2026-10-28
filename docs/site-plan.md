@@ -293,6 +293,7 @@ Google and AI search favor sites that keep adding real, useful, accurate informa
 | Daily website refresh | Every day, 6:38 am | Adds new YouTube videos and Shorts, plus their watch pages. Tags new blog posts to their towns. Checks links, the sitemap and llms.txt. Does nothing if nothing changed. | Yes, straight to the live branch |
 | Weekly local story (for approval) and SEO upgrade | Wednesdays, 7:53 am | Writes one new local story about a core town, with every fact linked to a public source and fact-checked. Also makes one small SEO/AI improvement for the whole site. Both go on a review branch (claude/story-DATE), and Jason gets the full text and sources in a notification. | Only after Jason replies "publish" in that routine's conversation |
 | Monthly backlinks and citations | 15th of the month, 7:32 am | Checks that every listing (Google, Bing, Apple, Zillow, Realtor.com, KW, Ramsey, chambers and more) shows the same name, address and phone and links to this site. Finds new links and mentions, lists 5-10 real link opportunities, and drafts outreach emails for Jason to send. White-hat only: never buys links or posts on his behalf. | No. The report goes on a backlinks branch. |
+| Daily security check | Every day, 2:47 am | Checks packages for known vulnerabilities, scans for leaked keys, reviews the last day's code changes and the server functions, checks security headers, and once launched the live site's HTTPS, certificate and domain expiry. Small safe fixes are validated and pushed; bigger ones wait on a claude/security-DATE branch. Quiet one-line report when nothing is found. | Small fixes yes; bigger ones only after Jason approves |
 | Monthly SEO checkup | 1st of the month, 7:39 am | Full check of speed, links, schema, listings and data freshness. Writes a report in docs/checkups/. | No. Fixes wait on a checkup branch for approval. |
 
 - Each page's "Updated" date and its sitemap date come from real changes only (src/lib/lastmod.mjs).
@@ -507,3 +508,12 @@ A section for longtime homeowners: people downsizing, retiring, moving to one-le
 - **Links:** Sell menu and footer ("Short sales & foreclosure"), Homes menu ("Foreclosures & short sales" → buyer guide), a section on /sell, and /llms.txt.
 - **Experience line (`EXPERIENCE`, Jason 2026-10-28):** the team has handled hundreds of short sales and works with Markve, Zweifel & Heinrich, PLLC (mzlawshortsales.com), whose short sale team has closed more than 4,000 Minnesota short sales since 2009 (the firm's own published figure). Jason confirmed 2026-10-28 that the firm is OK being named. Jason also described the firm as having done more short sales than anyone in Minnesota; that isn't published anywhere we could cite, so the site uses the firm's own count instead.
 - **Re-check yearly** with the selling rules (laws and the IRS exclusion can change; update CHECKED in the data file).
+
+## Security (2026-10-28)
+
+- **Secrets** live only in Netlify environment variables; none are in the repository or its history (scanned 2026-10-28). `.env` files are ignored by git.
+- **Packages:** `npm audit` clean after `npm audit fix` (was 12 issues in Vite, undici, Zod and others, mostly build tools).
+- **Headers** (`public/_headers`, mirrored in `vercel.json`): nosniff, Referrer-Policy, Strict-Transport-Security, X-Frame-Options SAMEORIGIN + CSP frame-ancestors 'self' (no one can frame the site), Permissions-Policy (no camera, microphone, payment, USB).
+- **Functions:** /api/lead accepts posts only from the site's own domains, Netlify previews and localhost (others get 403), plus the honeypot and timing spam checks. /api/report and /api/listings debug need the passcode in the x-report-key header (timing-safe compare; never in the address). /api/listings returns nothing before MLS_PUBLIC=yes, and its CDN cache varies only on lake/mls so junk query strings can't run up Repliers calls.
+- **Recommendation:** use a long random REPORT_KEY (20+ characters); the passcode is the only lock on /report.
+- **Daily security check** routine re-checks all of this every night (see the routines table).
