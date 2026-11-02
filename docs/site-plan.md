@@ -584,3 +584,18 @@ Information and Technical Agreement (section 6 and Appendix D). Everything lives
   scores hold.
 - Every website form sends a `generate_lead` event (form name and page). Mark it as a key event in GA4 (Admin → Events)
   to count leads, and import it into Google Ads once the Ads conversion label is set up.
+
+## Selling by owner (FSBO), replacing the Lovable site (2026-11-02)
+
+- Jason is retiring the team's Lovable FSBO site (home page, FSBO guide, forms library, about, contact; the guide and
+  forms sat behind an account sign-up). Its ideas now live here, ungated so Google and AI search can read them:
+  /for-sale-by-owner (hub) and three guides in `src/data/fsbo.ts`: how to sell by owner step by step, the FSBO
+  paperwork checklist (built from the statewide list in `src/data/sale-rules.ts` plus MDH well and radon pages and the
+  Revenue eCRV page), and an honest FSBO-vs-agent comparison (NAR 2025 Profile: 91% of sellers used an agent).
+- **Not carried over, on purpose:** the Lovable site's testimonials and numbers (28 years, $164M and 463 sales in 2026,
+  "median saved $12,150") couldn't be verified, and its "forms without the brokerage logos" library: the site links the
+  official government forms and publications instead and sends people to an attorney or title company for the
+  purchase agreement and deed. It also showed the old phone number (612) 502-7653.
+- **Leads:** the "free second opinion" form (`fsbo`) reaches Follow Up Boss as a Seller Inquiry tagged "FSBO" and
+  "Seller lead", with where the seller is in the process.
+- **Links:** Sell menu and footer, a section on /sell, and /llms.txt.

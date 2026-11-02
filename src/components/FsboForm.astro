@@ -1,0 +1,43 @@
+---
+// "Free second opinion" form on every /for-sale-by-owner page. Goes to Follow Up Boss as a Seller Inquiry tagged
+// "FSBO" and "Seller lead" (src/lib/lead.mjs), with where the seller is in the process.
+import { site } from '../data/site';
+interface Props { topic: string; id?: string }
+const { topic, id = 'fs' } = Astro.props;
+---
+<section class="section section--dark" id="help" aria-labelledby={`${id}-title`}>
+  <div class="wrap fssplit">
+    <div class="prose">
+      <p class="eyebrow">Free, no obligation</p>
+      <h2 id={`${id}-title`}>Selling it yourself? <em>Get a free second opinion.</em></h2>
+      <p>Tell us about your home. A {site.name} agent will send you a home value based on recent sales and look over your price, your paperwork list or an offer you’ve received. No pressure to list with us.</p>
+      <p class="fscall">Prefer to talk? Call <a href={site.phoneHref}>{site.phone}</a>.</p>
+    </div>
+    <form class="form" data-lead="fsbo">
+      <input type="hidden" name="topic" value={topic} />
+      <div class="form__row">
+        <div class="field"><label for={`${id}-first`}>First name</label><input id={`${id}-first`} name="firstName" autocomplete="given-name" required /></div>
+        <div class="field"><label for={`${id}-last`}>Last name</label><input id={`${id}-last`} name="lastName" autocomplete="family-name" required /></div>
+      </div>
+      <div class="form__row">
+        <div class="field"><label for={`${id}-email`}>Email</label><input id={`${id}-email`} name="email" type="email" autocomplete="email" required /></div>
+        <div class="field"><label for={`${id}-phone`}>Phone</label><input id={`${id}-phone`} name="phone" type="tel" autocomplete="tel" /></div>
+      </div>
+      <div class="field"><label for={`${id}-addr`}>Property address</label><input id={`${id}-addr`} name="address" autocomplete="street-address" /></div>
+      <div class="field">
+        <label for={`${id}-sit`}>Where you are</label>
+        <select id={`${id}-sit`} name="situation"><option value="">Choose one</option><option>Thinking about selling it myself</option><option>Getting ready to list it myself</option><option>Listed it myself already</option><option>Have an offer and want a second opinion</option><option>Tried it myself and want help now</option></select>
+      </div>
+      <div class="field"><label for={`${id}-msg`}>What would help most?</label><textarea id={`${id}-msg`} name="message" rows="3"></textarea></div>
+      <button class="btn" type="submit">Send me a free second opinion</button>
+      <p class="form__status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .fssplit { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 900px) { .fssplit { grid-template-columns: 1fr; } }
+  .fscall { font-size: 1.15rem; }
+  .fssplit a { color: #fff; font-weight: 700; }
+</style>

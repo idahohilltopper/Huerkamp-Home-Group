@@ -1,0 +1,86 @@
+---
+// Selling by owner (FSBO) hub: the guides in src/data/fsbo.ts, the free tools a by-owner seller can use, related posts
+// and the free second-opinion form. Replaces the team's Lovable FSBO site.
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import PostCard from '../../components/PostCard.astro';
+import FsboForm from '../../components/FsboForm.astro';
+import { fsboGuides, fsboHref } from '../../data/fsbo';
+import { getPosts } from '../../data/blog';
+import reviews from '../../data/reviews.json';
+import { site } from '../../data/site';
+
+const postPaths = [...new Set(fsboGuides.flatMap((g) => g.posts ?? []))];
+const posts = (await getPosts()).filter((p) => postPaths.includes(p.data.path)).slice(0, 6);
+const g = reviews.summary.google;
+const tools = [
+  { href: '/sell#value', t: 'Free home value', d: 'What your home is likely to sell for, from recent sales. Free even if you sell it yourself.' },
+  { href: '/calculators/seller-net-proceeds', t: 'Net proceeds calculator', d: 'What you keep after the Minnesota deed tax, payoff and closing costs.' },
+  { href: '/market', t: 'Monthly market reports', d: 'Median prices, days on market and inventory for every city we cover.' },
+  { href: '/selling-in-minnesota', t: 'City inspection rules', d: 'Which cities require a Truth in Sale of Housing or sewer inspection before you sell.' },
+];
+const faq = [
+  { q: 'Can I sell my house myself in Minnesota?', a: 'Yes. Minnesota does not require an agent. You still owe the buyer the required disclosures and any inspection your city requires, and a title company or attorney should handle the purchase agreement, deed and closing.' },
+  { q: 'Do you help people who sell their own home?', a: 'Yes, for free: a home value from recent sales and a second opinion on your price, paperwork or an offer, with no obligation to list with us.' },
+  { q: 'What paperwork does a by-owner sale need?', a: 'The seller’s disclosures (material facts, wells, septic, radon, lead paint for homes built before 1978, meth, and association documents for condos and townhomes), any city inspection report, a purchase agreement, and the deed, eCRV and settlement statement prepared at closing. Our FSBO paperwork checklist links each one to its official source.' },
+];
+const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
+---
+<Base breadcrumbs={[{ name: 'Sell by owner (FSBO)', href: '/for-sale-by-owner' }]}
+  title={`Sell Your Home by Owner (FSBO) in Minnesota | ${site.name}`}
+  description="A free, plain-English guide to selling your own home in Minnesota: pricing, city inspections, required disclosures, paperwork, offers and closing, with official sources.">
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <PageHero eyebrow="Selling by owner" title="Sell your home on your terms."
+    lede="Thinking about selling it yourself? Here is the same plan, paperwork list and pricing data an agent uses, in plain English, with the Minnesota rules behind each step. Use it on your own, or ask us for a free second opinion along the way." />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="head"><p class="eyebrow">The FSBO guide</p><h2>Start here</h2></div>
+      <ul class="dcards">{fsboGuides.map((x) => <li><a href={fsboHref(x)}><strong>{x.title}</strong><span>{x.short}</span></a></li>)}</ul>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="wrap">
+      <div class="head"><p class="eyebrow">Free tools</p><h2>Everything you need to price and plan</h2></div>
+      <ul class="dcards">{tools.map((x) => <li><a href={x.href}><strong>{x.t}</strong><span>{x.d}</span></a></li>)}</ul>
+      <p class="dcall">Rather talk it through? Call <a href={site.phoneHref}>{site.phone}</a>. Rated {g.rating.toFixed(1)} stars across {g.count} Google reviews.</p>
+    </div>
+  </section>
+
+  {posts.length > 0 && (
+    <section class="section" aria-labelledby="posts-title">
+      <div class="wrap">
+        <div class="head"><p class="eyebrow">Read</p><h2 id="posts-title">Articles for home sellers</h2></div>
+        <div class="post-grid">{posts.map((p) => <PostCard post={p} />)}</div>
+      </div>
+    </section>
+  )}
+
+  <section class="section section--paper" aria-labelledby="faq-title">
+    <div class="wrap faq">
+      <div class="head"><p class="eyebrow">Quick answers</p><h2 id="faq-title">Questions we hear most</h2></div>
+      {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+      <p class="fine">General information, not legal or tax advice. A Minnesota real estate attorney or title company should prepare or review your contract and closing documents.</p>
+    </div>
+  </section>
+
+  <FsboForm topic="FSBO hub" />
+</Base>
+
+<style>
+  .head { margin-bottom: 1.5rem; }
+  .dcards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); gap: 1rem; }
+  .dcards a { display: grid; gap: .4rem; height: 100%; padding: 1.25rem 1.4rem; border: 1px solid var(--line); background: var(--paper); color: var(--text); text-decoration: none; }
+  .section--paper .dcards a { background: #fff; }
+  .dcards strong { font: 600 1.3rem/1.25 var(--serif); }
+  .dcards span { font-size: 1.02rem; color: var(--text-soft); }
+  .dcards a:hover strong { color: var(--crimson); }
+  .dcall { margin-top: 2rem; font-size: 1.15rem; }
+  .post-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); gap: 1.5rem; }
+  .faq { display: grid; gap: .75rem; max-width: 52rem; }
+  .faq details { padding: 1rem 1.2rem; background: #fff; border: 1px solid var(--line); }
+  .faq summary { cursor: pointer; font: 600 1.2rem/1.3 var(--serif); }
+  .faq details p { margin-top: .6rem; font-size: 1.05rem; }
+  .fine { font-size: .92rem; color: var(--text-soft); }
+</style>

@@ -27,6 +27,7 @@ export const FORMS = {
   'agent':             { type: 'General Inquiry', label: 'Agent page form',        tags: ['Agent page'] },
   'guide':             { type: 'General Inquiry', label: 'Area guide form',       tags: ['Area guide'] },
   'downsizing':        { type: 'Seller Inquiry',  label: 'Downsizing plan request', tags: ['Downsizing', 'Seller lead'] },
+  'fsbo':              { type: 'Seller Inquiry',  label: 'FSBO second opinion',    tags: ['FSBO', 'Seller lead'] },
   'foreclosure':       { type: 'Seller Inquiry',  label: 'Short sale / foreclosure help', tags: ['Pre-foreclosure', 'Seller lead'] },
   'foreclosure-buyer': { type: 'General Inquiry', label: 'Foreclosure buyer form', tags: ['Buyer lead', 'Foreclosure buyer'] },
   'commute':           { type: 'Property Search', label: 'Commute page form',     tags: ['Buyer lead', 'Commute search'] },
