@@ -1,0 +1,29 @@
+---
+// Ylopo's privacy policy, word for word as Jason supplied it (last revised by Ylopo February 25, 2026), kept on the site
+// so anyone using a Ylopo-run service (home search at search.huerkamphomegroup.com, ads, Facebook/Instagram lead forms,
+// the "Local Home Search" Facebook app) can read it here. The text is in src/data/policies/ylopo-privacy.md: replace it
+// only with a newer version from Ylopo, never edit it. The site's own policy is /privacy. Kept out of search results:
+// it's Ylopo's standard text.
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { Content } from '../../data/policies/ylopo-privacy.md';
+import { site } from '../../data/site';
+---
+<Base breadcrumbs={[{ name: 'Privacy policy', href: '/privacy' }, { name: 'Ylopo services', href: '/privacy/ylopo' }]} noindex
+  title={`Privacy Policy for Ylopo Services | ${site.name}`}
+  description="The privacy policy of Ylopo, which runs Huerkamp Home Group's home search, online ads and some lead forms.">
+  <PageHero eyebrow="Privacy" title="Privacy policy for Ylopo services"
+    lede="Ylopo runs our home search at search.huerkamphomegroup.com, our online ads and some lead forms, including on Facebook and Instagram. This is Ylopo's privacy policy for those services." />
+  <section class="section">
+    <div class="wrap prose narrowish">
+      <p class="note">For information you share on this website (huerkamphomegroup.com), see <a href="/privacy">our privacy policy</a>. For questions about either, call {site.name} at <a href={site.phoneHref}>{site.phone}</a> or email <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+      <h2>Privacy Policy</h2>
+      <Content />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .narrowish { max-width: 52rem; }
+  .note { padding: 1rem 1.2rem; border-left: 3px solid var(--crimson); background: var(--paper); }
+</style>

@@ -599,3 +599,12 @@ Information and Technical Agreement (section 6 and Appendix D). Everything lives
 - **Leads:** the "free second opinion" form (`fsbo`) reaches Follow Up Boss as a Seller Inquiry tagged "FSBO" and
   "Seller lead", with where the seller is in the process.
 - **Links:** Sell menu and footer, a section on /sell, and /llms.txt.
+
+## Ylopo privacy policy page (2026-11-02)
+
+- /privacy/ylopo shows Ylopo's privacy policy word for word (Ylopo's revision of February 25, 2026), as Jason supplied it,
+  in `src/data/policies/ylopo-privacy.md`. It covers Ylopo-run services: the home search at search.huerkamphomegroup.com
+  until the MLS switch, ads, Facebook/Instagram lead forms and the "Local Home Search" Facebook app. Kept out of search
+  results (Ylopo's standard text). Replace the file only with a newer version from Ylopo; don't edit it.
+- /privacy stays the website's own policy and links to it. Once the site's own IDX is on, Ylopo is listed there only for
+  ads and lead follow-up.
