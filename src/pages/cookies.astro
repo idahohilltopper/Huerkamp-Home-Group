@@ -1,0 +1,80 @@
+---
+// "Manage cookies": what this site stores in a visitor's browser, and a switch for Google Analytics. The choice is kept
+// in localStorage ("hhg-analytics": "denied" or "granted"); the Google Analytics tag in src/layouts/Base.astro reads it
+// and also treats a Global Privacy Control signal from the browser as "denied". Update the table when a tool is added
+// (for example a Google Ads tag).
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { OWN } from '../data/search';
+import { site } from '../data/site';
+const rows: [string, string, string, string][] = [
+  ['Google Analytics', '_ga, _ga_<ID> (cookies)', 'Counts visits and which pages are used, so we can improve the site. Up to 2 years.', 'Optional: switch it off above'],
+  ['Listing license agreement', 'idx-eula (browser session storage)', 'Remembers that you clicked I AGREE to the NorthstarMLS license agreement, until you close the tab.', 'Needed to show listings'],
+  ['Your agent', 'hhg-agent (browser storage)', 'When you open one of our agents’ pages, remembers that agent for 30 days so your questions reach them.', 'Needed for that feature; dismiss the agent bar to clear it'],
+  ['Your choice on this page', 'hhg-analytics (browser storage)', 'Remembers whether you allow analytics.', 'Needed to remember your choice'],
+];
+---
+<Base breadcrumbs={[{ name: 'Manage cookies', href: '/cookies' }]} noindex
+  title={`Manage Cookies | ${site.name}`}
+  description="The cookies and browser storage this site uses, and how to turn analytics off.">
+  <PageHero eyebrow="Privacy" title="Manage cookies" lede="What this website stores in your browser, and a switch to turn analytics off. We don’t sell your information." />
+  <section class="section">
+    <div class="wrap prose narrowish">
+      <div class="choice" data-choice>
+        <h2>Analytics</h2>
+        <p>Google Analytics helps us see which pages are useful. It doesn’t tell us who you are.</p>
+        <p class="choice__now" data-now aria-live="polite">Analytics is on.</p>
+        <p><button type="button" class="btn" data-off>Turn analytics off</button> <button type="button" class="btn btn--ghost" data-on>Turn analytics on</button></p>
+        <p class="small">If your browser sends a Global Privacy Control signal, analytics stays off automatically. Your choice is saved in this browser only.</p>
+      </div>
+
+      <h2>What we store</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>What</th><th>Name</th><th>Why, and for how long</th><th>Your choice</th></tr></thead>
+          <tbody>{rows.map(([a, b, c, d]) => <tr><td>{a}</td><td><code>{b}</code></td><td>{c}</td><td>{d}</td></tr>)}</tbody>
+        </table>
+      </div>
+      <p class="small">Cookie lifetimes for Google Analytics are Google’s defaults (<a href="https://support.google.com/analytics/answer/11397207" rel="noopener">Google Analytics cookie usage</a>).</p>
+
+      <h2>Other services on our pages</h2>
+      <ul>
+        <li><strong>Videos:</strong> YouTube videos use YouTube’s privacy-enhanced mode and load only when you press play.</li>
+        <li><strong>Maps:</strong> map images load from our map provider when a map comes into view.</li>
+        {!OWN && <li><strong>Home search:</strong> the listings boxes and home search come from Ylopo, which may set its own cookies; see <a href="/privacy/ylopo">Ylopo’s privacy policy</a>.</li>}
+        {OWN && <li><strong>Listing photos:</strong> photos of homes for sale load from our listing data provider, Repliers.</li>}
+      </ul>
+      <p>You can also block or delete cookies in your browser’s settings. For more about how we handle your information, see our <a href="/privacy">privacy policy</a>, or call <a href={site.phoneHref}>{site.phone}</a>.</p>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const KEY = 'hhg-analytics';
+  const now = document.querySelector<HTMLElement>('[data-now]')!;
+  const gpc = (navigator as any).globalPrivacyControl === true;
+  const get = () => { try { return localStorage.getItem(KEY); } catch { return null; } };
+  const show = () => {
+    const off = gpc || get() === 'denied';
+    now.textContent = off ? (gpc && get() !== 'denied' ? 'Analytics is off (your browser’s Global Privacy Control signal).' : 'Analytics is off.') : 'Analytics is on.';
+  };
+  // Remove Google Analytics cookies for this site (they are set on the top domain).
+  const clear = () => document.cookie.split(';').map((c) => c.split('=')[0].trim()).filter((n) => /^_ga/.test(n)).forEach((n) => {
+    for (const d of ['', location.hostname, '.' + location.hostname.replace(/^www\./, '')]) document.cookie = `${n}=; Max-Age=0; path=/${d ? `; domain=${d}` : ''}`;
+  });
+  document.querySelector('[data-off]')!.addEventListener('click', () => { try { localStorage.setItem(KEY, 'denied'); } catch {} clear(); show(); });
+  document.querySelector('[data-on]')!.addEventListener('click', () => { try { localStorage.setItem(KEY, 'granted'); } catch {} show(); });
+  show();
+</script>
+
+<style>
+  .narrowish { max-width: 56rem; }
+  .choice { padding: 1.25rem 1.5rem; border: 1px solid var(--line); background: var(--paper); margin-bottom: 2rem; }
+  .choice h2 { margin-top: 0; }
+  .choice__now { font-weight: 700; }
+  .small { font-size: .92rem; color: var(--text-soft); }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+  th, td { text-align: left; vertical-align: top; padding: .6rem .7rem; border-bottom: 1px solid var(--line); }
+  code { font-size: .85rem; overflow-wrap: anywhere; }
+</style>

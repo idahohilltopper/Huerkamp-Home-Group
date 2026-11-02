@@ -608,3 +608,13 @@ Information and Technical Agreement (section 6 and Appendix D). Everything lives
   results (Ylopo's standard text). Replace the file only with a newer version from Ylopo; don't edit it.
 - /privacy stays the website's own policy and links to it. Once the site's own IDX is on, Ylopo is listed there only for
   ads and lead follow-up.
+
+## Manage cookies (2026-11-02)
+
+- /cookies lists what the site stores in a visitor's browser: Google Analytics cookies (_ga, _ga_<ID>, 2 years per
+  Google), the NorthstarMLS license agreement flag (session storage), the "your agent" memory (30 days) and the
+  analytics choice itself; plus YouTube (privacy-enhanced, loads on play), maps, and Ylopo or Repliers depending on
+  the MLS switch. Its switch turns Google Analytics off or on (localStorage "hhg-analytics"); turning it off also
+  deletes the _ga cookies. A browser's Global Privacy Control signal turns analytics off automatically.
+- Linked from the footer ("Manage cookies") and the privacy policy. Add a row when a new tool is added (e.g. a
+  Google Ads tag).

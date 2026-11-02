@@ -118,8 +118,11 @@ const isExternal = (href: string) => href.startsWith('http');
   {crumbLd && <script type="application/ld+json" set:html={crumbLd} />}
   <script is:inline>try{if(sessionStorage.getItem('idx-eula')==='1')document.documentElement.classList.add('idx-ok')}catch(e){}</script>
   {site.ga4 && <script is:inline define:vars={{ id: site.ga4 }}>
-    // Google Analytics 4, live domains only. The library loads after the page has, so it never slows it down.
-    if (/(^|\.)huerkamphome(group|s)\.com$/.test(location.hostname)) {
+    // Google Analytics 4, live domains only, and not when the visitor turned analytics off on /cookies or the browser
+    // sends a Global Privacy Control signal. The library loads after the page has, so it never slows it down.
+    let off = navigator.globalPrivacyControl === true;
+    try { off = off || localStorage.getItem('hhg-analytics') === 'denied'; } catch (e) {}
+    if (!off && /(^|\.)huerkamphome(group|s)\.com$/.test(location.hostname)) {
       window.dataLayer = window.dataLayer || [];
       window.gtag = function () { dataLayer.push(arguments); };
       gtag('js', new Date());
@@ -216,7 +219,7 @@ const isExternal = (href: string) => href.startsWith('http');
     </div>
     <div class="wrap footer__legal">
       <p>© {year} {site.name}. {site.brokerage}. Each office independently owned and operated. Licensed in {LICENSED_IN}.</p>
-      <p><span aria-hidden="true">⌂</span> Equal Housing Opportunity. Skyline photo: <a href="https://commons.wikimedia.org/wiki/File:Downtown_Minneapolis_skyline_across_the_Mississippi_River.jpg">Guywelch2000</a>, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, power lines removed. <a href={site.facebookUrl} rel="noopener">Facebook</a> · <a href={site.youtubeUrl} rel="noopener">YouTube</a> · <a href={site.privacyUrl}>Privacy policy</a> · <a href="/sms-terms">SMS terms</a>{OWN && <> · <a href={EULA_PATH}>Listing license agreement</a></>}</p>
+      <p><span aria-hidden="true">⌂</span> Equal Housing Opportunity. Skyline photo: <a href="https://commons.wikimedia.org/wiki/File:Downtown_Minneapolis_skyline_across_the_Mississippi_River.jpg">Guywelch2000</a>, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, power lines removed. <a href={site.facebookUrl} rel="noopener">Facebook</a> · <a href={site.youtubeUrl} rel="noopener">YouTube</a> · <a href={site.privacyUrl}>Privacy policy</a> · <a href="/cookies">Manage cookies</a> · <a href="/sms-terms">SMS terms</a>{OWN && <> · <a href={EULA_PATH}>Listing license agreement</a></>}</p>
     </div>
   </footer>
 
