@@ -41,6 +41,8 @@ function match(rule, host, path) {
 function resolve(host, path) {
   const hops = [];
   for (let i = 0; i < 6; i++) {
+    // Netlify forwards the bare domain to the primary one (www) before any _redirects rule runs.
+    if (host === 'huerkamphomes.com') { hops.push(`301 → https://${SITE}${path} (Netlify primary domain)`); host = SITE; continue; }
     const internal = host === SITE;
     const rule = rules.find((r) => {
       const m = match(r, host, path);

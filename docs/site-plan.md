@@ -637,7 +637,7 @@ Jason chose **www.huerkamphomes.com** as the site's address (not huerkamphomegro
 
 Netlify domains at launch: **www.huerkamphomes.com = primary domain**; huerkamphomes.com, huerkamphomegroup.com and www.huerkamphomegroup.com = domain aliases. `public/_redirects` (from scripts/write-redirects.mjs):
 - every old Squarespace address on (www.)huerkamphomegroup.com → its new page on www.huerkamphomes.com, anything else keeps its path (forced);
-- huerkamphomes.com → www.huerkamphomes.com;
+- huerkamphomes.com ↔ www.huerkamphomes.com is left to Netlify (it forwards to whichever is primary; a rule here would loop while the bare domain is temporarily primary);
 - old Luxury Presence addresses → new pages, only where no new page has that address (not forced). Unknown addresses now get the 404 page instead of the home page (better for Google).
 `node scripts/check-launch.mjs` checks all 406 + 556 old addresses. search.huerkamphomegroup.com (Ylopo) and email addresses stay on huerkamphomegroup.com, so that domain must stay registered and its DNS kept. The Follow Up Boss lead source stays "huerkamphomegroup.com" (src/lib/lead.mjs SOURCE) so existing FUB automations keep working; change it only together with FUB.
 

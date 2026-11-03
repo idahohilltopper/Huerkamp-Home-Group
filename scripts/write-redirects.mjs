@@ -10,8 +10,10 @@ const NEW = 'https://www.huerkamphomes.com';
 // any other address keeps its path. Forced (!), so nothing is ever served on the old domain.
 const oldGroup = ['https://huerkamphomegroup.com', 'https://www.huerkamphomegroup.com'].flatMap((host) =>
   list.map((r) => `${(host + r.from).padEnd(70)} ${r.to.startsWith('http') ? r.to : NEW + r.to} 301!`).concat(`${(host + '/*').padEnd(70)} ${NEW}/:splat 301!`));
-// The bare huerkamphomes.com goes to www (Netlify does this too once www is primary; this makes it certain).
-const bare = [`${'https://huerkamphomes.com/*'.padEnd(70)} ${NEW}/:splat 301!`];
+// huerkamphomes.com <-> www.huerkamphomes.com is left to Netlify, which forwards the one that isn't the primary domain
+// to the one that is. A rule here would loop while the bare domain is still primary (it must stay that way until
+// Netlify's certificate is issued).
+const bare = [];
 // Old Luxury Presence addresses (built by scripts/build-lp-redirects.py) now arrive on the new site itself, so these
 // are plain paths and NOT forced: a rule only applies when no new page has that address.
 const lp = JSON.parse(readFileSync('redirects-lp.json', 'utf8'));
@@ -19,7 +21,7 @@ const lpRules = lp.filter((r) => r.from !== r.to).map((r) => `${r.from.padEnd(70
 
 const netlify = ['# Generated from redirects.json and redirects-lp.json by scripts/write-redirects.mjs.',
   '# Old huerkamphomegroup.com (Squarespace) addresses -> www.huerkamphomes.com']
-  .concat(oldGroup, '', '# huerkamphomes.com -> www.huerkamphomes.com', bare, '',
+  .concat(oldGroup, '',
     '# Old huerkamphomes.com (Luxury Presence) addresses -> new pages (only where no new page has that address)', lpRules)
   .join('\n') + '\n';
 writeFileSync('public/_redirects', netlify);

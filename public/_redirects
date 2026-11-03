@@ -113,9 +113,6 @@ https://www.huerkamphomegroup.com/blog/tag/Waterfront+Homes+MN         https://w
 https://www.huerkamphomegroup.com/blog/tag/fade-blog-header-image      https://www.huerkamphomes.com/blog 301!
 https://www.huerkamphomegroup.com/*                                    https://www.huerkamphomes.com/:splat 301!
 
-# huerkamphomes.com -> www.huerkamphomes.com
-https://huerkamphomes.com/*                                            https://www.huerkamphomes.com/:splat 301!
-
 # Old huerkamphomes.com (Luxury Presence) addresses -> new pages (only where no new page has that address)
 /careers                                                               /team#careers 301
 /cash-offer                                                            /sell#cash 301
