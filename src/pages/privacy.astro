@@ -10,7 +10,7 @@ const updated = 'October 27, 2026';
 ---
 <Base breadcrumbs={[{ name: 'Privacy policy', href: '/privacy' }]} title={`Privacy Policy | ${site.name}`}
   description={`What ${site.name} collects on huerkamphomes.com, how we use it, how calls and texts work, and how to reach us about your information.`}>
-  <PageHero eyebrow="Privacy" title="Privacy policy" lede={`Last updated ${updated}. This policy covers huerkamphomes.com (and huerkamphomegroup.com, which forwards to it).`} />
+  <PageHero eyebrow="Privacy" title="Privacy policy" lede={`Last updated ${updated}. This policy covers huerkamphomes.com.`} />
   <section class="section">
     <div class="wrap prose legal">
       <p>{site.name} is a real estate team with {site.brokerage} at {site.street}, {site.cityStateZip}. This policy explains what we collect on this website and what we do with it. {OWN ? <>Home listings on this site come from NorthstarMLS through our listing data provider, Repliers; listing photos load from Repliers’ servers.</> : <>Our home search at <a href={site.searchUrl}>search.huerkamphomegroup.com</a> is run by our search provider, Ylopo, and has its own privacy policy, which you can read <a href="/privacy/ylopo">here</a>.</>}</p>
