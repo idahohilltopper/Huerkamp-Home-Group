@@ -9,6 +9,7 @@ categories: ["Buyer"]
 tags: []
 cover: { src: "/blog/landscaping-costs-homebuyers-forget-to-budget-for/cover.webp", width: 1200, height: 600, thumb: "/blog/landscaping-costs-homebuyers-forget-to-budget-for/cover-640.webp" }
 importedFrom: squarespace
+noindex: true
 ---
 **A stunning yard, with its fresh lawn, lovely trees, and colorful flower beds and gardens, can absolutely boost curb appeal and home value. These features help create a powerful first impression to potential buyers, making a property feel more inviting and well cared for.**
 

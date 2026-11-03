@@ -26,6 +26,10 @@ const blog = defineCollection({
     youtube: z.string().optional(),
     draft: z.boolean().default(false),
     importedFrom: z.string().optional(),
+    /** Skip for now: the post shows on the site but asks Google not to index it (and stays out of the sitemap and
+     *  llms.txt). Used for the 20 posts that are still live on huerkamphomegroup.com (Squarespace), so the two
+     *  sites don't compete with duplicate copies. Remove it once that domain forwards here. */
+    noindex: z.boolean().default(false),
   }),
 });
 

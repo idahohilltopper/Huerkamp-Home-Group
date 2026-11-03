@@ -9,6 +9,7 @@ categories: ["Seller"]
 tags: []
 cover: { src: "/blog/why-you-should-list-your-home-at-the-beginning-of-the-year/cover.webp", width: 1200, height: 600, thumb: "/blog/why-you-should-list-your-home-at-the-beginning-of-the-year/cover-640.webp" }
 importedFrom: squarespace
+noindex: true
 ---
 **New year, fresh possibilities. And if you're a homeowner considering selling, you might be surprised to learn that the start of the year is also an ideal time to list.**
 

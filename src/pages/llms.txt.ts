@@ -23,7 +23,7 @@ import { listingsData, homesHref, stats, money as lMoney } from '../data/listing
 export async function GET(context: APIContext) {
   const url = (p: string) => new URL(p, context.site).href;
   const g = reviews.summary.google;
-  const posts = (await getPosts()).slice(0, 25);
+  const posts = (await getPosts()).filter((p) => !p.data.noindex).slice(0, 25);
   // Homes for sale: listed only when the MLS pages are live (not in preview).
   const homes = await listingsData;
   const homeAreas = homes.mode === 'live' ? homes.collections.filter((k) => !k.facet && k.area.kind === 'community') : [];

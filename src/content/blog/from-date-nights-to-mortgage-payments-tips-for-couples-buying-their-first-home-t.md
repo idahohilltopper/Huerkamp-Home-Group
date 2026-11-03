@@ -9,6 +9,7 @@ categories: ["Buyer"]
 tags: []
 cover: { src: "/blog/from-date-nights-to-mortgage-payments-tips-for-couples-buying-their-first-home-t/cover.webp", width: 1200, height: 600, thumb: "/blog/from-date-nights-to-mortgage-payments-tips-for-couples-buying-their-first-home-t/cover-640.webp" }
 importedFrom: squarespace
+noindex: true
 ---
 **With Valentine's Day just around the corner, it’s not only love that fills the air, but a renewed sense of commitment among couples. From lovely surprises to grand gestures, the romantic holiday serves as a catalyst for them to take the next step in their relationships, such as buying a home together.**
 

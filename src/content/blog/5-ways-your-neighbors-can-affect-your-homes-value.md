@@ -9,6 +9,7 @@ categories: []
 tags: []
 cover: { src: "/blog/5-ways-your-neighbors-can-affect-your-homes-value/cover.webp", width: 1200, height: 600, thumb: "/blog/5-ways-your-neighbors-can-affect-your-homes-value/cover-640.webp" }
 importedFrom: squarespace
+noindex: true
 ---
 **There's so much work to do once you decide to list your home for sale. From decluttering and deep cleaning to minor fixes and a fresh coat of paint, you must focus on presenting your home in the best possible light to attract buyers. But have you considered the influence your neighbors have on property value?**
 

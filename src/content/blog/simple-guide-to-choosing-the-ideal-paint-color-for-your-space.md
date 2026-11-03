@@ -9,6 +9,7 @@ categories: ["Homeowner", "Seller"]
 tags: []
 cover: { src: "/blog/simple-guide-to-choosing-the-ideal-paint-color-for-your-space/cover.webp", width: 1200, height: 600, thumb: "/blog/simple-guide-to-choosing-the-ideal-paint-color-for-your-space/cover-640.webp" }
 importedFrom: squarespace
+noindex: true
 ---
 **One of the easiest ways to refresh a room is with a coat of paint. Deciding to do a new paint job may sound simple until reality hits: choosing the ideal paint color can be overwhelming. With so many shades available, what colors should you choose? What to do if you change your mind once it's already dried? What happens if it doesn’t turn out the way you like it? It can be difficult to know where to begin, especially if you’re renovating room by room or preparing to put your house on the market.**
 

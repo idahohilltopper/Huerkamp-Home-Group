@@ -9,6 +9,7 @@ categories: []
 tags: []
 cover: { src: "/blog/buy-a-home-minnesota-2026/cover.webp", width: 1200, height: 800, thumb: "/blog/buy-a-home-minnesota-2026/cover-640.webp" }
 importedFrom: squarespace
+noindex: true
 ---
 ## Make 2026 the Year You Buy a Home in Minnesota
 

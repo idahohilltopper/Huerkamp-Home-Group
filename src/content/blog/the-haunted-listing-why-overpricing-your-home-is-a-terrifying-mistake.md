@@ -9,6 +9,7 @@ categories: ["Seller"]
 tags: []
 cover: { src: "/blog/the-haunted-listing-why-overpricing-your-home-is-a-terrifying-mistake/cover.webp", width: 1200, height: 675, thumb: "/blog/the-haunted-listing-why-overpricing-your-home-is-a-terrifying-mistake/cover-640.webp" }
 importedFrom: squarespace
+noindex: true
 ---
 **Like any promising tale, your home sale journey starts with great potential: a beautiful property that's been carefully prepared, the nooks and crannies have been cleaned, and the listing photos turned out stunning. All that’s left to do is hope that the right buyer will come along pretty quickly. But one frightening mistake can rewrite all this: pricing your home too high.**
 

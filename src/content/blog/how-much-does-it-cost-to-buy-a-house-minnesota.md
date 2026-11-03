@@ -9,6 +9,7 @@ categories: ["Buyer"]
 tags: []
 cover: { src: "/blog/how-much-does-it-cost-to-buy-a-house-minnesota/cover.webp", width: 966, height: 986, thumb: "/blog/how-much-does-it-cost-to-buy-a-house-minnesota/cover-640.webp" }
 importedFrom: squarespace
+noindex: true
 ---
 <figure class="post-figure"><img src="/blog/how-much-does-it-cost-to-buy-a-house-minnesota/1.webp" alt="" loading="lazy" decoding="async" width="800" height="817" /></figure>
 

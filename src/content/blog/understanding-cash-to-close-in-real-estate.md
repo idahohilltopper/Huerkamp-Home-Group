@@ -9,6 +9,7 @@ categories: ["Buyer"]
 tags: []
 cover: { src: "/blog/understanding-cash-to-close-in-real-estate/cover.webp", width: 1200, height: 600, thumb: "/blog/understanding-cash-to-close-in-real-estate/cover-640.webp" }
 importedFrom: squarespace
+noindex: true
 ---
 **Even before starting your home-buying journey, you're probably already aware that the numbers aren’t just about the home’s purchase price and your down payment. There are dozens of smaller fees, expenses, credits, and adjustments in the real estate transaction that you need to account for.** 
 

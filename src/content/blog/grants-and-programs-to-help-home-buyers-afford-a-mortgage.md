@@ -9,6 +9,7 @@ categories: ["Buyer"]
 tags: []
 cover: { src: "/blog/grants-and-programs-to-help-home-buyers-afford-a-mortgage/cover.webp", width: 800, height: 860, thumb: "/blog/grants-and-programs-to-help-home-buyers-afford-a-mortgage/cover-640.webp" }
 importedFrom: squarespace
+noindex: true
 ---
 <figure class="post-figure"><img src="/blog/grants-and-programs-to-help-home-buyers-afford-a-mortgage/1.webp" alt="" loading="lazy" decoding="async" width="800" height="860" /></figure>
 

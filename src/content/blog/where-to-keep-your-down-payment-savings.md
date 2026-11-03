@@ -9,6 +9,7 @@ categories: ["Buyer"]
 tags: []
 cover: { src: "/blog/where-to-keep-your-down-payment-savings/cover.webp", width: 1200, height: 600, thumb: "/blog/where-to-keep-your-down-payment-savings/cover-640.webp" }
 importedFrom: squarespace
+noindex: true
 ---
 **For many aspiring homeowners, trying to save enough money to cover the down payment and closing costs is their biggest hurdle to homeownership. It may feel like an overwhelming task, a goal that takes a considerable amount of time and effort to accomplish.** 
 

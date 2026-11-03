@@ -9,6 +9,7 @@ categories: ["Seller"]
 tags: []
 cover: { src: "/blog/easy-and-inexpensive-bathroom-updates-you-can-make-before-selling-your-home/cover.webp", width: 1200, height: 600, thumb: "/blog/easy-and-inexpensive-bathroom-updates-you-can-make-before-selling-your-home/cover-640.webp" }
 importedFrom: squarespace
+noindex: true
 ---
 **As with the kitchen, the bathroom plays a huge role in making a good impression on home buyers. They love the allure of a fresh and relaxing space where they can envision themselves enjoying a little luxury at the end of their day.** 
 

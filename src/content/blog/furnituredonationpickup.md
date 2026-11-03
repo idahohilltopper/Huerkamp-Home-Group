@@ -9,6 +9,7 @@ categories: []
 tags: []
 cover: { src: "/blog/furnituredonationpickup/cover.webp", width: 1200, height: 800, thumb: "/blog/furnituredonationpickup/cover-640.webp" }
 importedFrom: squarespace
+noindex: true
 ---
 If you are decluttering for Giving Tuesday or getting ready for a move, **furniture donation pick up in Minnesota** can turn a couch, table, or bedroom set into help for someone else instead of sending it to the landfill.
 

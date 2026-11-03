@@ -9,6 +9,7 @@ categories: ["Homeowner"]
 tags: []
 cover: { src: "/blog/simple-but-effective-habits-for-a-cleaner-and-tidier-home-all-year/cover.webp", width: 1200, height: 760, thumb: "/blog/simple-but-effective-habits-for-a-cleaner-and-tidier-home-all-year/cover-640.webp" }
 importedFrom: squarespace
+noindex: true
 ---
 **Aiming to have a cleaner and calmer home this year? You're still on the right track for a fresh start. Before life gets busier and mess slowly creeps back in, we’ve rounded up small but impactful habits to start now, and which you can actually stick to for the long term.**
 

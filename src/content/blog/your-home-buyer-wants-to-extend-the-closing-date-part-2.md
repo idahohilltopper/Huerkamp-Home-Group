@@ -9,6 +9,7 @@ categories: ["Seller"]
 tags: []
 cover: { src: "/blog/your-home-buyer-wants-to-extend-the-closing-date-part-2/cover.webp", width: 1200, height: 600, thumb: "/blog/your-home-buyer-wants-to-extend-the-closing-date-part-2/cover-640.webp" }
 importedFrom: squarespace
+noindex: true
 ---
 **When selling a home, it's not uncommon for your buyer to ask for more time before closing. This request to extend the closing date might be due to financing, inspection, paperwork delays, or life changes, among other reasons. It’s frustrating, yes, and may leave you wondering what it means for your plans and your timeline.**
 

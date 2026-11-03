@@ -9,6 +9,7 @@ categories: ["New Homeowner", "General"]
 tags: []
 cover: { src: "/blog/7-step-practical-guide-to-unpacking-efficiently-after-a-move/cover.webp", width: 1200, height: 600, thumb: "/blog/7-step-practical-guide-to-unpacking-efficiently-after-a-move/cover-640.webp" }
 importedFrom: squarespace
+noindex: true
 ---
 **Mountains of moving boxes. An intimidating labyrinth of bags and bundles. Pieces of wrapped furniture in almost every corner. Whether you've relocated just across town or across the country, moving into a new home can be both exciting and tiring.**
 

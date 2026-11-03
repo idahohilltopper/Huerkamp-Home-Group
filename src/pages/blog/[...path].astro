@@ -63,6 +63,7 @@ const ld = JSON.stringify({
   title={`${title} | Huerkamp Home Group`}
   description={description}
   image={cover?.src}
+  noindex={post.data.noindex}
   article={{ published: date, modified: updated }}>
   <script slot="head" type="application/ld+json" set:html={ld} />
 

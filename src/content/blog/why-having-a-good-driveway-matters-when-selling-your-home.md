@@ -9,6 +9,7 @@ categories: ["Seller"]
 tags: []
 cover: { src: "/blog/why-having-a-good-driveway-matters-when-selling-your-home/cover.webp", width: 1200, height: 600, thumb: "/blog/why-having-a-good-driveway-matters-when-selling-your-home/cover-640.webp" }
 importedFrom: squarespace
+noindex: true
 ---
 **When it comes to curb appeal, homeowners often overlook the condition and appearance of their driveway. They think mostly of their front door color, mailbox, fence, landscaping, or outdoor living spaces. But a driveway shouldn't simply be an afterthought, but also a primary element that can make a huge difference.**
 
