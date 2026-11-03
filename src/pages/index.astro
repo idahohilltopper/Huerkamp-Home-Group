@@ -76,16 +76,16 @@ const ld = JSON.stringify({
       <div class="hero__copy">
         <p class="eyebrow hero__eyebrow">Huerkamp Home Group<br />Minneapolis · Saint Paul · Twin Cities</p>
         <h1>Twin Cities real estate, <em>since&nbsp;2002.</em></h1>
-        <p class="hero__lede">A family-led Keller Williams team of {members.length} agents and staff, rated {google.rating.toFixed(1)} stars across {google.count} Google reviews, and a Dave Ramsey Endorsed Local Provider for more than 15 years.</p>
-        <blockquote class="hero__quote">
-          <p>“They exceeded our expectations for sale price and service.”</p>
-          <cite>{featured.reviewer}, Google review</cite>
-        </blockquote>
         <div class="hero__ctas">
           <a class="btn" href="/sell#value">Get Your Home's Value</a>
           <a class="btn" href="/sell">Sell Your Home</a>
           <a class="btn" href={mapSearchHref} rel="noopener">Find a Home</a>
         </div>
+        <p class="hero__lede">A family-led Keller Williams team of {members.length} agents and staff, rated {google.rating.toFixed(1)} stars across {google.count} Google reviews, and a Dave Ramsey Endorsed Local Provider for more than 15 years.</p>
+        <blockquote class="hero__quote">
+          <p>“They exceeded our expectations for sale price and service.”</p>
+          <cite>{featured.reviewer}, Google review</cite>
+        </blockquote>
         <dl class="hero__stats">
           <div><dt>{google.count} Google reviews</dt><dd><span class="star" aria-hidden="true">★</span> {google.rating.toFixed(1)} / 5</dd></div>
           <div><dt>Founded</dt><dd>2002</dd></div>

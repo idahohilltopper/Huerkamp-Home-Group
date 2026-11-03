@@ -618,3 +618,12 @@ Information and Technical Agreement (section 6 and Appendix D). Everything lives
   deletes the _ga cookies. A browser's Global Privacy Control signal turns analytics off automatically.
 - Linked from the footer ("Manage cookies") and the privacy policy. Add a row when a new tool is added (e.g. a
   Google Ads tag).
+
+## Weekly site facts (Google reviews, team roster) — added 2026-11-03
+
+Goal: numbers and people on the site are never stale.
+
+- **Google rating and review count:** `netlify/functions/google-rating.mjs` (`/api/google-rating`) asks Google's Places API for the team's current rating and count and returns only those public facts (cached a day). It needs `GOOGLE_PLACES_API_KEY` in Netlify (a Google Cloud key restricted to "Places API (New)"; optional `GOOGLE_PLACE_ID`). Google blocks automated visits to Maps pages, so this is the only reliable source. Without the key it answers 503 and nothing changes.
+- **Weekly routine "Weekly site facts check"** (Mondays): reads `/api/google-rating` on the live site and updates `summary.google` in `src/data/reviews.json` (rating, count, asOf) when it changed; checks every person in `src/data/team.json` against public sources (Minnesota Department of Commerce license lookup by license number, the team's Keller Williams roster); reports anyone who seems to have left, joined or changed title. Number changes publish directly; roster changes go on a review branch `claude/team-YYYY-MM-DD` and wait for Jason's OK (people's names, photos and bios are never changed without him).
+- The "39 agents and staff" figure is counted from `team.json`, so it updates itself when the roster changes. Review text stays verbatim and is only ever added by hand from Google.
+- Jason can also just say in chat "X joined / X left / X's new title is ..." and the roster is updated the same way.
