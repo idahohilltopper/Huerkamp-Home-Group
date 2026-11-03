@@ -13,6 +13,7 @@
 import { sellerChoices, homeType } from './mls-feed.mjs';
 import { CDN } from './repliers.mjs';
 import cities from '../data/ylopo-cities.json' with { type: 'json' };
+import team from '../data/team.json' with { type: 'json' };
 
 export const MAX_MONTHS = 36;
 export const DEFAULT_MONTHS = 6;
@@ -27,6 +28,8 @@ const coord = (v) => { const n = parseFloat(v); return Number.isFinite(n) ? n : 
 const int = (v, lo, hi) => { const n = parseInt(String(v ?? ''), 10); return Number.isFinite(n) ? Math.min(hi, Math.max(lo, n)) : null; };
 // Same test as isOwnBrokerage in src/data/mls.ts (kept in step by hand; this file must stay plain JavaScript).
 const ownBrokerage = (b) => /keller williams preferred/i.test(b ?? '');
+// Team members by page slug (/team/<slug>), for an agent's own recent sales (?agent=<slug>).
+const AGENT = Object.fromEntries(team.members.map((m) => [m.profileUrl.split('/').pop(), m.name]));
 const CITY = Object.fromEntries(Object.entries(cities.communities).filter(([, w]) => w.city).map(([slug, w]) => [slug, w.city]));
 
 /** A sold listing as the site may show it, or null when it may not be shown at all. */
@@ -70,6 +73,9 @@ export function soldQuery(sp, now = new Date()) {
   if (/^zip:\d{5}$/.test(place)) q.zip = place.slice(4);
   else if (CITY[place]) q.city = CITY[place];
   else if (place) q.unsupported = place;
+  const agent = text(sp.get('agent')).toLowerCase();
+  if (AGENT[agent]) q.agentName = AGENT[agent];
+  else if (agent) q.unsupported = agent;
   for (const k of ['min', 'max']) { const v = int(sp.get(k), 0, 100_000_000); if (v) q[k] = v; }
   for (const k of ['beds', 'baths']) { const v = int(sp.get(k), 1, 10); if (v) q[k] = v; }
   const b = text(sp.get('bbox')).split(',').map(Number);
@@ -84,6 +90,7 @@ export function repliersParams(q, { pageSize = PAGE, page = q.page, fields = FIE
   const p = { status: 'U', lastStatus: 'Sld', type: 'Sale', minSoldDate: q.since, sortBy: 'soldDateDesc', resultsPerPage: pageSize, pageNum: page, fields };
   if (q.city) p.city = q.city;
   if (q.zip) p.zip = q.zip;
+  if (q.agentName) p.agent = q.agentName;
   if (q.min) p.minSoldPrice = q.min;
   if (q.max) p.maxSoldPrice = q.max;
   if (q.beds) p.minBedrooms = q.beds;

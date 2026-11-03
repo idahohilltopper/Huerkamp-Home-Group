@@ -6,6 +6,12 @@ import Base from '../../layouts/Base.astro';
 import TeamPhoto from '../../components/TeamPhoto.astro';
 import { members, slugOf, agentHref, isAgent, firstName, reviewsFor, bioTowns, agentAreas, agentSiteHref, type Member } from '../../data/agents';
 import YlopoListings from '../../components/YlopoListings.astro';
+import ListingCard from '../../components/ListingCard.astro';
+import SoldHomes from '../../components/SoldHomes.astro';
+import IdxDisclosure from '../../components/IdxDisclosure.astro';
+import { OWN } from '../../data/search';
+import { listingsData } from '../../data/listings';
+import { isOwnBrokerage } from '../../data/mls';
 import { communitySearch, ylopoPlace, searchUrl } from '../../data/ylopo';
 import { hasMarket, marketFor, latest, monthLabel, money, signed } from '../../data/market';
 import { business, origin } from '../../data/schema';
@@ -28,6 +34,9 @@ const thin = !m.bio && reviews.length === 0;
 // Agent site: the areas they serve, with this month's market numbers and homes for sale there.
 const areas = agent ? agentAreas(m) : null;
 const areaCities = areas ? areas.list.map((c) => ylopoPlace(c.slug)).filter((p) => p.city || p.zips) : [];
+// The agent's own active listings (their name as listing agent, with our brokerage), when the site's own feed is on.
+const feed = OWN ? await listingsData : null;
+const myListings = feed && agent ? feed.listings.filter((l) => isOwnBrokerage(l.brokerage) && l.agent.trim().toLowerCase() === m.name.trim().toLowerCase()) : [];
 const others = members.filter((x) => x !== m && isAgent(x) === agent).slice(0, 40);
 
 const description = m.bio
@@ -128,6 +137,17 @@ const ld = JSON.stringify({
       </div>
     </section>
   )}
+
+  {myListings.length > 0 && (
+    <section class="section" id="listings" aria-labelledby="mine-title">
+      <div class="wrap">
+        <div class="head"><p class="eyebrow">For sale now</p><h2 id="mine-title"><em>{first}'s</em> listings</h2></div>
+        <div data-idx><ul class="lcards">{myListings.map((l, i) => <ListingCard l={l} eager={i < 3} />)}</ul></div>
+        <IdxDisclosure at={feed!.at} />
+      </div>
+    </section>
+  )}
+  {agent && <SoldHomes agent={slugOf(m)} name={first} />}
 
   {areas && (
     <section class="section" id="areas" aria-labelledby="areas-title">

@@ -7,7 +7,7 @@ import { repliers } from '../../src/lib/repliers.mjs';
 import { soldCard, thumbnail, soldQuery, repliersParams, PAGE, MAX_PINS, SOLD_DISCLAIMER } from '../../src/lib/sold.mjs';
 
 const env = (k) => (globalThis.Netlify?.env?.get(k) ?? process.env[k] ?? '').trim();
-const VARY = 'query=place|months|min|max|beds|baths|bbox|page|pins,header=x-idx-eula';
+const VARY = 'query=place|agent|months|min|max|beds|baths|bbox|page|pins,header=x-idx-eula';
 const json = (status, body, cache = false) => new Response(JSON.stringify(body), {
   status,
   headers: {
@@ -32,7 +32,9 @@ export default async (req, _ctx, call = repliers) => {
     const r = await call(key, '/listings', params, body);
     if (!r.data) { console.error('Repliers sold', r.status, r.error); return json(502, { ok: false, error: 'mls-error' }); }
     const total = r.data.count ?? 0;
-    const results = (r.data.listings ?? []).map((l) => soldCard(l)).filter(Boolean).map(thumbnail);
+    // An agent's sales: only homes they listed (NorthstarMLS doesn't allow the selling agent to be shown on sold homes).
+    const mine = (c) => !q.agentName || (c.ownBrokerage && String(c.agent ?? '').toLowerCase() === q.agentName.toLowerCase());
+    const results = (r.data.listings ?? []).map((l) => soldCard(l)).filter((c) => c && mine(c)).map(thumbnail);
     let pins = [];
     if (sp.get('pins') === '1') {
       // The map: up to MAX_PINS homes, 100 per request.

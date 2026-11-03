@@ -7,20 +7,23 @@ import { BR_THUMB } from '../data/mls-logos';
 import { SOLD_DISCLAIMER, DEFAULT_MONTHS } from '../lib/sold.mjs';
 import { ownSearchHref } from '../data/search';
 import IdxDisclosure from './IdxDisclosure.astro';
-interface Props { place: string; name: string }
-const { place, name } = Astro.props;
-const all = `${ownSearchHref({ places: [place] })}${ownSearchHref({ places: [place] }).includes('?') ? '&' : '?'}status=sold&view=map`;
+interface Props { place?: string; name: string; agent?: string }
+const { place, name, agent } = Astro.props;
+const all = place ? `${ownSearchHref({ places: [place] })}${ownSearchHref({ places: [place] }).includes('?') ? '&' : '?'}status=sold&view=map` : null;
+// An agent's page: their own sales over 12 months. A community page: everything sold there in the last 6 months.
+const query = agent ? `agent=${encodeURIComponent(agent)}&months=12` : `place=${encodeURIComponent(place ?? '')}`;
 ---
 {OWN && (
-  <section class="section section--paper sold" aria-labelledby="sold-title" data-sold={place} data-br-thumb={BR_THUMB ?? undefined} hidden>
+  <section class="section section--paper sold" aria-labelledby="sold-title" data-sold={query} data-br-thumb={BR_THUMB ?? undefined} hidden>
     <div class="wrap">
       <div class="head">
         <p class="eyebrow">Recently sold</p>
-        <h2 id="sold-title">What did homes in {name} <em>sell for?</em></h2>
-        <p data-sold-count>Homes sold in {name} in the last {DEFAULT_MONTHS} months, from NorthstarMLS.</p>
+        {agent
+          ? <><h2 id="sold-title">Homes <em>{name}</em> sold</h2><p>{name}'s listings that sold in the last 12 months, from NorthstarMLS.</p></>
+          : <><h2 id="sold-title">What did homes in {name} <em>sell for?</em></h2><p>Homes sold in {name} in the last {DEFAULT_MONTHS} months, from NorthstarMLS.</p></>}
       </div>
       <div data-idx><ul class="lcards" data-sold-list></ul></div>
-      <p class="sold__more"><a class="link-arrow" href={all}>See every {name} sale on the map</a></p>
+      {all && <p class="sold__more"><a class="link-arrow" href={all}>See every {name} sale on the map</a></p>}
       <p class="sold__note">{SOLD_DISCLAIMER}</p>
       <IdxDisclosure />
     </div>
@@ -32,7 +35,7 @@ const all = `${ownSearchHref({ places: [place] })}${ownSearchHref({ places: [pla
   for (const box of document.querySelectorAll<HTMLElement>('[data-sold]')) {
     const load = async () => {
       try {
-        const r = await fetch(`/api/sold?place=${encodeURIComponent(box.dataset.sold!)}`, { headers: { 'x-idx-eula': 'agreed' } });
+        const r = await fetch(`/api/sold?${box.dataset.sold}`, { headers: { 'x-idx-eula': 'agreed' } });
         const a = await r.json();
         if (!a.ok || !a.results?.length) return; // nothing to show: the section stays hidden
         box.querySelector('[data-sold-list]')!.innerHTML = (a.results as Sold[]).slice(0, 6).map((l) => soldCardHtml(l, box.dataset.brThumb)).join('');
