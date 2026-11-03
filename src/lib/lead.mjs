@@ -110,7 +110,7 @@ export function buildEvent(input, meta = {}) {
     .concat(consented ? [`Call/text consent: checked the box on ${at} for ${f.phone} (wording version ${CONSENT_VERSION}${meta.ip ? `, IP ${meta.ip}` : ''}): "${consentText()}"`] : [])
     .concat(!consented && f.phone ? ['No call/text consent: did not check the box. Personal replies only; no automated calls or texts.'] : [])
     .concat(agentSite ? [`Came through ${agentSite.name}'s agent site: assigned to ${agentSite.fubName}, team lead`] : []);
-  const pageUrl = page ? `https://www.huerkamphomegroup.com${clean(page, 300)}` : undefined;
+  const pageUrl = page ? `https://www.huerkamphomes.com${clean(page, 300)}` : undefined;
   const message = [`${cfg.label}${title ? ` on "${clean(title, 200)}"` : ''}`, ...details].join('\n');
 
   const event = {

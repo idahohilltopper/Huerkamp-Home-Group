@@ -10,7 +10,7 @@ import sitemapNoindex from './src/lib/sitemap-noindex.mjs';
 const changed = lastmods();
 
 export default defineConfig({
-  site: 'https://www.huerkamphomegroup.com',
+  site: 'https://www.huerkamphomes.com',
   // Pages are built as /team.html and served at /team — the same no-slash
   // addresses the old Squarespace site used, so existing Google rankings carry over.
   trailingSlash: 'never',
@@ -22,7 +22,7 @@ export default defineConfig({
       const date = changed.get(path) ?? homeLastmod(path);
       return date ? { ...item, lastmod: new Date(date).toISOString() } : item;
     },
-  }), sitemapNoindex('https://www.huerkamphomegroup.com')],
+  }), sitemapNoindex('https://www.huerkamphomes.com')],
   // Blog posts are Markdown; a YouTube link on its own line becomes a fast video player.
   markdown: { processor: unified({ remarkPlugins: [remarkYoutube, remarkHeadingFloor, remarkOwnSearchLinks] }) },
 });

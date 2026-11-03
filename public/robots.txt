@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.huerkamphomegroup.com/sitemap-index.xml
+Sitemap: https://www.huerkamphomes.com/sitemap-index.xml

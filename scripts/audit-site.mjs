@@ -7,7 +7,7 @@ import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
 const dist = process.argv[2] ?? 'dist';
-const ORIGIN = 'https://www.huerkamphomegroup.com';
+const ORIGIN = 'https://www.huerkamphomes.com';
 const files = [];
 (function walk(d) { for (const f of readdirSync(d)) { const p = join(d, f); statSync(p).isDirectory() ? walk(p) : f.endsWith('.html') && files.push(p); } })(dist);
 

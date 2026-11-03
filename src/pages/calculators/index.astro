@@ -7,7 +7,7 @@ import { site } from '../../data/site';
 
 const ld = JSON.stringify({
   '@context': 'https://schema.org', '@type': 'ItemList', name: 'Twin Cities real estate calculators',
-  itemListElement: calculators.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.title, url: `https://www.huerkamphomegroup.com/calculators/${c.slug}` })),
+  itemListElement: calculators.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.title, url: `https://www.huerkamphomes.com/calculators/${c.slug}` })),
 });
 ---
 <Base breadcrumbs={[{ name: 'Calculators', href: '/calculators' }]}

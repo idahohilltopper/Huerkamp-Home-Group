@@ -15,7 +15,7 @@ const faq = [
 ];
 const ld = JSON.stringify([
   { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
-  { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Twin Cities rent vs. buy calculator', applicationCategory: 'FinanceApplication', operatingSystem: 'Any', url: 'https://www.huerkamphomegroup.com/calculators/rent-vs-buy', offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }, provider: { '@type': 'RealEstateAgent', name: site.name } },
+  { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Twin Cities rent vs. buy calculator', applicationCategory: 'FinanceApplication', operatingSystem: 'Any', url: 'https://www.huerkamphomes.com/calculators/rent-vs-buy', offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }, provider: { '@type': 'RealEstateAgent', name: site.name } },
 ]);
 ---
 <Base breadcrumbs={[{ name: 'Calculators', href: '/calculators' }, { name: 'Rent vs. buy', href: '/calculators/rent-vs-buy' }]}

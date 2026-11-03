@@ -18,10 +18,10 @@ const big = (m: { photo: string }) => `/people/${m.photo.split('/').pop()!.repla
 const ld = JSON.stringify({
   '@context': 'https://schema.org',
   '@graph': members.map((m) => ({
-    '@type': 'RealEstateAgent', '@id': `https://www.huerkamphomegroup.com${agentHref(m)}#person`, url: `https://www.huerkamphomegroup.com${agentHref(m)}`,
+    '@type': 'RealEstateAgent', '@id': `https://www.huerkamphomes.com${agentHref(m)}#person`, url: `https://www.huerkamphomes.com${agentHref(m)}`,
     name: m.name, jobTitle: m.title, telephone: m.phone, email: m.email,
-    image: new URL(m.photo, 'https://www.huerkamphomegroup.com').href,
-    worksFor: { '@id': 'https://www.huerkamphomegroup.com/#business' },
+    image: new URL(m.photo, 'https://www.huerkamphomes.com').href,
+    worksFor: { '@id': 'https://www.huerkamphomes.com/#business' },
   })),
 });
 ---

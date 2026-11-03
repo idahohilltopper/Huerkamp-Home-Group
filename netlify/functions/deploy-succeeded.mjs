@@ -5,7 +5,7 @@
 // It reads the live sitemap, compares each page's last-changed date with what it sent last time
 // (Netlify Blobs store "indexnow"), and submits only the differences. The first run sends everything.
 //
-// It does nothing until the site is live on www.huerkamphomegroup.com (preview and netlify.app deploys are
+// It does nothing until the site is live on www.huerkamphomes.com (preview and netlify.app deploys are
 // skipped, because IndexNow only accepts pages on the host that serves the key file).
 // Turn it off without a code change: set INDEXNOW=off in Netlify's environment variables.
 // The key below is public by design; the same value is served at /<key>.txt.
@@ -13,7 +13,7 @@
 import { getStore } from '@netlify/blobs';
 
 const KEY = '56ee55cf631cd22cfd6bfd56e35556fa';
-const HOST = 'www.huerkamphomegroup.com';
+const HOST = 'www.huerkamphomes.com';
 const ORIGIN = `https://${HOST}`;
 const env = (k) => (globalThis.Netlify?.env?.get(k) ?? process.env[k] ?? '').trim();
 

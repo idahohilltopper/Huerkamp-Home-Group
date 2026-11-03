@@ -16,7 +16,7 @@ const faq = [
 ];
 const ld = JSON.stringify([
   { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
-  { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Twin Cities home affordability calculator', applicationCategory: 'FinanceApplication', operatingSystem: 'Any', url: 'https://www.huerkamphomegroup.com/calculators/affordability', offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }, provider: { '@type': 'RealEstateAgent', name: site.name } },
+  { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Twin Cities home affordability calculator', applicationCategory: 'FinanceApplication', operatingSystem: 'Any', url: 'https://www.huerkamphomes.com/calculators/affordability', offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }, provider: { '@type': 'RealEstateAgent', name: site.name } },
 ]);
 ---
 <Base breadcrumbs={[{ name: 'Calculators', href: '/calculators' }, { name: 'Affordability', href: '/calculators/affordability' }]}

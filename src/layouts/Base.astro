@@ -39,7 +39,7 @@ const { title: fullTitle, description: fullDescription, image = '/brand/og-defau
 const title = fullTitle.length > 70 ? fullTitle.replace(/ \| Huerkamp Home Group( Blog)?$/, '') : fullTitle;
 const description = fullDescription.length > 160 ? `${fullDescription.slice(0, 157).replace(/[\s,;:.]+\S*$/, '')}…` : fullDescription;
 const { phone, phoneHref } = site;
-const origin = Astro.site ?? 'https://www.huerkamphomegroup.com';
+const origin = Astro.site ?? 'https://www.huerkamphomes.com';
 // Pages build to /team.html but are served at /team, so drop the .html (and /index) from the address.
 const canonical = new URL(Astro.url.pathname.replace(/(\/index)?\.html$/, '').replace(/(.)\/$/, '$1') || '/', origin).href;
 const ogImage = new URL(image, origin).href;

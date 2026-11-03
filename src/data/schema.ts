@@ -3,7 +3,7 @@
 import { site } from './site';
 import reviewData from './reviews.json';
 
-export const origin = 'https://www.huerkamphomegroup.com';
+export const origin = 'https://www.huerkamphomes.com';
 
 export const business = {
   '@type': 'RealEstateAgent',

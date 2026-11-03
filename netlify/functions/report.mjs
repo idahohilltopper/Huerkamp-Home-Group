@@ -5,7 +5,7 @@
 //   FUB_API_KEY       already used by the lead form
 //   GSC_CLIENT_EMAIL  Google service account email, added as a user on the Search Console property
 //   GSC_PRIVATE_KEY   that service account's private key
-//   GSC_SITE          optional: the Search Console property, default sc-domain:huerkamphomegroup.com
+//   GSC_SITE          optional: the Search Console property, default sc-domain:huerkamphomes.com
 
 import { timingSafeEqual } from 'node:crypto';
 import { fubPeople, summarizeLeads, googleToken, searchConsole } from '../../src/lib/report.mjs';
@@ -35,7 +35,7 @@ export default async (req) => {
         const names = Object.keys({ ...process.env, ...(globalThis.Netlify?.env?.toObject?.() ?? {}) }).filter((n) => /gsc|csg|google|client_email|private_key/i.test(n)).sort();
         return { ok: false, error: `Search Console not connected yet: ${missing} not found (settings with similar names: ${names.join(', ') || 'none'})` };
       }
-      try { return { ok: true, ...(await searchConsole(await googleToken(email, pk), env('GSC_SITE') || 'sc-domain:huerkamphomegroup.com')) }; }
+      try { return { ok: true, ...(await searchConsole(await googleToken(email, pk), env('GSC_SITE') || 'sc-domain:huerkamphomes.com')) }; }
       catch (e) {
         console.error('GSC', e.message);
         // Google's own reason helps find the fix (wrong key, API not enabled, no access). It never contains the key.

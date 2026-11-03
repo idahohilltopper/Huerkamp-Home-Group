@@ -4,9 +4,10 @@
 // After launch, check the real thing over the internet (every address must end on a 200 page on www):
 //   node scripts/check-launch.mjs --live
 // Address lists: tests/old-urls/squarespace.txt (www.huerkamphomegroup.com) and luxury-presence.txt (huerkamphomes.com).
+// The new site lives on www.huerkamphomes.com.
 import { existsSync, readFileSync, statSync } from 'node:fs';
 
-const SITE = 'www.huerkamphomegroup.com';
+const SITE = 'www.huerkamphomes.com';
 const SEARCH = 'search.huerkamphomegroup.com';
 
 // Netlify rules: first match wins; "!" forces the rule even when a page exists at that address;
@@ -63,7 +64,7 @@ function resolve(host, path) {
 if (process.argv.includes('--live')) {
   const lines = (f) => readFileSync(f, 'utf8').split('\n').map((x) => x.trim()).filter(Boolean);
   const urls = [
-    ...lines('tests/old-urls/squarespace.txt').map((p) => `https://${SITE}${p}`),
+    ...lines('tests/old-urls/squarespace.txt').map((p) => `https://www.huerkamphomegroup.com${p}`),
     ...['huerkamphomes.com', 'www.huerkamphomes.com'].flatMap((h) => lines('tests/old-urls/luxury-presence.txt').map((p) => `https://${h}${p}`)),
     'http://huerkamphomegroup.com/', 'https://huerkamphomegroup.com/', 'http://www.huerkamphomegroup.com/',
   ];
@@ -93,7 +94,7 @@ const report = (label, host, list) => {
 };
 const lines = (f) => readFileSync(f, 'utf8').split('\n').map((s) => s.trim()).filter(Boolean);
 
-report('Old Squarespace site (www.huerkamphomegroup.com)', SITE, lines('tests/old-urls/squarespace.txt'));
+for (const host of ['www.huerkamphomegroup.com', 'huerkamphomegroup.com']) report(`Old Squarespace site (${host})`, host, lines('tests/old-urls/squarespace.txt'));
 for (const host of ['huerkamphomes.com', 'www.huerkamphomes.com']) {
   const rows = report(`Old Luxury Presence site (${host})`, host, lines('tests/old-urls/luxury-presence.txt'));
   if (host === 'huerkamphomes.com') {

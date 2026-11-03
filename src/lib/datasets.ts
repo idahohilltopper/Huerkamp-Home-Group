@@ -73,4 +73,4 @@ export const datasets: Dataset[] = [
 
 const cell = (v: string | number | null) => (v == null ? '' : /[",\n]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : String(v));
 export const toCsv = (d: Dataset) =>
-  [`# ${d.title}`, `# Source: ${d.source} (${d.sourceUrl})`, `# Compiled by Huerkamp Home Group: https://www.huerkamphomegroup.com/data`, d.header.join(','), ...d.rows.map((r) => r.map(cell).join(','))].join('\n') + '\n';
+  [`# ${d.title}`, `# Source: ${d.source} (${d.sourceUrl})`, `# Compiled by Huerkamp Home Group: https://www.huerkamphomes.com/data`, d.header.join(','), ...d.rows.map((r) => r.map(cell).join(','))].join('\n') + '\n';

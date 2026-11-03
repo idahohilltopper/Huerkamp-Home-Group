@@ -631,3 +631,13 @@ Goal: numbers and people on the site are never stale.
 ## Home search layout (2026-11-03)
 
 At Jason's request /home-search now looks like the big portals (Zillow-style): a search box (city, neighborhood, lake or ZIP) and filter buttons (Price, Beds & baths, Home type, More, Save search) across the top; the map on the left and the list on the right on a computer; on a phone the list, with a Map / List button. The map shows red dots when zoomed out and red price tags when zoomed in, a "500 of N homes on the map" note when the 500-pin limit applies, and "Search as I move the map" (on by default). Pointing at a card lights up its home on the map. The NorthstarMLS disclaimer stays under the list at full size.
+
+## Launch address: www.huerkamphomes.com (decided 2026-11-03)
+
+Jason chose **www.huerkamphomes.com** as the site's address (not huerkamphomegroup.com). The code now uses it for canonical links, the sitemap, robots.txt, schema, IndexNow (deploy-succeeded.mjs) and the Search Console default (report.mjs: `sc-domain:huerkamphomes.com`; add that property in Search Console, or set GSC_SITE).
+
+Netlify domains at launch: **www.huerkamphomes.com = primary domain**; huerkamphomes.com, huerkamphomegroup.com and www.huerkamphomegroup.com = domain aliases. `public/_redirects` (from scripts/write-redirects.mjs):
+- every old Squarespace address on (www.)huerkamphomegroup.com → its new page on www.huerkamphomes.com, anything else keeps its path (forced);
+- huerkamphomes.com → www.huerkamphomes.com;
+- old Luxury Presence addresses → new pages, only where no new page has that address (not forced). Unknown addresses now get the 404 page instead of the home page (better for Google).
+`node scripts/check-launch.mjs` checks all 406 + 556 old addresses. search.huerkamphomegroup.com (Ylopo) and email addresses stay on huerkamphomegroup.com, so that domain must stay registered and its DNS kept. The Follow Up Boss lead source stays "huerkamphomegroup.com" (src/lib/lead.mjs SOURCE) so existing FUB automations keep working; change it only together with FUB.
