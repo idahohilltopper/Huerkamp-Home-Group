@@ -1,5 +1,6 @@
-// Runtime for /home-search: reads the filters from the address, asks /api/search, draws the cards, the page buttons
-// and (when "Map" is on) the map. The map library loads only when the map is first opened.
+// Runtime for /home-search (Zillow-style: filter pills on top, map left, list right). Reads the filters from the address,
+// asks /api/search, draws the cards, the page buttons and the map. On a computer the map loads at once; on a phone
+// only when the Map button is pressed. With "Search as I move the map" on, moving the map searches that area.
 type Card = { mls: string; slug: string; street: string; city: string; zip: string; price: number; beds: number | null; baths: number | null;
   sqft: number | null; type: string | null; newConstruction: 0 | 1; lakefront: 0 | 1; lotAcres: number | null; brokerage: string; photo: string | null;
   ownBrokerage: 0 | 1; addressHidden: 0 | 1 };
@@ -20,10 +21,15 @@ export function initSearch(root: HTMLElement) {
   const next = root.querySelector<HTMLButtonElement>('[data-next]')!;
   const pageInfo = root.querySelector<HTMLElement>('[data-pageinfo]')!;
   const pagesNav = root.querySelector<HTMLElement>('[data-pages]')!;
-  const main = root.querySelector<HTMLElement>('.hs-main')!;
   const mapBox = root.querySelector<HTMLElement>('[data-mapbox]')!;
-  const areaBtn = root.querySelector<HTMLButtonElement>('[data-area]')!;
+  const mapCount = root.querySelector<HTMLElement>('[data-mapcount]')!;
+  const follow = root.querySelector<HTMLInputElement>('[data-follow]')!;
   const clearBtn = root.querySelector<HTMLButtonElement>('[data-clear-area]')!;
+  const toggle = root.querySelector<HTMLButtonElement>('[data-toggle]')!;
+  const where = form.querySelector<HTMLInputElement>('[data-where]')!;
+  const sortEl = document.querySelector<HTMLSelectElement>('#hs-sort')!;
+  const pills = [...form.querySelectorAll<HTMLDetailsElement>('[data-pill]')];
+  const phone = window.matchMedia('(max-width: 900px)');
   const types: Record<string, string> = JSON.parse(root.dataset.types ?? '{}');
   const names: Record<string, string> = JSON.parse(root.dataset.names ?? '{}');
   const saved = document.querySelector<HTMLInputElement>('[data-saved-search]');
@@ -51,6 +57,9 @@ export function initSearch(root: HTMLElement) {
         el.value = v;
       } else el.value = v;
     }
+    const place = p.get('place') ?? '';
+    where.value = place ? place.split(',').map(label).join(', ') : '';
+    pillLabels();
   };
   const label = (v: string) => names[v] ?? (v.startsWith('zip:') ? `ZIP ${v.slice(4)}` : v.replace(/^(hood|lake):.*\//, '').replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()));
   const describe = (p: URLSearchParams) => {
@@ -92,6 +101,8 @@ export function initSearch(root: HTMLElement) {
     pageInfo.textContent = `Page ${a.page} of ${a.pages}`;
     prev.disabled = a.page <= 1;
     next.disabled = a.page >= a.pages;
+    mapCount.hidden = !a.total;
+    mapCount.textContent = a.pins.length < a.total ? `${a.pins.length.toLocaleString('en-US')} of ${a.total.toLocaleString('en-US')} homes on the map` : `${a.total.toLocaleString('en-US')} ${a.total === 1 ? 'home' : 'homes'}`;
     if (map && mapApi) mapApi.setPins(map, a.pins, !params().get('bbox'));
   };
 
@@ -122,35 +133,86 @@ export function initSearch(root: HTMLElement) {
   };
   const setPage = (n: number) => { (form.elements.namedItem('page') as HTMLInputElement).value = n > 1 ? String(n) : ''; };
 
-  form.addEventListener('change', () => { setPage(1); run(); });
-  form.addEventListener('submit', (e) => { e.preventDefault(); setPage(1); run(); });
-  prev.addEventListener('click', () => { setPage((last?.page ?? 1) - 1); run(); root.scrollIntoView({ behavior: 'smooth' }); });
-  next.addEventListener('click', () => { setPage((last?.page ?? 1) + 1); run(); root.scrollIntoView({ behavior: 'smooth' }); });
+  // ---- filter pills: one open at a time; each shows what's chosen ----
+  const val = (k: string) => String(new FormData(form).get(k) ?? '');
+  function pillLabels() {
+    const sets: Record<string, string> = {
+      price: val('min') || val('max') ? `${val('min') ? short(+val('min')) : 'Any'} – ${val('max') ? short(+val('max')) : 'Any'}` : '',
+      rooms: [val('beds') && `${val('beds')}+ bd`, val('baths') && `${val('baths')}+ ba`].filter(Boolean).join(', '),
+      type: val('type') ? val('type').split(',').map((t) => (types[t] ?? t).replace(/^./, (c) => c.toUpperCase())).join(', ') : '',
+      more: (() => { const n = ['lakefront', 'new', 'acres', 'team'].filter((k) => val(k)).length; return n ? `More (${n})` : ''; })(),
+    };
+    for (const d of pills) {
+      const s = d.querySelector<HTMLElement>('summary')!;
+      const v = sets[d.dataset.pill!];
+      s.textContent = v || s.dataset.pillLabel!;
+      d.classList.toggle('is-set', !!v);
+    }
+  }
+  pills.forEach((d) => d.addEventListener('toggle', () => { if (d.open) pills.forEach((o) => { if (o !== d) o.open = false; }); }));
+  document.addEventListener('click', (e) => { if (!(e.target as Element).closest('[data-pill]')) pills.forEach((d) => { d.open = false; }); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') pills.forEach((d) => { d.open = false; }); });
+
+  // ---- the search box: a place from the list, a ZIP code, or empty for everywhere ----
+  const placeOf = (text: string) => {
+    const t = text.trim().toLowerCase();
+    if (!t) return '';
+    if (/^\d{5}$/.test(t)) return `zip:${t}`;
+    const entries = Object.entries(names);
+    const hit = entries.find(([, l]) => l.toLowerCase() === t) ?? entries.find(([, l]) => l.toLowerCase().startsWith(t)) ?? entries.find(([, l]) => l.toLowerCase().includes(t));
+    return hit ? hit[0] : null;
+  };
+  const setPlace = () => {
+    const v = placeOf(where.value);
+    if (v === null) { where.setCustomValidity('Pick a city, neighborhood or lake from the list, or a 5-digit ZIP code.'); where.reportValidity(); return false; }
+    where.setCustomValidity('');
+    (form.elements.namedItem('place') as HTMLInputElement).value = v;
+    (form.elements.namedItem('bbox') as HTMLInputElement).value = '';
+    where.value = v ? label(v) : '';
+    return true;
+  };
+  where.addEventListener('input', () => where.setCustomValidity(''));
+
+  const changed = () => { setPage(1); pillLabels(); run(); };
+  form.addEventListener('change', (e) => { if (e.target === where) { if (setPlace()) changed(); return; } changed(); });
+  sortEl.addEventListener('change', changed);
+  form.addEventListener('submit', (e) => { e.preventDefault(); if (setPlace()) changed(); });
+  const top = () => root.querySelector('.hs-panel')!.scrollIntoView({ behavior: 'smooth' });
+  prev.addEventListener('click', () => { setPage((last?.page ?? 1) - 1); run(); top(); });
+  next.addEventListener('click', () => { setPage((last?.page ?? 1) + 1); run(); top(); });
 
   // ---- map ----
-  const views = root.querySelectorAll<HTMLButtonElement>('[data-view]');
-  const showMap = async (on: boolean) => {
-    views.forEach((b) => b.setAttribute('aria-pressed', String((b.dataset.view === 'map') === on)));
-    main.classList.toggle('is-map', on);
-    mapBox.hidden = !on;
+  const openMap = async () => {
+    if (map) { map.resize(); return; }
+    mapApi = await import('./search-map');
+    map = await mapApi.createMap(root.querySelector<HTMLElement>('[data-map]')!, root.dataset.mapStyle!, () => {
+      // The person moved the map: search that area if "Search as I move the map" is on.
+      if (!follow.checked || !map || !mapApi) return;
+      (form.elements.namedItem('bbox') as HTMLInputElement).value = mapApi.boxOf(map);
+      setPage(1); run();
+    });
+    if (last) mapApi.setPins(map, last.pins, !params().get('bbox'));
+    else await run(false);
+  };
+  const showMap = (on: boolean) => {
+    root.classList.toggle('is-map', on);
+    toggle.textContent = on ? 'List' : 'Map';
+    toggle.setAttribute('aria-pressed', String(on));
     const u = new URL(location.href);
     if (on) u.searchParams.set('view', 'map'); else u.searchParams.delete('view');
     history.replaceState(null, '', u);
-    if (!on) { areaBtn.hidden = true; return; }
-    if (!map) {
-      mapApi = await import('./search-map');
-      map = await mapApi.createMap(root.querySelector<HTMLElement>('[data-map]')!, root.dataset.mapStyle!, () => { areaBtn.hidden = false; });
-      if (last) mapApi.setPins(map, last.pins, !params().get('bbox'));
-      else await run(false);
-    } else map.resize();
+    if (on || !phone.matches) openMap();
   };
-  views.forEach((b) => b.addEventListener('click', () => showMap(b.dataset.view === 'map')));
-  areaBtn.addEventListener('click', () => {
-    if (!map || !mapApi) return;
-    (form.elements.namedItem('bbox') as HTMLInputElement).value = mapApi.boxOf(map);
-    areaBtn.hidden = true; setPage(1); run();
-  });
+  toggle.addEventListener('click', () => showMap(!root.classList.contains('is-map')));
+  phone.addEventListener('change', () => { if (!phone.matches) openMap(); });
   clearBtn.addEventListener('click', () => { (form.elements.namedItem('bbox') as HTMLInputElement).value = ''; setPage(1); run(); });
+
+  // Pointing at a card lights up its home on the map.
+  list.addEventListener('mouseover', (e) => {
+    const a = (e.target as Element).closest<HTMLAnchorElement>('a[href^="/homes/"]');
+    if (map && mapApi) mapApi.highlight(map, a ? decodeURIComponent(a.getAttribute('href')!.slice(7)) : '');
+  });
+  list.addEventListener('mouseleave', () => { if (map && mapApi) mapApi.highlight(map, ''); });
 
   // ---- start: the first page of newest homes is already in the HTML; ask the server only if the address has filters.
   // Nothing is asked until the visitor has agreed to the license agreement this visit (src/layouts/Base.astro). ----
@@ -163,7 +225,7 @@ export function initSearch(root: HTMLElement) {
       if (saved) saved.value = `${location.origin}${location.pathname}`;
       fetch('/api/search', { headers: { 'x-idx-eula': 'agreed' } }).then((r) => r.json()).then((a: Answer) => { if (a.ok && seq === 0) draw(a); }).catch(() => {});
     }
-    if (start.get('view') === 'map') showMap(true);
+    showMap(start.get('view') === 'map' && phone.matches);
   };
   if (document.documentElement.classList.contains('idx-ok')) begin();
   else window.addEventListener('idx-agreed', begin, { once: true });

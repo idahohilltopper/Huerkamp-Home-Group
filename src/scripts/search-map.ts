@@ -1,5 +1,6 @@
-// The /home-search map (MapLibre), loaded only when someone opens the map. One dot per home (up to 2,000);
-// clicking a dot shows the price and a link to the home's page.
+// The /home-search map (MapLibre). One marker per home (up to 500, NorthstarMLS Rule 11.8): red dots when zoomed
+// out, red price tags ("$425K") when zoomed in, as on the big portals. Clicking one shows the price and a link to the
+// home's page; pointing at a card in the list lights up its marker.
 import * as maplibregl from 'maplibre-gl';
 import mapCssUrl from 'maplibre-gl/dist/maplibre-gl.css?url';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
@@ -22,35 +23,61 @@ export async function createMap(el: HTMLElement, style: string, onMoved: () => v
   map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
   await new Promise((ok) => map.on('load', ok));
   map.addSource('homes', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
-  map.addLayer({ id: 'homes', type: 'circle', source: 'homes', paint: {
-    'circle-radius': ['interpolate', ['linear'], ['zoom'], 8, 3.5, 13, 7], 'circle-color': RED,
+  // A rounded red tag that stretches to fit the price text.
+  const c = Object.assign(document.createElement('canvas'), { width: 40, height: 28 });
+  const g = c.getContext('2d')!;
+  g.fillStyle = RED; g.strokeStyle = '#fff'; g.lineWidth = 2;
+  g.beginPath(); g.roundRect(1, 1, 38, 26, 8); g.fill(); g.stroke();
+  map.addImage('tag', { width: 40, height: 28, data: new Uint8Array(g.getImageData(0, 0, 40, 28).data.buffer) },
+    { stretchX: [[10, 30]], stretchY: [[10, 18]], content: [7, 4, 33, 24], pixelRatio: 1 } as any);
+  map.addLayer({ id: 'homes', type: 'circle', source: 'homes', maxzoom: 12, paint: {
+    'circle-radius': ['interpolate', ['linear'], ['zoom'], 8, 4, 12, 6.5], 'circle-color': RED,
     'circle-stroke-color': '#fff', 'circle-stroke-width': 1.5 } });
-  map.on('mouseenter', 'homes', () => { map.getCanvas().style.cursor = 'pointer'; });
-  map.on('mouseleave', 'homes', () => { map.getCanvas().style.cursor = ''; });
-  map.on('click', 'homes', (e: any) => {
-    const f = e.features?.[0];
-    if (!f) return;
-    const p = f.properties;
-    const a = document.createElement('a');
-    a.href = `/homes/${encodeURIComponent(p.slug)}`;
-    a.textContent = `$${Number(p.price).toLocaleString('en-US')} · see this home`;
-    const box = document.createElement('div'); box.className = 'hs-pop'; box.append(a);
-    new maplibregl.Popup({ offset: 8 }).setLngLat(f.geometry.coordinates).setDOMContent(box).addTo(map);
-  });
-  // "Search this map area" appears after the person moves the map (not after the map moves itself).
+  map.addLayer({ id: 'homes-tags', type: 'symbol', source: 'homes', minzoom: 12, layout: {
+    'text-field': ['get', 'label'], 'text-font': ['Noto Sans Bold'], 'text-size': 12.5, 'icon-image': 'tag', 'icon-text-fit': 'both',
+    'icon-allow-overlap': true, 'text-allow-overlap': true, 'symbol-sort-key': ['get', 'price'] },
+    paint: { 'text-color': '#fff' } });
+  map.addLayer({ id: 'homes-hot', type: 'circle', source: 'homes', filter: ['==', ['get', 'slug'], ''], paint: {
+    'circle-radius': 11, 'circle-color': '#151213', 'circle-stroke-color': '#fff', 'circle-stroke-width': 2.5 } });
+  for (const layer of ['homes', 'homes-tags']) {
+    map.on('mouseenter', layer, () => { map.getCanvas().style.cursor = 'pointer'; });
+    map.on('mouseleave', layer, () => { map.getCanvas().style.cursor = ''; });
+    map.on('click', layer, (e: any) => {
+      const f = e.features?.[0];
+      if (!f) return;
+      const p = f.properties;
+      const a = document.createElement('a');
+      a.className = 'hs-pop-card';
+      a.href = `/homes/${encodeURIComponent(p.slug)}`;
+      const price = document.createElement('strong');
+      price.textContent = p.price > 1 ? `$${Number(p.price).toLocaleString('en-US')}` : 'Auction';
+      const go = document.createElement('span');
+      go.textContent = 'See this home →';
+      a.append(price, go);
+      new maplibregl.Popup({ offset: 12, closeButton: false }).setLngLat(f.geometry.coordinates).setDOMContent(a).addTo(map);
+    });
+  }
+  // Only when the person moves the map (not when it moves itself to fit the results).
   map.on('moveend', (e: any) => { if (e.originalEvent) onMoved(); });
   return map;
 }
 
 /** Show these homes; zoom to them unless the search is already limited to the map area. */
 export function setPins(map: any, pins: [number, number, number, string][], fit = true) {
-  const features = pins.map(([lat, lng, price, slug]) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [lng, lat] }, properties: { price, slug } }));
+  const features = pins.map(([lat, lng, price, slug]) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [lng, lat] }, properties: { price, slug, label: tag(price) } }));
   (map.getSource('homes') as any)?.setData({ type: 'FeatureCollection', features });
   if (fit && features.length) {
     const b = new maplibregl.LngLatBounds();
     features.forEach((f) => b.extend(f.geometry.coordinates as [number, number]));
     map.fitBounds(b, { padding: 40, maxZoom: 14, duration: 0 });
   }
+}
+
+const tag = (n: number) => (n <= 1 ? 'Auction' : n >= 1e6 ? `$${(n / 1e6).toFixed(n >= 1e7 ? 0 : 2).replace(/\.?0+$/, '')}M` : `$${Math.round(n / 1000)}K`);
+
+/** Light up one home's marker (by its page slug), or none. */
+export function highlight(map: any, slug: string) {
+  if (map.getLayer('homes-hot')) map.setFilter('homes-hot', ['==', ['get', 'slug'], slug]);
 }
 
 /** The visible map area as "west,south,east,north". */
