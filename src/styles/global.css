@@ -215,3 +215,6 @@ p { margin: 0; }
 .calc-cards a:hover { border-color: var(--crimson); }
 .calc-cards strong { display: block; font-size: 1.15rem; margin-bottom: .35rem; }
 .calc-sources { font-size: .9rem; }
+
+/* A listing shown inside the map search's panel: no site chrome; links that leave the listing open in the main window. */
+.is-embed .utility, .is-embed header.nav, .is-embed .footer, .is-embed .agentbar, .is-embed .crumbs, .is-embed nav[aria-label='Breadcrumb'] { display: none !important; }

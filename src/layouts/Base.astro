@@ -93,6 +93,8 @@ const isExternal = (href: string) => href.startsWith('http');
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <!-- A listing opened inside the map search's panel (src/scripts/home-search.ts) shows without the site's header and footer. -->
+  <script is:inline>if (/[?&]embed=1\b/.test(location.search) && window.top !== window.self) document.documentElement.classList.add('is-embed');</script>
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
@@ -355,6 +357,15 @@ const isExternal = (href: string) => href.startsWith('http');
   .idx-lock__box { position: sticky; top: 7rem; max-width: 30rem; padding: 1.25rem 1.5rem; border: 1px solid var(--line); background: #fff; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,.12); }
   .idx-lock__box p { margin: 0 0 .6rem; }
 </style>
+  <script is:inline>
+    // Inside the map search's listing panel: other homes open in the panel; everything else opens in the main window.
+    if (document.documentElement.classList.contains('is-embed')) document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href]');
+      if (!a || a.getAttribute('href').charAt(0) === '#') return;
+      if (a.getAttribute('href').indexOf('/homes/') === 0) { a.href = a.getAttribute('href') + (a.getAttribute('href').indexOf('?') < 0 ? '?embed=1' : '&embed=1'); return; }
+      a.target = '_top';
+    }, true);
+  </script>
 </body>
 </html>
 

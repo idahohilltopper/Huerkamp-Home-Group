@@ -1,7 +1,9 @@
 # Netlify builds the site from this repo. Every push to a branch or pull request
 # gets its own preview address; the main branch becomes the live site.
 [build]
-  command = "npm run build"
+  # New YouTube videos are picked up on every build (the hourly listing rebuilds, 8 AM-10 PM), so they appear within
+  # about an hour; if YouTube can't be reached, the build goes on with the videos it has.
+  command = "(timeout 60 python3 scripts/update-youtube.py || echo 'YouTube update skipped') && npm run build"
   publish = "dist"
 
 [build.environment]

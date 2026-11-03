@@ -256,6 +256,42 @@ export function initSearch(root: HTMLElement) {
   });
   list.addEventListener('mouseleave', () => { if (map && mapApi) mapApi.highlight(map, ''); });
 
+  // ---- a home opens in a panel over the search, like the portals ("‹ Back to search" returns to the same spot) ----
+  const panel = document.createElement('div');
+  panel.className = 'hs-home';
+  panel.hidden = true;
+  panel.innerHTML = '<div class="hs-home__bar"><button type="button" class="hs-home__back" data-back>‹ Back to search</button><a class="hs-home__full" data-full target="_top">Open full page ↗</a></div><iframe class="hs-home__frame" title="Home details"></iframe>';
+  document.body.append(panel);
+  const frame = panel.querySelector('iframe')!;
+  const searchUrl = () => `${location.pathname}${location.search}`;
+  let back = '';
+  const openHome = (href: string) => {
+    back = searchUrl();
+    frame.src = `${href}${href.includes('?') ? '&' : '?'}embed=1`;
+    panel.querySelector<HTMLAnchorElement>('[data-full]')!.href = href;
+    panel.hidden = false;
+    document.documentElement.classList.add('hs-home-open');
+    history.pushState({ hsHome: href }, '', href); // the address is the home's own page, so it can be shared or reloaded
+  };
+  const closeHome = (fromHistory = false) => {
+    if (panel.hidden) return;
+    panel.hidden = true;
+    frame.src = 'about:blank';
+    document.documentElement.classList.remove('hs-home-open');
+    if (!fromHistory) history.back(); else if (back && location.pathname + location.search !== back) history.replaceState(null, '', back);
+  };
+  panel.querySelector('[data-back]')!.addEventListener('click', () => closeHome());
+  addEventListener('popstate', () => closeHome(true));
+  addEventListener('keydown', (e) => { if (e.key === 'Escape' && !panel.hidden) closeHome(); });
+  document.addEventListener('click', (e) => {
+    const me = e as MouseEvent;
+    if (me.button !== 0 || me.metaKey || me.ctrlKey || me.shiftKey || me.altKey || phone.matches) return; // new tab, or a phone: normal page
+    const a = (e.target as Element).closest<HTMLAnchorElement>('a[href^="/homes/"]');
+    if (!a || !(root.contains(a) || a.closest('.maplibregl-popup'))) return;
+    e.preventDefault();
+    openHome(a.getAttribute('href')!);
+  });
+
   // ---- start: the first page of newest homes is already in the HTML; ask the server only if the address has filters.
   // Nothing is asked until the visitor has agreed to the license agreement this visit (src/layouts/Base.astro). ----
   const start = new URLSearchParams(location.search);
