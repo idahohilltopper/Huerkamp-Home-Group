@@ -1,0 +1,20 @@
+---
+// "View saved search" link in new-listing alert emails (Repliers): /listings?searchId=&token=&email=
+// Opens the map search with that saved search's area, price and rooms.
+import Base from '../../layouts/Base.astro';
+import { SEARCH_PATH } from '../../data/search';
+import { site } from '../../data/site';
+---
+<Base title={`Your saved search | ${site.name}`} description="Opening your saved home search." noindex>
+  <section class="section"><div class="wrap prose" data-msg><p>Opening your saved search…</p></div></section>
+</Base>
+<script define:vars={{ SEARCH_PATH }}>window.__searchPath = SEARCH_PATH;</script>
+<script>
+  import { params, token, api, say } from '../../scripts/alert-links';
+  const path = (window as any).__searchPath;
+  const t = token();
+  const id = params.get('searchId');
+  const go = (qs = '') => location.replace(`${path}?${qs}${qs ? '&' : ''}view=map`);
+  if (!id || !t) go();
+  else api(`search?searchId=${encodeURIComponent(id)}&token=${encodeURIComponent(t)}`).then((a) => (a.ok ? go(a.query) : go()));
+</script>

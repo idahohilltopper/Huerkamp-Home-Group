@@ -308,6 +308,17 @@ const isExternal = (href: string) => href.startsWith('http');
           if (!res.ok) throw new Error(String(res.status));
           form.reset();
           if (status) status.textContent = "Thank you! We got your message and an agent will reach out shortly.";
+          // New-listing alert forms (with the site's own MLS search on) also save the search at Repliers, which then
+          // emails matching new homes (netlify/functions/alerts.mjs).
+          if (form.dataset.alertQuery) {
+            const r = await fetch('/api/alerts/save', { method: 'POST', headers: { 'content-type': 'application/json' },
+              body: JSON.stringify({ firstName: fields.firstName, lastName: fields.lastName, email: fields.email, phone: fields.phone,
+                frequency: fields.alertFrequency || 'daily', name: form.dataset.alertName ?? '', query: JSON.parse(form.dataset.alertQuery) }) }).catch(() => null);
+            const a = r ? await r.json().catch(() => ({})) : {};
+            if (status) status.textContent = a.ok
+              ? `You're all set! We'll email new homes that match to ${fields.email}${fields.alertFrequency === 'instant' ? ' as soon as they’re listed' : fields.alertFrequency === 'weekly' ? ' once a week' : ' once a day'}. Every email has a link to change or stop your alerts.`
+              : `Thank you! An agent got your search${a.error && a.error !== 'mls-error' && a.error !== 'not-configured' ? `, but the automatic emails couldn't be set up: ${a.error}` : ' and will set up your alerts'}.`;
+          }
           // GA4's recommended lead event; mark it as a key event in Google Analytics (Admin > Events) to count leads.
           (window as any).gtag?.('event', 'generate_lead', { form_name: form.dataset.lead, page_path: location.pathname });
         } catch {

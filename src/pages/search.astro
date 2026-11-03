@@ -1,0 +1,21 @@
+---
+// "Adjust saved search" link in alert emails: /search?searchId=&token=&email=
+// Opens the map search with the saved filters and an "Update my alert" bar (src/scripts/home-search.ts).
+import Base from '../layouts/Base.astro';
+import { SEARCH_PATH } from '../data/search';
+import { site } from '../data/site';
+---
+<Base title={`Edit your saved search | ${site.name}`} description="Change the homes your alert emails you about." noindex>
+  <section class="section"><div class="wrap prose"><p>Opening your saved search…</p></div></section>
+</Base>
+<script define:vars={{ SEARCH_PATH }}>window.__searchPath = SEARCH_PATH;</script>
+<script>
+  import { params, token, api } from '../scripts/alert-links';
+  const path = (window as any).__searchPath;
+  const t = token();
+  const id = params.get('searchId') ?? '';
+  if (!id || !t) location.replace(path);
+  else api(`search?searchId=${encodeURIComponent(id)}&token=${encodeURIComponent(t)}`).then((a) => {
+    location.replace(a.ok ? `${path}?${a.query}${a.query ? '&' : ''}view=map&edit=${encodeURIComponent(id)}` : path);
+  });
+</script>

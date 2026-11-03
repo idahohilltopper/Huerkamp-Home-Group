@@ -254,7 +254,7 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
         <p>Tell us your price range and we'll email new {c.name} listings that match. No spam, and you can unsubscribe anytime.</p>
         <ul class="ticks"><li>Pick your price, beds and home type</li><li>New listings emailed as they come on the market</li><li>Questions answered by a local agent</li></ul>
       </div>
-      <form class="form" data-lead="community-alert">
+      <form class="form" data-lead="community-alert" data-alert-query={OWN && searchable ? JSON.stringify({ place: c.slug }) : undefined} data-alert-name={`${c.name} homes for sale`}>
         <div class="form__row">
           <div class="field"><label for="al-first">First name</label><input id="al-first" name="firstName" autocomplete="given-name" required /></div>
           <div class="field"><label for="al-last">Last name</label><input id="al-last" name="lastName" autocomplete="family-name" /></div>
@@ -268,6 +268,7 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
           <select id="al-price" name="maxPrice"><option value="">Any</option>{priceBands.map((b) => <option>{b.label}</option>)}</select>
         </div>
         <input type="hidden" name="community" value={c.name} />
+        {OWN && searchable && <div class="field"><label for="al-freq">Email me new homes</label><select id="al-freq" name="alertFrequency"><option value="instant">As soon as they’re listed</option><option value="daily" selected>Once a day</option><option value="weekly">Once a week</option></select></div>}
         <button class="btn" type="submit">Create my alert</button>
         <p class="form__status" role="status" aria-live="polite"></p>
       </form>

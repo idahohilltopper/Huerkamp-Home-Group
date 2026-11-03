@@ -67,6 +67,8 @@ if (c?.facet?.slug === 'luxury-homes') filters.minPrice = 1000000;
 const typeFilter: Record<string, string> = { 'single-family-homes': 'house', townhomes: 'townhouse', condos: 'condo' };
 if (c?.facet && typeFilter[c.facet.slug]) filters.type = typeFilter[c.facet.slug];
 const bedMatch = c?.facet?.slug.match(/^(\d)-bedroom/); if (bedMatch) filters.beds = Number(bedMatch[1]);
+// The place a new-listing alert covers (saved at Repliers by the alert form; netlify/functions/alerts.mjs).
+const alertPlace = area?.kind === 'community' ? area.key : area?.kind === 'hood' ? `hood:${area.key}` : null;
 const hood = area?.kind === 'hood' ? hoods.find((h) => hoodKey(h) === area.key) : undefined;
 const fullSearch = !area ? homeSearchHref : area.kind === 'community' ? communitySearch(area.key, filters) : area.kind === 'hood' && hood ? hoodSearchUrl(hood) : searchUrl({ zips: [area.key] }, filters);
 
@@ -190,8 +192,9 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() },
             <p>Tell us what you're looking for and a {site.name} agent will send matching homes as soon as they hit the market, and help you see them. There's no cost to buyers.</p>
             <p><a href={site.phoneHref}>{site.phone}</a></p>
           </div>
-          <form class="form" data-lead="community-alert">
+          <form class="form" data-lead="community-alert" data-alert-query={alertPlace ? JSON.stringify({ place: alertPlace }) : undefined} data-alert-name={`${area!.name} homes for sale`}>
             <input type="hidden" name="community" value={area!.name} />
+            {alertPlace && <div class="field"><label for="hf-freq">Email me new homes</label><select id="hf-freq" name="alertFrequency"><option value="instant">As soon as they’re listed</option><option value="daily" selected>Once a day</option><option value="weekly">Once a week</option></select></div>}
             {c.facet && <input type="hidden" name="interest" value={c.facet.title(area!.name)} />}
             <div class="form__row">
               <div class="field"><label for="hf-first">First name</label><input id="hf-first" name="firstName" autocomplete="given-name" required /></div>

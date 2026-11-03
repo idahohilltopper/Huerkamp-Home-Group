@@ -1,0 +1,76 @@
+---
+// "View profile" link in alert emails: /profile?token=&email=
+// The visitor's new-listing alerts: see each one, change how often it emails, edit, delete, or stop all emails.
+// The token from the email identifies them (no password); everything goes through /api/alerts.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { SEARCH_PATH } from '../data/search';
+import { site } from '../data/site';
+---
+<Base title={`My home alerts | ${site.name}`} description="Manage your new-listing email alerts." noindex>
+  <PageHero eyebrow="My alerts" title="Your new-listing alerts" lede="Change how often we email you, edit a search, or stop the emails." />
+  <section class="section">
+    <div class="wrap narrowish" data-alerts data-search-path={SEARCH_PATH} data-phone={site.phone} data-phone-href={site.phoneHref}>
+      <p data-msg>Loading your alerts…</p>
+      <ul class="alerts" data-list></ul>
+      <div class="alerts__all" data-all hidden>
+        <h2>Stop all emails</h2>
+        <p>Unsubscribe from every new-listing alert from {site.name}.</p>
+        <button type="button" class="btn btn--ghost" data-unsub>Unsubscribe from all alerts</button>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import { token, api, say } from '../scripts/alert-links';
+  const box = document.querySelector<HTMLElement>('[data-alerts]')!;
+  const msg = box.querySelector('[data-msg]');
+  const listEl = box.querySelector<HTMLUListElement>('[data-list]')!;
+  const path = box.dataset.searchPath!;
+  const t = token();
+  const esc = (s: unknown) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
+  const expired = () => say(msg, `This link has expired. Open the newest alert email and use its <strong>Manage alerts</strong> link, or call or text <a href="${box.dataset.phoneHref}">${box.dataset.phone}</a> and we'll change it for you.`);
+  const FREQ: Record<string, string> = { instant: 'As soon as they’re listed', daily: 'Once a day', weekly: 'Once a week', monthly: 'Once a month' };
+  async function load() {
+    if (!t) return expired();
+    const a = await api(`me?token=${encodeURIComponent(t)}`);
+    if (!a.ok) return expired();
+    box.querySelector<HTMLElement>('[data-all]')!.hidden = false;
+    say(msg, a.unsubscribed ? `<strong>You're unsubscribed.</strong> We won't email you alerts. Saving a new search on the site turns them back on.`
+      : a.searches.length ? `Hi ${esc(a.firstName)}. You have ${a.searches.length} saved ${a.searches.length === 1 ? 'search' : 'searches'}.` : `You have no saved searches. <a href="${path}">Search homes</a> and press <strong>Save search</strong> to get alerts.`);
+    listEl.innerHTML = a.searches.map((s: any) => `<li class="alert" data-id="${esc(s.searchId)}"><strong>${esc(s.name || 'Home search')}</strong><span class="alert__what">${esc(s.summary)}</span>`
+      + `<label>Email me <select data-freq>${Object.entries(FREQ).filter(([v]) => v !== 'monthly' || s.frequency === 'monthly').map(([v, l]) => `<option value="${v}"${v === s.frequency ? ' selected' : ''}>${l}</option>`).join('')}</select></label>`
+      + `<span class="alert__links"><a href="${path}?${esc(s.query)}${s.query ? '&' : ''}view=map">See homes</a> <a href="/search?searchId=${esc(s.searchId)}">Edit</a> <button type="button" data-del>Delete</button></span><span class="alert__ok" role="status"></span></li>`).join('');
+  }
+  listEl.addEventListener('change', async (e) => {
+    const sel = (e.target as HTMLElement).closest<HTMLSelectElement>('[data-freq]'); if (!sel) return;
+    const li = sel.closest<HTMLElement>('[data-id]')!;
+    const a = await api('update', { token: t, searchId: li.dataset.id, frequency: sel.value });
+    say(li.querySelector('.alert__ok'), a.ok ? 'Saved.' : 'Sorry, that didn’t save. Please try again.');
+  });
+  listEl.addEventListener('click', async (e) => {
+    const b = (e.target as HTMLElement).closest('[data-del]'); if (!b) return;
+    const li = b.closest<HTMLElement>('[data-id]')!;
+    if (!confirm('Delete this saved search? Its emails stop right away.')) return;
+    const a = await api('update', { token: t, searchId: li.dataset.id, remove: true });
+    if (a.ok) li.remove(); else say(li.querySelector('.alert__ok'), 'Sorry, that didn’t work. Please try again.');
+  });
+  box.querySelector('[data-unsub]')!.addEventListener('click', async () => {
+    const a = await api('unsubscribe', { token: t });
+    say(msg, a.ok ? `<strong>You're unsubscribed.</strong> We won't email you any more alerts.` : 'Sorry, that didn’t work. Please try again, or reply to any alert email with "unsubscribe".');
+  });
+  load();
+</script>
+
+<style>
+  .narrowish { max-width: 48rem; }
+  .alerts { list-style: none; margin: 1.5rem 0; padding: 0; display: grid; gap: 1rem; }
+  .alerts :global(.alert) { display: grid; gap: .6rem; padding: 1.1rem 1.25rem; border: 1px solid var(--line); background: var(--paper); }
+  .alerts :global(.alert select) { margin-left: .5rem; padding: .4rem; border: 1px solid var(--line); background: #fff; font: inherit; }
+  .alerts :global(.alert__links) { display: flex; gap: 1.25rem; align-items: center; }
+  .alerts :global(.alert__links button) { border: 0; background: none; color: var(--crimson); font: inherit; text-decoration: underline; cursor: pointer; padding: 0; }
+  .alerts :global(.alert__what) { margin-top: -.4rem; color: var(--text-soft); }
+  .alerts :global(.alert__ok) { color: var(--text-soft); font-size: .92rem; }
+  .alerts__all { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+</style>

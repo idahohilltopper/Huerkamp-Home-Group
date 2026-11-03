@@ -138,6 +138,12 @@ export function initSearch(root: HTMLElement) {
     const keep = new URLSearchParams(p); keep.delete('page');
     if (saved) saved.value = `${location.origin}${location.pathname}${keep.size ? `?${keep}` : ''}`;
     if (summaryEl) summaryEl.textContent = `Your search: ${describe(p)}`;
+    // The alert form saves this search at Repliers too (src/layouts/Base.astro; homes for sale only).
+    const alertForm = document.querySelector<HTMLFormElement>('form[data-lead="community-alert"]');
+    if (alertForm) {
+      const q = Object.fromEntries([...keep].filter(([k]) => !['sort', 'status', 'months'].includes(k)));
+      if (isSold()) { delete alertForm.dataset.alertQuery; } else { alertForm.dataset.alertQuery = JSON.stringify(q); alertForm.dataset.alertName = describe(keep).slice(0, 50); }
+    }
     clearBtn.hidden = !p.get('bbox');
     const mine = ++seq;
     list.classList.add('is-loading');
@@ -251,6 +257,21 @@ export function initSearch(root: HTMLElement) {
   // Nothing is asked until the visitor has agreed to the license agreement this visit (src/layouts/Base.astro). ----
   const start = new URLSearchParams(location.search);
   fill(start);
+  // Arrived from an alert email's "Adjust saved search" link (/search): a bar to save the changed filters back to the alert.
+  const editId = start.get('edit');
+  if (editId) {
+    const bar = document.createElement('div');
+    bar.className = 'hs-editbar';
+    bar.innerHTML = '<p><strong>Editing your saved alert.</strong> Change the filters or move the map, then update it.</p><button type="button" class="btn">Update my alert</button><span role="status"></span>';
+    root.querySelector('.hs-panel')?.prepend(bar);
+    bar.querySelector('button')!.addEventListener('click', async () => {
+      let t = ''; try { t = sessionStorage.getItem('hhg-alert-token') ?? ''; } catch { /* private window */ }
+      const q = Object.fromEntries([...params()].filter(([k]) => !['sort', 'status', 'months', 'page'].includes(k)));
+      const r = await fetch('/api/alerts/update', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ token: t, searchId: editId, query: q }) }).catch(() => null);
+      const a = r ? await r.json().catch(() => ({})) : {};
+      bar.querySelector('[role=status]')!.textContent = a.ok ? 'Updated! New matches will come by email.' : a.error && !/mls-error|link-expired|not-found/.test(a.error) ? a.error : 'That didn’t work. Open the alert email again and use its link.';
+    });
+  }
   showMode();
   pillLabels();
   const begin = () => {
@@ -258,6 +279,8 @@ export function initSearch(root: HTMLElement) {
     if (filtered) run(false);
     else {
       if (saved) saved.value = `${location.origin}${location.pathname}`;
+      const alertForm = document.querySelector<HTMLFormElement>('form[data-lead="community-alert"]');
+      if (alertForm) { alertForm.dataset.alertQuery = '{}'; alertForm.dataset.alertName = 'Twin Cities homes'; }
       fetch('/api/search', { headers: { 'x-idx-eula': 'agreed' } }).then((r) => r.json()).then((a: Answer) => { if (a.ok && seq === 0) draw(a); }).catch(() => {});
     }
     showMap(start.get('view') === 'map' && phone.matches);

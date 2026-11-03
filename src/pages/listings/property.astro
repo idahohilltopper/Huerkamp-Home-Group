@@ -1,0 +1,24 @@
+---
+// "View listing" link in alert emails: /listings/property?mlsNumber=&boardId=&searchId=&matchId=&email=
+// Goes to the home's page on this site; if it's no longer for sale, says so and offers the saved search.
+import Base from '../../layouts/Base.astro';
+import { SEARCH_PATH } from '../../data/search';
+import { site } from '../../data/site';
+---
+<Base title={`Home from your alert | ${site.name}`} description="Opening the home from your alert email." noindex>
+  <section class="section"><div class="wrap prose" data-msg><p>Opening the home…</p></div></section>
+</Base>
+<script define:vars={{ SEARCH_PATH, phone: site.phone, phoneHref: site.phoneHref }}>window.__alert = { SEARCH_PATH, phone, phoneHref };</script>
+<script>
+  import { params, token, api, say } from '../../scripts/alert-links';
+  const { SEARCH_PATH, phone, phoneHref } = (window as any).__alert;
+  const mls = (params.get('mlsNumber') ?? '').replace(/[^A-Za-z0-9-]/g, '');
+  const id = params.get('searchId');
+  token();
+  api(`listing?mls=${encodeURIComponent(mls)}`).then((a) => {
+    if (a.ok && a.slug) return location.replace(`/homes/${encodeURIComponent(a.slug)}`);
+    const back = id ? `/listings?searchId=${encodeURIComponent(id)}` : SEARCH_PATH;
+    say(document.querySelector('[data-msg]'), `<h1>This home is no longer for sale</h1><p>MLS #${mls || '?'} has gone under contract, sold or left the market since your alert went out. Homes move fast, so here are the latest matches.</p>`
+      + `<p><a class="btn" href="${back}">See my saved search</a> <a class="btn btn--ghost" href="${SEARCH_PATH}">Search all homes</a></p><p>Questions about this home? Call or text <a href="${phoneHref}">${phone}</a>.</p>`);
+  });
+</script>

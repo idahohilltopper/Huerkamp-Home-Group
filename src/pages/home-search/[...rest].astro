@@ -10,7 +10,7 @@ import { OWN, SEARCH_PATH } from '../../data/search';
 import { site } from '../../data/site';
 import { BR_THUMB } from '../../data/mls-logos';
 import IdxDisclosure from '../../components/IdxDisclosure.astro';
-import { SOLD_DISCLAIMER, DEFAULT_MONTHS, MAX_MONTHS } from '../../lib/sold.mjs';
+import { SOLD_DISCLAIMER, DEFAULT_MONTHS } from '../../lib/sold.mjs';
 import { communities } from '../../data/areas';
 import { hoods, hoodKey, CITY_NAME } from '../../data/neighborhoods';
 import { lakes } from '../../data/lakes';
@@ -65,7 +65,7 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
       <details class="hs-pill" data-pill="months" data-sold-only hidden>
         <summary data-pill-label="Sold in the last">Sold in the last</summary>
         <div class="hs-pop">
-          <div class="hs-f"><label for="hs-months">Sold within</label><select id="hs-months" name="months">{[3, 6, 12, 24, MAX_MONTHS].map((m) => <option value={m === DEFAULT_MONTHS ? '' : m} selected={m === DEFAULT_MONTHS}>{m < 12 ? `${m} months` : `${m / 12} year${m > 12 ? 's' : ''}`}</option>)}</select></div>
+          <div class="hs-f"><label for="hs-months">Sold within</label><select id="hs-months" name="months">{[3, 6, 12, 24].map((m) => <option value={m === DEFAULT_MONTHS ? '' : m} selected={m === DEFAULT_MONTHS}>{m < 12 ? `${m} months` : `${m / 12} year${m > 12 ? 's' : ''}`}</option>)}</select></div>
         </div>
       </details>
       <details class="hs-pill" data-pill="rooms">
@@ -119,7 +119,7 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
           <span data-pageinfo>Page 1 of {Math.max(1, Math.ceil(total / PAGE_SIZE))}</span>
           <button type="button" data-next disabled={total <= PAGE_SIZE}>Next →</button>
         </nav>
-        <p class="hs-sold-note" data-sold-only hidden>{SOLD_DISCLAIMER} Sold homes are shown for the last 3 years at most, without homes whose sellers asked not to be advertised.</p>
+        <p class="hs-sold-note" data-sold-only hidden>{SOLD_DISCLAIMER} Sold homes are shown for the last 2 years at most, without homes whose sellers asked not to be advertised.</p>
         <IdxDisclosure at={feedAt} />
       </div>
     </div>
@@ -144,6 +144,7 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
           <div class="field"><label for="al-email">Email</label><input id="al-email" name="email" type="email" autocomplete="email" required /></div>
           <div class="field"><label for="al-phone">Phone</label><input id="al-phone" name="phone" type="tel" autocomplete="tel" /></div>
         </div>
+        <div class="field"><label for="al-freq">Email me new homes</label><select id="al-freq" name="alertFrequency"><option value="instant">As soon as they’re listed</option><option value="daily" selected>Once a day</option><option value="weekly">Once a week</option></select></div>
         <div class="field"><label for="al-msg">Anything else? (optional)</label><textarea id="al-msg" name="message" rows="2"></textarea></div>
         <button class="btn" type="submit">Send me new listings</button>
         <p class="form__status" role="status" aria-live="polite"></p>
@@ -166,6 +167,8 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
   .hs-mode button { padding: .62rem .9rem; border: 0; background: #fff; font: 600 .92rem/1.2 var(--ui); color: var(--text); cursor: pointer; }
   .hs-mode button[aria-pressed='true'] { background: var(--crimson); color: #fff; }
   [data-sold-only][hidden], [data-sale-only][hidden] { display: none !important; }
+  .hs-panel :global(.hs-editbar) { display: grid; gap: .6rem; justify-items: start; margin-bottom: 1rem; padding: 1rem 1.1rem; border: 2px solid var(--crimson); border-radius: 8px; background: #fff6f6; }
+  .hs-panel :global(.hs-editbar p) { margin: 0; }
   .hs-sold-note { margin-top: 1.25rem; font-size: 1rem; color: var(--text-soft); }
   .hs-panel :global(.lcard__box) { border-radius: 8px; overflow: hidden; background: #fff; box-shadow: 0 2px 8px rgba(0, 0, 0, .08); }
   .hs-where { position: relative; flex: 1 1 18rem; max-width: 30rem; display: flex; }

@@ -1,0 +1,28 @@
+---
+// "Unsubscribe" link in alert emails: /unsubscribe?email=&token=
+// One button stops every alert email (CAN-SPAM). A button rather than automatic, so email scanners that open links
+// can't unsubscribe people by accident.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site';
+---
+<Base title={`Unsubscribe | ${site.name}`} description="Stop new-listing alert emails." noindex>
+  <PageHero eyebrow="Email alerts" title="Unsubscribe from alerts" lede={`Stop new-listing emails from ${site.name}.`} />
+  <section class="section">
+    <div class="wrap prose" data-unsub-box data-phone={site.phone} data-phone-href={site.phoneHref}>
+      <p data-msg>Press the button to stop all new-listing alert emails.</p>
+      <p><button type="button" class="btn" data-go>Unsubscribe me</button> <a class="btn btn--ghost" href="/profile">Change my alerts instead</a></p>
+    </div>
+  </section>
+</Base>
+<script>
+  import { token, api, say } from '../scripts/alert-links';
+  const box = document.querySelector<HTMLElement>('[data-unsub-box]')!;
+  const t = token();
+  box.querySelector('[data-go]')!.addEventListener('click', async (e) => {
+    (e.target as HTMLButtonElement).disabled = true;
+    const a = t ? await api('unsubscribe', { token: t }) : { ok: false };
+    say(box.querySelector('[data-msg]'), a.ok ? '<strong>Done. You’re unsubscribed</strong> and won’t get any more alert emails.'
+      : `Sorry, we couldn't confirm this link. Reply to any alert email with "unsubscribe", or call or text <a href="${box.dataset.phoneHref}">${box.dataset.phone}</a>, and we'll remove you right away.`);
+  });
+</script>
