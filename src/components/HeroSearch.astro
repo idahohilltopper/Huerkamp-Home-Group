@@ -1,0 +1,139 @@
+---
+// The home page's big search box (Zillow-style): type a city or ZIP code and pick from the list, or use your current
+// location. Goes to the site's own search when the MLS feed is on, otherwise to the Ylopo search (src/data/search.ts
+// decides). Current location: with our own search, the map opens on the area around you; with Ylopo, the nearest
+// community we cover. The browser asks permission first; the location is used once and never stored or sent to us.
+import { communities } from '../data/areas';
+import { communitySearch, searchUrl } from '../data/ylopo';
+import { OWN, SEARCH_PATH, homeSearchHref } from '../data/search';
+
+const places = communities.map((c) => ({ n: c.name, h: communitySearch(c.slug), c: c.center }));
+const zipHref = searchUrl({ zips: ['00000'] } as any);
+---
+<form class="hsrch" data-hsrch role="search" action={homeSearchHref} data-own={OWN ? '1' : undefined} data-own-path={SEARCH_PATH} data-zip={zipHref} data-all={homeSearchHref}>
+  <label class="visually-hidden" for="hsrch-q">Search homes by city or ZIP code</label>
+  <div class="hsrch__box">
+    <input id="hsrch-q" name="q" type="text" placeholder="Enter a city or ZIP code" autocomplete="off"
+      role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="hsrch-list" />
+    <button type="submit" aria-label="Search homes"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.6" /><path d="m15.5 15.5 5 5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" /></svg></button>
+  </div>
+  <ul class="hsrch__list" id="hsrch-list" role="listbox" aria-label="Places" hidden>
+    <li role="option" id="hsrch-here" class="hsrch__here" data-here aria-selected="false">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.5 3.5 20.5l8.5-4 8.5 4z" fill="currentColor" transform="rotate(45 12 12)" /></svg>
+      <span>Use my current location</span>
+    </li>
+  </ul>
+  <p class="hsrch__note" role="status" aria-live="polite" data-note></p>
+  <script type="application/json" data-places set:html={JSON.stringify(places)} />
+</form>
+
+<script>
+  type Place = { n: string; h: string; c: [number, number] };
+  for (const form of document.querySelectorAll<HTMLFormElement>('[data-hsrch]')) {
+    const input = form.querySelector<HTMLInputElement>('input')!;
+    const list = form.querySelector<HTMLUListElement>('.hsrch__list')!;
+    const here = form.querySelector<HTMLLIElement>('[data-here]')!;
+    const note = form.querySelector<HTMLElement>('[data-note]')!;
+    const places: Place[] = JSON.parse(form.querySelector('[data-places]')!.textContent!);
+    const own = !!form.dataset.own;
+    let active = -1;
+
+    const options = () => [...list.querySelectorAll<HTMLLIElement>('[role=option]')];
+    const open = (on: boolean) => { list.hidden = !on; input.setAttribute('aria-expanded', String(on)); if (!on) setActive(-1); };
+    const setActive = (i: number) => {
+      const o = options();
+      active = i;
+      o.forEach((li, j) => li.setAttribute('aria-selected', String(j === i)));
+      if (o[i]) input.setAttribute('aria-activedescendant', o[i].id); else input.removeAttribute('aria-activedescendant');
+    };
+    const matches = (t: string) => {
+      const q = t.trim().toLowerCase();
+      if (!q) return [];
+      return places.filter((p) => p.n.toLowerCase().startsWith(q)).concat(places.filter((p) => !p.n.toLowerCase().startsWith(q) && p.n.toLowerCase().includes(q))).slice(0, 6);
+    };
+    const draw = () => {
+      options().filter((li) => li !== here).forEach((li) => li.remove());
+      matches(input.value).forEach((p, i) => {
+        const li = Object.assign(document.createElement('li'), { id: `hsrch-o${i}`, textContent: `${p.n}, MN` });
+        li.setAttribute('role', 'option');
+        li.dataset.href = p.h;
+        list.append(li);
+      });
+      setActive(-1);
+    };
+    const go = (href: string) => { location.href = href; };
+    const zip = (z: string) => form.dataset.zip!.replace('00000', z);
+
+    // Current location: the area around you on our own map, or the nearest community we cover.
+    const locate = () => {
+      open(false);
+      if (!('geolocation' in navigator)) { note.textContent = 'Your browser can’t share its location. Type a city or ZIP code instead.'; return; }
+      note.textContent = 'Finding homes near you…';
+      navigator.geolocation.getCurrentPosition((pos) => {
+        const { latitude: lat, longitude: lng } = pos.coords;
+        const miles = (p: Place) => Math.hypot((p.c[1] - lat) * 69, (p.c[0] - lng) * 69 * Math.cos((lat * Math.PI) / 180));
+        const near = [...places].sort((a, b) => miles(a) - miles(b))[0];
+        if (!near || miles(near) > 60) { note.textContent = 'You look to be outside the areas we cover, so here are all Twin Cities homes for sale.'; go(form.dataset.all!); return; }
+        if (own) {
+          const d = 0.06; // about 4 miles each way
+          go(`${form.dataset.ownPath}?bbox=${[lng - d * 1.4, lat - d, lng + d * 1.4, lat + d].map((n) => n.toFixed(4)).join(',')}&view=map`);
+        } else go(near.h);
+      }, () => { note.textContent = 'We couldn’t get your location (it may be turned off for this site). Type a city or ZIP code instead.'; }, { enableHighAccuracy: false, timeout: 10000, maximumAge: 600000 });
+    };
+
+    // The list (with "Use my current location") opens above the box when it is pointed at or clicked into, so it
+    // never covers the buttons underneath.
+    const wrap = form.querySelector<HTMLElement>('.hsrch__box')!;
+    let hovering = false;
+    const hide = () => { if (!hovering && document.activeElement !== input) open(false); };
+    for (const el of [wrap, list]) {
+      el.addEventListener('mouseenter', () => { hovering = true; open(true); });
+      el.addEventListener('mouseleave', () => { hovering = false; setTimeout(hide, 150); });
+    }
+    input.addEventListener('focus', () => open(true));
+    input.addEventListener('blur', () => setTimeout(hide, 150));
+    input.addEventListener('input', () => { note.textContent = ''; draw(); open(true); });
+    list.addEventListener('mousedown', (e) => e.preventDefault());
+    list.addEventListener('click', (e) => {
+      const li = (e.target as Element).closest<HTMLLIElement>('[role=option]');
+      if (!li) return;
+      if (li === here) locate(); else go(li.dataset.href!);
+    });
+    input.addEventListener('keydown', (e) => {
+      const o = options();
+      if (e.key === 'ArrowDown') { e.preventDefault(); open(true); setActive((active + 1) % o.length); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); setActive((active - 1 + o.length) % o.length); }
+      else if (e.key === 'Escape') open(false);
+      else if (e.key === 'Enter' && active >= 0) { e.preventDefault(); const li = o[active]; if (li === here) locate(); else go(li.dataset.href!); }
+    });
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const t = input.value.trim();
+      if (!t) return go(form.dataset.all!);
+      if (/^\d{5}$/.test(t)) return go(zip(t));
+      const m = matches(t.replace(/,?\s*(mn|minnesota)$/i, ''));
+      if (m[0]) return go(m[0].h);
+      note.textContent = own ? 'We didn’t find that place. Showing all homes for sale.' : 'Pick a city from the list or enter a 5-digit ZIP code.';
+      if (own) go(form.dataset.all!);
+    });
+  }
+</script>
+
+<style>
+  .hsrch { position: relative; width: 100%; max-width: 34rem; text-shadow: none; }
+  .hsrch__box { position: relative; display: flex; }
+  .hsrch__box input { width: 100%; padding: 1.05rem 3.6rem 1.05rem 1.2rem; border: 2px solid #fff; border-radius: 10px; background: #fff; color: var(--text);
+    font: 500 1.08rem/1.2 var(--ui); box-shadow: 0 10px 30px rgba(0, 0, 0, .3); }
+  .hsrch__box input::placeholder { color: #6f6a6b; }
+  .hsrch__box input:focus { outline: none; border-color: var(--crimson); box-shadow: 0 0 0 4px rgba(212, 0, 0, .25), 0 10px 30px rgba(0, 0, 0, .3); }
+  .hsrch__box button { position: absolute; right: .45rem; top: 50%; transform: translateY(-50%); display: grid; place-items: center; width: 2.8rem; height: 2.8rem;
+    border: 0; border-radius: 8px; background: var(--crimson); color: #fff; cursor: pointer; }
+  .hsrch__box button:hover { background: #a80000; }
+  .hsrch__list { position: absolute; left: 0; right: 0; bottom: calc(100% + .4rem); z-index: 30; margin: 0; padding: .35rem 0; list-style: none; border-radius: 10px;
+    background: #fff; color: var(--text); box-shadow: 0 14px 34px rgba(0, 0, 0, .3); font: 500 1rem/1.3 var(--ui); }
+  .hsrch__list :global([role='option']) { display: flex; gap: .6rem; align-items: center; padding: .7rem 1.1rem; cursor: pointer; }
+  .hsrch__list :global([role='option'][aria-selected='true']), .hsrch__list :global([role='option']:hover) { background: #fff1f1; }
+  .hsrch__here { color: var(--crimson); font-weight: 700; border-bottom: 1px solid var(--line); }
+  .hsrch__note { min-height: 0; margin: .5rem 0 0; color: #fff; font: 600 .9rem/1.3 var(--ui); text-shadow: 0 1px 8px rgba(0, 0, 0, .6); }
+  .hsrch__note:empty { display: none; }
+</style>
