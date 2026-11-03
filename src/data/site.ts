@@ -10,6 +10,8 @@ export const site = {
   // Home search (IDX). Points at the team's existing Ylopo search until the IDX decision is final;
   // every "Search homes" button reads this one value.
   searchUrl: 'https://search.huerkamphomegroup.com',
+  // The team's recruiting site (agents who want to join).
+  joinUrl: 'https://joinhhg.com',
   // Ylopo's map view, about 15 miles around downtown Minneapolis (bbox = north,east,south,west).
   // Minneapolis is named too: on phones, Ylopo's map gets stuck loading when only given an area.
   mapSearchUrl: 'https://search.huerkamphomegroup.com/search/map?s[orderBy]=sourceCreationDate%2Cdesc&s[page]=1&s[locations][0][city]=Minneapolis&s[locations][0][state]=MN&s[bbox]=45.195,-92.9584,44.7606,-93.5716',

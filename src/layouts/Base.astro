@@ -139,7 +139,7 @@ const isExternal = (href: string) => href.startsWith('http');
   <div class="utility">
     <div class="utility__inner">
       <p><span aria-hidden="true">★</span> Dave Ramsey Endorsed Local Provider for 15+ years</p>
-      <p class="utility__right"><span class="utility__kw">{site.brokerage}</span><a href={phoneHref}>{phone}</a></p>
+      <p class="utility__right"><span class="utility__kw">{site.brokerage}</span><a href={phoneHref}>{phone}</a><a class="utility__join" href={site.joinUrl} rel="noopener">Join HHG</a></p>
     </div>
   </div>
 
@@ -184,6 +184,7 @@ const isExternal = (href: string) => href.startsWith('http');
         ))}
         <a class="btn mobile__cta" href="/sell#value">Free Home Valuation</a>
         <a class="mobile__phone" href={phoneHref}>Call {phone}</a>
+        <a class="btn btn--ghost mobile__join" href={site.joinUrl} rel="noopener">Join HHG: careers for agents</a>
       </nav>
     </div>
   </header>
@@ -354,6 +355,10 @@ const isExternal = (href: string) => href.startsWith('http');
   .utility__right { display: flex; gap: 1.5rem; }
   .utility a { color: var(--on-dark); text-decoration: none; border-bottom: 1px solid var(--crimson); }
   .utility__kw { color: var(--on-dark-soft); }
+  .utility__right { align-items: center; }
+  .utility a.utility__join { padding: .3rem .7rem; margin: -.3rem 0; border: 0; border-radius: 3px; background: var(--crimson); color: #fff; }
+  .utility a.utility__join:hover { background: #a80000; }
+  .mobile__join { margin-top: .75rem; }
   @media (max-width: 900px) { .utility__kw { display: none; } }
   @media (max-width: 560px) { .utility__inner > p:first-child { display: none; } .utility__inner { justify-content: center; } }
 
