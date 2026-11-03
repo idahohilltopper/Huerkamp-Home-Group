@@ -4,7 +4,8 @@
 type Card = { mls: string; slug: string; street: string; city: string; zip: string; price: number; beds: number | null; baths: number | null;
   sqft: number | null; type: string | null; newConstruction: 0 | 1; lakefront: 0 | 1; lotAcres: number | null; brokerage: string; photo: string | null;
   ownBrokerage: 0 | 1; addressHidden: 0 | 1 };
-type Answer = { ok: boolean; error?: string; total: number; page: number; pages: number; results: Card[]; pins: [number, number, number, string][] };
+type Answer = { ok: boolean; error?: string; total: number; page: number; pages: number; results: Card[]; pins: Pin[] };
+export type Pin = [number, number, number, string, string | null, string, string, 0 | 1];
 
 const KEYS = ['place', 'min', 'max', 'beds', 'baths', 'type', 'lakefront', 'new', 'acres', 'team', 'sort', 'bbox', 'page'];
 const esc = (s: unknown) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
@@ -185,7 +186,7 @@ export function initSearch(root: HTMLElement) {
   const openMap = async () => {
     if (map) { map.resize(); return; }
     mapApi = await import('./search-map');
-    map = await mapApi.createMap(root.querySelector<HTMLElement>('[data-map]')!, root.dataset.mapStyle!, () => {
+    map = await mapApi.createMap(root.querySelector<HTMLElement>('[data-map]')!, root.dataset.mapStyle!, root.dataset.brThumb ?? '', () => {
       // The person moved the map: search that area if "Search as I move the map" is on.
       if (!follow.checked || !map || !mapApi) return;
       (form.elements.namedItem('bbox') as HTMLInputElement).value = mapApi.boxOf(map);

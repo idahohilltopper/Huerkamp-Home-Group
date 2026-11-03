@@ -100,6 +100,9 @@ export function search(index, q, { otherDetails = false } = {}) {
     total: hits.length, page, pages,
     results: hits.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE).map(({ team, community, hood, lakes, ...l }) =>
       l.ownBrokerage || otherDetails ? l : { ...l, beds: null, baths: null, sqft: null, type: null, newConstruction: 0, lakefront: 0, lotAcres: null }),
-    pins: hits.filter((l) => l.lat != null).slice(0, MAX_PINS).map((l) => [l.lat, l.lng, l.price, l.slug]),
+    // Each map marker: where, price, page, and what its pop-up shows (first photo, address, listing brokerage,
+    // 1 = the team's own brokerage). A pop-up is a thumbnail display, so it follows the same rules as a card.
+    pins: hits.filter((l) => l.lat != null).slice(0, MAX_PINS).map((l) => [l.lat, l.lng, l.price, l.slug, l.photo ?? null,
+      l.addressHidden ? `${l.city}, MN ${l.zip}` : `${l.street}, ${l.city}`, l.brokerage ?? '', l.ownBrokerage ? 1 : 0]),
   };
 }

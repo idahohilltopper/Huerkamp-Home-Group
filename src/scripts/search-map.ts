@@ -2,6 +2,7 @@
 // out, red price tags ("$425K") when zoomed in, as on the big portals. Clicking one shows the price and a link to the
 // home's page; pointing at a card in the list lights up its marker.
 import * as maplibregl from 'maplibre-gl';
+import type { Pin } from './home-search';
 import mapCssUrl from 'maplibre-gl/dist/maplibre-gl.css?url';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 maplibregl.setWorkerUrl(workerUrl);
@@ -17,7 +18,7 @@ const css = () => new Promise((resolve) => {
   document.head.append(link);
 });
 
-export async function createMap(el: HTMLElement, style: string, onMoved: () => void) {
+export async function createMap(el: HTMLElement, style: string, brThumb: string, onMoved: () => void) {
   await css();
   const map = new maplibregl.Map({ container: el, style, bounds: TWIN_CITIES, fitBoundsOptions: { padding: 30 }, cooperativeGestures: true, attributionControl: { compact: true } });
   map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
@@ -46,15 +47,27 @@ export async function createMap(el: HTMLElement, style: string, onMoved: () => v
       const f = e.features?.[0];
       if (!f) return;
       const p = f.properties;
+      // NorthstarMLS Rule 12.3(f): like a listing card, the pop-up shows the photo, price, address and listing
+      // brokerage, with the Broker Reciprocity thumbnail logo on other brokerages' listings.
       const a = document.createElement('a');
       a.className = 'hs-pop-card';
       a.href = `/homes/${encodeURIComponent(p.slug)}`;
+      const ph = document.createElement('span');
+      ph.className = 'hs-pop-card__photo';
+      if (p.photo) {
+        const img = Object.assign(document.createElement('img'), { src: `${p.photo}?class=small`, alt: p.addr, width: 240, height: 160, decoding: 'async' });
+        img.onerror = () => { ph.textContent = 'Photo coming soon'; };
+        ph.append(img);
+      } else ph.textContent = 'Photo coming soon';
       const price = document.createElement('strong');
       price.textContent = p.price > 1 ? `$${Number(p.price).toLocaleString('en-US')}` : 'Auction';
-      const go = document.createElement('span');
-      go.textContent = 'See this home →';
-      a.append(price, go);
-      new maplibregl.Popup({ offset: 12, closeButton: false }).setLngLat(f.geometry.coordinates).setDOMContent(a).addTo(map);
+      const addr = document.createElement('span');
+      addr.textContent = p.addr;
+      const by = document.createElement('small');
+      if (!p.own && brThumb) by.append(Object.assign(document.createElement('img'), { src: brThumb, alt: 'Broker Reciprocity listing', width: 20, height: 20 }));
+      by.append(`Listing courtesy of ${p.brokerage || 'the listing brokerage'}`);
+      a.append(ph, price, addr, by);
+      new maplibregl.Popup({ offset: 12, closeButton: false, maxWidth: '260px', className: 'hs-popup' }).setLngLat(f.geometry.coordinates).setDOMContent(a).addTo(map);
     });
   }
   // Only when the person moves the map (not when it moves itself to fit the results).
@@ -63,8 +76,9 @@ export async function createMap(el: HTMLElement, style: string, onMoved: () => v
 }
 
 /** Show these homes; zoom to them unless the search is already limited to the map area. */
-export function setPins(map: any, pins: [number, number, number, string][], fit = true) {
-  const features = pins.map(([lat, lng, price, slug]) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [lng, lat] }, properties: { price, slug, label: tag(price) } }));
+export function setPins(map: any, pins: Pin[], fit = true) {
+  const features = pins.map(([lat, lng, price, slug, photo, addr, brokerage, own]) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [lng, lat] },
+    properties: { price, slug, label: tag(price), photo: photo ?? '', addr, brokerage, own } }));
   (map.getSource('homes') as any)?.setData({ type: 'FeatureCollection', features });
   if (fit && features.length) {
     const b = new maplibregl.LngLatBounds();

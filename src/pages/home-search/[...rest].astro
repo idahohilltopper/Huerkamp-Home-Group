@@ -204,7 +204,12 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
   @media (max-width: 900px) { .hs-alert { grid-template-columns: 1fr; } }
   .hs-alert__search { font-weight: 600; }
   .lcards.is-loading { opacity: .45; transition: opacity .15s; }
-  :global(.hs-pop-card) { display: grid; gap: .15rem; font: 500 .85rem/1.3 var(--ui); color: var(--text); text-decoration: none; }
-  :global(.hs-pop-card strong) { font: 700 1.05rem/1.2 var(--ui); }
-  :global(.hs-pop-card span:last-child) { color: var(--crimson); font-weight: 700; }
+  :global(.hs-popup .maplibregl-popup-content) { padding: 0; border-radius: 8px; overflow: hidden; box-shadow: 0 8px 24px rgba(0, 0, 0, .22); }
+  :global(.hs-pop-card) { display: grid; gap: .2rem; width: 240px; padding-bottom: .7rem; font: 500 .85rem/1.3 var(--ui); color: var(--text); text-decoration: none; }
+  :global(.hs-pop-card > :not(.hs-pop-card__photo)) { padding-inline: .75rem; }
+  :global(.hs-pop-card__photo) { display: grid; place-items: center; aspect-ratio: 3 / 2; margin-bottom: .35rem; background: var(--sand); color: var(--text-soft); font: 600 .75rem/1 var(--ui); overflow: hidden; }
+  :global(.hs-pop-card__photo img) { width: 100%; height: 100%; object-fit: cover; }
+  :global(.hs-pop-card strong) { font: 700 1.1rem/1.2 var(--ui); }
+  :global(.hs-pop-card small) { display: flex; gap: .35rem; align-items: center; color: var(--text-soft); font-size: .75rem; }
+  :global(.hs-pop-card:hover strong) { color: var(--crimson); }
 </style>
