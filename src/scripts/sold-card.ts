@@ -12,7 +12,7 @@ export function soldCardHtml(l: Sold, brThumb?: string) {
   const addr = l.addressHidden || !l.street ? `${l.city}, MN ${l.zip}` : `${l.street}, ${l.city}, MN ${l.zip}`;
   const specs = [l.beds && `${l.beds} bd`, l.baths && `${l.baths} ba`, l.yearBuilt && `built ${l.yearBuilt}`].filter(Boolean).join(' · ');
   const img = l.photo ? `<img src="${esc(l.photo)}?class=small" alt="${esc(addr)}" width="400" height="267" loading="lazy" decoding="async" />` : '<span class="lcard__nophoto">No photo</span>';
-  const icon = !l.ownBrokerage && brThumb ? `<img src="${esc(brThumb)}" alt="Broker Reciprocity listing" width="35" height="35" />` : '';
+  const icon = !l.ownBrokerage && brThumb ? `<img src="${esc(brThumb)}" alt="Broker Reciprocity listing" height="18" />` : '';
   return `<li class="lcard lcard--sold"><div class="lcard__box"><span class="lcard__photo">${img}<span class="lcard__flag lcard__flag--sold">Sold ${esc(soldOn(l.soldDate))}</span></span>`
     + `<strong class="lcard__price">${l.soldPrice ? `$${Math.round(l.soldPrice).toLocaleString('en-US')}` : 'Sold'}</strong>`
     + (specs ? `<span class="lcard__specs">${esc(specs)}</span>` : '')

@@ -10,7 +10,7 @@ import { communities } from '../../data/areas';
 import { hoodByKey, hoodHref, CITY_NAME } from '../../data/neighborhoods';
 import { hasMarket, marketFor, latest, monthLabel, money as mMoney, count, signed } from '../../data/market';
 import { CONTINGENCIES, EULA_PATH, isOwnBrokerage } from '../../data/mls';
-import { BR_LOGO } from '../../data/mls-logos';
+import { BR_LOGO, BR_LOGO_SIZE } from '../../data/mls-logos';
 import IdxDisclosure from '../../components/IdxDisclosure.astro';
 import { origin } from '../../data/schema';
 import { site } from '../../data/site';
@@ -126,7 +126,7 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() }, { name: community
           )}
           <h2>Home facts</h2>
           <dl class="home__facts">{facts.filter(([, v]) => v).map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
-          <p class="home__broker">{!isOwnBrokerage(l.brokerage) && BR_LOGO && <img src={BR_LOGO} alt="Broker Reciprocity" width="95" height="35" />}Listing courtesy of {l.brokerage || 'the listing brokerage'}{l.agent && ` (${l.agent})`}. MLS #{l.mls}.</p>
+          <p class="home__broker">{!isOwnBrokerage(l.brokerage) && BR_LOGO && <img src={BR_LOGO} alt="Broker Reciprocity" width={BR_LOGO_SIZE.w} height={BR_LOGO_SIZE.h} />}Listing courtesy of {l.brokerage || 'the listing brokerage'}{l.agent && ` (${l.agent})`}. MLS #{l.mls}.</p>
         </div>
       </div>
       <IdxDisclosure at={data.at} copyright size="2rem" />
@@ -204,7 +204,7 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() }, { name: community
   .home--ours { padding-top: 3rem; }
   .home__specs { margin: .35rem 0; font: 600 1rem/1.4 var(--ui); }
   .home__broker { margin: 1.5rem 0 0; font: 600 1rem/1.5 var(--ui); }
-  .home__broker img { float: left; width: 95px; height: auto; margin: .1rem .8rem 0 0; }
+  .home__broker img { float: left; width: auto; height: 35px; margin: .1rem .8rem 0 0; }
   .home__answer { font-size: 1.05rem; line-height: 1.65; }
   .home h2 { margin: 2.25rem 0 .9rem; font: 500 1.6rem/1.2 var(--serif); }
   .home--ours h2:first-child { margin-top: 0; }

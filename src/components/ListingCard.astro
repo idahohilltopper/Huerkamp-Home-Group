@@ -5,7 +5,7 @@
 import type { Listing } from '../data/listings';
 import { listingHref, TYPE_LABEL } from '../data/listings';
 import { isOwnBrokerage, OTHER_THUMB_DETAILS } from '../data/mls';
-import { BR_THUMB } from '../data/mls-logos';
+import { BR_THUMB, BR_THUMB_SIZE } from '../data/mls-logos';
 interface Props { l: Listing; eager?: boolean }
 const { l, eager = false } = Astro.props;
 const full = OTHER_THUMB_DETAILS || isOwnBrokerage(l.brokerage);
@@ -23,7 +23,7 @@ const address = l.addressHidden ? `${l.city}, MN ${l.zip}` : `${l.street}, ${l.c
     <span class="lcard__addr">{address}</span>
     {full && <span class="lcard__type">{TYPE_LABEL[l.type] ?? 'home'}</span>}
     <span class="lcard__mls">MLS #{l.mls}</span>
-    <span class="lcard__broker">{!isOwnBrokerage(l.brokerage) && BR_THUMB && <img src={BR_THUMB} alt="Broker Reciprocity listing" width="35" height="35" />}Listing courtesy of {l.brokerage || 'the listing brokerage'}</span>
+    <span class="lcard__broker">{!isOwnBrokerage(l.brokerage) && BR_THUMB && <img src={BR_THUMB} alt="Broker Reciprocity listing" width={BR_THUMB_SIZE.w} height={BR_THUMB_SIZE.h} />}Listing courtesy of {l.brokerage || 'the listing brokerage'}</span>
   </a>
 </li>
 
@@ -43,5 +43,6 @@ const address = l.addressHidden ? `${l.city}, MN ${l.zip}` : `${l.street}, ${l.c
   .lcard__type { font-size: .8rem; color: var(--text-soft); text-transform: capitalize; }
   .lcard__mls { font-size: .8rem; color: var(--text-soft); }
   .lcard__broker { display: flex; gap: .5rem; align-items: center; font-size: .8rem; color: var(--text-soft); }
-  .lcard__broker img { width: 35px; height: 35px; flex: none; }
+  .lcard__broker img { width: auto; height: 18px; flex: none; }
+  .lcard__broker img[width="35"] { height: 35px; }
 </style>

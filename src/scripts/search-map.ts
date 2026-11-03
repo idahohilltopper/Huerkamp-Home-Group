@@ -75,7 +75,7 @@ export async function createMap(el: HTMLElement, style: string, brThumb: string,
       const when = document.createElement('span');
       if (p.sold) when.textContent = `Sold ${new Date(`${p.sold}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
       const by = document.createElement('small');
-      if (!p.own && brThumb) by.append(Object.assign(document.createElement('img'), { src: brThumb, alt: 'Broker Reciprocity listing', width: 20, height: 20 }));
+      if (!p.own && brThumb) by.append(Object.assign(document.createElement('img'), { src: brThumb, alt: 'Broker Reciprocity listing', height: 14 }));
       by.append(`Listing courtesy of ${p.brokerage || 'the listing brokerage'}`);
       a.append(ph, price, ...(p.sold ? [when] : []), addr, by);
       new maplibregl.Popup({ offset: 12, closeButton: false, maxWidth: '260px', className: 'hs-popup' }).setLngLat(f.geometry.coordinates).setDOMContent(a).addTo(map);
