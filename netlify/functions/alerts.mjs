@@ -5,6 +5,8 @@
 //   POST /api/alerts/update       { token, searchId, frequency? | active? | remove? | query? }
 //   POST /api/alerts/unsubscribe  { token }   stop every email
 //   GET  /api/alerts/listing?mls=  the site page for an MLS number (alert "view listing" links)
+//   POST /api/alerts/favorite     { firstName, lastName, email, phone?, mls }  heart a home (Repliers favorites)
+//   POST /api/alerts/unfavorite   { email, mls }  un-heart it
 // The token in alert-email links identifies the client (Repliers GET /messages?token=), so people manage their alerts
 // without a password. Every change is checked against that client. The lead itself still goes to Follow Up Boss
 // through /api/lead (the page sends both). Needs REPLIERS_API_KEY; optional REPLIERS_AGENT_ID picks the agent the
@@ -105,7 +107,10 @@ export default async (req, _ctx, f = fetch) => {
           searchId: s.searchId, name: s.name, summary: describeSaved(s), frequency: s.notificationFrequency, active: s.status !== false, query: toSiteQuery(s).toString(),
         }));
         const c = (await rq(key, 'GET', `/clients/${clientId}`, {}, f)).data ?? {};
-        return json(200, { ok: true, firstName: c.fname ?? '', unsubscribed: !!c.preferences?.unsubscribe, searches });
+        const favorites = list((await rq(key, 'GET', '/favorites', { params: { clientId } }, f)).data, 'favorites')
+          .filter((x) => String(x.clientId ?? clientId) === String(clientId))
+          .map((x) => { const mls = String(x.mlsNumber ?? x.listing?.mlsNumber ?? ''); return { mls, slug: slugFor(mls) }; }).filter((x) => x.mls);
+        return json(200, { ok: true, firstName: c.fname ?? '', unsubscribed: !!c.preferences?.unsubscribe, searches, favorites });
       }
       if (action === 'search') {
         const s = await ownSearch(key, f, clientId, url.searchParams.get('searchId'));
@@ -117,6 +122,26 @@ export default async (req, _ctx, f = fetch) => {
     const origin = req.headers.get('origin');
     if (origin && !ALLOWED.test(origin)) return json(403, { ok: false, error: 'Forbidden' });
     const b = await req.json().catch(() => ({}));
+
+    if (action === 'favorite' || action === 'unfavorite') {
+      const email = clean(b.email, 120).toLowerCase(), mls = clean(b.mls, 20);
+      if (!isEmail(email) || !/^[A-Za-z0-9-]+$/.test(mls)) return json(400, { ok: false, error: 'bad-request' });
+      if (action === 'unfavorite') {
+        const c = list((await rq(key, 'GET', '/clients', { params: { email } }, f)).data, 'clients').find((x) => String(x.email ?? '').toLowerCase() === email);
+        if (!c?.clientId) return json(200, { ok: true });
+        const fav = list((await rq(key, 'GET', '/favorites', { params: { clientId: c.clientId } }, f)).data, 'favorites').find((x) => String(x.mlsNumber ?? x.listing?.mlsNumber) === mls);
+        if (fav?.favoriteId) await rq(key, 'DELETE', `/favorites/${fav.favoriteId}`, {}, f);
+        return json(200, { ok: true });
+      }
+      const person = { firstName: clean(b.firstName, 60), lastName: clean(b.lastName, 60), email, phone: clean(b.phone, 30) };
+      if (!person.firstName) return json(400, { ok: false, error: 'Please enter your name.' });
+      const agent = await agentId(key, f);
+      const clientId = agent ? await clientFor(key, f, person, agent) : null;
+      if (!clientId) return json(502, { ok: false, error: 'mls-error' });
+      const r = await rq(key, 'POST', '/favorites', { body: { clientId, mlsNumber: mls } }, f);
+      if (!r.ok && r.status !== 403) { console.error('Repliers favorite', r.status, r.error); return json(502, { ok: false, error: 'mls-error' }); } // 403 = already saved
+      return json(200, { ok: true });
+    }
 
     if (action === 'save') {
       const person = { firstName: clean(b.firstName, 60), lastName: clean(b.lastName, 60), email: clean(b.email, 120).toLowerCase(), phone: clean(b.phone, 30) };

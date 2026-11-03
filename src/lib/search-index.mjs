@@ -12,7 +12,7 @@ export const TYPES = ['single-family', 'townhome', 'condo', 'multi-family', 'lan
 export const SORTS = { new: 'Newest', 'price-asc': 'Price: low to high', 'price-desc': 'Price: high to low', sqft: 'Largest' };
 
 // Row layout (arrays keep the file small).
-const F = ['mls', 'slug', 'street', 'city', 'zip', 'price', 'beds', 'baths', 'sqft', 'type', 'newConstruction', 'lotAcres', 'lakefront', 'community', 'hood', 'lakes', 'lat', 'lng', 'listed', 'brokerage', 'photo', 'team', 'ownBrokerage', 'addressHidden'];
+const F = ['mls', 'slug', 'street', 'city', 'zip', 'price', 'beds', 'baths', 'sqft', 'type', 'newConstruction', 'lotAcres', 'lakefront', 'community', 'hood', 'lakes', 'lat', 'lng', 'listed', 'brokerage', 'photo', 'team', 'ownBrokerage', 'addressHidden', 'openHouse'];
 
 /** Build-time: listings (src/data/listings.ts shape) → index object. `teamNames` marks the team's own listings. */
 export function buildIndex(listings, { at = null, mode = 'off', teamNames = [], teamBrokerage = /keller williams preferred/i } = {}) {
@@ -25,6 +25,8 @@ export function buildIndex(listings, { at = null, mode = 'off', teamNames = [], 
     l.listed ?? null, l.brokerage ?? '', l.photos?.[0] ?? null,
     teamBrokerage.test(l.brokerage ?? '') && names.has(String(l.agent ?? '').toLowerCase().trim()) ? 1 : 0,
     teamBrokerage.test(l.brokerage ?? '') ? 1 : 0, l.addressHidden ? 1 : 0,
+    // The next public open house ({ date, start, end }), shown on cards and used by the "Open houses" filter.
+    l.openHouses?.[0] ?? null,
   ]);
   return { v: 1, at, mode, fields: F, rows };
 }
@@ -45,7 +47,7 @@ export function parseQuery(input) {
     places, types, sort,
     min: int('min', 1, 1e9), max: int('max', 1, 1e9),
     beds: int('beds', 1, 10), baths: int('baths', 1, 10),
-    lakefront: flag('lakefront'), newConstruction: flag('new'), acres: flag('acres'), team: flag('team'),
+    lakefront: flag('lakefront'), newConstruction: flag('new'), acres: flag('acres'), team: flag('team'), open: flag('open'),
     bbox: bbox.length === 4 && bbox.every(Number.isFinite) && bbox[0] < bbox[2] && bbox[1] < bbox[3] ? bbox : null,
     page: int('page', 1, 500) ?? 1,
   };
@@ -64,6 +66,7 @@ export function toSearch(q) {
   if (q.newConstruction) p.set('new', '1');
   if (q.acres) p.set('acres', '1');
   if (q.team) p.set('team', '1');
+  if (q.open) p.set('open', '1');
   if (q.sort && q.sort !== 'new') p.set('sort', q.sort);
   if (q.bbox) p.set('bbox', q.bbox.map((n) => n.toFixed(4)).join(','));
   if (q.page && q.page > 1) p.set('page', String(q.page));
@@ -86,7 +89,7 @@ export function search(index, q, { otherDetails = false } = {}) {
     (!q.min || l.price >= q.min) && (!q.max || l.price <= q.max) &&
     (!q.beds || (l.beds ?? 0) >= q.beds) && (!q.baths || (l.baths ?? 0) >= q.baths) &&
     (!q.lakefront || l.lakefront) && (!q.newConstruction || l.newConstruction) && (!q.acres || (l.lotAcres ?? 0) >= 1) &&
-    (!q.team || l.team) &&
+    (!q.team || l.team) && (!q.open || l.openHouse) &&
     (!q.bbox || (l.lng >= q.bbox[0] && l.lat >= q.bbox[1] && l.lng <= q.bbox[2] && l.lat <= q.bbox[3])));
   const by = {
     new: (a, b) => String(b.listed ?? '').localeCompare(String(a.listed ?? '')) || b.price - a.price,

@@ -7,7 +7,7 @@ import { join } from 'node:path';
 import { INDEX_FILE, parseQuery, search } from '../../src/lib/search-index.mjs';
 
 const env = (k) => (globalThis.Netlify?.env?.get(k) ?? process.env[k] ?? '').trim();
-const VARY = 'query=place|min|max|beds|baths|type|lakefront|new|acres|team|sort|bbox|page,header=x-idx-eula';
+const VARY = 'query=place|min|max|beds|baths|type|lakefront|new|acres|team|open|sort|bbox|page,header=x-idx-eula';
 const json = (status, body, cache = false) => new Response(JSON.stringify(body), {
   status,
   headers: {

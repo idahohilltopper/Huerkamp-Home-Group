@@ -69,7 +69,7 @@ export function toSavedSearch(q, { clientId, agentId, frequency = 'daily', name 
   if (int(q.beds)) body.minBeds = int(q.beds);
   if (int(q.baths)) body.minBaths = int(q.baths);
   if (body.minPrice > body.maxPrice) return { error: 'The minimum price is higher than the maximum.' };
-  const skipped = ['lakefront', 'new', 'acres', 'team'].filter((k) => q[k]);
+  const skipped = ['lakefront', 'new', 'acres', 'team', 'open'].filter((k) => q[k]);
   return { body, skipped };
 }
 

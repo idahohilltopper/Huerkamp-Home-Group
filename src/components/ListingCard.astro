@@ -6,18 +6,20 @@ import type { Listing } from '../data/listings';
 import { listingHref, TYPE_LABEL } from '../data/listings';
 import { isOwnBrokerage, OTHER_THUMB_DETAILS } from '../data/mls';
 import { BR_THUMB, BR_THUMB_SIZE } from '../data/mls-logos';
+import { formatOpenHouse } from '../lib/open-house.mjs';
 interface Props { l: Listing; eager?: boolean }
 const { l, eager = false } = Astro.props;
 const full = OTHER_THUMB_DETAILS || isOwnBrokerage(l.brokerage);
 const specs = full ? [l.beds && `${l.beds} bd`, l.baths && `${l.baths} ba`, l.sqft && `${l.sqft.toLocaleString('en-US')} sq ft`, l.type === 'land' && l.lotAcres && `${l.lotAcres} acres`].filter(Boolean).join(' · ') : '';
 const photo = l.photos[0] ? `${l.photos[0]}?class=small` : null;
 const price = l.price > 1 ? `$${l.price.toLocaleString('en-US')}` : 'Auction';
+const open = l.openHouses?.[0];
 const address = l.addressHidden ? `${l.city}, MN ${l.zip}` : `${l.street}, ${l.city}, MN ${l.zip}`;
 ---
 <li class="lcard">
   <a href={listingHref(l)}>
     <span class="lcard__photo">{photo ? <img src={photo} alt={address} width="400" height="267" loading={eager ? 'eager' : 'lazy'} decoding="async" /> : <span class="lcard__nophoto">Photo coming soon</span>}
-      {full && l.newConstruction && <span class="lcard__flag">New construction</span>}{full && !l.newConstruction && l.lakefront && <span class="lcard__flag">Lakefront</span>}</span>
+      {full && l.newConstruction && <span class="lcard__flag">New construction</span>}{full && !l.newConstruction && l.lakefront && <span class="lcard__flag">Lakefront</span>}{open && <span class="lcard__open">Open {formatOpenHouse(open)}</span>}</span>
     <strong class="lcard__price">{price}</strong>
     {specs && <span class="lcard__specs">{specs}</span>}
     <span class="lcard__addr">{address}</span>
@@ -25,6 +27,7 @@ const address = l.addressHidden ? `${l.city}, MN ${l.zip}` : `${l.street}, ${l.c
     <span class="lcard__mls">MLS #{l.mls}</span>
     <span class="lcard__broker">{!isOwnBrokerage(l.brokerage) && BR_THUMB && <img src={BR_THUMB} alt="Broker Reciprocity listing" width={BR_THUMB_SIZE.w} height={BR_THUMB_SIZE.h} />}Listing courtesy of {l.brokerage || 'the listing brokerage'}</span>
   </a>
+  <button type="button" class="fav" data-fav={l.mls} data-fav-name={address} data-fav-street={l.addressHidden ? '' : l.street} data-fav-city={l.city} data-fav-zip={l.zip} data-fav-price={String(l.price)} aria-pressed="false" aria-label={`Save: ${address}`}>♡</button>
 </li>
 
 <style is:global>
@@ -37,6 +40,7 @@ const address = l.addressHidden ? `${l.city}, MN ${l.zip}` : `${l.street}, ${l.c
   .lcard__flag { position: absolute; top: .6rem; left: .6rem; padding: .35rem .55rem; background: rgba(21, 18, 19, .82); color: #fff; font: 700 .68rem/1 var(--ui); letter-spacing: .08em; text-transform: uppercase; }
   .lcard a > :not(.lcard__photo), .lcard__box > :not(.lcard__photo) { padding-inline: 1rem; }
   .lcard__flag--sold { background: var(--crimson); }
+  .lcard__open { position: absolute; left: .6rem; bottom: .6rem; padding: .35rem .55rem; background: var(--crimson); color: #fff; font: 700 .72rem/1 var(--ui); letter-spacing: .02em; }
   .lcard__price { font: 500 1.45rem/1.2 var(--serif); }
   .lcard__specs { font: 600 .9rem/1.3 var(--ui); }
   .lcard__addr { font-size: .93rem; }

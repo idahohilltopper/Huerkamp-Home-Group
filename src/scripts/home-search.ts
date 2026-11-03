@@ -3,16 +3,17 @@
 // only when the Map button is pressed. With "Search as I move the map" on, moving the map searches that area.
 // "Sold" switches the page to recently sold homes (/api/sold, NorthstarMLS sold content; src/lib/sold.mjs).
 import { soldCardHtml, soldOn, type Sold } from './sold-card';
+import { formatOpenHouse } from '../lib/open-house.mjs';
 type Card = { mls: string; slug: string; street: string; city: string; zip: string; price: number; beds: number | null; baths: number | null;
   sqft: number | null; type: string | null; newConstruction: 0 | 1; lakefront: 0 | 1; lotAcres: number | null; brokerage: string; photo: string | null;
-  ownBrokerage: 0 | 1; addressHidden: 0 | 1 };
+  ownBrokerage: 0 | 1; addressHidden: 0 | 1; openHouse?: { date: string; start: string; end: string | null } | null };
 type Answer = { ok: boolean; error?: string; total: number; page: number; pages: number; results: (Card | Sold)[]; pins: Pin[]; unsupported?: boolean; months?: number };
 /** lat, lng, price, page slug (MLS number for a sold home), photo, address, brokerage, own brokerage, sold date (sold only). */
 export type Pin = [number, number, number, string, string | null, string, string, 0 | 1, string?];
 
-const KEYS = ['status', 'place', 'min', 'max', 'beds', 'baths', 'months', 'type', 'lakefront', 'new', 'acres', 'team', 'sort', 'bbox', 'page'];
+const KEYS = ['status', 'place', 'min', 'max', 'beds', 'baths', 'months', 'type', 'lakefront', 'new', 'acres', 'team', 'open', 'sort', 'bbox', 'page'];
 // Filters the sold view can't use (the MLS sold data is searched by place, price, rooms, date and map area).
-const SALE_ONLY = ['type', 'lakefront', 'new', 'acres', 'team', 'sort'];
+const SALE_ONLY = ['type', 'lakefront', 'new', 'acres', 'team', 'open', 'sort'];
 const esc = (s: unknown) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
 const money = (n: number) => `$${Math.round(n).toLocaleString('en-US')}`;
 const short = (n: number) => (n >= 1e6 ? `$${(n / 1e6).toFixed(n >= 1e7 ? 0 : 1).replace(/\.0$/, '')}M` : `$${Math.round(n / 1000)}K`);
@@ -92,6 +93,7 @@ export function initSearch(root: HTMLElement) {
     if (p.get('new')) bits.push('new construction');
     if (p.get('acres')) bits.push('1+ acre');
     if (p.get('team')) bits.push('our team’s listings');
+    if (p.get('open')) bits.push('open houses');
     if (p.get('bbox')) bits.push('in the map area');
     return bits.filter(Boolean).join(' · ').replace(': · ', ': ');
   };
@@ -106,10 +108,11 @@ export function initSearch(root: HTMLElement) {
     const addr = l.addressHidden ? `${l.city}, MN ${l.zip}` : `${l.street}, ${l.city}, MN ${l.zip}`;
     const img = l.photo ? `<img src="${esc(l.photo)}?class=small" alt="${esc(addr)}" width="400" height="267" loading="lazy" decoding="async" />` : '<span class="lcard__nophoto">Photo coming soon</span>';
     const icon = !l.ownBrokerage && thumb ? `<img src="${esc(thumb)}" alt="Broker Reciprocity listing" height="18" />` : '';
-    return `<li class="lcard"><a href="/homes/${esc(l.slug)}"><span class="lcard__photo">${img}${flag ? `<span class="lcard__flag">${flag}</span>` : ''}</span>`
+    return `<li class="lcard"><a href="/homes/${esc(l.slug)}"><span class="lcard__photo">${img}${flag ? `<span class="lcard__flag">${flag}</span>` : ''}${l.openHouse ? `<span class="lcard__open">Open ${esc(formatOpenHouse(l.openHouse))}</span>` : ''}</span>`
       + `<strong class="lcard__price">${l.price > 1 ? money(l.price) : 'Auction'}</strong>${specs ? `<span class="lcard__specs">${esc(specs)}</span>` : ''}`
       + `<span class="lcard__addr">${esc(addr)}</span>${l.type ? `<span class="lcard__type">${esc(types[l.type] ?? 'home')}</span>` : ''}`
-      + `<span class="lcard__mls">MLS #${esc(l.mls)}</span><span class="lcard__broker">${icon}Listing courtesy of ${esc(l.brokerage || 'the listing brokerage')}</span></a></li>`;
+      + `<span class="lcard__mls">MLS #${esc(l.mls)}</span><span class="lcard__broker">${icon}Listing courtesy of ${esc(l.brokerage || 'the listing brokerage')}</span></a>`
+      + `<button type="button" class="fav" data-fav="${esc(l.mls)}" data-fav-name="${esc(addr)}" data-fav-street="${l.addressHidden ? '' : esc(l.street)}" data-fav-city="${esc(l.city)}" data-fav-zip="${esc(l.zip)}" data-fav-price="${esc(l.price)}" aria-pressed="false" aria-label="Save: ${esc(addr)}">♡</button></li>`;
   };
   const draw = (a: Answer) => {
     last = a;
@@ -172,7 +175,7 @@ export function initSearch(root: HTMLElement) {
       rooms: [val('beds') && `${val('beds')}+ bd`, val('baths') && `${val('baths')}+ ba`].filter(Boolean).join(', '),
       type: val('type') ? val('type').split(',').map((t) => (types[t] ?? t).replace(/^./, (c) => c.toUpperCase())).join(', ') : '',
       months: isSold() ? `Sold in the last ${monthsText(months())}` : '',
-      more: (() => { const n = ['lakefront', 'new', 'acres', 'team'].filter((k) => val(k)).length; return n ? `More (${n})` : ''; })(),
+      more: (() => { const n = ['lakefront', 'new', 'acres', 'team', 'open'].filter((k) => val(k)).length; return n ? `More (${n})` : ''; })(),
     };
     for (const d of pills) {
       const s = d.querySelector<HTMLElement>('summary')!;

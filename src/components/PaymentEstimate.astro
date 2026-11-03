@@ -1,0 +1,61 @@
+---
+// "What would my payment be?" on every listing page: principal and interest at this week's Freddie Mac 30-year average
+// (src/data/rates.json, refreshed by the daily routine), plus the listing's property taxes and association fee when
+// the MLS gives them. The visitor can change the down payment and rate. An estimate only, labeled as such, with its
+// sources; it's our own information, kept outside the MLS listing block (Rule 12.3(b)).
+import rates from '../data/rates.json';
+interface Props { price: number; taxes: number | null; hoa: number | null }
+const { price, taxes, hoa } = Astro.props;
+const rate = rates.latest.rate30;
+const asOf = new Date(`${rates.latest.date}T12:00:00`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+---
+{price > 1 && (
+  <div class="pay" data-pay data-price={price} data-taxes={taxes ?? ''} data-hoa={hoa ?? ''}>
+    <h2>What would the monthly payment be?</h2>
+    <p class="pay__total"><strong data-pay-total>—</strong> <span>estimated per month</span></p>
+    <div class="pay__inputs">
+      <div class="field"><label for="pay-down">Down payment</label>
+        <select id="pay-down" data-pay-down>{[3, 3.5, 5, 10, 15, 20, 25].map((d) => <option value={d} selected={d === 20}>{d}%</option>)}</select></div>
+      <div class="field"><label for="pay-rate">Interest rate</label><input id="pay-rate" type="number" step="0.01" min="0" max="20" value={rate} data-pay-rate /></div>
+    </div>
+    <dl class="pay__parts">
+      <div><dt>Principal and interest</dt><dd data-pay-pi>—</dd></div>
+      {taxes && <div><dt>Property taxes</dt><dd data-pay-tax>—</dd></div>}
+      {hoa && <div><dt>Association fee (as listed)</dt><dd data-pay-hoa>—</dd></div>}
+    </dl>
+    <p class="pay__note">Estimate only, not a loan offer: a 30-year fixed loan at the Freddie Mac weekly average ({rate}% on {asOf}){taxes ? ', the property taxes in the listing' : ''}{hoa ? ' and the association fee as listed (assumed monthly)' : ''}. Homeowners insurance and any mortgage insurance aren't included. Your rate depends on your credit and loan.</p>
+    <p><a class="btn" href="/buy#lender">Get pre-approved with Ken Rife</a></p>
+  </div>
+)}
+
+<script>
+  for (const box of document.querySelectorAll<HTMLElement>('[data-pay]')) {
+    const price = Number(box.dataset.price), taxes = Number(box.dataset.taxes) || 0, hoa = Number(box.dataset.hoa) || 0;
+    const down = box.querySelector<HTMLSelectElement>('[data-pay-down]')!, rateEl = box.querySelector<HTMLInputElement>('[data-pay-rate]')!;
+    const $ = (s: string) => box.querySelector<HTMLElement>(s);
+    const money = (n: number) => `$${Math.round(n).toLocaleString('en-US')}`;
+    const calc = () => {
+      const loan = price * (1 - Number(down.value) / 100), r = Number(rateEl.value) / 100 / 12, n = 360;
+      const pi = r > 0 ? (loan * r) / (1 - (1 + r) ** -n) : loan / n;
+      const tax = taxes / 12;
+      if ($('[data-pay-pi]')) $('[data-pay-pi]')!.textContent = money(pi);
+      if ($('[data-pay-tax]')) $('[data-pay-tax]')!.textContent = money(tax);
+      if ($('[data-pay-hoa]')) $('[data-pay-hoa]')!.textContent = money(hoa);
+      $('[data-pay-total]')!.textContent = money(pi + tax + hoa);
+    };
+    down.addEventListener('change', calc); rateEl.addEventListener('input', calc);
+    calc();
+  }
+</script>
+
+<style>
+  .pay { margin-top: 2.5rem; padding: 1.5rem; border: 1px solid var(--line); background: #fff; }
+  .pay h2 { margin-top: 0; }
+  .pay__total { margin: .25rem 0 1rem; }
+  .pay__total strong { font: 600 2.2rem/1 var(--serif); color: var(--crimson); }
+  .pay__inputs { display: grid; grid-template-columns: repeat(2, minmax(0, 12rem)); gap: 1rem; }
+  .pay__parts { display: grid; gap: .35rem; margin: 1rem 0; }
+  .pay__parts div { display: flex; justify-content: space-between; max-width: 26rem; border-bottom: 1px dotted var(--line); padding-bottom: .3rem; }
+  .pay__parts dd { margin: 0; font-weight: 700; }
+  .pay__note { font-size: .92rem; color: var(--text-soft); }
+</style>

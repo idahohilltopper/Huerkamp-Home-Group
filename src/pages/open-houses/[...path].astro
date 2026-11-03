@@ -1,0 +1,84 @@
+---
+// Open houses, from the MLS feed (public open houses only; src/lib/open-house.mjs):
+//   /open-houses              every community with an open house coming up, and the soonest ones
+//   /open-houses/<community>  that community's upcoming open houses, by day
+// Rebuilt every hour with the listings. A city's page exists only while it has an open house, and search engines see it
+// only with at least 3 (and never while MLS_PUBLIC is "preview"). NorthstarMLS: credit to the listing broker on every
+// home, the Broker Reciprocity disclosures, and "Open House information is subject to change without warning."
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ListingCard from '../../components/ListingCard.astro';
+import IdxDisclosure from '../../components/IdxDisclosure.astro';
+import { listingsData, homesHref, type Listing } from '../../data/listings';
+import { communities } from '../../data/areas';
+import { formatOpenHouse, OPEN_HOUSE_NOTE } from '../../lib/open-house.mjs';
+import { site } from '../../data/site';
+
+const MIN_INDEX = 3;
+const next = (l: Listing) => l.openHouses?.[0];
+const soonest = (a: Listing, b: Listing) => `${next(a)!.date} ${next(a)!.start}`.localeCompare(`${next(b)!.date} ${next(b)!.start}`);
+
+export async function getStaticPaths() {
+  const data = await listingsData;
+  if (data.mode === 'off') return [];
+  const open = data.listings.filter((l) => l.openHouses?.length);
+  const slugs = [...new Set(open.map((l) => l.community))].filter((s) => communities.some((c) => c.slug === s));
+  return [{ params: { path: undefined }, props: { slug: null } }, ...slugs.map((slug) => ({ params: { path: slug }, props: { slug } }))];
+}
+const { slug } = Astro.props as { slug: string | null };
+const data = await listingsData;
+const all = data.listings.filter((l) => l.openHouses?.length).sort(soonest);
+const c = slug ? communities.find((x) => x.slug === slug)! : null;
+const homes = c ? all.filter((l) => l.community === c.slug) : all;
+const place = c ? c.name : 'the Twin Cities';
+const updatedDay = (data.at ? new Date(data.at) : new Date()).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' });
+
+// Group by the day of each home's next open house.
+const days = new Map<string, Listing[]>();
+for (const l of homes.slice(0, c ? 200 : 60)) { const d = next(l)!.date; days.set(d, [...(days.get(d) ?? []), l]); }
+const dayName = (d: string) => new Date(`${d}T12:00:00`).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+const cities = !c ? communities.map((x) => ({ x, n: all.filter((l) => l.community === x.slug).length })).filter((r) => r.n).sort((a, b) => b.n - a.n) : [];
+const answer = homes.length
+  ? `${homes.length} ${homes.length === 1 ? 'home has' : 'homes have'} a public open house coming up in ${place}, as of ${updatedDay}. The next one is ${formatOpenHouse(next(homes[0])!, { long: true })}.`
+  : `No public open houses are scheduled in ${place} right now. New ones are added every hour.`;
+const title = c ? `Open Houses in ${c.name}, MN This Weekend` : 'Open Houses in the Twin Cities This Weekend';
+const crumbs = [{ name: 'Open houses', href: '/open-houses' }, ...(c ? [{ name: c.name, href: `/open-houses/${c.slug}` }] : [])];
+---
+<Base breadcrumbs={crumbs} title={`${title} | ${site.name}`} description={`${answer} See times, photos and prices, updated hourly from NorthstarMLS.`.slice(0, 300)}
+  noindex={data.preview || (c ? homes.length < MIN_INDEX : false)}>
+  <PageHero eyebrow={`Open houses · updated ${updatedDay}`} title={c ? `Open houses in ${c.name}` : 'Twin Cities open houses'} lede={answer} />
+
+  {cities.length > 0 && (
+    <section class="section section--paper">
+      <div class="wrap">
+        <h2>Open houses by city</h2>
+        <ul class="chips">{cities.map((r) => <li><a class="chip" href={`/open-houses/${r.x.slug}`}>{r.x.name} ({r.n})</a></li>)}</ul>
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="wrap">
+      {[...days].map(([d, list]) => (
+        <div class="ohday">
+          <h2>{dayName(d)}</h2>
+          <div data-idx><ul class="lcards">{list.map((l, i) => <ListingCard l={l} eager={i < 3} />)}</ul></div>
+        </div>
+      ))}
+      {!homes.length && <p>See <a href={homesHref(c?.slug)}>every home for sale in {place}</a> and book a private showing any day.</p>}
+      <p class="ohnote">{OPEN_HOUSE_NOTE} Only public open houses are shown. Can't make it? A {site.name} agent can show you any home privately: call <a href={site.phoneHref}>{site.phone}</a>.</p>
+      {c && <p><a class="link-arrow" href={homesHref(c.slug)}>All {c.name} homes for sale</a> · <a class="link-arrow" href={`/communities/${c.slug}`}>{c.name} community guide</a></p>}
+      <IdxDisclosure at={data.at} />
+      {data.fixture && <p><strong>Sample data for layout testing.</strong></p>}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .ohday { margin-bottom: 2.5rem; }
+  .ohday h2 { margin: 0 0 1rem; font: 700 1.4rem/1.2 var(--ui); }
+  .ohnote { font-size: 1rem; color: var(--text-soft); }
+  .chips { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem; margin: 1rem 0 0; padding: 0; }
+  .chip { display: inline-block; padding: .55rem .9rem; border: 1px solid var(--line); background: #fff; color: var(--text); text-decoration: none; font: 600 .95rem/1 var(--ui); }
+  .chip:hover { border-color: var(--crimson); color: var(--crimson); }
+</style>

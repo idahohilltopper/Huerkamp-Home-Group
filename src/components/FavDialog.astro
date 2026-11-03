@@ -1,0 +1,44 @@
+---
+// The "Save this home" (heart) pop-up, on every page while the site's own MLS search is on (src/layouts/Base.astro).
+// The first heart asks for a name and email: the form goes to Follow Up Boss as "Saved Property" (like any lead form,
+// with the optional call/text consent), then the home is added to the person's favorites at Repliers
+// (/api/alerts/favorite), which their "My alerts" page lists. After that, hearts save in one click.
+---
+<dialog class="favdlg" id="fav-dialog" aria-labelledby="fav-title">
+  <form class="form" data-lead="favorite" method="dialog">
+    <button class="favdlg__x" type="button" data-fav-close aria-label="Close">×</button>
+    <h2 id="fav-title">Save this home</h2>
+    <p class="favdlg__home" data-fav-home></p>
+    <p>We’ll keep your saved homes together and let you know if the price changes. No spam.</p>
+    <input type="hidden" name="listing" />
+    <input type="hidden" name="propStreet" /><input type="hidden" name="propCity" /><input type="hidden" name="propZip" />
+    <input type="hidden" name="propMls" /><input type="hidden" name="propPrice" />
+    <div class="form__row">
+      <div class="field"><label for="fv-first">First name</label><input id="fv-first" name="firstName" autocomplete="given-name" required /></div>
+      <div class="field"><label for="fv-last">Last name</label><input id="fv-last" name="lastName" autocomplete="family-name" required /></div>
+    </div>
+    <div class="field"><label for="fv-email">Email</label><input id="fv-email" name="email" type="email" autocomplete="email" required /></div>
+    <div class="field"><label for="fv-phone">Phone (optional)</label><input id="fv-phone" name="phone" type="tel" autocomplete="tel" /></div>
+    <button class="btn" type="submit">Save this home</button>
+    <p class="form__status" role="status" aria-live="polite"></p>
+  </form>
+</dialog>
+
+<script>
+  import { initFavorites } from '../scripts/favorites';
+  initFavorites();
+</script>
+
+<style>
+  .favdlg { width: min(32rem, calc(100vw - 2rem)); padding: 0; border: 0; border-radius: 10px; box-shadow: 0 20px 60px rgba(0, 0, 0, .35); }
+  .favdlg::backdrop { background: rgba(21, 18, 19, .55); }
+  .favdlg .form { position: relative; padding: 1.5rem 1.5rem 1.25rem; }
+  .favdlg h2 { margin: 0 0 .4rem; font: 600 1.6rem/1.2 var(--serif); }
+  .favdlg__home { margin: 0 0 .5rem; font-weight: 700; }
+  .favdlg__x { position: absolute; top: .5rem; right: .75rem; border: 0; background: none; font-size: 1.8rem; line-height: 1; cursor: pointer; color: var(--text-soft); }
+  :global(.fav) { display: inline-grid; place-items: center; width: 2.4rem; height: 2.4rem; border: 0; border-radius: 50%; background: rgba(255, 255, 255, .95);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .25); cursor: pointer; color: var(--crimson); font: 400 1.35rem/1 var(--ui); }
+  :global(.fav[aria-pressed='true']) { background: var(--crimson); color: #fff; }
+  :global(.lcard) { position: relative; }
+  :global(.lcard > .fav) { position: absolute; top: .55rem; right: .55rem; z-index: 2; }
+</style>

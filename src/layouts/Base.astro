@@ -4,6 +4,7 @@
 // Fonts are self-hosted (no request to Google); the ones used at the top of most pages are preloaded
 // so headings don't jump when the font arrives.
 import { OWN, homeSearchHref } from '../data/search';
+import FavDialog from '../components/FavDialog.astro';
 import { LICENSED_IN, EULA_PATH } from '../data/mls';
 import '@fontsource-variable/figtree/wght.css';
 import '@fontsource/cormorant-garamond/latin-400.css';
@@ -64,7 +65,7 @@ const menu = [
     ['Woodbury', '/communities/woodbury'], ['Area guides: compare places', '/guides'], ['Compare two cities', '/compare'], ['Commute times', '/commute'], ['Lake homes', '/lake-homes'],
   ] },
   { label: 'Homes', href: homesForSale ? '/homes-for-sale' : homeSearchHref, items: [
-    ...(homesForSale ? [['Homes for sale by city', '/homes-for-sale']] : []), ['Search all homes', homeSearchHref], ['Buy a home', '/buy'], ['Lake homes', '/lake-homes'], ['Investment property', '/invest'], ['Market reports', '/market'], ['Housing data', '/data'], ['Affordability calculator', '/calculators/affordability'], ['Rent vs. buy', '/calculators/rent-vs-buy'], ['Foreclosures & short sales', '/foreclosure/buying-foreclosures'],
+    ...(homesForSale ? [['Homes for sale by city', '/homes-for-sale'], ['Open houses', '/open-houses']] : []), ['Search all homes', homeSearchHref], ['Buy a home', '/buy'], ['Lake homes', '/lake-homes'], ['Investment property', '/invest'], ['Market reports', '/market'], ['Housing data', '/data'], ['Affordability calculator', '/calculators/affordability'], ['Rent vs. buy', '/calculators/rent-vs-buy'], ['Foreclosures & short sales', '/foreclosure/buying-foreclosures'],
   ] },
   { label: 'Sell', href: '/sell', items: [
     ['Sell your home', '/sell'], ['Free home valuation', '/sell#value'], ['Get a cash offer', '/sell#cash'], ['Net proceeds calculator', '/calculators/seller-net-proceeds'], ['What’s required to sell', '/selling-in-minnesota'], ['Downsizing & 55+', '/downsizing'], ['Selling it yourself (FSBO)', '/for-sale-by-owner'], ['Short sales & foreclosure help', '/foreclosure'],
@@ -81,7 +82,7 @@ const menu = [
 
 const footerCols = [
   { title: 'Communities', links: [['Minneapolis', '/communities/minneapolis'], ['Saint Paul', '/communities/saint-paul'], ['Burnsville', '/communities/burnsville'], ['Lakeville', '/communities/lakeville'], ['Eagan', '/communities/eagan'], ['Apple Valley', '/communities/apple-valley'], ['Edina', '/communities/edina'], ['Area guides', '/guides'], ['Compare cities', '/compare'], ['Commute times', '/commute'], ['All communities', '/communities']] },
-  { title: 'Homes', links: [...(homesForSale ? [['Homes for sale by city', '/homes-for-sale']] : []), ['Search all homes', homeSearchHref], ['Buy a home', '/buy'], ['Lake homes', '/lake-homes'], ['Investment property', '/invest'], ['Market reports', '/market'], ['Housing data', '/data'], ['Calculators', '/calculators']] },
+  { title: 'Homes', links: [...(homesForSale ? [['Homes for sale by city', '/homes-for-sale'], ['Open houses', '/open-houses']] : []), ['Search all homes', homeSearchHref], ['Buy a home', '/buy'], ['Lake homes', '/lake-homes'], ['Investment property', '/invest'], ['Market reports', '/market'], ['Housing data', '/data'], ['Calculators', '/calculators']] },
   { title: 'Sell', links: [['Sell your home', '/sell'], ['Free home valuation', '/sell#value'], ['Get a cash offer', '/sell#cash'], ['Downsizing & 55+', '/downsizing'], ['Selling a parent’s home', '/downsizing/selling-a-parents-home'], ['What’s required to sell', '/selling-in-minnesota'], ['Sell by owner (FSBO)', '/for-sale-by-owner'], ['Short sales & foreclosure', '/foreclosure']] },
   { title: 'Company', links: [['Our team', '/team'], ['Ramsey ELP', '/ramsey'], ['Reviews', '/reviews'], ['Videos', '/videos'], ['Blog', '/blog'], ['Contact', '/contact']] },
 ];
@@ -195,6 +196,7 @@ const isExternal = (href: string) => href.startsWith('http');
 
   <main id="main">
     <slot />
+    {OWN && <FavDialog />}
   </main>
 
   <footer class="footer">
@@ -308,6 +310,8 @@ const isExternal = (href: string) => href.startsWith('http');
           if (!res.ok) throw new Error(String(res.status));
           form.reset();
           if (status) status.textContent = "Thank you! We got your message and an agent will reach out shortly.";
+          // Other scripts can follow up on a sent lead (favorites: src/scripts/favorites.ts).
+          window.dispatchEvent(new CustomEvent('lead-sent', { detail: { form: form.dataset.lead, fields, el: form } }));
           // New-listing alert forms (with the site's own MLS search on) also save the search at Repliers, which then
           // emails matching new homes (netlify/functions/alerts.mjs).
           if (form.dataset.alertQuery) {

@@ -4,6 +4,7 @@
 // pass `size` when the page's listing text is larger than the card prices.
 import { mls, EULA_PATH } from '../data/mls';
 import { BR_LOGO, BR_LOGO_SIZE } from '../data/mls-logos';
+import { OPEN_HOUSE_NOTE } from '../lib/open-house.mjs';
 interface Props { at?: string | null; size?: string; copyright?: boolean }
 const { at, size = '1.45rem', copyright = false } = Astro.props;
 const updated = at ? new Date(at).toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/Chicago' }) : '';
@@ -12,7 +13,7 @@ const updated = at ? new Date(at).toLocaleString('en-US', { month: 'long', day: 
   {copyright && <p class="idx-disc__copy">{mls.copyright()}</p>}
   <p class="idx-disc__big" style={`font-size:${size}`}>{mls.disclaimer}</p>
   <p class="idx-disc__src">{BR_LOGO && <img src={BR_LOGO} alt="Broker Reciprocity" width={BR_LOGO_SIZE.w} height={BR_LOGO_SIZE.h} />}{mls.source}</p>
-  <p class="idx-disc__more">{mls.partial} {mls.freshness}{updated && ` Listing data last updated ${updated} (Central).`} Use of listing data is subject to the <a href={EULA_PATH}>license agreement</a>.</p>
+  <p class="idx-disc__more">{mls.partial} {mls.freshness}{updated && ` Listing data last updated ${updated} (Central).`} Use of listing data is subject to the <a href={EULA_PATH}>license agreement</a>. {OPEN_HOUSE_NOTE}</p>
 </div>
 
 <style>

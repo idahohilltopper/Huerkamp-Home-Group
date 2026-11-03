@@ -13,6 +13,7 @@ import { site } from '../data/site';
     <div class="wrap narrowish" data-alerts data-search-path={SEARCH_PATH} data-phone={site.phone} data-phone-href={site.phoneHref}>
       <p data-msg>Loading your alerts…</p>
       <ul class="alerts" data-list></ul>
+      <div data-favs-box hidden><h2>Saved homes ♥</h2><ul class="favs" data-favs></ul></div>
       <div class="alerts__all" data-all hidden>
         <h2>Stop all emails</h2>
         <p>Unsubscribe from every new-listing alert from {site.name}.</p>
@@ -37,11 +38,19 @@ import { site } from '../data/site';
     const a = await api(`me?token=${encodeURIComponent(t)}`);
     if (!a.ok) return expired();
     box.querySelector<HTMLElement>('[data-all]')!.hidden = false;
+    drawFavs(a.favorites);
     say(msg, a.unsubscribed ? `<strong>You're unsubscribed.</strong> We won't email you alerts. Saving a new search on the site turns them back on.`
       : a.searches.length ? `Hi ${esc(a.firstName)}. You have ${a.searches.length} saved ${a.searches.length === 1 ? 'search' : 'searches'}.` : `You have no saved searches. <a href="${path}">Search homes</a> and press <strong>Save search</strong> to get alerts.`);
     listEl.innerHTML = a.searches.map((s: any) => `<li class="alert" data-id="${esc(s.searchId)}"><strong>${esc(s.name || 'Home search')}</strong><span class="alert__what">${esc(s.summary)}</span>`
       + `<label>Email me <select data-freq>${Object.entries(FREQ).filter(([v]) => v !== 'monthly' || s.frequency === 'monthly').map(([v, l]) => `<option value="${v}"${v === s.frequency ? ' selected' : ''}>${l}</option>`).join('')}</select></label>`
       + `<span class="alert__links"><a href="${path}?${esc(s.query)}${s.query ? '&' : ''}view=map">See homes</a> <a href="/search?searchId=${esc(s.searchId)}">Edit</a> <button type="button" data-del>Delete</button></span><span class="alert__ok" role="status"></span></li>`).join('');
+  }
+  function drawFavs(favs: { mls: string; slug: string | null }[]) {
+    const fbox = box.querySelector<HTMLElement>('[data-favs-box]')!;
+    fbox.hidden = !favs?.length;
+    box.querySelector('[data-favs]')!.innerHTML = (favs ?? []).map((x) => x.slug
+      ? `<li><a href="/homes/${esc(x.slug)}">${esc(x.slug.replace(/-\d+$/, '').replace(/-mn-(\d{5})$/, ', MN $1').replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()))}</a> <span>MLS #${esc(x.mls)}</span></li>`
+      : `<li>MLS #${esc(x.mls)} <span>(no longer for sale)</span></li>`).join('');
   }
   listEl.addEventListener('change', async (e) => {
     const sel = (e.target as HTMLElement).closest<HTMLSelectElement>('[data-freq]'); if (!sel) return;
@@ -72,5 +81,7 @@ import { site } from '../data/site';
   .alerts :global(.alert__links button) { border: 0; background: none; color: var(--crimson); font: inherit; text-decoration: underline; cursor: pointer; padding: 0; }
   .alerts :global(.alert__what) { margin-top: -.4rem; color: var(--text-soft); }
   .alerts :global(.alert__ok) { color: var(--text-soft); font-size: .92rem; }
+  .favs { margin: 1rem 0 2rem; padding-left: 1.2rem; display: grid; gap: .5rem; }
+  .favs :global(span) { color: var(--text-soft); font-size: .92rem; }
   .alerts__all { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
 </style>

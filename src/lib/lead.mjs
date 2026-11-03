@@ -33,6 +33,8 @@ export const FORMS = {
   'commute':           { type: 'Property Search', label: 'Commute page form',     tags: ['Buyer lead', 'Commute search'] },
   'compare':           { type: 'General Inquiry', label: 'Comparison page form',  tags: ['Comparing places'] },
   'listing':           { type: 'Property Inquiry', label: 'Listing page form',    tags: ['Buyer lead', 'Listing inquiry'] },
+  'showing':           { type: 'Property Inquiry', label: 'Showing request',       tags: ['Buyer lead', 'Showing request'] },
+  'favorite':          { type: 'Saved Property',   label: 'Saved a home (heart)',  tags: ['Buyer lead', 'Saved home'] },
   'calc-seller':       { type: 'Seller Inquiry',  label: 'Net proceeds calculator', tags: ['Seller lead', 'Net proceeds calculator'] },
   'calc-buyer':        { type: 'General Inquiry', label: 'Affordability calculator', tags: ['Buyer lead', 'Affordability calculator'] },
   'calc-rentbuy':      { type: 'General Inquiry', label: 'Rent vs. buy calculator', tags: ['Buyer lead', 'Rent vs. buy calculator'] },
@@ -43,7 +45,7 @@ export const FORMS = {
 const LABELS = {
   address: 'Property address', timeline: 'Selling timeline', topic: 'Topic', goal: 'Goal',
   notes: 'Notes', message: 'Message', lake: 'Lake', priceRange: 'Price range', maxPrice: 'Price range',
-  community: 'Community', ramseyReferral: 'Referred by Ramsey', interest: 'Interested in', moveFrom: 'Moving from', agent: 'Wants to work with', listing: 'Listing', guide: 'Guide', nextHome: 'Next home', helping: 'Asking for', calc: 'Calculator results', situation: 'Situation', savedSearch: 'Saved search', saleDate: 'Sheriff’s sale or deadline',
+  community: 'Community', ramseyReferral: 'Referred by Ramsey', interest: 'Interested in', moveFrom: 'Moving from', agent: 'Wants to work with', listing: 'Listing', guide: 'Guide', nextHome: 'Next home', helping: 'Asking for', calc: 'Calculator results', situation: 'Situation', savedSearch: 'Saved search', showingDay: 'Preferred day', showingTime: 'Preferred time', tourType: 'Tour type', saleDate: 'Sheriff’s sale or deadline',
 };
 const CONTACT = new Set(['firstName', 'lastName', 'email', 'phone']);
 

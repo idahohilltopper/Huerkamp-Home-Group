@@ -8,6 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 import { repliers, isLakefront, CDN } from './repliers.mjs';
+import { openHouses } from './open-house.mjs';
 
 const root = pathToFileURL(`${process.cwd()}/`);
 const read = (p) => JSON.parse(readFileSync(new URL(p, root), 'utf8'));
@@ -111,12 +112,13 @@ export function compact(l, now = new Date()) {
     lat: coord(l.map?.latitude), lng: coord(l.map?.longitude),
     lakefront: isLakefront(l),
     taxes: num(l.taxes?.annualAmount), hoa: num(l.condominium?.fees?.maintenance),
+    openHouses: openHouses(l.openHouse, now),
     heating: text(d.heating), cooling: text(d.airConditioning), basement: [d.basement1, d.basement2].map(text).filter(Boolean).join(', '),
   };
 }
 
 // ---------- download ----------
-const FIELDS = 'boardId,mlsNumber,listPrice,listDate,updatedOn,timestamps,status,lastStatus,class,type,address,map,details,lot,images,office,agents,taxes,condominium,permissions';
+const FIELDS = 'boardId,mlsNumber,listPrice,listDate,updatedOn,timestamps,status,lastStatus,class,type,address,map,details,lot,images,office,agents,taxes,condominium,permissions,openHouse';
 
 async function download(key, box) {
   // Small tiles keep each search well inside Repliers' paging limits; 4 run at a time.

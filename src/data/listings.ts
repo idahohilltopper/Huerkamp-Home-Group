@@ -18,6 +18,8 @@ export type Listing = {
   taxes: number | null; hoa: number | null; heating: string; cooling: string; basement: string;
   community: string; hood: string | null; lakes: string[];
   addressHidden?: boolean; contingency?: string;
+  /** Upcoming public open houses (src/lib/open-house.mjs). */
+  openHouses?: { date: string; start: string; end: string | null }[];
 };
 
 export const MIN_INDEX = 5;

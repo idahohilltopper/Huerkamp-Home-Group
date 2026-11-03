@@ -12,6 +12,8 @@ import { hasMarket, marketFor, latest, monthLabel, money as mMoney, count, signe
 import { CONTINGENCIES, EULA_PATH, isOwnBrokerage } from '../../data/mls';
 import { BR_LOGO, BR_LOGO_SIZE } from '../../data/mls-logos';
 import IdxDisclosure from '../../components/IdxDisclosure.astro';
+import PaymentEstimate from '../../components/PaymentEstimate.astro';
+import { formatOpenHouse, OPEN_HOUSE_NOTE } from '../../lib/open-house.mjs';
 import { origin } from '../../data/schema';
 import { site } from '../../data/site';
 
@@ -81,6 +83,9 @@ const facts: [string, string | null][] = [
   ['MLS number', l.mls],
 ];
 
+// Showing request: the next 10 days to choose from (the page is rebuilt every hour, so the list stays current).
+const showDays = Array.from({ length: 10 }, (_, i) => { const d = new Date(updated); d.setDate(d.getDate() + i + 1); return d.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric', timeZone: 'America/Chicago' }); });
+const opens = l.openHouses ?? [];
 const url = `${origin}${listingHref(l)}`;
 const photo = (p: string, size: string) => `${p}?class=${size}`;
 const schemaType = l.type === 'condo' ? 'Apartment' : l.type === 'land' ? 'Place' : l.type === 'single-family' ? 'SingleFamilyResidence' : 'House';
@@ -117,6 +122,17 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() }, { name: community
           <h1 class="home__title">{l.addressHidden ? `Home for sale in ${l.city}` : l.street}<span>{l.city}, MN {l.zip}</span></h1>
           <p class="home__price">{l.price > 1 ? money(l.price) : 'Auction'}</p>
           {specs.length > 0 && <p class="home__specs">{specs.join(' · ')}</p>}
+          <p class="home__actions">
+            <a class="btn" href="#contact">Schedule a showing</a>
+            <button type="button" class="fav fav--big" data-fav={l.mls} data-fav-name={where} data-fav-street={l.addressHidden ? '' : l.street} data-fav-city={l.city} data-fav-zip={l.zip} data-fav-price={String(l.price)} aria-pressed="false" aria-label={`Save: ${where}`}>♡</button>
+          </p>
+          {opens.length > 0 && (
+            <div class="home__open">
+              <h2>Open {opens.length === 1 ? 'house' : 'houses'}</h2>
+              <ul>{opens.map((o) => <li>{formatOpenHouse(o, { long: true })}</li>)}</ul>
+              <p class="home__open-note">{OPEN_HOUSE_NOTE} Hosted by {l.brokerage || 'the listing brokerage'}.</p>
+            </div>
+          )}
           {l.contingency && <p class="home__status">Contingency: {l.contingency}{CONTINGENCIES[l.contingency] ? ` (${CONTINGENCIES[l.contingency]})` : ''} <a href={EULA_PATH}>What this means</a></p>}
           {l.description && (
             <>
@@ -148,13 +164,14 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() }, { name: community
           {lakes.filter((x) => x.href).map((x) => <li><a href={x.href!}><strong>{x.name}</strong><span>Lake facts from the Minnesota DNR, access and every lakefront home for sale.</span></a></li>)}
           {mk?.medianPrice?.r12[1] != null && <li><a href={`/market/${community.slug}`}><strong>{community.name} housing market, {monthLabel(latest)}</strong><span>Homes sold for a median {mMoney(mk.medianPrice.r12[1])} over 12 months ({signed(mk.medianPrice.r12[2])}), {count(mk.daysOnMarket?.r12[1])} days on market. Source: Minneapolis Area REALTORS®.</span></a></li>}
         </ul>
+        <PaymentEstimate price={l.price} taxes={l.taxes} hoa={l.hoa} />
         {!l.addressHidden && <p class="home__map"><a class="link-arrow" href={`https://www.google.com/maps/search/?api=1&query=${l.lat},${l.lng}`} rel="noopener">See it on the map</a></p>}
       </div>
 
       <aside class="home__ask" id="contact">
-        <h2>Want to see it?</h2>
-        <p>Call <a href={site.phoneHref}>{site.phone}</a> or send a note. A {site.name} agent will set up a showing and tell you what we know about the home and the area.</p>
-        <form class="form" data-lead="listing">
+        <h2>Schedule a showing</h2>
+        <p>Pick a day and time that works. A {site.name} agent will confirm, show you the home and tell you what we know about it and the area. Or call <a href={site.phoneHref}>{site.phone}</a>.</p>
+        <form class="form" data-lead="showing">
           <input type="hidden" name="listing" value={`${where} (MLS #${l.mls}), ${money(l.price)}`} />
           <input type="hidden" name="propStreet" value={l.addressHidden ? '' : l.street} />
           <input type="hidden" name="propCity" value={l.city} />
@@ -169,8 +186,13 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() }, { name: community
           <div class="field"><label for="ls-last">Last name</label><input id="ls-last" name="lastName" autocomplete="family-name" required /></div>
           <div class="field"><label for="ls-email">Email</label><input id="ls-email" name="email" type="email" autocomplete="email" required /></div>
           <div class="field"><label for="ls-phone">Phone</label><input id="ls-phone" name="phone" type="tel" autocomplete="tel" /></div>
-          <div class="field"><label for="ls-msg">Message</label><textarea id="ls-msg" name="message" rows="3">I'd like to see {l.addressHidden ? `MLS #${l.mls}` : l.street}.</textarea></div>
-          <button class="btn" type="submit">Ask about this home</button>
+          <div class="form__row">
+            <div class="field"><label for="ls-day">Day</label><select id="ls-day" name="showingDay">{showDays.map((d) => <option>{d}</option>)}<option>I'm flexible</option></select></div>
+            <div class="field"><label for="ls-time">Time</label><select id="ls-time" name="showingTime"><option>Morning (9–12)</option><option selected>Afternoon (12–4)</option><option>Evening (4–7)</option><option>Any time</option></select></div>
+          </div>
+          <div class="field"><label for="ls-tour">Tour</label><select id="ls-tour" name="tourType"><option>In person</option><option>Video tour</option></select></div>
+          <div class="field"><label for="ls-msg">Questions? (optional)</label><textarea id="ls-msg" name="message" rows="2"></textarea></div>
+          <button class="btn" type="submit">Request a showing</button>
           <p class="form__status" role="status" aria-live="polite"></p>
         </form>
       </aside>
@@ -203,6 +225,12 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() }, { name: community
   .home__source { font-size: .9rem; color: var(--text-soft); }
   .home--ours { padding-top: 3rem; }
   .home__specs { margin: .35rem 0; font: 600 1rem/1.4 var(--ui); }
+  .home__actions { display: flex; gap: .75rem; align-items: center; margin: .75rem 0 0; }
+  .home__actions :global(.fav--big) { width: 3rem; height: 3rem; font-size: 1.6rem; border: 1px solid var(--line); box-shadow: none; }
+  .home__open { margin-top: 1.5rem; padding: 1rem 1.25rem; border-left: 4px solid var(--crimson); background: var(--paper); }
+  .home__open h2 { margin: 0 0 .4rem; }
+  .home__open ul { margin: 0; padding-left: 1.1rem; font-weight: 700; }
+  .home__open-note { margin: .5rem 0 0; font-size: .9rem; color: var(--text-soft); }
   .home__broker { margin: 1.5rem 0 0; font: 600 1rem/1.5 var(--ui); }
   .home__broker img { float: left; width: auto; height: 35px; margin: .1rem .8rem 0 0; }
   .home__answer { font-size: 1.05rem; line-height: 1.65; }
