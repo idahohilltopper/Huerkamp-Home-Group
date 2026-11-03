@@ -21,7 +21,6 @@ import { communities, communityGeoUrl, communityInfo, regions } from '../data/ar
 const google = reviewData.summary.google;
 const latest = (await getPosts()).slice(0, 3);
 const members = team.members;
-const founders = members.filter((m) => m.name === 'Jason Huerkamp' || m.name === 'Brooke Huerkamp');
 
 // Complete 5-star reviews short enough for a card; the first is the featured quote.
 const fits = (r: any) => r.textComplete && r.rating === 5 && r.text.length >= 150 && r.text.length <= 380;
@@ -66,8 +65,8 @@ const ld = JSON.stringify({
   description={`Twin Cities real estate team since 2002: ${google.rating.toFixed(1)} stars across ${google.count} Google reviews, Dave Ramsey Endorsed Local Provider. Buy or sell in Minneapolis, Saint Paul and the metro.`}>
   <script slot="head" type="application/ld+json" set:html={ld} />
 
-  <!-- Hero: laid out like the big portals' home pages (a short photo banner, one big search box, the people on the
-       right), in the team's colors. The team facts that used to sit in the banner are in the band below the listings. -->
+  <!-- Hero: laid out like the big portals' home pages (a short photo banner, one big search box), in the team's
+       colors. The team facts that used to sit in the banner are in the band below the listings. -->
   <section class="hero">
     <picture>
       <source type="image/webp" srcset="/hero/minneapolis-skyline-640.webp 640w, /hero/minneapolis-skyline-960.webp 960w, /hero/minneapolis-skyline-1280.webp 1280w, /hero/minneapolis-skyline-1920.webp 1920w, /hero/minneapolis-skyline-2560.webp 2560w" sizes="100vw" />
@@ -86,20 +85,6 @@ const ld = JSON.stringify({
         </div>
       </div>
     </div>
-    <figure class="hero__people">
-      <div class="hero__cutouts">
-        {founders.map((m) => {
-          const n = m.photo.split('/').pop()!.replace(/\.(png|jpg)$/, '');
-          return (
-            <picture class={`cut cut--${n.split('-')[0]}`}>
-              <source type="image/webp" srcset={`/people/${n}-cutout-560.webp 560w, /people/${n}-cutout-900.webp 900w`} sizes="(max-width: 960px) 50vw, 26rem" />
-              <img src={`/people/${n}-cutout-560.png`} alt={m.name} width="560" height="560" />
-            </picture>
-          );
-        })}
-      </div>
-      <figcaption><strong>Jason &amp; Brooke Huerkamp</strong><span>Founders</span></figcaption>
-    </figure>
   </section>
 
   <!-- Newest homes, right under the search (as the portals do) -->
@@ -415,7 +400,7 @@ const ld = JSON.stringify({
   .search-cta { margin-top: 2.5rem; }
   .latest { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); gap: 1.5rem; }
   .latest__more { margin-top: 2rem; }
-  /* Hero: a short banner, the search box front and center, Jason and Brooke standing in the photo on the right. */
+  /* Hero: a short banner with the search box front and center. */
   .hero { position: relative; overflow: hidden; background: var(--night-deep); color: #fff; min-height: clamp(26rem, 34vw, 31rem); display: flex; align-items: center; }
   .hero__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
   .hero__shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(21,18,19,.78) 0%, rgba(21,18,19,.45) 45%, rgba(21,18,19,.05) 75%); }
@@ -425,20 +410,10 @@ const ld = JSON.stringify({
   .hero h1 { font: 600 clamp(2.4rem, 4.6vw, 3.9rem)/1.02 var(--serif-display); letter-spacing: -.015em; max-width: 16ch; }
   .hero__ctas { display: flex; flex-wrap: wrap; gap: .65rem; }
   .star { color: #c99a2e; }
-  /* Waist-up, feet out of frame, faces in the upper half of the banner. */
-  .hero__people { position: absolute; z-index: 2; top: 0; bottom: 0; right: max(0px, calc((100vw - 84rem) / 2)); width: min(38rem, 44vw); margin: 0; pointer-events: none; }
-  .hero__cutouts { position: absolute; inset: 0; }
-  .cut img { position: absolute; bottom: 0; width: auto; max-width: none; }
-  .cut--jason img { height: 84%; left: 0; filter: drop-shadow(0 12px 30px rgba(0,0,0,.4)); }
-  .cut--brooke img { height: 78%; right: 0; z-index: 1; }
-  .hero__people figcaption { position: absolute; right: .75rem; bottom: .75rem; z-index: 2; display: grid; gap: .1rem; padding: .45rem .75rem; text-align: right; background: rgba(21,18,19,.7); }
-  .hero__people strong { font: 600 1rem/1.2 var(--serif); }
-  .hero__people span { font: 600 .62rem/1.3 var(--ui); letter-spacing: .16em; text-transform: uppercase; color: var(--on-dark-soft); }
   @media (max-width: 960px) {
     .hero { display: block; min-height: 0; }
     .hero__shade { background: linear-gradient(180deg, rgba(21,18,19,.5) 0%, rgba(21,18,19,.62) 100%); }
-    .hero__inner { padding-block: 2rem 0; }
-    .hero__people { position: relative; right: auto; width: min(100%, 26rem); height: 15rem; margin: 1rem auto 0; }
+    .hero__inner { padding-block: 2.25rem 2.5rem; }
   }
 
   /* Newest homes row */
