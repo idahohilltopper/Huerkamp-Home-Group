@@ -22,6 +22,7 @@ import { site } from '../../data/site';
 import { communitySearch, searchUrl, ylopoPlace } from '../../data/ylopo';
 import PostCard from '../../components/PostCard.astro';
 import HomesStrip from '../../components/HomesStrip.astro';
+import SoldHomes from '../../components/SoldHomes.astro';
 import { pairsFor, other, compareHref } from '../../data/compare';
 import { DESTS, commuteHref } from '../../data/commute';
 import { listingsData, homesHref } from '../../data/listings';
@@ -237,9 +238,12 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
           <ul class="chips">{browse.map((b) => <li><a class="chip" href={b.href}>{b.label}</a></li>)}</ul>
         </>
       )}
-      <p class="source">{OWN ? 'Listings from NorthstarMLS, updated twice a day.' : 'Listings from NorthstarMLS through our home search at search.huerkamphomegroup.com.'}</p>
+      <p class="source">{OWN ? 'Listings from NorthstarMLS, updated every hour from 8 AM to 10 PM.' : 'Listings from NorthstarMLS through our home search at search.huerkamphomegroup.com.'}</p>
     </div>
   </section>
+
+  <!-- 2b. Recently sold (NorthstarMLS sold content; only with the site's own feed) -->
+  {searchable && <SoldHomes place={c.slug} name={c.name} />}
 
   <!-- 3. Listing alerts -->
   <section class="section section--dark" id="alerts" aria-labelledby="alerts-title">

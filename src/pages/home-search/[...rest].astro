@@ -10,6 +10,7 @@ import { OWN, SEARCH_PATH } from '../../data/search';
 import { site } from '../../data/site';
 import { BR_THUMB } from '../../data/mls-logos';
 import IdxDisclosure from '../../components/IdxDisclosure.astro';
+import { SOLD_DISCLAIMER, DEFAULT_MONTHS, MAX_MONTHS } from '../../lib/sold.mjs';
 import { communities } from '../../data/areas';
 import { hoods, hoodKey, CITY_NAME } from '../../data/neighborhoods';
 import { lakes } from '../../data/lakes';
@@ -40,8 +41,13 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
 <Base breadcrumbs={[{ name: 'Home search', href: SEARCH_PATH }]} noindex
   title={`Search Homes for Sale in the Twin Cities | ${site.name}`}
   description="Search every home for sale in the Twin Cities communities we serve, by city, neighborhood, lake, price, bedrooms and home type, on a map. Listings from NorthstarMLS.">
-  <section class="hs" data-hs data-br-thumb={BR_THUMB ?? undefined} data-map-style={mapStyle} data-types={JSON.stringify(TYPE_LABEL)} data-names={JSON.stringify(names)}>
+  <section class="hs" data-hs data-br-thumb={BR_THUMB ?? undefined} data-map-style={mapStyle} data-types={JSON.stringify(TYPE_LABEL)} data-names={JSON.stringify(names)} data-default-months={DEFAULT_MONTHS}>
     <form class="hs-bar" id="hs-form" data-search action={SEARCH_PATH} method="get" role="search">
+      <div class="hs-mode" role="group" aria-label="Show homes">
+        <button type="button" data-mode="" aria-pressed="true">For sale</button>
+        <button type="button" data-mode="sold" aria-pressed="false">Sold</button>
+      </div>
+      <input type="hidden" name="status" value="" />
       <div class="hs-where">
         <label class="visually-hidden" for="hs-where">City, neighborhood, lake or ZIP</label>
         <input id="hs-where" type="search" list="hs-places" placeholder="City, neighborhood, lake or ZIP" autocomplete="off" data-where />
@@ -56,6 +62,12 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
           <div class="hs-f"><label for="hs-max">Maximum</label><select id="hs-max" name="max"><option value="">No max</option>{prices.map((p) => <option value={p}>{money(p)}</option>)}</select></div>
         </div>
       </details>
+      <details class="hs-pill" data-pill="months" data-sold-only hidden>
+        <summary data-pill-label="Sold in the last">Sold in the last</summary>
+        <div class="hs-pop">
+          <div class="hs-f"><label for="hs-months">Sold within</label><select id="hs-months" name="months">{[3, 6, 12, 24, MAX_MONTHS].map((m) => <option value={m === DEFAULT_MONTHS ? '' : m} selected={m === DEFAULT_MONTHS}>{m < 12 ? `${m} months` : `${m / 12} year${m > 12 ? 's' : ''}`}</option>)}</select></div>
+        </div>
+      </details>
       <details class="hs-pill" data-pill="rooms">
         <summary data-pill-label="Beds & baths">Beds &amp; baths</summary>
         <div class="hs-pop">
@@ -63,13 +75,13 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
           <div class="hs-f"><label for="hs-baths">Bathrooms</label><select id="hs-baths" name="baths"><option value="">Any</option>{[1, 2, 3, 4].map((n) => <option value={n}>{n}+</option>)}</select></div>
         </div>
       </details>
-      <details class="hs-pill" data-pill="type">
+      <details class="hs-pill" data-pill="type" data-sale-only>
         <summary data-pill-label="Home type">Home type</summary>
         <div class="hs-pop">
           <div class="hs-f"><label for="hs-type">Home type</label><select id="hs-type" name="type"><option value="">All types</option>{TYPES.map((t) => <option value={t}>{typeName(t)}</option>)}</select></div>
         </div>
       </details>
-      <details class="hs-pill" data-pill="more">
+      <details class="hs-pill" data-pill="more" data-sale-only>
         <summary data-pill-label="More">More</summary>
         <fieldset class="hs-pop hs-checks"><legend class="visually-hidden">More filters</legend>
           <label><input type="checkbox" name="lakefront" value="1" /> Lakefront</label>
@@ -94,10 +106,10 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
       <div class="hs-panel">
         <div class="hs-head">
           <div>
-            <h1>Twin Cities homes for sale</h1>
+            <h1 data-h1>Twin Cities homes for sale</h1>
             <p class="hs-count" aria-live="polite" data-count>{total.toLocaleString('en-US')} homes for sale</p>
           </div>
-          <div class="hs-sort"><label for="hs-sort">Sort</label><select id="hs-sort" name="sort" form="hs-form">{Object.entries(SORTS).map(([v, l]) => <option value={v}>{l}</option>)}</select></div>
+          <div class="hs-sort" data-sale-only><label for="hs-sort">Sort</label><select id="hs-sort" name="sort" form="hs-form">{Object.entries(SORTS).map(([v, l]) => <option value={v}>{l}</option>)}</select></div>
         </div>
         <ul class="lcards" data-results>{first.map((l, i) => <ListingCard l={l} eager={i < 4} />)}</ul>
         <p class="hs-empty" data-empty hidden>No homes match these filters. Try a wider price range, move the map, or <a href="#alerts">ask us to watch for one</a>.</p>
@@ -107,6 +119,7 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
           <span data-pageinfo>Page 1 of {Math.max(1, Math.ceil(total / PAGE_SIZE))}</span>
           <button type="button" data-next disabled={total <= PAGE_SIZE}>Next →</button>
         </nav>
+        <p class="hs-sold-note" data-sold-only hidden>{SOLD_DISCLAIMER} Sold homes are shown for the last 3 years at most, without homes whose sellers asked not to be advertised.</p>
         <IdxDisclosure at={feedAt} />
       </div>
     </div>
@@ -149,6 +162,12 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
   /* Zillow-style layout: filter bar on top, map on the left, list on the right. Phones: the list, with a Map button. */
   .hs { --hs-nav: 4.6rem; }
   .hs-bar { position: relative; z-index: 6; display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; padding: .7rem clamp(.75rem, 2vw, 1.25rem); border-bottom: 1px solid var(--line); background: #fff; }
+  .hs-mode { display: inline-flex; border: 1px solid #a7a1a2; border-radius: 6px; overflow: hidden; }
+  .hs-mode button { padding: .62rem .9rem; border: 0; background: #fff; font: 600 .92rem/1.2 var(--ui); color: var(--text); cursor: pointer; }
+  .hs-mode button[aria-pressed='true'] { background: var(--crimson); color: #fff; }
+  [data-sold-only][hidden], [data-sale-only][hidden] { display: none !important; }
+  .hs-sold-note { margin-top: 1.25rem; font-size: 1rem; color: var(--text-soft); }
+  .hs-panel :global(.lcard__box) { border-radius: 8px; overflow: hidden; background: #fff; box-shadow: 0 2px 8px rgba(0, 0, 0, .08); }
   .hs-where { position: relative; flex: 1 1 18rem; max-width: 30rem; display: flex; }
   .hs-where input { width: 100%; padding: .7rem 2.8rem .7rem .9rem; border: 1px solid #a7a1a2; border-radius: 6px; font: 500 1rem/1.2 var(--ui); color: var(--text); background: #fff; }
   .hs-where input:focus { outline: 2px solid var(--crimson); outline-offset: 0; border-color: transparent; }

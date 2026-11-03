@@ -1,0 +1,50 @@
+---
+// "Recently sold" homes in one community (NorthstarMLS sold content), loaded from /api/sold once the visitor has
+// agreed to the listing license this visit. Shown only when the site's own MLS feed is on. With the Broker
+// Reciprocity disclosures and the required "not an appraisal" sentence (src/lib/sold.mjs).
+import { OWN } from '../data/search';
+import { BR_THUMB } from '../data/mls-logos';
+import { SOLD_DISCLAIMER, DEFAULT_MONTHS } from '../lib/sold.mjs';
+import { ownSearchHref } from '../data/search';
+import IdxDisclosure from './IdxDisclosure.astro';
+interface Props { place: string; name: string }
+const { place, name } = Astro.props;
+const all = `${ownSearchHref({ places: [place] })}${ownSearchHref({ places: [place] }).includes('?') ? '&' : '?'}status=sold&view=map`;
+---
+{OWN && (
+  <section class="section section--paper sold" aria-labelledby="sold-title" data-sold={place} data-br-thumb={BR_THUMB ?? undefined} hidden>
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Recently sold</p>
+        <h2 id="sold-title">What did homes in {name} <em>sell for?</em></h2>
+        <p data-sold-count>Homes sold in {name} in the last {DEFAULT_MONTHS} months, from NorthstarMLS.</p>
+      </div>
+      <div data-idx><ul class="lcards" data-sold-list></ul></div>
+      <p class="sold__more"><a class="link-arrow" href={all}>See every {name} sale on the map</a></p>
+      <p class="sold__note">{SOLD_DISCLAIMER}</p>
+      <IdxDisclosure />
+    </div>
+  </section>
+)}
+
+<script>
+  import { soldCardHtml, type Sold } from '../scripts/sold-card';
+  for (const box of document.querySelectorAll<HTMLElement>('[data-sold]')) {
+    const load = async () => {
+      try {
+        const r = await fetch(`/api/sold?place=${encodeURIComponent(box.dataset.sold!)}`, { headers: { 'x-idx-eula': 'agreed' } });
+        const a = await r.json();
+        if (!a.ok || !a.results?.length) return; // nothing to show: the section stays hidden
+        box.querySelector('[data-sold-list]')!.innerHTML = (a.results as Sold[]).slice(0, 6).map((l) => soldCardHtml(l, box.dataset.brThumb)).join('');
+        box.hidden = false;
+      } catch { /* the section stays hidden */ }
+    };
+    if (document.documentElement.classList.contains('idx-ok')) load();
+    else window.addEventListener('idx-agreed', load, { once: true });
+  }
+</script>
+
+<style>
+  .sold__more { margin-top: 1.25rem; }
+  .sold__note { margin-top: 1rem; font-size: 1rem; color: var(--text-soft); }
+</style>

@@ -58,9 +58,9 @@ export async function createMap(el: HTMLElement, style: string, brThumb: string,
       const p = f.properties;
       // NorthstarMLS Rule 12.3(f): like a listing card, the pop-up shows the photo, price, address and listing
       // brokerage, with the Broker Reciprocity thumbnail logo on other brokerages' listings.
-      const a = document.createElement('a');
+      const a = document.createElement(p.sold ? 'div' : 'a');
       a.className = 'hs-pop-card';
-      a.href = `/homes/${encodeURIComponent(p.slug)}`;
+      if (!p.sold) (a as HTMLAnchorElement).href = `/homes/${encodeURIComponent(p.slug)}`;
       const ph = document.createElement('span');
       ph.className = 'hs-pop-card__photo';
       if (p.photo) {
@@ -72,10 +72,12 @@ export async function createMap(el: HTMLElement, style: string, brThumb: string,
       price.textContent = p.price > 1 ? `$${Number(p.price).toLocaleString('en-US')}` : 'Auction';
       const addr = document.createElement('span');
       addr.textContent = p.addr;
+      const when = document.createElement('span');
+      if (p.sold) when.textContent = `Sold ${new Date(`${p.sold}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
       const by = document.createElement('small');
       if (!p.own && brThumb) by.append(Object.assign(document.createElement('img'), { src: brThumb, alt: 'Broker Reciprocity listing', width: 20, height: 20 }));
       by.append(`Listing courtesy of ${p.brokerage || 'the listing brokerage'}`);
-      a.append(ph, price, addr, by);
+      a.append(ph, price, ...(p.sold ? [when] : []), addr, by);
       new maplibregl.Popup({ offset: 12, closeButton: false, maxWidth: '260px', className: 'hs-popup' }).setLngLat(f.geometry.coordinates).setDOMContent(a).addTo(map);
     });
   }
@@ -86,8 +88,8 @@ export async function createMap(el: HTMLElement, style: string, brThumb: string,
 
 /** Show these homes; zoom to them unless the search is already limited to the map area. */
 export function setPins(map: any, pins: Pin[], fit = true) {
-  const features = pins.map(([lat, lng, price, slug, photo, addr, brokerage, own]) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [lng, lat] },
-    properties: { price, slug, label: tag(price), photo: photo ?? '', addr, brokerage, own } }));
+  const features = pins.map(([lat, lng, price, slug, photo, addr, brokerage, own, sold]) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [lng, lat] },
+    properties: { price, slug, label: tag(price), photo: photo ?? '', addr, brokerage, own, sold: sold ?? '' } }));
   (map.getSource('homes') as any)?.setData({ type: 'FeatureCollection', features });
   if (fit && features.length) {
     const b = new maplibregl.LngLatBounds();

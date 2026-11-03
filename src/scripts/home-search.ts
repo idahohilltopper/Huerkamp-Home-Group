@@ -1,13 +1,18 @@
 // Runtime for /home-search (Zillow-style: filter pills on top, map left, list right). Reads the filters from the address,
 // asks /api/search, draws the cards, the page buttons and the map. On a computer the map loads at once; on a phone
 // only when the Map button is pressed. With "Search as I move the map" on, moving the map searches that area.
+// "Sold" switches the page to recently sold homes (/api/sold, NorthstarMLS sold content; src/lib/sold.mjs).
+import { soldCardHtml, soldOn, type Sold } from './sold-card';
 type Card = { mls: string; slug: string; street: string; city: string; zip: string; price: number; beds: number | null; baths: number | null;
   sqft: number | null; type: string | null; newConstruction: 0 | 1; lakefront: 0 | 1; lotAcres: number | null; brokerage: string; photo: string | null;
   ownBrokerage: 0 | 1; addressHidden: 0 | 1 };
-type Answer = { ok: boolean; error?: string; total: number; page: number; pages: number; results: Card[]; pins: Pin[] };
-export type Pin = [number, number, number, string, string | null, string, string, 0 | 1];
+type Answer = { ok: boolean; error?: string; total: number; page: number; pages: number; results: (Card | Sold)[]; pins: Pin[]; unsupported?: boolean; months?: number };
+/** lat, lng, price, page slug (MLS number for a sold home), photo, address, brokerage, own brokerage, sold date (sold only). */
+export type Pin = [number, number, number, string, string | null, string, string, 0 | 1, string?];
 
-const KEYS = ['place', 'min', 'max', 'beds', 'baths', 'type', 'lakefront', 'new', 'acres', 'team', 'sort', 'bbox', 'page'];
+const KEYS = ['status', 'place', 'min', 'max', 'beds', 'baths', 'months', 'type', 'lakefront', 'new', 'acres', 'team', 'sort', 'bbox', 'page'];
+// Filters the sold view can't use (the MLS sold data is searched by place, price, rooms, date and map area).
+const SALE_ONLY = ['type', 'lakefront', 'new', 'acres', 'team', 'sort'];
 const esc = (s: unknown) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
 const money = (n: number) => `$${Math.round(n).toLocaleString('en-US')}`;
 const short = (n: number) => (n >= 1e6 ? `$${(n / 1e6).toFixed(n >= 1e7 ? 0 : 1).replace(/\.0$/, '')}M` : `$${Math.round(n / 1000)}K`);
@@ -38,6 +43,20 @@ export function initSearch(root: HTMLElement) {
   let last: Answer | null = null;
   let map: any = null;
   let mapApi: typeof import('./search-map') | null = null;
+  const modeBtns = [...form.querySelectorAll<HTMLButtonElement>('[data-mode]')];
+  const isSold = () => String(new FormData(form).get('status') ?? '') === 'sold';
+  const defaultMonths = Number(root.dataset.defaultMonths ?? 6);
+  const months = () => Number(new FormData(form).get('months') || defaultMonths);
+  const monthsText = (m: number) => (m < 12 ? `${m} months` : m === 12 ? 'year' : `${m / 12} years`);
+  /** Show the filters that fit the view (for sale or sold). */
+  const showMode = () => {
+    const sold = isSold();
+    modeBtns.forEach((b) => b.setAttribute('aria-pressed', String((b.dataset.mode === 'sold') === sold)));
+    document.querySelectorAll<HTMLElement>('[data-sold-only]').forEach((el) => { el.hidden = !sold; });
+    document.querySelectorAll<HTMLElement>('[data-sale-only]').forEach((el) => { el.hidden = sold; });
+    const h1 = root.querySelector<HTMLElement>('[data-h1]');
+    if (h1) h1.textContent = sold ? 'Recently sold Twin Cities homes' : 'Twin Cities homes for sale';
+  };
 
   // ---- filters <-> address ----
   const params = () => {
@@ -64,7 +83,7 @@ export function initSearch(root: HTMLElement) {
   };
   const label = (v: string) => names[v] ?? (v.startsWith('zip:') ? `ZIP ${v.slice(4)}` : v.replace(/^(hood|lake):.*\//, '').replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()));
   const describe = (p: URLSearchParams) => {
-    const bits = [p.get('place') ? p.get('place')!.split(',').map(label).join(', ') : 'All communities'];
+    const bits = [p.get('status') === 'sold' ? 'Sold homes:' : '', p.get('place') ? p.get('place')!.split(',').map(label).join(', ') : 'All communities'];
     if (p.get('min') || p.get('max')) bits.push(`${p.get('min') ? short(+p.get('min')!) : 'any'} to ${p.get('max') ? short(+p.get('max')!) : 'any'}`);
     if (p.get('beds')) bits.push(`${p.get('beds')}+ beds`);
     if (p.get('baths')) bits.push(`${p.get('baths')}+ baths`);
@@ -74,7 +93,7 @@ export function initSearch(root: HTMLElement) {
     if (p.get('acres')) bits.push('1+ acre');
     if (p.get('team')) bits.push('our team’s listings');
     if (p.get('bbox')) bits.push('in the map area');
-    return bits.join(' · ');
+    return bits.filter(Boolean).join(' · ').replace(': · ', ': ');
   };
 
   // ---- drawing ----
@@ -94,9 +113,12 @@ export function initSearch(root: HTMLElement) {
   };
   const draw = (a: Answer) => {
     last = a;
-    list.innerHTML = a.results.map(card).join('');
-    countEl.textContent = `${a.total.toLocaleString('en-US')} ${a.total === 1 ? 'home' : 'homes'} for sale`;
-    emptyEl.hidden = a.total > 0;
+    const sold = isSold();
+    list.innerHTML = sold ? (a.results as Sold[]).map((l) => soldCardHtml(l, thumb)).join('') : (a.results as Card[]).map(card).join('');
+    countEl.textContent = sold
+      ? (a.unsupported ? 'Sold homes can be searched by city, ZIP code or map area' : `${a.total.toLocaleString('en-US')} ${a.total === 1 ? 'home' : 'homes'} sold in the last ${monthsText(a.months ?? months())}`)
+      : `${a.total.toLocaleString('en-US')} ${a.total === 1 ? 'home' : 'homes'} for sale`;
+    emptyEl.hidden = a.total > 0 || !!a.unsupported;
     errorEl.hidden = true;
     pagesNav.hidden = a.pages <= 1;
     pageInfo.textContent = `Page ${a.page} of ${a.pages}`;
@@ -120,7 +142,9 @@ export function initSearch(root: HTMLElement) {
     const mine = ++seq;
     list.classList.add('is-loading');
     try {
-      const r = await fetch(`/api/search?${qs}`, { headers: { 'x-idx-eula': 'agreed' } });
+      // Sold homes come from the MLS when asked; the map's points only when the map is open (they cost extra calls).
+      const url = isSold() ? `/api/sold?${qs}${map ? `${qs ? '&' : ''}pins=1` : ''}` : `/api/search?${qs}`;
+      const r = await fetch(url, { headers: { 'x-idx-eula': 'agreed' } });
       const a = (await r.json()) as Answer;
       if (mine !== seq) return;
       if (!a.ok) throw new Error(a.error);
@@ -141,6 +165,7 @@ export function initSearch(root: HTMLElement) {
       price: val('min') || val('max') ? `${val('min') ? short(+val('min')) : 'Any'} – ${val('max') ? short(+val('max')) : 'Any'}` : '',
       rooms: [val('beds') && `${val('beds')}+ bd`, val('baths') && `${val('baths')}+ ba`].filter(Boolean).join(', '),
       type: val('type') ? val('type').split(',').map((t) => (types[t] ?? t).replace(/^./, (c) => c.toUpperCase())).join(', ') : '',
+      months: isSold() ? `Sold in the last ${monthsText(months())}` : '',
       more: (() => { const n = ['lakefront', 'new', 'acres', 'team'].filter((k) => val(k)).length; return n ? `More (${n})` : ''; })(),
     };
     for (const d of pills) {
@@ -175,6 +200,12 @@ export function initSearch(root: HTMLElement) {
   where.addEventListener('input', () => where.setCustomValidity(''));
 
   const changed = () => { setPage(1); pillLabels(); run(); };
+  modeBtns.forEach((b) => b.addEventListener('click', () => {
+    (form.elements.namedItem('status') as HTMLInputElement).value = b.dataset.mode ?? '';
+    if (b.dataset.mode !== 'sold') (form.elements.namedItem('months') as HTMLSelectElement).value = '';
+    if (b.dataset.mode === 'sold') for (const k of SALE_ONLY) { const el = form.elements.namedItem(k) as HTMLInputElement | null; if (el) { if (el.type === 'checkbox') el.checked = false; else el.value = k === 'sort' ? 'new' : ''; } }
+    showMode(); changed();
+  }));
   form.addEventListener('change', (e) => { if (e.target === where) { if (setPlace()) changed(); return; } changed(); });
   sortEl.addEventListener('change', changed);
   form.addEventListener('submit', (e) => { e.preventDefault(); if (setPlace()) changed(); });
@@ -192,8 +223,8 @@ export function initSearch(root: HTMLElement) {
       (form.elements.namedItem('bbox') as HTMLInputElement).value = mapApi.boxOf(map);
       setPage(1); run();
     });
-    if (last) mapApi.setPins(map, last.pins, !params().get('bbox'));
-    else await run(false);
+    if (last && !isSold()) mapApi.setPins(map, last.pins, !params().get('bbox'));
+    else await run(false); // sold answers carry map points only when the map is open
   };
   const showMap = (on: boolean) => {
     root.classList.toggle('is-map', on);
@@ -211,7 +242,8 @@ export function initSearch(root: HTMLElement) {
   // Pointing at a card lights up its home on the map.
   list.addEventListener('mouseover', (e) => {
     const a = (e.target as Element).closest<HTMLAnchorElement>('a[href^="/homes/"]');
-    if (map && mapApi) mapApi.highlight(map, a ? decodeURIComponent(a.getAttribute('href')!.slice(7)) : '');
+    const sold = (e.target as Element).closest<HTMLElement>('.lcard--sold')?.querySelector('.lcard__mls')?.textContent?.replace('MLS #', '');
+    if (map && mapApi) mapApi.highlight(map, a ? decodeURIComponent(a.getAttribute('href')!.slice(7)) : sold ?? '');
   });
   list.addEventListener('mouseleave', () => { if (map && mapApi) mapApi.highlight(map, ''); });
 
@@ -219,6 +251,8 @@ export function initSearch(root: HTMLElement) {
   // Nothing is asked until the visitor has agreed to the license agreement this visit (src/layouts/Base.astro). ----
   const start = new URLSearchParams(location.search);
   fill(start);
+  showMode();
+  pillLabels();
   const begin = () => {
     const filtered = KEYS.some((k) => start.get(k));
     if (filtered) run(false);
