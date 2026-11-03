@@ -7,12 +7,184 @@
  },
  "videos": [
   {
+   "id": "TDk12DiVgew",
+   "kind": "short",
+   "title": "Buying rural  Don't skip the septic inspection!",
+   "published": "2026-11-02T22:21:33Z",
+   "seconds": null,
+   "views": 55,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 0
+  },
+  {
+   "id": "iOEjg-RDRz0",
+   "kind": "short",
+   "title": "How to handle Radon in a home sale",
+   "published": "2026-10-30T21:36:24Z",
+   "seconds": null,
+   "views": 123,
+   "summary": [],
+   "chapters": [],
+   "topic": "Living in Minnesota",
+   "order": 1
+  },
+  {
+   "id": "cfrvlpGtDn4",
+   "kind": "long",
+   "title": "7 Scary Things We Find in Minnesota Home Inspections",
+   "published": "2026-10-30T21:00:10Z",
+   "seconds": null,
+   "views": 1342,
+   "summary": [
+    "Buying a home in Minnesota? Discover seven hidden problems that home inspectors commonly find, including radon gas, stucco moisture damage, sewer line failures, asbestos insulation, ice dams, septic issues, and outdated electrical wiring. Learn about potential repair costs and what Minnesota homebuyers should inspect before closing."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Scary Home Inspections"
+    },
+    {
+     "t": 105,
+     "label": "Home Inspection Requirements"
+    },
+    {
+     "t": 155,
+     "label": "Radon Gas"
+    },
+    {
+     "t": 260,
+     "label": "Stucco Moisture Damage"
+    },
+    {
+     "t": 490,
+     "label": "Sewer Line Problems"
+    },
+    {
+     "t": 594,
+     "label": "Asbestos Insulation"
+    },
+    {
+     "t": 706,
+     "label": "Roof Ice Dams"
+    },
+    {
+     "t": 781,
+     "label": "Failing Septic Systems"
+    },
+    {
+     "t": 879,
+     "label": "Knob & Tube Wiring"
+    },
+    {
+     "t": 968,
+     "label": "What Buyers Should Know"
+    }
+   ],
+   "topic": "Living in Minnesota",
+   "order": 0,
+   "slug": "7-scary-things-we-find-in-minnesota-home-inspections"
+  },
+  {
+   "id": "mDMqi45eqjY",
+   "kind": "short",
+   "title": "Mortgage Rate Forecasts For 2027",
+   "published": "2026-10-29T19:49:41Z",
+   "seconds": null,
+   "views": 151,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 2
+  },
+  {
+   "id": "XeXP9RWT_AU",
+   "kind": "short",
+   "title": "Why You Shouldn't Wait For Rates To Drop",
+   "published": "2026-10-29T19:47:57Z",
+   "seconds": null,
+   "views": 60,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 3
+  },
+  {
+   "id": "RqHImjg_LTI",
+   "kind": "short",
+   "title": "Why 7% Mortgage Rates Change Everything",
+   "published": "2026-10-27T21:34:05Z",
+   "seconds": null,
+   "views": 147,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 4
+  },
+  {
+   "id": "8FkFrcPrc4o",
+   "kind": "long",
+   "title": "Minneapolis Home Sellers Have a Decision to Make",
+   "published": "2026-10-27T21:00:39Z",
+   "seconds": null,
+   "views": 1108,
+   "summary": [
+    "Should you sell your Minneapolis home now or wait until spring? Explore the Twin Cities housing market, rising mortgage rates, property taxes, and seasonal buyer demand. Learn how selling in fall, winter, or spring affects your home's competition, carrying costs, and potential profit so you can decide the best time to sell."
+   ],
+   "chapters": [
+    {
+     "t": 0,
+     "label": "Should You Sell Now or Wait?"
+    },
+    {
+     "t": 84,
+     "label": "Twin Cities Housing Market"
+    },
+    {
+     "t": 161,
+     "label": "Mortgage Rates & Buyer Demand"
+    },
+    {
+     "t": 243,
+     "label": "Election Impact on Home Sales"
+    },
+    {
+     "t": 299,
+     "label": "Minnesota Property Taxes"
+    },
+    {
+     "t": 353,
+     "label": "Selling in Winter vs. Spring"
+    },
+    {
+     "t": 450,
+     "label": "Best Time to Sell Your Home"
+    }
+   ],
+   "topic": "Market updates",
+   "order": 1,
+   "slug": "minneapolis-home-sellers-have-a-decision-to-make"
+  },
+  {
+   "id": "XlQC4KZm2A4",
+   "kind": "short",
+   "title": "3 Ways Builders Are Helping You Save Money",
+   "published": "2026-10-26T21:31:01Z",
+   "seconds": null,
+   "views": 108,
+   "summary": [],
+   "chapters": [],
+   "topic": "Market updates",
+   "order": 5
+  },
+  {
    "id": "o427aHe-m7U",
    "kind": "long",
    "title": "New Interest Rates Could Paralyze Minneapolis' Housing Market",
    "published": "2026-10-23T21:00:31Z",
    "seconds": 657,
-   "views": 743,
+   "views": 1652,
    "summary": [
     "Mortgage rates are back above 7%, but what does that mean for the Minneapolis housing market? Discover how rising interest rates affect monthly mortgage payments, home prices, and buyer demand across the Twin Cities and Dakota County. Explore mortgage rate forecasts for 2027, assumable FHA and VA loans, and strategies for buyers and sellers."
    ],
@@ -55,7 +227,7 @@
     }
    ],
    "topic": "Market updates",
-   "order": 0,
+   "order": 2,
    "slug": "new-interest-rates-could-paralyze-minneapolis-housing-market"
   },
   {
@@ -64,7 +236,7 @@
    "title": "Builders Are SLASHING Prices In The Minneapolis Metro",
    "published": "2026-10-20T21:00:15Z",
    "seconds": 603,
-   "views": 1148,
+   "views": 1225,
    "summary": [
     "Builders are slashing prices on new construction homes across the Minneapolis–St. Paul metro! Discover discounts of up to $52,000 in Lino Lakes, Hanover, and Rosemount. Learn why builders are cutting prices, how mortgage rate buydowns work, and where Twin Cities homebuyers can find new construction deals."
    ],
@@ -107,7 +279,7 @@
     }
    ],
    "topic": "Market updates",
-   "order": 1,
+   "order": 3,
    "slug": "builders-are-slashing-prices-in-the-minneapolis-metro"
   },
   {
@@ -155,7 +327,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 2,
+   "order": 4,
    "slug": "the-minnesota-exodus-everyone-talks-about-is-wrong"
   },
   {
@@ -217,7 +389,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 3
+   "order": 5
   },
   {
    "id": "LzXzz3JRNS4",
@@ -280,7 +452,7 @@
     }
    ],
    "topic": "Market updates",
-   "order": 4,
+   "order": 6,
    "slug": "this-will-be-worse-than-a-housing-market-crash-in-minneapolis"
   },
   {
@@ -336,7 +508,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 5,
+   "order": 7,
    "slug": "which-major-minnesota-city-is-the-best-place-to-live"
   },
   {
@@ -396,7 +568,7 @@
     }
    ],
    "topic": "Market updates",
-   "order": 6,
+   "order": 8,
    "slug": "something-doesnt-add-up-in-the-minneapolis-housing-market"
   },
   {
@@ -456,7 +628,7 @@
     }
    ],
    "topic": "Suburbs & neighborhoods",
-   "order": 7,
+   "order": 9,
    "slug": "minnesota-just-ranked-for-quality-of-life-in-the-u-s-heres-why"
   },
   {
@@ -508,7 +680,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 8,
+   "order": 10,
    "slug": "never-buy-these-types-of-homes-in-minnesota"
   },
   {
@@ -568,7 +740,7 @@
     }
    ],
    "topic": "Suburbs & neighborhoods",
-   "order": 9,
+   "order": 11,
    "slug": "ranking-the-best-and-worst-places-to-live-in-minnesota"
   },
   {
@@ -624,7 +796,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 10,
+   "order": 12,
    "slug": "what-they-dont-tell-you-about-living-in-minnesota"
   },
   {
@@ -668,7 +840,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 11,
+   "order": 13,
    "slug": "homes-that-are-practically-worthless-right-now-in-minnesota"
   },
   {
@@ -716,7 +888,7 @@
     }
    ],
    "topic": "Market updates",
-   "order": 12,
+   "order": 14,
    "slug": "housing-inventory-hits-a-7-year-high-in-minnesota-minneapolis-market-update"
   },
   {
@@ -760,7 +932,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 13,
+   "order": 15,
    "slug": "these-4-new-minnesota-laws-are-insane-in-a-good-way"
   },
   {
@@ -820,7 +992,7 @@
     }
    ],
    "topic": "Market updates",
-   "order": 14,
+   "order": 16,
    "slug": "sellers-losing-money-in-minneapolis-heres-whats-actually-happening"
   },
   {
@@ -872,7 +1044,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 15,
+   "order": 17,
    "slug": "minneapolis-mega-projects-that-will-transform-minnesota"
   },
   {
@@ -920,7 +1092,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 16,
+   "order": 18,
    "slug": "if-i-had-750k-to-buy-in-minneapolis-id-buy-here"
   },
   {
@@ -973,7 +1145,7 @@
     }
    ],
    "topic": "Market updates",
-   "order": 17,
+   "order": 19,
    "slug": "minneapolis-homeowners-are-finally-selling-twin-cities-housing-market"
   },
   {
@@ -1022,7 +1194,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 18,
+   "order": 20,
    "slug": "why-wall-street-is-quietly-buying-up-minneapolis-homes"
   },
   {
@@ -1079,7 +1251,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 19,
+   "order": 21,
    "slug": "how-massive-data-centers-are-quietly-reshaping-minneapolis-real-estate"
   },
   {
@@ -1152,7 +1324,7 @@
     }
    ],
    "topic": "Suburbs & neighborhoods",
-   "order": 20,
+   "order": 22,
    "slug": "best-places-to-retire-in-minneapolis"
   },
   {
@@ -1209,7 +1381,7 @@
     }
    ],
    "topic": "Suburbs & neighborhoods",
-   "order": 21,
+   "order": 23,
    "slug": "bloomington-vs-woodbury-which-minneapolis-suburb-is-right-for-you"
   },
   {
@@ -1261,7 +1433,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 22,
+   "order": 24,
    "slug": "minnesota-just-landed-the-biggest-thing-in-decades"
   },
   {
@@ -1314,7 +1486,7 @@
     }
    ],
    "topic": "Suburbs & neighborhoods",
-   "order": 23,
+   "order": 25,
    "slug": "moving-to-minneapolis-suburbs-vs-the-city-full-breakdown"
   },
   {
@@ -1363,7 +1535,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 24,
+   "order": 26,
    "slug": "the-california-exodus-to-minneapolis-is-bigger-than-anyone-thought"
   },
   {
@@ -1416,7 +1588,7 @@
     }
    ],
    "topic": "Suburbs & neighborhoods",
-   "order": 25,
+   "order": 27,
    "slug": "the-minneapolis-suburbs-that-will-be-unrecognizable-by-2050"
   },
   {
@@ -1461,7 +1633,7 @@
     }
    ],
    "topic": "Market updates",
-   "order": 26,
+   "order": 28,
    "slug": "why-minneapolis-housing-market-is-frozen-in-place"
   },
   {
@@ -1509,7 +1681,7 @@
     }
    ],
    "topic": "Suburbs & neighborhoods",
-   "order": 27,
+   "order": 29,
    "slug": "what-nobody-tells-you-about-old-vs-new-homes-in-minneapolis"
   },
   {
@@ -1553,7 +1725,7 @@
     }
    ],
    "topic": "Market updates",
-   "order": 28,
+   "order": 30,
    "slug": "the-biggest-mistake-minneapolis-sellers-are-making-right-now"
   },
   {
@@ -1606,7 +1778,7 @@
     }
    ],
    "topic": "Suburbs & neighborhoods",
-   "order": 29,
+   "order": 31,
    "slug": "minneapolis-next-biggest-suburb-is-growing-faster-than-anyone-predicted"
   },
   {
@@ -1655,7 +1827,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 30,
+   "order": 32,
    "slug": "minneapolis-just-broke-ground-on-its-most-exciting-riverfront-project"
   },
   {
@@ -1711,7 +1883,7 @@
     }
    ],
    "topic": "Market updates",
-   "order": 31,
+   "order": 33,
    "slug": "minneapolis-housing-market-has-completely-fractured"
   },
   {
@@ -1759,7 +1931,7 @@
     }
    ],
    "topic": "Suburbs & neighborhoods",
-   "order": 32,
+   "order": 34,
    "slug": "avoid-moving-to-the-wrong-minneapolis-suburb"
   },
   {
@@ -1817,7 +1989,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 33
+   "order": 35
   },
   {
    "id": "0BEEkRxEUnQ",
@@ -1856,7 +2028,7 @@
     }
    ],
    "topic": "Market updates",
-   "order": 34,
+   "order": 36,
    "slug": "minneapolis-is-sitting-on-a-housing-market-time-bomb"
   },
   {
@@ -1904,7 +2076,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 35,
+   "order": 37,
    "slug": "why-minneapolis-is-the-opposite-of-every-other-major-u-s-city"
   },
   {
@@ -1937,7 +2109,7 @@
     }
    ],
    "topic": "Market updates",
-   "order": 36,
+   "order": 38,
    "slug": "every-minneapolis-suburb-ranked-by-appreciation-2015-2025"
   },
   {
@@ -1997,7 +2169,7 @@
     }
    ],
    "topic": "Market updates",
-   "order": 37,
+   "order": 39,
    "slug": "minneapolis-home-buyers-are-doing-something-unexpected"
   },
   {
@@ -2057,7 +2229,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 38,
+   "order": 40,
    "slug": "the-problem-with-living-in-st-paul-nobody-talks-about"
   },
   {
@@ -2109,7 +2281,7 @@
     }
    ],
    "topic": "Suburbs & neighborhoods",
-   "order": 39,
+   "order": 41,
    "slug": "the-750m-project-transforming-this-minneapolis-suburb"
   },
   {
@@ -2153,7 +2325,7 @@
     }
    ],
    "topic": "Suburbs & neighborhoods",
-   "order": 40,
+   "order": 42,
    "slug": "why-this-charming-river-town-near-minneapolis-is-so-underrated"
   },
   {
@@ -2243,7 +2415,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 41
+   "order": 43
   },
   {
    "id": "nyv9dwyHU-A",
@@ -2326,7 +2498,7 @@
     }
    ],
    "topic": "Home tours",
-   "order": 42,
+   "order": 44,
    "slug": "inside-one-of-minneapoliss-best-suburbs-shakopee-mn"
   },
   {
@@ -2378,7 +2550,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 43,
+   "order": 45,
    "slug": "why-minneapolis-is-growing-backwards"
   },
   {
@@ -2426,7 +2598,7 @@
     }
    ],
    "topic": "Suburbs & neighborhoods",
-   "order": 44,
+   "order": 46,
    "slug": "small-towns-near-minneapolis-people-are-quietly-moving-to"
   },
   {
@@ -2476,7 +2648,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 45
+   "order": 47
   },
   {
    "id": "pLK5X9YbFEA",
@@ -2536,7 +2708,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 46,
+   "order": 48,
    "slug": "minneapolis-shakopee-will-never-be-the-same"
   },
   {
@@ -2586,7 +2758,7 @@
     }
    ],
    "topic": "Suburbs & neighborhoods",
-   "order": 47,
+   "order": 49,
    "slug": "minneapolis-cheapest-vs-most-expensive-neighborhoods"
   },
   {
@@ -2651,7 +2823,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 48,
+   "order": 50,
    "slug": "the-minneapolis-migration-story-nobody-is-talking-about"
   },
   {
@@ -2707,7 +2879,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 49,
+   "order": 51,
    "slug": "its-finally-become-impossible-to-move-to-wayzata-mn"
   },
   {
@@ -2733,7 +2905,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 50,
+   "order": 52,
    "slug": "living-in-minneapolis-top-5-golf-course-communities"
   },
   {
@@ -2782,7 +2954,7 @@
     }
    ],
    "topic": "Suburbs & neighborhoods",
-   "order": 51,
+   "order": 53,
    "slug": "why-this-st-paul-neighborhood-has-become-so-irresistible"
   },
   {
@@ -2854,7 +3026,7 @@
     }
    ],
    "topic": "Market updates",
-   "order": 52,
+   "order": 54,
    "slug": "minneapolis-housing-crisis-the-data-no-ones-showing-you"
   },
   {
@@ -2920,7 +3092,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 53,
+   "order": 55,
    "slug": "why-minneapolis-is-the-most-underrated-economic-powerhouse-in-america"
   },
   {
@@ -2933,7 +3105,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 54
+   "order": 56
   },
   {
    "id": "zlcnfSa3QS4",
@@ -2984,7 +3156,7 @@
     }
    ],
    "topic": "Home tours",
-   "order": 55,
+   "order": 57,
    "slug": "a-realistic-driving-tour-of-downtown-st-paul-mn-2026-update"
   },
   {
@@ -3032,7 +3204,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 56,
+   "order": 58,
    "slug": "the-honest-reality-of-living-in-bloomington-minnesota"
   },
   {
@@ -3069,7 +3241,7 @@
     }
    ],
    "topic": "Suburbs & neighborhoods",
-   "order": 57,
+   "order": 59,
    "slug": "avoid-these-5-minneapolis-suburbs-if-you-are-from-out-of-state"
   },
   {
@@ -3163,7 +3335,7 @@
     }
    ],
    "topic": "Home tours",
-   "order": 58,
+   "order": 60,
    "slug": "driving-tour-of-minneapolis-fastest-growing-suburb-lakeville"
   },
   {
@@ -3212,7 +3384,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 59,
+   "order": 61,
    "slug": "5-reasons-not-to-retire-in-minneapolis-mn"
   },
   {
@@ -3256,7 +3428,7 @@
     }
    ],
    "topic": "Suburbs & neighborhoods",
-   "order": 60,
+   "order": 62,
    "slug": "which-is-minneapolis-best-area-north-vs-east-vs-south-vs-west"
   },
   {
@@ -3330,7 +3502,7 @@
     }
    ],
    "topic": "Suburbs & neighborhoods",
-   "order": 61,
+   "order": 63,
    "slug": "8-billion-in-data-centers-is-about-to-change-these-3-minneapolis-suburbs-forever"
   },
   {
@@ -3366,7 +3538,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 62,
+   "order": 64,
    "slug": "why-these-minneapolis-homes-arent-selling-but-others-are"
   },
   {
@@ -3431,7 +3603,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 63,
+   "order": 65,
    "slug": "massive-new-megaprojects-coming-to-minneapolis-in-2026"
   },
   {
@@ -3487,7 +3659,7 @@
     }
    ],
    "topic": "Suburbs & neighborhoods",
-   "order": 64,
+   "order": 66,
    "slug": "top-7-luxury-suburbs-in-the-twin-cities-minnesota"
   },
   {
@@ -3547,7 +3719,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 65,
+   "order": 67,
    "slug": "minneapolis-eden-prairie-will-never-be-the-same"
   },
   {
@@ -3603,7 +3775,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 66,
+   "order": 68,
    "slug": "why-mall-of-americas-waterpark-will-change-minneapolis-forever"
   },
   {
@@ -3647,7 +3819,7 @@
     }
    ],
    "topic": "Suburbs & neighborhoods",
-   "order": 67,
+   "order": 69,
    "slug": "the-minneapolis-suburbs-nobody-talks-about-but-should"
   },
   {
@@ -3711,7 +3883,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 68,
+   "order": 70,
    "slug": "massive-changes-coming-to-minneapolis-in-2026"
   },
   {
@@ -3767,7 +3939,7 @@
     }
    ],
    "topic": "Suburbs & neighborhoods",
-   "order": 69,
+   "order": 71,
    "slug": "st-paul-vs-minneapolis-which-is-better-for-you"
   },
   {
@@ -3829,7 +4001,7 @@
     }
    ],
    "topic": "Suburbs & neighborhoods",
-   "order": 70
+   "order": 72
   },
   {
    "id": "0Ug_INUjDMc",
@@ -3877,7 +4049,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 71,
+   "order": 73,
    "slug": "touring-one-of-the-rarest-homes-in-minneapolis-most-prestigious-neigborhood"
   },
   {
@@ -3929,7 +4101,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 72,
+   "order": 74,
    "slug": "whats-suddenly-happening-to-minneapolis-home-values"
   },
   {
@@ -3981,7 +4153,7 @@
     }
    ],
    "topic": "Home tours",
-   "order": 73,
+   "order": 75,
    "slug": "a-driving-tour-of-minneapolis-most-desirable-suburb-edina-minnesota"
   },
   {
@@ -4029,7 +4201,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 74,
+   "order": 76,
    "slug": "5-reasons-why-minneapolis-will-thrive-over-the-next-10-years"
   },
   {
@@ -4089,7 +4261,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 75,
+   "order": 77,
    "slug": "where-the-old-money-choose-to-live-in-minneapolis-mn"
   },
   {
@@ -4145,7 +4317,7 @@
     }
    ],
    "topic": "Market updates",
-   "order": 76,
+   "order": 78,
    "slug": "minneapolis-housing-market-just-shifted"
   },
   {
@@ -4181,7 +4353,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 77,
+   "order": 79,
    "slug": "ive-lived-in-minneapolis-all-my-life-my-honest-thoughts"
   },
   {
@@ -4217,7 +4389,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 78,
+   "order": 80,
    "slug": "never-buy-these-types-of-homes-in-minneapolis"
   },
   {
@@ -4249,7 +4421,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 79,
+   "order": 81,
    "slug": "the-real-truth-about-living-in-minneapolis-minnesota"
   },
   {
@@ -4281,7 +4453,7 @@
     }
    ],
    "topic": "Suburbs & neighborhoods",
-   "order": 80,
+   "order": 82,
    "slug": "ranking-minneapolis-best-and-worst-suburbs-tier-list"
   },
   {
@@ -4313,7 +4485,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 81,
+   "order": 83,
    "slug": "if-i-could-live-anywhere-in-minneapolis-in-2026-id-move-here"
   },
   {
@@ -4345,7 +4517,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 82,
+   "order": 84,
    "slug": "mistake-people-make-when-moving-to-minneapolis"
   },
   {
@@ -4375,7 +4547,7 @@
     }
    ],
    "topic": "Home tours",
-   "order": 83
+   "order": 85
   },
   {
    "id": "yePHad_d-vw",
@@ -4387,7 +4559,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Suburbs & neighborhoods",
-   "order": 84
+   "order": 86
   },
   {
    "id": "ziB03wbfloQ",
@@ -4434,7 +4606,7 @@
     }
    ],
    "topic": "Home tours",
-   "order": 85,
+   "order": 87,
    "slug": "inside-a-5-bedroom-luxury-home-in-inver-grove-heights-minnesota"
   },
   {
@@ -4495,7 +4667,7 @@
     }
    ],
    "topic": "Home tours",
-   "order": 86,
+   "order": 88,
    "slug": "new-construction-home-in-minnesota-lake-elmo-mn"
   },
   {
@@ -4543,7 +4715,7 @@
     }
    ],
    "topic": "Suburbs & neighborhoods",
-   "order": 87,
+   "order": 89,
    "slug": "6-twin-cities-towns-locals-love-but-dont-want-you-to-know-about"
   },
   {
@@ -4562,7 +4734,7 @@
    ],
    "chapters": [],
    "topic": "Home tours",
-   "order": 88,
+   "order": 90,
    "slug": "iconic-1885-st-paul-brownstone-is-for-sale-you-have-to-see-inside"
   },
   {
@@ -4616,7 +4788,7 @@
     }
    ],
    "topic": "Home tours",
-   "order": 89,
+   "order": 91,
    "slug": "1-000-000-new-construction-home-in-minnesota-lake-elmo-luxury-tour"
   },
   {
@@ -4662,7 +4834,7 @@
     }
    ],
    "topic": "Suburbs & neighborhoods",
-   "order": 90,
+   "order": 92,
    "slug": "best-real-estate-agent-in-twin-cities-ranked-by-reviews-and-results"
   },
   {
@@ -4734,7 +4906,7 @@
     }
    ],
    "topic": "Suburbs & neighborhoods",
-   "order": 91,
+   "order": 93,
    "slug": "i-ranked-twin-cities-neighborhoods-heres-the-truth"
   },
   {
@@ -4805,7 +4977,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 92,
+   "order": 94,
    "slug": "minnesota-land-fraud-alert-protect-your-home-from-deed-and-title-theft"
   },
   {
@@ -4843,7 +5015,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 93,
+   "order": 95,
    "slug": "this-2-25m-lake-house-will-blow-you-away-prior-lake-minnesota"
   },
   {
@@ -4860,7 +5032,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 94,
+   "order": 96,
    "slug": "home-insurance-savings-most-people-miss"
   },
   {
@@ -4924,7 +5096,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 95,
+   "order": 97,
    "slug": "house-hunting-headache-this-lakeville-mn-home-solves-it"
   },
   {
@@ -4964,7 +5136,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 96,
+   "order": 98,
    "slug": "never-buy-a-home-in-minnesota-until-you-watch-this-7-costly-mistakes"
   },
   {
@@ -4996,7 +5168,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 97,
+   "order": 99,
    "slug": "this-massive-lakeville-villa-will-take-your-breath-away"
   },
   {
@@ -5028,7 +5200,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 98,
+   "order": 100,
    "slug": "never-make-these-7-costly-home-renovation-mistakes"
   },
   {
@@ -5061,7 +5233,7 @@
     }
    ],
    "topic": "Home tours",
-   "order": 99,
+   "order": 101,
    "slug": "speed-tour-600k-new-construction-home-in-lakeville"
   },
   {
@@ -5094,7 +5266,7 @@
     }
    ],
    "topic": "Market updates",
-   "order": 100,
+   "order": 102,
    "slug": "this-lakeville-home-just-hit-the-market-new-construction-in-minnesota"
   },
   {
@@ -5126,7 +5298,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 101,
+   "order": 103,
    "slug": "you-wont-believe-what-600k-gets-you-in-lakeville"
   },
   {
@@ -5139,7 +5311,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 102
+   "order": 104
   },
   {
    "id": "09nOTdKeliM",
@@ -5168,7 +5340,7 @@
     }
    ],
    "topic": "Home tours",
-   "order": 103
+   "order": 105
   },
   {
    "id": "k2zWcQnzKZY",
@@ -5199,7 +5371,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 104,
+   "order": 106,
    "slug": "the-perfect-new-home-actually-exists-in-prior-lake"
   },
   {
@@ -5231,7 +5403,7 @@
     }
    ],
    "topic": "Market updates",
-   "order": 105,
+   "order": 107,
    "slug": "new-dr-horton-home-ends-buyer-frustration-in-farmington-mn"
   },
   {
@@ -5263,7 +5435,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 106,
+   "order": 108,
    "slug": "must-see-affordable-homes-in-lakevilles-hottest-community"
   },
   {
@@ -5295,7 +5467,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 107,
+   "order": 109,
    "slug": "stunning-turn-key-home-just-listed-in-lakeville-mn"
   },
   {
@@ -5316,7 +5488,7 @@
     }
    ],
    "topic": "Market updates",
-   "order": 108,
+   "order": 110,
    "slug": "home-buyers-will-notice-these-quick-property-upgrades"
   },
   {
@@ -5348,7 +5520,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 109,
+   "order": 111,
    "slug": "your-dream-home-in-farmington-mn-costs-less-than-you-think"
   },
   {
@@ -5380,7 +5552,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 110,
+   "order": 112,
    "slug": "modern-luxury-in-shakopees-whispering-waters-new-construction-mn"
   },
   {
@@ -5412,7 +5584,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 111,
+   "order": 113,
    "slug": "luxury-golf-communitys-most-stunning-new-build-prior-lake-mn"
   },
   {
@@ -5444,7 +5616,7 @@
     }
    ],
    "topic": "Home tours",
-   "order": 112,
+   "order": 114,
    "slug": "whats-new-in-woodbury-mn-lennars-westwind-model-home-tour"
   },
   {
@@ -5476,7 +5648,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 113,
+   "order": 115,
    "slug": "fall-in-love-with-lakevilles-perfect-new-home-in-minnesota"
   },
   {
@@ -5508,7 +5680,7 @@
     }
    ],
    "topic": "Market updates",
-   "order": 114,
+   "order": 116,
    "slug": "lakeville-mn-twin-homes-the-secret-housing-alternative"
   },
   {
@@ -5540,7 +5712,7 @@
     }
    ],
    "topic": "Market updates",
-   "order": 115,
+   "order": 117,
    "slug": "what-every-seller-must-know-about-cash-offers-in-the-market"
   },
   {
@@ -5572,7 +5744,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 116,
+   "order": 118,
    "slug": "south-metros-most-affordable-new-construction-homes-in-minnesota"
   },
   {
@@ -5604,7 +5776,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 117,
+   "order": 119,
    "slug": "twin-cities-home-inspection-secrets-revealed-avoid-costly-mistakes"
   },
   {
@@ -5636,7 +5808,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 118,
+   "order": 120,
    "slug": "new-build-in-rosemount-mn-is-this-the-one"
   },
   {
@@ -5668,7 +5840,7 @@
     }
    ],
    "topic": "Market updates",
-   "order": 119,
+   "order": 121,
    "slug": "master-your-credit-score-before-your-next-mortgage"
   },
   {
@@ -5700,7 +5872,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 120,
+   "order": 122,
    "slug": "million-dollar-home-on-2-5-acres-prior-lake-mn"
   },
   {
@@ -5732,7 +5904,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 121,
+   "order": 123,
    "slug": "explore-highview-ridge-in-lakeville-mn-a-community-youll-love"
   },
   {
@@ -5765,7 +5937,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 122,
+   "order": 124,
    "slug": "the-ultimate-garage-lakeville-mn"
   },
   {
@@ -5797,7 +5969,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 123,
+   "order": 125,
    "slug": "hidden-gem-with-prior-lake-mn-views"
   },
   {
@@ -5829,7 +6001,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 124,
+   "order": 126,
    "slug": "lakevilles-newest-community-new-construction-homes-in-minnesota"
   },
   {
@@ -5865,7 +6037,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 125,
+   "order": 127,
    "slug": "modern-elegance-prior-lake-home-tour"
   },
   {
@@ -5897,7 +6069,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 126,
+   "order": 128,
    "slug": "20-bedroom-home-sleeps-80-spooner-lake-island-oasis"
   },
   {
@@ -5929,7 +6101,7 @@
     }
    ],
    "topic": "Suburbs & neighborhoods",
-   "order": 127,
+   "order": 129,
    "slug": "caramore-crossing-the-ideal-rosemount-mn-neighborhood"
   },
   {
@@ -5961,7 +6133,7 @@
     }
    ],
    "topic": "Home tours",
-   "order": 128,
+   "order": 130,
    "slug": "exclusive-tour-of-big-sky-estates-in-savage-mn"
   },
   {
@@ -5993,7 +6165,7 @@
     }
    ],
    "topic": "Home tours",
-   "order": 129,
+   "order": 131,
    "slug": "step-inside-credit-rivers-best-new-builds-by-cuddigan-homes"
   },
   {
@@ -6026,7 +6198,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 130,
+   "order": 132,
    "slug": "experience-luxury-living-at-credit-river-ranch-acreage-lots"
   },
   {
@@ -6060,7 +6232,7 @@
     }
    ],
    "topic": "Market updates",
-   "order": 131,
+   "order": 133,
    "slug": "chaska-minnesotas-hidden-gem-for-home-buyers"
   },
   {
@@ -6098,7 +6270,7 @@
     }
    ],
    "topic": "Suburbs & neighborhoods",
-   "order": 132,
+   "order": 134,
    "slug": "is-oak-creek-the-hottest-new-neighborhood-in-chaska"
   },
   {
@@ -6137,7 +6309,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 133,
+   "order": 135,
    "slug": "bridle-creek-in-jordan-mn-new-construction-community"
   },
   {
@@ -6174,7 +6346,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 134,
+   "order": 136,
    "slug": "highview-park-in-shakopee-mn-new-construction-twin-homes-community"
   },
   {
@@ -6210,7 +6382,7 @@
     }
    ],
    "topic": "Suburbs & neighborhoods",
-   "order": 135,
+   "order": 137,
    "slug": "6-million-dollar-clubhouse-in-this-lakeville-mn-neighborhood"
   },
   {
@@ -6248,7 +6420,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 136,
+   "order": 138,
    "slug": "lakeshore-living-minnesota-and-wisconsin-lakefront-buying-guide"
   },
   {
@@ -6261,7 +6433,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 137
+   "order": 139
   },
   {
    "id": "xoLo1W0i8hQ",
@@ -6275,7 +6447,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 138,
+   "order": 140,
    "slug": "stunning-prior-lake-estate-perfect-for-hosting"
   },
   {
@@ -6311,7 +6483,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 139,
+   "order": 141,
    "slug": "listing-tour-13822-grothe-circle-apple-valley-mn"
   },
   {
@@ -6352,7 +6524,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 140,
+   "order": 142,
    "slug": "steps-to-sell-your-home"
   },
   {
@@ -6388,7 +6560,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 141,
+   "order": 143,
    "slug": "2-1-buydown-how-does-that-help-you"
   },
   {
@@ -6424,7 +6596,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 142,
+   "order": 144,
    "slug": "steps-in-buying-a-home"
   },
   {
@@ -6460,7 +6632,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 143,
+   "order": 145,
    "slug": "pros-and-cons-of-selling-in-winter-living-in-minneapolis-minnesota"
   },
   {
@@ -6492,7 +6664,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 144,
+   "order": 146,
    "slug": "what-does-600-000-get-you-in-lakeville-minnesota"
   },
   {
@@ -6537,7 +6709,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 145,
+   "order": 147,
    "slug": "living-in-farmington-minnesota-moving-to-farmington-minnesota"
   },
   {
@@ -6586,7 +6758,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 146,
+   "order": 148,
    "slug": "living-in-lakeville-minnesota-moving-to-lakeville-minnesota"
   },
   {
@@ -6639,7 +6811,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 147,
+   "order": 149,
    "slug": "living-in-prior-lake-minnesota-moving-to-prior-lake-minnesota"
   },
   {
@@ -6667,7 +6839,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 148,
+   "order": 150,
    "slug": "what-does-675-000-get-you-in-lakeville-minnesota"
   },
   {
@@ -6695,7 +6867,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 149,
+   "order": 151,
    "slug": "what-does-460-000-get-you-in-burnsville-minnesota-a-dream-home"
   },
   {
@@ -6740,7 +6912,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 150,
+   "order": 152,
    "slug": "living-in-burnsville-minnesota-moving-to-burnsville-minnesota"
   },
   {
@@ -6793,7 +6965,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 151,
+   "order": 153,
    "slug": "living-in-apple-valley-minnesota-moving-to-apple-valley-minnesota"
   },
   {
@@ -6858,7 +7030,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 152,
+   "order": 154,
    "slug": "dont-move-to-minnesota-10-reasons-not-to-live-in-minnesota"
   },
   {
@@ -6903,7 +7075,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 153,
+   "order": 155,
    "slug": "living-in-eden-prairie-minnesota-in-2022-moving-to-eden-prairie-minnesota"
   },
   {
@@ -6967,7 +7139,7 @@
     }
    ],
    "topic": "Living in Minnesota",
-   "order": 154,
+   "order": 156,
    "slug": "move-to-minnesota-10-reasons-to-live-in-minneapolis-minnesota"
   },
   {
@@ -6976,11 +7148,11 @@
    "title": "Save Over $120 000 on Your New Home",
    "published": "2026-10-23T22:30:11Z",
    "seconds": 80,
-   "views": 151,
+   "views": 194,
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 0
+   "order": 6
   },
   {
    "id": "YsieKugmhXs",
@@ -6988,11 +7160,11 @@
    "title": "Is Rural Minnesota Really Dying? The Data Says Otherwise",
    "published": "2026-10-22T22:41:50Z",
    "seconds": 152,
-   "views": 454,
+   "views": 549,
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 1
+   "order": 7
   },
   {
    "id": "Ju_gAUwFTdc",
@@ -7000,11 +7172,11 @@
    "title": "Why Retirees Are Leaving Minnesota",
    "published": "2026-10-21T23:02:50Z",
    "seconds": 76,
-   "views": 1258,
+   "views": 1359,
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 2
+   "order": 8
   },
   {
    "id": "7ecTGA4XEI8",
@@ -7012,11 +7184,11 @@
    "title": "Surprising Economy  Why People Are Moving To Minnesota",
    "published": "2026-10-20T21:38:22Z",
    "seconds": 70,
-   "views": 1031,
+   "views": 1073,
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 3
+   "order": 9
   },
   {
    "id": "9byfUIEtV9s",
@@ -7024,11 +7196,11 @@
    "title": "The Truth About People Leaving Minnesota",
    "published": "2026-10-19T21:41:44Z",
    "seconds": 121,
-   "views": 1995,
+   "views": 2059,
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 4
+   "order": 10
   },
   {
    "id": "_RpztK1MMnU",
@@ -7040,7 +7212,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Market updates",
-   "order": 5
+   "order": 11
   },
   {
    "id": "tLM32AYYCuk",
@@ -7052,7 +7224,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 6
+   "order": 12
   },
   {
    "id": "sTvNWwvi9LM",
@@ -7064,7 +7236,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Market updates",
-   "order": 7
+   "order": 13
   },
   {
    "id": "YKljIexLB1o",
@@ -7076,7 +7248,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Market updates",
-   "order": 8
+   "order": 14
   },
   {
    "id": "kGAgrSkAlvk",
@@ -7088,7 +7260,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 9
+   "order": 15
   },
   {
    "id": "EX6S4zWAqek",
@@ -7100,7 +7272,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 10
+   "order": 16
   },
   {
    "id": "j4AQ3GAd7Cw",
@@ -7112,7 +7284,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 11
+   "order": 17
   },
   {
    "id": "0bv-yO2x9xI",
@@ -7124,7 +7296,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Market updates",
-   "order": 12
+   "order": 18
   },
   {
    "id": "URUE8XXTldE",
@@ -7136,7 +7308,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 13
+   "order": 19
   },
   {
    "id": "01po2D6Bpw0",
@@ -7148,7 +7320,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 14
+   "order": 20
   },
   {
    "id": "IdCmTFj1wfQ",
@@ -7160,7 +7332,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 15
+   "order": 21
   },
   {
    "id": "K0_AWidaYg0",
@@ -7172,7 +7344,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 16
+   "order": 22
   },
   {
    "id": "iDS87515Thc",
@@ -7184,7 +7356,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Market updates",
-   "order": 17
+   "order": 23
   },
   {
    "id": "yfqcbiQTllM",
@@ -7196,7 +7368,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 18
+   "order": 24
   },
   {
    "id": "6JF8VwpJNrw",
@@ -7208,7 +7380,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 19
+   "order": 25
   },
   {
    "id": "Vqn4A-k3CrY",
@@ -7220,7 +7392,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 20
+   "order": 26
   },
   {
    "id": "96WnSatCIFE",
@@ -7232,7 +7404,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 21
+   "order": 27
   },
   {
    "id": "AyDLNO0i-DY",
@@ -7244,7 +7416,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Market updates",
-   "order": 22
+   "order": 28
   },
   {
    "id": "zxT0QYEHMpc",
@@ -7256,7 +7428,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Market updates",
-   "order": 23
+   "order": 29
   },
   {
    "id": "MU7nquDm47E",
@@ -7268,7 +7440,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 24
+   "order": 30
   },
   {
    "id": "ye8AHzZRkEQ",
@@ -7280,7 +7452,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Market updates",
-   "order": 25
+   "order": 31
   },
   {
    "id": "SOkp9Kw5OwU",
@@ -7292,7 +7464,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 26
+   "order": 32
   },
   {
    "id": "YWO7JVQMFpI",
@@ -7304,7 +7476,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 27
+   "order": 33
   },
   {
    "id": "8Wj6wDFl4nk",
@@ -7316,7 +7488,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 28
+   "order": 34
   },
   {
    "id": "yNFqgHy03uo",
@@ -7328,7 +7500,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Market updates",
-   "order": 29
+   "order": 35
   },
   {
    "id": "0HnT7WqRs88",
@@ -7340,7 +7512,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Market updates",
-   "order": 30
+   "order": 36
   },
   {
    "id": "J9pF4XylUCk",
@@ -7352,7 +7524,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Market updates",
-   "order": 31
+   "order": 37
   },
   {
    "id": "sbzA1Um1Qek",
@@ -7364,7 +7536,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 32
+   "order": 38
   },
   {
    "id": "2U7XQPKhvVA",
@@ -7376,7 +7548,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 33
+   "order": 39
   },
   {
    "id": "LbWw1DCYNns",
@@ -7388,7 +7560,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Market updates",
-   "order": 34
+   "order": 40
   },
   {
    "id": "6Ag_UjGAD9w",
@@ -7400,7 +7572,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 35
+   "order": 41
   },
   {
    "id": "jgNwLVhk6Ls",
@@ -7412,7 +7584,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 36
+   "order": 42
   },
   {
    "id": "4dA2s-Buehg",
@@ -7424,7 +7596,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 37
+   "order": 43
   },
   {
    "id": "oF79Q_Wct3k",
@@ -7436,7 +7608,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 38
+   "order": 44
   },
   {
    "id": "SGR2OIVsRGc",
@@ -7448,7 +7620,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Home tours",
-   "order": 39
+   "order": 45
   },
   {
    "id": "ALJSPX-8Ln8",
@@ -7460,7 +7632,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 40
+   "order": 46
   },
   {
    "id": "RMAq-rZOEIg",
@@ -7472,7 +7644,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 41
+   "order": 47
   },
   {
    "id": "SDx858yl60A",
@@ -7484,7 +7656,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 42
+   "order": 48
   },
   {
    "id": "vMBnjzs1WA0",
@@ -7496,7 +7668,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 43
+   "order": 49
   },
   {
    "id": "rhEHV87Hy8U",
@@ -7508,7 +7680,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 44
+   "order": 50
   },
   {
    "id": "bD12AcMW2rc",
@@ -7520,7 +7692,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 45
+   "order": 51
   },
   {
    "id": "QvdpkmIB49s",
@@ -7532,7 +7704,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 46
+   "order": 52
   },
   {
    "id": "3e3uerE1eb4",
@@ -7544,7 +7716,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Market updates",
-   "order": 47
+   "order": 53
   },
   {
    "id": "RD7-9O_mDBY",
@@ -7556,7 +7728,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 48
+   "order": 54
   },
   {
    "id": "yNgna-buYHQ",
@@ -7568,7 +7740,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 49
+   "order": 55
   },
   {
    "id": "dhyWlFN3TXg",
@@ -7580,7 +7752,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 50
+   "order": 56
   },
   {
    "id": "gdt2rIdD__A",
@@ -7592,7 +7764,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Market updates",
-   "order": 51
+   "order": 57
   },
   {
    "id": "qx7N6YtdN48",
@@ -7604,7 +7776,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Market updates",
-   "order": 52
+   "order": 58
   },
   {
    "id": "OsXQz3PWb88",
@@ -7616,7 +7788,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Market updates",
-   "order": 53
+   "order": 59
   },
   {
    "id": "4z1pGftgkXg",
@@ -7628,7 +7800,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 54
+   "order": 60
   },
   {
    "id": "qDsWGFxJJH8",
@@ -7640,7 +7812,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Market updates",
-   "order": 55
+   "order": 61
   },
   {
    "id": "SN34Hobf-oM",
@@ -7652,7 +7824,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 56
+   "order": 62
   },
   {
    "id": "gjIaBWhODC0",
@@ -7664,7 +7836,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Suburbs & neighborhoods",
-   "order": 57
+   "order": 63
   },
   {
    "id": "89UzSTAZrPI",
@@ -7676,7 +7848,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Suburbs & neighborhoods",
-   "order": 58
+   "order": 64
   },
   {
    "id": "wxk6UlIvtVw",
@@ -7688,7 +7860,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 59
+   "order": 65
   },
   {
    "id": "W1BY383GKl4",
@@ -7700,7 +7872,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 60
+   "order": 66
   },
   {
    "id": "1Y4yVfjUr9o",
@@ -7712,7 +7884,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 61
+   "order": 67
   },
   {
    "id": "puKhqRLd61I",
@@ -7724,7 +7896,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 62
+   "order": 68
   },
   {
    "id": "N05h55SHeYQ",
@@ -7736,7 +7908,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 63
+   "order": 69
   },
   {
    "id": "gB9vu6o7dRM",
@@ -7748,7 +7920,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 64
+   "order": 70
   },
   {
    "id": "uRgFxlSyz2k",
@@ -7760,7 +7932,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Market updates",
-   "order": 65
+   "order": 71
   },
   {
    "id": "XRRZpQutSeE",
@@ -7772,7 +7944,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Market updates",
-   "order": 66
+   "order": 72
   },
   {
    "id": "QQ_rxjbLuUM",
@@ -7784,7 +7956,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 67
+   "order": 73
   },
   {
    "id": "KmYunolTw5I",
@@ -7796,7 +7968,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 68
+   "order": 74
   },
   {
    "id": "l0BoX4e0PUw",
@@ -7808,7 +7980,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 69
+   "order": 75
   },
   {
    "id": "-Y-TVPfCSww",
@@ -7820,7 +7992,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Suburbs & neighborhoods",
-   "order": 70
+   "order": 76
   },
   {
    "id": "KOHzl1qFdas",
@@ -7832,7 +8004,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 71
+   "order": 77
   },
   {
    "id": "QGV3tXj94D0",
@@ -7844,7 +8016,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 72
+   "order": 78
   },
   {
    "id": "zO8XMFS6VMU",
@@ -7856,7 +8028,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Market updates",
-   "order": 73
+   "order": 79
   },
   {
    "id": "3sO4tHxSH8k",
@@ -7868,7 +8040,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 74
+   "order": 80
   },
   {
    "id": "IKYXw0Twcv8",
@@ -7880,7 +8052,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Suburbs & neighborhoods",
-   "order": 75
+   "order": 81
   },
   {
    "id": "IgNw_vQQOlQ",
@@ -7892,7 +8064,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 76
+   "order": 82
   },
   {
    "id": "DVsiAnqS4Mk",
@@ -7904,7 +8076,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 77
+   "order": 83
   },
   {
    "id": "Cv8CHngxeEE",
@@ -7916,7 +8088,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Market updates",
-   "order": 78
+   "order": 84
   },
   {
    "id": "g2Iyc9OVhdk",
@@ -7928,7 +8100,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 79
+   "order": 85
   },
   {
    "id": "qc-LyqMeHMQ",
@@ -7940,7 +8112,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 80
+   "order": 86
   },
   {
    "id": "RnFCQQvyyiM",
@@ -7952,7 +8124,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 81
+   "order": 87
   },
   {
    "id": "V4P40vZ1ik8",
@@ -7964,7 +8136,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 82
+   "order": 88
   },
   {
    "id": "o9dPx4lhr74",
@@ -7976,7 +8148,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 83
+   "order": 89
   },
   {
    "id": "yjZP3uLiaOE",
@@ -7988,7 +8160,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 84
+   "order": 90
   },
   {
    "id": "9ZkCTZHrNRc",
@@ -8000,7 +8172,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 85
+   "order": 91
   },
   {
    "id": "MrxWAIuDY4c",
@@ -8014,7 +8186,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 86
+   "order": 92
   },
   {
    "id": "YliqZENvCqM",
@@ -8026,7 +8198,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 87
+   "order": 93
   },
   {
    "id": "PYtv4rlDrZM",
@@ -8038,7 +8210,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 88
+   "order": 94
   },
   {
    "id": "71zsiXeXl60",
@@ -8050,7 +8222,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 89
+   "order": 95
   },
   {
    "id": "LxgWM0GV9bk",
@@ -8062,7 +8234,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 90
+   "order": 96
   },
   {
    "id": "7Jpov6D1lpM",
@@ -8074,7 +8246,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 91
+   "order": 97
   },
   {
    "id": "cp6dZsldcQE",
@@ -8086,7 +8258,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Suburbs & neighborhoods",
-   "order": 92
+   "order": 98
   },
   {
    "id": "tFfxd_6hK5A",
@@ -8098,7 +8270,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Suburbs & neighborhoods",
-   "order": 93
+   "order": 99
   },
   {
    "id": "DLcDBCLC5pA",
@@ -8110,7 +8282,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Suburbs & neighborhoods",
-   "order": 94
+   "order": 100
   },
   {
    "id": "0mgsf_lDqTI",
@@ -8125,7 +8297,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 95
+   "order": 101
   },
   {
    "id": "nr08IZEkvA4",
@@ -8142,7 +8314,7 @@
    ],
    "chapters": [],
    "topic": "Suburbs & neighborhoods",
-   "order": 96
+   "order": 102
   },
   {
    "id": "A1dU7kMog8g",
@@ -8158,7 +8330,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 97
+   "order": 103
   },
   {
    "id": "qMx9zng5gK8",
@@ -8170,7 +8342,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 98
+   "order": 104
   },
   {
    "id": "BsuA755j_y4",
@@ -8187,7 +8359,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 99
+   "order": 105
   },
   {
    "id": "trONtKIlMYY",
@@ -8204,7 +8376,7 @@
    ],
    "chapters": [],
    "topic": "Suburbs & neighborhoods",
-   "order": 100
+   "order": 106
   },
   {
    "id": "DvoEG64iFqA",
@@ -8220,7 +8392,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 101
+   "order": 107
   },
   {
    "id": "gY-RkXiFNRM",
@@ -8235,7 +8407,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 102
+   "order": 108
   },
   {
    "id": "GMuc7hQ-30k",
@@ -8251,7 +8423,7 @@
    ],
    "chapters": [],
    "topic": "Market updates",
-   "order": 103
+   "order": 109
   },
   {
    "id": "pBNGN7BmuFk",
@@ -8265,7 +8437,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 104
+   "order": 110
   },
   {
    "id": "i8Fi4ZG4d7s",
@@ -8281,7 +8453,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 105
+   "order": 111
   },
   {
    "id": "1AaZNpAYiAI",
@@ -8296,7 +8468,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 106
+   "order": 112
   },
   {
    "id": "_ikvvNI-Ido",
@@ -8312,7 +8484,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 107
+   "order": 113
   },
   {
    "id": "6Z1PYuRrFZo",
@@ -8329,7 +8501,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 108
+   "order": 114
   },
   {
    "id": "pFoGncsl4CQ",
@@ -8344,7 +8516,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 109
+   "order": 115
   },
   {
    "id": "jmTB3j3M0Dc",
@@ -8359,7 +8531,7 @@
    ],
    "chapters": [],
    "topic": "Suburbs & neighborhoods",
-   "order": 110
+   "order": 116
   },
   {
    "id": "Qp4UcLtPWC0",
@@ -8374,7 +8546,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 111
+   "order": 117
   },
   {
    "id": "CRyhkHDoPyE",
@@ -8389,7 +8561,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 112
+   "order": 118
   },
   {
    "id": "aTXFvcs1XnU",
@@ -8405,7 +8577,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 113
+   "order": 119
   },
   {
    "id": "bxOHr2v2vlI",
@@ -8422,7 +8594,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 114
+   "order": 120
   },
   {
    "id": "ibgESFmAAAk",
@@ -8436,7 +8608,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 115
+   "order": 121
   },
   {
    "id": "QwWHFXwIyYs",
@@ -8451,7 +8623,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 116
+   "order": 122
   },
   {
    "id": "SRYi1QAzPb0",
@@ -8466,7 +8638,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 117
+   "order": 123
   },
   {
    "id": "tL1oUSzivYM",
@@ -8482,7 +8654,7 @@
    ],
    "chapters": [],
    "topic": "Suburbs & neighborhoods",
-   "order": 118
+   "order": 124
   },
   {
    "id": "KmDufV6C3oA",
@@ -8494,7 +8666,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 119
+   "order": 125
   },
   {
    "id": "yTowhKdniso",
@@ -8512,7 +8684,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 120
+   "order": 126
   },
   {
    "id": "S3xYG2UBGM8",
@@ -8531,7 +8703,7 @@
    ],
    "chapters": [],
    "topic": "Suburbs & neighborhoods",
-   "order": 121
+   "order": 127
   },
   {
    "id": "gtP3DUawegc",
@@ -8543,7 +8715,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Suburbs & neighborhoods",
-   "order": 122
+   "order": 128
   },
   {
    "id": "TKavv9l3UhQ",
@@ -8559,7 +8731,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 123
+   "order": 129
   },
   {
    "id": "iokFDWidn6E",
@@ -8576,7 +8748,7 @@
    ],
    "chapters": [],
    "topic": "Suburbs & neighborhoods",
-   "order": 124
+   "order": 130
   },
   {
    "id": "gtlXE20Jzm8",
@@ -8591,7 +8763,7 @@
    ],
    "chapters": [],
    "topic": "Suburbs & neighborhoods",
-   "order": 125
+   "order": 131
   },
   {
    "id": "2Rsqvvz7K1o",
@@ -8605,7 +8777,7 @@
    ],
    "chapters": [],
    "topic": "Suburbs & neighborhoods",
-   "order": 126
+   "order": 132
   },
   {
    "id": "Vdlsid1qbO4",
@@ -8619,7 +8791,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 127
+   "order": 133
   },
   {
    "id": "HYQEsdoD074",
@@ -8636,7 +8808,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 128
+   "order": 134
   },
   {
    "id": "zS_yO26Uoqc",
@@ -8653,7 +8825,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 129
+   "order": 135
   },
   {
    "id": "Hm-YytFklQk",
@@ -8667,7 +8839,7 @@
    ],
    "chapters": [],
    "topic": "Suburbs & neighborhoods",
-   "order": 130
+   "order": 136
   },
   {
    "id": "C8aZBzXvrhE",
@@ -8683,7 +8855,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 131
+   "order": 137
   },
   {
    "id": "SJgD4_uvPgk",
@@ -8697,7 +8869,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 132
+   "order": 138
   },
   {
    "id": "zUrL79BEMds",
@@ -8712,7 +8884,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 133
+   "order": 139
   },
   {
    "id": "cBzTWp6UZew",
@@ -8726,7 +8898,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 134
+   "order": 140
   },
   {
    "id": "jXURb43MhhY",
@@ -8742,7 +8914,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 135
+   "order": 141
   },
   {
    "id": "jEbo6nb_Sk0",
@@ -8759,7 +8931,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 136
+   "order": 142
   },
   {
    "id": "MVabagvgyVY",
@@ -8775,7 +8947,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 137
+   "order": 143
   },
   {
    "id": "MeBfegzxQ64",
@@ -8790,7 +8962,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 138
+   "order": 144
   },
   {
    "id": "yeTm9gINX8I",
@@ -8807,7 +8979,7 @@
    ],
    "chapters": [],
    "topic": "Market updates",
-   "order": 139
+   "order": 145
   },
   {
    "id": "Iq2Xf5fhgWg",
@@ -8821,7 +8993,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 140
+   "order": 146
   },
   {
    "id": "u2MoH_8Rcno",
@@ -8835,7 +9007,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 141
+   "order": 147
   },
   {
    "id": "Y06c_S4ayhM",
@@ -8849,7 +9021,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 142
+   "order": 148
   },
   {
    "id": "vQ3IvV_1oOI",
@@ -8861,7 +9033,7 @@
    "summary": [],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 143
+   "order": 149
   },
   {
    "id": "2gefu97luLE",
@@ -8879,7 +9051,7 @@
    ],
    "chapters": [],
    "topic": "Market updates",
-   "order": 144
+   "order": 150
   },
   {
    "id": "sex9NMgw8Pw",
@@ -8893,7 +9065,7 @@
    ],
    "chapters": [],
    "topic": "Living in Minnesota",
-   "order": 145
+   "order": 151
   }
  ]
 }
