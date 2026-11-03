@@ -572,7 +572,7 @@ Information and Technical Agreement (section 6 and Appendix D). Everything lives
   (35x35 or larger); they appear automatically once the files exist (`src/data/mls-logos.ts`).
 - **Seller choices:** "Advertising: No" listings are dropped; "Display Address: No" listings show no street, no map
   point and an address-free page address (`sellerChoices` in src/lib/mls-feed.mjs, reading Repliers' `permissions`).
-- **Other rules:** at most 500 listings per search answer (Rule 11.8); refresh every 8 hours (rebuild.mjs, Rule 12.2(f)
+- **Other rules:** at most 500 listings per search answer (Rule 11.8); refresh every hour from 8 AM to 10 PM Central, 15 times a day (rebuild.mjs, Rule 12.2(f): at least every 12 hours; the overnight gap is 10)
   requires 12); $1 auction prices show "Auction"; contingencies are shown on the listing page; no wording that says or
   implies the public can search the MLS (Rule 13.1(b)); footer says "Licensed in Minnesota" (Rule 12.2(h)).
 - **Repliers:** confirmed full NorthstarMLS access on the "standard" key (email, 2026-10-28).
