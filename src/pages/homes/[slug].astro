@@ -13,6 +13,7 @@ import { CONTINGENCIES, EULA_PATH, isOwnBrokerage } from '../../data/mls';
 import { BR_LOGO, BR_LOGO_SIZE } from '../../data/mls-logos';
 import IdxDisclosure from '../../components/IdxDisclosure.astro';
 import PaymentEstimate from '../../components/PaymentEstimate.astro';
+import PhotoGallery from '../../components/PhotoGallery.astro';
 import { formatOpenHouse, OPEN_HOUSE_NOTE } from '../../lib/open-house.mjs';
 import { origin } from '../../data/schema';
 import { site } from '../../data/site';
@@ -116,9 +117,7 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() }, { name: community
     <div class="wrap">
       <div class="home__body" data-idx>
         <div>
-          {l.photos.length > 0
-            ? <div class="home__photos" tabindex="0" aria-label={`${l.photos.length} photos`}>{l.photos.map((p, i) => <img src={photo(p, i ? 'medium' : 'large')} alt={`Photo ${i + 1} of ${l.photos.length}: ${where}`} width="1200" height="800" loading={i ? 'lazy' : 'eager'} fetchpriority={i ? undefined : 'high'} decoding="async" />)}</div>
-            : <div class="home__nophoto">Photos coming soon</div>}
+          <PhotoGallery photos={l.photos} alt={where} />
           <h1 class="home__title">{l.addressHidden ? `Home for sale in ${l.city}` : l.street}<span>{l.city}, MN {l.zip}</span></h1>
           <p class="home__price">{l.price > 1 ? money(l.price) : 'Auction'}</p>
           {specs.length > 0 && <p class="home__specs">{specs.join(' · ')}</p>}

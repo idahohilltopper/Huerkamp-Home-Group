@@ -104,7 +104,8 @@ export function compact(l, now = new Date()) {
     lotAcres: num(l.lot?.acres),
     garage: num(d.numGarageSpaces),
     description: text(d.description).slice(0, 4000),
-    photos: (l.images ?? []).slice(0, 24).map((p) => `${CDN}/${p}`),
+    photos: (l.images ?? []).map((p) => `${CDN}/${p}`), // every photo the MLS has
+
     listed: text(l.listDate).slice(0, 10) || null,
     updated: text(l.updatedOn ?? l.timestamps?.listingUpdated).slice(0, 10) || null,
     brokerage: text(l.office?.brokerageName),
