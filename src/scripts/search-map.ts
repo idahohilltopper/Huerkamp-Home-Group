@@ -40,6 +40,15 @@ export async function createMap(el: HTMLElement, style: string, brThumb: string,
     paint: { 'text-color': '#fff' } });
   map.addLayer({ id: 'homes-hot', type: 'circle', source: 'homes', filter: ['==', ['get', 'slug'], ''], paint: {
     'circle-radius': 11, 'circle-color': '#151213', 'circle-stroke-color': '#fff', 'circle-stroke-width': 2.5 } });
+  // Pointing at a dot shows its price in a small red tag, as the portals do (zoomed in, the tags are always shown).
+  const hoverTag = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 10, className: 'hs-hover' });
+  map.on('mousemove', 'homes', (e: any) => {
+    const f = e.features?.[0];
+    if (!f) return;
+    hoverTag.setLngLat(f.geometry.coordinates).setText(f.properties.label).addTo(map);
+  });
+  map.on('mouseleave', 'homes', () => hoverTag.remove());
+  map.on('click', () => hoverTag.remove());
   for (const layer of ['homes', 'homes-tags']) {
     map.on('mouseenter', layer, () => { map.getCanvas().style.cursor = 'pointer'; });
     map.on('mouseleave', layer, () => { map.getCanvas().style.cursor = ''; });
