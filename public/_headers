@@ -18,3 +18,10 @@
   Cache-Control: public, max-age=604800
 /brand/*
   Cache-Control: public, max-age=604800
+
+# Alert email templates for Repliers (email-templates/): each link downloads the file instead of opening it as a page,
+# and search engines are told not to list them.
+/files/email-templates/*
+  Content-Disposition: attachment
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-cache
