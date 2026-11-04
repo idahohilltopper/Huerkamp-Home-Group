@@ -115,6 +115,24 @@ const ld = JSON.stringify({
   </section>
 
   <!-- Who we are, in one band -->
+  <!-- Home value spotlight: starts the instant estimate (/home-estimate) with the address and ZIP filled in. -->
+  <section class="valuespot" aria-labelledby="valuespot-title">
+    <div class="wrap valuespot__in">
+      <div>
+        <p class="eyebrow valuespot__eyebrow">Thinking of selling?</p>
+        <h2 id="valuespot-title">What's your home <em>worth?</em></h2>
+        <p>Get an instant price range from homes like yours that sold nearby. Then one of our agents can fine-tune it, free.</p>
+      </div>
+      <form class="valuespot__form" action="/home-estimate" method="get">
+        <label class="visually-hidden" for="vs-address">Street address</label>
+        <input id="vs-address" name="address" autocomplete="street-address" placeholder="Street address" required />
+        <label class="visually-hidden" for="vs-zip">ZIP code</label>
+        <input id="vs-zip" name="zip" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" autocomplete="postal-code" placeholder="ZIP" required title="Your 5-digit ZIP code" />
+        <button class="btn" type="submit">Get my estimate</button>
+      </form>
+    </div>
+  </section>
+
   <section class="trust" aria-label="About Huerkamp Home Group">
     <div class="wrap trust__inner">
       <p class="trust__lede">A family-led Keller Williams team of {members.length} agents and staff, rated {google.rating.toFixed(1)} stars across {google.count} Google reviews, and a Dave Ramsey Endorsed Local Provider for more than 15 years.</p>
@@ -212,8 +230,8 @@ const ld = JSON.stringify({
         <article class="program">
           <p class="eyebrow">Start here</p>
           <h3>Free Home Valuation</h3>
-          <p>An agent compares your home with recent sales nearby and sends you a price range you can plan around.</p>
-          <a class="link-arrow" href="/sell#value">Get your value</a>
+          <p>See an instant price range from recent sales nearby, then an agent fine-tunes it for your home's updates and condition.</p>
+          <a class="link-arrow" href="/home-estimate">Get your instant estimate</a>
         </article>
         <article class="program">
           <p class="eyebrow">Skip the showings</p>
@@ -403,6 +421,16 @@ const ld = JSON.stringify({
   .latest__more { margin-top: 2rem; }
   /* Hero: a short banner with the search box front and center. */
   .hero { position: relative; overflow: hidden; background: var(--night-deep); color: #fff; min-height: clamp(26rem, 34vw, 31rem); display: flex; align-items: center; }
+  .valuespot { background: var(--ink, #1b1819); color: #fff; border-top: 4px solid var(--crimson); }
+  .valuespot__in { display: grid; gap: 1.5rem 3rem; align-items: center; padding-block: clamp(2rem, 5vw, 3rem); }
+  @media (min-width: 900px) { .valuespot__in { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); } }
+  .valuespot h2 { margin: .35rem 0 .5rem; color: #fff; }
+  .valuespot h2 em { color: #ff8a80; }
+  .valuespot p { margin: 0; color: #e4ddd7; max-width: 46ch; }
+  .valuespot__eyebrow { color: #ff8a80; }
+  .valuespot__form { display: grid; grid-template-columns: minmax(0, 1fr) 7rem auto; gap: .6rem; }
+  @media (max-width: 600px) { .valuespot__form { grid-template-columns: minmax(0, 1fr) 6.5rem; } .valuespot__form .btn { grid-column: 1 / -1; } }
+  .valuespot__form input { min-width: 0; padding: .9rem 1rem; border: 0; border-radius: 6px; background: #fff; color: #1b1819; font: 500 1rem/1.2 var(--ui); }
   .hero__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
   /* A light, even wash: the photo reads about as bright on the left as on the right; the text gets its contrast from its own shadow. */
   .hero__shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(21,18,19,.28) 0%, rgba(21,18,19,.12) 45%, rgba(21,18,19,.05) 75%); }

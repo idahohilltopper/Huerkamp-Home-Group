@@ -58,6 +58,14 @@ import { SOLD_DISCLAIMER } from '../lib/sold.mjs';
 <script>
   // After the lead is sent (src/layouts/Base.astro fires 'lead-sent'), ask for the estimate and show it.
   const form = document.querySelector<HTMLFormElement>('[data-estimate-form]')!;
+  // Arrived from the home page spotlight (/home-estimate?address=&zip=): fill those in and start at the next box.
+  const q = new URLSearchParams(location.search);
+  for (const [id, key] of [['es-address', 'address'], ['es-zip', 'zip']] as const) {
+    const v = (q.get(key) ?? '').slice(0, 120);
+    const input = document.getElementById(id) as HTMLInputElement | null;
+    if (v && input && !input.value) input.value = key === 'zip' ? v.replace(/\D/g, '').slice(0, 5) : v;
+  }
+  if (q.get('address')) (document.getElementById('es-type') as HTMLElement | null)?.focus({ preventScroll: false });
   const box = document.querySelector<HTMLElement>('[data-est-result]')!;
   const out = box.querySelector<HTMLElement>('[data-est-out]')!;
   const esc = (s: unknown) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
