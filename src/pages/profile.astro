@@ -7,6 +7,7 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import { SEARCH_PATH } from '../data/search';
 import { site } from '../data/site';
+import { BR_THUMB } from '../data/mls-logos';
 ---
 <Base title={`My account | ${site.name}`} description="Your saved searches and saved homes." noindex>
   <PageHero eyebrow="My account" title="Your saved searches and homes" lede="Change how often we email you, edit or delete a search, see the homes you saved, or stop the emails." />
@@ -15,6 +16,11 @@ import { site } from '../data/site';
       <p data-msg>Loading your account…</p>
       <ul class="alerts" data-list></ul>
       <div data-favs-box hidden><h2>Saved homes ♥</h2><ul class="favs" data-favs></ul></div>
+      <div class="recentbox" data-recent-box data-br-thumb={BR_THUMB ?? undefined} hidden>
+        <h2>Recently viewed</h2>
+        <div data-idx><ul class="recents" data-recent-list></ul></div>
+        <p class="recentbox__note">Kept on this device only. <button type="button" class="linkish" data-recent-clear>Clear the list</button></p>
+      </div>
       <div class="alerts__all" data-all hidden>
         <h2>Stop all emails</h2>
         <p>Unsubscribe from every new-listing alert from {site.name}.</p>
@@ -81,6 +87,16 @@ import { site } from '../data/site';
     say(msg, a.ok ? `<strong>You're unsubscribed.</strong> We won't email you any more alerts.` : 'Sorry, that didn’t work. Please try again, or reply to any alert email with "unsubscribe".');
   });
   load();
+  // Recently viewed homes (this device), shown after I AGREE like any listing display.
+  import { recent, recentHtml, clearRecent } from '../scripts/recent';
+  const rbox = document.querySelector<HTMLElement>('[data-recent-box]')!;
+  const drawRecent = () => {
+    const list = recent();
+    rbox.hidden = !list.length;
+    rbox.querySelector('[data-recent-list]')!.innerHTML = recentHtml(list, rbox.dataset.brThumb);
+  };
+  drawRecent();
+  rbox.querySelector('[data-recent-clear]')!.addEventListener('click', () => { clearRecent(); drawRecent(); });
 </script>
 
 <style>
@@ -96,5 +112,11 @@ import { site } from '../data/site';
   .favs :global(span) { color: var(--text-soft); font-size: .92rem; }
   .alerts__all { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
   .alerts__out { margin-top: 2rem; color: var(--text-soft); }
+  .recentbox { margin: 1rem 0 2rem; }
+  .recents { list-style: none; margin: 1rem 0 .5rem; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); gap: 1rem; }
+  .recents :global(.recent a) { display: grid; gap: .35rem; color: var(--text); text-decoration: none; font-weight: 600; font-size: .92rem; }
+  .recents :global(.recent img[width="160"]), .recents :global(.recent__nophoto) { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 6px; background: var(--sand); display: grid; place-items: center; color: var(--text-soft); }
+  .recents :global(.recent__by) { display: flex; flex-wrap: wrap; gap: .3rem; align-items: center; margin-top: .25rem; color: var(--text-soft); font-size: .78rem; }
+  .recentbox__note { color: var(--text-soft); font-size: .9rem; }
   .linkish { border: 0; background: none; padding: 0; color: var(--crimson); font: inherit; text-decoration: underline; cursor: pointer; }
 </style>

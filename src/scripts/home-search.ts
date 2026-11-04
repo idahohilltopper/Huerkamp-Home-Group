@@ -6,7 +6,7 @@ import { soldCardHtml, soldOn, type Sold } from './sold-card';
 import { formatOpenHouse } from '../lib/open-house.mjs';
 type Card = { mls: string; slug: string; street: string; city: string; zip: string; price: number; beds: number | null; baths: number | null;
   sqft: number | null; type: string | null; newConstruction: 0 | 1; lakefront: 0 | 1; lotAcres: number | null; brokerage: string; photo: string | null;
-  ownBrokerage: 0 | 1; addressHidden: 0 | 1; openHouse?: { date: string; start: string; end: string | null } | null };
+  ownBrokerage: 0 | 1; addressHidden: 0 | 1; openHouse?: { date: string; start: string; end: string | null } | null; cut?: number };
 type Answer = { ok: boolean; error?: string; total: number; page: number; pages: number; results: (Card | Sold)[]; pins: Pin[]; unsupported?: boolean; months?: number };
 /** lat, lng, price, page slug (MLS number for a sold home), photo, address, brokerage, own brokerage, sold date (sold only). */
 export type Pin = [number, number, number, string, string | null, string, string, 0 | 1, string?];
@@ -109,11 +109,14 @@ export function initSearch(root: HTMLElement) {
   const thumb = root.dataset.brThumb;
   const card = (l: Card) => {
     const specs = [l.beds && `${l.beds} bd`, l.baths && `${l.baths} ba`, l.sqft && `${l.sqft.toLocaleString('en-US')} sq ft`, l.type === 'land' && l.lotAcres && `${l.lotAcres} acres`].filter(Boolean).join(' · ');
-    const flag = l.newConstruction ? 'New construction' : l.lakefront ? 'Lakefront' : '';
+    // The API sends cut only for the team's own listings (src/lib/search-index.mjs, Rule 12.3(f)).
+    const c = l.cut ?? 0;
+    const cut = c >= 1000 ? `Price cut $${c >= 1e6 ? `${(c / 1e6).toFixed(1)}M` : `${Math.round(c / 1000)}K`}` : '';
+    const flag = cut || (l.newConstruction ? 'New construction' : l.lakefront ? 'Lakefront' : '');
     const addr = l.addressHidden ? `${l.city}, MN ${l.zip}` : `${l.street}, ${l.city}, MN ${l.zip}`;
     const img = l.photo ? `<img src="${esc(l.photo)}?class=small" alt="${esc(addr)}" width="400" height="267" loading="lazy" decoding="async" />` : '<span class="lcard__nophoto">Photo coming soon</span>';
     const icon = !l.ownBrokerage && thumb ? `<img src="${esc(thumb)}" alt="Broker Reciprocity listing" height="18" />` : '';
-    return `<li class="lcard"><a href="/homes/${esc(l.slug)}"><span class="lcard__photo">${img}${flag ? `<span class="lcard__flag">${flag}</span>` : ''}${l.openHouse ? `<span class="lcard__open">Open ${esc(formatOpenHouse(l.openHouse))}</span>` : ''}</span>`
+    return `<li class="lcard"><a href="/homes/${esc(l.slug)}"><span class="lcard__photo">${img}${flag ? `<span class="lcard__flag${cut ? ' lcard__flag--cut' : ''}">${flag}</span>` : ''}${l.openHouse ? `<span class="lcard__open">Open ${esc(formatOpenHouse(l.openHouse))}</span>` : ''}</span>`
       + `<strong class="lcard__price">${l.price > 1 ? money(l.price) : 'Auction'}</strong>${specs ? `<span class="lcard__specs">${esc(specs)}</span>` : ''}`
       + `<span class="lcard__addr">${esc(addr)}</span>${l.type ? `<span class="lcard__type">${esc(types[l.type] ?? 'home')}</span>` : ''}`
       + `<span class="lcard__mls">MLS #${esc(l.mls)}</span><span class="lcard__broker">${icon}Listing courtesy of ${esc(l.brokerage || 'the listing brokerage')}</span></a>`

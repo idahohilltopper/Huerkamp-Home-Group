@@ -12,7 +12,7 @@ export const TYPES = ['single-family', 'townhome', 'condo', 'multi-family', 'lan
 export const SORTS = { new: 'Newest', 'price-asc': 'Price: low to high', 'price-desc': 'Price: high to low', sqft: 'Largest' };
 
 // Row layout (arrays keep the file small).
-const F = ['mls', 'slug', 'street', 'city', 'zip', 'price', 'beds', 'baths', 'sqft', 'type', 'newConstruction', 'lotAcres', 'lakefront', 'community', 'hood', 'lakes', 'lat', 'lng', 'listed', 'brokerage', 'photo', 'team', 'ownBrokerage', 'addressHidden', 'openHouse'];
+const F = ['mls', 'slug', 'street', 'city', 'zip', 'price', 'beds', 'baths', 'sqft', 'type', 'newConstruction', 'lotAcres', 'lakefront', 'community', 'hood', 'lakes', 'lat', 'lng', 'listed', 'brokerage', 'photo', 'team', 'ownBrokerage', 'addressHidden', 'openHouse', 'cut'];
 
 /** Build-time: listings (src/data/listings.ts shape) → index object. `teamNames` marks the team's own listings. */
 export function buildIndex(listings, { at = null, mode = 'off', teamNames = [], teamBrokerage = /keller williams preferred/i } = {}) {
@@ -27,6 +27,8 @@ export function buildIndex(listings, { at = null, mode = 'off', teamNames = [], 
     teamBrokerage.test(l.brokerage ?? '') ? 1 : 0, l.addressHidden ? 1 : 0,
     // The next public open house ({ date, start, end }), shown on cards and used by the "Open houses" filter.
     l.openHouses?.[0] ?? null,
+    // How much the price has come down since listing ("Price cut" badge; own brokerage's cards only, Rule 12.3(f)).
+    l.priceCut || 0,
   ]);
   return { v: 1, at, mode, fields: F, rows };
 }
@@ -102,7 +104,7 @@ export function search(index, q, { otherDetails = false } = {}) {
   return {
     total: hits.length, page, pages,
     results: hits.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE).map(({ team, community, hood, lakes, ...l }) =>
-      l.ownBrokerage || otherDetails ? l : { ...l, beds: null, baths: null, sqft: null, type: null, newConstruction: 0, lakefront: 0, lotAcres: null }),
+      l.ownBrokerage || otherDetails ? l : { ...l, beds: null, baths: null, sqft: null, type: null, newConstruction: 0, lakefront: 0, lotAcres: null, cut: 0 }),
     // Each map marker: where, price, page, and what its pop-up shows (first photo, address, listing brokerage,
     // 1 = the team's own brokerage). A pop-up is a thumbnail display, so it follows the same rules as a card.
     pins: hits.filter((l) => l.lat != null).slice(0, MAX_PINS).map((l) => [l.lat, l.lng, l.price, l.slug, l.photo ?? null,

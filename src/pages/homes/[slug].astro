@@ -121,6 +121,7 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() }, { name: community
           <PhotoGallery photos={l.photos} alt={where} />
           <h1 class="home__title">{l.addressHidden ? `Home for sale in ${l.city}` : l.street}<span>{l.city}, MN {l.zip}</span></h1>
           <p class="home__price">{l.price > 1 ? money(l.price) : 'Auction'}</p>
+          {l.price > 1 && (l.priceCut ?? 0) >= 1000 && l.originalPrice && <p class="home__cut">Price cut {money(l.priceCut ?? 0)} · first listed at {money(l.originalPrice)}</p>}
           {specs.length > 0 && <p class="home__specs">{specs.join(' · ')}</p>}
           <p class="home__actions">
             <a class="btn" href="#contact">Schedule a showing</a>
@@ -208,8 +209,18 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() }, { name: community
       </div>
     </section>
   )}
+  <span hidden data-recent={JSON.stringify({ mls: l.mls, slug: l.slug, addr: where, photo: l.photos[0] ?? null, brokerage: l.brokerage ?? '', own: isOwnBrokerage(l.brokerage) ? 1 : 0 })}></span>
   <RegisterWall mls={l.mls} name={where} street={l.addressHidden ? '' : l.street} city={l.city} zip={l.zip} price={l.price} />
 </Base>
+
+<script>
+  // Remember this home for "Recently viewed" on My account (src/scripts/recent.ts), once the visitor has agreed to the
+  // listing license (the page's listing data is shown only then).
+  import { remember } from '../../scripts/recent';
+  const el = document.querySelector<HTMLElement>('[data-recent]');
+  const save = () => { try { if (el) remember(JSON.parse(el.dataset.recent!)); } catch { /* bad data: skip */ } };
+  if (document.documentElement.classList.contains('idx-ok')) save(); else window.addEventListener('idx-agreed', save, { once: true });
+</script>
 
 <style>
   .home { padding-top: 1.5rem; }
@@ -221,6 +232,7 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() }, { name: community
   /* Listing text tops out at 2rem so the required MLS disclaimer (2rem, Rule 12.3(i)) is at least as large. */
   .home__title { margin: .3rem 0 .5rem; font: 500 clamp(1.6rem, 3vw, 2rem)/1.1 var(--serif-display); }
   .home__title span { display: block; margin-top: .3rem; font: 500 1.05rem/1.3 var(--ui); color: var(--text-soft); }
+  .home__cut { display: inline-block; margin: .35rem 0 0; padding: .3rem .6rem; border-radius: 4px; background: #e7f3ec; color: #1b6b3a; font: 700 .9rem/1.2 var(--ui); }
   .home__price { margin: 0; font: 500 clamp(1.6rem, 3vw, 2rem)/1.2 var(--serif); color: var(--crimson); }
   .home__status { font-weight: 600; }
   .home__source { font-size: .9rem; color: var(--text-soft); }

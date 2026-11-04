@@ -11,6 +11,8 @@ import { lakes, lakeHref } from './lakes';
 
 export type Listing = {
   mls: string; slug: string; street: string; city: string; zip: string; price: number;
+  /** First asking price and how much it has come down (src/lib/mls-feed.mjs); 0 / null when it hasn't. */
+  originalPrice?: number | null; priceCut?: number;
   beds: number | null; baths: number | null; sqft: number | null; type: string; style: string;
   yearBuilt: number | null; newConstruction: boolean; lotAcres: number | null; garage: number | null;
   description: string; photos: string[]; listed: string | null; updated: string | null;

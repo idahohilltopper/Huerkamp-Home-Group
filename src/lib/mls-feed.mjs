@@ -98,6 +98,9 @@ export function compact(l, now = new Date()) {
     addressHidden: choices.hideAddress, hide: choices.hide,
     contingency: contingency && !/^none$/i.test(contingency) ? contingency : '',
     price: num(l.listPrice),
+    // How much the asking price has come down since it was listed (0 if it hasn't), and the first asking price.
+    originalPrice: num(l.originalPrice) > num(l.listPrice) && num(l.listPrice) > 1 ? num(l.originalPrice) : null,
+    priceCut: num(l.originalPrice) > num(l.listPrice) && num(l.listPrice) > 1 ? num(l.originalPrice) - num(l.listPrice) : 0,
     beds: num(d.numBedrooms), baths: num(d.numBathrooms), sqft: num(d.sqft),
     type: homeType(l), style: text(d.style), yearBuilt,
     newConstruction: !!yearBuilt && yearBuilt >= year - 1,
@@ -120,6 +123,9 @@ export function compact(l, now = new Date()) {
 
 // ---------- download ----------
 const FIELDS = 'boardId,mlsNumber,listPrice,listDate,updatedOn,timestamps,status,lastStatus,class,type,address,map,details,lot,images,office,agents,taxes,condominium,permissions,openHouse';
+// originalPrice (the first asking price) drives the "Price cut" badge. If Repliers ever refuses it, the download
+// falls back to FIELDS so the listings keep coming (stats.noOriginalPrice says so).
+const FIELDS_PLUS = `${FIELDS},originalPrice`;
 
 async function download(key, box) {
   // Small tiles keep each search well inside Repliers' paging limits; 4 run at a time.
@@ -128,11 +134,13 @@ async function download(key, box) {
   const tiles = [];
   for (let x = w; x < e; x += step) for (let y = s; y < n; y += step) tiles.push([[[x, y + step], [x + step, y + step], [x + step, y], [x, y], [x, y + step]]]);
   stats.tiles = tiles.length;
+  let fields = FIELDS_PLUS;
   const ask = async (tile, page) => {
     for (let attempt = 1; ; attempt++) {
       stats.requests++;
-      const r = await repliers(key, '/listings', { status: 'A', type: 'Sale', resultsPerPage: 100, pageNum: page, fields: FIELDS }, { map: tile }).catch((err) => ({ status: 0, data: null, error: String(err?.message ?? err) }));
+      const r = await repliers(key, '/listings', { status: 'A', type: 'Sale', resultsPerPage: 100, pageNum: page, fields }, { map: tile }).catch((err) => ({ status: 0, data: null, error: String(err?.message ?? err) }));
       if (r.data) return r.data;
+      if (r.status === 400 && fields !== FIELDS) { fields = FIELDS; stats.noOriginalPrice = true; attempt--; continue; }
       if (attempt >= 3 || r.status === 401 || r.status === 403) throw new Error(`Repliers ${r.status}: ${r.error}`);
       await new Promise((ok) => setTimeout(ok, 1500 * attempt));
     }
