@@ -44,7 +44,7 @@ export const FORMS = {
 
 // Field names → readable labels for the note on the lead. Contact details are sent separately.
 const LABELS = {
-  address: 'Property address', timeline: 'Selling timeline', topic: 'Topic', goal: 'Goal',
+  address: 'Property address', zip: 'ZIP code', homeType: 'Kind of home', beds: 'Bedrooms', baths: 'Bathrooms', sqft: 'Finished sq ft', timeline: 'Selling timeline', topic: 'Topic', goal: 'Goal',
   notes: 'Notes', message: 'Message', lake: 'Lake', priceRange: 'Price range', maxPrice: 'Price range',
   community: 'Community', ramseyReferral: 'Referred by Ramsey', interest: 'Interested in', moveFrom: 'Moving from', agent: 'Wants to work with', listing: 'Listing', guide: 'Guide', nextHome: 'Next home', helping: 'Asking for', calc: 'Calculator results', situation: 'Situation', savedSearch: 'Saved search', showingDay: 'Preferred day', showingTime: 'Preferred time', tourType: 'Tour type', saleDate: 'Sheriff’s sale or deadline',
 };
@@ -75,6 +75,12 @@ export function buildEvent(input, meta = {}) {
   const { form, fields = {}, page = '', title = '', hp = '', elapsed = 0 } = input ?? {};
   // Honeypot filled in, or submitted faster than a person could type: a bot.
   if (clean(hp) || Number(elapsed) < 2500) return { spam: true };
+  // Spam content: a link in a name, link markup anywhere, or a message stuffed with links. Real people don't.
+  const LINK = /(https?:\/\/|www\.|\.(ru|cn|xyz|top|click|link)\b)/i;
+  if (['firstName', 'lastName'].some((k) => LINK.test(String(fields[k] ?? '')))) return { spam: true };
+  const all = Object.values(fields).map((v) => String(v ?? '')).join(' ');
+  if (/<a\s+href|\[url=|\[link=/i.test(all)) return { spam: true };
+  if ((all.match(/https?:\/\//gi) ?? []).length >= 3) return { spam: true };
 
   const cfg = FORMS[form];
   if (!cfg) return { error: 'Unknown form' };

@@ -254,4 +254,5 @@ export default async (req, _ctx, f = fetch) => {
   }
 };
 
-export const config = { path: '/api/alerts/*' };
+// At most 30 requests a minute from one visitor (Netlify rate limiting), so a bot can't flood it.
+export const config = { path: '/api/alerts/*', rateLimit: { windowLimit: 30, windowSize: 60, aggregateBy: ['ip', 'domain'] } };

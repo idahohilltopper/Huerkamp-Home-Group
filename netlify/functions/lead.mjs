@@ -68,4 +68,5 @@ export default async (req) => {
   return json(502, { ok: false, error: 'Could not send' });
 };
 
-export const config = { path: '/api/lead' };
+// At most 10 requests a minute from one visitor (Netlify rate limiting), so a bot can't flood it.
+export const config = { path: '/api/lead', rateLimit: { windowLimit: 10, windowSize: 60, aggregateBy: ['ip', 'domain'] } };

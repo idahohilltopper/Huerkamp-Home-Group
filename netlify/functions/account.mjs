@@ -120,4 +120,5 @@ export default async (req, _ctx, f = fetch, mail = sendMail) => {
   }
 };
 
-export const config = { path: '/api/account/*' };
+// At most 10 requests a minute from one visitor (Netlify rate limiting), so a bot can't flood it.
+export const config = { path: '/api/account/*', rateLimit: { windowLimit: 10, windowSize: 60, aggregateBy: ['ip', 'domain'] } };
