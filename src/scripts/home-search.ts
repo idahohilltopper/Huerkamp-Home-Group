@@ -260,7 +260,12 @@ export function initSearch(root: HTMLElement) {
   const panel = document.createElement('div');
   panel.className = 'hs-home';
   panel.hidden = true;
-  panel.innerHTML = '<div class="hs-home__bar"><button type="button" class="hs-home__back" data-back>‹ Back to search</button><a class="hs-home__full" data-full target="_top">Open full page ↗</a></div><iframe class="hs-home__frame" title="Home details"></iframe>';
+  // Top bar like the portals: back on the left, our logo in the middle, Save (the home's heart) and Share on the right.
+  panel.innerHTML = '<div class="hs-home__bar"><button type="button" class="hs-home__back" data-back>‹ Back to search</button>'
+    + '<a class="hs-home__logo" href="/" target="_top" aria-label="Huerkamp Home Group home page"><img src="/brand/hhg-logo.png" alt="" width="66" height="32" /></a>'
+    + '<span class="hs-home__acts"><button type="button" class="hs-home__act" data-save aria-pressed="false"><span aria-hidden="true" data-save-icon>♡</span> <span data-save-text>Save</span></button>'
+    + '<button type="button" class="hs-home__act" data-share><span aria-hidden="true">⤴</span> <span data-share-text>Share</span></button>'
+    + '<a class="hs-home__act hs-home__full" data-full target="_top">Full page ↗</a></span></div><iframe class="hs-home__frame" title="Home details"></iframe>';
   document.body.append(panel);
   const frame = panel.querySelector('iframe')!;
   const searchUrl = () => `${location.pathname}${location.search}`;
@@ -281,11 +286,37 @@ export function initSearch(root: HTMLElement) {
     if (!fromHistory) history.back(); else if (back && location.pathname + location.search !== back) history.replaceState(null, '', back);
   };
   panel.querySelector('[data-back]')!.addEventListener('click', () => closeHome());
+  // Save = the home page's own heart (src/scripts/favorites.ts runs in the frame and asks for a name the first time);
+  // the bar's button mirrors whether it's saved.
+  const heart = () => frame.contentDocument?.querySelector<HTMLElement>('.fav--big') ?? null;
+  const saveBtn = panel.querySelector<HTMLButtonElement>('[data-save]')!;
+  const showSaved = () => {
+    const on = heart()?.getAttribute('aria-pressed') === 'true';
+    saveBtn.setAttribute('aria-pressed', String(on));
+    saveBtn.querySelector('[data-save-icon]')!.textContent = on ? '♥' : '♡';
+    saveBtn.querySelector('[data-save-text]')!.textContent = on ? 'Saved' : 'Save';
+  };
+  let watch: MutationObserver | null = null;
+  frame.addEventListener('load', () => {
+    watch?.disconnect();
+    const h = heart();
+    saveBtn.hidden = !h;
+    if (h) { showSaved(); watch = new MutationObserver(showSaved); watch.observe(h, { attributes: true, attributeFilter: ['aria-pressed'] }); }
+  });
+  saveBtn.addEventListener('click', () => heart()?.click());
+  panel.querySelector('[data-share]')!.addEventListener('click', async () => {
+    const url = location.href.replace(/[?&]embed=1\b/, '');
+    const label = panel.querySelector<HTMLElement>('[data-share-text]')!;
+    try {
+      if (navigator.share) await navigator.share({ title: frame.contentDocument?.title ?? document.title, url });
+      else { await navigator.clipboard.writeText(url); label.textContent = 'Link copied'; setTimeout(() => { label.textContent = 'Share'; }, 2000); }
+    } catch { /* closed the share sheet */ }
+  });
   addEventListener('popstate', () => closeHome(true));
   addEventListener('keydown', (e) => { if (e.key === 'Escape' && !panel.hidden) closeHome(); });
   document.addEventListener('click', (e) => {
     const me = e as MouseEvent;
-    if (me.button !== 0 || me.metaKey || me.ctrlKey || me.shiftKey || me.altKey || phone.matches) return; // new tab, or a phone: normal page
+    if (me.button !== 0 || me.metaKey || me.ctrlKey || me.shiftKey || me.altKey) return; // opening in a new tab: normal page
     const a = (e.target as Element).closest<HTMLAnchorElement>('a[href^="/homes/"]');
     if (!a || !(root.contains(a) || a.closest('.maplibregl-popup'))) return;
     e.preventDefault();
