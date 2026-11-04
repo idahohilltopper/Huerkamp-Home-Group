@@ -82,6 +82,12 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
           <div class="hs-f"><label for="hs-type">Home type</label><select id="hs-type" name="type"><option value="">All types</option>{TYPES.map((t) => <option value={t}>{typeName(t)}</option>)}</select></div>
         </div>
       </details>
+      <details class="hs-pill" data-pill="garage" data-sale-only>
+        <summary data-pill-label="Garage stalls">Garage stalls</summary>
+        <div class="hs-pop">
+          <div class="hs-f"><label for="hs-garage">Garage stalls</label><select id="hs-garage" name="garage"><option value="">Any</option>{[1, 2, 3, 4].map((n) => <option value={n}>{n}+</option>)}</select></div>
+        </div>
+      </details>
       <details class="hs-pill" data-pill="more" data-sale-only>
         <summary data-pill-label="More">More</summary>
         <fieldset class="hs-pop hs-checks"><legend class="visually-hidden">More filters</legend>
@@ -204,7 +210,7 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
   .hs-pill[open] summary::after { transform: translateY(1px) rotate(-135deg); }
   .hs-pill.is-set summary { border-color: var(--crimson); color: var(--crimson); background: #fff6f6; }
   .hs-pop { position: absolute; top: calc(100% + .4rem); left: 0; z-index: 10; display: grid; grid-template-columns: repeat(2, minmax(9rem, 1fr)); gap: .8rem; min-width: 19rem; margin: 0; padding: 1rem; border: 1px solid var(--line); border-radius: 8px; background: #fff; box-shadow: 0 12px 30px rgba(0, 0, 0, .16); }
-  .hs-pill[data-pill='type'] .hs-pop { grid-template-columns: 1fr; min-width: 15rem; }
+  .hs-pill[data-pill='type'] .hs-pop, .hs-pill[data-pill='garage'] .hs-pop { grid-template-columns: 1fr; min-width: 15rem; }
   .hs-f { display: grid; gap: .3rem; min-width: 0; }
   .hs-f label, .hs-sort label { font: 700 .7rem/1 var(--ui); letter-spacing: .08em; text-transform: uppercase; color: var(--text-soft); }
   .hs-f select, .hs-sort select { width: 100%; padding: .55rem .5rem; border: 1px solid var(--line); border-radius: 4px; background: #fff; font: 500 .95rem/1.2 var(--ui); color: var(--text); }

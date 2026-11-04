@@ -12,7 +12,7 @@ export const TYPES = ['single-family', 'townhome', 'condo', 'multi-family', 'lan
 export const SORTS = { new: 'Newest', 'price-asc': 'Price: low to high', 'price-desc': 'Price: high to low', sqft: 'Largest' };
 
 // Row layout (arrays keep the file small).
-const F = ['mls', 'slug', 'street', 'city', 'zip', 'price', 'beds', 'baths', 'sqft', 'type', 'newConstruction', 'lotAcres', 'lakefront', 'community', 'hood', 'lakes', 'lat', 'lng', 'listed', 'brokerage', 'photo', 'team', 'ownBrokerage', 'addressHidden', 'openHouse', 'cut'];
+const F = ['mls', 'slug', 'street', 'city', 'zip', 'price', 'beds', 'baths', 'sqft', 'type', 'newConstruction', 'lotAcres', 'lakefront', 'community', 'hood', 'lakes', 'lat', 'lng', 'listed', 'brokerage', 'photo', 'team', 'ownBrokerage', 'addressHidden', 'openHouse', 'cut', 'garage'];
 
 /** Build-time: listings (src/data/listings.ts shape) → index object. `teamNames` marks the team's own listings. */
 export function buildIndex(listings, { at = null, mode = 'off', teamNames = [], teamBrokerage = /keller williams preferred/i } = {}) {
@@ -29,6 +29,8 @@ export function buildIndex(listings, { at = null, mode = 'off', teamNames = [], 
     l.openHouses?.[0] ?? null,
     // How much the price has come down since listing ("Price cut" badge; own brokerage's cards only, Rule 12.3(f)).
     l.priceCut || 0,
+    // Garage stalls, for the "Garage stalls" filter (a filter only; other brokerages' cards don't show it).
+    l.garage ?? null,
   ]);
   return { v: 1, at, mode, fields: F, rows };
 }
@@ -48,7 +50,7 @@ export function parseQuery(input) {
   return {
     places, types, sort,
     min: int('min', 1, 1e9), max: int('max', 1, 1e9),
-    beds: int('beds', 1, 10), baths: int('baths', 1, 10),
+    beds: int('beds', 1, 10), baths: int('baths', 1, 10), garage: int('garage', 1, 6),
     lakefront: flag('lakefront'), newConstruction: flag('new'), acres: flag('acres'), team: flag('team'), open: flag('open'),
     bbox: bbox.length === 4 && bbox.every(Number.isFinite) && bbox[0] < bbox[2] && bbox[1] < bbox[3] ? bbox : null,
     page: int('page', 1, 500) ?? 1,
@@ -63,6 +65,7 @@ export function toSearch(q) {
   if (q.max) p.set('max', String(q.max));
   if (q.beds) p.set('beds', String(q.beds));
   if (q.baths) p.set('baths', String(q.baths));
+  if (q.garage) p.set('garage', String(q.garage));
   if (q.types?.length) p.set('type', q.types.join(','));
   if (q.lakefront) p.set('lakefront', '1');
   if (q.newConstruction) p.set('new', '1');
@@ -89,7 +92,7 @@ export function search(index, q, { otherDetails = false } = {}) {
     (!q.places.length || q.places.some((p) => matchPlace(l, p))) &&
     (!q.types.length || q.types.includes(l.type)) &&
     (!q.min || l.price >= q.min) && (!q.max || l.price <= q.max) &&
-    (!q.beds || (l.beds ?? 0) >= q.beds) && (!q.baths || (l.baths ?? 0) >= q.baths) &&
+    (!q.beds || (l.beds ?? 0) >= q.beds) && (!q.baths || (l.baths ?? 0) >= q.baths) && (!q.garage || (l.garage ?? 0) >= q.garage) &&
     (!q.lakefront || l.lakefront) && (!q.newConstruction || l.newConstruction) && (!q.acres || (l.lotAcres ?? 0) >= 1) &&
     (!q.team || l.team) && (!q.open || l.openHouse) &&
     (!q.bbox || (l.lng >= q.bbox[0] && l.lat >= q.bbox[1] && l.lng <= q.bbox[2] && l.lat <= q.bbox[3])));
@@ -104,7 +107,7 @@ export function search(index, q, { otherDetails = false } = {}) {
   return {
     total: hits.length, page, pages,
     results: hits.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE).map(({ team, community, hood, lakes, ...l }) =>
-      l.ownBrokerage || otherDetails ? l : { ...l, beds: null, baths: null, sqft: null, type: null, newConstruction: 0, lakefront: 0, lotAcres: null, cut: 0 }),
+      l.ownBrokerage || otherDetails ? l : { ...l, beds: null, baths: null, sqft: null, type: null, newConstruction: 0, lakefront: 0, lotAcres: null, cut: 0, garage: null }),
     // Each map marker: where, price, page, and what its pop-up shows (first photo, address, listing brokerage,
     // 1 = the team's own brokerage). A pop-up is a thumbnail display, so it follows the same rules as a card.
     pins: hits.filter((l) => l.lat != null).slice(0, MAX_PINS).map((l) => [l.lat, l.lng, l.price, l.slug, l.photo ?? null,

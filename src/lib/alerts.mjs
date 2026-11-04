@@ -73,6 +73,7 @@ export function toSavedSearch(q, { clientId, agentId, frequency = 'daily', name 
   };
   if (int(q.beds)) body.minBeds = int(q.beds);
   if (int(q.baths)) body.minBaths = int(q.baths);
+  if (int(q.garage)) body.minGarageSpaces = int(q.garage);
   if (body.minPrice > body.maxPrice) return { error: 'The minimum price is higher than the maximum.' };
   const skipped = ['lakefront', 'new', 'acres', 'team', 'open'].filter((k) => q[k]);
   return { body, skipped };
@@ -90,6 +91,7 @@ export function toSiteQuery(s) {
   if (realMax(s.maxPrice)) p.set('max', String(realMax(s.maxPrice)));
   if (int(s.minBeds)) p.set('beds', String(int(s.minBeds)));
   if (int(s.minBaths)) p.set('baths', String(int(s.minBaths)));
+  if (int(s.minGarageSpaces)) p.set('garage', String(int(s.minGarageSpaces)));
   if (Array.isArray(s.class) && s.class.length === 1 && s.class[0] === 'condo') p.set('type', 'condo');
   return p;
 }
@@ -101,6 +103,7 @@ export function describeSaved(s) {
   if (realMin(s.minPrice) || realMax(s.maxPrice)) bits.push(`${realMin(s.minPrice) ? money(s.minPrice) : 'any'} to ${realMax(s.maxPrice) ? money(s.maxPrice) : 'any'}`);
   if (int(s.minBeds)) bits.push(`${s.minBeds}+ beds`);
   if (int(s.minBaths)) bits.push(`${s.minBaths}+ baths`);
+  if (int(s.minGarageSpaces)) bits.push(`${s.minGarageSpaces}+ garage stalls`);
   if (Array.isArray(s.class) && s.class.length === 1 && s.class[0] === 'condo') bits.push('condos');
   return bits.join(' · ') || 'Any price';
 }

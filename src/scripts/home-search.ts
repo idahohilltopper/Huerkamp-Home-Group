@@ -11,9 +11,9 @@ type Answer = { ok: boolean; error?: string; total: number; page: number; pages:
 /** lat, lng, price, page slug (MLS number for a sold home), photo, address, brokerage, own brokerage, sold date (sold only). */
 export type Pin = [number, number, number, string, string | null, string, string, 0 | 1, string?];
 
-const KEYS = ['status', 'place', 'min', 'max', 'beds', 'baths', 'months', 'type', 'lakefront', 'new', 'acres', 'team', 'open', 'sort', 'bbox', 'page'];
+const KEYS = ['status', 'place', 'min', 'max', 'beds', 'baths', 'garage', 'months', 'type', 'lakefront', 'new', 'acres', 'team', 'open', 'sort', 'bbox', 'page'];
 // Filters the sold view can't use (the MLS sold data is searched by place, price, rooms, date and map area).
-const SALE_ONLY = ['type', 'lakefront', 'new', 'acres', 'team', 'open', 'sort'];
+const SALE_ONLY = ['type', 'garage', 'lakefront', 'new', 'acres', 'team', 'open', 'sort'];
 const esc = (s: unknown) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
 const money = (n: number) => `$${Math.round(n).toLocaleString('en-US')}`;
 const short = (n: number) => (n >= 1e6 ? `$${(n / 1e6).toFixed(n >= 1e7 ? 0 : 1).replace(/\.0$/, '')}M` : `$${Math.round(n / 1000)}K`);
@@ -100,6 +100,7 @@ export function initSearch(root: HTMLElement) {
     if (p.get('min') || p.get('max')) bits.push(`${p.get('min') ? short(+p.get('min')!) : 'any'} to ${p.get('max') ? short(+p.get('max')!) : 'any'}`);
     if (p.get('beds')) bits.push(`${p.get('beds')}+ beds`);
     if (p.get('baths')) bits.push(`${p.get('baths')}+ baths`);
+    if (p.get('garage')) bits.push(`${p.get('garage')}+ garage stalls`);
     if (p.get('type')) bits.push(p.get('type')!.split(',').map((t) => types[t] ?? t).join(', '));
     if (p.get('lakefront')) bits.push('lakefront');
     if (p.get('new')) bits.push('new construction');
@@ -191,6 +192,7 @@ export function initSearch(root: HTMLElement) {
       price: val('min') || val('max') ? `${val('min') ? short(+val('min')) : 'Any'} – ${val('max') ? short(+val('max')) : 'Any'}` : '',
       rooms: [val('beds') && `${val('beds')}+ bd`, val('baths') && `${val('baths')}+ ba`].filter(Boolean).join(', '),
       type: val('type') ? val('type').split(',').map((t) => (types[t] ?? t).replace(/^./, (c) => c.toUpperCase())).join(', ') : '',
+      garage: val('garage') ? `${val('garage')}+ garage` : '',
       months: isSold() ? `Sold in the last ${monthsText(months())}` : '',
       more: (() => { const n = ['lakefront', 'new', 'acres', 'team', 'open'].filter((k) => val(k)).length; return n ? `More (${n})` : ''; })(),
     };
