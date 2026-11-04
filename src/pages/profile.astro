@@ -1,5 +1,6 @@
 ---
-// "View profile" link in alert emails: /profile?token=&email=
+// "My account": the "View profile" link in alert emails (/profile?token=&email=), or a signed-in visitor
+// (email-link sign-in, src/pages/account.astro).
 // The visitor's new-listing alerts: see each one, change how often it emails, edit, delete, or stop all emails.
 // The token from the email identifies them (no password); everything goes through /api/alerts.
 import Base from '../layouts/Base.astro';
@@ -7,11 +8,11 @@ import PageHero from '../components/PageHero.astro';
 import { SEARCH_PATH } from '../data/search';
 import { site } from '../data/site';
 ---
-<Base title={`My home alerts | ${site.name}`} description="Manage your new-listing email alerts." noindex>
-  <PageHero eyebrow="My alerts" title="Your new-listing alerts" lede="Change how often we email you, edit a search, or stop the emails." />
+<Base title={`My account | ${site.name}`} description="Your saved searches and saved homes." noindex>
+  <PageHero eyebrow="My account" title="Your saved searches and homes" lede="Change how often we email you, edit or delete a search, see the homes you saved, or stop the emails." />
   <section class="section">
     <div class="wrap narrowish" data-alerts data-search-path={SEARCH_PATH} data-phone={site.phone} data-phone-href={site.phoneHref}>
-      <p data-msg>Loading your alerts…</p>
+      <p data-msg>Loading your account…</p>
       <ul class="alerts" data-list></ul>
       <div data-favs-box hidden><h2>Saved homes ♥</h2><ul class="favs" data-favs></ul></div>
       <div class="alerts__all" data-all hidden>
@@ -19,19 +20,29 @@ import { site } from '../data/site';
         <p>Unsubscribe from every new-listing alert from {site.name}.</p>
         <button type="button" class="btn btn--ghost" data-unsub>Unsubscribe from all alerts</button>
       </div>
+      <p class="alerts__out" data-out hidden>Signed in as <strong data-who></strong>. <button type="button" class="linkish" data-signout>Sign out</button></p>
     </div>
   </section>
 </Base>
 
 <script>
   import { token, api, say } from '../scripts/alert-links';
+  import { session, signOut, me } from '../scripts/session';
   const box = document.querySelector<HTMLElement>('[data-alerts]')!;
   const msg = box.querySelector('[data-msg]');
   const listEl = box.querySelector<HTMLUListElement>('[data-list]')!;
   const path = box.dataset.searchPath!;
   const t = token();
   const esc = (s: unknown) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
-  const expired = () => say(msg, `This link has expired. Open the newest alert email and use its <strong>Manage alerts</strong> link, or call or text <a href="${box.dataset.phoneHref}">${box.dataset.phone}</a> and we'll change it for you.`);
+  const expired = () => say(msg, session()
+    ? `Your sign-in has expired. <a class="btn" href="/account">Sign in again</a>`
+    : `<a class="btn" href="/account">Sign in</a> to see your saved searches and homes. We'll email you a sign-in link, no password needed. Or call or text <a href="${box.dataset.phoneHref}">${box.dataset.phone}</a> and we'll help.`);
+  if (session() && t === session()) {
+    const out = box.querySelector<HTMLElement>('[data-out]')!;
+    out.hidden = false;
+    out.querySelector('[data-who]')!.textContent = me()?.email ?? '';
+    out.querySelector('[data-signout]')!.addEventListener('click', () => { signOut(); location.href = '/'; });
+  }
   const FREQ: Record<string, string> = { instant: 'As soon as they’re listed', daily: 'Once a day', weekly: 'Once a week', monthly: 'Once a month' };
   async function load() {
     if (!t) return expired();
@@ -84,4 +95,6 @@ import { site } from '../data/site';
   .favs { margin: 1rem 0 2rem; padding-left: 1.2rem; display: grid; gap: .5rem; }
   .favs :global(span) { color: var(--text-soft); font-size: .92rem; }
   .alerts__all { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+  .alerts__out { margin-top: 2rem; color: var(--text-soft); }
+  .linkish { border: 0; background: none; padding: 0; color: var(--crimson); font: inherit; text-decoration: underline; cursor: pointer; }
 </style>

@@ -142,7 +142,7 @@ const isExternal = (href: string) => href.startsWith('http');
   <div class="utility">
     <div class="utility__inner">
       <p><span aria-hidden="true">★</span> Dave Ramsey Endorsed Local Provider for 15+ years</p>
-      <p class="utility__right"><span class="utility__kw">{site.brokerage}</span><a href={phoneHref}>{phone}</a><a class="utility__join" href={site.joinUrl} rel="noopener">Join HHG</a></p>
+      <p class="utility__right"><span class="utility__kw">{site.brokerage}</span><a href={phoneHref}>{phone}</a>{OWN && <a href="/account" data-acct>Sign in</a>}<a class="utility__join" href={site.joinUrl} rel="noopener">Join HHG</a></p>
     </div>
   </div>
 
@@ -187,6 +187,7 @@ const isExternal = (href: string) => href.startsWith('http');
         ))}
         <a class="btn mobile__cta" href="/sell#value">Free Home Valuation</a>
         <a class="mobile__phone" href={phoneHref}>Call {phone}</a>
+        {OWN && <a class="mobile__phone" href="/account" data-acct>Sign in</a>}
         <a class="btn btn--ghost mobile__join" href={site.joinUrl} rel="noopener">Join HHG: careers for agents</a>
       </nav>
     </div>
@@ -199,7 +200,20 @@ const isExternal = (href: string) => href.startsWith('http');
   <main id="main">
     <slot />
     {OWN && <FavDialog />}
-    <script>import { listenForLeads } from '../scripts/register'; listenForLeads();</script>
+    <script>
+      import { listenForLeads } from '../scripts/register';
+      import { signedIn, me } from '../scripts/session';
+      listenForLeads();
+      // Signed in (email-link sign-in): "Sign in" becomes "My account", and lead forms come filled in.
+      if (signedIn()) document.querySelectorAll<HTMLAnchorElement>('[data-acct]').forEach((a) => { a.textContent = 'My account'; a.href = '/profile'; });
+      const who = me();
+      if (who?.email) document.querySelectorAll<HTMLFormElement>('form[data-lead]').forEach((form) => {
+        for (const [name, v] of [['firstName', who.firstName], ['lastName', who.lastName], ['email', who.email], ['phone', who.phone]] as const) {
+          const input = form.elements.namedItem(name);
+          if (input instanceof HTMLInputElement && !input.value && v) input.value = v;
+        }
+      });
+    </script>
   </main>
 
   <footer class="footer">

@@ -1,0 +1,73 @@
+---
+// Sign in (no password): type your email, get a link (netlify/functions/account.mjs). Someone new is asked for their
+// name, which creates their account and tells Follow Up Boss ("Registration"). Signed in, this page points to My account.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site';
+---
+<Base title={`Sign in | ${site.name}`} description="Sign in to see your saved searches and saved homes." noindex>
+  <PageHero eyebrow="Your account" title="Sign in" lede="See and change your saved searches and saved homes. No password: we email you a link." />
+  <section class="section">
+    <div class="wrap acct">
+      <div data-in hidden>
+        <p>You're signed in as <strong data-who></strong>.</p>
+        <p><a class="btn" href="/profile">Go to My account</a> <button type="button" class="btn btn--ghost" data-signout>Sign out</button></p>
+      </div>
+      <form class="form" data-start novalidate>
+        <div class="field"><label for="ac-email">Email</label><input id="ac-email" name="email" type="email" autocomplete="email" required /></div>
+        <div data-new hidden>
+          <p class="acct__new">Welcome! Tell us your name to create your free account.</p>
+          <div class="form__row">
+            <div class="field"><label for="ac-first">First name</label><input id="ac-first" name="firstName" autocomplete="given-name" /></div>
+            <div class="field"><label for="ac-last">Last name</label><input id="ac-last" name="lastName" autocomplete="family-name" /></div>
+          </div>
+          <div class="field"><label for="ac-phone">Phone (optional)</label><input id="ac-phone" name="phone" type="tel" autocomplete="tel" /></div>
+        </div>
+        <button class="btn" type="submit">Email me a sign-in link</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+      <p class="acct__help">Trouble signing in? Call or text <a href={site.phoneHref}>{site.phone}</a>.</p>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import { signedIn, signOut, me } from '../scripts/session';
+  const form = document.querySelector<HTMLFormElement>('[data-start]')!;
+  const status = form.querySelector<HTMLElement>('[role="status"]')!;
+  const newBox = form.querySelector<HTMLElement>('[data-new]')!;
+  const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+  if (signedIn()) {
+    const box = document.querySelector<HTMLElement>('[data-in]')!;
+    box.hidden = false; form.hidden = true;
+    box.querySelector('[data-who]')!.textContent = me()?.email ?? '';
+    box.querySelector('[data-signout]')!.addEventListener('click', () => { signOut(); location.reload(); });
+  }
+  const next = new URLSearchParams(location.search).get('next') ?? '/profile';
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const f = Object.fromEntries(new FormData(form)) as Record<string, string>;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(f.email ?? '')) { status.textContent = 'Please enter your email address.'; return; }
+    if (!newBox.hidden && !f.firstName?.trim()) { status.textContent = 'Please enter your first name.'; return; }
+    button.disabled = true; status.textContent = 'Sending…';
+    const r = await fetch('/api/account/start', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ ...f, next }) }).catch(() => null);
+    const a = r ? await r.json().catch(() => ({})) : {};
+    button.disabled = false;
+    if (a.needName) { newBox.hidden = false; status.textContent = ''; (form.elements.namedItem('firstName') as HTMLInputElement).focus(); return; }
+    if (a.created) {
+      // A new account is a lead: tell Follow Up Boss, like the sign-up wall does.
+      fetch('/api/lead', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ form: 'register', hp: '', elapsed: 99999, page: location.pathname, title: document.title,
+        fields: { firstName: f.firstName, lastName: f.lastName ?? '', email: f.email, phone: f.phone ?? '' } }) }).catch(() => {});
+    }
+    if (a.ok && a.sent) { form.innerHTML = `<p class="acct__sent"><strong>Check your email.</strong> We sent a sign-in link to ${f.email.replace(/[<>&"]/g, '')}. It works for 30 minutes. Not there? Check your spam folder.</p>`; return; }
+    status.textContent = a.error === 'email-not-set-up' ? 'Email sign-in isn’t switched on yet. Please call or text us and we’ll help.'
+      : a.error && !['mls-error', 'email-failed', 'not-configured'].includes(a.error) ? a.error : 'Sorry, that didn’t work. Please try again in a minute.';
+  });
+</script>
+
+<style>
+  .acct { max-width: 32rem; }
+  .acct__new { margin: .5rem 0 0; font-weight: 600; }
+  .acct__sent { padding: 1rem 1.25rem; border: 1px solid var(--line); background: var(--paper); }
+  .acct__help { margin-top: 1.5rem; color: var(--text-soft); }
+</style>

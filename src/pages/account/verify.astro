@@ -1,0 +1,21 @@
+---
+// The link in the sign-in email: trades it for a session (netlify/functions/account.mjs), then goes to My account.
+import Base from '../../layouts/Base.astro';
+import { site } from '../../data/site';
+---
+<Base title={`Signing in | ${site.name}`} description="Signing you in." noindex>
+  <section class="section"><div class="wrap prose" data-msg><p>Signing you in…</p></div></section>
+</Base>
+
+<script>
+  import { signIn } from '../../scripts/session';
+  const q = new URLSearchParams(location.search);
+  const next = /^\/[a-z0-9/_-]*$/i.test(q.get('next') ?? '') ? q.get('next')! : '/profile';
+  const box = document.querySelector('[data-msg]')!;
+  fetch('/api/account/verify', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ t: q.get('t') ?? '' }) })
+    .then((r) => r.json()).catch(() => ({}))
+    .then((a: any) => {
+      if (a.ok && a.session) { signIn(a.session, a.me); location.replace(next); return; }
+      box.innerHTML = '<h1>This sign-in link has expired</h1><p>Links work for 30 minutes. <a class="btn" href="/account">Send a new link</a></p>';
+    });
+</script>

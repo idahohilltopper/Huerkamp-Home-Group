@@ -18,11 +18,12 @@ import { join } from 'node:path';
 import { API } from '../../src/lib/repliers.mjs';
 import { toSavedSearch, toSiteQuery, describeSaved, FREQUENCIES } from '../../src/lib/alerts.mjs';
 import { INDEX_FILE } from '../../src/lib/search-index.mjs';
+import { verify, secretFrom, isSessionToken } from '../../src/lib/session.mjs';
 
 const env = (k) => (globalThis.Netlify?.env?.get(k) ?? process.env[k] ?? '').trim();
 const ALLOWED = /^https:\/\/((www\.)?huerkamphomegroup\.com|(www\.)?huerkamphomes\.com|[a-z0-9-]+(--[a-z0-9-]+)?\.netlify\.app)$|^http:\/\/localhost(:\d+)?$/;
 // Repliers requires all six fields to create an agent (phone: 11 digits with the country code).
-const TEAM = { fname: 'Huerkamp', lname: 'Home Group', email: 'leads@hhgus.com', phone: '16128439620', brokerage: 'Keller Williams Preferred Realty', designation: 'Realtor' };
+export const TEAM = { fname: 'Huerkamp', lname: 'Home Group', email: 'leads@hhgus.com', phone: '16128439620', brokerage: 'Keller Williams Preferred Realty', designation: 'Realtor' };
 const BOARD_ID = 187; // NorthstarMLS at Repliers
 const json = (status, body) => new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } });
 const clean = (v, n = 200) => String(v ?? '').replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, n);
@@ -40,7 +41,7 @@ export async function rq(key, method, path, { params, body } = {}, fetcher = fet
   return { status: res.status, ok: res.ok, data, error: res.ok ? null : text.slice(0, 300) };
 }
 
-async function agentId(key, f) {
+export async function agentId(key, f) {
   const set = Number(env('REPLIERS_AGENT_ID'));
   if (set) return set;
   const r = await rq(key, 'GET', '/agents', {}, f);
@@ -52,7 +53,7 @@ async function agentId(key, f) {
   return made.data?.agentId ?? null;
 }
 
-async function clientFor(key, f, { email, firstName, lastName, phone }, agent) {
+export async function clientFor(key, f, { email, firstName, lastName, phone }, agent) {
   const found = list((await rq(key, 'GET', '/clients', { params: { email } }, f)).data, 'clients').find((c) => String(c.email ?? '').toLowerCase() === email.toLowerCase());
   if (found?.clientId) {
     // Someone who unsubscribed and now saves a new search wants emails again.
@@ -70,6 +71,9 @@ async function clientFor(key, f, { email, firstName, lastName, phone }, agent) {
 
 /** The client a message token belongs to, or null. */
 async function clientOfToken(key, f, token) {
+  // Signed in on this site (src/lib/session.mjs): the session names the client.
+  if (isSessionToken(token)) return verify('session', token, secretFrom(env))?.c ?? null;
+  // Or the token from a Repliers alert email link.
   if (!/^[0-9a-f-]{20,64}$/i.test(token ?? '')) return null;
   const r = await rq(key, 'GET', '/messages', { params: { token } }, f);
   const m = list(r.data, 'messages').find((x) => !x.token || x.token === token) ?? null;
