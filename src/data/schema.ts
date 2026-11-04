@@ -2,6 +2,7 @@
 // so search engines and AI assistants always see the same name, address, phone and logo.
 import { site } from './site';
 import reviewData from './reviews.json';
+import communityData from './communities.json';
 
 export const origin = 'https://www.huerkamphomes.com';
 
@@ -16,9 +17,9 @@ export const business = {
   email: site.email,
   address: { '@type': 'PostalAddress', streetAddress: site.street, addressLocality: 'Burnsville', addressRegion: 'MN', postalCode: '55306', addressCountry: 'US' },
   hasMap: site.mapsUrl,
+  // Every city that has a community guide on this site (same list as /communities), then the metro as a whole.
   areaServed: [
-    { '@type': 'City', name: 'Minneapolis' },
-    { '@type': 'City', name: 'Saint Paul' },
+    ...communityData.communities.map((c) => ({ '@type': 'City', name: c.name, containedInPlace: { '@type': 'State', name: 'Minnesota' } })),
     { '@type': 'AdministrativeArea', name: 'Twin Cities metropolitan area' },
   ],
   foundingDate: '2002',
