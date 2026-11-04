@@ -324,7 +324,7 @@ const isExternal = (href: string) => href.startsWith('http');
             const a = r ? await r.json().catch(() => ({})) : {};
             if (status) status.textContent = a.ok
               ? `You're all set! We'll email new homes that match to ${fields.email}${fields.alertFrequency === 'instant' ? ' as soon as they’re listed' : fields.alertFrequency === 'weekly' ? ' once a week' : ' once a day'}. Every email has a link to change or stop your alerts.`
-              : `Thank you! An agent got your search${a.error && a.error !== 'mls-error' && a.error !== 'not-configured' ? `, but the automatic emails couldn't be set up: ${a.error}` : ' and will set up your alerts'}.`;
+              : `Thank you! An agent got your search, but the automatic emails couldn't be set up${a.error && a.error !== 'mls-error' && a.error !== 'not-configured' ? `: ${a.error}` : ' right now (the listing service didn’t accept it). An agent will set them up for you'}.`;
           }
           // GA4's recommended lead event; mark it as a key event in Google Analytics (Admin > Events) to count leads.
           (window as any).gtag?.('event', 'generate_lead', { form_name: form.dataset.lead, page_path: location.pathname });
