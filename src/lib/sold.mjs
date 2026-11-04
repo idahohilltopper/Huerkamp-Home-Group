@@ -2,7 +2,8 @@
 // and cached for a day by /api/sold (netlify/functions/sold.mjs). Kept apart from the function so the rules can be
 // tested without calling Repliers. The rules, all enforced here:
 //   - only homes reported Sold (or Comp Sold), never expired, cancelled or temporarily-not-available listings;
-//   - nothing sold more than 3 years ago (MAX_MONTHS);
+//   - nothing sold more than 2 years ago (MAX_MONTHS). NorthstarMLS allows 3 years, but our Repliers feed has 2 years of
+//     sold data without the Archived Data add-on (Repliers, 2026-11-04); raise to 36 only if that add-on is bought;
 //   - never a home whose seller chose "Advertising: No"; no address (and no map point, which would give it away)
 //     for one that chose "Display Address: No";
 //   - only the fields NorthstarMLS lists for sold listings (Attachment A). Notably NOT square feet, list price,
@@ -15,7 +16,7 @@ import { CDN } from './repliers.mjs';
 import cities from '../data/ylopo-cities.json' with { type: 'json' };
 import team from '../data/team.json' with { type: 'json' };
 
-export const MAX_MONTHS = 36;
+export const MAX_MONTHS = 24;
 export const DEFAULT_MONTHS = 6;
 export const PAGE = 24;
 export const MAX_PINS = 300;
