@@ -21,7 +21,9 @@ import { INDEX_FILE } from '../../src/lib/search-index.mjs';
 
 const env = (k) => (globalThis.Netlify?.env?.get(k) ?? process.env[k] ?? '').trim();
 const ALLOWED = /^https:\/\/((www\.)?huerkamphomegroup\.com|(www\.)?huerkamphomes\.com|[a-z0-9-]+(--[a-z0-9-]+)?\.netlify\.app)$|^http:\/\/localhost(:\d+)?$/;
-const TEAM = { fname: 'Huerkamp', lname: 'Home Group', email: 'leads@hhgus.com', phone: '16128439620' };
+// Repliers requires all six fields to create an agent (phone: 11 digits with the country code).
+const TEAM = { fname: 'Huerkamp', lname: 'Home Group', email: 'leads@hhgus.com', phone: '16128439620', brokerage: 'Keller Williams Preferred Realty', designation: 'Realtor' };
+const BOARD_ID = 187; // NorthstarMLS at Repliers
 const json = (status, body) => new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } });
 const clean = (v, n = 200) => String(v ?? '').replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, n);
 const isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
@@ -45,7 +47,8 @@ async function agentId(key, f) {
   const agents = list(r.data, 'agents');
   const team = agents.find((a) => String(a.email ?? '').toLowerCase() === TEAM.email) ?? agents[0];
   if (team?.agentId) return team.agentId;
-  const made = await rq(key, 'POST', '/agents', { body: { ...TEAM, status: true } }, f);
+  const made = await rq(key, 'POST', '/agents', { body: { ...TEAM } }, f);
+  if (!made.data?.agentId) console.error('Repliers agent create', made.status, made.error);
   return made.data?.agentId ?? null;
 }
 
@@ -60,7 +63,9 @@ async function clientFor(key, f, { email, firstName, lastName, phone }, agent) {
   const p = phone11(phone); if (p) body.phone = p;
   let made = await rq(key, 'POST', '/clients', { body }, f);
   if (!made.ok && body.phone) { delete body.phone; made = await rq(key, 'POST', '/clients', { body }, f); } // phone already used elsewhere
-  return made.data?.clientId ?? made.data?.client?.clientId ?? null;
+  const id = made.data?.clientId ?? made.data?.client?.clientId ?? null;
+  if (!id) console.error('Repliers client create', made.status, made.error);
+  return id;
 }
 
 /** The client a message token belongs to, or null. */
@@ -165,7 +170,7 @@ export default async (req, _ctx, f = fetch) => {
       const agent = await agentId(key, f);
       const clientId = agent ? await clientFor(key, f, person, agent) : null;
       if (!clientId) return json(502, { ok: false, error: 'mls-error' });
-      const r = await rq(key, 'POST', '/favorites', { body: { clientId, mlsNumber: mls } }, f);
+      const r = await rq(key, 'POST', '/favorites', { body: { clientId, mlsNumber: mls, boardId: BOARD_ID } }, f);
       if (!r.ok && r.status !== 403) { console.error('Repliers favorite', r.status, r.error); return json(502, { ok: false, error: 'mls-error' }); } // 403 = already saved
       return json(200, { ok: true });
     }
