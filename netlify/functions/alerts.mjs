@@ -128,16 +128,25 @@ export default async (req, _ctx, f = fetch) => {
             const raw = (await rq(key, 'GET', '/searches', { params: { clientId: c.clientId } }, f));
             client.rawSearches = { status: raw.status, count: list(raw.data, 'searches').length, sample: JSON.stringify(list(raw.data, 'searches')[0] ?? raw.data ?? null).slice(0, 400) };
             if (url.searchParams.get('trysave') === '1') {
-              // Save a small sample search exactly as the site does, report Repliers' answer, then delete it.
-              const built = toSavedSearch({ place: 'burnsville', min: '350000', max: '500000', beds: '3' }, { clientId: c.clientId, agentId: c.agentId, frequency: 'daily', name: 'Test (deleted right away)' });
-              if (built.error) client.trial = { status: 0, error: built.error };
-              else {
-                const t = await rq(key, 'POST', '/searches', { body: built.body }, f);
+              // Save sample searches the way the site does (plus variants), report Repliers' answer to each, then delete them.
+              const make = (q, edit = (b) => b) => { const built = toSavedSearch(q, { clientId: c.clientId, agentId: c.agentId, frequency: 'daily', name: 'Test (deleted right away)' }); return built.error ? { error: built.error } : { body: edit(structuredClone(built.body)) }; };
+              const variants = [
+                ['Burnsville, $350K–$500K, 3+ beds', make({ place: 'burnsville', min: '350000', max: '500000', beds: '3' })],
+                ['Afton, any price (as the site saves it)', make({ place: 'afton' })],
+                ['Afton, any price, no price fields sent', make({ place: 'afton' }, (b) => { delete b.minPrice; delete b.maxPrice; return b; })],
+                ['Afton, any price as $1 to $99,999,999', make({ place: 'afton' }, (b) => ({ ...b, minPrice: 1, maxPrice: 99_999_999 }))],
+                ['New Prague, $1 to $99,999,999 (outline in 2 pieces, as the site sends it)', make({ place: 'new-prague' }, (b) => ({ ...b, minPrice: 1, maxPrice: 99_999_999 }))],
+                ['New Prague, $1 to $99,999,999, each piece its own shape', make({ place: 'new-prague' }, (b) => ({ ...b, minPrice: 1, maxPrice: 99_999_999, map: b.map.map((ring) => [ring]) }))],
+              ];
+              client.trials = [];
+              for (const [label, v] of variants) {
+                if (v.error) { client.trials.push({ label, status: 0, error: v.error }); continue; }
+                const t = await rq(key, 'POST', '/searches', { body: v.body }, f);
                 const id = t.data?.searchId;
                 if (id) await rq(key, 'DELETE', `/searches/${id}`, {}, f);
-                const sent = { ...built.body, map: `${JSON.stringify(built.body.map).slice(0, 80)}…` };
-                client.trial = { status: t.status, ok: t.ok, searchId: id ?? null, deleted: !!id, error: t.error, sent };
+                client.trials.push({ label, status: t.status, ok: t.ok, searchId: id ?? null, error: t.error });
               }
+              client.trial = client.trials[0];
             }
           }
         }

@@ -234,7 +234,7 @@ const dateText = (d: string) => new Date(d + 'T12:00:00').toLocaleDateString('en
         ${c ? `<tr><th scope="row">${ok(c.agentId === d.siteAgent)} Client's agent</th><td>agentId ${esc(c.agentId)}${c.agentId === d.siteAgent ? ' (matches)' : ' (doesn\'t match the site\'s agent)'}</td></tr>
         <tr><th scope="row">${ok(c.searches.length > 0)} Saved searches</th><td>${c.searches.length ? c.searches.map((x: any) => `${esc(x.summary)} (${esc(x.frequency)}, searchId ${esc(x.searchId)})`).join('<br>') : 'None'}</td></tr>
         <tr><th scope="row">Saved searches as Repliers returns them</th><td>${esc(c.rawSearches?.status)} · ${esc(c.rawSearches?.count)} found${c.rawSearches?.count ? ` · ${esc(c.rawSearches.sample)}` : ''}</td></tr>
-        ${c.trial ? `<tr><th scope="row">${ok(!!c.trial.ok)} Test save (Burnsville, $350K–$500K, 3+ beds)</th><td>${c.trial.ok ? `Saved (searchId ${esc(c.trial.searchId)}) and deleted again: saving searches works.` : `Repliers answered ${esc(c.trial.status)}: ${esc(c.trial.error)}`}<br><small>Sent: ${esc(JSON.stringify(c.trial.sent ?? {}))}</small></td></tr>` : ''}
+        ${(c.trials ?? []).map((t: any) => `<tr><th scope="row">${ok(!!t.ok)} Test save: ${esc(t.label)}</th><td>${t.ok ? `Saved (searchId ${esc(t.searchId)}) and deleted again.` : `Repliers answered ${esc(t.status)}: ${esc(t.error)}`}</td></tr>`).join('')}
         <tr><th scope="row">${ok(c.favorites.length > 0)} Saved homes</th><td>${c.favorites.length ? c.favorites.map((x: any) => `MLS# ${esc(x.mls)} (board ${esc(x.boardId)})`).join('<br>') : 'None'}</td></tr>` : ''}
       </tbody></table>
       <p class="source">Live from Repliers, ${new Date().toLocaleString('en-US')}.${d.fromEnv ? ' The agent is set by REPLIERS_AGENT_ID in Netlify.' : ''}</p>`;
