@@ -76,6 +76,9 @@ export function soldQuery(sp, now = new Date()) {
   const agent = text(sp.get('agent')).toLowerCase();
   if (AGENT[agent]) q.agentName = AGENT[agent];
   else if (agent) q.unsupported = agent;
+  // One home by MLS number (the sold alert email's "View sold price" link, src/pages/listings/property.astro).
+  const mls = text(sp.get('mls'));
+  if (/^[A-Za-z0-9-]{1,20}$/.test(mls)) q.mls = mls;
   for (const k of ['min', 'max']) { const v = int(sp.get(k), 0, 100_000_000); if (v) q[k] = v; }
   for (const k of ['beds', 'baths']) { const v = int(sp.get(k), 1, 10); if (v) q[k] = v; }
   const b = text(sp.get('bbox')).split(',').map(Number);
@@ -88,6 +91,7 @@ export function soldQuery(sp, now = new Date()) {
 /** Repliers parameters (and map shape) for a sold query. */
 export function repliersParams(q, { pageSize = PAGE, page = q.page, fields = FIELDS } = {}) {
   const p = { status: 'U', lastStatus: 'Sld', type: 'Sale', minSoldDate: q.since, sortBy: 'soldDateDesc', resultsPerPage: pageSize, pageNum: page, fields };
+  if (q.mls) p.mlsNumber = q.mls;
   if (q.city) p.city = q.city;
   if (q.zip) p.zip = q.zip;
   if (q.agentName) p.agent = q.agentName;

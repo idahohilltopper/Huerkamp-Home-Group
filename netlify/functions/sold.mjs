@@ -1,4 +1,4 @@
-// /api/sold?place=burnsville&months=6&min=300000&beds=3&bbox=...&page=2&pins=1
+// /api/sold?mls=6512345 (one home) or /api/sold?place=burnsville&months=6&min=300000&beds=3&bbox=...&page=2&pins=1
 // Recently sold homes, asked of Repliers (NorthstarMLS) when someone looks; each answer is cached a day, since sales
 // don't change by the hour. The NorthstarMLS sold-content rules are applied in src/lib/sold.mjs. Like every listing
 // display: only while MLS_PUBLIC is "yes" or "preview", and only after the visitor clicked I AGREE this visit.
@@ -7,7 +7,7 @@ import { repliers } from '../../src/lib/repliers.mjs';
 import { soldCard, thumbnail, soldQuery, repliersParams, PAGE, MAX_PINS, SOLD_DISCLAIMER } from '../../src/lib/sold.mjs';
 
 const env = (k) => (globalThis.Netlify?.env?.get(k) ?? process.env[k] ?? '').trim();
-const VARY = 'query=place|agent|months|min|max|beds|baths|bbox|page|pins,header=x-idx-eula';
+const VARY = 'query=mls|place|agent|months|min|max|beds|baths|bbox|page|pins,header=x-idx-eula';
 const json = (status, body, cache = false) => new Response(JSON.stringify(body), {
   status,
   headers: {

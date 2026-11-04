@@ -1,24 +1,61 @@
 ---
-// "View listing" link in alert emails: /listings/property?mlsNumber=&boardId=&searchId=&matchId=&email=
-// Goes to the home's page on this site; if it's no longer for sale, says so and offers the saved search.
+// "View listing" / "View sold price" link in alert emails: /listings/property?mlsNumber=&boardId=&searchId=&matchId=&email=
+// Goes to the home's page on this site. A home that sold (the sold alert) shows its sale here, under the NorthstarMLS
+// sold-content rules applied by /api/sold (src/lib/sold.mjs); anything else says it's no longer for sale and offers
+// the saved search.
 import Base from '../../layouts/Base.astro';
 import { SEARCH_PATH } from '../../data/search';
 import { site } from '../../data/site';
+import { BR_THUMB } from '../../data/mls-logos';
+import { SOLD_DISCLAIMER } from '../../lib/sold.mjs';
 ---
 <Base title={`Home from your alert | ${site.name}`} description="Opening the home from your alert email." noindex>
-  <section class="section"><div class="wrap prose" data-msg><p>Opening the home…</p></div></section>
+  <section class="section"><div class="wrap prose" data-msg data-idx><p>Opening the home…</p></div></section>
 </Base>
-<script define:vars={{ SEARCH_PATH, phone: site.phone, phoneHref: site.phoneHref }}>window.__alert = { SEARCH_PATH, phone, phoneHref };</script>
+<script define:vars={{ SEARCH_PATH, phone: site.phone, phoneHref: site.phoneHref, brThumb: BR_THUMB ?? '', disclaimer: SOLD_DISCLAIMER }}>window.__alert = { SEARCH_PATH, phone, phoneHref, brThumb, disclaimer };</script>
 <script>
   import { params, token, api, say } from '../../scripts/alert-links';
-  const { SEARCH_PATH, phone, phoneHref } = (window as any).__alert;
+  import { soldOn, type Sold } from '../../scripts/sold-card';
+  const { SEARCH_PATH, phone, phoneHref, brThumb, disclaimer } = (window as any).__alert;
   const mls = (params.get('mlsNumber') ?? '').replace(/[^A-Za-z0-9-]/g, '');
   const id = params.get('searchId');
+  const box = document.querySelector('[data-msg]');
+  const back = id ? `/listings?searchId=${encodeURIComponent(id)}` : SEARCH_PATH;
+  const esc = (s: unknown) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
+  const buttons = `<p><a class="btn" href="${back}">See my saved search</a> <a class="btn btn--ghost" href="${SEARCH_PATH}">Search all homes</a></p>`
+    + `<p>Questions about this home, or what yours might sell for? Call or text <a href="${phoneHref}">${phone}</a>.</p>`;
+  const gone = () => say(box, `<h1>This home is no longer for sale</h1><p>MLS #${mls || '?'} has gone under contract, sold or left the market since your alert went out. Homes move fast, so here are the latest matches.</p>${buttons}`);
+
+  // Sold homes: only after I AGREE (like every listing display), and only what /api/sold allows for that home.
+  const sold = async () => {
+    const r = await fetch(`/api/sold?mls=${encodeURIComponent(mls)}`, { headers: { 'x-idx-eula': 'agreed' } }).catch(() => null);
+    const a = r?.ok ? await r.json().catch(() => null) : null;
+    const l: Sold | undefined = a?.ok ? a.results?.[0] : undefined;
+    if (!l || l.mls !== mls) return gone();
+    const addr = l.addressHidden || !l.street ? `${l.city}, MN ${l.zip}` : `${l.street}, ${l.city}, MN ${l.zip}`;
+    const price = l.soldPrice ? `$${l.soldPrice.toLocaleString('en-US')}` : 'Price not disclosed';
+    say(box, `<h1>Sold: ${esc(addr)}</h1>`
+      + `<div class="soldone">${l.photo ? `<img src="${esc(l.photo)}?class=medium" alt="${esc(addr)}" width="640" height="427" />` : ''}`
+      + `<div><p class="soldone__price">${esc(price)}</p><p>Sold ${esc(soldOn(l.soldDate))} · MLS# ${esc(l.mls)}</p>`
+      + `<p class="soldone__office">${!l.ownBrokerage && brThumb ? `<img src="${esc(brThumb)}" alt="Broker Reciprocity listing" height="18" /> ` : ''}Listing courtesy of ${esc(l.office)}</p></div></div>`
+      + `<p class="soldone__note">${esc(disclaimer)}</p>${buttons}`);
+  };
+
   token();
   api(`listing?mls=${encodeURIComponent(mls)}`).then((a) => {
     if (a.ok && a.slug) return location.replace(`/homes/${encodeURIComponent(a.slug)}`);
-    const back = id ? `/listings?searchId=${encodeURIComponent(id)}` : SEARCH_PATH;
-    say(document.querySelector('[data-msg]'), `<h1>This home is no longer for sale</h1><p>MLS #${mls || '?'} has gone under contract, sold or left the market since your alert went out. Homes move fast, so here are the latest matches.</p>`
-      + `<p><a class="btn" href="${back}">See my saved search</a> <a class="btn btn--ghost" href="${SEARCH_PATH}">Search all homes</a></p><p>Questions about this home? Call or text <a href="${phoneHref}">${phone}</a>.</p>`);
+    if (!mls) return gone();
+    if (document.documentElement.classList.contains('idx-ok')) sold();
+    else window.addEventListener('idx-agreed', sold, { once: true });
   });
 </script>
+
+<style>
+  :global(.soldone) { display: grid; gap: 1rem 1.5rem; margin: 1rem 0 1.25rem; }
+  @media (min-width: 720px) { :global(.soldone) { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: start; } }
+  :global(.soldone img[width="640"]) { width: 100%; height: auto; border-radius: 8px; }
+  :global(.soldone p) { margin: 0 0 .4rem; }
+  :global(.soldone__price) { font: 700 2rem/1.2 var(--ui); }
+  :global(.soldone__office) { display: flex; align-items: center; gap: .4rem; color: var(--text-soft); }
+  :global(.soldone__note) { font-size: .95rem; color: var(--text-soft); }
+</style>

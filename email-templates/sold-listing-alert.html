@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Homes that just sold in your search</title>
+<style>
+  .listing { width: 49%; display: inline-block; vertical-align: top; margin: 0 auto; }
+  @media screen and (max-width: 800px) { .listing { width: 94% !important; display: block !important; margin: 0 auto !important; } }
+  @media screen and (max-width: 400px) { .address { font-size: 16px !important; } .price { font-size: 18px !important; } }
+</style>
+</head>
+<!--
+  Huerkamp Home Group: sold listing alert (Repliers template).
+  Sold homes (NorthstarMLS sold-content rules): the email shows no price; "See the sold price" opens
+  /listings/property on our site, which shows only what the rules allow. The not-an-appraisal sentence is required.
+  Every double- and triple-brace tag is Repliers' and must stay exactly as written.
+
+  NorthstarMLS Rule 12.3(f): a summary of another brokerage's listing may show only the address, price, MLS number,
+  photo, listing brokerage and the Broker Reciprocity logo. That's why this version has no beds/baths/sqft or
+  neighbourhood (the Repliers default did). The "Listing courtesy of" line is waiting on Repliers to confirm the tag
+  for the listing brokerage name; see BROKERAGE below. Alerts must not go live until it's filled in.
+-->
+<body style="margin: 0; padding: 0; background: #f2ebe3;">
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background: #f2ebe3;">
+    <tr>
+      <td align="center" style="padding: 0;">
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 680px; margin: 0 auto; background: #ffffff;">
+
+          <!-- Header: logo on our dark ink, red rule underneath -->
+          <tr>
+            <td align="center" style="background: #1b1819; padding: 22px 20px; border-bottom: 4px solid #d40000;">
+              <a href="https://www.huerkamphomes.com" target="_blank" style="text-decoration: none;"><img src="https://www.huerkamphomes.com/brand/hhg-logo-reverse.png" width="165" height="80" alt="Huerkamp Home Group" style="display: block; border: 0; width: 165px; height: auto;"></a>
+            </td>
+          </tr>
+
+          <!-- Greeting -->
+          <tr>
+            <td style="padding: 28px 28px 22px; font-family: Arial, Helvetica, sans-serif; font-size: 17px; line-height: 26px; color: #1b1819; border-bottom: 1px solid #e6dfd6;">
+              {{if agentAvatar}}
+              <div style="display: inline-block; vertical-align: top; margin-right: 12px;"><img height="50" src="{{{agentAvatar}}}" alt="" style="border-radius: 50%;"></div>
+              {{end}}
+              <div style="display: inline-block;">
+                <p style="margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: 21px; color: #1b1819;">{{fromName}}</p>
+                <p style="margin: 0 0 12px 0; font-size: 14px; color: #5e5856;">{{datetime}}</p>
+              </div>
+              <p style="margin: 0 0 14px 0;">Hi{{to.firstname}},</p>
+              <p style="margin: 0 0 14px 0;">{{if #listings > 1}}These homes in your search just sold{{else}}A home in your search just sold{{end}}: <a href="{{{search_url}}}" target="_blank" style="color: #d40000; font-weight: bold;">{{{ search }}}</a>.</p>
+              <p style="margin: 0; font-size: 14px; color: #5e5856;">Curious what your home would sell for? Just reply to this email or call <a href="tel:+16128439620" style="color: #1b1819; font-weight: bold; text-decoration: none;">(612) 843-9620</a>.</p>
+            </td>
+          </tr>
+
+          <!-- Listings -->
+          <tr>
+            <td style="background: #faf7f3; padding: 26px 2%;">
+              {{each listings}}
+              <div class="listing">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="92%" style="margin: 0 4% 26px; font-family: Arial, Helvetica, sans-serif; text-align: left; background: #ffffff; border: 1px solid #e6dfd6; border-radius: 10px;">
+                  <tr>
+                    <td style="padding: 0; text-align: center;">
+                      <a href="{{{loop_var.url}}}" target="_blank"><img src="{{loop_var.image}}" alt="{{loop_var.address}}" style="display: block; width: 100%; max-width: 100%; height: auto; max-height: 240px; object-fit: cover; border: 0; border-radius: 10px 10px 0 0;"></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 14px 16px 16px;">
+                      <p style="margin: 0 0 4px 0; font-size: 13px; line-height: 18px; font-weight: bold; letter-spacing: .06em; text-transform: uppercase; color: #d40000;">Just sold</p>
+                      <p class="address" style="margin: 0 0 6px 0; font-size: 17px; line-height: 23px; color: #1b1819;">{{loop_var.address}}</p>
+                      <p style="margin: 0 0 4px 0; font-size: 13px; line-height: 18px; color: #5e5856;">MLS# {{loop_var.mlsnumber}}</p>
+                      <!-- BROKERAGE: replace this comment with the line below once Repliers confirms the tag name:
+                      <p style="margin: 0 0 12px 0; font-size: 13px; line-height: 18px; color: #5e5856;"><img src="https://www.huerkamphomes.com/mls/br-logo.jpg" width="83" height="18" alt="Broker Reciprocity" style="vertical-align: middle; border: 0;"> Listing courtesy of [BROKERAGE TAG]</p>
+                      -->
+                      <a href="{{{loop_var.url}}}" target="_blank" style="display: block; margin-top: 12px; padding: 12px 0; background: #d40000; border-radius: 6px; color: #ffffff; font-size: 17px; font-weight: bold; text-align: center; text-decoration: none;">See the sold price</a>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              {{end}}
+
+              {{if editSearch}}
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                  <td style="padding: 6px 20px 4px; font-family: Arial, Helvetica, sans-serif; text-align: center; color: #1b1819;">
+                    <p style="margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: 22px; line-height: 28px;">Not quite right?</p>
+                    <a href="{{{adjust_search_url}}}" target="_blank" style="display: block; width: 80%; margin: 14px auto 8px; padding: 11px 0; border: 2px solid #d40000; border-radius: 6px; color: #d40000; font-size: 17px; font-weight: bold; text-decoration: none;">Adjust your search</a>
+                  </td>
+                </tr>
+              </table>
+              {{end}}
+            </td>
+          </tr>
+
+          <!-- NorthstarMLS disclosures (wording from src/data/mls.ts; the Rule 12.3(i) disclaimer is exact) -->
+          <tr>
+            <td style="padding: 22px 28px; font-family: Arial, Helvetica, sans-serif; font-size: 13px; line-height: 19px; color: #3d3836; border-top: 1px solid #e6dfd6;">
+              <p style="margin: 0 0 10px 0; font-size: 17px; line-height: 23px; color: #1b1819;">Keller Williams Preferred Realty is not a Multiple Listing Service (MLS), nor does it offer MLS access. This website is a service of Keller Williams Preferred Realty, a broker Participant of the Regional Multiple Listing Service of Minnesota, Inc. Information Deemed Reliable But Not Guaranteed.</p>
+              <p style="margin: 0 0 10px 0;"><img src="https://www.huerkamphomes.com/mls/br-logo.jpg" width="162" height="35" alt="Broker Reciprocity" style="float: left; margin: 2px 10px 4px 0; border: 0;">The data relating to real estate for sale on this web site comes in part from the Broker Reciprocity&#8480; Program of the Regional Multiple Listing Service of Minnesota, Inc. Real estate listings held by brokerage firms other than Keller Williams Preferred Realty are marked with the Broker Reciprocity&#8480; logo or the Broker Reciprocity&#8480; thumbnail logo (little black house) and detailed information about them includes the name of the listing brokers.</p>
+              <p style="margin: 0 0 10px 0;">Some properties which appear for sale on this web site may subsequently have sold and may no longer be available.</p>
+              <p style="margin: 0; font-size: 15px; line-height: 21px; color: #1b1819;">This home sale information is not an appraisal, competitive or comparative market analysis, CMA or home valuation.</p>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td align="center" style="background: #1b1819; padding: 22px 20px; font-family: Arial, Helvetica, sans-serif; font-size: 13px; line-height: 20px; color: #cfc8c2;">
+              <p style="margin: 0 0 4px 0; color: #ffffff; font-weight: bold;">Huerkamp Home Group &middot; Keller Williams Preferred Realty</p>
+              <p style="margin: 0 0 4px 0;">14300 Nicollet Ct, Ste 208, Burnsville, MN 55306 &middot; <a href="tel:+16128439620" style="color: #cfc8c2; text-decoration: none;">(612) 843-9620</a></p>
+              <p style="margin: 0 0 12px 0;"><a href="https://www.huerkamphomes.com" target="_blank" style="color: #ffffff;">www.huerkamphomes.com</a></p>
+              <p style="margin: 0;"><a href="{{{ unsubscribe_url }}}" style="color: #cfc8c2; padding: 0 8px;">Unsubscribe</a>|<a href="{{{ settings_url }}}" style="color: #cfc8c2; padding: 0 8px;">Profile &amp; settings</a></p>
+              {{if showPoweredBy}}
+              <p style="margin: 10px 0 0 0; color: #8d8682;">Powered by <a href="https://repliers.io/?utm_source=Repliers&amp;utm_campaign={{account.username}}&amp;utm_medium=email&amp;utm_content=footer" style="color: #8d8682;">Repliers</a></p>
+              {{end}}
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
