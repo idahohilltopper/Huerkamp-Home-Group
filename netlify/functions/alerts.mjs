@@ -139,12 +139,16 @@ export default async (req, _ctx, f = fetch) => {
                 ['New Prague, $1 to $99,999,999, each piece its own shape', make({ place: 'new-prague' }, (b) => ({ ...b, minPrice: 1, maxPrice: 99_999_999, map: b.map.map((ring) => [ring]) }))],
               ];
               client.trials = [];
+              // Repliers hands back an existing saved search when the criteria match one (the name doesn't count), so a
+              // test must never delete a search the client already had: list them first and only delete new ones.
+              const before = new Set(list(raw.data, 'searches').map((x) => String(x.searchId)));
               for (const [label, v] of variants) {
                 if (v.error) { client.trials.push({ label, status: 0, error: v.error }); continue; }
                 const t = await rq(key, 'POST', '/searches', { body: v.body }, f);
                 const id = t.data?.searchId;
-                if (id) await rq(key, 'DELETE', `/searches/${id}`, {}, f);
-                client.trials.push({ label, status: t.status, ok: t.ok, searchId: id ?? null, error: t.error });
+                const theirs = id != null && before.has(String(id));
+                if (id != null && !theirs) { await rq(key, 'DELETE', `/searches/${id}`, {}, f); before.add(String(id)); }
+                client.trials.push({ label, status: t.status, ok: t.ok, searchId: id ?? null, kept: theirs, error: t.error });
               }
               client.trial = client.trials[0];
             }
