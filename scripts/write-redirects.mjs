@@ -17,7 +17,8 @@ const bare = [];
 // Old Luxury Presence addresses (built by scripts/build-lp-redirects.py) now arrive on the new site itself, so these
 // are plain paths and NOT forced: a rule only applies when no new page has that address.
 const lp = JSON.parse(readFileSync('redirects-lp.json', 'utf8'));
-const lpRules = lp.filter((r) => r.from !== r.to).map((r) => `${r.from.padEnd(70)} ${r.to} 301`);
+// A target under /api/ is a function that answers with the redirect itself (e.g. old listing addresses): a rewrite (200).
+const lpRules = lp.filter((r) => r.from !== r.to).map((r) => `${r.from.padEnd(70)} ${r.to} ${r.to.startsWith('/api/') ? 200 : 301}`);
 
 const netlify = ['# Generated from redirects.json and redirects-lp.json by scripts/write-redirects.mjs.',
   '# Old huerkamphomegroup.com (Squarespace) addresses -> www.huerkamphomes.com']

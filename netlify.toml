@@ -17,5 +17,8 @@
   included_files = [".cache/search-index.json"]
 
 # Saved searches (/api/alerts/*) turn a city or neighborhood into its outline for Repliers.
+[functions.old-property]
+  included_files = [".cache/search-index.json"]
+
 [functions.alerts]
   included_files = ["src/data/geo/communities.geojson", "src/data/geo/neighborhoods.geojson", ".cache/search-index.json"]

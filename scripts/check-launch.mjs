@@ -6,6 +6,7 @@
 // Address lists: tests/old-urls/squarespace.txt (www.huerkamphomegroup.com) and luxury-presence.txt (huerkamphomes.com).
 // The new site lives on www.huerkamphomes.com.
 import { existsSync, readFileSync, statSync } from 'node:fs';
+import { target as oldProperty } from '../netlify/functions/old-property.mjs';
 
 const SITE = 'www.huerkamphomes.com';
 const SEARCH = 'search.huerkamphomegroup.com';
@@ -55,7 +56,9 @@ function resolve(host, path) {
     }
     const splat = match(rule, host, path);
     let to = rule.to.replace(':splat', splat);
-    hops.push(`${rule.status} → ${to}`);
+    // Old listing addresses go through a function that answers with the redirect (netlify/functions/old-property.mjs).
+    if (to.startsWith('/api/old-property/')) to = oldProperty(to.slice('/api/old-property/'.length));
+    hops.push(`${rule.status === 200 ? 301 : rule.status} → ${to}`);
     const u = new URL(to, `https://${host}`);
     host = u.host; path = u.pathname + u.search;
     if (host === SITE && path.split('?')[0] === '/' && hops.length > 1 && hops.at(-2).endsWith(' → /')) break;

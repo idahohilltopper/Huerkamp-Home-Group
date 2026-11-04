@@ -45,7 +45,7 @@
  },
  {
   "from": "/properties/sale",
-  "to": "https://search.huerkamphomegroup.com/search?s[featured]=t"
+  "to": "/home-search?team=1"
  },
  {
   "from": "/properties/sold",
@@ -65,7 +65,7 @@
  },
  {
   "from": "/home-search/listings",
-  "to": "https://search.huerkamphomegroup.com/search"
+  "to": "/home-search"
  },
  {
   "from": "/youtube-form",
@@ -1905,11 +1905,11 @@
  },
  {
   "from": "/properties/*",
-  "to": "https://search.huerkamphomegroup.com/search"
+  "to": "/api/old-property/:splat"
  },
  {
   "from": "/home-search/*",
-  "to": "https://search.huerkamphomegroup.com/search"
+  "to": "/home-search"
  },
  {
   "from": "/neighborhoods/*",

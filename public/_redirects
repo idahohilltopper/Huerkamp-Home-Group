@@ -121,11 +121,11 @@ https://www.huerkamphomegroup.com/*                                    https://w
 /html-sitemap                                                          / 301
 /lakeville                                                             /communities/lakeville 301
 /our-guarantees                                                        /sell 301
-/properties/sale                                                       https://search.huerkamphomegroup.com/search?s[featured]=t 301
+/properties/sale                                                       /home-search?team=1 301
 /properties/sold                                                       /reviews 301
 /testimonials                                                          /reviews 301
 /why-list-with-us                                                      /sell 301
-/home-search/listings                                                  https://search.huerkamphomegroup.com/search 301
+/home-search/listings                                                  /home-search 301
 /webinar                                                               /youtube-form 301
 /webinarsignup                                                         /youtube-form 301
 /webinar-register                                                      /youtube-form 301
@@ -536,8 +536,8 @@ https://www.huerkamphomegroup.com/*                                    https://w
 /blog/buyers-heres-your-guide-to-make-your-homeownership-dream-alive-in-2025-part-1 /blog/2024/12/26/buyers-guide-to-homeownership-in-2025-part-1-2oVY1 301
 /blog/planning-to-sell-this-year-dont-forget-to-factor-in-these-closing-costs /blog/2025/1/17/closing-costs-associated-with-selling-your-home 301
 /agent/*                                                               /team 301
-/properties/*                                                          https://search.huerkamphomegroup.com/search 301
-/home-search/*                                                         https://search.huerkamphomegroup.com/search 301
+/properties/*                                                          /api/old-property/:splat 200
+/home-search/*                                                         /home-search 301
 /neighborhoods/*                                                       /communities 301
 /blog/*                                                                /blog 301
 /sitemap.xml                                                           /sitemap-index.xml 301
