@@ -20,9 +20,11 @@ const css = () => new Promise((resolve) => {
 
 const PLACE_BLUE = '#2f6fd6';
 
-export async function createMap(el: HTMLElement, style: string, brThumb: string, onMoved: () => void) {
+/** `start` (west,south,east,north): open on that area, e.g. the search's map area ("Use my current location"). */
+export async function createMap(el: HTMLElement, style: string, brThumb: string, onMoved: () => void, start?: number[] | null) {
   await css();
-  const map = new maplibregl.Map({ container: el, style, bounds: TWIN_CITIES, fitBoundsOptions: { padding: 30 }, cooperativeGestures: true, attributionControl: { compact: true } });
+  const bounds: [[number, number], [number, number]] = start?.length === 4 && start.every(Number.isFinite) ? [[start[0], start[1]], [start[2], start[3]]] : TWIN_CITIES;
+  const map = new maplibregl.Map({ container: el, style, bounds, fitBoundsOptions: { padding: start ? 0 : 30 }, cooperativeGestures: true, attributionControl: { compact: true } });
   map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
   await new Promise((ok) => map.on('load', ok));
   // The searched place's outline (a town or neighborhood), under the dots: a light wash and a blue line, like the portals.

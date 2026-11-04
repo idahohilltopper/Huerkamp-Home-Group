@@ -75,7 +75,7 @@ const zipHref = searchUrl({ zips: ['00000'] } as any);
         const near = [...places].sort((a, b) => miles(a) - miles(b))[0];
         if (!near || miles(near) > 60) { note.textContent = 'You look to be outside the areas we cover, so here are all Twin Cities homes for sale.'; go(form.dataset.all!); return; }
         if (own) {
-          const d = 0.06; // about 4 miles each way
+          const d = 0.043; // about 3 miles each way (0.043 degrees of latitude; longitude scaled for Minnesota)
           go(`${form.dataset.ownPath}?bbox=${[lng - d * 1.4, lat - d, lng + d * 1.4, lat + d].map((n) => n.toFixed(4)).join(',')}&view=map`);
         } else go(near.h);
       }, () => { note.textContent = 'We couldn’t get your location (it may be turned off for this site). Type a city or ZIP code instead.'; }, { enableHighAccuracy: false, timeout: 10000, maximumAge: 600000 });

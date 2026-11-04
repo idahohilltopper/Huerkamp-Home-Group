@@ -62,6 +62,13 @@ export function initSearch(root: HTMLElement) {
     const one = pl.length === 1 ? pl[0] : '';
     const name = !one ? '' : one.startsWith('zip:') ? `ZIP ${one.slice(4)}` : one.startsWith('hood:') || one.startsWith('lake:') ? (names[one] ?? '') : names[one] ? `${names[one]}, MN` : '';
     h1.textContent = name ? (sold ? `Recently sold homes in ${name}` : `${name} homes for sale`) : sold ? 'Recently sold Twin Cities homes' : 'Twin Cities homes for sale';
+    // One town or neighborhood searched: link to its community guide.
+    const guide = root.querySelector<HTMLAnchorElement>('[data-guide]');
+    if (guide) {
+      const href = one && names[one] && !one.includes(':') ? `/communities/${one}` : one.startsWith('hood:') && names[one] ? `/communities/${one.slice(5)}` : '';
+      guide.hidden = !href;
+      if (href) { guide.href = href; guide.textContent = `${names[one]} community guide ›`; }
+    }
   };
 
   // ---- filters <-> address ----
@@ -241,7 +248,7 @@ export function initSearch(root: HTMLElement) {
       if (!follow.checked || !map || !mapApi) return;
       (form.elements.namedItem('bbox') as HTMLInputElement).value = mapApi.boxOf(map);
       setPage(1); run();
-    });
+    }, (params().get('bbox') ?? '').split(',').map(Number).filter((n, i, a) => a.length === 4));
     showPlace();
     if (last && !isSold()) mapApi.setPins(map, last.pins, !params().get('bbox'));
     else await run(false); // sold answers carry map points only when the map is open

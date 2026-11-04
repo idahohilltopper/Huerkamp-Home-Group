@@ -3,7 +3,7 @@
 // Layout after markzproperties.com; branding, text and code are Huerkamp Home Group's own.
 // Fonts are self-hosted (no request to Google); the ones used at the top of most pages are preloaded
 // so headings don't jump when the font arrives.
-import { OWN, homeSearchHref } from '../data/search';
+import { OWN, homeSearchHref, SEARCH_PATH } from '../data/search';
 import FavDialog from '../components/FavDialog.astro';
 import { LICENSED_IN, EULA_PATH } from '../data/mls';
 import '@fontsource-variable/figtree/wght.css';
@@ -57,12 +57,15 @@ const year = new Date().getFullYear();
 const homesData = await listingsData;
 const homesForSale = homesData.mode !== 'off' && homesData.listings.length > 0;
 
+// A town in the Communities menu opens the map search for that town (its homes on the map, the town outlined); its
+// community guide is one click away from there and from "All community guides". Without the site's own search, the guide.
+const town = (slug: string) => (OWN ? `${SEARCH_PATH}?place=${slug}&view=map` : `/communities/${slug}`);
 const menu = [
   { label: 'Communities', href: '/communities', items: [
-    ['All communities', '/communities'], ['Minneapolis', '/communities/minneapolis'], ['Saint Paul', '/communities/saint-paul'],
-    ['Bloomington', '/communities/bloomington'], ['Burnsville', '/communities/burnsville'], ['Eagan', '/communities/eagan'],
-    ['Edina', '/communities/edina'], ['Lakeville', '/communities/lakeville'], ['Plymouth', '/communities/plymouth'],
-    ['Woodbury', '/communities/woodbury'], ['Area guides: compare places', '/guides'], ['Compare two cities', '/compare'], ['Commute times', '/commute'], ['Lake homes', '/lake-homes'],
+    ['All community guides', '/communities'], ['Minneapolis', town('minneapolis')], ['Saint Paul', town('saint-paul')],
+    ['Bloomington', town('bloomington')], ['Burnsville', town('burnsville')], ['Eagan', town('eagan')],
+    ['Edina', town('edina')], ['Lakeville', town('lakeville')], ['Plymouth', town('plymouth')],
+    ['Woodbury', town('woodbury')], ['Area guides: compare places', '/guides'], ['Compare two cities', '/compare'], ['Commute times', '/commute'], ['Lake homes', '/lake-homes'],
   ] },
   { label: 'Homes', href: homesForSale ? '/homes-for-sale' : homeSearchHref, items: [
     ...(homesForSale ? [['Homes for sale by city', '/homes-for-sale'], ['Open houses', '/open-houses']] : []), ['Search all homes', homeSearchHref], ['Buy a home', '/buy'], ['Lake homes', '/lake-homes'], ['Investment property', '/invest'], ['Market reports', '/market'], ['Housing data', '/data'], ['Affordability calculator', '/calculators/affordability'], ['Rent vs. buy', '/calculators/rent-vs-buy'], ['Foreclosures & short sales', '/foreclosure/buying-foreclosures'],
