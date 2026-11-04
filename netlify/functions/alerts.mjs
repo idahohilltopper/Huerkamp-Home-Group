@@ -125,6 +125,20 @@ export default async (req, _ctx, f = fetch) => {
             const favorites = list((await rq(key, 'GET', '/favorites', { params: { clientId: c.clientId } }, f)).data, 'favorites')
               .map((x) => ({ mls: String(x.mlsNumber ?? x.listing?.mlsNumber ?? ''), boardId: x.boardId ?? x.listing?.boardId ?? null }));
             client = { clientId: c.clientId, agentId: c.agentId, name: [c.fname, c.lname].filter(Boolean).join(' '), searches, favorites };
+            const raw = (await rq(key, 'GET', '/searches', { params: { clientId: c.clientId } }, f));
+            client.rawSearches = { status: raw.status, count: list(raw.data, 'searches').length, sample: JSON.stringify(list(raw.data, 'searches')[0] ?? raw.data ?? null).slice(0, 400) };
+            if (url.searchParams.get('trysave') === '1') {
+              // Save a small sample search exactly as the site does, report Repliers' answer, then delete it.
+              const built = toSavedSearch({ place: 'burnsville', min: '350000', max: '500000', beds: '3' }, { clientId: c.clientId, agentId: c.agentId, frequency: 'daily', name: 'Test (deleted right away)' });
+              if (built.error) client.trial = { status: 0, error: built.error };
+              else {
+                const t = await rq(key, 'POST', '/searches', { body: built.body }, f);
+                const id = t.data?.searchId;
+                if (id) await rq(key, 'DELETE', `/searches/${id}`, {}, f);
+                const sent = { ...built.body, map: `${JSON.stringify(built.body.map).slice(0, 80)}…` };
+                client.trial = { status: t.status, ok: t.ok, searchId: id ?? null, deleted: !!id, error: t.error, sent };
+              }
+            }
           }
         }
         return json(200, { ok: true, agents, siteAgent, fromEnv: !!set, email, client });
