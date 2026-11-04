@@ -18,6 +18,11 @@ function shapes(name) {
 
 export const FREQUENCIES = ['instant', 'daily', 'weekly'];
 const MAX_POINTS = 150;
+// Repliers requires both prices on a saved search, with minPrice above 0 (checked live 2026-11-04), so "any price"
+// is sent as $1 to $99,999,999 and read back as no limit.
+const ANY_MIN = 1, ANY_MAX = 99_999_999;
+const realMin = (v) => { const n = int(v); return n && n > ANY_MIN ? n : null; };
+const realMax = (v) => { const n = int(v); return n && n < ANY_MAX ? n : null; };
 const int = (v) => { const n = parseInt(String(v ?? ''), 10); return Number.isFinite(n) && n > 0 ? n : null; };
 
 /** Fewer points for a long outline (Repliers stores the shape with every saved search). */
@@ -59,8 +64,8 @@ export function toSavedSearch(q, { clientId, agentId, frequency = 'daily', name 
     name: String(name).slice(0, 50) || 'My home search',
     type: 'sale',
     class: q.type === 'condo' ? ['condo'] : ['residential', 'condo'],
-    minPrice: int(q.min) ?? 0,
-    maxPrice: int(q.max) ?? 100_000_000,
+    minPrice: realMin(q.min) ?? ANY_MIN,
+    maxPrice: realMax(q.max) ?? ANY_MAX,
     map,
     notificationFrequency: FREQUENCIES.includes(frequency) ? frequency : 'daily',
     priceChangeNotifications: true,
@@ -81,8 +86,8 @@ export function toSiteQuery(s) {
     const xs = pts.filter((_, i) => i % 2 === 0), ys = pts.filter((_, i) => i % 2 === 1);
     p.set('bbox', [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)].map((n) => n.toFixed(4)).join(','));
   }
-  if (int(s.minPrice)) p.set('min', String(int(s.minPrice)));
-  if (int(s.maxPrice) && int(s.maxPrice) < 100_000_000) p.set('max', String(int(s.maxPrice)));
+  if (realMin(s.minPrice)) p.set('min', String(realMin(s.minPrice)));
+  if (realMax(s.maxPrice)) p.set('max', String(realMax(s.maxPrice)));
   if (int(s.minBeds)) p.set('beds', String(int(s.minBeds)));
   if (int(s.minBaths)) p.set('baths', String(int(s.minBaths)));
   if (Array.isArray(s.class) && s.class.length === 1 && s.class[0] === 'condo') p.set('type', 'condo');
@@ -93,7 +98,7 @@ export function toSiteQuery(s) {
 export function describeSaved(s) {
   const bits = [];
   const money = (n) => (n >= 1e6 ? `$${(n / 1e6).toFixed(1).replace(/\.0$/, '')}M` : `$${Math.round(n / 1000)}K`);
-  if (int(s.minPrice) || (int(s.maxPrice) && int(s.maxPrice) < 100_000_000)) bits.push(`${int(s.minPrice) ? money(s.minPrice) : 'any'} to ${int(s.maxPrice) && int(s.maxPrice) < 100_000_000 ? money(s.maxPrice) : 'any'}`);
+  if (realMin(s.minPrice) || realMax(s.maxPrice)) bits.push(`${realMin(s.minPrice) ? money(s.minPrice) : 'any'} to ${realMax(s.maxPrice) ? money(s.maxPrice) : 'any'}`);
   if (int(s.minBeds)) bits.push(`${s.minBeds}+ beds`);
   if (int(s.minBaths)) bits.push(`${s.minBaths}+ baths`);
   if (Array.isArray(s.class) && s.class.length === 1 && s.class[0] === 'condo') bits.push('condos');
