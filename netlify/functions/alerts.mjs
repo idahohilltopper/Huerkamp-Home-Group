@@ -122,6 +122,8 @@ export default async (req, _ctx, f = fetch) => {
     const origin = req.headers.get('origin');
     if (origin && !ALLOWED.test(origin)) return json(403, { ok: false, error: 'Forbidden' });
     const b = await req.json().catch(() => ({}));
+    // The team's address belongs to the agent record; Repliers refuses a client with the same email (409).
+    if (String(b.email ?? '').trim().toLowerCase() === TEAM.email) return json(400, { ok: false, error: `${TEAM.email} is our team inbox, so it can't be used for alerts. Please use your own email address.` });
 
     if (action === 'favorite' || action === 'unfavorite') {
       const email = clean(b.email, 120).toLowerCase(), mls = clean(b.mls, 20);
