@@ -23,6 +23,8 @@ const lpRules = lp.filter((r) => r.from !== r.to).map((r) => `${r.from.padEnd(70
 const netlify = ['# Generated from redirects.json and redirects-lp.json by scripts/write-redirects.mjs.',
   '# Old huerkamphomegroup.com (Squarespace) addresses -> www.huerkamphomes.com']
   .concat(oldGroup, '',
+    '# Agent pages: one page per agent; the old buyer and seller pages go to its sections (Nov 2026)',
+    `${'/team/:slug/buy'.padEnd(70)} /team/:slug#buy 301`, `${'/team/:slug/sell'.padEnd(70)} /team/:slug#sell 301`, '',
     '# Old huerkamphomes.com (Luxury Presence) addresses -> new pages (only where no new page has that address)', lpRules)
   .join('\n') + '\n';
 writeFileSync('public/_redirects', netlify);

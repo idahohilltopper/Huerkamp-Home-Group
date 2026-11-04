@@ -696,3 +696,7 @@ Netlify domains at launch: **www.huerkamphomes.com = primary domain**; huerkamph
 - **Recently viewed:** home pages opened after I AGREE are kept on the device (12, newest first) and listed on My account (photo, address, MLS #, listing brokerage with BR logo; no price).
 - **Sign-ups require first name, last name, email and phone** (sign-up wall, account sign-up, first heart, every saved-search/new-listing alert form).
 - **Spam protection:** forms only from the site's own pages (origin check); hidden trap field; under 2.5 seconds is a bot; links in a name, link markup or 3+ links in a message are dropped quietly (src/lib/lead.mjs); Netlify rate limits per visitor: /api/lead, /api/account and /api/estimate 10 a minute, /api/alerts 30. Next step if spam ever gets through: Cloudflare Turnstile (free, invisible), which needs a site key and secret from Cloudflare.
+
+## One page per agent (2026-11-04)
+
+- Each agent has one page, /team/<slug>, with "Selling" (#sell: instant estimate, value request) and "Buying" (#buy: map search, alerts) sections added to the bio, reviews, listings, sales and contact form. The old /team/<slug>/buy and /sell pages are gone; public/_redirects sends them to #buy and #sell (scripts/write-redirects.mjs). Opening the page makes the visitor "work with" the agent for 30 days, so leads from the site's search and estimate are assigned to them.

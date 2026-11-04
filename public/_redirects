@@ -113,6 +113,10 @@ https://www.huerkamphomegroup.com/blog/tag/Waterfront+Homes+MN         https://w
 https://www.huerkamphomegroup.com/blog/tag/fade-blog-header-image      https://www.huerkamphomes.com/blog 301!
 https://www.huerkamphomegroup.com/*                                    https://www.huerkamphomes.com/:splat 301!
 
+# Agent pages: one page per agent; the old buyer and seller pages go to its sections (Nov 2026)
+/team/:slug/buy                                                        /team/:slug#buy 301
+/team/:slug/sell                                                       /team/:slug#sell 301
+
 # Old huerkamphomes.com (Luxury Presence) addresses -> new pages (only where no new page has that address)
 /careers                                                               /team#careers 301
 /cash-offer                                                            /sell#cash 301

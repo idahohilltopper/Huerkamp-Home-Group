@@ -4,12 +4,12 @@
 // reviews are complete, verbatim reviews that name them (src/data/agents.ts).
 import Base from '../../layouts/Base.astro';
 import TeamPhoto from '../../components/TeamPhoto.astro';
-import { members, slugOf, agentHref, isAgent, firstName, reviewsFor, bioTowns, agentAreas, agentSiteHref, type Member } from '../../data/agents';
+import { members, slugOf, agentHref, isAgent, firstName, reviewsFor, bioTowns, agentAreas, type Member } from '../../data/agents';
+import { OWN, SEARCH_PATH } from '../../data/search';
 import YlopoListings from '../../components/YlopoListings.astro';
 import ListingCard from '../../components/ListingCard.astro';
 import SoldHomes from '../../components/SoldHomes.astro';
 import IdxDisclosure from '../../components/IdxDisclosure.astro';
-import { OWN } from '../../data/search';
 import { listingsData } from '../../data/listings';
 import { isOwnBrokerage } from '../../data/mls';
 import { communitySearch, ylopoPlace, searchUrl } from '../../data/ylopo';
@@ -88,8 +88,8 @@ const ld = JSON.stringify({
         </div>
         {agent && (
           <nav class="site-nav" aria-label={`${first}'s site`}>
-            <a href={agentSiteHref(m, 'sell')}>Sell with {first}</a>
-            <a href={agentSiteHref(m, 'buy')}>Buy with {first}</a>
+            <a href="#sell">Sell with {first}</a>
+            <a href="#buy">Buy with {first}</a>
             <a href="#areas">Areas {first} serves</a>
             {reviews.length > 0 && <a href="#reviews">Reviews</a>}
           </nav>
@@ -97,6 +97,28 @@ const ld = JSON.stringify({
       </div>
     </div>
   </section>
+
+  <!-- One page per agent: buying and selling start here. Anyone who opens this page is "working with" this agent for
+         30 days (src/layouts/Base.astro), so leads from the home search and the home estimate are assigned to them.
+         The old /team/<name>/buy and /sell addresses redirect to #buy and #sell (scripts/write-redirects.mjs). -->
+  {agent && (
+    <section class="section helps" aria-label={`Buy or sell with ${first}`}>
+      <div class="wrap helps__grid">
+        <article class="help" id="sell">
+          <p class="eyebrow">Selling</p>
+          <h2>What's your home <em>worth?</em></h2>
+          <p>See an instant price range from recent sales near you, then {first} fine-tunes it for your home's updates and condition. Free, with no obligation.</p>
+          <p class="help__btns"><a class="btn" href="/home-estimate">Get my home's estimate</a> <a class="btn btn--ghost" href="#contact">Ask {first} for a value</a></p>
+        </article>
+        <article class="help" id="buy">
+          <p class="eyebrow">Buying</p>
+          <h2>Find your next <em>home.</em></h2>
+          <p>Search every home for sale on the map, save searches and get new listings by email, and ask {first} about any home.</p>
+          <p class="help__btns"><a class="btn" href={OWN ? `${SEARCH_PATH}?view=map` : '/buy'}>Search homes</a> {OWN && <a class="btn btn--ghost" href={`${SEARCH_PATH}#alerts`}>Get new listing alerts</a>}</p>
+        </article>
+      </div>
+    </section>
+  )}
 
   {m.bio && (
     <section class="section section--paper" aria-labelledby="about-title">
@@ -282,4 +304,9 @@ const ld = JSON.stringify({
   .others span { display: grid; }
   .others strong { color: var(--text); font-size: 1rem; }
   .others a:hover strong { color: var(--crimson); }
+  .helps__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: 1.5rem; }
+  .help { display: grid; gap: .8rem; align-content: start; padding: 2rem; background: var(--paper); border-top: 3px solid var(--crimson); box-shadow: 0 1px 0 var(--line); scroll-margin-top: 6rem; }
+  .help h2 { margin: 0; }
+  .help p:not(.eyebrow) { margin: 0; color: var(--text-soft); }
+  .help__btns { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: .4rem !important; }
 </style>

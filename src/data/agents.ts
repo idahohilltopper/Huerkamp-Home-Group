@@ -39,11 +39,10 @@ export function bioTowns(m: Member) {
 }
 
 // ---------- Agent sites ----------
-// Every licensed agent has a site inside the main site: /team/<slug> (home), /team/<slug>/sell and /team/<slug>/buy.
+// Every licensed agent has one page: /team/<slug> (selling and buying sections at #sell and #buy; the old /sell and /buy pages redirect there).
 // A visitor who arrives through an agent's pages is "working with" that agent for 30 days: every form they send
 // anywhere on the site is assigned to the agent in Follow Up Boss and tagged "Team lead" (src/lib/lead.mjs).
 export const agents: Member[] = members.filter(isAgent);
-export const agentSiteHref = (m: Member, page = '') => `${agentHref(m)}${page ? `/${page}` : ''}`;
 const siteSettings = sites.agents as Record<string, { areas?: string[]; fubName?: string }>;
 const bySlug = Object.fromEntries(communities.map((c) => [c.slug, c]));
 
