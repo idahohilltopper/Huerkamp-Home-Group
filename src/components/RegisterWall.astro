@@ -24,7 +24,7 @@ const { mls, name, street, city, zip, price } = Astro.props;
       <div class="field"><label for="rg-last">Last name</label><input id="rg-last" name="lastName" autocomplete="family-name" required /></div>
     </div>
     <div class="field"><label for="rg-email">Email</label><input id="rg-email" name="email" type="email" autocomplete="email" required /></div>
-    <div class="field"><label for="rg-phone">Phone (optional)</label><input id="rg-phone" name="phone" type="tel" autocomplete="tel" /></div>
+    <div class="field"><label for="rg-phone">Phone</label><input id="rg-phone" name="phone" type="tel" autocomplete="tel" required pattern="[^0-9]*([0-9][^0-9]*){10,}" title="Please enter your phone number, including area code." /></div>
     <button class="btn" type="submit">See this home</button>
     <p class="form__status" role="status" aria-live="polite"></p>
     <p class="regwall__alt">Rather talk to a person? Call or text <a href={site.phoneHref}>{site.phone}</a>.</p>

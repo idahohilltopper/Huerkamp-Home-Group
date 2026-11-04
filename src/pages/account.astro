@@ -16,12 +16,12 @@ import { site } from '../data/site';
       <form class="form" data-start novalidate>
         <div class="field"><label for="ac-email">Email</label><input id="ac-email" name="email" type="email" autocomplete="email" required /></div>
         <div data-new hidden>
-          <p class="acct__new">Welcome! Tell us your name to create your free account.</p>
+          <p class="acct__new">Welcome! Tell us your name and phone number to create your free account.</p>
           <div class="form__row">
             <div class="field"><label for="ac-first">First name</label><input id="ac-first" name="firstName" autocomplete="given-name" /></div>
-            <div class="field"><label for="ac-last">Last name</label><input id="ac-last" name="lastName" autocomplete="family-name" /></div>
+            <div class="field"><label for="ac-last">Last name</label><input id="ac-last" name="lastName" autocomplete="family-name" required /></div>
           </div>
-          <div class="field"><label for="ac-phone">Phone (optional)</label><input id="ac-phone" name="phone" type="tel" autocomplete="tel" /></div>
+          <div class="field"><label for="ac-phone">Phone</label><input id="ac-phone" name="phone" type="tel" autocomplete="tel" required pattern="[^0-9]*([0-9][^0-9]*){10,}" title="Please enter your phone number, including area code." /></div>
         </div>
         <button class="btn" type="submit">Email me a sign-in link</button>
         <p class="form__status" role="status" aria-live="polite"></p>
@@ -47,7 +47,8 @@ import { site } from '../data/site';
     e.preventDefault();
     const f = Object.fromEntries(new FormData(form)) as Record<string, string>;
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(f.email ?? '')) { status.textContent = 'Please enter your email address.'; return; }
-    if (!newBox.hidden && !f.firstName?.trim()) { status.textContent = 'Please enter your first name.'; return; }
+    if (!newBox.hidden && (!f.firstName?.trim() || !f.lastName?.trim())) { status.textContent = 'Please enter your first and last name.'; return; }
+    if (!newBox.hidden && (f.phone ?? '').replace(/\D/g, '').length < 10) { status.textContent = 'Please enter your phone number, including area code.'; return; }
     button.disabled = true; status.textContent = 'Sending…';
     const r = await fetch('/api/account/start', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(f) }).catch(() => null);
     const a = r ? await r.json().catch(() => ({})) : {};

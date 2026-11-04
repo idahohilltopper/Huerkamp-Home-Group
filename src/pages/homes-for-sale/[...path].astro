@@ -202,7 +202,7 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() },
             </div>
             <div class="form__row">
               <div class="field"><label for="hf-email">Email</label><input id="hf-email" name="email" type="email" autocomplete="email" required /></div>
-              <div class="field"><label for="hf-phone">Phone</label><input id="hf-phone" name="phone" type="tel" autocomplete="tel" /></div>
+              <div class="field"><label for="hf-phone">Phone</label><input id="hf-phone" name="phone" type="tel" autocomplete="tel" required pattern="[^0-9]*([0-9][^0-9]*){10,}" title="Please enter your phone number, including area code." /></div>
             </div>
             <button class="btn" type="submit">Send me new listings</button>
             <p class="form__status" role="status" aria-live="polite"></p>

@@ -144,7 +144,7 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
         </div>
         <div class="form__row">
           <div class="field"><label for="al-email">Email</label><input id="al-email" name="email" type="email" autocomplete="email" required /></div>
-          <div class="field"><label for="al-phone">Phone</label><input id="al-phone" name="phone" type="tel" autocomplete="tel" /></div>
+          <div class="field"><label for="al-phone">Phone</label><input id="al-phone" name="phone" type="tel" autocomplete="tel" required pattern="[^0-9]*([0-9][^0-9]*){10,}" title="Please enter your phone number, including area code." /></div>
         </div>
         <div class="field"><label for="al-freq">Email me new homes</label><select id="al-freq" name="alertFrequency"><option value="instant">As soon as they’re listed</option><option value="daily" selected>Once a day</option><option value="weekly">Once a week</option></select></div>
         <div class="field"><label for="al-msg">Anything else? (optional)</label><textarea id="al-msg" name="message" rows="2"></textarea></div>

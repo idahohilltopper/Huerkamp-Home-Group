@@ -67,6 +67,8 @@ export default async (req, _ctx, f = fetch, mail = sendMail) => {
       if (!client) {
         const firstName = clean(b.firstName, 60);
         if (!firstName) return json(200, { ok: true, needName: true });
+        if (!clean(b.lastName, 60)) return json(400, { ok: false, error: 'Please enter your last name.' });
+        if (String(b.phone ?? '').replace(/\D/g, '').length < 10) return json(400, { ok: false, error: 'Please enter your phone number, including area code.' });
         const agent = await agentId(key, f);
         const id = agent ? await clientFor(key, f, { email, firstName, lastName: clean(b.lastName, 60), phone: clean(b.phone, 30) }, agent) : null;
         if (!id) return json(502, { ok: false, error: 'mls-error' });

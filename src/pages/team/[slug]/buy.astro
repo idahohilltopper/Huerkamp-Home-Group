@@ -52,7 +52,7 @@ const prices = ['$300,000', '$400,000', '$500,000', '$600,000', '$750,000', '$1,
         </div>
         <div class="form__row">
           <div class="field"><label for="ba-email">Email</label><input id="ba-email" name="email" type="email" autocomplete="email" required /></div>
-          <div class="field"><label for="ba-phone">Phone</label><input id="ba-phone" name="phone" type="tel" autocomplete="tel" /></div>
+          <div class="field"><label for="ba-phone">Phone</label><input id="ba-phone" name="phone" type="tel" autocomplete="tel" required pattern="[^0-9]*([0-9][^0-9]*){10,}" title="Please enter your phone number, including area code." /></div>
         </div>
         <div class="form__row">
           <div class="field">
