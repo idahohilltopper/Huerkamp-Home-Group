@@ -1,5 +1,9 @@
 [
  {
+  "from": "/sitemap.xml",
+  "to": "/sitemap-index.xml"
+ },
+ {
   "from": "/home",
   "to": "/"
  },
