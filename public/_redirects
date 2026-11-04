@@ -540,3 +540,4 @@ https://www.huerkamphomegroup.com/*                                    https://w
 /home-search/*                                                         https://search.huerkamphomegroup.com/search 301
 /neighborhoods/*                                                       /communities 301
 /blog/*                                                                /blog 301
+/sitemap.xml                                                           /sitemap-index.xml 301

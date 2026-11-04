@@ -1918,5 +1918,9 @@
  {
   "from": "/blog/*",
   "to": "/blog"
+ },
+ {
+  "from": "/sitemap.xml",
+  "to": "/sitemap-index.xml"
  }
 ]
