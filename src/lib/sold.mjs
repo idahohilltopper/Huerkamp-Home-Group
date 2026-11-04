@@ -17,6 +17,8 @@ import cities from '../data/ylopo-cities.json' with { type: 'json' };
 import team from '../data/team.json' with { type: 'json' };
 
 export const MAX_MONTHS = 24;
+/** west, south, east, north: the Twin Cities area (matches TWIN_CITIES in src/scripts/search-map.ts). */
+export const TWIN_CITIES_BOX = [-93.9, 44.55, -92.75, 45.3];
 export const DEFAULT_MONTHS = 6;
 export const PAGE = 24;
 export const MAX_PINS = 300;
@@ -84,6 +86,9 @@ export function soldQuery(sp, now = new Date()) {
   for (const k of ['beds', 'baths']) { const v = int(sp.get(k), 1, 10); if (v) q[k] = v; }
   const b = text(sp.get('bbox')).split(',').map(Number);
   if (b.length === 4 && b.every(Number.isFinite) && b[0] < b[2] && b[1] < b[3] && b[2] - b[0] < 3 && b[3] - b[1] < 3) q.bbox = b;
+  // No town, ZIP, map area, agent or single home: the Twin Cities area the site covers (the same box the search map opens
+  // on), not every sale in the MLS, which reaches across Minnesota and zooms the map out to the whole state.
+  if (!q.city && !q.zip && !q.bbox && !q.agentName && !q.mls && !q.unsupported) q.bbox = TWIN_CITIES_BOX;
   const from = new Date(now); from.setMonth(from.getMonth() - q.months);
   q.since = from.toISOString().slice(0, 10);
   return q;
