@@ -55,6 +55,7 @@ const dateText = (d: string) => new Date(d + 'T12:00:00').toLocaleDateString('en
         <form class="pass" id="pass" hidden>
           <label for="pass-key">Report passcode</label>
           <div><input id="pass-key" type="password" autocomplete="current-password" required /><button class="btn" type="submit">Show live numbers</button></div>
+          <p class="pass__hint">The passcode is REPORT_KEY in Netlify (Site configuration → Environment variables). It opens leads, Google search numbers, the MLS feed check and the alerts check.</p>
           <p class="pass__msg" role="status"></p>
         </form>
         <div id="live" hidden>
@@ -241,6 +242,7 @@ const dateText = (d: string) => new Date(d + 'T12:00:00').toLocaleDateString('en
 </script>
 
 <style is:global>
+  .pass__hint { margin: .5rem 0 0; font-size: .9rem; color: var(--text-soft); }
   .alert-check { margin-top: 1.5rem; }
   .alert-check label { display: block; font-weight: 700; margin-bottom: .35rem; }
   .alert-check div { display: flex; flex-wrap: wrap; gap: .5rem; }
