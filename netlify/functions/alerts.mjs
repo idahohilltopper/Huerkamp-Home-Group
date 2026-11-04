@@ -4,6 +4,7 @@
 //   GET  /api/alerts/search?searchId=&token=   one saved search as a /home-search address
 //   POST /api/alerts/update       { token, searchId, frequency? | active? | remove? | query? }
 //   POST /api/alerts/unsubscribe  { token }   stop every email
+//   GET  /api/alerts/check?email=  (x-report-key) what Repliers holds for the team agent and that client
 //   GET  /api/alerts/listing?mls=  the site page for an MLS number (alert "view listing" links)
 //   POST /api/alerts/favorite     { firstName, lastName, email, phone?, mls }  heart a home (Repliers favorites)
 //   POST /api/alerts/unfavorite   { email, mls }  un-heart it
@@ -11,6 +12,7 @@
 // without a password. Every change is checked against that client. The lead itself still goes to Follow Up Boss
 // through /api/lead (the page sends both). Needs REPLIERS_API_KEY; optional REPLIERS_AGENT_ID picks the agent the
 // clients are assigned to (otherwise the first agent on the account, created as "Huerkamp Home Group" if none).
+import { timingSafeEqual } from 'node:crypto';
 import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { API } from '../../src/lib/repliers.mjs';
@@ -98,6 +100,29 @@ export default async (req, _ctx, f = fetch) => {
         const mls = clean(url.searchParams.get('mls'), 20);
         const slug = /^[A-Za-z0-9-]+$/.test(mls) ? slugFor(mls) : null;
         return json(200, { ok: true, slug });
+      }
+      if (action === 'check') {
+        // For the /report page (passcode REPORT_KEY): what Repliers holds for the team agent and one client, to confirm
+        // alerts are wired up. Read-only; never creates anything.
+        const want = env('REPORT_KEY'), got = (req.headers.get('x-report-key') ?? '').trim();
+        if (!want || got.length !== want.length || !timingSafeEqual(Buffer.from(got), Buffer.from(want))) return json(401, { ok: false, error: 'wrong-passcode' });
+        const agents = list((await rq(key, 'GET', '/agents', {}, f)).data, 'agents')
+          .map((a) => ({ agentId: a.agentId, name: [a.fname, a.lname].filter(Boolean).join(' '), email: a.email ?? '' }));
+        const set = Number(env('REPLIERS_AGENT_ID'));
+        const siteAgent = set || (agents.find((a) => a.email.toLowerCase() === TEAM.email) ?? agents[0])?.agentId || null;
+        const email = clean(url.searchParams.get('email'), 120).toLowerCase();
+        let client = null;
+        if (isEmail(email)) {
+          const c = list((await rq(key, 'GET', '/clients', { params: { email } }, f)).data, 'clients').find((x) => String(x.email ?? '').toLowerCase() === email);
+          if (c?.clientId) {
+            const searches = list((await rq(key, 'GET', '/searches', { params: { clientId: c.clientId } }, f)).data, 'searches')
+              .filter((x) => String(x.clientId) === String(c.clientId)).map((x) => ({ searchId: x.searchId, summary: describeSaved(x), frequency: x.notificationFrequency ?? '' }));
+            const favorites = list((await rq(key, 'GET', '/favorites', { params: { clientId: c.clientId } }, f)).data, 'favorites')
+              .map((x) => ({ mls: String(x.mlsNumber ?? x.listing?.mlsNumber ?? ''), boardId: x.boardId ?? x.listing?.boardId ?? null }));
+            client = { clientId: c.clientId, agentId: c.agentId, name: [c.fname, c.lname].filter(Boolean).join(' '), searches, favorites };
+          }
+        }
+        return json(200, { ok: true, agents, siteAgent, fromEnv: !!set, email, client });
       }
       const clientId = await clientOfToken(key, f, url.searchParams.get('token'));
       if (!clientId) return json(401, { ok: false, error: 'link-expired' });

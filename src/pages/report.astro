@@ -70,6 +70,11 @@ const dateText = (d: string) => new Date(d + 'T12:00:00').toLocaleDateString('en
           <h3>MLS listings feed (Repliers)</h3>
           <p><button class="btn btn--ghost" type="button" id="mls-check">Check MLS feed</button></p>
           <div id="mls-out"></div>
+          <form class="alert-check" id="alert-check">
+            <label for="alert-email">Alerts check: the email you tested with</label>
+            <div><input id="alert-email" type="email" required placeholder="you@example.com" /> <button class="btn btn--ghost" type="submit">Check alerts setup</button></div>
+          </form>
+          <div id="alert-out"></div>
         </div>
       </section>
 
@@ -207,12 +212,39 @@ const dateText = (d: string) => new Date(d + 'T12:00:00').toLocaleDateString('en
       <p class="source">Details for Claude: ${esc(JSON.stringify({ version: d.version, box: d.box && { count: d.box.count, fetched: d.box.fetched, noPoint: d.box.withoutMapPoint }, tests: d.tests }))}</p>
       <p class="source">Live from Repliers (NorthstarMLS), ${new Date(d.updated).toLocaleString('en-US')}. Listings appear on the lake pages only after MLS_PUBLIC=yes is set in Netlify, once the NorthstarMLS license is approved.</p>`;
   });
+  // Alerts check: the team agent record at Repliers, and one client's saved searches and saved homes (needs the passcode).
+  $('#alert-check').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const out = $('#alert-out');
+    const email = ($('#alert-email') as HTMLInputElement).value.trim();
+    out.innerHTML = '<p>Checking Repliers…</p>';
+    const res = await fetch(`/api/alerts/check?email=${encodeURIComponent(email)}`, { headers: { 'x-report-key': store.get() } }).catch(() => null);
+    const d = res ? await res.json().catch(() => null) : null;
+    if (!d?.ok) { out.innerHTML = `<p class="warn">${d?.error === 'wrong-passcode' ? 'The passcode didn\'t match.' : d?.error === 'not-configured' ? 'The Repliers key isn\'t reaching the site (REPLIERS_API_KEY in Netlify).' : 'Repliers didn\'t answer. Try again in a minute.'}</p>`; return; }
+    const ok = (b: boolean) => (b ? '✓' : '✗');
+    const team = d.agents.find((a: any) => a.agentId === d.siteAgent);
+    const right = !!team && team.name === 'Huerkamp Home Group' && team.email.toLowerCase() === 'leads@hhgus.com';
+    const c = d.client;
+    out.innerHTML = `<table class="data"><tbody>
+        <tr><th scope="row">${ok(right)} Agent the site uses</th><td>${team ? `${esc(team.name)}, ${esc(team.email)} (agentId ${esc(team.agentId)})` : 'None yet: it\'s created the first time someone saves a search or a home'}</td></tr>
+        <tr><th scope="row">All agent records</th><td>${d.agents.length ? d.agents.map((a: any) => `${esc(a.name)}, ${esc(a.email)} (${esc(a.agentId)})`).join('<br>') : 'None'}</td></tr>
+        <tr><th scope="row">${ok(!!c)} Client ${esc(d.email)}</th><td>${c ? `${esc(c.name)} (clientId ${esc(c.clientId)})` : 'Not found at Repliers'}</td></tr>
+        ${c ? `<tr><th scope="row">${ok(c.agentId === d.siteAgent)} Client's agent</th><td>agentId ${esc(c.agentId)}${c.agentId === d.siteAgent ? ' (matches)' : ' (doesn\'t match the site\'s agent)'}</td></tr>
+        <tr><th scope="row">${ok(c.searches.length > 0)} Saved searches</th><td>${c.searches.length ? c.searches.map((x: any) => `${esc(x.summary)} (${esc(x.frequency)}, searchId ${esc(x.searchId)})`).join('<br>') : 'None'}</td></tr>
+        <tr><th scope="row">${ok(c.favorites.length > 0)} Saved homes</th><td>${c.favorites.length ? c.favorites.map((x: any) => `MLS# ${esc(x.mls)} (board ${esc(x.boardId)})`).join('<br>') : 'None'}</td></tr>` : ''}
+      </tbody></table>
+      <p class="source">Live from Repliers, ${new Date().toLocaleString('en-US')}.${d.fromEnv ? ' The agent is set by REPLIERS_AGENT_ID in Netlify.' : ''}</p>`;
+  });
   const saved = store.get();
   if (saved) load(saved); else $('#pass').hidden = false;
   $('#pass').addEventListener('submit', (e) => { e.preventDefault(); load(($('#pass-key') as HTMLInputElement).value.trim()); });
 </script>
 
 <style is:global>
+  .alert-check { margin-top: 1.5rem; }
+  .alert-check label { display: block; font-weight: 700; margin-bottom: .35rem; }
+  .alert-check div { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .alert-check input { flex: 1 1 16rem; padding: .6rem .7rem; font: inherit; border: 1px solid var(--line); border-radius: 6px; }
   .rep h1 { font: 500 clamp(2.4rem, 5vw, 3.6rem)/1.05 var(--serif-display); }
   .rep .lede { color: var(--text-soft); max-width: 44rem; }
   .rep .block { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--line); }
