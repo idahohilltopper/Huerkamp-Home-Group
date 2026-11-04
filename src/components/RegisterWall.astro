@@ -1,0 +1,46 @@
+---
+// Sign-up wall on home (listing) pages: a visitor can open FREE_VIEWS different homes (src/data/search.ts); the next
+// one asks for their name and email before they can keep looking. The form is a lead form ("Registration" in Follow
+// Up Boss, sent by src/layouts/Base.astro, with the optional call/text consent).
+//
+// Who never sees it: anyone this browser already knows (any lead form sent here, a saved home, or a click from an
+// alert email: src/scripts/register.ts), search engines (they keep no storage, so every visit counts as the first),
+// and pages shown before I AGREE (the license gate goes first). Homes are counted once each, in this browser only.
+import { FREE_VIEWS } from '../data/search';
+import { site } from '../data/site';
+interface Props { mls: string; name: string; street: string; city: string; zip: string; price: number }
+const { mls, name, street, city, zip, price } = Astro.props;
+---
+<dialog class="regwall" id="register-wall" aria-labelledby="reg-title" data-free={FREE_VIEWS} data-mls={mls}>
+  <form class="form" data-lead="register" method="dialog">
+    <p class="regwall__eyebrow">Free account</p>
+    <h2 id="reg-title">Keep looking at homes</h2>
+    <p>You’ve viewed {FREE_VIEWS} homes. Sign up free to see every home, save favorites and get new listings first. No spam.</p>
+    <input type="hidden" name="listing" value={`${name} (MLS #${mls})`} />
+    <input type="hidden" name="propStreet" value={street} /><input type="hidden" name="propCity" value={city} /><input type="hidden" name="propZip" value={zip} />
+    <input type="hidden" name="propMls" value={mls} /><input type="hidden" name="propPrice" value={String(price)} />
+    <div class="form__row">
+      <div class="field"><label for="rg-first">First name</label><input id="rg-first" name="firstName" autocomplete="given-name" required /></div>
+      <div class="field"><label for="rg-last">Last name</label><input id="rg-last" name="lastName" autocomplete="family-name" required /></div>
+    </div>
+    <div class="field"><label for="rg-email">Email</label><input id="rg-email" name="email" type="email" autocomplete="email" required /></div>
+    <div class="field"><label for="rg-phone">Phone (optional)</label><input id="rg-phone" name="phone" type="tel" autocomplete="tel" /></div>
+    <button class="btn" type="submit">See this home</button>
+    <p class="form__status" role="status" aria-live="polite"></p>
+    <p class="regwall__alt">Rather talk to a person? Call or text <a href={site.phoneHref}>{site.phone}</a>.</p>
+  </form>
+</dialog>
+
+<script>
+  import { initRegisterWall } from '../scripts/register';
+  initRegisterWall();
+</script>
+
+<style>
+  .regwall { width: min(34rem, calc(100vw - 2rem)); max-height: calc(100dvh - 2rem); padding: 0; border: 0; border-radius: 10px; box-shadow: 0 20px 60px rgba(0, 0, 0, .35); }
+  .regwall::backdrop { background: rgba(21, 18, 19, .72); backdrop-filter: blur(6px); }
+  .regwall .form { padding: 1.5rem 1.5rem 1.25rem; }
+  .regwall h2 { margin: 0 0 .4rem; font: 600 1.7rem/1.2 var(--serif); }
+  .regwall__eyebrow { margin: 0 0 .25rem; color: var(--crimson); font: 700 .8rem/1 var(--ui); letter-spacing: .08em; text-transform: uppercase; }
+  .regwall__alt { margin: .75rem 0 0; font-size: .95rem; color: var(--text-soft); }
+</style>

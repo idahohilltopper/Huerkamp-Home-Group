@@ -199,6 +199,7 @@ const isExternal = (href: string) => href.startsWith('http');
   <main id="main">
     <slot />
     {OWN && <FavDialog />}
+    <script>import { listenForLeads } from '../scripts/register'; listenForLeads();</script>
   </main>
 
   <footer class="footer">

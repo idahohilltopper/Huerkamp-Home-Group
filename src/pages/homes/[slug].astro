@@ -4,6 +4,7 @@
 // how the price compares with the rest of the community, which lake and neighborhood it's on, what homes there
 // actually sell for, and where to read more. Inquiries go to Follow Up Boss as a Property Inquiry with the home attached.
 import Base from '../../layouts/Base.astro';
+import RegisterWall from '../../components/RegisterWall.astro';
 import ListingCard from '../../components/ListingCard.astro';
 import { listingsData, homesHref, listingHref, stats, money, TYPE_LABEL, FACETS, lakeName, lakeLink, type Listing } from '../../data/listings';
 import { communities } from '../../data/areas';
@@ -207,6 +208,7 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() }, { name: community
       </div>
     </section>
   )}
+  <RegisterWall mls={l.mls} name={where} street={l.addressHidden ? '' : l.street} city={l.city} zip={l.zip} price={l.price} />
 </Base>
 
 <style>

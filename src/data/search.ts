@@ -9,6 +9,9 @@ import cities from './ylopo-cities.json';
 import ylopoHoods from './ylopo-neighborhoods.json';
 
 const fixture = !!process.env.MLS_FIXTURE && process.env.NETLIFY !== 'true';
+/** Home pages a visitor can open before the sign-up form (src/components/RegisterWall.astro) asks who they are. */
+export const FREE_VIEWS = 7;
+
 export const OWN: boolean = (mlsMode() !== 'off' || fixture) && (!!(process.env.REPLIERS_API_KEY ?? '').trim() || fixture);
 
 export const SEARCH_PATH = '/home-search';

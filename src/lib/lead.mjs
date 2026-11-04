@@ -35,6 +35,7 @@ export const FORMS = {
   'listing':           { type: 'Property Inquiry', label: 'Listing page form',    tags: ['Buyer lead', 'Listing inquiry'] },
   'showing':           { type: 'Property Inquiry', label: 'Showing request',       tags: ['Buyer lead', 'Showing request'] },
   'favorite':          { type: 'Saved Property',   label: 'Saved a home (heart)',  tags: ['Buyer lead', 'Saved home'] },
+  'register':          { type: 'Registration',     label: 'Signed up to keep viewing homes', tags: ['Buyer lead', 'Website registration'] },
   'calc-seller':       { type: 'Seller Inquiry',  label: 'Net proceeds calculator', tags: ['Seller lead', 'Net proceeds calculator'] },
   'calc-buyer':        { type: 'General Inquiry', label: 'Affordability calculator', tags: ['Buyer lead', 'Affordability calculator'] },
   'calc-rentbuy':      { type: 'General Inquiry', label: 'Rent vs. buy calculator', tags: ['Buyer lead', 'Rent vs. buy calculator'] },
