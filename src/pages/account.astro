@@ -43,14 +43,13 @@ import { site } from '../data/site';
     box.querySelector('[data-who]')!.textContent = me()?.email ?? '';
     box.querySelector('[data-signout]')!.addEventListener('click', () => { signOut(); location.reload(); });
   }
-  const next = new URLSearchParams(location.search).get('next') ?? '/profile';
-  form.addEventListener('submit', async (e) => {
+    form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const f = Object.fromEntries(new FormData(form)) as Record<string, string>;
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(f.email ?? '')) { status.textContent = 'Please enter your email address.'; return; }
     if (!newBox.hidden && !f.firstName?.trim()) { status.textContent = 'Please enter your first name.'; return; }
     button.disabled = true; status.textContent = 'Sending…';
-    const r = await fetch('/api/account/start', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ ...f, next }) }).catch(() => null);
+    const r = await fetch('/api/account/start', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(f) }).catch(() => null);
     const a = r ? await r.json().catch(() => ({})) : {};
     button.disabled = false;
     if (a.needName) { newBox.hidden = false; status.textContent = ''; (form.elements.namedItem('firstName') as HTMLInputElement).focus(); return; }
@@ -59,7 +58,7 @@ import { site } from '../data/site';
       fetch('/api/lead', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ form: 'register', hp: '', elapsed: 99999, page: location.pathname, title: document.title,
         fields: { firstName: f.firstName, lastName: f.lastName ?? '', email: f.email, phone: f.phone ?? '' } }) }).catch(() => {});
     }
-    if (a.ok && a.sent) { form.innerHTML = `<p class="acct__sent"><strong>Check your email.</strong> We sent a sign-in link to ${f.email.replace(/[<>&"]/g, '')}. It works for 30 minutes. Not there? Check your spam folder.</p>`; return; }
+    if (a.ok && a.sent) { form.innerHTML = `<p class="acct__sent"><strong>Check your email.</strong> We sent a sign-in link to ${f.email.replace(/[<>&"]/g, '')}. It can take a minute or two. Not there? Check your spam folder.</p>`; return; }
     status.textContent = a.error === 'email-not-set-up' ? 'Email sign-in isn’t switched on yet. Please call or text us and we’ll help.'
       : a.error && !['mls-error', 'email-failed', 'not-configured'].includes(a.error) ? a.error : 'Sorry, that didn’t work. Please try again in a minute.';
   });

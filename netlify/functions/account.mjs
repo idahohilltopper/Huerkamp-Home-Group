@@ -2,14 +2,18 @@
 //   POST /api/account/start   { email, firstName?, lastName?, phone? }  emails a sign-in link (30 minutes). Someone new
 //                             is asked for a name first ({ needName: true }); then their client record is created at
 //                             Repliers under the team agent, like a first saved search or heart.
-//   POST /api/account/verify  { t }   the link's token -> a 90-day session token plus who they are
+//   POST /api/account/verify  { token } the token Repliers adds to links in its emails (the sign-in email below, and
+//                             every alert email link) -> a 90-day session token plus who they are; { t } is our own
+//                             signed link token (used only when RESEND_API_KEY sends the email instead)
 //   GET  /api/account/me      header x-hhg-session   who the session belongs to
 // A session token works anywhere the alerts API takes a "token" (src/pages/profile.astro, netlify/functions/alerts.mjs),
-// so "My account" is the existing My alerts page. Tokens are signed, not stored (src/lib/session.mjs). Emails go out
-// through src/lib/mail.mjs (needs RESEND_API_KEY); until then /start answers 'email-not-set-up'.
+// so "My account" is the existing My alerts page. Sessions are signed, not stored (src/lib/session.mjs).
+// The sign-in email is a Repliers message from the team agent (POST /messages): Repliers adds ?token=... to the link and
+// GET /messages?token= tells us which client clicked it. Repliers sends only once alerts.huerkamphomes.com is verified
+// and the client has email turned on. If RESEND_API_KEY is set, src/lib/mail.mjs sends it instead.
 import { rq, agentId, clientFor, TEAM } from './alerts.mjs';
 import { sign, verify, secretFrom } from '../../src/lib/session.mjs';
-import { sendMail } from '../../src/lib/mail.mjs';
+import { sendMail, mailReady } from '../../src/lib/mail.mjs';
 // Business details for the email (kept in step with src/data/site.ts by hand; functions stay plain JavaScript).
 const site = { name: 'Huerkamp Home Group', brokerage: 'Keller Williams Preferred Realty', street: '14300 Nicollet Ct, Ste 208', cityStateZip: 'Burnsville, MN 55306', phone: '(612) 843-9620' };
 
@@ -70,19 +74,42 @@ export default async (req, _ctx, f = fetch, mail = sendMail) => {
         created = true;
       }
       const base = origin && ALLOWED.test(origin) ? origin : 'https://www.huerkamphomes.com';
-      const next = /^\/[a-z0-9/_-]*$/i.test(String(b.next ?? '')) ? b.next : '/profile';
-      const link = `${base}/account/verify?t=${encodeURIComponent(sign('link', { c: client.clientId, e: email, n: client.fname ?? '' }, secret))}&next=${encodeURIComponent(next)}`;
-      const sent = await mail({ to: email, ...linkEmail(client.fname ?? '', link) });
-      if (!sent.ok) return json(sent.error === 'email-not-set-up' ? 503 : 502, { ok: false, error: sent.error, created });
+      if (mailReady() || mail !== sendMail) {
+        // Our own email service (Resend): a link carrying our signed token.
+        const link = `${base}/account/verify?t=${encodeURIComponent(sign('link', { c: client.clientId, e: email, n: client.fname ?? '' }, secret))}`;
+        const sent = await mail({ to: email, ...linkEmail(client.fname ?? '', link) });
+        if (!sent.ok) return json(sent.error === 'email-not-set-up' ? 503 : 502, { ok: false, error: sent.error, created });
+        return json(200, { ok: true, sent: true, created });
+      }
+      // Repliers sends it from the team agent; it adds ?token= to the link.
+      const agent = await agentId(key, f);
+      const hi = client.fname ? `Hi ${client.fname},` : 'Hi,';
+      const r = await rq(key, 'POST', '/messages', { body: { sender: 'agent', agentId: agent, clientId: client.clientId, content: {
+        subject: `Your ${site.name} sign-in link`,
+        message: `${hi} here's your link to sign in to your ${site.name} account, where you can see and change your saved searches and saved homes. If you didn't ask for this, you can ignore this email.`,
+        links: [`${base}/account/verify`],
+      } } }, f);
+      if (!r.ok) { console.error('Repliers sign-in message', r.status, r.error); return json(502, { ok: false, error: 'email-failed', created }); }
       return json(200, { ok: true, sent: true, created });
     }
 
     if (action === 'verify') {
-      const l = verify('link', clean(b.t, 2000), secret);
-      if (!l) return json(401, { ok: false, error: 'link-expired' });
-      const c = (await rq(key, 'GET', `/clients/${l.c}`, {}, f)).data ?? {};
-      const me = { firstName: c.fname ?? l.n ?? '', lastName: c.lname ?? '', email: l.e, phone: c.phone ? String(c.phone) : '' };
-      return json(200, { ok: true, session: sign('session', { c: l.c, e: l.e, n: me.firstName }, secret), me });
+      let clientId = null, email = '';
+      const token = clean(b.token, 64);
+      if (/^[0-9a-f-]{20,64}$/i.test(token)) {
+        // A Repliers message token: the sign-in email or any alert email link.
+        const m = list((await rq(key, 'GET', '/messages', { params: { token } }, f)).data, 'messages').find((x) => !x.token || x.token === token);
+        clientId = m?.clientId ?? null;
+      } else {
+        const l = verify('link', clean(b.t, 2000), secret);
+        if (l) { clientId = l.c; email = l.e; }
+      }
+      if (!clientId) return json(401, { ok: false, error: 'link-expired' });
+      const c = (await rq(key, 'GET', `/clients/${clientId}`, {}, f)).data ?? {};
+      email = String(c.email ?? email).toLowerCase();
+      if (!email) return json(401, { ok: false, error: 'link-expired' });
+      const me = { firstName: c.fname ?? '', lastName: c.lname ?? '', email, phone: c.phone ? String(c.phone) : '' };
+      return json(200, { ok: true, session: sign('session', { c: clientId, e: email, n: me.firstName }, secret), me });
     }
     return json(404, { ok: false, error: 'unknown' });
   } catch (e) {
