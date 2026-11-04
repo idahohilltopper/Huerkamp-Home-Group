@@ -121,7 +121,7 @@ export default async (req, _ctx, f = fetch) => {
           const c = list((await rq(key, 'GET', '/clients', { params: { email } }, f)).data, 'clients').find((x) => String(x.email ?? '').toLowerCase() === email);
           if (c?.clientId) {
             const searches = list((await rq(key, 'GET', '/searches', { params: { clientId: c.clientId } }, f)).data, 'searches')
-              .filter((x) => String(x.clientId) === String(c.clientId)).map((x) => ({ searchId: x.searchId, summary: describeSaved(x), frequency: x.notificationFrequency ?? '' }));
+              .filter((x) => String(x.clientId ?? x.client?.clientId ?? c.clientId) === String(c.clientId)).map((x) => ({ searchId: x.searchId, summary: describeSaved(x), frequency: x.notificationFrequency ?? '' }));
             const favorites = list((await rq(key, 'GET', '/favorites', { params: { clientId: c.clientId } }, f)).data, 'favorites')
               .map((x) => ({ mls: String(x.mlsNumber ?? x.listing?.mlsNumber ?? ''), boardId: x.boardId ?? x.listing?.boardId ?? null }));
             client = { clientId: c.clientId, agentId: c.agentId, name: [c.fname, c.lname].filter(Boolean).join(' '), searches, favorites };
@@ -133,7 +133,7 @@ export default async (req, _ctx, f = fetch) => {
       if (!clientId) return json(401, { ok: false, error: 'link-expired' });
       if (action === 'me') {
         const r = await rq(key, 'GET', '/searches', { params: { clientId } }, f);
-        const searches = list(r.data, 'searches').filter((s) => String(s.clientId) === String(clientId)).map((s) => ({
+        const searches = list(r.data, 'searches').filter((s) => String(s.clientId ?? s.client?.clientId ?? clientId) === String(clientId)).map((s) => ({
           searchId: s.searchId, name: s.name, summary: describeSaved(s), frequency: s.notificationFrequency, active: s.status !== false, query: toSiteQuery(s).toString(),
         }));
         const c = (await rq(key, 'GET', `/clients/${clientId}`, {}, f)).data ?? {};
