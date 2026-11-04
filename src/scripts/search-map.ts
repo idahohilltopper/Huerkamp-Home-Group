@@ -84,7 +84,21 @@ export async function createMap(el: HTMLElement, style: string, brThumb: string,
       if (!p.own && brThumb) by.append(Object.assign(document.createElement('img'), { src: brThumb, alt: 'Broker Reciprocity listing', height: 14 }));
       by.append(`Listing courtesy of ${p.brokerage || 'the listing brokerage'}`);
       a.append(ph, price, ...(p.sold ? [when] : []), addr, by);
-      new maplibregl.Popup({ offset: 12, closeButton: false, maxWidth: '260px', className: 'hs-popup' }).setLngLat(f.geometry.coordinates).setDOMContent(a).addTo(map);
+      // Homes for sale get a heart on the photo, like the cards (src/scripts/favorites.ts handles the click and fills it in
+      // when saved; it runs before the click could open the home). The MLS number is the end of the home's address slug.
+      const box = document.createElement('div');
+      box.className = 'hs-mappop';
+      box.append(a);
+      const mls = p.sold ? '' : String(p.slug).split('-').pop() ?? '';
+      if (mls) {
+        const [street = '', city = ''] = String(p.addr).split(',').map((x: string) => x.trim());
+        const heart = Object.assign(document.createElement('button'), { type: 'button', className: 'fav hs-mappop__fav', textContent: '♡' });
+        Object.assign(heart.dataset, { fav: mls, favName: p.addr, favStreet: street, favCity: city, favZip: (String(p.addr).match(/\b\d{5}\b/) ?? [''])[0], favPrice: String(p.price) });
+        heart.setAttribute('aria-pressed', 'false');
+        heart.setAttribute('aria-label', `Save: ${p.addr}`);
+        box.append(heart);
+      }
+      new maplibregl.Popup({ offset: 12, closeButton: false, maxWidth: '260px', className: 'hs-popup' }).setLngLat(f.geometry.coordinates).setDOMContent(box).addTo(map);
     });
   }
   // Only when the person moves the map (not when it moves itself to fit the results).
