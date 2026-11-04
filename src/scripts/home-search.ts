@@ -56,7 +56,12 @@ export function initSearch(root: HTMLElement) {
     document.querySelectorAll<HTMLElement>('[data-sold-only]').forEach((el) => { el.hidden = !sold; });
     document.querySelectorAll<HTMLElement>('[data-sale-only]').forEach((el) => { el.hidden = sold; });
     const h1 = root.querySelector<HTMLElement>('[data-h1]');
-    if (h1) h1.textContent = sold ? 'Recently sold Twin Cities homes' : 'Twin Cities homes for sale';
+    if (!h1) return;
+    // Named after the searched place when there's just one ("Burnsville, MN homes for sale"), as the portals do.
+    const pl = (params().get('place') ?? '').split(',').filter(Boolean);
+    const one = pl.length === 1 ? pl[0] : '';
+    const name = !one ? '' : one.startsWith('zip:') ? `ZIP ${one.slice(4)}` : one.startsWith('hood:') || one.startsWith('lake:') ? (names[one] ?? '') : names[one] ? `${names[one]}, MN` : '';
+    h1.textContent = name ? (sold ? `Recently sold homes in ${name}` : `${name} homes for sale`) : sold ? 'Recently sold Twin Cities homes' : 'Twin Cities homes for sale';
   };
 
   // ---- filters <-> address ----
@@ -130,6 +135,8 @@ export function initSearch(root: HTMLElement) {
     mapCount.hidden = !a.total;
     mapCount.textContent = a.pins.length < a.total ? `${a.pins.length.toLocaleString('en-US')} of ${a.total.toLocaleString('en-US')} homes on the map` : `${a.total.toLocaleString('en-US')} ${a.total === 1 ? 'home' : 'homes'}`;
     if (map && mapApi) mapApi.setPins(map, a.pins, !params().get('bbox'));
+    showPlace();
+    showMode();
   };
 
   // ---- asking the server ----
@@ -232,6 +239,7 @@ export function initSearch(root: HTMLElement) {
       (form.elements.namedItem('bbox') as HTMLInputElement).value = mapApi.boxOf(map);
       setPage(1); run();
     });
+    showPlace();
     if (last && !isSold()) mapApi.setPins(map, last.pins, !params().get('bbox'));
     else await run(false); // sold answers carry map points only when the map is open
   };
@@ -255,6 +263,17 @@ export function initSearch(root: HTMLElement) {
     if (map && mapApi) mapApi.highlight(map, a ? decodeURIComponent(a.getAttribute('href')!.slice(7)) : sold ?? '');
   });
   list.addEventListener('mouseleave', () => { if (map && mapApi) mapApi.highlight(map, ''); });
+
+  // ---- the searched town or neighborhood is outlined on the map (outlines load the first time a place is searched) ----
+  let outlines: Promise<{ features: { properties: { key: string } }[] }> | null = null;
+  async function showPlace() {
+    if (!map || !mapApi) return;
+    const places = (params().get('place') ?? '').split(',').filter((p) => p && !p.startsWith('zip:') && !p.startsWith('lake:'));
+    if (!places.length) return mapApi.setPlace(map, []);
+    outlines ??= fetch('/geo/places.json').then((r) => r.json()).catch(() => ({ features: [] }));
+    const all = await outlines;
+    mapApi.setPlace(map, all.features.filter((f) => places.includes(f.properties.key)));
+  }
 
   // ---- a home opens in a panel over the search, like the portals ("‹ Back to search" returns to the same spot) ----
   const panel = document.createElement('div');

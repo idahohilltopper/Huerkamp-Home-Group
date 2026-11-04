@@ -18,11 +18,17 @@ const css = () => new Promise((resolve) => {
   document.head.append(link);
 });
 
+const PLACE_BLUE = '#2f6fd6';
+
 export async function createMap(el: HTMLElement, style: string, brThumb: string, onMoved: () => void) {
   await css();
   const map = new maplibregl.Map({ container: el, style, bounds: TWIN_CITIES, fitBoundsOptions: { padding: 30 }, cooperativeGestures: true, attributionControl: { compact: true } });
   map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
   await new Promise((ok) => map.on('load', ok));
+  // The searched place's outline (a town or neighborhood), under the dots: a light wash and a blue line, like the portals.
+  map.addSource('place', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+  map.addLayer({ id: 'place-fill', type: 'fill', source: 'place', paint: { 'fill-color': PLACE_BLUE, 'fill-opacity': 0.06 } });
+  map.addLayer({ id: 'place-line', type: 'line', source: 'place', paint: { 'line-color': PLACE_BLUE, 'line-width': ['interpolate', ['linear'], ['zoom'], 8, 1.5, 13, 3], 'line-opacity': 0.9 } });
   map.addSource('homes', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
   // A rounded red tag that stretches to fit the price text.
   const c = Object.assign(document.createElement('canvas'), { width: 40, height: 28 });
@@ -84,6 +90,11 @@ export async function createMap(el: HTMLElement, style: string, brThumb: string,
   // Only when the person moves the map (not when it moves itself to fit the results).
   map.on('moveend', (e: any) => { if (e.originalEvent) onMoved(); });
   return map;
+}
+
+/** Outline the searched place(s); an empty list clears it. */
+export function setPlace(map: any, features: unknown[]) {
+  (map.getSource('place') as any)?.setData({ type: 'FeatureCollection', features });
 }
 
 /** Show these homes; zoom to them unless the search is already limited to the map area. */

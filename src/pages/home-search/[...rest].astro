@@ -34,7 +34,8 @@ const groups = [
 const prices = [100000, 150000, 200000, 250000, 300000, 350000, 400000, 450000, 500000, 600000, 700000, 800000, 900000, 1000000, 1250000, 1500000, 2000000, 3000000, 5000000];
 const money = (n: number) => (n >= 1e6 ? `$${(n / 1e6).toString().replace(/\.0+$/, '')}M` : `$${n / 1000}K`);
 const key = import.meta.env.PUBLIC_MAPTILER_KEY ?? '';
-const mapStyle = key ? `https://api.maptiler.com/maps/dataviz-light/style.json?key=${key}` : 'https://tiles.openfreemap.org/styles/positron';
+// A colorful street map (parks, water, roads and town names), like the portals' maps.
+const mapStyle = key ? `https://api.maptiler.com/maps/streets-v2/style.json?key=${key}` : 'https://tiles.openfreemap.org/styles/liberty';
 const typeName = (t: string) => TYPE_LABEL[t]?.replace(/^./, (c) => c.toUpperCase()) ?? t;
 const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, i.label])));
 ---
