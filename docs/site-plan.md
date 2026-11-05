@@ -700,3 +700,9 @@ Netlify domains at launch: **www.huerkamphomes.com = primary domain**; huerkamph
 ## One page per agent (2026-11-04)
 
 - Each agent has one page, /team/<slug>, with "Selling" (#sell: instant estimate, value request) and "Buying" (#buy: map search, alerts) sections added to the bio, reviews, listings, sales and contact form. The old /team/<slug>/buy and /sell pages are gone; public/_redirects sends them to #buy and #sell (scripts/write-redirects.mjs). Opening the page makes the visitor "work with" the agent for 30 days, so leads from the site's search and estimate are assigned to them.
+
+## Address search and home value offer (2026-11-05)
+
+- **Ask (Jason):** typing your own address should at least move the map there, and ideally offer an estimate of what the home is worth.
+- **Built:** the /home-search box and the home page search box accept a street address. `netlify/functions/geocode.mjs` (`/api/geocode`) looks it up with the free U.S. Census Bureau geocoder (no API key; Minnesota and western Wisconsin only; "MN" assumed when no state is typed; nothing stored). The map zooms to about a mile around the address with a red house marker, shows homes for sale in that area, and a card plus a map bubble offer "What's my home worth?", which opens /home-estimate with the address and ZIP already filled in. The estimate still asks for name, email and phone before showing the number, so every estimate is a lead.
+- An address the geocoder can't find gets a plain message asking for the city (for example "123 Main St, Lakeville").

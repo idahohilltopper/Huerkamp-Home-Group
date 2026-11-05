@@ -132,5 +132,30 @@ export function highlight(map: any, slug: string) {
   if (map.getLayer('homes-hot')) map.setFilter('homes-hot', ['==', ['get', 'slug'], slug]);
 }
 
+/** Mark the visitor's own address ("Your home") with a bubble offering its estimate, and move the map around it; null removes it. */
+export function showHome(map: any, home: { lat: number; lng: number; street: string } | null, box?: number[], estimateHref?: string) {
+  map.__home?.getPopup()?.remove();
+  map.__home?.remove();
+  map.__home = null;
+  if (!home) return;
+  const el = document.createElement('div');
+  el.className = 'hs-homepin';
+  el.innerHTML = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3 2.5 11h2.8v9h5.2v-5.5h3v5.5h5.2v-9h2.8z" fill="currentColor"/></svg>';
+  el.setAttribute('aria-label', `Your home: ${home.street}`);
+  const box2 = document.createElement('div');
+  box2.className = 'hs-homepop';
+  const t = document.createElement('strong');
+  t.textContent = home.street;
+  box2.append(t);
+  if (estimateHref) {
+    const a = Object.assign(document.createElement('a'), { href: estimateHref, target: '_top', textContent: 'What’s my home worth? →' });
+    box2.append(a);
+  }
+  const pop = new maplibregl.Popup({ offset: 22, closeButton: true, className: 'hs-popup', maxWidth: '240px' }).setDOMContent(box2);
+  map.__home = new maplibregl.Marker({ element: el, anchor: 'center' }).setLngLat([home.lng, home.lat]).setPopup(pop).addTo(map);
+  if (box?.length === 4) map.fitBounds([[box[0], box[1]], [box[2], box[3]]], { padding: 0, duration: 600 });
+  if (estimateHref) map.__home.togglePopup();
+}
+
 /** The visible map area as "west,south,east,north". */
 export const boxOf = (map: any) => { const b = map.getBounds(); return [b.getWest(), b.getSouth(), b.getEast(), b.getNorth()].map((n: number) => n.toFixed(4)).join(','); };

@@ -216,9 +216,60 @@ export function initSearch(root: HTMLElement) {
     const hit = entries.find(([, l]) => l.toLowerCase() === t) ?? entries.find(([, l]) => l.toLowerCase().startsWith(t)) ?? entries.find(([, l]) => l.toLowerCase().includes(t));
     return hit ? hit[0] : null;
   };
+  // ---- a street address: the map moves there, marks it, and offers an instant estimate of what it's worth ----
+  type Home = { lat: number; lng: number; street: string; city: string; zip: string; address: string };
+  let home: Home | null = null;
+  const homeCard = document.createElement('div');
+  homeCard.className = 'hs-addr';
+  homeCard.hidden = true;
+  list.before(homeCard);
+  const looksLikeAddress = (t: string) => /^\d{1,6}[a-z]?\s+\S/i.test(t.trim()) && !/^\d{5}$/.test(t.trim());
+  // About a mile across, centered on the address.
+  const boxAround = (lat: number, lng: number) => [lng - 0.017, lat - 0.012, lng + 0.017, lat + 0.012];
+  const estimateHref = (h: Home) => `/home-estimate?${new URLSearchParams({ address: `${h.street}, ${h.city}`, zip: h.zip })}`;
+  const showHomeCard = () => {
+    homeCard.hidden = !home;
+    if (!home) { homeCard.innerHTML = ''; return; }
+    const est = estimateHref(home);
+    homeCard.innerHTML = `<p class="hs-addr__where"><span aria-hidden="true">⌂</span> Homes near <strong>${esc(home.street)}</strong>, ${esc(home.city)}</p>`
+      + '<p>Is this your home? See what it could sell for, based on recent sales near you.</p>'
+      + `<a class="btn" href="${esc(est)}" target="_top">What’s my home worth?</a>`;
+  };
+  const clearHome = () => {
+    if (!home) return;
+    home = null;
+    showHomeCard();
+    if (map && mapApi) mapApi.showHome(map, null);
+  };
+  const findAddress = async (text: string) => {
+    where.setCustomValidity('');
+    const r = await fetch(`/api/geocode?q=${encodeURIComponent(text)}`).then((x) => x.json()).catch(() => null);
+    if (!r?.ok) {
+      where.setCustomValidity(r?.error === 'not-found' ? 'We couldn’t find that address. Try adding the city, like “123 Main St, Lakeville”.' : 'We couldn’t look up that address right now. Try a city or ZIP code.');
+      where.reportValidity();
+      return;
+    }
+    home = r as Home;
+    const box = boxAround(home.lat, home.lng);
+    (form.elements.namedItem('place') as HTMLInputElement).value = '';
+    (form.elements.namedItem('bbox') as HTMLInputElement).value = box.map((n) => n.toFixed(4)).join(',');
+    where.value = home.address;
+    showHomeCard();
+    changed();
+    if (phone.matches) showMap(true);
+    await openMap();
+    if (map && mapApi) mapApi.showHome(map, home, box, estimateHref(home));
+  };
+
   const setPlace = () => {
+    if (looksLikeAddress(where.value)) {
+      if (home && where.value === home.address) return false; // already showing it
+      findAddress(where.value);
+      return false;
+    }
+    clearHome();
     const v = placeOf(where.value);
-    if (v === null) { where.setCustomValidity('Pick a city, neighborhood or lake from the list, or a 5-digit ZIP code.'); where.reportValidity(); return false; }
+    if (v === null) { where.setCustomValidity('Pick a city, neighborhood or lake from the list, or type a 5-digit ZIP code or a street address.'); where.reportValidity(); return false; }
     where.setCustomValidity('');
     (form.elements.namedItem('place') as HTMLInputElement).value = v;
     (form.elements.namedItem('bbox') as HTMLInputElement).value = '';
@@ -242,8 +293,10 @@ export function initSearch(root: HTMLElement) {
   next.addEventListener('click', () => { setPage((last?.page ?? 1) + 1); run(); top(); });
 
   // ---- map ----
-  const openMap = async () => {
-    if (map) { map.resize(); return; }
+  // One map only: a second call while the first is still loading waits for it instead of making another.
+  let opening: Promise<void> | null = null;
+  const openMap = () => (map ? (map.resize(), Promise.resolve()) : (opening ??= makeMap()));
+  const makeMap = async () => {
     mapApi = await import('./search-map');
     map = await mapApi.createMap(root.querySelector<HTMLElement>('[data-map]')!, root.dataset.mapStyle!, root.dataset.brThumb ?? '', () => {
       // The person moved the map: search that area if "Search as I move the map" is on.
@@ -252,6 +305,7 @@ export function initSearch(root: HTMLElement) {
       setPage(1); run();
     }, (params().get('bbox') ?? '').split(',').map(Number).filter((n, i, a) => a.length === 4));
     showPlace();
+    if (home) mapApi.showHome(map, home, undefined, estimateHref(home));
     if (last && !isSold()) mapApi.setPins(map, last.pins, !params().get('bbox'));
     else await run(false); // sold answers carry map points only when the map is open
   };
@@ -385,6 +439,9 @@ export function initSearch(root: HTMLElement) {
       fetch('/api/search', { headers: { 'x-idx-eula': 'agreed' } }).then((r) => r.json()).then((a: Answer) => { if (a.ok && seq === 0) draw(a); }).catch(() => {});
     }
     showMap(start.get('view') === 'map' && phone.matches);
+    // Arrived with an address (the home page search box sends /home-search?addr=...): go straight to it.
+    const addr = start.get('addr');
+    if (addr && looksLikeAddress(addr)) { where.value = addr; findAddress(addr); }
   };
   if (document.documentElement.classList.contains('idx-ok')) begin();
   else window.addEventListener('idx-agreed', begin, { once: true });

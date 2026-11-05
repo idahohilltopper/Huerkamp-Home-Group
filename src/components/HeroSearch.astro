@@ -13,7 +13,7 @@ const zipHref = searchUrl({ zips: ['00000'] } as any);
 <form class="hsrch" data-hsrch role="search" action={homeSearchHref} data-own={OWN ? '1' : undefined} data-own-path={SEARCH_PATH} data-zip={zipHref} data-all={homeSearchHref}>
   <label class="visually-hidden" for="hsrch-q">Search homes by city or ZIP code</label>
   <div class="hsrch__box">
-    <input id="hsrch-q" name="q" type="text" placeholder="Enter a city or ZIP code" autocomplete="off"
+    <input id="hsrch-q" name="q" type="text" placeholder={OWN ? "Enter a city, ZIP or address" : "Enter a city or ZIP code"} autocomplete="off"
       role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="hsrch-list" />
     <button type="submit" aria-label="Search homes"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.6" /><path d="m15.5 15.5 5 5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" /></svg></button>
   </div>
@@ -111,6 +111,8 @@ const zipHref = searchUrl({ zips: ['00000'] } as any);
       const t = input.value.trim();
       if (!t) return go(form.dataset.all!);
       if (/^\d{5}$/.test(t)) return go(zip(t));
+      // A street address (with our own search): the map opens there with an offer to estimate the home's value.
+      if (own && /^\d{1,6}[a-z]?\s+\S/i.test(t)) return go(`${form.dataset.ownPath}?${new URLSearchParams({ addr: t, view: 'map' })}`);
       const m = matches(t.replace(/,?\s*(mn|minnesota)$/i, ''));
       if (m[0]) return go(m[0].h);
       note.textContent = own ? 'We didn’t find that place. Showing all homes for sale.' : 'Pick a city from the list or enter a 5-digit ZIP code.';

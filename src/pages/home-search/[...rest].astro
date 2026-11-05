@@ -51,7 +51,7 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
       <input type="hidden" name="status" value="" />
       <div class="hs-where">
         <label class="visually-hidden" for="hs-where">City, neighborhood, lake or ZIP</label>
-        <input id="hs-where" type="search" list="hs-places" placeholder="City, neighborhood, lake or ZIP" autocomplete="off" data-where />
+        <input id="hs-where" type="search" list="hs-places" placeholder="City, neighborhood, ZIP or address" autocomplete="off" data-where />
         <datalist id="hs-places">{groups.flatMap((g) => g.items).map((i) => <option value={i.label} />)}</datalist>
         <input type="hidden" name="place" value="" />
         <button type="submit" aria-label="Search"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.4" /><path d="m15.5 15.5 5 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" /></svg></button>
@@ -178,6 +178,14 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
   [data-sold-only][hidden], [data-sale-only][hidden] { display: none !important; }
   .hs-panel :global(.hs-editbar) { display: grid; gap: .6rem; justify-items: start; margin-bottom: 1rem; padding: 1rem 1.1rem; border: 2px solid var(--crimson); border-radius: 8px; background: #fff6f6; }
   .hs-panel :global(.hs-editbar p) { margin: 0; }
+  /* A searched street address: "Homes near ..." with the home value offer, and its marker on the map. */
+  .hs-panel :global(.hs-addr) { display: grid; gap: .5rem; justify-items: start; margin-bottom: 1rem; padding: 1rem 1.1rem; border: 2px solid var(--crimson); border-radius: 8px; background: #fff6f6; }
+  .hs-panel :global(.hs-addr p) { margin: 0; }
+  .hs-panel :global(.hs-addr__where) { font-size: 1.05rem; }
+  :global(.hs-homepin) { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border: 3px solid #fff; border-radius: 50%;
+    background: var(--crimson); color: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, .35); cursor: pointer; }
+  :global(.hs-homepop) { display: grid; gap: .3rem; font: 500 .95rem/1.3 var(--ui); }
+  :global(.hs-homepop a) { color: var(--crimson); font-weight: 700; }
   .hs-guide { display: inline-block; margin-top: .25rem; color: var(--crimson); font: 600 .92rem/1.3 var(--ui); }
   :global(.hs-home) { position: fixed; inset: 0; z-index: 60; display: grid; grid-template-rows: auto 1fr; width: min(72rem, 100vw); margin-inline: auto; background: #fff; box-shadow: 0 0 0 100vmax rgba(21, 18, 19, .45), 0 20px 60px rgba(0, 0, 0, .35); }
   :global(.hs-home[hidden]) { display: none; }
