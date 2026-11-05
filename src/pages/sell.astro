@@ -83,7 +83,7 @@ import { site } from '../data/site';
         <h2 id="cash-title">Get a Cash Offer for Your Home in Just 24 Hours!</h2>
         <p>Sell your home fast and hassle-free with our team of experienced agents. No repairs, no staging, no open houses. Just a fair, all-cash offer.</p>
       </div>
-      <a class="btn btn--dark" href="/contact">Ask about a cash offer</a>
+      <p class="cash__btns"><a class="btn btn--dark" href="/cash-offer">Get my cash offer</a> <a class="link-arrow" href="/expired-listing">Listing expired? Get a free second look</a></p>
     </div>
   </section>
 
@@ -126,6 +126,7 @@ import { site } from '../data/site';
   .why-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); }
   .why-grid .prose { max-width: none; }
   @media (max-width: 860px) { .why-grid { grid-template-columns: 1fr; } }
+  .cash__btns { display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem; margin: 0; }
   .cash { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2rem; }
   .links { display: flex; flex-wrap: wrap; gap: 1rem 2rem; }
 </style>

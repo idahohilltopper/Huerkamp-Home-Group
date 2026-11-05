@@ -50,4 +50,4 @@ Investors move fast, pay cash and often skip inspections. You can still compete:
 
 And remember: you're a real person, and the seller can picture you living there. A big firm can't offer that.
 
-One more thing: a small drop in rates could qualify about **81,000** more Twin Cities buyers almost overnight, all chasing the same starter homes. See [why the average first-time buyer is now 40](/blog/first-time-home-buyers-twin-cities-age-40). Weighing a cash offer, or tired of losing starter homes? [Let's build a plan](/contact).
+One more thing: a small drop in rates could qualify about **81,000** more Twin Cities buyers almost overnight, all chasing the same starter homes. See [why the average first-time buyer is now 40](/blog/first-time-home-buyers-twin-cities-age-40). Weighing a cash offer? [Compare offers from our investor network](/cash-offer). Tired of losing starter homes? [Let's build a plan](/contact).

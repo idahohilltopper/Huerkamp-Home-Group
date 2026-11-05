@@ -1,0 +1,149 @@
+---
+// Cash offer page: the team brings a seller's home to the local and national investors it has worked with for over a
+// decade (per Jason, 2026-11-05), and shows the offers next to what the home could sell for on the open market.
+// The form goes to Follow Up Boss as a Seller Inquiry tagged "Cash offer" (src/lib/lead.mjs, form "cash-offer").
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import PostCard from '../components/PostCard.astro';
+import { getPosts } from '../data/blog';
+import reviews from '../data/reviews.json';
+import { site } from '../data/site';
+
+const g = reviews.summary.google;
+const postPaths = ['cash-offers-what-sellers-should-know', 'investors-buying-twin-cities-homes-cash-offers', 'biggest-mistake-minneapolis-sellers-pricing'];
+const posts = (await getPosts()).filter((p) => postPaths.includes(p.data.path));
+const steps = [
+  { t: 'Tell us about your home', d: 'The address, its condition and when you’d like to move. Photos help but aren’t required.' },
+  { t: 'We take it to our investors', d: 'We share your home with the local and national investors we’ve worked with for over a decade, so more than one buyer is looking at it.' },
+  { t: 'You get real offers', d: 'Cash offers usually come back within 24 hours, and we walk you through each one: price, terms, fees and closing date.' },
+  { t: 'Compare, then decide', d: 'We put the best cash offer next to what your home could sell for on the open market, after costs, so you can see the trade-off in dollars.' },
+];
+const why = [
+  { t: 'Sell as-is', d: 'No repairs, no updates, no cleaning out every closet first.' },
+  { t: 'No showings', d: 'No staging, no open houses, no leaving the house for strangers.' },
+  { t: 'Pick your closing date', d: 'Close quickly, or later if you need time to move.' },
+  { t: 'More certainty', d: 'No buyer mortgage to fall through and no appraisal to come in low.' },
+];
+const fits = ['An inherited home or a parent’s house', 'A home that needs major repairs', 'A fast job move or relocation', 'A rental with tenants, or a tired landlord', 'A divorce or a change in plans', 'A home that didn’t sell on the market'];
+const faq = [
+  { q: 'Is a cash offer as much as I’d get by listing?', a: 'Usually not. An investor takes on repairs, holding costs and the risk of reselling, so cash offers are typically below what a home brings on the open market. That’s why we show you both numbers. For some sellers, speed, convenience and certainty are worth the difference; for others, listing nets more. You decide.' },
+  { q: 'Who are the investors?', a: 'Local and national home buyers we’ve worked with for over a decade. Because several can look at your home, you see more than one offer instead of taking the first one that comes along.' },
+  { q: 'Am I obligated to accept an offer?', a: 'No. Asking costs nothing and there’s no obligation. If you’d rather list, we can do that too, or list while you hold a cash offer as a backup.' },
+  { q: 'How fast can a cash sale close?', a: 'Often in a few weeks, and sometimes faster, depending on title work and your city’s required inspections. You can also choose a later date if you need time.' },
+  { q: 'Are there fees?', a: 'It depends on the offer and how the sale is structured. We go over exactly what you’d pay, and what you’d walk away with, before you accept anything.' },
+  { q: 'Do I still need my city’s inspection?', a: 'Some Twin Cities cities require a point-of-sale or sewer inspection before any sale, cash or not. See what’s required before you sell in your city.' },
+];
+const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
+---
+<Base breadcrumbs={[{ name: 'Sell', href: '/sell' }, { name: 'Get a cash offer', href: '/cash-offer' }]}
+  title={`Get a Cash Offer for Your Twin Cities Home | ${site.name}`}
+  description="Sell your Twin Cities home as-is for cash. We take it to local and national investors we've worked with for over a decade, then compare their offers with what you'd net by listing. No obligation.">
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <PageHero eyebrow="Get a cash offer" title="Sell as-is, for cash, on your timeline."
+    lede="We take your home to the local and national investors we’ve worked with for over a decade, then show you their best offer next to what your home could sell for on the open market. No repairs, no showings, no obligation.">
+    <p class="hero-btns"><a class="btn" href="#offer">Request my cash offer</a> <a class="btn btn--ghost" href={site.phoneHref}>Call or text {site.phone}</a></p>
+  </PageHero>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="head"><p class="eyebrow">How it works</p><h2>Four steps, <em>no pressure.</em></h2></div>
+      <ul class="steps">{steps.map((s) => <li><strong>{s.t}</strong><span>{s.d}</span></li>)}</ul>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="wrap two">
+      <div>
+        <div class="head"><p class="eyebrow">Why sellers choose cash</p><h2>Simple and certain</h2></div>
+        <ul class="cards">{why.map((w) => <li><strong>{w.t}</strong><span>{w.d}</span></li>)}</ul>
+      </div>
+      <div class="prose">
+        <div class="head"><p class="eyebrow">The honest part</p><h2>Cash or list? <em>See both.</em></h2></div>
+        <p>A cash offer trades some price for speed and convenience. Investors build repairs, holding costs and resale risk into their number, so an offer is usually below what the same home could bring on the open market.</p>
+        <p>That’s why we never show you just one number. You’ll see the best cash offer next to an estimate of what you’d net by listing with us, after commissions, the Minnesota deed tax and closing costs. Then you choose.</p>
+        <p><a class="link-arrow" href="/calculators/seller-net-proceeds">Estimate what you’d net by listing</a></p>
+        <p><a class="link-arrow" href="/home-estimate">Get an instant home value</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="head"><p class="eyebrow">Who it fits</p><h2>A good fit when you need it sold</h2></div>
+      <ul class="fits">{fits.map((f) => <li>{f}</li>)}</ul>
+      <p class="more">Behind on payments? See <a href="/foreclosure">short sale and foreclosure help</a>. Selling a parent’s home? See <a href="/downsizing/selling-a-parents-home">our guide</a>.</p>
+    </div>
+  </section>
+
+  <section class="section section--dark" id="offer" aria-labelledby="offer-title">
+    <div class="wrap split">
+      <div class="prose">
+        <p class="eyebrow">Free, no obligation</p>
+        <h2 id="offer-title">Request your <em>cash offer.</em></h2>
+        <p>Tell us about your home and a {site.name} agent will get back to you to walk through your options.</p>
+        <p>Rated {g.rating.toFixed(1)} stars across {g.count} Google reviews. Prefer to talk? Call or text <a href={site.phoneHref}>{site.phone}</a>.</p>
+      </div>
+      <form class="form" data-lead="cash-offer">
+        <div class="form__row">
+          <div class="field"><label for="co-first">First name</label><input id="co-first" name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for="co-last">Last name</label><input id="co-last" name="lastName" autocomplete="family-name" required /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="co-email">Email</label><input id="co-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="co-phone">Phone</label><input id="co-phone" name="phone" type="tel" autocomplete="tel" required pattern="[^0-9]*([0-9][^0-9]*){10,}" title="Please enter your phone number, including area code." /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="co-addr">Property address</label><input id="co-addr" name="address" autocomplete="street-address" required /></div>
+          <div class="field"><label for="co-zip">ZIP code</label><input id="co-zip" name="zip" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" autocomplete="postal-code" required title="Your 5-digit ZIP code" /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="co-cond">Condition</label>
+            <select id="co-cond" name="condition"><option value="">Choose one</option><option>Move-in ready</option><option>Needs some updates</option><option>Needs major repairs</option><option>Not sure</option></select></div>
+          <div class="field"><label for="co-time">When would you like to sell?</label>
+            <select id="co-time" name="timeline"><option value="">Choose one</option><option>As soon as possible</option><option>Within 30 days</option><option>1 to 3 months</option><option>3+ months</option><option>Just exploring</option></select></div>
+        </div>
+        <div class="field"><label for="co-msg">Anything we should know?</label><textarea id="co-msg" name="message" rows="3" placeholder="Tenants, an estate, repairs it needs, your timing..."></textarea></div>
+        <button class="btn" type="submit">Request my cash offer</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section section--paper" aria-labelledby="faq-title">
+    <div class="wrap faq">
+      <div class="head"><p class="eyebrow">Quick answers</p><h2 id="faq-title">Cash offer questions</h2></div>
+      {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+      <p class="more"><a class="link-arrow" href="/selling-in-minnesota">What’s required to sell in your city</a></p>
+    </div>
+  </section>
+
+  {posts.length > 0 && (
+    <section class="section" aria-labelledby="posts-title">
+      <div class="wrap">
+        <div class="head"><p class="eyebrow">Read</p><h2 id="posts-title">Before you take a cash offer</h2></div>
+        <div class="post-grid">{posts.map((p) => <PostCard post={p} />)}</div>
+      </div>
+    </section>
+  )}
+</Base>
+
+<style>
+  .head { margin-bottom: 1.5rem; }
+  .hero-btns { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.25rem; }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); gap: 1rem; counter-reset: s; }
+  .steps li { display: grid; gap: .45rem; align-content: start; padding: 1.3rem 1.4rem; border: 1px solid var(--line); background: var(--paper); }
+  .steps strong, .cards strong { font: 600 1.25rem/1.25 var(--serif); }
+  .steps span:last-child, .cards span { color: var(--text-soft); }
+  .two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 900px) { .two { grid-template-columns: 1fr; } }
+  .cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  @media (max-width: 560px) { .cards { grid-template-columns: 1fr; } }
+  .cards li { display: grid; gap: .35rem; padding: 1.1rem 1.2rem; background: #fff; border: 1px solid var(--line); }
+  .fits { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); gap: .6rem 1.5rem; font-size: 1.08rem; }
+  .fits li::before { content: '✓'; color: var(--crimson); font-weight: 700; margin-right: .5rem; }
+  .more { margin-top: 1.5rem; }
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+  .split .prose a { color: #fff; font-weight: 700; }
+  .post-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); gap: 1.5rem; }
+</style>

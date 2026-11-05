@@ -53,4 +53,4 @@ Zach's favorite question: on a scale of 1 to 10, how would you grade your home, 
 
 We'd rather be your advisor than push one outcome. We get offers from vetted local and national investors (usually three or four is plenty) and compare them side by side with what your home would bring on the open market, as-is or after a little fixing up. Then you choose.
 
-Got a cash offer, or wondering if you'd get one? [Talk with our team](/contact), check your [home's estimated value](/home-estimate), or read [Wall Street is buying Twin Cities homes](/blog/investors-buying-twin-cities-homes-cash-offers).
+Got a cash offer, or wondering if you'd get one? [Request a cash offer from our investor network](/cash-offer), [talk with our team](/contact), check your [home's estimated value](/home-estimate), or read [Wall Street is buying Twin Cities homes](/blog/investors-buying-twin-cities-homes-cash-offers).

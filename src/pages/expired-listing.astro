@@ -1,0 +1,134 @@
+---
+// Expired or withdrawn listing page: why homes don't sell, what a relaunch has to change, and a free second look.
+// The form goes to Follow Up Boss as a Seller Inquiry tagged "Expired listing" (src/lib/lead.mjs, form "expired").
+// Ethics: a home still listed with another brokerage is that brokerage's client until the agreement ends, so the page
+// asks those owners to reach out once it has.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import PostCard from '../components/PostCard.astro';
+import { getPosts } from '../data/blog';
+import reviews from '../data/reviews.json';
+import { site } from '../data/site';
+
+const g = reviews.summary.google;
+const postPaths = ['biggest-mistake-minneapolis-sellers-pricing', 'twin-cities-homes-selling-vs-sitting', 'minneapolis-sellers-warning-signs-2026', 'quick-home-upgrades-before-selling', 'minneapolis-spring-market-timing', 'sell-house-fall-or-spring-twin-cities'];
+const posts = (await getPosts()).filter((p) => postPaths.includes(p.data.path)).slice(0, 6);
+const why = [
+  { t: 'The price missed the first week', d: 'A listing gets the most attention in its first seven days, when it lands in buyers’ saved searches and alerts. Priced above the range buyers search, it never reaches them, and every week after that it looks staler.' },
+  { t: 'The photos didn’t sell the showing', d: 'Nearly every buyer sees your home online first. Dark, cluttered or too few photos mean they never book a showing.' },
+  { t: 'The home wasn’t ready', d: 'Buyers compare your home with the best one in their price range. Dated paint, worn carpet or deferred repairs become reasons to pass, or to offer low.' },
+  { t: 'Not enough people saw it', d: 'Exposure beyond the MLS (online, social media and other agents’ buyers) decides how many qualified buyers walk through.' },
+  { t: 'It was hard to see', d: 'Limited showing times, long notice or a tenant who didn’t cooperate cost showings, and showings are what sell homes.' },
+  { t: 'The timing worked against it', d: 'The same home can sit in November and sell in March. When you relaunch matters as much as how.' },
+];
+const plan = [
+  { t: 'An honest look at what happened', d: 'We review your last listing: its price history, days on market, showing activity and the homes that sold instead of yours.' },
+  { t: 'A price from today’s sales', d: 'Not the old list price or an online estimate, but the homes that actually sold and went pending near you, recently.' },
+  { t: 'A fresh presentation', d: 'Low-cost changes that photograph and show better, plus help from our designers and vendors when it’s worth it.' },
+  { t: 'A real relaunch', d: 'Buyers and their agents can see your home’s history, so a relaunch needs a visible change: price, presentation or both, timed for when buyers are looking.' },
+  { t: 'A backup plan', d: 'Want certainty instead? We can also get you a cash offer from the investors we’ve worked with for over a decade, and show it next to what listing again would net.' },
+];
+const faq = [
+  { q: 'My listing expired. Can I talk to you now?', a: 'Yes. Once your listing agreement has ended (expired or cancelled in writing), you’re free to talk with any agent and hire whoever you like.' },
+  { q: 'My home is still listed with another agent. Can you help?', a: 'Not yet. While your listing agreement is in effect, your current brokerage represents you, and you should talk with them about any changes. Reach out to us once it has expired or been cancelled.' },
+  { q: 'Should I just lower the price?', a: 'Maybe, but not blindly. Sometimes the price is the problem; sometimes it’s the photos, condition or exposure. We’ll show you which, with the homes that sold instead of yours.' },
+  { q: 'Should I wait before relisting?', a: 'It depends on the season and your plans. Relisting right away can make sense with a real change; in late fall, waiting for the spring market can too. We’ll go over both.' },
+  { q: 'What if I need to sell now?', a: 'A cash offer is one option. It’s usually less than an open-market sale, but it’s fast and certain. We’ll show you both numbers.' },
+];
+const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
+---
+<Base breadcrumbs={[{ name: 'Sell', href: '/sell' }, { name: 'Listing expired?', href: '/expired-listing' }]}
+  title={`Home Didn't Sell? Expired Listing Help in the Twin Cities | ${site.name}`}
+  description="Your Twin Cities listing expired or was withdrawn? Why homes don't sell, what a relaunch has to change, and a free, no-pressure second look from a team with 3,850+ homes sold.">
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <PageHero eyebrow="Listing expired?" title="Your home didn’t sell. Let’s find out why."
+    lede="A listing that expires is frustrating, and it’s rarely about your home alone. Usually it’s the price, the presentation, the exposure or the timing. We’ll take a free, honest look at what happened and what it would take to sell, with no pressure.">
+    <p class="hero-btns"><a class="btn" href="#second-look">Get a free second look</a> <a class="btn btn--ghost" href={site.phoneHref}>Call or text {site.phone}</a></p>
+  </PageHero>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="head"><p class="eyebrow">Why homes don’t sell</p><h2>The usual reasons</h2></div>
+      <ul class="cards">{why.map((w) => <li><strong>{w.t}</strong><span>{w.d}</span></li>)}</ul>
+      <p class="more"><a class="link-arrow" href="/blog/biggest-mistake-minneapolis-sellers-pricing">The pricing mistake that sinks most listings</a></p>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="wrap">
+      <div class="head"><p class="eyebrow">What we do differently</p><h2>A relaunch, <em>not a repeat.</em></h2></div>
+      <ul class="steps">{plan.map((s) => <li><strong>{s.t}</strong><span>{s.d}</span></li>)}</ul>
+      <p class="proof">{site.proof.soldVolume} in real estate sold · {site.proof.homesSold} homes sold · {g.rating.toFixed(1)}★ across {g.count} Google reviews · {site.proof.zillowFiveStar} five-star Zillow reviews</p>
+    </div>
+  </section>
+
+  <section class="section section--dark" id="second-look" aria-labelledby="look-title">
+    <div class="wrap split">
+      <div class="prose">
+        <p class="eyebrow">Free, no obligation</p>
+        <h2 id="look-title">Get a free <em>second look.</em></h2>
+        <p>Tell us about your home and your last listing. A {site.name} agent will review what happened and send you a fresh price from today’s sales, plus what we’d change.</p>
+        <p class="note">Still listed with another agent? Please reach out once your listing agreement has ended; until then, your current brokerage represents you.</p>
+        <p>Prefer to talk? Call or text <a href={site.phoneHref}>{site.phone}</a>.</p>
+      </div>
+      <form class="form" data-lead="expired">
+        <div class="form__row">
+          <div class="field"><label for="ex-first">First name</label><input id="ex-first" name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for="ex-last">Last name</label><input id="ex-last" name="lastName" autocomplete="family-name" required /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="ex-email">Email</label><input id="ex-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="ex-phone">Phone</label><input id="ex-phone" name="phone" type="tel" autocomplete="tel" /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="ex-addr">Property address</label><input id="ex-addr" name="address" autocomplete="street-address" required /></div>
+          <div class="field"><label for="ex-zip">ZIP code</label><input id="ex-zip" name="zip" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" autocomplete="postal-code" title="Your 5-digit ZIP code" /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="ex-sit">Where things stand</label>
+            <select id="ex-sit" name="situation" required><option value="">Choose one</option><option>My listing expired</option><option>I cancelled or withdrew my listing</option><option>I tried selling it myself</option><option>Still listed, ending soon</option></select></div>
+          <div class="field"><label for="ex-time">When would you like to sell?</label>
+            <select id="ex-time" name="timeline"><option value="">Choose one</option><option>As soon as possible</option><option>1 to 3 months</option><option>In the spring</option><option>Not sure yet</option></select></div>
+        </div>
+        <div class="field"><label for="ex-msg">What happened last time? (optional)</label><textarea id="ex-msg" name="message" rows="3" placeholder="How long it was listed, showings, feedback, offers..."></textarea></div>
+        <button class="btn" type="submit">Get my free second look</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section section--paper" aria-labelledby="faq-title">
+    <div class="wrap faq">
+      <div class="head"><p class="eyebrow">Quick answers</p><h2 id="faq-title">Expired listing questions</h2></div>
+      {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+      <p class="more"><a class="link-arrow" href="/cash-offer">Get a cash offer instead</a> <a class="link-arrow" href="/calculators/seller-net-proceeds">Net proceeds calculator</a></p>
+    </div>
+  </section>
+
+  {posts.length > 0 && (
+    <section class="section" aria-labelledby="posts-title">
+      <div class="wrap">
+        <div class="head"><p class="eyebrow">Read</p><h2 id="posts-title">Pricing and timing your relaunch</h2></div>
+        <div class="post-grid">{posts.map((p) => <PostCard post={p} />)}</div>
+      </div>
+    </section>
+  )}
+</Base>
+
+<style>
+  .head { margin-bottom: 1.5rem; }
+  .hero-btns { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.25rem; }
+  .cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr)); gap: 1rem; }
+  .cards li { display: grid; gap: .4rem; align-content: start; padding: 1.25rem 1.4rem; border: 1px solid var(--line); background: var(--paper); }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12.5rem), 1fr)); gap: 1rem; }
+  .steps li { display: grid; gap: .45rem; align-content: start; padding: 1.3rem 1.4rem; border: 1px solid var(--line); background: #fff; }
+  .steps strong, .cards strong { font: 600 1.25rem/1.25 var(--serif); }
+  .steps span:last-child, .cards span { color: var(--text-soft); }
+  .proof { margin-top: 1.75rem; font-weight: 600; }
+  .more { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 1.5rem; }
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+  .split .prose a { color: #fff; font-weight: 700; }
+  .note { padding: .8rem 1rem; border-left: 3px solid var(--crimson); background: rgba(255, 255, 255, .06); font-size: .98rem; }
+  .post-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); gap: 1.5rem; }
+</style>

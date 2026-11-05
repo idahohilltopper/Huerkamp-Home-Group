@@ -16,6 +16,7 @@ export const AGENTS = Object.fromEntries(team.members.filter((m) => /realtor|bro
 export const FORMS = {
   'home-value':        { type: 'Seller Inquiry',  label: 'Home value request',     tags: ['Seller lead', 'Home valuation'] },
   'cash-offer':        { type: 'Seller Inquiry',  label: 'Cash offer request',     tags: ['Seller lead', 'Cash offer'] },
+  'expired':           { type: 'Seller Inquiry',  label: 'Expired listing second look', tags: ['Seller lead', 'Expired listing'] },
   'contact':           { type: 'General Inquiry', label: 'Contact form',           tags: [] },
   'home':              { type: 'General Inquiry', label: 'Home page form',         tags: [] },
   'community-alert':   { type: 'Property Search', label: 'New-listing alert',      tags: ['Buyer lead', 'Listing alert'] },
@@ -44,7 +45,7 @@ export const FORMS = {
 
 // Field names → readable labels for the note on the lead. Contact details are sent separately.
 const LABELS = {
-  address: 'Property address', zip: 'ZIP code', homeType: 'Kind of home', beds: 'Bedrooms', baths: 'Bathrooms', sqft: 'Finished sq ft', timeline: 'Selling timeline', topic: 'Topic', goal: 'Goal',
+  address: 'Property address', zip: 'ZIP code', condition: 'Condition', homeType: 'Kind of home', beds: 'Bedrooms', baths: 'Bathrooms', sqft: 'Finished sq ft', timeline: 'Selling timeline', topic: 'Topic', goal: 'Goal',
   notes: 'Notes', message: 'Message', lake: 'Lake', priceRange: 'Price range', maxPrice: 'Price range',
   community: 'Community', ramseyReferral: 'Referred by Ramsey', interest: 'Interested in', moveFrom: 'Moving from', agent: 'Wants to work with', listing: 'Listing', guide: 'Guide', nextHome: 'Next home', helping: 'Asking for', calc: 'Calculator results', situation: 'Situation', savedSearch: 'Saved search', showingDay: 'Preferred day', showingTime: 'Preferred time', tourType: 'Tour type', saleDate: 'Sheriff’s sale or deadline',
 };
