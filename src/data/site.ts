@@ -27,8 +27,7 @@ export const site = {
   // Google Analytics 4 (the team's own property). Loads only on the live domains, so test sites don't count.
   ga4: 'G-YY1H36L83S',
   // Track record shown on the home page (hero proof line, red strip, "The record" cards). Update these by hand.
-  // Confirmed by Jason 2026-11-05: over $1 billion sold, 341 five-star Zillow reviews. Homes sold: "3,700+" as Jason
-  // states it in his videos (2026).
-  proof: { soldVolume: '$1 billion+', soldVolumeShort: '$1B+', homesSold: '3,700+', zillowFiveStar: 341, asOf: '2026-11' },
+  // Confirmed by Jason 2026-11-05: over $1 billion sold, 341 five-star Zillow reviews, 3,850 homes sold.
+  proof: { soldVolume: '$1 billion+', soldVolumeShort: '$1B+', homesSold: '3,850+', zillowFiveStar: 341, asOf: '2026-11' },
   mapsUrl: 'https://www.google.com/maps/place/Huerkamp+Home+Group/data=!4m2!3m1!1s0x87f630d14e326791:0x9b132b7aac652a24',
 };
