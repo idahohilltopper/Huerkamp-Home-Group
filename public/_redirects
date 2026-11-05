@@ -119,7 +119,6 @@ https://www.huerkamphomegroup.com/*                                    https://w
 
 # Old huerkamphomes.com (Luxury Presence) addresses -> new pages (only where no new page has that address)
 /careers                                                               /team#careers 301
-/cash-offer                                                            /sell#cash 301
 /financing                                                             /buy 301
 /home-valuation                                                        /sell#value 301
 /html-sitemap                                                          / 301
