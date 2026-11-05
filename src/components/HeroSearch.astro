@@ -11,7 +11,7 @@ const places = communities.map((c) => ({ n: c.name, h: communitySearch(c.slug), 
 const zipHref = searchUrl({ zips: ['00000'] } as any);
 ---
 <form class="hsrch" data-hsrch role="search" action={homeSearchHref} data-own={OWN ? '1' : undefined} data-own-path={SEARCH_PATH} data-zip={zipHref} data-all={homeSearchHref}>
-  <label class="visually-hidden" for="hsrch-q">Search homes by city or ZIP code</label>
+  <label class="visually-hidden" for="hsrch-q">Search homes by city, ZIP code or address</label>
   <div class="hsrch__box">
     <input id="hsrch-q" name="q" type="text" placeholder={OWN ? "Enter a city, ZIP or address" : "Enter a city or ZIP code"} autocomplete="off"
       role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="hsrch-list" />
@@ -28,6 +28,7 @@ const zipHref = searchUrl({ zips: ['00000'] } as any);
 </form>
 
 <script>
+  import { makeSuggester, looksLikeAddress } from '../scripts/address-suggest';
   type Place = { n: string; h: string; c: [number, number] };
   for (const form of document.querySelectorAll<HTMLFormElement>('[data-hsrch]')) {
     const input = form.querySelector<HTMLInputElement>('input')!;
@@ -36,6 +37,7 @@ const zipHref = searchUrl({ zips: ['00000'] } as any);
     const note = form.querySelector<HTMLElement>('[data-note]')!;
     const places: Place[] = JSON.parse(form.querySelector('[data-places]')!.textContent!);
     const own = !!form.dataset.own;
+    const suggest = makeSuggester();
     let active = -1;
 
     const options = () => [...list.querySelectorAll<HTMLLIElement>('[role=option]')];
@@ -60,6 +62,29 @@ const zipHref = searchUrl({ zips: ['00000'] } as any);
         list.append(li);
       });
       setActive(-1);
+      // A street address (our own search only): matching addresses from Google, narrowing as more is typed.
+      if (own && looksLikeAddress(input.value)) addresses(input.value);
+    };
+    const addressHref = (text: string) => `${form.dataset.ownPath}?${new URLSearchParams({ addr: text, view: 'map' })}`;
+    const addresses = async (text: string) => {
+      const got = await suggest(text);
+      if (got === null || input.value !== text) return;
+      options().filter((li) => li.dataset.addr).forEach((li) => li.remove());
+      got.forEach((sg, i) => {
+        const li = document.createElement('li');
+        li.id = `hsrch-a${i}`;
+        li.setAttribute('role', 'option');
+        li.setAttribute('aria-selected', 'false');
+        li.dataset.addr = '1';
+        li.dataset.href = addressHref(sg.text);
+        li.className = 'hsrch__addr';
+        const b = document.createElement('strong'); b.textContent = sg.main;
+        const sm = document.createElement('span'); sm.textContent = sg.secondary;
+        li.append(b, sm);
+        list.append(li);
+      });
+      setActive(-1);
+      open(true);
     };
     const go = (href: string) => { location.href = href; };
     const zip = (z: string) => form.dataset.zip!.replace('00000', z);
@@ -112,7 +137,7 @@ const zipHref = searchUrl({ zips: ['00000'] } as any);
       if (!t) return go(form.dataset.all!);
       if (/^\d{5}$/.test(t)) return go(zip(t));
       // A street address (with our own search): the map opens there with an offer to estimate the home's value.
-      if (own && /^\d{1,6}[a-z]?\s+\S/i.test(t)) return go(`${form.dataset.ownPath}?${new URLSearchParams({ addr: t, view: 'map' })}`);
+      if (own && /^\d{1,6}[a-z]?\s+\S/i.test(t)) return go(addressHref(t));
       const m = matches(t.replace(/,?\s*(mn|minnesota)$/i, ''));
       if (m[0]) return go(m[0].h);
       note.textContent = own ? 'We didn’t find that place. Showing all homes for sale.' : 'Pick a city from the list or enter a 5-digit ZIP code.';
@@ -134,6 +159,8 @@ const zipHref = searchUrl({ zips: ['00000'] } as any);
   .hsrch__list { position: absolute; left: 0; right: 0; bottom: calc(100% + .4rem); z-index: 30; margin: 0; padding: .35rem 0; list-style: none; border-radius: 10px;
     background: #fff; color: var(--text); box-shadow: 0 14px 34px rgba(0, 0, 0, .3); font: 500 1rem/1.3 var(--ui); }
   .hsrch__list :global([role='option']) { display: flex; gap: .6rem; align-items: center; padding: .7rem 1.1rem; cursor: pointer; }
+  .hsrch__list :global(.hsrch__addr) { flex-direction: column; align-items: flex-start; gap: .1rem; }
+  .hsrch__list :global(.hsrch__addr span) { color: #6f6a6b; font-size: .88rem; }
   .hsrch__list :global([role='option'][aria-selected='true']), .hsrch__list :global([role='option']:hover) { background: #fff1f1; }
   .hsrch__here { color: var(--crimson); font-weight: 700; border-bottom: 1px solid var(--line); }
   .hsrch__note { min-height: 0; margin: .5rem 0 0; color: #fff; font: 600 .9rem/1.3 var(--ui); text-shadow: 0 1px 8px rgba(0, 0, 0, .6); }
