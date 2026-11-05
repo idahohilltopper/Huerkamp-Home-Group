@@ -23,7 +23,7 @@ import { verify, secretFrom, isSessionToken } from '../../src/lib/session.mjs';
 const env = (k) => (globalThis.Netlify?.env?.get(k) ?? process.env[k] ?? '').trim();
 const ALLOWED = /^https:\/\/((www\.)?huerkamphomegroup\.com|(www\.)?huerkamphomes\.com|[a-z0-9-]+(--[a-z0-9-]+)?\.netlify\.app)$|^http:\/\/localhost(:\d+)?$/;
 // Repliers requires all six fields to create an agent (phone: 11 digits with the country code).
-export const TEAM = { fname: 'Huerkamp', lname: 'Home Group', email: 'leads@hhgus.com', phone: '16128439620', brokerage: 'Keller Williams Preferred Realty', designation: 'Realtor' };
+export const TEAM = { fname: 'Huerkamp', lname: 'Home Group', email: 'leads@hhgus.com', phone: '16125027653', brokerage: 'Keller Williams Preferred Realty', designation: 'Realtor' };
 const BOARD_ID = 187; // NorthstarMLS at Repliers
 const json = (status, body) => new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } });
 const clean = (v, n = 200) => String(v ?? '').replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, n);

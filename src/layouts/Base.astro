@@ -346,7 +346,7 @@ const isExternal = (href: string) => href.startsWith('http');
           // GA4's recommended lead event; mark it as a key event in Google Analytics (Admin > Events) to count leads.
           (window as any).gtag?.('event', 'generate_lead', { form_name: form.dataset.lead, page_path: location.pathname });
         } catch {
-          if (status) status.textContent = `Sorry, that didn't go through. Please call or text ${form.dataset.phone ?? '(612) 843-9620'}.`;
+          if (status) status.textContent = `Sorry, that didn't go through. Please call or text ${form.dataset.phone ?? '(612) 502-7653'}.`;
         } finally {
           if (button) { button.disabled = false; button.textContent = button.dataset.label ?? 'Send'; }
         }

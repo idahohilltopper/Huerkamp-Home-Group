@@ -2,8 +2,8 @@
 export const site = {
   name: 'Huerkamp Home Group',
   brokerage: 'Keller Williams Preferred Realty',
-  phone: '(612) 843-9620',
-  phoneHref: 'tel:+16128439620',
+  phone: '(612) 502-7653',
+  phoneHref: 'tel:+16125027653',
   email: 'leads@hhgus.com',
   street: '14300 Nicollet Ct, Ste 208',
   cityStateZip: 'Burnsville, MN 55306',

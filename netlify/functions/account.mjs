@@ -15,7 +15,7 @@ import { rq, agentId, clientFor, TEAM } from './alerts.mjs';
 import { sign, verify, secretFrom } from '../../src/lib/session.mjs';
 import { sendMail, mailReady } from '../../src/lib/mail.mjs';
 // Business details for the email (kept in step with src/data/site.ts by hand; functions stay plain JavaScript).
-const site = { name: 'Huerkamp Home Group', brokerage: 'Keller Williams Preferred Realty', street: '14300 Nicollet Ct, Ste 208', cityStateZip: 'Burnsville, MN 55306', phone: '(612) 843-9620' };
+const site = { name: 'Huerkamp Home Group', brokerage: 'Keller Williams Preferred Realty', street: '14300 Nicollet Ct, Ste 208', cityStateZip: 'Burnsville, MN 55306', phone: '(612) 502-7653' };
 
 const env = (k) => (globalThis.Netlify?.env?.get(k) ?? process.env[k] ?? '').trim();
 const ALLOWED = /^https:\/\/((www\.)?huerkamphomegroup\.com|(www\.)?huerkamphomes\.com|[a-z0-9-]+(--[a-z0-9-]+)?\.netlify\.app)$|^http:\/\/localhost(:\d+)?$/;

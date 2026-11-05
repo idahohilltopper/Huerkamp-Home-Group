@@ -13,7 +13,7 @@ export const business = {
   url: `${origin}/`,
   logo: `${origin}/brand/hhg-logo.png`,
   image: `${origin}/brand/og-default.jpg`,
-  telephone: '+1-612-843-9620',
+  telephone: '+1-612-502-7653',
   email: site.email,
   address: { '@type': 'PostalAddress', streetAddress: site.street, addressLocality: 'Burnsville', addressRegion: 'MN', postalCode: '55306', addressCountry: 'US' },
   hasMap: site.mapsUrl,
