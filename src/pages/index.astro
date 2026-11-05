@@ -33,6 +33,9 @@ const cards = [
 
 const record = [
   { value: google.rating.toFixed(1), unit: '★', label: 'Google rating', note: `Across ${google.count} reviews from Twin Cities buyers and sellers.`, source: `Google Business Profile, ${google.asOf.slice(0, 7)}` },
+  { value: site.proof.soldVolumeShort, label: 'In real estate sold', note: 'More than one billion dollars in Twin Cities homes bought and sold with our clients.', source: 'Huerkamp Home Group sales records' },
+  { value: site.proof.homesSold, label: 'Homes sold', note: 'Buyers and sellers helped across the Twin Cities and beyond.', source: 'Huerkamp Home Group sales records' },
+  { value: String(site.proof.zillowFiveStar), label: 'Five-star Zillow reviews', note: 'From clients who bought or sold with our team.', source: `Zillow, ${site.proof.asOf}` },
   { value: '2002', label: 'Founded', note: 'Jason and Brooke Huerkamp joined forces and started the team.', source: 'Huerkamp Home Group' },
   { value: String(members.length), label: 'Agents and staff', note: 'Licensed REALTORS® plus listing, transaction and client-care staff.', source: 'Team roster' },
   { value: '15', unit: '+', label: 'Years as a Ramsey ELP', note: 'Recommended to Ramsey listeners as an Endorsed Local Provider.', source: 'Ramsey Endorsed Local Provider program' },
@@ -84,6 +87,12 @@ const ld = JSON.stringify({
           <a class="btn" href={mapSearchHref} rel="noopener">Find a Home</a>
           <a class="btn" href={site.joinUrl} rel="noopener">Join HHG</a>
         </div>
+        <ul class="hero__proof" aria-label="Our track record">
+          <li><strong>{site.proof.soldVolumeShort}</strong> in homes sold</li>
+          <li><strong>{site.proof.homesSold}</strong> homes sold</li>
+          <li><strong>{google.rating.toFixed(1)}★</strong> {google.count} Google reviews</li>
+          <li><strong>{site.proof.zillowFiveStar}</strong> five-star Zillow reviews</li>
+        </ul>
       </div>
     </div>
   </section>
@@ -153,7 +162,7 @@ const ld = JSON.stringify({
     <ul class="strip__track">
       {[0, 1].map((copy) => (
         <>
-          {[`${google.rating.toFixed(1)}★ on Google · ${google.count} reviews`, 'Dave Ramsey Endorsed Local Provider · 15+ years', 'Serving the Twin Cities since 2002', `${members.length} agents and staff`, site.brokerage, `${communities.length} community guides`].map((t) => (
+          {[`${site.proof.soldVolume} in real estate sold`, `${site.proof.homesSold} homes sold`, `${google.rating.toFixed(1)}★ on Google · ${google.count} reviews`, `${site.proof.zillowFiveStar} five-star Zillow reviews`, 'Dave Ramsey Endorsed Local Provider · 15+ years', 'Serving the Twin Cities since 2002', `${members.length} agents and staff`, site.brokerage, `${communities.length} community guides`].map((t) => (
             <li aria-hidden={copy === 1 ? 'true' : undefined}>{t}</li>
           ))}
         </>
@@ -466,6 +475,10 @@ const ld = JSON.stringify({
   .hero__copy :global(.btn), .hero__copy :global(input) { text-shadow: none; }
   .hero h1 { font: 600 clamp(2.4rem, 4.6vw, 3.9rem)/1.02 var(--serif-display); letter-spacing: -.015em; max-width: 16ch; }
   .hero__ctas { display: flex; flex-wrap: wrap; gap: .65rem; }
+  .hero__proof { display: flex; flex-wrap: wrap; gap: .35rem 1.4rem; margin: .2rem 0 0; padding: 0; list-style: none; color: #fff; font: 500 1rem/1.3 var(--ui); }
+  .hero__proof li { display: flex; align-items: baseline; gap: .35rem; }
+  .hero__proof strong { font-size: 1.25rem; font-weight: 700; }
+  @media (max-width: 600px) { .hero__proof { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem 1rem; font-size: .9rem; } .hero__proof li { display: block; } .hero__proof strong { display: block; font-size: 1.15rem; } }
   .star { color: #c99a2e; }
   @media (max-width: 960px) {
     .hero { display: block; min-height: 0; }
