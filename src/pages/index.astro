@@ -35,7 +35,7 @@ const record = [
   { value: google.rating.toFixed(1), unit: '★', label: 'Google rating', note: `Across ${google.count} reviews from Twin Cities buyers and sellers.`, source: `Google Business Profile, ${google.asOf.slice(0, 7)}` },
   { value: site.proof.soldVolumeShort, label: 'In real estate sold', note: 'More than one billion dollars in Twin Cities homes bought and sold with our clients.', source: 'Huerkamp Home Group sales records' },
   { value: site.proof.homesSold, label: 'Homes sold', note: 'Buyers and sellers helped across the Twin Cities and beyond.', source: 'Huerkamp Home Group sales records' },
-  { value: String(site.proof.zillowFiveStar), label: 'Five-star Zillow reviews', note: 'From clients who bought or sold with our team.', source: `Zillow, ${site.proof.asOf}` },
+  { value: site.proof.zillowRating.toFixed(1), unit: '★', label: 'Zillow rating', note: `Across ${site.proof.zillowFiveStar} five-star reviews from clients who bought or sold with our team.`, source: `Zillow, ${site.proof.asOf}` },
   { value: '2002', label: 'Founded', note: 'Jason and Brooke Huerkamp joined forces and started the team.', source: 'Huerkamp Home Group' },
   { value: String(members.length), label: 'Agents and staff', note: 'Licensed REALTORS® plus listing, transaction and client-care staff.', source: 'Team roster' },
   { value: '15', unit: '+', label: 'Years as a Ramsey ELP', note: 'Recommended to Ramsey listeners as an Endorsed Local Provider.', source: 'Ramsey Endorsed Local Provider program' },
@@ -91,7 +91,7 @@ const ld = JSON.stringify({
           <li><strong>{site.proof.soldVolumeShort}</strong> in homes sold</li>
           <li><strong>{site.proof.homesSold}</strong> homes sold</li>
           <li><strong>{google.rating.toFixed(1)}★</strong> {google.count} Google reviews</li>
-          <li><strong>{site.proof.zillowFiveStar}</strong> five-star Zillow reviews</li>
+          <li><strong>{site.proof.zillowRating.toFixed(1)}★</strong> {site.proof.zillowFiveStar} Zillow reviews</li>
         </ul>
       </div>
     </div>
@@ -162,7 +162,7 @@ const ld = JSON.stringify({
     <ul class="strip__track">
       {[0, 1].map((copy) => (
         <>
-          {[`${site.proof.soldVolume} in real estate sold`, `${site.proof.homesSold} homes sold`, `${google.rating.toFixed(1)}★ on Google · ${google.count} reviews`, `${site.proof.zillowFiveStar} five-star Zillow reviews`, 'Dave Ramsey Endorsed Local Provider · 15+ years', 'Serving the Twin Cities since 2002', `${members.length} agents and staff`, site.brokerage, `${communities.length} community guides`].map((t) => (
+          {[`${site.proof.soldVolume} in real estate sold`, `${site.proof.homesSold} homes sold`, `${google.rating.toFixed(1)}★ on Google · ${google.count} reviews`, `${site.proof.zillowRating.toFixed(1)}★ on Zillow · ${site.proof.zillowFiveStar} reviews`, 'Dave Ramsey Endorsed Local Provider · 15+ years', 'Serving the Twin Cities since 2002', `${members.length} agents and staff`, site.brokerage, `${communities.length} community guides`].map((t) => (
             <li aria-hidden={copy === 1 ? 'true' : undefined}>{t}</li>
           ))}
         </>

@@ -58,7 +58,7 @@ const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage'
     <div class="wrap">
       <div class="head"><p class="eyebrow">What we do differently</p><h2>A relaunch, <em>not a repeat.</em></h2></div>
       <ul class="steps">{plan.map((s) => <li><strong>{s.t}</strong><span>{s.d}</span></li>)}</ul>
-      <p class="proof">{site.proof.soldVolume} in real estate sold · {site.proof.homesSold} homes sold · {g.rating.toFixed(1)}★ across {g.count} Google reviews · {site.proof.zillowFiveStar} five-star Zillow reviews</p>
+      <p class="proof">{site.proof.soldVolume} in real estate sold · {site.proof.homesSold} homes sold · {g.rating.toFixed(1)}★ across {g.count} Google reviews · {site.proof.zillowRating.toFixed(1)}★ across {site.proof.zillowFiveStar} Zillow reviews</p>
     </div>
   </section>
 
