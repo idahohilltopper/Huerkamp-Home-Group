@@ -12,10 +12,6 @@
   "to": "/team#careers"
  },
  {
-  "from": "/cash-offer",
-  "to": "/sell#cash"
- },
- {
   "from": "/communities",
   "to": "/communities"
  },
