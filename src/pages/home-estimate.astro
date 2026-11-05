@@ -81,18 +81,21 @@ import { SOLD_DISCLAIMER } from '../lib/sold.mjs';
     box.hidden = false;
     box.scrollIntoView({ behavior: 'smooth', block: 'start' });
     const r = await fetch('/api/estimate', { method: 'POST', headers: { 'content-type': 'application/json', 'x-idx-eula': 'agreed' },
-      body: JSON.stringify({ zip: f.zip, type: f.homeType, beds: f.beds, baths: f.baths, sqft: f.sqft }) }).catch(() => null);
+      body: JSON.stringify({ zip: f.zip, type: f.homeType, beds: f.beds, baths: f.baths, sqft: f.sqft,
+        address: f.address, firstName: f.firstName, lastName: f.lastName, email: f.email, phone: f.phone }) }).catch(() => null);
     const a = r ? await r.json().catch(() => ({})) : {};
+    const mailed = a.emailed && f.email ? `<p class="est__mailed">We also emailed this to ${esc(f.email)}.</p>` : '';
     if (!a.ok) {
       out.innerHTML = a.error === 'not-enough-sales'
-        ? `<h2>We'll prepare your value by hand</h2><p>There haven't been enough recent sales of homes like yours in ${esc(f.zip)} for an instant estimate. We got your details, and one of our agents will send you a value based on the best comparable sales.</p>`
-        : `<h2>We got your request</h2><p>The instant estimate isn't available right now, but one of our agents will send you a value for your home shortly.</p>`;
+        ? `<h2>We'll prepare your value by hand</h2><p>There haven't been enough recent sales of homes like yours in ${esc(f.zip)} for an instant estimate. We got your details, and one of our agents will send you a value based on the best comparable sales.</p>${mailed}`
+        : `<h2>We got your request</h2><p>The instant estimate isn't available right now, but one of our agents will send you a value for your home shortly.</p>${mailed}`;
       return;
     }
     out.innerHTML = `<p class="eyebrow">Instant estimate for ${esc(f.address)}</p>`
       + `<p class="est__range">${money(a.low)} – ${money(a.high)}</p>`
       + `<p class="est__mid">Middle of the range: <strong>${money(a.mid)}</strong></p>`
       + `<p>Based on ${a.n} similar homes that sold in ZIP ${esc(a.zip)} in the last ${a.months} months, using their ${esc(a.method)}${a.method === 'price per square foot' ? ` and your ${Number(String(f.sqft).replace(/\D/g, '')).toLocaleString('en-US')} square feet` : ''}.</p>`
+      + mailed
       + `<h3>Recent sales we used</h3><ul class="est-comps">${(a.comps ?? []).map(comp).join('')}</ul>`;
   }
   window.addEventListener('lead-sent', (e: Event) => {

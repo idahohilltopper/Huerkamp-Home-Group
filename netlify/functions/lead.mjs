@@ -5,7 +5,9 @@
 // Fello picks up sellers from Follow Up Boss through its own integration.
 
 import { getStore } from '@netlify/blobs';
-import { buildEvent } from '../../src/lib/lead.mjs';
+import { buildEvent, FORMS } from '../../src/lib/lead.mjs';
+import { leadEmail } from '../../src/lib/notify.mjs';
+import { sendMail, mailReady } from '../../src/lib/mail.mjs';
 
 const FUB_URL = 'https://api.followupboss.com/v1/events';
 
@@ -16,7 +18,20 @@ const json = (status, body) =>
 // send Origin on a POST, so another website can't push spam into Follow Up Boss through this endpoint.
 const ALLOWED = /^https:\/\/((www\.)?huerkamphomegroup\.com|(www\.)?huerkamphomes\.com|[a-z0-9-]+(--[a-z0-9-]+)?\.netlify\.app)$|^http:\/\/localhost(:\d+)?$/;
 
-export default async (req) => {
+// A copy of every lead to the team inbox (LEAD_NOTIFY_EMAIL, default leads@hhgus.com), as a backup to Follow Up Boss's
+// own alerts. Only when RESEND_API_KEY is set (src/lib/mail.mjs); never blocks or fails the lead.
+async function copyToTeam(input, delivered, mail) {
+  if (!mailReady() && mail === sendMail) return;
+  const to = (process.env.LEAD_NOTIFY_EMAIL ?? '').trim() || 'leads@hhgus.com';
+  const f = Object.fromEntries(Object.entries(input?.fields ?? {}).map(([k, v]) => [k, String(v ?? '').slice(0, 1000)]));
+  const label = FORMS[input?.form]?.label ?? 'Website form';
+  try {
+    const r = await mail({ to, ...leadEmail(label, f, String(input?.page ?? '').slice(0, 200), delivered) });
+    if (!r.ok) console.error('Lead copy email', r.error);
+  } catch (e) { console.error('Lead copy email', e?.message); }
+}
+
+export default async (req, _ctx, mail = sendMail, fetcher = fetch) => {
   if (req.method !== 'POST') return json(405, { ok: false, error: 'POST only' });
   const origin = req.headers.get('origin');
   if (origin && !ALLOWED.test(origin)) return json(403, { ok: false, error: 'Forbidden' });
@@ -49,10 +64,11 @@ export default async (req) => {
   const key = process.env.FUB_API_KEY;
   if (!key) {
     console.error('FUB_API_KEY is not set');
+    await copyToTeam(input, false, mail);
     return json(500, { ok: false, error: 'Not configured' });
   }
 
-  const res = await fetch(FUB_URL, {
+  const res = await fetcher(FUB_URL, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
@@ -63,6 +79,7 @@ export default async (req) => {
   });
 
   // 200/201 = created or updated; 204 = Follow Up Boss chose to ignore it (e.g. lead flow archived it).
+  await copyToTeam(input, res.ok, mail);
   if (res.ok) return json(200, { ok: true });
   console.error('Follow Up Boss error', res.status, (await res.text()).slice(0, 500));
   return json(502, { ok: false, error: 'Could not send' });
