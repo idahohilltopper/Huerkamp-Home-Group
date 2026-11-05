@@ -81,10 +81,9 @@ import { SOLD_DISCLAIMER } from '../lib/sold.mjs';
     box.hidden = false;
     box.scrollIntoView({ behavior: 'smooth', block: 'start' });
     const r = await fetch('/api/estimate', { method: 'POST', headers: { 'content-type': 'application/json', 'x-idx-eula': 'agreed' },
-      body: JSON.stringify({ zip: f.zip, type: f.homeType, beds: f.beds, baths: f.baths, sqft: f.sqft,
-        address: f.address, firstName: f.firstName, lastName: f.lastName, email: f.email, phone: f.phone }) }).catch(() => null);
+      body: JSON.stringify({ zip: f.zip, type: f.homeType, beds: f.beds, baths: f.baths, sqft: f.sqft }) }).catch(() => null);
     const a = r ? await r.json().catch(() => ({})) : {};
-    const mailed = a.emailed && f.email ? `<p class="est__mailed">We also emailed this to ${esc(f.email)}.</p>` : '';
+    const mailed = f.email ? `<p class="est__mailed">We're also emailing this to ${esc(f.email)}.</p>` : '';
     if (!a.ok) {
       out.innerHTML = a.error === 'not-enough-sales'
         ? `<h2>We'll prepare your value by hand</h2><p>There haven't been enough recent sales of homes like yours in ${esc(f.zip)} for an instant estimate. We got your details, and one of our agents will send you a value based on the best comparable sales.</p>${mailed}`

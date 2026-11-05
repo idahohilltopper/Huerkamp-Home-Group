@@ -8,6 +8,7 @@ import { getStore } from '@netlify/blobs';
 import { buildEvent, FORMS } from '../../src/lib/lead.mjs';
 import { leadEmail } from '../../src/lib/notify.mjs';
 import { sendMail, mailReady } from '../../src/lib/mail.mjs';
+import { estimateLeadEmail } from './estimate.mjs';
 
 const FUB_URL = 'https://api.followupboss.com/v1/events';
 
@@ -31,7 +32,7 @@ async function copyToTeam(input, delivered, mail) {
   } catch (e) { console.error('Lead copy email', e?.message); }
 }
 
-export default async (req, _ctx, mail = sendMail, fetcher = fetch) => {
+export default async (req, ctx, mail = sendMail, fetcher = fetch, homeValueEmail = estimateLeadEmail) => {
   if (req.method !== 'POST') return json(405, { ok: false, error: 'POST only' });
   const origin = req.headers.get('origin');
   if (origin && !ALLOWED.test(origin)) return json(403, { ok: false, error: 'Forbidden' });
@@ -80,6 +81,11 @@ export default async (req, _ctx, mail = sendMail, fetcher = fetch) => {
 
   // 200/201 = created or updated; 204 = Follow Up Boss chose to ignore it (e.g. lead flow archived it).
   await copyToTeam(input, res.ok, mail);
+  // Home value requests: email the homeowner their estimate. Finishes after the answer (waitUntil) so the page isn't kept waiting.
+  if (input.form === 'home-value') {
+    const job = homeValueEmail(input.fields ?? {}).then((r) => { if (!r?.sent) console.error('Home value email not sent', r?.why ?? ''); }).catch((e) => console.error('Home value email', e?.message));
+    if (ctx?.waitUntil) ctx.waitUntil(job); else await job;
+  }
   if (res.ok) return json(200, { ok: true });
   console.error('Follow Up Boss error', res.status, (await res.text()).slice(0, 500));
   return json(502, { ok: false, error: 'Could not send' });
