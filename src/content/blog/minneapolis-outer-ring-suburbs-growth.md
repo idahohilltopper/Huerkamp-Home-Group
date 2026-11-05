@@ -2,7 +2,7 @@
 title: "Why Minneapolis Is Growing Backwards: The Outer-Ring Suburbs Are Winning"
 description: "The city of Minneapolis is flat while Scott, Carver, Dakota, Wright and Sherburne counties grow fast. Why the growth moved outward, and where buyers focused on long-term equity are looking."
 path: "minneapolis-outer-ring-suburbs-growth"
-date: 2026-11-05
+date: 2026-05-26
 author: "Jason Huerkamp"
 categories: ["Neighborhoods", "Buyer"]
 tags: ["population", "suburbs", "new construction", "Scott County", "Carver County"]

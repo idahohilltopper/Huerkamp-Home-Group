@@ -2,7 +2,7 @@
 title: "5 Types of Minnesota Homes That Can Be Risky Investments"
 description: "Older homes with hidden sewer and foundation problems, new construction with builder-loan fine print, condos with weak finances, homes without storage, and very unusual designs. What to check before you buy."
 path: "risky-home-types-minnesota"
-date: 2026-11-05
+date: 2026-09-15
 author: "Jason Huerkamp"
 categories: ["Buyer"]
 tags: ["buying tips", "sewer scope", "new construction", "condos", "inspections"]

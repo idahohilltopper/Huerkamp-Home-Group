@@ -2,7 +2,7 @@
 title: "Why Some Minneapolis Sellers Are Losing Money (It's Not a Crash)"
 description: "Twin Cities prices are at a record, but some sellers who bought in 2020 to 2022 can't come down on price. Here's the math behind it, and what buyers and sellers should do."
 path: "why-minneapolis-sellers-are-losing-money"
-date: 2026-11-05
+date: 2026-09-05
 author: "Jason Huerkamp"
 categories: ["Seller", "Buyer"]
 tags: ["market update", "pricing", "mortgage rates", "Minneapolis"]

@@ -2,7 +2,7 @@
 title: "Minnesota Ranked #1 for Quality of Life (Without Winning a Single Category)"
 description: "The bipartisan State of the States report ranked Minnesota first overall across 31 measures. Where Minnesota is strong (jobs, social connection, health), where it isn't (environment, youth depression, taxes), and what it costs to live here."
 path: "minnesota-number-one-quality-of-life"
-date: 2026-11-05
+date: 2026-09-29
 author: "Jason Huerkamp"
 categories: ["Neighborhoods", "Buyer"]
 tags: ["living in Minnesota", "relocation", "rankings", "taxes"]

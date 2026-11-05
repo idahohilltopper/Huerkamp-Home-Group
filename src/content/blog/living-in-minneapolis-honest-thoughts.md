@@ -2,7 +2,7 @@
 title: "I've Lived in Minneapolis All My Life: My Honest Pros and Cons"
 description: "The lakes and parks, a Fortune 500 economy, affordable homes, high taxes, long winters and a struggling downtown. A lifelong local's honest take on living in Minneapolis, and what's coming next."
 path: "living-in-minneapolis-honest-thoughts"
-date: 2026-11-05
+date: 2026-01-17
 author: "Jason Huerkamp"
 categories: ["Neighborhoods", "Buyer"]
 tags: ["living in Minneapolis", "relocation", "cost of living", "winter"]

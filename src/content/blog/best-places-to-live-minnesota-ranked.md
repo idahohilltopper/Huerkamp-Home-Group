@@ -2,7 +2,7 @@
 title: "10 Minnesota Places to Live, Ranked by Who They Fit Best"
 description: "Minneapolis, Saint Paul, Plymouth, Eden Prairie, Edina, Maple Grove, Woodbury, Wayzata and Lake Minnetonka, Lakeville and Rochester: what each is best for, and the honest trade-off in each."
 path: "best-places-to-live-minnesota-ranked"
-date: 2026-11-05
+date: 2026-09-22
 author: "Jason Huerkamp"
 categories: ["Neighborhoods", "Buyer"]
 tags: ["best places to live", "suburbs", "relocation"]

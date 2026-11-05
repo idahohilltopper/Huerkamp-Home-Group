@@ -2,7 +2,7 @@
 title: "Eden Prairie Will Never Be the Same: Light Rail, the Mall and the Golden Triangle"
 description: "Over $3 billion is reshaping Eden Prairie: the Green Line Extension opening in 2027, plans for Eden Prairie Center, transit-oriented apartments, and the Golden Triangle job center's makeover. What it means for buyers."
 path: "eden-prairie-light-rail-redevelopment"
-date: 2026-11-05
+date: 2026-03-12
 author: "Jason Huerkamp"
 categories: ["Neighborhoods", "Buyer"]
 tags: ["Eden Prairie", "Green Line Extension", "development", "transit"]

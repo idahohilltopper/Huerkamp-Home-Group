@@ -2,7 +2,7 @@
 title: "What Nobody Tells You About Living in Minnesota"
 description: "A lifelong Minnesotan on what daily life is really like: the length of winter (more than the cold), jobs and cost of living, liquor store rules, the monthly siren test, Minnesota nice, and what to look for in a home."
 path: "what-they-dont-tell-you-living-in-minnesota"
-date: 2026-11-05
+date: 2026-09-18
 author: "Jason Huerkamp"
 categories: ["Neighborhoods", "Buyer"]
 tags: ["living in Minnesota", "relocation", "winter", "Minnesota nice"]

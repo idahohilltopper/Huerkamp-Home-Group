@@ -2,7 +2,7 @@
 title: "Twin Cities Homeowners Are Finally Selling, and Rates Didn't Drop"
 description: "In June, Twin Cities new listings jumped about 10% with no rate cut. Equity, not interest rates, broke the standoff. What it means for sellers, buyers and anyone stuck with a 3% mortgage."
 path: "twin-cities-homeowners-finally-selling"
-date: 2026-11-05
+date: 2026-08-25
 author: "Jason Huerkamp"
 categories: ["Seller", "Buyer"]
 tags: ["market update", "equity", "mortgage rates", "inventory"]

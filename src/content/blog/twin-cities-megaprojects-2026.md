@@ -2,7 +2,7 @@
 title: "7 Twin Cities Megaprojects Reshaping Where People Buy Homes"
 description: "A possible new Timberwolves arena, Boston Scientific's Maple Grove growth, a $1.9 billion MSP airport program, the I-494 rebuild, United Village, downtown office conversions and Meta's Rosemount data center."
 path: "twin-cities-megaprojects-2026"
-date: 2026-11-05
+date: 2026-09-01
 author: "Jason Huerkamp"
 categories: ["Neighborhoods", "Buyer"]
 tags: ["development", "Minneapolis", "Saint Paul", "Rosemount", "Maple Grove"]

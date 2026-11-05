@@ -2,7 +2,7 @@
 title: "The Minneapolis Housing Market Has Split in Two"
 description: "Prices are up, but closed sales fell sharply. Well-priced suburban homes still get multiple offers while downtown condos sit for months. What buyers and sellers on each side should do."
 path: "minneapolis-housing-market-two-markets"
-date: 2026-11-05
+date: 2026-07-07
 author: "Jason Huerkamp"
 categories: ["Buyer", "Seller"]
 tags: ["market update", "condos", "HOA", "suburbs"]

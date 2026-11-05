@@ -2,7 +2,7 @@
 title: "4 Minnesota Housing Law Changes Every Homeowner Should Know (2026)"
 description: "A private equity home-buying ban that almost passed, a bigger Homestead Credit Refund, the homestead market value exclusion and a new HOA reform law: what each one means for your house."
 path: "minnesota-housing-laws-homeowners-2026"
-date: 2026-11-05
+date: 2026-09-08
 author: "Jason Huerkamp"
 categories: ["Homeowner", "Buyer"]
 tags: ["Minnesota law", "property taxes", "HOA", "homestead"]

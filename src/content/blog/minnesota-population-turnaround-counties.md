@@ -2,7 +2,7 @@
 title: "The Minnesota 'Exodus' Is Over: Where the State Is Actually Growing"
 description: "Minnesota gained residents from other states for the first time since 2018. Which counties are growing, which are shrinking, who's moving in and out, and what it means if you're buying."
 path: "minnesota-population-turnaround-counties"
-date: 2026-11-05
+date: 2026-10-16
 author: "Jason Huerkamp"
 categories: ["Neighborhoods", "Buyer"]
 tags: ["population", "migration", "greater Minnesota", "Wright County"]

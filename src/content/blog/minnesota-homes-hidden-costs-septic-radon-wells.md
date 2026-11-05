@@ -2,7 +2,7 @@
 title: "Minnesota Homes With Hidden Costs: Septic, Shoreline, Radon, Wells and As-Is Sales"
 description: "Five kinds of Minnesota homes that can come with a bill you can't see: failing septic systems, lake homes with non-compliant docks, untested radon, untested wells, and as-is listings. What to check before you buy."
 path: "minnesota-homes-hidden-costs-septic-radon-wells"
-date: 2026-11-05
+date: 2026-09-25
 author: "Jason Huerkamp"
 categories: ["Buyer"]
 tags: ["inspections", "septic", "radon", "well water", "lake homes", "as-is"]

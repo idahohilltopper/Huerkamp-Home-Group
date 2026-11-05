@@ -2,7 +2,7 @@
 title: "Expo 2031: A World's Fair Is Coming to Dakota County"
 description: "Expo 2031 is approved: a 240-acre world's fair with five climate biodomes and up to 80 country pavilions. What it could mean for Rosemount, Farmington and Hastings."
 path: "expo-2031-dakota-county-worlds-fair"
-date: 2026-11-05
+date: 2026-08-07
 author: "Jason Huerkamp"
 categories: ["Neighborhoods", "Buyer"]
 tags: ["Expo 2031", "Dakota County", "development"]

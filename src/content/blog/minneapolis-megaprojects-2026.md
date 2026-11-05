@@ -2,7 +2,7 @@
 title: "9 Megaprojects Changing the Twin Cities: Parks, Transit and New Districts"
 description: "North Commons Park, Chanhassen's community center, St. Paul's Central Station, the METRO E Line, the Mall of America water park, Blaine's town center, Upper Harbor Terminal, Highland Bridge and the Green Line Extension."
 path: "minneapolis-megaprojects-2026"
-date: 2026-11-05
+date: 2026-03-18
 author: "Jason Huerkamp"
 categories: ["Neighborhoods", "Buyer"]
 tags: ["development", "transit", "Green Line Extension", "Minneapolis", "Saint Paul"]

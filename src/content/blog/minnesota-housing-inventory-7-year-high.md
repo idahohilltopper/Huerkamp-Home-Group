@@ -2,7 +2,7 @@
 title: "Minnesota Housing Inventory Hits a 7-Year High: What It Means"
 description: "Statewide inventory reached its highest June level since 2019, but pending sales rose too. What more homes for sale means for Twin Cities buyers and sellers, and the one number to watch."
 path: "minnesota-housing-inventory-7-year-high"
-date: 2026-11-05
+date: 2026-09-11
 author: "Jason Huerkamp"
 categories: ["Buyer", "Seller"]
 tags: ["market update", "inventory", "months of supply"]

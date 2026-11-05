@@ -2,7 +2,7 @@
 title: "5 Popular Minneapolis Suburbs That Surprise Out-of-State Buyers"
 description: "Maple Grove, Eden Prairie, Shakopee, Brooklyn Park and Woodbury top 'best places' lists, but commutes, total monthly costs and older homes catch relocating buyers off guard. Here's who each one fits."
 path: "minneapolis-suburbs-relocation-surprises"
-date: 2026-11-05
+date: 2026-04-08
 author: "Jason Huerkamp"
 categories: ["Neighborhoods", "Buyer"]
 tags: ["relocation", "suburbs", "commute"]

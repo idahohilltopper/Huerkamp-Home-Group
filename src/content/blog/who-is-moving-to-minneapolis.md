@@ -2,7 +2,7 @@
 title: "Who's Moving to Minneapolis, and Where They're Buying"
 description: "Minnesota gained residents from other states for the first time since 2018. Where newcomers are coming from (Wisconsin, Illinois, Iowa, California and Texas), why, and the suburbs where many are buying."
 path: "who-is-moving-to-minneapolis"
-date: 2026-11-05
+date: 2026-05-08
 author: "Jason Huerkamp"
 categories: ["Neighborhoods", "Buyer"]
 tags: ["relocation", "migration", "suburbs"]

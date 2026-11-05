@@ -2,7 +2,7 @@
 title: "The Mall of America Water Park: What It Means for Bloomington Homes"
 description: "Mystery Cove, a 143,000-square-foot indoor water park with a retractable roof, opens at the Mall of America in 2029. Why it took 40 years, how it's paid for, and what to watch in Bloomington, Richfield, Eagan and south Minneapolis."
 path: "mall-of-america-water-park-bloomington"
-date: 2026-11-05
+date: 2026-03-07
 author: "Jason Huerkamp"
 categories: ["Neighborhoods", "Buyer"]
 tags: ["Mall of America", "Bloomington", "development", "investing"]

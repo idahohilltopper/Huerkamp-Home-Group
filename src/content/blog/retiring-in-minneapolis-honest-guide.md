@@ -2,7 +2,7 @@
 title: "Retiring in Minneapolis? 5 Things to Know Before You Move"
 description: "Minneapolis ranks among the best places in the country to retire, but winter, taxes on Social Security, building a social life, health care and car dependence all matter. An honest look before you decide."
 path: "retiring-in-minneapolis-honest-guide"
-date: 2026-11-05
+date: 2026-04-01
 author: "Jason Huerkamp"
 categories: ["Buyer", "Neighborhoods"]
 tags: ["retirement", "taxes", "health care", "winter", "relocation"]

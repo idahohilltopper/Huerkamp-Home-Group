@@ -2,7 +2,7 @@
 title: "Why Minneapolis Is the Opposite of Every Other Major U.S. City"
 description: "In most big cities, downtown drives home values. In the Twin Cities, the suburbs and the lakes do. Five ways the metro works differently, and what it means if you're moving here."
 path: "why-minneapolis-is-opposite-of-other-cities"
-date: 2026-11-05
+date: 2026-06-23
 author: "Jason Huerkamp"
 categories: ["Neighborhoods", "Buyer"]
 tags: ["relocation", "suburbs", "lakes", "winter"]

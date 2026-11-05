@@ -2,7 +2,7 @@
 title: "Living in Saint Paul: 5 Pros and 5 Cons From People Who Live There"
 description: "Historic architecture, free Como Zoo, award-winning food and great colleges, versus quieter nights, little new construction, potholes, limited transit and fewer shopping options. An honest look at Saint Paul."
 path: "saint-paul-pros-and-cons"
-date: 2026-11-05
+date: 2026-06-12
 author: "Jason Huerkamp"
 categories: ["Neighborhoods", "Buyer"]
 tags: ["Saint Paul", "living in Saint Paul", "relocation"]

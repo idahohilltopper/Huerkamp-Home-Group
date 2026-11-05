@@ -2,7 +2,7 @@
 title: "Not a Crash, but Worse for Some Sellers: 10 Signals in the Minneapolis Market"
 description: "Minneapolis prices are still up, but days on market jumped 41%. Inventory, rate lock-in, property taxes, insurance, inspections, radon, condo finances and city sale evaluations: what sellers should get ahead of."
 path: "minneapolis-sellers-warning-signs-2026"
-date: 2026-11-05
+date: 2026-10-09
 author: "Jason Huerkamp"
 categories: ["Seller"]
 tags: ["market update", "selling", "property taxes", "insurance", "radon", "truth in sale of housing"]

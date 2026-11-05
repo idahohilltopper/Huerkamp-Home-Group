@@ -2,7 +2,7 @@
 title: "The Average First-Time Buyer Is Now 40: The Twin Cities Data"
 description: "Why first-time buyers are older than ever: the down payment math on a $375,000 home, rate lock-in, investors and building costs. Plus what's changing in 2026 and four practical steps for Twin Cities buyers."
 path: "first-time-home-buyers-twin-cities-age-40"
-date: 2026-11-05
+date: 2026-04-24
 author: "Jason Huerkamp"
 categories: ["Buyer"]
 tags: ["first-time buyers", "down payment assistance", "affordability", "Minnesota Housing"]

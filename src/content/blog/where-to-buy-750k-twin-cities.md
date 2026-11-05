@@ -2,7 +2,7 @@
 title: "If I Had $750K to Buy in the Twin Cities, Here's Where I'd Look"
 description: "What $750,000 buys in Edina, Linden Hills, Excelsior, Woodbury and Northeast Minneapolis, the trade-offs in each, and where I'd personally put the money."
 path: "where-to-buy-750k-twin-cities"
-date: 2026-11-05
+date: 2026-08-28
 author: "Jason Huerkamp"
 categories: ["Buyer", "Neighborhoods"]
 tags: ["home prices", "Edina", "Linden Hills", "Excelsior", "Woodbury", "Northeast Minneapolis"]

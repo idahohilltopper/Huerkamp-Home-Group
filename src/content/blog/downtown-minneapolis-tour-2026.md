@@ -2,7 +2,7 @@
 title: "A Realistic Tour of Downtown Minneapolis (2026 Update)"
 description: "The skyways, the Chain of Lakes, Kenwood, the Mill District and the North Loop: a local's tour of Minneapolis, plus what condos and lofts cost in each downtown neighborhood."
 path: "downtown-minneapolis-tour-2026"
-date: 2026-11-05
+date: 2025-12-05
 author: "Jason Huerkamp"
 categories: ["Neighborhoods", "Buyer"]
 tags: ["Minneapolis", "downtown", "condos", "relocation"]
