@@ -62,7 +62,7 @@ import { site } from '../data/site';
 
 <script>
   document.querySelectorAll('[data-eula-agree]').forEach((b) => b.addEventListener('click', () => {
-    try { sessionStorage.setItem('idx-eula', '1'); } catch {}
+    try { sessionStorage.setItem('idx-eula', '1'); document.cookie = 'idx_eula=1; path=/; SameSite=Lax; Secure'; } catch {}
     document.documentElement.classList.add('idx-ok');
     document.querySelectorAll<HTMLElement>('[data-eula-done]').forEach((el) => (el.hidden = false));
   }));

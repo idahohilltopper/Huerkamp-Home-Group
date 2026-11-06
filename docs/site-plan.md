@@ -558,7 +558,7 @@ Information and Technical Agreement (section 6 and Appendix D). Everything lives
 - **License agreement (EULA):** /license-agreement has RMLS's required text word for word, with Keller Williams
   Preferred Realty as Broker and the "developer" clause left out (no outside web vendor builds the site), plus the
   required DMCA paragraphs and the contingency definitions. Every listing block (`data-idx`) is covered until the
-  visitor clicks **I AGREE**, once per visit (sessionStorage); /api/search answers only after that.
+  visitor clicks **I AGREE**, once per visit (a session cookie shared by all tabs, cleared when the browser closes; not longer, because the EULA covers "the current viewing session"); /api/search answers only after that.
 - **Disclosures** (`src/components/IdxDisclosure.astro`) under every listing display: the Rule 12.3(i) disclaimer, at
   least as large as the largest listing text (card prices 1.45rem; listing pages cap their title and price at 2rem and
   set the disclaimer at 2rem); the data-source explanation with the Broker Reciprocity logo; the "only listings in our
