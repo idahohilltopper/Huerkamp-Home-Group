@@ -63,7 +63,7 @@ let title: string, h1: string, description: string, eyebrow: string, intro: stri
 if (p) {
   h1 = `${p.a.short} vs. ${p.b.short}`;
   const st = `${p.a.short} vs. ${p.b.short}${p.kind === 'community' ? ', MN' : ''}`;
-  title = [`${st}: Home Prices, Market and Location Compared`, `${st}: Home Prices and Market Compared`, `${st}: Homes Compared`].find((t) => t.length <= 70) ?? st;
+  title = [`${st}: Home Prices, Market and Location Compared`, `${st}: Home Prices and Market Compared`, `${st}: Homes Compared`].find((t) => t.length <= 60) ?? st;
   eyebrow = p.kind === 'community' ? `Compare cities · ${compareMonth}` : `Compare neighborhoods · ${compareMonth}`;
   intro = lede.join(' ');
   description = `${lede.slice(0, 2).join(' ')} Side-by-side home prices, days on market, homes and drive times for ${p.a.name} and ${p.b.name}.`;
@@ -71,7 +71,7 @@ if (p) {
   index = p.index;
 } else if (city) {
   h1 = `${city.name} compared with nearby cities`;
-  title = `${city.name}, MN vs. Nearby Cities: Home Prices, Market and Drive Times`;
+  title = [`${city.name}, MN vs. Nearby Cities: Home Prices, Market and Drive Times`, `${city.name}, MN vs. Nearby Cities: Prices and Drive Times`, `${city.name} vs. Nearby Cities: Prices and Drive Times`, `${city.name} vs. Nearby Cities`].find((t) => t.length <= 60) ?? `${city.name} vs. Nearby Cities`;
   eyebrow = `Compare · ${compareMonth}`;
   intro = cityRows[0].price
     ? `Homes in ${city.name} sold for a median ${money(cityRows[0].price)} over the 12 months through ${compareMonth}. ${cheaper} of the ${cityPairs.length} cities within ${PAIR_MILES} miles had a lower median price. Pick any city for a full side-by-side comparison.`

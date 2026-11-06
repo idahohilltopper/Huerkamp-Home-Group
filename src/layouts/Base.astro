@@ -90,6 +90,10 @@ const footerCols = [
   { title: 'Company', links: [['Our team', '/team'], ['Ramsey ELP', '/ramsey'], ['Reviews', '/reviews'], ['Videos', '/videos'], ['Blog', '/blog'], ['Contact', '/contact']] },
 ];
 const isExternal = (href: string) => href.startsWith('http');
+// Google shows about 60 characters of a title. A longer one drops the " | Huerkamp Home Group" ending (the brand is
+// still in the page, the logo and the structured data) so the words that describe the page stay visible.
+const brandEnd = ` | ${site.name}`;
+const pageTitle = title.length > 60 && title.endsWith(brandEnd) ? title.slice(0, -brandEnd.length) : title;
 ---
 <!doctype html>
 <html lang="en">
@@ -98,7 +102,7 @@ const isExternal = (href: string) => href.startsWith('http');
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <!-- A listing opened inside the map search's panel (src/scripts/home-search.ts) shows without the site's header and footer. -->
   <script is:inline>if (/[?&]embed=1\b/.test(location.search) && window.top !== window.self) document.documentElement.classList.add('is-embed');</script>
-  <title>{title}</title>
+  <title>{pageTitle}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
   {noindex && <meta name="robots" content="noindex" />}
@@ -106,7 +110,7 @@ const isExternal = (href: string) => href.startsWith('http');
   {article && <meta property="article:published_time" content={article.published.toISOString()} />}
   {article?.modified && <meta property="article:modified_time" content={article.modified.toISOString()} />}
   <meta property="og:site_name" content={site.name} />
-  <meta property="og:title" content={title} />
+  <meta property="og:title" content={pageTitle} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
   <meta property="og:image" content={ogImage} />

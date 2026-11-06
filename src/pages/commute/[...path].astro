@@ -51,7 +51,7 @@ const others = c ? [...DESTS.filter((x) => x !== d).map((x) => ({ name: x.name, 
 
 if (c && d) {
   h1 = `Living in ${c.name} and commuting to ${d.short}`;
-  title = [`${c.name}, MN to ${d.name}: Commute and Home Prices`, `${c.name} to ${d.name}: Commute and Home Prices`, `${c.name} to ${d.name} Commute`].find((t) => t.length <= 70) ?? `${c.name} to ${d.name}`;
+  title = [`${c.name}, MN to ${d.name}: Commute and Home Prices`, `${c.name} to ${d.name}: Commute and Home Prices`, `${c.name} to ${d.name} Commute`].find((t) => t.length <= 60) ?? `${c.name} to ${d.name}`;
   eyebrow = `Commute · ${d.name}`;
   lede = `${c.name} is about ${mins} minutes from ${d.short} by car in light traffic, the ${ordinal(rank)} shortest drive of the ${list.length} cities in our guides.${price && sales(c) >= 10 ? ` Homes there sold for a median ${money(price)} over the 12 months through ${month}.` : ''}`;
   description = `${lede} Shorter drives at a similar price, drive times to other job centers, and ${c.name} homes for sale.`;
