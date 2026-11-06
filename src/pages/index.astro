@@ -31,7 +31,10 @@ const cards = [
   ...pool.filter((r: any) => r.source === 'Zillow').slice(0, 2),
 ];
 
+const rt = site.rankings.realtrends, ap = site.rankings.agentPronto;
 const record = [
+  { value: `#${rt.state}`, label: 'Real estate team in Minnesota', note: `RealTrends Verified ranks us #${rt.state} in Minnesota and #${rt.city} in ${rt.cityName} by sales volume and transactions (${rt.year} sales: ${rt.sides} transactions, ${rt.volume}).`, source: rt.source, href: rt.url },
+  { value: `#${ap.rank}`, label: "Buyer's team in Minnesota", note: `Agent Pronto's Top 25 Buyer's Agents and Teams in Minnesota ranked us #${ap.rank} in both ${ap.quarters}.`, source: ap.source, href: ap.url },
   { value: google.rating.toFixed(1), unit: '★', label: 'Google rating', note: `Across ${google.count} reviews from Twin Cities buyers and sellers.`, source: `Google Business Profile, ${google.asOf.slice(0, 7)}` },
   { value: site.proof.soldVolumeShort, label: 'In real estate sold', note: 'More than one billion dollars in Twin Cities homes bought and sold with our clients.', source: 'Huerkamp Home Group sales records' },
   { value: site.proof.homesSold, label: 'Homes sold', note: 'Buyers and sellers helped across the Twin Cities and beyond.', source: 'Huerkamp Home Group sales records' },
@@ -88,6 +91,7 @@ const ld = JSON.stringify({
           <a class="btn" href={site.joinUrl} rel="noopener">Join HHG</a>
         </div>
         <ul class="hero__proof" aria-label="Our track record">
+          <li><strong>#{rt.state}</strong> team in Minnesota</li>
           <li><strong>{site.proof.soldVolumeShort}</strong> in homes sold</li>
           <li><strong>{site.proof.homesSold}</strong> homes sold</li>
           <li><strong>{google.rating.toFixed(1)}★</strong> {google.count} Google reviews</li>
@@ -162,7 +166,7 @@ const ld = JSON.stringify({
     <ul class="strip__track">
       {[0, 1].map((copy) => (
         <>
-          {[`${site.proof.soldVolume} in real estate sold`, `${site.proof.homesSold} homes sold`, `${google.rating.toFixed(1)}★ on Google · ${google.count} reviews`, `${site.proof.zillowRating.toFixed(1)}★ on Zillow · ${site.proof.zillowFiveStar} reviews`, 'Dave Ramsey Endorsed Local Provider · 15+ years', 'Serving the Twin Cities since 2002', `${members.length} agents and staff`, site.brokerage, `${communities.length} community guides`].map((t) => (
+          {[`#${rt.state} real estate team in Minnesota · RealTrends`, `#${rt.city} team in ${rt.cityName} · RealTrends`, `${site.proof.soldVolume} in real estate sold`, `${site.proof.homesSold} homes sold`, `${google.rating.toFixed(1)}★ on Google · ${google.count} reviews`, `${site.proof.zillowRating.toFixed(1)}★ on Zillow · ${site.proof.zillowFiveStar} reviews`, 'Dave Ramsey Endorsed Local Provider · 15+ years', 'Serving the Twin Cities since 2002', `${members.length} agents and staff`, site.brokerage, `${communities.length} community guides`].map((t) => (
             <li aria-hidden={copy === 1 ? 'true' : undefined}>{t}</li>
           ))}
         </>
@@ -185,7 +189,7 @@ const ld = JSON.stringify({
             <p class="rcard__value">{r.value}{r.unit && <sup>{r.unit}</sup>}</p>
             <h3>{r.label}</h3>
             <p class="rcard__note">{r.note}</p>
-            <p class="rcard__source">Source · <strong>{r.source}</strong></p>
+            <p class="rcard__source">Source · <strong>{r.href ? <a href={r.href} rel="noopener">{r.source}</a> : r.source}</strong></p>
           </article>
         ))}
         <a class="rcard rcard--cta" href="/sell#value">
@@ -526,6 +530,7 @@ const ld = JSON.stringify({
   .rcard__source { margin-top: .75rem; padding-top: .75rem; border-top: 1px dashed var(--line); font: 600 .7rem/1.4 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--text-soft); }
   .rcard__source strong { color: var(--ink); }
   .rcard--cta { background: var(--night); color: var(--on-dark); align-content: center; gap: 1.25rem; }
+  @media (min-width: 561px) { .rcard--cta { grid-column: span 2; } }
   .rcard--cta .rcard__badge { color: var(--rose); }
   .rcard__cta { font: 500 2rem/1.15 var(--serif); }
   .rcard--cta .link-arrow { color: var(--on-dark); justify-self: start; }

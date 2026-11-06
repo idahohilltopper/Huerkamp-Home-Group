@@ -29,5 +29,20 @@ export const site = {
   // Track record shown on the home page (hero proof line, red strip, "The record" cards). Update these by hand.
   // Confirmed by Jason 2026-11-05: over $1 billion sold, 341 five-star Zillow reviews (shown as a 5.0★ rating like Google), 3,850 homes sold.
   proof: { soldVolume: '$1 billion+', soldVolumeShort: '$1B+', homesSold: '3,850+', zillowFiveStar: 341, zillowRating: 5.0, asOf: '2026-11' },
+  // Third-party rankings, each with its public source (checked 2026-11-06). Shown on the home page and in the business
+  // structured data (schema.ts). Re-check when RealTrends publishes new rankings (based on the prior year's sales).
+  rankings: {
+    realtrends: {
+      state: 3, city: 1, cityName: 'Burnsville', year: 2025, sides: 439, volume: '$153.35M',
+      text: '#3 real estate team in Minnesota and #1 in Burnsville by sales volume and transactions (RealTrends Verified, 2025 sales)',
+      source: 'RealTrends Verified', url: 'https://www.realtrends.com/team-profile/huerkamp-home-group-minnesota-keller-williams/',
+    },
+    agentPronto: {
+      rank: 3, quarters: 'Q1 and Q2 2026',
+      text: "#3 on Agent Pronto's Minnesota Top 25 Buyer's Agents and Teams rankings in Q1 and Q2 2026",
+      source: 'Agent Pronto', url: 'https://agentpronto.com/resources/minnesota-buy-side-real-estate-market-q2-2026-analysis',
+      q1Url: 'https://agentpronto.com/resources/minnesota-buy-side-real-estate-market-q1-2026-analysis',
+    },
+  },
   mapsUrl: 'https://www.google.com/maps/place/Huerkamp+Home+Group/data=!4m2!3m1!1s0x87f630d14e326791:0x9b132b7aac652a24',
 };

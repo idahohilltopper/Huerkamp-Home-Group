@@ -25,6 +25,7 @@ export const business = {
   foundingDate: '2002',
   founder: [{ '@type': 'Person', name: 'Jason Huerkamp' }, { '@type': 'Person', name: 'Brooke Huerkamp' }],
   parentOrganization: { '@type': 'Organization', name: site.brokerage },
+  award: [site.rankings.realtrends.text, site.rankings.agentPronto.text],
   sameAs: [site.facebookUrl, site.youtubeUrl, reviewData.summary.google.url],
 };
 
