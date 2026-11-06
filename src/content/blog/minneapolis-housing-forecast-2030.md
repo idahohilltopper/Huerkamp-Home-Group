@@ -5,6 +5,7 @@ path: "minneapolis-housing-forecast-2030"
 date: 2026-11-03
 author: "Jason Huerkamp"
 categories: ["Buyer", "Seller"]
+communities: ["minneapolis"]
 tags: ["forecast", "mortgage rates", "home prices", "market update"]
 cover: { src: "/blog/minneapolis-housing-forecast-2030/cover.webp", width: 1280, height: 720, alt: "The Minneapolis housing forecast nobody wants to hear", thumb: "/blog/minneapolis-housing-forecast-2030/cover-640.webp" }
 youtube: "a3zD9BF1hoo"

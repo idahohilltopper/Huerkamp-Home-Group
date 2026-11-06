@@ -5,6 +5,7 @@ path: "why-minneapolis-sellers-are-losing-money"
 date: 2026-09-05
 author: "Jason Huerkamp"
 categories: ["Seller", "Buyer"]
+communities: ["minneapolis"]
 tags: ["market update", "pricing", "mortgage rates", "Minneapolis"]
 cover: { src: "/blog/why-minneapolis-sellers-are-losing-money/cover.webp", width: 1280, height: 720, alt: "Sellers losing money in Minneapolis: what's actually happening", thumb: "/blog/why-minneapolis-sellers-are-losing-money/cover-640.webp" }
 youtube: "qs12LtkMaLY"

@@ -5,6 +5,7 @@ path: "new-construction-vs-existing-homes-minneapolis"
 date: 2026-07-21
 author: "Jason Huerkamp"
 categories: ["Buyer"]
+communities: ["minneapolis"]
 tags: ["new construction", "older homes", "warranty", "builder incentives"]
 cover: { src: "/blog/new-construction-vs-existing-homes-minneapolis/cover.webp", width: 1280, height: 720, alt: "What nobody tells you about old vs new homes in Minneapolis", thumb: "/blog/new-construction-vs-existing-homes-minneapolis/cover-640.webp" }
 youtube: "E1yJD_GnAhw"
