@@ -59,8 +59,6 @@ const people = ce && [
   ['Households', count(ce.households), count(cityAcs.households)],
   ['Homes owned by the people living in them', pct(ce.ownerPct), pct(cityAcs.ownerOccupiedPct)],
   ['Median value of owner-occupied homes', dollars(ce.medianHomeValue, ce.medianHomeValueTop), dollars(cityAcs.medianHomeValue)],
-  ['Median household income', dollars(ce.medianIncome, ce.medianIncomeTop), dollars(cityAcs.medianHouseholdIncome)],
-  ['Adults 25+ with a bachelor\'s degree or higher', pct(ce.bachelorsPct), pct(cityAcs.bachelorsOrHigherPct)],
   ['Single-family detached homes', pct(ce.housing.singleFamily), pct(cityAcs.singleFamilyPct)],
   ['Workers who drive alone', pct(ce.commute.droveAlone), pct(cityAcs.droveAlonePct)],
   ['Workers who take transit', pct(ce.commute.transit), pct(cityAcs.publicTransitPct)],
@@ -71,10 +69,6 @@ const housingMix = ce && [
   { label: 'Townhome, duplex, 3-4 units', value: ce.housing.townhomeDuplex ?? 0 },
   { label: 'Apartments, 5-49 units', value: ce.housing.smallApartment ?? 0 },
   { label: 'Large buildings, 50+ units', value: ce.housing.largeApartment ?? 0 },
-];
-const ages = ce && [
-  { label: 'Under 18', value: ce.ages.under18 ?? 0 }, { label: '18 to 34', value: ce.ages['18to34'] ?? 0 },
-  { label: '35 to 64', value: ce.ages['35to64'] ?? 0 }, { label: '65 and older', value: ce.ages['65plus'] ?? 0 },
 ];
 const commuteMix = ce && [
   { label: 'Drive alone', value: ce.commute.droveAlone ?? 0 }, { label: 'Work from home', value: ce.commute.fromHome ?? 0 },
@@ -204,7 +198,7 @@ const ld = JSON.stringify([
   {ce && (
     <section class="section section--paper" aria-labelledby="people-title">
       <div class="wrap">
-        <div class="head"><p class="eyebrow">People and homes</p><h2 id="people-title">{h.name} by the numbers</h2>
+        <div class="head"><p class="eyebrow">Homes and getting around</p><h2 id="people-title">{h.name} by the numbers</h2>
           <p>US Census Bureau estimates for the {h.blockGroups} block {h.blockGroups === 1 ? 'group' : 'groups'} mostly inside {h.name}, compared with all of {cityName}.</p></div>
         <div class="people">
           <div class="table-scroll">
@@ -214,7 +208,7 @@ const ld = JSON.stringify([
             </table>
           </div>
           <div class="mixes">
-            {[{ t: 'Types of homes', rows: housingMix! }, { t: 'Ages', rows: ages! }, { t: 'Getting to work', rows: commuteMix! }].map((g) => (
+            {[{ t: 'Types of homes', rows: housingMix! }, { t: 'Getting to work', rows: commuteMix! }].map((g) => (
               <figure class="mix"><figcaption>{g.t}</figcaption>
                 <ol>{g.rows.map((r) => <li><span>{r.label}</span><span class="bar" aria-hidden="true"><i style={`width:${r.value}%`}></i></span><b>{r.value}%</b></li>)}</ol>
               </figure>

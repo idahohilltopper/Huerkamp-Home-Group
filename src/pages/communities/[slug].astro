@@ -12,7 +12,6 @@ import ShortsRow from '../../components/ShortsRow.astro';
 import { videosAbout } from '../../data/youtube';
 import AreaMap from '../../components/AreaMap.astro';
 import LineChart from '../../components/LineChart.astro';
-import BarList from '../../components/BarList.astro';
 import { communities, communityGeoUrl, communityInfo, fmt, type Community } from '../../data/areas';
 import { lakesTouching, lakeHref, lakeSearchUrl } from '../../data/lakes';
 import detailData from '../../data/community-details.json';
@@ -88,7 +87,6 @@ const compareSet = [
   }),
 ];
 const years = Object.entries(c.populationByYear).map(([y, v]) => ({ label: y, value: v as number, display: fmt(v as number) }));
-const industries = a.industries.slice(0, 6).map((i: any) => ({ label: i.name, value: i.pct, display: `${i.pct}%` }));
 const growthWord = c.growthPct > 0.5 ? 'grew' : c.growthPct < -0.5 ? 'shrank' : 'held steady';
 
 const nameRe = new RegExp(`\\b(${[c.name, c.censusName].map((n) => n.replace('.', '\\.')).join('|')})\\b`, 'i');
@@ -99,7 +97,6 @@ const googleSummary = reviewData.summary.google;
 const takeaways = [
   `Population: ${fmt(c.population2024)} (Census 2024 estimate; ${c.growthPct > 0 ? '+' : ''}${c.growthPct}% since 2020)`,
   `Median home value: ${money(a.medianHomeValue)}${cmp(a.medianHomeValue, county.medianHomeValue, `the ${countyName} median`)} (owner estimates, Census ACS)`,
-  `Median household income: ${money(a.medianHouseholdIncome)}${cmp(a.medianHouseholdIncome, county.medianHouseholdIncome, countyName)}`,
   `Homeownership: ${pctS(a.ownerOccupiedPct)} of households own their home (Minnesota: ${pctS(mn.ownerOccupiedPct)})`,
   `Getting around: about ${d.driveMinutes.downtownMinneapolis} minutes to downtown Minneapolis and ${d.driveMinutes.mspAirport} minutes to MSP Airport in light traffic`,
   ...(mainDistrict ? [`Schools: ${mainDistrict.name} covers about ${mainDistrict.pctOfCity}% of the city`] : []),
@@ -117,7 +114,7 @@ const faqs = [
   { q: `How far is ${c.name} from downtown Minneapolis?`,
     a: `About ${d.driveMinutes.downtownMinneapolis} minutes by car in light traffic, and about ${d.driveMinutes.downtownSaintPaul} minutes to downtown Saint Paul. Residents' average one-way commute is ${a.meanCommuteMinutes} minutes (Census ACS).` },
   { q: `Is ${c.name} a good place to live?`,
-    a: `It depends on what you need. ${c.name} has a median household income of ${money(a.medianHouseholdIncome)}, ${pctS(a.ownerOccupiedPct)} homeownership and a ${a.meanCommuteMinutes}-minute average commute. Visit at the times you'd normally drive, check the school assignment for the address, and compare total ownership costs before you decide.` },
+    a: `It depends on what you need. In ${c.name} the median home value is ${money(a.medianHomeValue)}, ${pctS(a.ownerOccupiedPct)} of households own their home and the average commute is ${a.meanCommuteMinutes} minutes. Visit at the times you'd normally drive, check the school assignment for the address, and compare total ownership costs before you decide.` },
   { q: `What does it cost to rent in ${c.name}?`,
     a: `The median gross rent (rent plus utilities) is ${money(a.medianGrossRent)} a month, compared with ${money(county.medianGrossRent)} in ${countyName} (Census ACS 2020–2024).` },
   ...(d.zips.length ? [{ q: `What ZIP codes are in ${c.name}?`,
@@ -176,6 +173,16 @@ const browse = [
   { label: 'Luxury ($1M+)', href: communitySearch(c.slug, { minPrice: 1000000 }) },
   ...(d.lakes?.length ? [{ label: 'Lake homes', href: '/lake-homes' }] : []),
 ];
+// The answer at the top of the page (what Google and AI assistants quote): homes for sale now, the median sale price
+// from the monthly MLS report (or the Census home value when the city has no report) and the ZIP codes.
+const zipList = (d.zips ?? []).map((z: any) => z.zip);
+const heroAnswer = [
+  homes?.listings.length ? `${fmt(homes.listings.length)} ${homes.listings.length === 1 ? 'home is' : 'homes are'} for sale in ${c.name} right now.` : '',
+  mk?.medianPrice?.r12[1]
+    ? `Over the 12 months through ${monthLabel(marketMonth)}, ${c.name} homes sold for a median $${fmt(Math.round(mk.medianPrice.r12[1]))} (${fmt(mk.closedSales?.r12[1] ?? 0)} sales, NorthstarMLS).`
+    : a.medianHomeValue ? `The median value of owner-occupied homes is ${money(a.medianHomeValue)} (Census ACS).` : '',
+  zipList.length ? `${zipList.length === 1 ? 'ZIP code' : 'ZIP codes'}: ${list(zipList)}.` : '',
+].filter(Boolean).join(' ');
 const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 1000 : 400000;
 ---
 <Base
@@ -184,8 +191,8 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
   description={`${c.name}, Minnesota real estate guide: homes for sale, median home values, schools, commute times, ZIP codes and neighborhoods near ${c.name}, from Huerkamp Home Group.`}>
   <script type="application/ld+json" set:html={faqLd} />
 
-  <PageHero eyebrow={`${c.name}, Minnesota`} title={`${c.name} Real Estate`}
-    lede={`Homes for sale, local facts and advice for buying or selling in ${c.name}, ${countyName}, from Huerkamp Home Group.`}>
+  <PageHero eyebrow={`${c.name}, Minnesota`} title={`${c.name} Homes for Sale & Real Estate`}
+    lede={`${heroAnswer ? `${heroAnswer} ` : ''}Local facts and advice for buying or selling in ${c.name}, ${countyName}, from Huerkamp Home Group.`}>
     <p class="hero-meta">Updated {updated} · By {jason.name}, {jason.title}</p>
     <div class="hero-actions">
       <a class="btn" href="#listings">Browse {c.name} homes</a>
@@ -341,8 +348,6 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
           <dl class="glance__facts">
             <div><dt>Population (2024)</dt><dd>{fmt(c.population2024)}</dd></div>
             <div><dt>Median home value</dt><dd>{money(a.medianHomeValue)}</dd></div>
-            <div><dt>Median household income</dt><dd>{money(a.medianHouseholdIncome)}</dd></div>
-            <div><dt>Median age</dt><dd>{a.medianAge}</dd></div>
             <div><dt>County</dt><dd>{c.counties.join(', ')}</dd></div>
             <div><dt>Land area</dt><dd>{c.landSqMi} sq mi</dd></div>
             <div><dt>Water area</dt><dd>{c.waterSqMi} sq mi</dd></div>
@@ -354,23 +359,20 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
     </div>
   </section>
 
-  <!-- 5. Who lives here -->
+  <!-- 5. Housing (homes only: never who lives here, per the site's fair housing rules) -->
   <section class="section" aria-labelledby="who-title">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow">Demographics · {c.name}, MN</p>
-        <h2 id="who-title">Who lives in <em>{c.name}?</em></h2>
-        <p>According to the Census Bureau, {c.name}'s median household income is {money(a.medianHouseholdIncome)}{cmp(a.medianHouseholdIncome, county.medianHouseholdIncome, `the ${countyName} median`)} ({countyName}: {money(county.medianHouseholdIncome)}). The median age is {a.medianAge}, {pctS(a.ownerOccupiedPct)} of households own their home and {pctS(a.bachelorsOrHigherPct)} of adults hold a bachelor's degree or higher.</p>
+        <p class="eyebrow">Housing · {c.name}, MN</p>
+        <h2 id="who-title">What are homes like <em>in {c.name}?</em></h2>
+        <p>According to the Census Bureau, the median value of owner-occupied homes in {c.name} is {money(a.medianHomeValue)}{cmp(a.medianHomeValue, county.medianHomeValue, `the ${countyName} median`)}. {pctS(a.ownerOccupiedPct)} of households own their home, {pctS(a.singleFamilyPct)} of homes are single-family houses, and the median home was built in {a.medianYearBuilt}.</p>
       </div>
       <div class="stats">
         {[
           ['Population', fmt(c.population2024), `${fmt(Math.round(a.households))} households`],
-          ['Median household income', money(a.medianHouseholdIncome), `${d.primaryCounty.name} Co. ${money(county.medianHouseholdIncome)} · MN ${money(mn.medianHouseholdIncome)}`],
           ['Median home value', money(a.medianHomeValue), `${d.primaryCounty.name} Co. ${money(county.medianHomeValue)} · MN ${money(mn.medianHomeValue)}`],
           ['Median gross rent', money(a.medianGrossRent), `${d.primaryCounty.name} Co. ${money(county.medianGrossRent)} · MN ${money(mn.medianGrossRent)}`],
           ['Homeowners', pctS(a.ownerOccupiedPct), `${d.primaryCounty.name} Co. ${pctS(county.ownerOccupiedPct)} · MN ${pctS(mn.ownerOccupiedPct)}`],
-          ["Bachelor's degree or higher", pctS(a.bachelorsOrHigherPct), `${d.primaryCounty.name} Co. ${pctS(county.bachelorsOrHigherPct)} · MN ${pctS(mn.bachelorsOrHigherPct)}`],
-          ['Median age', String(a.medianAge), `${d.primaryCounty.name} Co. ${county.medianAge} · MN ${mn.medianAge}`],
           ['Single-family homes', pctS(a.singleFamilyPct), `Median year built: ${a.medianYearBuilt}`],
         ].map(([label, value, note]) => (
           <div class="stat"><span class="stat__label">{label}</span><strong>{value}</strong><span class="stat__note">{note}</span></div>
@@ -425,10 +427,10 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
         </div>
         <div class="table-scroll">
           <table class="data">
-            <thead><tr><th scope="col">ZIP</th><th scope="col" class="num">Share of city</th><th scope="col" class="num">Median home value</th><th scope="col" class="num">Median household income</th><th scope="col" class="num">Homeowners</th><th scope="col"><span class="visually-hidden">Listings</span></th></tr></thead>
+            <thead><tr><th scope="col">ZIP</th><th scope="col" class="num">Share of city</th><th scope="col" class="num">Median home value</th><th scope="col" class="num">Homeowners</th><th scope="col"><span class="visually-hidden">Listings</span></th></tr></thead>
             <tbody>
               {d.zips.map((z: any) => (
-                <tr><th scope="row">{z.zip}</th><td class="num">{z.pctOfCityLand}%</td><td class="num">{money(z.medianHomeValue)}</td><td class="num">{money(z.medianHouseholdIncome)}</td><td class="num">{pctS(z.ownerOccupiedPct)}</td><td><a href={searchUrl({ zips: [z.zip] })} rel="noopener">Homes for sale</a></td></tr>
+                <tr><th scope="row">{z.zip}</th><td class="num">{z.pctOfCityLand}%</td><td class="num">{money(z.medianHomeValue)}</td><td class="num">{pctS(z.ownerOccupiedPct)}</td><td><a href={searchUrl({ zips: [z.zip] })} rel="noopener">Homes for sale</a></td></tr>
               ))}
             </tbody>
           </table>
@@ -479,19 +481,6 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
     </div>
   </section>
 
-  <!-- 12. Economy -->
-  <section class="section section--paper" aria-labelledby="econ-title">
-    <div class="wrap split-2">
-      <div class="prose">
-        <p class="eyebrow">Economy & jobs</p>
-        <h2 id="econ-title">Where do {c.name} <em>residents work?</em></h2>
-        <p>The largest share of employed {c.name} residents work in {a.industries[0].name.toLowerCase()} ({a.industries[0].pct}%), followed by {a.industries[1].name.toLowerCase()} ({a.industries[1].pct}%). The unemployment rate averaged {pctS(a.unemploymentPct)} over 2020–2024 (Minnesota: {pctS(mn.unemploymentPct)}).</p>
-        <p class="source">Census ACS 2020–2024, industry of employed residents 16 and older (C24050) and employment status (B23025).</p>
-      </div>
-      <BarList rows={industries} title={`Industries ${c.name} residents work in`} />
-    </div>
-  </section>
-
   <!-- 13. Comparison -->
   <section class="section" aria-labelledby="compare-title">
     <div class="wrap">
@@ -507,10 +496,8 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
             <tr><th scope="row">Population (2024)</th>{compareSet.map((x) => <td class="num">{fmt(x.pop)}</td>)}</tr>
             <tr><th scope="row">Change since 2020</th>{compareSet.map((x) => <td class="num">{x.growth > 0 ? '+' : ''}{x.growth}%</td>)}</tr>
             <tr><th scope="row">Median home value</th>{compareSet.map((x) => <td class="num">{moneyK(x.acs.medianHomeValue)}</td>)}</tr>
-            <tr><th scope="row">Median household income</th>{compareSet.map((x) => <td class="num">{moneyK(x.acs.medianHouseholdIncome)}</td>)}</tr>
             <tr><th scope="row">Median gross rent</th>{compareSet.map((x) => <td class="num">{money(x.acs.medianGrossRent)}</td>)}</tr>
             <tr><th scope="row">Homeowners</th>{compareSet.map((x) => <td class="num">{pctS(x.acs.ownerOccupiedPct)}</td>)}</tr>
-            <tr><th scope="row">Median age</th>{compareSet.map((x) => <td class="num">{x.acs.medianAge}</td>)}</tr>
             <tr><th scope="row">Average commute</th>{compareSet.map((x) => <td class="num">{x.acs.meanCommuteMinutes} min</td>)}</tr>
             <tr><th scope="row">Drive to downtown Minneapolis</th>{compareSet.map((x) => <td class="num">{x.drive} min</td>)}</tr>
           </tbody>
