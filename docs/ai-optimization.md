@@ -9,3 +9,9 @@ Daily log of changes that help AI assistants (ChatGPT, Google AI Overviews, Perp
 - **Sources:** the site's own community list; no new facts.
 - **Noticed, not fixed:** `node scripts/check-launch.mjs` reports 164 addresses needing attention (e.g. old /home-search/listings/v2/... addresses redirect in a loop to /home-search). Same result without today's change. Worth a separate look.
 - **Next ideas:** BlogPosting/VideoObject JSON-LD check (B); internal links between blog posts and community guides (E); verify sameAs profiles (Zillow, Ramsey ELP, Google Business Profile).
+
+## 2026-11-06
+- **Checked (structured data, B):** built the site and read every JSON-LD block in dist (about 7,760 pages). All parse. Blog posts (530 BlogPosting) all have headline, description, image, author, published and modified dates. Video pages (147 VideoObject) all have name, description, thumbnail and upload date; community pages carry Place, guide pages FAQPage/Dataset, every page BreadcrumbList.
+- **Changed:** nothing. No errors found that were safe and worth changing.
+- **Noticed, not changed:** 3 video pages have no duration (e.g. /videos/minneapolis-home-sellers-have-a-decision-to-make); the video data has no length for them and we won't guess. 2 old posts have headlines over 110 characters (e.g. /blog/2022/10/27/a-homeowners-guide-on-the-average-life-expectancy-of-major-appliances); Google may truncate, harmless.
+- **Next ideas:** verify sameAs profiles (D); internal links between blog posts, community guides and tools (E); a weekly visibility spot check (G).
