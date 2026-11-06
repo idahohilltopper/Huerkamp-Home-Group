@@ -206,7 +206,9 @@ const isExternal = (href: string) => href.startsWith('http');
     <script>
       import { listenForLeads } from '../scripts/register';
       import { signedIn, me } from '../scripts/session';
+      import { initHot } from '../scripts/hot';
       listenForLeads();
+      initHot();
       // Signed in (email-link sign-in): "Sign in" becomes "My account", and lead forms come filled in.
       if (signedIn()) document.querySelectorAll<HTMLAnchorElement>('[data-acct]').forEach((a) => { a.textContent = 'My account'; a.href = '/profile'; });
       const who = me();

@@ -23,6 +23,7 @@ const ALLOWED = /^https:\/\/((www\.)?huerkamphomegroup\.com|(www\.)?huerkamphome
 // own alerts. Only when RESEND_API_KEY is set (src/lib/mail.mjs); never blocks or fails the lead.
 async function copyToTeam(input, delivered, mail) {
   if (!mailReady() && mail === sendMail) return;
+  if (FORMS[input?.form]?.hot && delivered) return; // hot-buyer signals go to Follow Up Boss (and Lead Claimer) only
   const to = (process.env.LEAD_NOTIFY_EMAIL ?? '').trim() || 'leads@hhgus.com';
   const f = Object.fromEntries(Object.entries(input?.fields ?? {}).map(([k, v]) => [k, String(v ?? '').slice(0, 1000)]));
   const label = FORMS[input?.form]?.label ?? 'Website form';

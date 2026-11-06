@@ -35,7 +35,11 @@ export const FORMS = {
   'compare':           { type: 'General Inquiry', label: 'Comparison page form',  tags: ['Comparing places'] },
   'listing':           { type: 'Property Inquiry', label: 'Listing page form',    tags: ['Buyer lead', 'Listing inquiry'] },
   'showing':           { type: 'Property Inquiry', label: 'Showing request',       tags: ['Buyer lead', 'Showing request'] },
-  'favorite':          { type: 'Saved Property',   label: 'Saved a home (heart)',  tags: ['Buyer lead', 'Saved home'] },
+  'favorite':          { type: 'Saved Property',   label: 'Hot buyer: saved a home (heart)', tags: ['Buyer lead', 'Saved home', 'Hot buyer', 'Hot: saved a home'] },
+  // Hot-buyer signals from known visitors (src/scripts/hot.ts). `hot`: sent by email address only, so they never change
+  // the person's name, phone, tags about consent or assigned agent in Follow Up Boss; no copy to the team inbox.
+  'hot-return':        { type: 'Visited Website',  label: 'Hot buyer: back on the website after a week or more away', tags: ['Hot buyer', 'Hot: came back'], hot: true },
+  'hot-repeat':        { type: 'Viewed Property',  label: 'Hot buyer: viewed the same home on 3 different days', tags: ['Hot buyer', 'Hot: repeat views'], hot: true },
   'register':          { type: 'Registration',     label: 'Signed up to keep viewing homes', tags: ['Buyer lead', 'Website registration'] },
   'calc-seller':       { type: 'Seller Inquiry',  label: 'Net proceeds calculator', tags: ['Seller lead', 'Net proceeds calculator'] },
   'calc-buyer':        { type: 'General Inquiry', label: 'Affordability calculator', tags: ['Buyer lead', 'Affordability calculator'] },
@@ -47,7 +51,7 @@ export const FORMS = {
 const LABELS = {
   address: 'Property address', zip: 'ZIP code', condition: 'Condition', homeType: 'Kind of home', beds: 'Bedrooms', baths: 'Bathrooms', sqft: 'Finished sq ft', timeline: 'Selling timeline', topic: 'Topic', goal: 'Goal',
   notes: 'Notes', message: 'Message', lake: 'Lake', priceRange: 'Price range', maxPrice: 'Price range',
-  community: 'Community', ramseyReferral: 'Referred by Ramsey', interest: 'Interested in', moveFrom: 'Moving from', agent: 'Wants to work with', listing: 'Listing', guide: 'Guide', nextHome: 'Next home', helping: 'Asking for', calc: 'Calculator results', situation: 'Situation', savedSearch: 'Saved search', showingDay: 'Preferred day', showingTime: 'Preferred time', tourType: 'Tour type', saleDate: 'Sheriff’s sale or deadline',
+  community: 'Community', ramseyReferral: 'Referred by Ramsey', interest: 'Interested in', moveFrom: 'Moving from', agent: 'Wants to work with', listing: 'Listing', guide: 'Guide', nextHome: 'Next home', helping: 'Asking for', calc: 'Calculator results', situation: 'Situation', savedSearch: 'Saved search', awayDays: 'Days since last visit', viewDays: 'Different days viewed this home', showingDay: 'Preferred day', showingTime: 'Preferred time', tourType: 'Tour type', saleDate: 'Sheriff’s sale or deadline',
 };
 const CONTACT = new Set(['firstName', 'lastName', 'email', 'phone']);
 
@@ -87,7 +91,9 @@ export function buildEvent(input, meta = {}) {
   if (!cfg) return { error: 'Unknown form' };
 
   const f = Object.fromEntries(Object.entries(fields).map(([k, v]) => [k, clean(v, k === 'message' || k === 'notes' || k === 'calc' ? 4000 : k === 'savedSearch' ? 1000 : 300)]));
-  if (!f.firstName || !f.lastName) return { error: 'Name is required' };
+  // Hot-buyer signals: matched to the existing person by email alone.
+  if (cfg.hot) { delete f.firstName; delete f.lastName; delete f.phone; delete f.smsConsent; delete f.agentSlug; delete f.agent; delete f.community; }
+  if (!cfg.hot && (!f.firstName || !f.lastName)) return { error: 'Name is required' };
   if (!isEmail(f.email)) return { error: 'A valid email is required' };
 
   // A goal or topic that mentions selling turns any form into a seller inquiry.
@@ -111,7 +117,7 @@ export function buildEvent(input, meta = {}) {
   else if (f.phone) tags.add('No call/text consent');
   if (f.lake) tags.add(f.lake);
   // Test submissions are labeled so the team can find and delete them.
-  if (/^test\b/i.test(f.firstName) || /@example\.(com|org)$/i.test(f.email)) tags.add('TEST – website');
+  if (/^test\b/i.test(f.firstName ?? '') || /@example\.(com|org)$/i.test(f.email)) tags.add('TEST – website');
 
   const at = meta.at ?? new Date().toISOString();
   const details = Object.entries(f)
@@ -131,8 +137,7 @@ export function buildEvent(input, meta = {}) {
     description: cfg.label,
     ...(pageUrl && { pageUrl, pageTitle: clean(title, 200) }),
     person: {
-      firstName: f.firstName,
-      lastName: f.lastName,
+      ...(!cfg.hot && { firstName: f.firstName, lastName: f.lastName }),
       emails: [{ value: f.email }],
       ...(f.phone && { phones: [{ value: f.phone }] }),
       tags: [...tags],

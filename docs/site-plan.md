@@ -711,3 +711,15 @@ Netlify domains at launch: **www.huerkamphomes.com = primary domain**; huerkamph
   - *Homeowner estimate email:* when a home value lead arrives, `netlify/functions/lead.mjs` calls estimateLeadEmail in `netlify/functions/estimate.mjs` (after answering, via waitUntil), so it goes out even if the visitor never clicks I AGREE. It emails the person their price range (or that an agent will prepare it by hand), with SOLD_DISCLAIMER and the team's phone. It shows only the range and how many sales were used, never the sold homes. Sent as a Repliers message from the team agent (same system as sign-in and alert emails) until RESEND_API_KEY is set, then through Resend. People who unsubscribed are skipped. Wording: src/lib/notify.mjs.
   - *Team copy of every lead:* `netlify/functions/lead.mjs` emails leads@hhgus.com (or LEAD_NOTIFY_EMAIL) a copy of every form, as a backup to Follow Up Boss's own alerts; the subject starts "ACTION NEEDED" if Follow Up Boss refused the lead. Needs RESEND_API_KEY (Resend account with huerkamphomes.com verified) in Netlify. Verify the domain at Resend BEFORE adding the key: once the key is set, sign-in and estimate emails also go through Resend. Optional MAIL_FROM (e.g. "Huerkamp Home Group <homes@huerkamphomes.com>").
 - **Cash offer and expired listing pages (2026-11-05, from the Kerby & Cristina review):** `/cash-offer` (form "cash-offer": the team takes the home to local and national investors it has worked with for over a decade, per Jason, and shows the best offer next to the estimated net from listing) and `/expired-listing` (form "expired", tags "Seller lead" + "Expired listing"; asks owners still listed with another brokerage to wait until that agreement ends). Both are in the Sell menu and footer, and the /sell cash section links to them. Wanted from Jason: real expired-listing success stories (with permission) to add to /expired-listing.
+
+## Hot-buyer signals (2026-11-06)
+
+Known visitors only (hhg-fav-me: any lead form, a heart, a sign-in or an alert-email click). src/scripts/hot.ts sends
+to /api/lead, which passes them to Follow Up Boss as events on the existing person, by email only (never name, phone,
+consent tags or agent, so the assigned agent and pond stay as they are), tagged "Hot buyer" plus the signal:
+- "Hot: came back" (Visited Website): a visit 7+ days after the previous one (each time it happens).
+- "Hot: repeat views" (Viewed Property): the same home opened on 3 different days (once per home), with the home.
+- "Hot: saved a home" (Saved Property): every heart (src/scripts/favorites.ts, form "favorite").
+No copy to the team inbox. Lead Claimer reads them from Follow Up Boss: notify the assigned agent, or offer the lead
+to everyone when it sits in a pond (pond names from Jason). Visitors can turn it off on /cookies (hhg-activity), and a
+Global Privacy Control signal turns it off; the privacy policy describes it.

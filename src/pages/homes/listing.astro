@@ -68,6 +68,8 @@ import { site } from '../../data/site';
     document.querySelector<HTMLInputElement>('input[name="listing"]')!.value = `${where} (MLS #${l.mls}) ${location.href}`;
     $('.lst__status').hidden = true;
     $('.lst__body').hidden = false;
+    // Hot-buyer signals (src/scripts/hot.ts): this home was viewed.
+    window.dispatchEvent(new CustomEvent('home-viewed', { detail: { mls: l.mls, street: l.street, city: l.city, zip: l.zip, price: l.price } }));
   })();
 </script>
 

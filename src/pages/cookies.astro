@@ -11,7 +11,9 @@ const rows: [string, string, string, string][] = [
   ['Google Analytics', '_ga, _ga_<ID> (cookies)', 'Counts visits and which pages are used, so we can improve the site. Up to 2 years.', 'Optional: switch it off above'],
   ['Listing license agreement', 'idx_eula (session cookie) and idx-eula (browser session storage)', 'Remembers that you clicked I AGREE to the NorthstarMLS license agreement, until you close your browser.', 'Needed to show listings'],
   ['Your agent', 'hhg-agent (browser storage)', 'When you open one of our agents’ pages, remembers that agent for 30 days so your questions reach them.', 'Needed for that feature; dismiss the agent bar to clear it'],
-  ['Your choice on this page', 'hhg-analytics (browser storage)', 'Remembers whether you allow analytics.', 'Needed to remember your choice'],
+  ['Your choice on this page', 'hhg-analytics, hhg-activity (browser storage)', 'Remembers whether you allow analytics and home-activity sharing.', 'Needed to remember your choice'],
+  ['Who you are, once you tell us', 'hhg-fav-me (browser storage)', 'After you send a form, save a home or sign in, remembers your name and email so forms come filled in and saving homes takes one click. Until you clear your browser storage or sign out.', 'Needed for those features'],
+  ['Homes you view and your last visit', 'hhg-view-days, hhg-last-visit (browser storage)', 'Which homes you opened and on which days, and when you last visited. If we know who you are, this lets us tell your agent when you come back after a week or more, or view the same home on three different days. Kept in your browser; only those two moments are sent to us.', 'Optional: switch it off above'],
 ];
 ---
 <Base breadcrumbs={[{ name: 'Manage cookies', href: '/cookies' }]} noindex
@@ -27,6 +29,14 @@ const rows: [string, string, string, string][] = [
         <p><button type="button" class="btn" data-off>Turn analytics off</button> <button type="button" class="btn btn--ghost" data-on>Turn analytics on</button></p>
         <p class="small">If your browser sends a Global Privacy Control signal, analytics stays off automatically. Your choice is saved in this browser only.</p>
       </div>
+
+      {OWN && <div class="choice" data-activity>
+        <h2>Home activity for your agent</h2>
+        <p>If you’ve sent us a form, saved a home or signed in, we let your agent know when you come back after a week or more, or look at the same home on three different days, so they can follow up while it matters to you.</p>
+        <p class="choice__now" data-act-now aria-live="polite">Sharing is on.</p>
+        <p><button type="button" class="btn" data-act-off>Turn sharing off</button> <button type="button" class="btn btn--ghost" data-act-on>Turn sharing on</button></p>
+        <p class="small">Your browser’s Global Privacy Control signal turns this off too. Saving a home always tells your agent, because that’s what saving does.</p>
+      </div>}
 
       <h2>What we store</h2>
       <div class="table-wrap">
@@ -65,6 +75,17 @@ const rows: [string, string, string, string][] = [
   document.querySelector('[data-off]')!.addEventListener('click', () => { try { localStorage.setItem(KEY, 'denied'); } catch {} clear(); show(); });
   document.querySelector('[data-on]')!.addEventListener('click', () => { try { localStorage.setItem(KEY, 'granted'); } catch {} show(); });
   show();
+
+  // Home activity sharing (src/scripts/hot.ts reads hhg-activity and the GPC signal).
+  const act = document.querySelector<HTMLElement>('[data-activity]');
+  if (act) {
+    const AKEY = 'hhg-activity';
+    const aget = () => { try { return localStorage.getItem(AKEY); } catch { return null; } };
+    const ashow = () => { act.querySelector('[data-act-now]')!.textContent = gpc ? 'Sharing is off (your browser’s Global Privacy Control signal).' : aget() === 'off' ? 'Sharing is off.' : 'Sharing is on.'; };
+    act.querySelector('[data-act-off]')!.addEventListener('click', () => { try { localStorage.setItem(AKEY, 'off'); } catch {} ashow(); });
+    act.querySelector('[data-act-on]')!.addEventListener('click', () => { try { localStorage.setItem(AKEY, 'on'); } catch {} ashow(); });
+    ashow();
+  }
 </script>
 
 <style>
