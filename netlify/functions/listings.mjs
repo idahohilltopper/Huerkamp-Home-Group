@@ -10,6 +10,7 @@
 import { timingSafeEqual } from 'node:crypto';
 import shores from '../../src/data/geo/lake-shores.json' with { type: 'json' };
 import { repliers, card, detail, isLakefront, waterFields } from '../../src/lib/repliers.mjs';
+import { sellerChoices } from '../../src/lib/mls-feed.mjs';
 
 const json = (status, body, cache = true) =>
   new Response(JSON.stringify(body), {
@@ -80,7 +81,10 @@ export default async (req) => {
     const r = await repliers(key, `/listings/${encodeURIComponent(mls)}`);
     if (r.status === 404) return json(404, { ok: false, error: 'not-found' }, false);
     if (!r.data) return failed(r);
-    return json(200, { ok: true, updated: new Date().toISOString(), listing: detail(r.data), ...(debug ? { water: waterFields(r.data), keys: Object.keys(r.data) } : {}) }, !debug);
+    // The same seller choices the site build applies: no online advertising (or no address) means no page here.
+    const sc = sellerChoices(r.data);
+    if (!debug && (sc.hide || sc.hideAddress)) return json(404, { ok: false, error: 'not-found' }, false);
+    return json(200, { ok: true, updated: new Date().toISOString(), listing: detail(r.data), active: r.data.status === 'A', ...(debug ? { water: waterFields(r.data), keys: Object.keys(r.data) } : {}) }, !debug);
   }
 
   const lake = q.get('lake');

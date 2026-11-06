@@ -1,7 +1,7 @@
 ---
 title: "Buyers, Here's Your Guide to Make Your Homeownership Dream Alive in 2025 [PART 1]"
 description: "Planning to buy a home in 2025? With only a few days left ‘til the new year, it may seem like an extremely distant and daunting goal. But the good news is…"
-path: "2024/12/26/buyers-guide-to-homeownership-in-2025-part-1-2oVY1"
+path: "2024/12/26/buyers-guide-to-homeownership-in-2025-part-1-2ovy1"
 date: 2024-12-26
 updated: 2024-12-26
 author: "Huerkamp Home Group"

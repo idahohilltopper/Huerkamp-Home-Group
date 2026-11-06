@@ -1,7 +1,7 @@
 ---
 // "View listing" / "View sold price" link in alert emails: /listings/property?mlsNumber=&boardId=&searchId=&matchId=&email=
 // Goes to the home's page on this site. A home that sold (the sold alert) shows its sale here, under the NorthstarMLS
-// sold-content rules applied by /api/sold (src/lib/sold.mjs); anything else says it's no longer for sale and offers
+// sold-content rules applied by /api/sold (src/lib/sold.mjs); a home listed since the last rebuild opens /homes/listing; anything else says it's no longer for sale and offers
 // the saved search.
 import Base from '../../layouts/Base.astro';
 import { SEARCH_PATH } from '../../data/search';
@@ -42,9 +42,16 @@ import { SOLD_DISCLAIMER } from '../../lib/sold.mjs';
   };
 
   token();
-  api(`listing?mls=${encodeURIComponent(mls)}`).then((a) => {
+  // A home listed since the site's last rebuild has no page of its own yet: open the live listing page instead.
+  const live = async () => {
+    const r = await fetch(`/api/listings?mls=${encodeURIComponent(mls)}`).catch(() => null);
+    const a = r?.ok ? await r.json().catch(() => null) : null;
+    return !!(a?.ok && a.active && a.listing?.mls === mls);
+  };
+  api(`listing?mls=${encodeURIComponent(mls)}`).then(async (a) => {
     if (a.ok && a.slug) return location.replace(`/homes/${encodeURIComponent(a.slug)}`);
     if (!mls) return gone();
+    if (await live()) return location.replace(`/homes/listing?mls=${encodeURIComponent(mls)}`);
     if (document.documentElement.classList.contains('idx-ok')) sold();
     else window.addEventListener('idx-agreed', sold, { once: true });
   });
