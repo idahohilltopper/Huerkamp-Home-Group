@@ -41,13 +41,27 @@ export async function rq(key, method, path, { params, body } = {}, fetcher = fet
   return { status: res.status, ok: res.ok, data, error: res.ok ? null : text.slice(0, 300) };
 }
 
+// Keeps the agent record's phone (shown by any Repliers template that uses the agent's details) the same as TEAM.phone:
+// checked once per function start, fixed with a PATCH if it differs. Errors are logged, never shown to visitors.
+let phoneSynced = false;
+export async function syncAgentPhone(key, f, id, current) {
+  if (phoneSynced || !id) return;
+  phoneSynced = true;
+  try {
+    const have = current !== undefined ? current : (await rq(key, 'GET', `/agents/${id}`, {}, f)).data?.phone;
+    if (String(have ?? '').replace(/\D/g, '') === TEAM.phone) return;
+    const r = await rq(key, 'PATCH', `/agents/${id}`, { body: { phone: TEAM.phone } }, f);
+    if (!r.ok) console.error('Repliers agent phone update', r.status, r.error);
+  } catch (err) { console.error('Repliers agent phone check', err?.message); }
+}
+
 export async function agentId(key, f) {
   const set = Number(env('REPLIERS_AGENT_ID'));
-  if (set) return set;
+  if (set) { await syncAgentPhone(key, f, set); return set; }
   const r = await rq(key, 'GET', '/agents', {}, f);
   const agents = list(r.data, 'agents');
   const team = agents.find((a) => String(a.email ?? '').toLowerCase() === TEAM.email) ?? agents[0];
-  if (team?.agentId) return team.agentId;
+  if (team?.agentId) { await syncAgentPhone(key, f, team.agentId, team.phone); return team.agentId; }
   const made = await rq(key, 'POST', '/agents', { body: { ...TEAM } }, f);
   if (!made.data?.agentId) console.error('Repliers agent create', made.status, made.error);
   return made.data?.agentId ?? null;
