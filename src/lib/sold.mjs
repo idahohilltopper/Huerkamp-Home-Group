@@ -11,7 +11,7 @@
 //   - on search-result cards ("thumbnails", Rule 12.3(f)), another brokerage's sold home shows only its photo, sale
 //     price, sold date, address, MLS number and listing office, as for homes for sale (thumbnail());
 //   - every display carries the Broker Reciprocity logo, the accuracy disclaimer (IdxDisclosure) and SOLD_DISCLAIMER.
-import { sellerChoices, homeType } from './mls-feed.mjs';
+import { sellerChoices, homeType, findField } from './mls-feed.mjs';
 import { CDN } from './repliers.mjs';
 import cities from '../data/ylopo-cities.json' with { type: 'json' };
 import team from '../data/team.json' with { type: 'json' };
@@ -38,11 +38,9 @@ const CITY = Object.fromEntries(Object.entries(cities.communities).filter(([, w]
 /** Why soldCard() would leave this listing out (for the counts-only check at /api/sold?why=1), or null if shown. */
 export function soldDropReason(l, now = new Date()) {
   if (!/sld|sold/i.test(`${text(l.lastStatus)} ${text(l.status)}`)) return 'status';
-  const c = sellerChoices(l);
-  if (c.hide) {
-    const p = l.permissions ?? {};
-    return `hide:${Object.entries(p).filter(([k]) => /^display/i.test(k)).map(([k, v]) => `${k}=${text(v) || '-'}`).sort().join(',')}`;
-  }
+  const c = soldChoices(l);
+  if (c.hide) return 'sellerSaidNo';
+  if (c.signInOnly) return 'signInOnly';
   const d = text(l.soldDate).slice(0, 10);
   if (!d) return 'noSoldDate';
   const cutoff = new Date(now); cutoff.setMonth(cutoff.getMonth() - MAX_MONTHS);
@@ -52,12 +50,29 @@ export function soldDropReason(l, now = new Date()) {
 }
 const no = (v) => /^(n|no|false|0)$/i.test(text(v));
 
+/**
+ * The seller's internet choices on a sold listing. Per Repliers (2026-11-07): permissions.displayInternetEntireListing
+ * "N" (or the MLS "Advertising: No") means never show it; displayAddressOnInternet "N" (lowercase on sold listings)
+ * means hide the address; displayPublic is NOT the seller's choice: on sold listings it turns "N" a couple of months
+ * after the sale and means "only for signed-in visitors", so those sales are shown only to someone signed in.
+ */
+export function soldChoices(l) {
+  const p = l.permissions ?? {};
+  const base = sellerChoices(l);
+  return {
+    hide: no(p.displayInternetEntireListing) || no(findField(l, /^(internetEntireListingDisplay|advertising)(yn)?$/i)),
+    hideAddress: base.hideAddress,
+    signInOnly: no(p.displayPublic),
+  };
+}
+
 /** A sold listing as the site may show it, or null when it may not be shown at all. */
-export function soldCard(l, now = new Date()) {
+export function soldCard(l, now = new Date(), { signedIn = false } = {}) {
   const status = `${text(l.lastStatus)} ${text(l.status)}`;
   if (!/sld|sold/i.test(status)) return null;
-  const choices = sellerChoices(l);
+  const choices = soldChoices(l);
   if (choices.hide) return null;
+  if (choices.signInOnly && !signedIn) return null;
   const soldDate = text(l.soldDate).slice(0, 10);
   const cutoff = new Date(now); cutoff.setMonth(cutoff.getMonth() - MAX_MONTHS);
   if (!soldDate || new Date(soldDate) < cutoff) return null;

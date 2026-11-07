@@ -2,12 +2,12 @@
 // asks /api/search, draws the cards, the page buttons and the map. On a computer the map loads at once; on a phone
 // only when the Map button is pressed. With "Search as I move the map" on, moving the map searches that area.
 // "Sold" switches the page to recently sold homes (/api/sold, NorthstarMLS sold content; src/lib/sold.mjs).
-import { soldCardHtml, soldOn, type Sold } from './sold-card';
+import { soldCardHtml, soldOn, soldHeaders, signInNote, type Sold } from './sold-card';
 import { formatOpenHouse } from '../lib/open-house.mjs';
 type Card = { mls: string; slug: string; street: string; city: string; zip: string; price: number; beds: number | null; baths: number | null;
   sqft: number | null; type: string | null; newConstruction: 0 | 1; lakefront: 0 | 1; lotAcres: number | null; brokerage: string; photo: string | null;
   ownBrokerage: 0 | 1; addressHidden: 0 | 1; openHouse?: { date: string; start: string; end: string | null } | null; cut?: number };
-type Answer = { ok: boolean; error?: string; total: number; page: number; pages: number; results: (Card | Sold)[]; pins: Pin[]; unsupported?: boolean; months?: number };
+type Answer = { ok: boolean; error?: string; total: number; page: number; pages: number; results: (Card | Sold)[]; pins: Pin[]; unsupported?: boolean; months?: number; signInFor?: number };
 /** lat, lng, price, page slug (MLS number for a sold home), photo, address, brokerage, own brokerage, sold date (sold only). */
 export type Pin = [number, number, number, string, string | null, string, string, 0 | 1, string?];
 
@@ -134,6 +134,8 @@ export function initSearch(root: HTMLElement) {
     last = a;
     const sold = isSold();
     list.innerHTML = sold ? (a.results as Sold[]).map((l) => soldCardHtml(l, thumb)).join('') : (a.results as Card[]).map(card).join('');
+    list.parentElement?.querySelectorAll(':scope > .sold-signin').forEach((n) => n.remove());
+    if (sold && a.signInFor) list.insertAdjacentHTML('beforebegin', signInNote(a.signInFor));
     countEl.textContent = sold
       ? (a.unsupported ? 'Sold homes can be searched by city, ZIP code or map area' : `${a.total.toLocaleString('en-US')} ${a.total === 1 ? 'home' : 'homes'} sold in the last ${monthsText(a.months ?? months())}`)
       : `${a.total.toLocaleString('en-US')} ${a.total === 1 ? 'home' : 'homes'} for sale`;
@@ -171,7 +173,7 @@ export function initSearch(root: HTMLElement) {
     try {
       // Sold homes come from the MLS when asked; the map's points only when the map is open (they cost extra calls).
       const url = isSold() ? `/api/sold?${qs}${map ? `${qs ? '&' : ''}pins=1` : ''}` : `/api/search?${qs}`;
-      const r = await fetch(url, { headers: { 'x-idx-eula': 'agreed' } });
+      const r = await fetch(url, { headers: isSold() ? soldHeaders() : { 'x-idx-eula': 'agreed' } });
       const a = (await r.json()) as Answer;
       if (mine !== seq) return;
       if (!a.ok) throw new Error(a.error);

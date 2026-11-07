@@ -19,3 +19,16 @@ export function soldCardHtml(l: Sold, brThumb?: string) {
     + `<span class="lcard__addr">${esc(addr)}</span><span class="lcard__mls">MLS #${esc(l.mls)}</span>`
     + `<span class="lcard__broker">${icon}Listing courtesy of ${esc(l.office)}</span></div></li>`;
 }
+
+/** Headers for /api/sold: the listing license, plus the sign-in session if there is one (signed-in visitors also see
+ *  the older sales the MLS feed keeps for registered visitors; src/lib/sold.mjs soldChoices). */
+export function soldHeaders(): Record<string, string> {
+  let token = '';
+  try { token = localStorage.getItem('hhg-session') ?? ''; } catch { /* storage blocked */ }
+  return { 'x-idx-eula': 'agreed', ...(token ? { 'x-account': token } : {}) };
+}
+
+/** A short "sign in to see every sale" line, when sales were held back only because the visitor isn't signed in. */
+export const signInNote = (n: number) => (n > 0
+  ? `<p class="sold-signin">Some sales are shown only to signed-in visitors. <a href="/account">Sign in free with your email</a> to see every sale.</p>`
+  : '');

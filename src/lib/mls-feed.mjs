@@ -64,7 +64,7 @@ export function homeType(l) {
 }
 
 /** Any value in the listing whose key matches (the MLS field names vary). */
-function findField(obj, re, depth = 0) {
+export function findField(obj, re, depth = 0) {
   if (!obj || typeof obj !== 'object' || depth > 3) return undefined;
   for (const [k, v] of Object.entries(obj)) {
     if (re.test(k) && v != null && typeof v !== 'object' && String(v).trim() !== '') return v;

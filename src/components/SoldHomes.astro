@@ -31,14 +31,16 @@ const query = agent ? `agent=${encodeURIComponent(agent)}&months=12` : `place=${
 )}
 
 <script>
-  import { soldCardHtml, type Sold } from '../scripts/sold-card';
+  import { soldCardHtml, soldHeaders, signInNote, type Sold } from '../scripts/sold-card';
   for (const box of document.querySelectorAll<HTMLElement>('[data-sold]')) {
     const load = async () => {
       try {
-        const r = await fetch(`/api/sold?${box.dataset.sold}`, { headers: { 'x-idx-eula': 'agreed' } });
+        const r = await fetch(`/api/sold?${box.dataset.sold}`, { headers: soldHeaders() });
         const a = await r.json();
-        if (!a.ok || !a.results?.length) return; // nothing to show: the section stays hidden
-        box.querySelector('[data-sold-list]')!.innerHTML = (a.results as Sold[]).slice(0, 6).map((l) => soldCardHtml(l, box.dataset.brThumb)).join('');
+        if (!a.ok || (!a.results?.length && !a.signInFor)) return; // nothing to show: the section stays hidden
+        const listEl = box.querySelector('[data-sold-list]')!;
+        listEl.innerHTML = (a.results as Sold[]).slice(0, 6).map((l) => soldCardHtml(l, box.dataset.brThumb)).join('');
+        listEl.insertAdjacentHTML('afterend', signInNote(a.signInFor ?? 0));
         box.hidden = false;
       } catch { /* the section stays hidden */ }
     };

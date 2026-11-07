@@ -15,7 +15,7 @@ import { SOLD_DISCLAIMER } from '../../lib/sold.mjs';
 <script define:vars={{ SEARCH_PATH, phone: site.phone, phoneHref: site.phoneHref, brThumb: BR_THUMB ?? '', disclaimer: SOLD_DISCLAIMER }}>window.__alert = { SEARCH_PATH, phone, phoneHref, brThumb, disclaimer };</script>
 <script>
   import { params, token, api, say } from '../../scripts/alert-links';
-  import { soldOn, type Sold } from '../../scripts/sold-card';
+  import { soldOn, soldHeaders, type Sold } from '../../scripts/sold-card';
   const { SEARCH_PATH, phone, phoneHref, brThumb, disclaimer } = (window as any).__alert;
   const mls = (params.get('mlsNumber') ?? '').replace(/[^A-Za-z0-9-]/g, '');
   const id = params.get('searchId');
@@ -28,7 +28,7 @@ import { SOLD_DISCLAIMER } from '../../lib/sold.mjs';
 
   // Sold homes: only after I AGREE (like every listing display), and only what /api/sold allows for that home.
   const sold = async () => {
-    const r = await fetch(`/api/sold?mls=${encodeURIComponent(mls)}`, { headers: { 'x-idx-eula': 'agreed' } }).catch(() => null);
+    const r = await fetch(`/api/sold?mls=${encodeURIComponent(mls)}`, { headers: soldHeaders() }).catch(() => null);
     const a = r?.ok ? await r.json().catch(() => null) : null;
     const l: Sold | undefined = a?.ok ? a.results?.[0] : undefined;
     if (!l || l.mls !== mls) return gone();

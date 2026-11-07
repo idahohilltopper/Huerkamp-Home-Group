@@ -732,3 +732,10 @@ Global Privacy Control signal turns it off; the privacy policy describes it.
 - **"Monthly updates":** the month-by-month sales table (homes sold, median, highest) and the counts update themselves with every build; nothing to do each month. Sold homes and listings sit inside the I AGREE listing block with the Broker Reciprocity disclosures and the "not an appraisal" sentence.
 - **Leads:** the "monthly lake report" form sends a `lake-report` lead (tags Lake homes, Lake report, Cabin / lake owner) with the lake name. The monthly email itself is not automated yet.
 - **Local preview:** with MLS_FIXTURE set the pages build without homes; NORTH_FIXTURE=<file> loads a saved copy of loadNorthLakes()'s result for layout checks.
+
+## Sold homes for signed-in visitors (2026-11-07)
+
+- **Why:** Repliers (2026-11-07) confirmed `permissions.displayPublic` on sold listings is NOT the seller's choice: it turns "N" a couple of months after the sale (about 96% of older NorthstarMLS sales) and means "show only to signed-in visitors". The seller's choices are `displayInternetEntireListing` ("N": never show, also not in emails) and `displayAddressOnInternet` ("n": hide the address; lowercase on sold listings).
+- **How:** soldChoices() in src/lib/sold.mjs. /api/sold checks the browser's sign-in session (`x-account` header, sent by soldHeaders() in src/scripts/sold-card.ts); signed-in answers include the sign-in-only sales and are never put in the shared CDN cache. Signed-out answers carry `signInFor` (how many on that page need sign-in) and the community pages and the home search's Sold view show "Sign in free with your email to see every sale."
+- **Still public-only:** the Brainerd lake pages (built ahead of time for everyone) and the home estimate use only sales shown to everyone. Repliers is confirming whether the "N" values already reflect NorthstarMLS's Aug 21, 2026 change; if they say older sales may be public, drop `signInOnly`.
+- **Check:** /api/sold?place=burnsville&why=1 gives counts only (shown, signInOnly, sellerSaidNo, tooOld, noOffice).
