@@ -2,7 +2,7 @@
 // Used by netlify/functions/report.mjs; kept separate so it can be tested without calling either service.
 // Only counts leave the server: no names, emails or phone numbers.
 import { createSign } from 'node:crypto';
-import { FORMS, SOURCE } from './lead.mjs';
+import { FORMS, SOURCE, PAST_SOURCES } from './lead.mjs';
 
 const DAY = 86400000;
 const iso = (d) => d.toISOString().slice(0, 10);
@@ -23,7 +23,8 @@ export async function fubPeople(key, days = 120, fetchFn = fetch) {
     if (people.length < 100 || Date.parse(people.at(-1).created) < since) break;
   }
   const sources = new Set([SOURCE, ...Object.values(FORMS).map((f) => f.source).filter(Boolean)]);
-  return out.filter((p) => sources.has(p.source));
+  // This site's leads from before the source rename carry the old name and this site's "Website" tag.
+  return out.filter((p) => sources.has(p.source) || (PAST_SOURCES.includes(p.source) && (p.tags ?? []).includes('Website')));
 }
 
 /** Counts by week and by form, from the people Follow Up Boss returned. */

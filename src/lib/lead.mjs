@@ -5,7 +5,11 @@ import team from '../data/team.json' with { type: 'json' };
 import sites from '../data/agent-sites.json' with { type: 'json' };
 import { CONSENT_VERSION, consentText } from './consent.mjs';
 
-export const SOURCE = 'huerkamphomegroup.com';
+// The lead source Follow Up Boss (and Lead Claimer) shows for this site. huerkamphomegroup.com is a separate site with
+// its own leads, so this site uses its own name (changed 2026-11-07; earlier leads from this site said
+// huerkamphomegroup.com and are told apart by the "Website" tag, see PAST_SOURCES).
+export const SOURCE = 'huerkamphomes.com';
+export const PAST_SOURCES = ['huerkamphomegroup.com'];
 
 // Agents who can be assigned leads from their agent site (licensed agents only, matched by page slug).
 export const AGENTS = Object.fromEntries(team.members.filter((m) => /realtor|broker/i.test(m.title ?? ''))
