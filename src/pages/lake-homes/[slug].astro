@@ -38,7 +38,7 @@ const nearby = lakes.filter((x) => x !== l).map((x) => ({ x, d: miles(l.center, 
 const url = `${origin}${lakeHref(l)}`;
 
 const faq = [
-  { q: `How big is ${l.name}?`, a: `${fmt(l.acres)} acres with ${l.shoreMiles} miles of shoreline, according to the Minnesota DNR${l.name === 'Lake Minnetonka' ? ' (all its bays together)' : ''}, making it number ${rank} of the ${lakes.length} lakes of 10 acres or more in our communities. The DNR's LakeFinder has its depth and water quality (DNR lake number ${l.dnrId}).` },
+  { q: `How big is ${l.name}?`, a: `${fmt(l.acres)} acres with ${l.shoreMiles} miles of shoreline, according to the Minnesota DNR${l.name === 'Lake Minnetonka' ? ' (all its bays together)' : ''}, making it number ${rank} of the ${lakes.length} lakes of 10 acres or more in our communities. The DNR's LakeFinder has its depth and water quality (DNR lake number ${l.dnrId}${l.officialName ? `, listed as ${l.officialName}` : ''}).` },
   { q: `What cities are on ${l.name}?`, a: `${l.name} touches ${list(townNames)}, in ${list(l.counties)} County.` },
   { q: `How do I find lakefront homes on ${l.name}?`, a: `Use the "Lakefront homes on ${l.name}" search on this page. It shows homes marked lakefront in the MLS on a map around the lake. A few homes on nearby smaller lakes inside the same map area can show up too, and we can confirm which lake any home is on.` },
 ];

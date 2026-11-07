@@ -7,8 +7,12 @@ import { ylopoPlace } from './ylopo';
 import { site } from './site';
 import { OWN, ownSearchHref } from './search';
 
-export type Lake = (typeof data.lakes)[number];
-export const lakes: Lake[] = data.lakes;
+export type Lake = (typeof data.lakes)[number] & { officialName?: string };
+// The name people use, where it differs from the DNR's official name (by DNR lake number). Shown everywhere on the
+// site; the official name is kept as officialName. Add a lake only when the city or county uses the local name.
+// 19002600: the City of Lakeville calls it Lake Marion (lakevillemn.gov parks and beaches); DNR: Marion Lake.
+const LOCAL_NAMES: Record<string, string> = { '19002600': 'Lake Marion' };
+export const lakes: Lake[] = data.lakes.map((l) => (LOCAL_NAMES[l.dnrId] ? { ...l, name: LOCAL_NAMES[l.dnrId], officialName: l.name } : l));
 export const lakeSources = data.sources;
 export const lakeGeoUrl: string = shapesUrl;
 export const lakeHref = (l: Lake) => `/lake-homes/${l.slug}`;
