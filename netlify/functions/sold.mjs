@@ -4,10 +4,10 @@
 // display: only while MLS_PUBLIC is "yes" or "preview", and only after the visitor clicked I AGREE this visit.
 // Needs REPLIERS_API_KEY in Netlify (Functions scope); never sends it, or any error text, to the browser.
 import { repliers } from '../../src/lib/repliers.mjs';
-import { soldCard, thumbnail, soldQuery, repliersParams, PAGE, MAX_PINS, SOLD_DISCLAIMER } from '../../src/lib/sold.mjs';
+import { soldCard, soldDropReason, thumbnail, soldQuery, repliersParams, PAGE, MAX_PINS, SOLD_DISCLAIMER } from '../../src/lib/sold.mjs';
 
 const env = (k) => (globalThis.Netlify?.env?.get(k) ?? process.env[k] ?? '').trim();
-const VARY = 'query=mls|place|agent|months|min|max|beds|baths|bbox|page|pins,header=x-idx-eula';
+const VARY = 'query=mls|place|agent|months|min|max|beds|baths|bbox|page|pins|why,header=x-idx-eula';
 const json = (status, body, cache = false) => new Response(JSON.stringify(body), {
   status,
   headers: {
@@ -35,6 +35,12 @@ export default async (req, _ctx, call = repliers) => {
     // An agent's sales: only homes they listed (NorthstarMLS doesn't allow the selling agent to be shown on sold homes).
     const mine = (c) => !q.agentName || (c.ownBrokerage && String(c.agent ?? '').toLowerCase() === q.agentName.toLowerCase());
     const results = (r.data.listings ?? []).map((l) => soldCard(l)).filter((c) => c && mine(c)).map(thumbnail);
+    if (sp.get('why') === '1') {
+      // Counts only (no listing data): why records Repliers returned are left out, to check the sold rules.
+      const why = {};
+      for (const l of r.data.listings ?? []) { const k = soldDropReason(l) ?? 'shown'; why[k] = (why[k] ?? 0) + 1; }
+      return json(200, { ok: true, total, checked: (r.data.listings ?? []).length, why }, false);
+    }
     let pins = [];
     if (sp.get('pins') === '1') {
       // The map: up to MAX_PINS homes, 100 per request.

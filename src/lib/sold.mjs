@@ -35,6 +35,20 @@ const ownBrokerage = (b) => /keller williams preferred/i.test(b ?? '');
 const AGENT = Object.fromEntries(team.members.map((m) => [m.profileUrl.split('/').pop(), m.name]));
 const CITY = Object.fromEntries(Object.entries(cities.communities).filter(([, w]) => w.city).map(([slug, w]) => [slug, w.city]));
 
+/** Why soldCard() would leave this listing out (for the counts-only check at /api/sold?why=1), or null if shown. */
+export function soldDropReason(l, now = new Date()) {
+  if (!/sld|sold/i.test(`${text(l.lastStatus)} ${text(l.status)}`)) return 'status';
+  const c = sellerChoices(l);
+  if (c.hide) return no(l.permissions?.displayPublic) ? 'hide:displayPublic' : no(l.permissions?.displayInternetEntireListing) ? 'hide:displayInternetEntireListing' : 'hide:advertising';
+  const d = text(l.soldDate).slice(0, 10);
+  if (!d) return 'noSoldDate';
+  const cutoff = new Date(now); cutoff.setMonth(cutoff.getMonth() - MAX_MONTHS);
+  if (new Date(d) < cutoff) return 'tooOld';
+  if (!text(l.office?.brokerageName)) return l.office && Object.keys(l.office).length ? `noOfficeName:${Object.keys(l.office).join('|')}` : 'noOffice';
+  return null;
+}
+const no = (v) => /^(n|no|false|0)$/i.test(text(v));
+
 /** A sold listing as the site may show it, or null when it may not be shown at all. */
 export function soldCard(l, now = new Date()) {
   const status = `${text(l.lastStatus)} ${text(l.status)}`;
