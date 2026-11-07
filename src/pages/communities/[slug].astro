@@ -16,6 +16,7 @@ import { communities, communityGeoUrl, communityInfo, fmt, type Community } from
 import { lakesTouching, lakeHref, lakeSearchUrl } from '../../data/lakes';
 import detailData from '../../data/community-details.json';
 import rates from '../../data/rates.json';
+import taxData from '../../data/property-tax.json';
 import reviewData from '../../data/reviews.json';
 import team from '../../data/team.json';
 import { site } from '../../data/site';
@@ -103,7 +104,18 @@ const takeaways = [
   ...(mainDistrict ? [`Schools: ${mainDistrict.name} covers about ${mainDistrict.pctOfCity}% of the city`] : []),
 ];
 
+// Buyer questions people ask first, answered from the monthly NorthstarMLS report and the Census (sourced in the answer).
+const mkFaq = hasMarket(c.slug) ? marketFor(c.slug) : undefined;
+const taxRow = (taxData.cities as any)[c.slug] as { medianTax: number; medianValue: number; rate: number } | undefined;
+const lead: { q: string; a: string }[] = [];
+if (mkFaq?.medianPrice?.r12[1]) lead.push({ q: `How much do homes cost in ${c.name}, MN?`,
+  a: `Over the 12 months through ${monthLabel(marketMonth)}, the median sale price of a home in ${c.name} was $${fmt(Math.round(mkFaq.medianPrice.r12[1]))}, based on ${fmt(mkFaq.closedSales?.r12[1] ?? 0)} sales (NorthstarMLS, via the Minneapolis Area REALTORS® Local Market Update). For homes on the market today, see our ${c.name} homes for sale.` });
+if (mkFaq?.daysOnMarket?.r12[1] != null) lead.push({ q: `How long do homes take to sell in ${c.name}?`,
+  a: `Homes that sold in ${c.name} over the 12 months through ${monthLabel(marketMonth)} spent a median of ${fmt(mkFaq.daysOnMarket.r12[1])} days on the market (NorthstarMLS, via the Minneapolis Area REALTORS® Local Market Update).` });
+if (taxRow && !capped(taxRow.medianValue)) lead.push({ q: `What are property taxes in ${c.name}, MN?`,
+  a: `Owners of ${c.name} homes paid a median of $${fmt(taxRow.medianTax)} a year in real estate taxes, about ${taxRow.rate}% of a median home value of $${fmt(taxRow.medianValue)} (Census Bureau, 2020–2024 American Community Survey). Your own bill depends on the home's assessed value, the tax rates where it sits and homestead status; ${countyName} sends each property's statement.` });
 const faqs = [
+  ...lead,
   { q: `What is the median home value in ${c.name}?`,
     a: `The Census Bureau's 2020–2024 American Community Survey puts the median value of owner-occupied homes in ${c.name} at ${money(a.medianHomeValue)}${cmp(a.medianHomeValue, county.medianHomeValue, `the ${countyName} median`)} (${countyName}: ${money(county.medianHomeValue)}). These are owner estimates; for current asking prices, see the ${c.name} homes for sale in our home search.` },
   { q: `How many people live in ${c.name}, MN?`,
@@ -217,8 +229,8 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
 ---
 <Base
   breadcrumbs={[{ name: 'Communities', href: '/communities' }, { name: c.name, href: `/communities/${c.slug}` }]}
-  title={`${c.name}, MN Real Estate & Homes for Sale | Huerkamp Home Group`}
-  description={`${c.name}, Minnesota real estate guide: homes for sale, median home values, schools, commute times, ZIP codes and neighborhoods near ${c.name}, from Huerkamp Home Group.`}>
+  title={`${c.name}, MN Homes for Sale & Real Estate | Huerkamp Home Group`}
+  description={`${c.name}, MN homes for sale: current listings, median sale price, days on market, property taxes, ZIP codes, schools and commute times, from Huerkamp Home Group.`}>
   <script type="application/ld+json" set:html={faqLd} />
 
   <PageHero eyebrow={`${c.name}, Minnesota`} title={`${c.name} Homes for Sale & Real Estate`}
