@@ -6,7 +6,7 @@ import JsonLd from '../JsonLd';
 import { breadcrumbs, faqJsonLd } from '../seo';
 
 export const metadata = {
-  title: 'Become a Real Estate Agent in Minnesota',
+  title: { absolute: 'Become a Real Estate Agent in Minnesota | HHG' },
   description: 'Step by step: the 90 hours of education, the exam, finding a broker, and the fees to get your Minnesota real estate license, plus how to start on a team.',
   alternates: { canonical: '/become-a-real-estate-agent-minnesota' },
 };

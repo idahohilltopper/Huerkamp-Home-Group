@@ -6,7 +6,7 @@ import JsonLd from '../JsonLd';
 import { breadcrumbs, faqJsonLd, CITIES } from '../seo';
 
 export const metadata = {
-  title: 'Join a Real Estate Team in the Twin Cities',
+  title: 'Join a Twin Cities Real Estate Team',
   description: 'Thinking of joining a real estate team in Minneapolis, St. Paul, or the south metro? Compare team vs. solo, and see what Huerkamp Home Group offers agents.',
   alternates: { canonical: '/join-a-real-estate-team-twin-cities' },
 };
