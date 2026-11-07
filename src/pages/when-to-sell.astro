@@ -1,0 +1,137 @@
+---
+// "Should I sell now or wait until spring?" answered from the monthly Minneapolis Area REALTORS® Local Market Update
+// (src/data/market.json, 16-County Twin Cities Region). Each monthly report carries that month and the same month a
+// year earlier, so twelve reports give 24 months. Everything on the page is computed, so it updates itself when the
+// daily refresh adds a new month. Seasons are by closing month: a home that closes in May was usually listed in March
+// or April, which the page says.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import market from '../data/market.json';
+import { site } from '../data/site';
+
+type Row = { month: string; closed?: number; price?: number; dom?: number; pct?: number; newL?: number; inv?: number };
+const prev = (k: string) => { const [y, m] = k.split('-').map(Number); return `${y - 1}-${String(m).padStart(2, '0')}`; };
+const rows = new Map<string, Row>();
+const F: [keyof Row, string][] = [['closed', 'closedSales'], ['price', 'medianPrice'], ['dom', 'daysOnMarket'], ['pct', 'pctOfList'], ['newL', 'newListings'], ['inv', 'inventory']];
+for (const [k, v] of Object.entries((market as any).months) as [string, any][]) {
+  const a = v.areas?.['twin-cities'];
+  if (!a) continue;
+  for (const [i, key] of [[1, k], [0, prev(k)]] as [number, string][]) {
+    const r = rows.get(key) ?? { month: key };
+    for (const [f, src] of F) { const val = a[src]?.month?.[i]; if (val != null && r[f] == null) (r as any)[f] = val; }
+    rows.set(key, r);
+  }
+}
+const table = [...rows.values()].sort((x, y) => x.month.localeCompare(y.month)).slice(-24);
+const monthName = (k: string, style: 'long' | 'short' = 'long') => new Date(`${k}-15T12:00:00Z`).toLocaleDateString('en-US', { month: style, year: 'numeric', timeZone: 'UTC' });
+const first = table[0]?.month, last = table.at(-1)?.month;
+
+// Seasons by closing month, averaged over every year in the table.
+const SEASONS = { spring: [4, 5, 6], winter: [12, 1, 2] } as const;
+const inSeason = (r: Row, s: readonly number[]) => s.includes(Number(r.month.slice(5)));
+const avg = (list: (number | undefined)[]) => { const n = list.filter((x): x is number => x != null); return n.length ? n.reduce((a, b) => a + b, 0) / n.length : null; };
+const season = (s: readonly number[]) => {
+  const r = table.filter((x) => inSeason(x, s));
+  return { price: avg(r.map((x) => x.price)), dom: avg(r.map((x) => x.dom)), pct: avg(r.map((x) => x.pct)), newL: avg(r.map((x) => x.newL)), closed: avg(r.map((x) => x.closed)), n: r.length };
+};
+const sp = season(SEASONS.spring), wi = season(SEASONS.winter);
+const money = (n: number | null | undefined) => (n == null ? '—' : `$${Math.round(n).toLocaleString('en-US')}`);
+const money1k = (n: number | null | undefined) => (n == null ? '—' : `$${(Math.round(n / 1000) * 1000).toLocaleString('en-US')}`);
+// Best calendar months, averaged over the years in the table: by median price and by share of list price.
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const byCal = (f: 'price' | 'pct') => MONTHS.map((name, i) => ({ name, v: avg(table.filter((r) => Number(r.month.slice(5)) === i + 1).map((r) => r[f])) }))
+  .filter((x): x is { name: string; v: number } => x.v != null).sort((a, b) => b.v - a.v);
+const topPrice = byCal('price')[0]?.name, topPct = byCal('pct').slice(0, 2).map((x) => x.name);
+const round1 = (n: number | null) => (n == null ? '—' : n.toFixed(1));
+const whole = (n: number | null | undefined) => (n == null ? '—' : Math.round(n).toLocaleString('en-US'));
+const pctMore = sp.price && wi.price ? Math.round((100 * (sp.price - wi.price)) / wi.price * 10) / 10 : null;
+const ready = sp.n >= 3 && wi.n >= 3 && pctMore != null;
+
+const answer = ready
+  ? `Spring usually brings a higher price and a faster sale. Over the ${table.length} months from ${monthName(first!)} through ${monthName(last!)}, Twin Cities homes that closed in April, May and June sold for a median of about ${money1k(sp.price)}, ${pctMore}% more than homes that closed in December, January and February (about ${money1k(wi.price)}). Spring sales took about ${whole(sp.dom)} days on market and got ${round1(sp.pct)}% of the list price, against ${whole(wi.dom)} days and ${round1(wi.pct)}% in winter. Winter has less competition, though: about ${whole(wi.newL)} new listings a month, against ${whole(sp.newL)} in spring.`
+  : 'Our monthly market data is being updated. Call or text us for this month’s numbers.';
+const faq = [
+  { q: 'Should I sell my house in the Twin Cities now or wait until spring?', a: `${answer} If you need to move, have a home ready to show, or want to buy your next home before spring prices rise, selling in the off-season can still make sense.` },
+  { q: 'What is the best month to sell a house in the Twin Cities?', a: ready ? `In the ${table.length} months of Minneapolis Area REALTORS® data through ${monthName(last!)}, ${topPrice} closings had the highest median sale price, and ${topPct.join(' and ')} closings got the highest share of the list price. A sale closes weeks after the offer, so those homes were usually listed one to two months earlier.` : answer },
+  { q: 'Do homes sell in the winter in Minnesota?', a: ready ? `Yes. About ${whole(wi.closed)} homes a month closed in the 16-county Twin Cities region in December through February, with fewer new listings competing for buyers.` : answer },
+];
+const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
+const src = (market as any).source;
+---
+<Base breadcrumbs={[{ name: 'Sell', href: '/sell' }, { name: 'When to sell', href: '/when-to-sell' }]}
+  title="Sell Now or Wait for Spring? Twin Cities Data by Month"
+  description={ready ? `Twin Cities homes closing in spring sold for ${pctMore}% more than winter closings, and faster. Best month: ${topPrice}. ${table.length} months of Minneapolis Area REALTORS® data, month by month.` : 'When to sell a home in the Twin Cities, from monthly Minneapolis Area REALTORS® data.'}>
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <PageHero eyebrow="Selling" title="Should you sell now or wait until spring?" lede={answer} />
+
+  <section class="section">
+    <div class="wrap prose narrowish">
+      <h2>What the numbers say</h2>
+      {ready && (
+        <div class="table-scroll">
+          <table class="data">
+            <thead><tr><th scope="col"></th><th scope="col" class="num">Spring closings<br /><span>Apr–Jun</span></th><th scope="col" class="num">Winter closings<br /><span>Dec–Feb</span></th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Median sale price</th><td class="num">{money1k(sp.price)}</td><td class="num">{money1k(wi.price)}</td></tr>
+              <tr><th scope="row">Days on market</th><td class="num">{whole(sp.dom)}</td><td class="num">{whole(wi.dom)}</td></tr>
+              <tr><th scope="row">Share of list price received</th><td class="num">{round1(sp.pct)}%</td><td class="num">{round1(wi.pct)}%</td></tr>
+              <tr><th scope="row">New listings a month (competition)</th><td class="num">{whole(sp.newL)}</td><td class="num">{whole(wi.newL)}</td></tr>
+              <tr><th scope="row">Homes sold a month</th><td class="num">{whole(sp.closed)}</td><td class="num">{whole(wi.closed)}</td></tr>
+            </tbody>
+          </table>
+        </div>
+      )}
+      <p class="source">Averages of the monthly figures for the 16-County Twin Cities Region, {monthName(first!)} through {monthName(last!)}. Source: <a href={src.url} rel="noopener">{src.name}</a>, {src.publisher}, data from {src.data}. {src.note}</p>
+
+      <h2>Timing is about when you list, not when you close</h2>
+      <p>These are closing months. A sale closes weeks after the offer, so the spring closings above were mostly homes listed in March, April and May. If you’re aiming for spring, the work starts in winter: repairs, decluttering, photos and pricing.</p>
+
+      <h2>When selling sooner can make sense</h2>
+      <ul>
+        <li><strong>You’re buying too.</strong> Your next home is likely to cost more in spring as well, so the gain on your sale can be offset on your purchase.</li>
+        <li><strong>Fewer homes compete with yours.</strong> Winter buyers are often relocating or on a deadline, and they have fewer homes to choose from.</li>
+        <li><strong>Waiting has a cost.</strong> Months of mortgage, taxes, insurance and utilities on a home you’re ready to leave add up.</li>
+        <li><strong>Your situation matters more than the season.</strong> A job move, a new home or a life change sets the calendar.</li>
+      </ul>
+      <p>Want to know what your home would sell for in each season? <a href="/home-estimate">Get an instant estimate</a>, see <a href="/calculators/seller-net-proceeds">what you’d walk away with</a>, or call or text <a href={site.phoneHref}>{site.phone}</a>. For your city’s numbers, see the <a href="/market">monthly market reports</a>.</p>
+    </div>
+  </section>
+
+  <section class="section section--paper" aria-labelledby="m-title">
+    <div class="wrap">
+      <div class="head"><h2 id="m-title">Twin Cities home sales, month by month</h2><p>16-County Twin Cities Region, by closing month.</p></div>
+      <div class="table-scroll">
+        <table class="data months">
+          <thead><tr><th scope="col">Month</th><th scope="col" class="num">Homes sold</th><th scope="col" class="num">Median price</th><th scope="col" class="num">Days on market</th><th scope="col" class="num">% of list price</th><th scope="col" class="num">New listings</th></tr></thead>
+          <tbody>{table.map((r) => (
+            <tr class:list={[inSeason(r, SEASONS.spring) && 'is-spring', inSeason(r, SEASONS.winter) && 'is-winter']}>
+              <th scope="row">{monthName(r.month, 'short')}</th><td class="num">{whole(r.closed)}</td><td class="num">{money(r.price)}</td><td class="num">{whole(r.dom)}</td><td class="num">{r.pct != null ? `${r.pct}%` : '—'}</td><td class="num">{whole(r.newL)}</td>
+            </tr>
+          ))}</tbody>
+        </table>
+      </div>
+      <p class="source">Source: {src.name}, {src.publisher} ({src.data}).</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="faq-title">
+    <div class="wrap prose narrowish faq">
+      <h2 id="faq-title">Quick answers</h2>
+      {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+      <p><a class="link-arrow" href="/selling-in-minnesota">What your city requires before you sell</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .narrowish { max-width: 56rem; }
+  .table-scroll { overflow-x: auto; margin: 1rem 0; }
+  table.data { width: 100%; border-collapse: collapse; font-size: .98rem; }
+  table.data th, table.data td { padding: .55rem .7rem; border-bottom: 1px solid var(--line); text-align: left; }
+  table.data .num { text-align: right; font-variant-numeric: tabular-nums; }
+  table.data thead span { font-weight: 400; color: var(--text-soft); font-size: .85rem; }
+  .months tr.is-spring th { color: var(--crimson); }
+  .source { font-size: .9rem; color: var(--text-soft); }
+  .faq details { border: 1px solid var(--line); padding: 1rem 1.25rem; margin-bottom: .75rem; background: var(--surface); }
+  .faq summary { cursor: pointer; font: 500 1.15rem/1.35 var(--serif); }
+</style>

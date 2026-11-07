@@ -12,7 +12,13 @@ const checked = new Date(`${CHECKED}T12:00:00`).toLocaleDateString('en-US', { mo
 const housing = saleRules.filter((r) => r.kind === 'housing');
 const sewer = saleRules.filter((r) => r.kind === 'sewer');
 const repealed = saleRules.filter((r) => r.kind === 'repealed');
+// Answers for the two biggest cities, built from their rules above (asked often of AI assistants and Google).
+const cityAnswer = (slug: string) => {
+  const r = saleRules.find((x) => x.slug === slug);
+  return r ? { q: `What inspections are required to sell a house in ${name.get(slug)}?`, a: `${name.get(slug)} requires a ${r.program} report. ${r.summary} ${r.details.slice(0, 3).join(' ')} Every Minnesota seller also owes the state disclosures (property condition, wells, septic, radon, lead-based paint for homes built before 1978). Confirm current rules with the city${r.contact ? ` (${r.contact})` : ''} before you list.` } : null;
+};
 const faq = [
+  ...[cityAnswer('minneapolis'), cityAnswer('saint-paul')].filter((x): x is { q: string; a: string } => !!x),
   { q: 'Do I need a city inspection to sell my house in Minnesota?', a: `Only in some cities. Minnesota has no statewide pre-sale inspection, but ${housing.length} Twin Cities cities we confirmed require a housing evaluation or inspection (including Minneapolis, Saint Paul, Bloomington and Richfield), and ${sewer.length} more require a sewer inspection before a sale.` },
   { q: 'What is a Truth in Sale of Housing (TISH) report?', a: 'A city-required evaluation of a home’s condition by a licensed evaluator, done before the home is marketed. Minneapolis and Saint Paul call it Truth in Sale of Housing; other cities call it Time of Sale or Point of Sale. Some programs are disclosure only; others require repairs.' },
   { q: 'What is an I/I or sewer inspection at sale?', a: 'Some cities require the sewer line from the house to the street to be camera-inspected, and sump pumps and roof drains checked, before a sale, to keep clear water out of the sanitary sewer. Golden Valley, West St. Paul, Orono, Mounds View, St. Anthony, Tonka Bay and Newport are examples.' },
