@@ -51,7 +51,10 @@ export function estimateEmail(person, address, result) {
 }
 
 const LABELS = { address: 'Property address', zip: 'ZIP', homeType: 'Kind of home', beds: 'Bedrooms', baths: 'Bathrooms', sqft: 'Finished sq ft',
-  timeline: 'Timeline', condition: 'Condition', situation: 'Situation', topic: 'Topic', message: 'Message', notes: 'Notes', community: 'Community', listing: 'Listing', priceRange: 'Price range' };
+  timeline: 'Timeline', condition: 'Condition', situation: 'Situation', topic: 'Topic', message: 'Message', notes: 'Notes', community: 'Community', listing: 'Listing', priceRange: 'Price range',
+  savedSearch: 'Saved search', alertFrequency: 'Alert frequency', alertName: 'Alert name', propStreet: 'Street', propCity: 'City', propZip: 'ZIP',
+  propMls: 'MLS number', propPrice: 'List price', agentSlug: 'Agent page', viewDays: 'Days viewed this home', awayDays: 'Days since last visit',
+  calc: 'Calculator results', goal: 'Goal', interest: 'Interested in', showingDay: 'Preferred day', showingTime: 'Preferred time', tourType: 'Tour type' };
 
 /** The team's copy of a website lead. `delivered` says whether Follow Up Boss accepted it. */
 export function leadEmail(label, fields = {}, page = '', delivered = true) {
