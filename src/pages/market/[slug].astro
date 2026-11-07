@@ -32,6 +32,14 @@ const summary = [
   v('monthsSupply', 'month') != null && `At the end of ${month} there were ${count(v('inventory', 'month'))} homes for sale, ${v('monthsSupply', 'month')} months of supply${(v('monthsSupply', 'month') ?? 0) < 4 ? ', which usually favors sellers' : (v('monthsSupply', 'month') ?? 0) > 6 ? ', which usually favors buyers' : ''}.`,
 ].filter(Boolean) as string[];
 
+// The answer at the top (what Google and AI assistants quote): price, trend, speed and who the market favors.
+const supply = v('monthsSupply', 'month');
+const verdict = supply == null ? '' : supply < 4 ? "a seller's market" : supply > 6 ? "a buyer's market" : 'a balanced market';
+const answer = v('medianPrice') == null ? '' : [
+  `${c.name} homes sold for a median ${money(v('medianPrice'))} over the 12 months through ${month}, ${change(v('medianPrice', 'r12', 2))} from the year before`,
+  v('daysOnMarket') != null ? `, after ${count(v('daysOnMarket'))} days on market.` : '.',
+  verdict ? ` With ${supply} months of supply, it's ${verdict} by the usual rule of thumb (under 4 months favors sellers, over 6 favors buyers).` : '',
+].join('');
 const rows: [string, keyof AreaMarket, (n: number | null) => string][] = [
   ['Median sale price', 'medianPrice', money], ['Average sale price', 'averagePrice', money], ['Price per square foot', 'pricePerSqft', money],
   ['Closed sales', 'closedSales', count], ['New listings', 'newListings', count], ['Days on market', 'daysOnMarket', count],
@@ -75,7 +83,8 @@ const ld = JSON.stringify([
   <section class="mhead">
     <div class="wrap">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/market">Market reports</a><span aria-hidden="true">/</span><span>{c.name}</span></nav>
-      <h1>{c.name} housing market</h1>
+      <h1>{c.name}, MN housing market</h1>
+      {answer && <p class="answer">{answer}</p>}
       <p class="lede">{month} report · NorthstarMLS data via Minneapolis Area REALTORS® · current as of {asOfText}</p>
       <ul class="kpis">
         <li><span>Median sale price</span><strong>{moneyK(v('medianPrice'))}</strong><em>{signed(v('medianPrice', 'r12', 2))} vs. prior 12 months</em></li>
@@ -151,7 +160,7 @@ const ld = JSON.stringify([
   <section class="section section--paper" aria-labelledby="more-title">
     <div class="wrap">
       <div class="head"><p class="eyebrow">Keep exploring</p><h2 id="more-title">More about {c.name}</h2></div>
-      <p class="links"><a class="link-arrow" href={`/communities/${c.slug}`}>{c.name} community guide</a> <a class="link-arrow" href="/market">Twin Cities market report</a></p>
+      <p class="links"><a class="link-arrow" href={`/communities/${c.slug}`}>{c.name} community guide</a> <a class="link-arrow" href={communitySearch(c.slug)}>{c.name} homes for sale</a> <a class="link-arrow" href="/home-estimate">What's my {c.name} home worth?</a> <a class="link-arrow" href="/when-to-sell">Sell now or wait for spring?</a> <a class="link-arrow" href="/selling-in-minnesota">What {c.name} requires before you sell</a> <a class="link-arrow" href="/market">Twin Cities market report</a></p>
       {past.length > 0 && (
         <>
           <h3 class="nearby-title">Past {c.name} reports</h3>
@@ -175,6 +184,7 @@ const ld = JSON.stringify([
   .crumbs a { color: var(--rose); text-decoration: none; }
   .mhead h1 { font: 500 clamp(2.2rem, 5vw, 3.6rem)/1.05 var(--serif-display); }
   .lede { color: var(--on-dark); }
+  .answer { max-width: 52rem; margin: .9rem 0 .4rem; color: #fff; font: 500 clamp(1.05rem, 2.2vw, 1.25rem)/1.5 var(--ui); }
   .kpis { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: rgba(255,255,255,.14); }
   @media (max-width: 760px) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   .kpis li { display: grid; gap: .3rem; padding: 1.1rem 1.2rem; background: var(--night); }
