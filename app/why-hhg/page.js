@@ -8,7 +8,11 @@ import FlashList from '../FlashList';
 import AgentPlusBand from '../AgentPlusBand';
 import IncomeGuaranteeBand from '../IncomeGuaranteeBand';
 
-export const metadata = { title: 'Why HHG | Huerkamp Home Group', description: 'Everything you need to build a real estate business with Huerkamp Home Group.' };
+export const metadata = {
+  title: 'Why Join HHG: Leads, Coaching, Support',
+  description: 'Why Twin Cities agents join Huerkamp Home Group: team-provided leads, weekly coaching, a Client Care Manager, a showing partner, and more.',
+  alternates: { canonical: '/why-hhg' },
+};
 
 const free = ['Free to apply', 'Confidential conversation', 'Honest look at how we work', 'Shadow the team before you decide', 'Weekly coaching from a national coach and our team', 'A showing partner to give you time back with buyers', 'Leads, marketing and a Client Care Manager'];
 

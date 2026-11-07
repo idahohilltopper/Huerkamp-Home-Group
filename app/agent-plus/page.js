@@ -6,8 +6,9 @@ import AgentPlusBand from '../AgentPlusBand';
 import FlashList from '../FlashList';
 
 export const metadata = {
-  title: 'Agent+ | Huerkamp Home Group',
-  description: 'Earn up to $4,000 per buy-side file on top of your commission, plus a matching 401(k), through the Agent+ program with Mutual of Omaha Mortgage.',
+  title: 'Agent+: Extra Income and Matching 401(k)',
+  description: 'Learn how Agent+ with Mutual of Omaha Mortgage lets licensed loan officers earn up to $4,000 per buy-side file, plus a matching 401(k).',
+  alternates: { canonical: '/agent-plus' },
 };
 
 const steps = [

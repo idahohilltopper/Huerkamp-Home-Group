@@ -1,9 +1,15 @@
 import SiteHeader from '../SiteHeader';
+import JsonLd from '../JsonLd';
+import { faqJsonLd } from '../seo';
 import SiteFooter from '../SiteFooter';
 import PageHero from '../PageHero';
 import ApplySection from '../ApplySection';
 
-export const metadata = { title: 'FAQ | Huerkamp Home Group', description: 'Answers to common questions about joining Huerkamp Home Group.' };
+export const metadata = {
+  title: 'Real Estate Team FAQ for Agents',
+  description: 'Answers for agents considering Huerkamp Home Group: licensing, cost, the income guarantee, the recruiting bonus, Agent+, and how fast we reply.',
+  alternates: { canonical: '/faq' },
+};
 
 const faqs = [
   ['Do I need to be licensed?', 'No. We talk with licensed agents, agents in the licensing process, and people curious about the career.'],
@@ -19,6 +25,7 @@ const faqs = [
 export default function FAQ() {
   return (
     <>
+      <JsonLd data={faqJsonLd(faqs)} />
       <SiteHeader />
       <PageHero eyebrow="FAQ" title="Questions, answered" />
       <section className="section">

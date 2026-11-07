@@ -67,7 +67,7 @@ export default function StepCards() {
             <button type="button" className="step-h" aria-expanded={on} aria-controls={'step-' + i}
               onClick={() => setOpen(on ? null : i)}>
               <span className="num">{i + 1}</span>
-              <h3>{s.title}</h3>
+              <h2 className="step-title">{s.title}</h2>
               <p>{s.blurb}</p>
               <span className="more">{on ? 'Show less –' : 'Learn more +'}</span>
             </button>

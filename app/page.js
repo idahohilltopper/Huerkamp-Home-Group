@@ -8,6 +8,7 @@ import IncomeGuaranteeBand from './IncomeGuaranteeBand';
 import FlashList from './FlashList';
 import YouTubeBanner from './YouTubeBanner';
 import AgentPlusBand from './AgentPlusBand';
+import { CITIES } from './seo';
 
 const badges = ['$150,000 guaranteed income* (when you meet the requirements)', 'Earn up to $4,000 per buy-side file on top of your commission', 'Matching 401(k)', '#1 Keller Williams team in the North Central region', '#1 realtor.com lead purchaser in the Twin Cities', 'Zillow Preferred team', '100% free to apply', 'Reply within 1 business day', 'Confidential conversation'];
 
@@ -21,6 +22,8 @@ const explore = [
   ['/our-team', 'Our team', 'Meet the people, the community work, and life at HHG.'],
   ['/value', 'Your value', 'See what the team provides and what it is worth.'],
   ['/agent-plus', 'Agent+', 'Up to $4,000 more per buy-side file and a matching 401(k).'],
+  ['/join-a-real-estate-team-twin-cities', 'Join a team in the Twin Cities', 'What to look for, what to ask, and how we answer.'],
+  ['/become-a-real-estate-agent-minnesota', 'Get licensed in Minnesota', 'A step-by-step guide to your real estate license.'],
   ['/how-it-works', 'How it works', 'From hello to closing in five steps.'],
   ['/faq', 'FAQ', 'Licensing, cost, location, and how fast we reply.'],
 ];
@@ -32,9 +35,9 @@ export default function Home() {
 
       <section className="hero">
         <div className="hero-copy">
-          <p className="eyebrow">Now recruiting agents</p>
+          <p className="eyebrow">Now recruiting agents in the Twin Cities</p>
           <h1>Get matched with <em>a team</em> that helps you close more deals.</h1>
-          <p className="sub">Tell us what you want in a team: leads, training, culture, support. We&apos;ll show you how Huerkamp Home Group delivers it.</p>
+          <p className="sub">Tell us what you want in a team: leads, training, culture, support. We&apos;ll show you how Huerkamp Home Group delivers it. Based in Burnsville, serving the Twin Cities.</p>
           <div className="cta-row">
             <a href="/apply" className="btn">See my match</a>
             <a href="/how-it-works" className="btn ghost">How it works</a>
@@ -89,6 +92,12 @@ export default function Home() {
             <Link className="card tile" key={href} href={href}><h3>{t}</h3><p>{d}</p><span className="more">Learn more →</span></Link>
           ))}
         </div>
+      </section>
+
+      <section className="section">
+        <p className="eyebrow dark">Where we work</p>
+        <h2>A Keller Williams team serving the Twin Cities</h2>
+        <p className="sub">Based in Burnsville, our market includes {CITIES.join(', ')}.</p>
       </section>
 
       <ApplySection />

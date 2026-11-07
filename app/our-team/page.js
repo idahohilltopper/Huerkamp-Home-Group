@@ -6,7 +6,11 @@ import Stats from '../Stats';
 import VideoSection from '../VideoSection';
 import YouTubeBanner from '../YouTubeBanner';
 
-export const metadata = { title: 'Our Team | Huerkamp Home Group', description: 'Meet the Huerkamp Home Group team: how we work, give back, and have fun together.' };
+export const metadata = {
+  title: 'Meet Our Burnsville Real Estate Team',
+  description: 'Meet the Keller Williams Preferred Realty team behind Huerkamp Home Group: how we plan, give back, and have fun together in the Twin Cities.',
+  alternates: { canonical: '/our-team' },
+};
 
 export default function OurTeam() {
   return (

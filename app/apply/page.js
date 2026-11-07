@@ -3,7 +3,11 @@ import SiteFooter from '../SiteFooter';
 import PageHero from '../PageHero';
 import ApplySection from '../ApplySection';
 
-export const metadata = { title: 'Join the Team | Huerkamp Home Group', description: 'Apply to join Huerkamp Home Group. Free, confidential, no obligation.' };
+export const metadata = {
+  title: 'Apply to Join Our Real Estate Team',
+  description: 'Apply to join Huerkamp Home Group in the Twin Cities. It is free, confidential, and there is no obligation. We reply within one business day.',
+  alternates: { canonical: '/apply' },
+};
 
 export default function Apply() {
   return (

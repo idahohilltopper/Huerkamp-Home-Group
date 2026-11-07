@@ -5,8 +5,9 @@ import ApplySection from '../ApplySection';
 import IncomeGuaranteeBand from '../IncomeGuaranteeBand';
 
 export const metadata = {
-  title: '$150,000 Income Guarantee | Huerkamp Home Group',
-  description: 'How the Huerkamp Home Group $150,000 income guarantee works: the requirements, how it is tracked in Follow Up Boss, and how the payout is calculated.',
+  title: '$150,000 Income Guarantee for Agents',
+  description: 'How the Huerkamp Home Group $150,000 income guarantee works: the four requirements, how activity is tracked in Follow Up Boss, and how the payout is figured.',
+  alternates: { canonical: '/income-guarantee' },
 };
 
 export default function IncomeGuarantee() {

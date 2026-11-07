@@ -3,8 +3,9 @@ import SiteFooter from '../SiteFooter';
 import PageHero from '../PageHero';
 
 export const metadata = {
-  title: 'Terms and Conditions | Huerkamp Home Group',
-  description: 'Terms and conditions for the Huerkamp Home Group 401(k), agent recruiting bonus, and Agent+ buy-side bonus offers.',
+  title: 'Terms and Conditions',
+  description: 'Terms and conditions for the Huerkamp Home Group income guarantee, 401(k), agent recruiting bonus, and Agent+ buy-side bonus offers.',
+  alternates: { canonical: '/terms' },
 };
 
 export default function Terms() {

@@ -4,7 +4,11 @@ import PageHero from '../PageHero';
 import ApplySection from '../ApplySection';
 import AgentPlusBand from '../AgentPlusBand';
 
-export const metadata = { title: 'Your Value | Huerkamp Home Group', description: 'What the Huerkamp Home Group team value proposition means for you.' };
+export const metadata = {
+  title: 'What Our Real Estate Team Gives You',
+  description: 'See what the Huerkamp Home Group team provides every agent, with the value of coaching, leads, marketing, and support laid out line by line.',
+  alternates: { canonical: '/value' },
+};
 
 const valueRows = [
   ['Reduced company split', 9750, 1],

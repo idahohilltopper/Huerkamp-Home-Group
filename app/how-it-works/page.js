@@ -4,7 +4,11 @@ import PageHero from '../PageHero';
 import ApplySection from '../ApplySection';
 import StepCards from '../StepCards';
 
-export const metadata = { title: 'How It Works | Huerkamp Home Group', description: 'From hello to closing in five steps with Huerkamp Home Group.' };
+export const metadata = {
+  title: 'How to Join Our Real Estate Team',
+  description: 'From first conversation to closing, here are the five steps to join Huerkamp Home Group, a Keller Williams team serving the Twin Cities.',
+  alternates: { canonical: '/how-it-works' },
+};
 
 export default function HowItWorks() {
   return (
