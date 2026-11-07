@@ -148,7 +148,7 @@ const ld = faq.length ? JSON.stringify({ '@context': 'https://schema.org', '@typ
           <ul class="others">{others.map((x) => <li>{x.href ? <a href={x.href}>{x.name}</a> : x.name}<strong>{x.min} min</strong></li>)}</ul>
           <p class="note">{note}</p>
           <p class="links">
-            <a class="link-arrow" href={`/communities/${c.slug}`}>{c.name} community guide</a>
+            <a class="link-arrow" href={`/communities/${c.slug}`}>{c.name} homes for sale and community guide</a>
             {hasMarket(c.slug) && <a class="link-arrow" href={`/market/${c.slug}`}>{c.name} market report</a>}
             <a class="link-arrow" href={homesFor(c)}>{c.name} homes for sale</a>
             <a class="link-arrow" href={commuteHref(d)}>Every city by drive to {d.short}</a>

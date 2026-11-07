@@ -15,3 +15,12 @@ Daily log of changes that help AI assistants (ChatGPT, Google AI Overviews, Perp
 - **Changed:** nothing. No errors found that were safe and worth changing.
 - **Noticed, not changed:** 3 video pages have no duration (e.g. /videos/minneapolis-home-sellers-have-a-decision-to-make); the video data has no length for them and we won't guess. 2 old posts have headlines over 110 characters (e.g. /blog/2022/10/27/a-homeowners-guide-on-the-average-life-expectancy-of-major-appliances); Google may truncate, harmless.
 - **Next ideas:** verify sameAs profiles (D); internal links between blog posts, community guides and tools (E); a weekly visibility spot check (G).
+
+## 2026-11-07 — city priority: Eagan (done); next city: st-louis-park
+- **Changed (city template, so every city page gets it; Eagan is the city checked):** /communities/eagan
+  - Title now leads with the search words: "Eagan, MN Homes for Sale & Real Estate | Huerkamp Home Group"; the meta description opens "Eagan, MN homes for sale: ...".
+  - The FAQ (and its FAQPage markup, built from the same list so they match) now opens with three factual questions: "How much do homes cost in Eagan, MN?" (12-month median sale price and sales count, NorthstarMLS), "How long do homes take to sell in Eagan?" (median days on market, NorthstarMLS) and "What are property taxes in Eagan, MN?" (median real estate tax paid, Census ACS 2020-2024; already in src/data/property-tax.json). ZIP codes, commute and point-of-sale rule answers were already there.
+  - Internal links to the city page now say "<City> homes for sale" (blog post sidebar, video pages, market report, commute and comparison pages) instead of just the city name or "community guide".
+- **Why it helps:** AI assistants and Google quote the first sentence of a section; these answers carry the figure, the period and the source.
+- **Sources:** src/data/market.json (NorthstarMLS via Minneapolis Area REALTORS® Local Market Update), src/data/property-tax.json (Census ACS). No new facts.
+- **Checked:** build passes; Eagan FAQ JSON-LD parses (14 questions). check-launch still reports the same 164 old /home-search/... addresses as on 2026-11-04 (unrelated).
