@@ -639,7 +639,7 @@ Netlify domains at launch: **www.huerkamphomes.com = primary domain**; huerkamph
 - every old Squarespace address on (www.)huerkamphomegroup.com → its new page on www.huerkamphomes.com, anything else keeps its path (forced);
 - huerkamphomes.com ↔ www.huerkamphomes.com is left to Netlify (it forwards to whichever is primary; a rule here would loop while the bare domain is temporarily primary);
 - old Luxury Presence addresses → new pages, only where no new page has that address (not forced). Unknown addresses now get the 404 page instead of the home page (better for Google).
-`node scripts/check-launch.mjs` checks all 406 + 556 old addresses. search.huerkamphomegroup.com (Ylopo) and email addresses stay on huerkamphomegroup.com, so that domain must stay registered and its DNS kept. The Follow Up Boss lead source stays "huerkamphomegroup.com" (src/lib/lead.mjs SOURCE) so existing FUB automations keep working; change it only together with FUB.
+`node scripts/check-launch.mjs` checks all 406 + 556 old addresses. search.huerkamphomegroup.com (Ylopo) and email addresses stay on huerkamphomegroup.com, so that domain must stay registered and its DNS kept. The Follow Up Boss lead source is "huerkamphomes.com" (src/lib/lead.mjs SOURCE; it was "huerkamphomegroup.com" until 2026-11-07, when Jason kept huerkamphomegroup.com as a separate site with its own leads). FUB lead flow for the new source name is set in FUB (Admin > Lead Flow).
 
 ## Sold homes (built 2026-11-03; NorthstarMLS sold content, notice of Aug 21, 2026)
 
