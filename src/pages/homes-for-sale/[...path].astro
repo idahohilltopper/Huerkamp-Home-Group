@@ -40,7 +40,9 @@ const area = c?.area;
 const place = area?.place ?? 'the Twin Cities';
 const st = c ? stats(c.listings) : stats(data.listings);
 const h1 = c ? (c.facet ? c.facet.title(place) : `${place} homes for sale`) : 'Twin Cities homes for sale';
-const titleText = c ? (c.facet ? c.facet.title(place) : `${place} Homes for Sale`) : 'Twin Cities Homes for Sale by City';
+const titleText = c ? (c.facet ? `${c.facet.title(place)}${st.count > 1 ? ` (${st.count.toLocaleString("en-US")})` : ""}` : st.count > 1 ? `${st.count.toLocaleString("en-US")} Homes for Sale in ${place}` : `${place} Homes for Sale`) : "Twin Cities Homes for Sale by City";
+// The live count is in the title, as the portals show it ("385 Homes for Sale in Lakeville, MN"); the "| Huerkamp
+// Home Group" ending drops on its own when the title runs long (Base.astro).
 const facetLower = c?.facet ? c.facet.label.charAt(0).toLowerCase() + c.facet.label.slice(1) : '';
 const answer = c
   ? `${st.count.toLocaleString('en-US')} ${st.count === 1 ? 'home is' : 'homes are'} for sale in ${place}${c.facet ? ` (${facetLower})` : ''} as of ${updatedDay}${st.count > 1 ? `, from ${money(st.min)} to ${money(st.max)}, with a median list price of ${money(st.median!)}` : ` at ${money(st.min)}`}.`
