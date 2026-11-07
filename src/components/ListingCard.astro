@@ -7,8 +7,8 @@ import { listingHref, TYPE_LABEL } from '../data/listings';
 import { isOwnBrokerage, OTHER_THUMB_DETAILS } from '../data/mls';
 import { BR_THUMB, BR_THUMB_SIZE } from '../data/mls-logos';
 import { formatOpenHouse } from '../lib/open-house.mjs';
-interface Props { l: Listing; eager?: boolean }
-const { l, eager = false } = Astro.props;
+interface Props { l: Listing; eager?: boolean; href?: string }
+const { l, eager = false, href } = Astro.props;
 const full = OTHER_THUMB_DETAILS || isOwnBrokerage(l.brokerage);
 const specs = full ? [l.beds && `${l.beds} bd`, l.baths && `${l.baths} ba`, l.sqft && `${l.sqft.toLocaleString('en-US')} sq ft`, l.type === 'land' && l.lotAcres && `${l.lotAcres} acres`].filter(Boolean).join(' · ') : '';
 const photo = l.photos[0] ? `${l.photos[0]}?class=small` : null;
@@ -21,7 +21,7 @@ const cut = full && cutAmt >= 1000 ? `Price cut $${cutAmt >= 1e6 ? `${(cutAmt / 
 const address = l.addressHidden ? `${l.city}, MN ${l.zip}` : `${l.street}, ${l.city}, MN ${l.zip}`;
 ---
 <li class="lcard">
-  <a href={listingHref(l)}>
+  <a href={href ?? listingHref(l)}>
     <span class="lcard__photo">{photo ? <img src={photo} alt={address} width="400" height="267" loading={eager ? 'eager' : 'lazy'} decoding="async" /> : <span class="lcard__nophoto">Photo coming soon</span>}
       {cut && <span class="lcard__flag lcard__flag--cut">{cut}</span>}{!cut && full && l.newConstruction && <span class="lcard__flag">New construction</span>}{!cut && full && !l.newConstruction && l.lakefront && <span class="lcard__flag">Lakefront</span>}{open && <span class="lcard__open">Open {formatOpenHouse(open)}</span>}</span>
     <strong class="lcard__price">{price}</strong>

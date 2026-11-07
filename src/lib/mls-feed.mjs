@@ -33,7 +33,7 @@ function inRing(x, y, ring) {
   return hit;
 }
 /** Inside a polygon (outer ring, not in a hole) of any part. */
-const inPolys = (x, y, polys) => polys.some(([outer, ...holes]) => inRing(x, y, outer) && !holes.some((h) => inRing(x, y, h)));
+export const inPolys = (x, y, polys) => polys.some(([outer, ...holes]) => inRing(x, y, outer) && !holes.some((h) => inRing(x, y, h)));
 function areaIndex(features, key = (f) => f.properties.slug) {
   return features.map((f) => {
     const polys = rings(f.geometry);
@@ -130,7 +130,7 @@ const FIELDS = 'boardId,mlsNumber,listPrice,listDate,updatedOn,timestamps,status
 // falls back to FIELDS so the listings keep coming (stats.noOriginalPrice says so).
 const FIELDS_PLUS = `${FIELDS},originalPrice`;
 
-async function download(key, box) {
+export async function download(key, box) {
   // Small tiles keep each search well inside Repliers' paging limits; 4 run at a time.
   // A tile that keeps failing is skipped and reported, so one bad request can't stop the whole site build.
   const [w, s, e, n] = box, step = 0.12, out = new Map(), stats = { tiles: 0, requests: 0, failedTiles: 0, errors: [], cappedTiles: 0 };

@@ -11,6 +11,7 @@ import {
 } from '../../data/lakes';
 import { business, origin } from '../../data/schema';
 import { site } from '../../data/site';
+import { north } from '../../lib/north-lakes.mjs';
 
 const fmt = (n: number) => n.toLocaleString('en-US');
 const big = lakes.filter((l) => l.acres >= 500);
@@ -131,6 +132,14 @@ const ld = JSON.stringify([
     </div>
   </section>
 
+  <section class="section section--paper" aria-labelledby="north-title">
+    <div class="wrap">
+      <div class="head"><p class="eyebrow">Up north</p><h2 id="north-title">Brainerd <em>lake homes</em></h2>
+        <p>We sell cabins and lake homes up north too. Lakefront homes for sale and recently sold on the {north.groups.map((g) => g.name).join(', ').replace(/, ([^,]*)$/, ' and $1')}.</p></div>
+      <p class="chains">{north.groups.map((g) => <a class="link-arrow" href={`/lake-homes/${north.region.slug}/${g.slug}`}>{g.name}</a>)} <a class="link-arrow" href={`/lake-homes/${north.region.slug}`}>All Brainerd lakes</a></p>
+    </div>
+  </section>
+
   <section class="section" aria-labelledby="faq-title">
     <div class="wrap faq">
       <div class="head"><p class="eyebrow">Quick answers</p><h2 id="faq-title">Lake home questions</h2></div>
@@ -192,6 +201,7 @@ const ld = JSON.stringify([
 </script>
 
 <style>
+  .chains { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; }
   .hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: .5rem; }
   .stats { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
   @media (max-width: 700px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

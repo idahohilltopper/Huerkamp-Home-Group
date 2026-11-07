@@ -26,6 +26,10 @@ export const FORMS = {
   'community-alert':   { type: 'Property Search', label: 'New-listing alert',      tags: ['Buyer lead', 'Listing alert'] },
   'community-contact': { type: 'General Inquiry', label: 'Community page form',    tags: [] },
   'lake-homes':        { type: 'General Inquiry', label: 'Lake homes form',        tags: ['Lake homes'] },
+  // Brainerd lakes (and other lakes up north): monthly lake report sign-ups and questions. The lake name is added as a
+  // tag from the form's "lake" field.
+  'lake-report':       { type: 'General Inquiry', label: 'Monthly lake report sign-up', tags: ['Lake homes', 'Lake report', 'Cabin / lake owner'] },
+  'north-lake':        { type: 'General Inquiry', label: 'Up-north lake home question', tags: ['Lake homes', 'Up north'] },
   'investing':         { type: 'General Inquiry', label: 'Investment form',        tags: ['Investor'] },
   'ramsey':            { type: 'General Inquiry', label: 'Ramsey ELP form',        tags: ['Ramsey ELP'] },
   'lender':            { type: 'General Inquiry', label: 'Lender request (Ken Rife)', tags: ['Buyer lead', 'Lender referral'] },
