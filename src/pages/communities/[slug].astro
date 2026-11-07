@@ -15,6 +15,7 @@ import LineChart from '../../components/LineChart.astro';
 import { communities, communityGeoUrl, communityInfo, fmt, type Community } from '../../data/areas';
 import { lakesTouching, lakeHref, lakeSearchUrl } from '../../data/lakes';
 import detailData from '../../data/community-details.json';
+import rates from '../../data/rates.json';
 import reviewData from '../../data/reviews.json';
 import team from '../../data/team.json';
 import { site } from '../../data/site';
@@ -130,6 +131,18 @@ faqs.push({ q: `Does ${c.name} require an inspection to sell a home?`,
     ? `Yes. ${saleRule.summary} (${saleRule.program}.) Confirm current rules with the city before you list.`
     : saleRule ? saleRule.summary
     : `We haven't confirmed a city inspection requirement for ${c.name}. Every Minnesota seller still owes the state disclosures (property condition, wells, septic, radon and more), and some counties require a septic inspection. Check with the city before you list.` });
+// Rent or buy: the city's median rent (Census) next to principal and interest on its median-priced home (12-month
+// median sale price from the MLS report, else the Census home value) with 10% down at this week's 30-year rate.
+const rbPrice = (hasMarket(c.slug) ? marketFor(c.slug)?.medianPrice?.r12[1] : null) ?? (capped(a.medianHomeValue) ? null : a.medianHomeValue);
+const rbRate = rates.latest.rate30;
+const rbPayment = rbPrice && rbRate ? (() => { const r = rbRate / 100 / 12, loan = rbPrice * 0.9; return Math.round(loan * r / (1 - (1 + r) ** -360)); })() : null;
+const rentBuy = rbPayment && a.medianGrossRent ? {
+  rent: a.medianGrossRent, price: rbPrice!, payment: rbPayment, rate: rbRate,
+  priceSource: hasMarket(c.slug) ? `the 12-month median sale price through ${monthLabel(marketMonth)} from NorthstarMLS` : "the Census median home value",
+  rateDate: new Date(`${rates.latest.date}T12:00:00`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+} : null;
+if (rentBuy) faqs.push({ q: `Is it cheaper to rent or buy in ${c.name}?`,
+  a: `The median rent in ${c.name}, with utilities, is ${money(rentBuy.rent)} a month (Census ACS 2020–2024). Buying a ${money(rentBuy.price)} home, ${rentBuy.priceSource}, with 10% down at ${rentBuy.rate}% (Freddie Mac's 30-year average, ${rentBuy.rateDate}) means about ${money(rentBuy.payment)} a month in principal and interest, before property taxes, insurance and any HOA dues. How long you stay, your down payment and the home's value over time decide which costs less; our rent vs. buy calculator compares them year by year.` });
 const faqLd = JSON.stringify({
   '@context': 'https://schema.org', '@type': 'FAQPage',
   mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
@@ -343,6 +356,21 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
             </div>
           ))}
         </div>
+      </div>
+    </section>
+  )}
+
+  {rentBuy && (
+    <section class="section section--paper" aria-labelledby="rentbuy-title">
+      <div class="wrap narrow">
+        <p class="eyebrow">Renting in {c.name}?</p>
+        <h2 id="rentbuy-title">Rent or buy <em>in {c.name}?</em></h2>
+        <div class="rb">
+          <div><span>Median rent with utilities</span><strong>{money(rentBuy.rent)}<small>/mo</small></strong><em>Census ACS 2020–2024</em></div>
+          <div><span>Principal and interest on a {money(rentBuy.price)} home</span><strong>{money(rentBuy.payment)}<small>/mo</small></strong><em>10% down at {rentBuy.rate}%, 30-year</em></div>
+        </div>
+        <p>The home price is {rentBuy.priceSource}; the rate is Freddie Mac’s 30-year average for the week of {rentBuy.rateDate}. Property taxes, insurance and any HOA dues come on top of the mortgage payment, and how long you stay decides whether buying pays off.</p>
+        <p class="rb__links"><a class="link-arrow" href="/calculators/rent-vs-buy">Compare renting and buying year by year</a> <a class="link-arrow" href="/calculators/affordability">How much home can you afford?</a> <a class="link-arrow" href={homes ? homesHref(`${c.slug}`) : allHomes}>{c.name} homes for sale</a></p>
       </div>
     </section>
   )}
@@ -835,6 +863,13 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
   .band strong { font: 700 .95rem/1.2 var(--ui); color: var(--text); }
   .chips { list-style: none; padding: 0; margin: 0 0 .75rem; display: flex; flex-wrap: wrap; gap: .5rem; }
   .chip { display: inline-block; padding: .5rem .95rem; border: 1px solid var(--line); border-radius: 999px; font-size: .92rem; color: var(--text); background: var(--surface); text-decoration: none; }
+  .rb { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 1rem; margin: 1rem 0 1.25rem; }
+  .rb div { display: grid; gap: .3rem; padding: 1.1rem 1.25rem; background: var(--surface); border: 1px solid var(--line); }
+  .rb span { font-size: .9rem; color: var(--text-soft); }
+  .rb strong { font: 600 2rem/1.1 var(--serif); }
+  .rb small { font: 500 .9rem var(--ui); color: var(--text-soft); }
+  .rb em { font-style: normal; font-size: .85rem; color: var(--text-soft); }
+  .rb__links { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; }
   .more-ways { margin: 1.75rem 0 .5rem; }
   .more-ways ul { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); gap: .4rem 1.5rem; }
   .more-ways a { display: inline-block; padding: .3rem 0; font-weight: 600; color: var(--text); text-decoration: underline; text-decoration-color: var(--crimson); text-underline-offset: .2em; }
