@@ -17,6 +17,8 @@ const read = (p) => JSON.parse(readFileSync(new URL(p, root), 'utf8'));
 const CACHE = new URL('.cache/north-lakes.json', root);
 export const north = read('src/data/north-lakes.json');
 const shores = read('src/data/geo/north-lake-shores.json');
+// Leave out anything under $200,000 (mostly lots and lake-access parcels), for sale and sold. Jason, 2026-11-07.
+const MIN_PRICE = 200000;
 
 /** The lake keys ("brainerd/gull-lake") whose shoreline zone holds this point, within one group. */
 function lakesAt(group, x, y) {
@@ -64,7 +66,7 @@ export function loadNorthLakes() {
         const active = [];
         for (const raw of listings) {
           const c = compact(raw, now);
-          if (c.hide || !c.mls || !c.price || !c.lakefront) continue;
+          if (c.hide || !c.mls || !(c.price >= MIN_PRICE) || !c.lakefront) continue;
           const lakes = lakesAt(g, c.lng, c.lat);
           if (lakes.length) active.push({ ...c, community: null, northGroup: g.slug, northLakes: lakes });
         }
@@ -72,7 +74,7 @@ export function loadNorthLakes() {
         for (const raw of await soldIn(key, g.bbox, now)) {
           if (!isLakefront(raw)) continue;
           const c = soldCard(raw, now);
-          if (!c || !c.soldPrice) continue;
+          if (!c || !(c.soldPrice >= MIN_PRICE)) continue;
           const lakes = lakesAt(g, c.lng, c.lat);
           if (lakes.length) sold.push({ ...c, northLakes: lakes });
         }
