@@ -39,7 +39,10 @@ const CITY = Object.fromEntries(Object.entries(cities.communities).filter(([, w]
 export function soldDropReason(l, now = new Date()) {
   if (!/sld|sold/i.test(`${text(l.lastStatus)} ${text(l.status)}`)) return 'status';
   const c = sellerChoices(l);
-  if (c.hide) return no(l.permissions?.displayPublic) ? 'hide:displayPublic' : no(l.permissions?.displayInternetEntireListing) ? 'hide:displayInternetEntireListing' : 'hide:advertising';
+  if (c.hide) {
+    const p = l.permissions ?? {};
+    return `hide:${Object.entries(p).filter(([k]) => /^display/i.test(k)).map(([k, v]) => `${k}=${text(v) || '-'}`).sort().join(',')}`;
+  }
   const d = text(l.soldDate).slice(0, 10);
   if (!d) return 'noSoldDate';
   const cutoff = new Date(now); cutoff.setMonth(cutoff.getMonth() - MAX_MONTHS);
