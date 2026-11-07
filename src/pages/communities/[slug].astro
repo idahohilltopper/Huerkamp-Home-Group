@@ -183,6 +183,23 @@ const heroAnswer = [
     : a.medianHomeValue ? `The median value of owner-occupied homes is ${money(a.medianHomeValue)} (Census ACS).` : '',
   zipList.length ? `${zipList.length === 1 ? 'ZIP code' : 'ZIP codes'}: ${list(zipList)}.` : '',
 ].filter(Boolean).join(' ');
+// Links to this city's other pages, worded the way people search ("Lakeville townhomes for sale"), so Google and
+// visitors find them from the guide. Only pages that exist right now (they come and go with the listings).
+const hasPage = (path: string) => homesData.collections.some((k) => k.path === path);
+const openCount = homesData.listings.filter((l) => l.community === c.slug && l.openHouses?.length).length;
+const facetLink = (slug: string, label: string) => (hasPage(`${c.slug}/${slug}`) ? [{ href: homesHref(`${c.slug}/${slug}`), label: `${c.name} ${label}` }] : []);
+const moreWays = !homes ? [] : [
+  ...(openCount ? [{ href: `/open-houses/${c.slug}`, label: `${c.name} open houses this weekend` }] : []),
+  ...facetLink('townhomes', 'townhomes for sale'),
+  ...facetLink('condos', 'condos for sale'),
+  ...facetLink('single-family-homes', 'single-family homes for sale'),
+  ...facetLink('new-construction', 'new construction homes'),
+  ...facetLink('lakefront-homes', 'lakefront homes for sale'),
+  ...facetLink('luxury-homes', 'luxury homes ($1M+)'),
+  ...(mk ? [{ href: `/market/${c.slug}`, label: `${c.name} housing market report` }] : []),
+  { href: '/home-estimate', label: `What's my ${c.name} home worth?` },
+  { href: '/when-to-sell', label: 'Sell now or wait for spring?' },
+];
 const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 1000 : 400000;
 ---
 <Base
@@ -244,6 +261,12 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
           <h3 class="subhead">Find a {c.name} home by type and size</h3>
           <ul class="chips">{browse.map((b) => <li><a class="chip" href={b.href}>{b.label}</a></li>)}</ul>
         </>
+      )}
+      {moreWays.length > 0 && (
+        <nav class="more-ways" aria-label={`More ways to search ${c.name}`}>
+          <h3 class="subhead">More ways to search {c.name}</h3>
+          <ul>{moreWays.map((m) => <li><a href={m.href}>{m.label}</a></li>)}</ul>
+        </nav>
       )}
       <p class="source">{OWN ? 'Listings from NorthstarMLS, updated every hour from 8 AM to 10 PM.' : 'Listings from NorthstarMLS through our home search at search.huerkamphomegroup.com.'}</p>
     </div>
@@ -812,6 +835,9 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
   .band strong { font: 700 .95rem/1.2 var(--ui); color: var(--text); }
   .chips { list-style: none; padding: 0; margin: 0 0 .75rem; display: flex; flex-wrap: wrap; gap: .5rem; }
   .chip { display: inline-block; padding: .5rem .95rem; border: 1px solid var(--line); border-radius: 999px; font-size: .92rem; color: var(--text); background: var(--surface); text-decoration: none; }
+  .more-ways { margin: 1.75rem 0 .5rem; }
+  .more-ways ul { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); gap: .4rem 1.5rem; }
+  .more-ways a { display: inline-block; padding: .3rem 0; font-weight: 600; color: var(--text); text-decoration: underline; text-decoration-color: var(--crimson); text-underline-offset: .2em; }
   .chip:hover { border-color: var(--crimson); color: var(--crimson); }
 
   .ticks { list-style: none; padding: 0; display: grid; gap: .6rem; }
