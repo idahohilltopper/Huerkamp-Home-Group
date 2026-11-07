@@ -62,7 +62,7 @@ export function detail(l) {
     ['Lot size', lot.acres ? `${lot.acres} acres` : lot.size], ['Garage', d.numGarageSpaces ?? d.garage],
     ['Basement', text(d.basement1 ? [d.basement1, d.basement2].filter(Boolean) : '')], ['Heating', d.heating],
     ['Cooling', d.airConditioning], ['HOA fee', l.condominium?.fees?.maintenance], ['Taxes', l.taxes?.annualAmount],
-    ['Waterfront', text(d.waterfront)], ['School district', l.address?.district],
+    ['Waterfront', text(d.waterfront)], ['School district', l.address?.district], ['Subdivision', l.address?.neighborhood],
   ].filter(([, v]) => v != null && text(v) !== '' && text(v) !== '0').map(([k, v]) => [k, text(v)]);
   return {
     ...card(l),
