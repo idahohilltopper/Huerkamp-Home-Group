@@ -53,6 +53,9 @@ const slugify = (s) => s.toLowerCase().replace(/['’]/g, '').replace(/[^a-z0-9]
 export function homeType(l) {
   const s = `${l.class ?? ''} ${l.details?.propertyType ?? ''} ${l.details?.style ?? ''}`;
   if (/land|lot\b|acreage/i.test(s) && !/residen|house|home/i.test(l.details?.propertyType ?? '')) return 'land';
+  // NorthstarMLS files townhouses under the condo class, with "Townhouse" (or twin home, quad...) as the style, so the
+  // style decides first; otherwise every townhouse would be listed as a condo.
+  if (/town|twin ?home|row ?house|quad/i.test(l.details?.style ?? '')) return 'townhome';
   if (/condo/i.test(s)) return 'condo';
   if (/town|twin ?home|row ?house|quad|attached/i.test(s)) return 'townhome';
   if (/multi|duplex|triplex|fourplex|4-?plex|income/i.test(s)) return 'multi-family';
