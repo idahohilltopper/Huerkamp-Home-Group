@@ -19,6 +19,8 @@ import { fguides, fguideHref } from '../data/foreclosure';
 import { fsboGuides, fsboHref } from '../data/fsbo';
 import { DESTS, commuteHref } from '../data/commute';
 import { listingsData, homesHref, stats, money as lMoney } from '../data/listings';
+import { developmentsData } from '../data/developments';
+import { north } from '../lib/north-lakes.mjs';
 
 export async function GET(context: APIContext) {
   const url = (p: string) => new URL(p, context.site).href;
@@ -26,6 +28,8 @@ export async function GET(context: APIContext) {
   const posts = (await getPosts()).filter((p) => !p.data.noindex).slice(0, 25);
   // Homes for sale: listed only when the MLS pages are live (not in preview).
   const homes = await listingsData;
+  const devs = homes.mode === 'live' ? (await developmentsData).list : [];
+  const rt = site.rankings.realtrends, ap = site.rankings.agentPronto;
   const homeAreas = homes.mode === 'live' ? homes.collections.filter((k) => !k.facet && k.area.kind === 'community') : [];
   const homesSection = homeAreas.length ? `
 ## Homes for sale (NorthstarMLS, updated ${homes.at?.slice(0, 10)})
@@ -39,6 +43,8 @@ ${homeAreas.map((k) => { const s = stats(k.listings); return `- [${k.area.name}]
 Facts (with sources on ${url('/')}):
 - Google rating: ${g.rating.toFixed(1)} stars across ${g.count} Google reviews (Google Business Profile, ${g.asOf.slice(0, 7)}).
 - Dave Ramsey Endorsed Local Provider (ELP) for more than 15 years.
+- ${rt.text} (${rt.source}: ${rt.url}).
+- ${ap.text} (${ap.source}: ${ap.url}).
 - ${team.members.length} agents and staff. Founders: Jason Huerkamp and Brooke Huerkamp.
 - Office: ${site.street}, ${site.cityStateZip}. Phone: ${site.phone}. Email: ${site.email}.
 - Home search (homes for sale in the communities we cover): ${OWN ? url(SEARCH_PATH) : site.searchUrl}
@@ -49,7 +55,11 @@ Facts (with sources on ${url('/')}):
 - [Sell a home](${url('/sell')}): free home valuation, cash offer, how listings are marketed
 - [Buy a home](${url('/buy')}): buying steps, lender partner
 - [Communities](${url('/communities')}): guides to ${communities.length} Minnesota cities
-- [Lake homes](${url('/lake-homes')}): lakefront homes for sale on every lake of 10+ acres in our communities (${lakes.length} lakes), with a page per lake
+- [Minnesota lake homes](${url('/lake-homes')}): lakefront homes for sale on every lake of 10+ acres in our Twin Cities communities (${lakes.length} lakes), with a page per lake, plus lakes up north: ${north.regions.map((r) => `[${r.name}](${url(`/lake-homes/${r.slug}`)}) (${r.groups.map((g) => g.name).join(', ')})`).join('; ')}, with lakefront homes for sale and sold and Minnesota/Wisconsin DNR lake facts
+- [New construction by development](${url('/new-construction')}): ${devs.length ? `${devs.length} ` : ''}new-home developments with homes for sale now, one page per development (e.g. ${url('/new-construction')}/<city>/<development>), from NorthstarMLS
+- [Land and lots for sale](${url('/land-for-sale')}): land and lot listings by city and acreage, and what to check before buying land in Minnesota
+- [First-time home buyer programs in Minnesota](${url('/first-time-home-buyer-minnesota')}): Minnesota Housing's Start Up loan, income and price limits, and down payment and closing cost loans, from mnhousing.gov
+- [Sell now or wait for spring?](${url('/when-to-sell')}): Twin Cities prices and sales by month, from the Minneapolis Area REALTORS® reports
 - [Market reports](${url('/market')}): monthly home prices, sales and inventory for the Twin Cities and each city
 - [Compare places](${url('/compare')}): ${pairs.length.toLocaleString('en-US')} side-by-side comparisons of nearby cities and neighboring Minneapolis/Saint Paul neighborhoods (e.g. ${url(compareHref(pairs.find((p) => p.path === 'apple-valley-vs-lakeville') ?? pairs[0]))}), and one page per city against every city within 15 miles (e.g. ${url('/compare/lakeville')})
 - [Commute times](${url('/commute')}): every community by light-traffic drive time with home prices, to ${DESTS.map((d) => `[${d.name}](${url(commuteHref(d))})`).join(', ')}; one page per city and destination (e.g. ${url('/commute/downtown-minneapolis/lakeville')})
