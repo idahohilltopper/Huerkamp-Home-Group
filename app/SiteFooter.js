@@ -5,6 +5,7 @@ const links = [
   ['/become-a-real-estate-agent-minnesota', 'Get licensed in Minnesota'],
   ['/real-estate-agent-jobs-twin-cities', 'Agent jobs in the Twin Cities'],
   ['/real-estate-coaching-training-twin-cities', 'Coaching and training'],
+  ['/real-estate-career-quiz', 'Free career quiz'],
   ['/why-hhg', 'Why HHG'],
   ['/income-guarantee', 'Income guarantee'],
   ['/agent-plus', 'Agent+'],

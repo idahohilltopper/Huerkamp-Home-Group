@@ -81,7 +81,7 @@ export default function AgentJobs() {
         <p className="eyebrow dark">Where you will work</p>
         <h2>Based in Burnsville, serving the Twin Cities</h2>
         <p className="sub">Our market includes {CITIES.join(', ')}, and the rest of the Twin Cities.</p>
-        <p className="sub">Not licensed yet? Read how to <a href="/become-a-real-estate-agent-minnesota">become a real estate agent in Minnesota</a>. Comparing teams? See <a href="/join-a-real-estate-team-twin-cities">how to join a real estate team</a> and our <a href="/real-estate-coaching-training-twin-cities">coaching and training</a>.</p>
+        <p className="sub">Not sure it is for you? Take the free <a href="/real-estate-career-quiz">career quiz</a>. Not licensed yet? Read how to <a href="/become-a-real-estate-agent-minnesota">become a real estate agent in Minnesota</a>. Comparing teams? See <a href="/join-a-real-estate-team-twin-cities">how to join a real estate team</a> and our <a href="/real-estate-coaching-training-twin-cities">coaching and training</a>.</p>
       </section>
 
       <ApplySection />

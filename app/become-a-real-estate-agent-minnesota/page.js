@@ -81,6 +81,8 @@ export default function BecomeAnAgent() {
           <li>How quickly you can finish Course I, since you need it before you can take the exam.</li>
         </ul>
 
+        <p>Not sure real estate is right for you yet? Take our free <a href="/real-estate-career-quiz">two-minute career quiz</a>.</p>
+
         <h2>Starting on a team</h2>
         <p>Most new agents succeed faster with leads, coaching, and people to learn from than they do going it alone. Huerkamp Home Group is a team within Keller Williams Preferred Realty in Burnsville. We talk with licensed agents, agents in the licensing process, and people who are just curious about the career, and it is free and confidential. <a href="/why-hhg">See what the team provides</a> or <a href="/apply">tell us where you are in the process</a>.</p>
 

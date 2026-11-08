@@ -5,6 +5,7 @@ const pages = [
   ['/become-a-real-estate-agent-minnesota', 0.9],
   ['/real-estate-agent-jobs-twin-cities', 0.9],
   ['/real-estate-coaching-training-twin-cities', 0.8],
+  ['/real-estate-career-quiz', 0.8],
   ['/why-hhg', 0.8],
   ['/income-guarantee', 0.8],
   ['/agent-plus', 0.7],
