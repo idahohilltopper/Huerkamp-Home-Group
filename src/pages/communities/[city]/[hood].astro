@@ -108,7 +108,7 @@ const ld = JSON.stringify([
     '@context': 'https://schema.org', '@type': 'Dataset', name: `${where} housing market, ${month}`, url: `${url}#market`, dateModified: asOf,
     description: `Monthly and 12-month home sales, prices, days on market and inventory for ${where}.`,
     spatialCoverage: { '@type': 'Place', name: `${where}, Minnesota` }, creator: { '@type': 'Organization', name: source.publisher },
-    publisher: { '@id': business['@id'] }, isBasedOn: mk.url, citation: `${source.name}, ${h.name}, ${month}. Data from ${source.data}.`,
+    publisher: { '@type': 'Organization', '@id': business['@id'], name: business.name, url: business.url }, isBasedOn: mk.url, citation: `${source.name}, ${h.name}, ${month}. Data from ${source.data}.`,
   }] : []),
 ]);
 ---

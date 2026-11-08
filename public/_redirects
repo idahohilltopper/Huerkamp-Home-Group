@@ -540,6 +540,8 @@ https://www.huerkamphomegroup.com/*                                    https://w
 /blog/planning-to-sell-this-year-dont-forget-to-factor-in-these-closing-costs /blog/2025/1/17/closing-costs-associated-with-selling-your-home 301
 /agent/*                                                               /team 301
 /properties/*                                                          /api/old-property/:splat 200
+# Old site listing pages: forced (!) because /home-search is a real page now, which made Netlify skip the rule below.
+/home-search/listings/*                                                /home-search 301!
 /home-search/*                                                         /home-search 301
 /neighborhoods/*                                                       /communities 301
 /blog/*                                                                /blog 301

@@ -33,7 +33,7 @@ const tiles = [
 ];
 const ld = JSON.stringify(datasets.map((d) => ({
   '@context': 'https://schema.org', '@type': 'Dataset', name: d.title, description: `${d.description} Source: ${d.source}.`,
-  url: `${origin}/data`, isBasedOn: d.sourceUrl, creator: { '@type': 'Organization', name: d.source }, publisher: { '@id': business['@id'] },
+  url: `${origin}/data`, isBasedOn: d.sourceUrl, creator: { '@type': 'Organization', name: d.source }, publisher: { '@type': 'Organization', '@id': business['@id'], name: business.name, url: business.url },
   spatialCoverage: { '@type': 'Place', name: 'Minneapolis–Saint Paul, Minnesota' }, dateModified: asOf,
   distribution: { '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: `${origin}/data/${d.slug}.csv` },
 })));

@@ -88,7 +88,7 @@ const ld = JSON.stringify([
   { '@context': 'https://schema.org', '@type': 'Dataset', '@id': `${url}#data`, name: title, url,
     description: `Home sales, prices, days on market and inventory for ${place?.full ?? 'the Twin Cities and its cities'} in ${label}.`,
     temporalCoverage: month, dateModified: asOf, spatialCoverage: { '@type': 'Place', name: place?.full ?? 'Minneapolis–Saint Paul, Minnesota' },
-    creator: { '@type': 'Organization', name: source.publisher }, publisher: { '@id': business['@id'] },
+    creator: { '@type': 'Organization', name: source.publisher }, publisher: { '@type': 'Organization', '@id': business['@id'], name: business.name, url: business.url },
     citation: `${source.name}, ${place?.name ?? '16-County Twin Cities Region'}, ${label}. Data from ${source.data}. Current as of ${asOfText}.` },
   ...(faq.length ? [{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }] : []),
 ]);
