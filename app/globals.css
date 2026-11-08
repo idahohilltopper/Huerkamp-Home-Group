@@ -335,3 +335,5 @@ ul.plain li { margin:.45rem 0; color:var(--char); }
 .footnav { display:flex; flex-wrap:wrap; justify-content:center; gap:.4rem 1.25rem; margin:.5rem 0 1rem; }
 .footnav a { color:var(--red); font-weight:700; text-decoration:none; font-size:.9rem; }
 .footnav a:hover { text-decoration:underline; }
+
+ul.narrow-list { max-width:640px; margin:1.5rem auto 0; text-align:left; }

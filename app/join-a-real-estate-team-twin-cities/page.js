@@ -40,7 +40,7 @@ const questions = [
 ];
 const answers = [
   ['Leads', 'We are the #1 purchaser of realtor.com leads in the Twin Cities and a Zillow Preferred team.', '/why-hhg'],
-  ['Coaching', 'Coaching 46 weeks a year, with national coach Jeff Glover and team coaches Olivia Manson and Jason Huerkamp.', '/value'],
+  ['Coaching', 'Coaching 46 weeks a year, with national coach Jeff Glover and team coaches Olivia Manson and Jason Huerkamp.', '/real-estate-coaching-training-twin-cities'],
   ['Support', 'A Client Care Manager and a showing partner who gives you time back with buyers.', '/why-hhg'],
   ['Accountability', 'A weekly accountability meeting from The 12 Week Year, so your plan turns into action.', '/how-it-works'],
   ['Income*', 'A $150,000 income guarantee for full-time agents who meet the requirements.', '/income-guarantee'],

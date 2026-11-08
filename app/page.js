@@ -28,6 +28,8 @@ const explore = [
   ['/agent-plus', 'Agent+', 'Up to $4,000 more per buy-side file and a matching 401(k).'],
   ['/join-a-real-estate-team-twin-cities', 'Join a team in the Twin Cities', 'What to look for, what to ask, and how we answer.'],
   ['/become-a-real-estate-agent-minnesota', 'Get licensed in Minnesota', 'A step-by-step guide to your real estate license.'],
+  ['/real-estate-agent-jobs-twin-cities', 'Agent jobs in the Twin Cities', 'Now hiring licensed and soon-to-be-licensed agents.'],
+  ['/real-estate-coaching-training-twin-cities', 'Coaching and training', 'Weekly coaching 46 weeks a year, plus accountability.'],
   ['/how-it-works', 'How it works', 'From hello to closing in five steps.'],
   ['/faq', 'FAQ', 'Licensing, cost, location, and how fast we reply.'],
 ];

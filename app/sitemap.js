@@ -3,6 +3,8 @@ const pages = [
   ['', 1.0],
   ['/join-a-real-estate-team-twin-cities', 0.9],
   ['/become-a-real-estate-agent-minnesota', 0.9],
+  ['/real-estate-agent-jobs-twin-cities', 0.9],
+  ['/real-estate-coaching-training-twin-cities', 0.8],
   ['/why-hhg', 0.8],
   ['/income-guarantee', 0.8],
   ['/agent-plus', 0.7],
@@ -15,6 +17,6 @@ const pages = [
 ];
 
 export default function sitemap() {
-  const lastModified = new Date('2026-11-07');
+  const lastModified = new Date('2026-11-08');
   return pages.map(([path, priority]) => ({ url: SITE + path, lastModified, priority }));
 }

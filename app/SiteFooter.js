@@ -3,6 +3,8 @@ import Link from 'next/link';
 const links = [
   ['/join-a-real-estate-team-twin-cities', 'Join a team in the Twin Cities'],
   ['/become-a-real-estate-agent-minnesota', 'Get licensed in Minnesota'],
+  ['/real-estate-agent-jobs-twin-cities', 'Agent jobs in the Twin Cities'],
+  ['/real-estate-coaching-training-twin-cities', 'Coaching and training'],
   ['/why-hhg', 'Why HHG'],
   ['/income-guarantee', 'Income guarantee'],
   ['/agent-plus', 'Agent+'],

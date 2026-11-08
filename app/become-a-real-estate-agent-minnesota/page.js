@@ -7,11 +7,13 @@ import { breadcrumbs, faqJsonLd } from '../seo';
 
 export const metadata = {
   title: { absolute: 'Become a Real Estate Agent in Minnesota | HHG' },
-  description: 'Step by step: the 90 hours of education, the exam, finding a broker, and the fees to get your Minnesota real estate license, plus how to start on a team.',
+  description: 'Minnesota real estate license requirements, cost, classes, and exam: the 90 hours, the PSI test, finding a broker, and how to become a Realtor.',
   alternates: { canonical: '/become-a-real-estate-agent-minnesota' },
 };
 
 const faqs = [
+  ['Is a Realtor the same as a real estate agent?', 'Not exactly. A real estate license is issued by the state. Realtor is a trademarked title for licensees who are members of the National Association of Realtors, usually joined through a local and state association. In Minnesota, that state association is Minnesota Realtors. Many agents hold both.'],
+  ['How much does a Minnesota real estate license cost?', 'The Commerce Department lists the initial salesperson license fee at $100 plus the current technology surcharge. On top of that you pay for your pre-license courses and the exam, which are set by the school and by PSI.'],
   ['How many hours of education do I need for a Minnesota real estate license?', 'You must complete three 30-hour courses, known as Course I, Course II, and Course III, for 90 hours in all. You need Course I before you can take the exam, and Courses II and III before you apply for your license.'],
   ['Who gives the Minnesota real estate exam?', 'PSI Services administers the salesperson exam. You must have completed at least Course I before you register.'],
   ['How long do I have to apply after I pass the exam?', 'You must apply for your license within one year of passing the exam. If you wait longer, you will have to take the exam again.'],
@@ -32,7 +34,7 @@ export default function BecomeAnAgent() {
       <article className="section prose">
         <p className="updated">Last reviewed November 2026. Requirements and fees can change, and the Minnesota Department of Commerce is the final authority.</p>
 
-        <h2>The short version</h2>
+        <h2>Minnesota real estate license requirements: the short version</h2>
         <p>To become a licensed real estate salesperson in Minnesota, you need to:</p>
         <ul>
           <li>be at least 18 years old;</li>
@@ -50,7 +52,7 @@ export default function BecomeAnAgent() {
           <li>Before you pay for any course, confirm that the school is active and in good standing with the Commerce Department and that the course is approved for pre-license credit.</li>
         </ul>
 
-        <h2>Step 2: Pass the salesperson exam</h2>
+        <h2>Step 2: Pass the Minnesota real estate exam</h2>
         <p>PSI Services gives the exam. You can schedule it at <a href="https://test-takers.psiexams.com/mnre" target="_blank" rel="noopener noreferrer">test-takers.psiexams.com/mnre</a> or by calling PSI at (866) 395-1006. You must have completed at least Course I to register.</p>
         <p>Keep the clock in mind: you must apply for your license within one year of passing, or you will need to pass the exam again.</p>
 
@@ -61,11 +63,23 @@ export default function BecomeAnAgent() {
         <h2>Step 4: Your application and background questions</h2>
         <p>The license application asks about criminal history. If something on your background needs explaining, the Commerce Department requires official documents showing what happened and how it was resolved. Read the details in the Commerce Department&rsquo;s licensing guide before you apply so nothing delays you.</p>
 
-        <h2>What does it cost?</h2>
+        <h2>Minnesota real estate license cost</h2>
         <p>According to the Commerce Department&rsquo;s licensing guide, the initial salesperson license fee is $100 plus the current technology surcharge, which includes $30 for the real estate education, research and recovery fund. The renewal fee is $60 plus the surcharge, which includes $20 for that fund. Course tuition and the exam fee are set by the school and by PSI, so compare them before you buy. Please confirm current amounts with the Commerce Department.</p>
 
         <h2>After you are licensed</h2>
         <p>To stay licensed in good standing, you must stay associated with a licensed broker, complete your continuing education by the deadlines, and follow the laws that govern licensees. Continuing education is due before June 30 each year, with a special rule for your first June 30.</p>
+
+        <h2>How to become a Realtor in Minnesota</h2>
+        <p>You do not need to be a Realtor to be a licensed real estate agent, but many agents choose to be both. Realtor is a trademarked title for licensees who are members of the National Association of Realtors, usually by joining through a local association and Minnesota Realtors, the state association. First you get your state license, then your broker can point you to the right association to join.</p>
+
+        <h2>Real estate classes in Minnesota: how to choose a school</h2>
+        <p>Your 90 hours can be taken with any school the Commerce Department has approved for pre-license education. Before you pay, confirm the school and the course are approved, then compare what matters to you:</p>
+        <ul>
+          <li>Whether you prefer online classes you can do on your own schedule or live classes with an instructor.</li>
+          <li>Total cost, including books, the course fee for each of the three courses, and any exam-prep add-ons.</li>
+          <li>Whether the school helps you prepare for the PSI exam.</li>
+          <li>How quickly you can finish Course I, since you need it before you can take the exam.</li>
+        </ul>
 
         <h2>Starting on a team</h2>
         <p>Most new agents succeed faster with leads, coaching, and people to learn from than they do going it alone. Huerkamp Home Group is a team within Keller Williams Preferred Realty in Burnsville. We talk with licensed agents, agents in the licensing process, and people who are just curious about the career, and it is free and confidential. <a href="/why-hhg">See what the team provides</a> or <a href="/apply">tell us where you are in the process</a>.</p>
