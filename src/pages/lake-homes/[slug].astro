@@ -48,7 +48,7 @@ const money = (n: number) => `$${n.toLocaleString('en-US')}`;
 const day = homesData.at ? new Date(homesData.at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }) : '';
 // Sales snapshot (src/lib/lake-sales.mjs): lakefront homes sold on this lake, last 12 complete months vs the 12 before.
 const sales = await loadLakeSales();
-const snap = sales.mode === 'off' ? null : (sales.lakes[l.slug] ?? { now: { sold: 0, median: null }, before: { sold: 0, median: null } });
+const snap = sales.mode === 'off' || (sales.failed ?? []).includes(l.slug) ? null : (sales.lakes[l.slug] ?? { now: { sold: 0, median: null }, before: { sold: 0, median: null } });
 const homesWord = (n: number) => (n === 1 ? 'lakefront home' : 'lakefront homes');
 const change = snap?.now.median && snap.before.median ? Math.round(((snap.now.median - snap.before.median) / snap.before.median) * 100) : null;
 const salesAnswer = snap

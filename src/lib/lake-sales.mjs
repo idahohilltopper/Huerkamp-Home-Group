@@ -20,7 +20,7 @@ const CACHE = new URL('.cache-keep/lake-sales.json', root);
 const WEEK = 7 * 864e5;
 const shores = JSON.parse(readFileSync(new URL('src/data/geo/lake-shores.json', root), 'utf8'));
 export const MIN_FOR_MEDIAN = 3;
-const POINTS = 80, PARALLEL = 6;
+const POINTS = 80, PARALLEL = 3;
 
 const boxes = Object.fromEntries(Object.entries(shores).map(([slug, parts]) => {
   const pts = parts.flat(2);
@@ -40,12 +40,25 @@ const lakesAt = (x, y) => Object.keys(shores).filter((s) => {
 const median = (a) => { const s = [...a].sort((x, y) => x - y), m = s.length >> 1; return s.length % 2 ? s[m] : Math.round((s[m - 1] + s[m]) / 2); };
 const stat = (prices) => ({ sold: prices.length, median: prices.length >= MIN_FOR_MEDIAN ? median(prices) : null });
 
+const wait = (ms) => new Promise((ok) => setTimeout(ok, ms));
+/** One request, tried up to 4 times when Repliers is busy (429), has a server error (5xx) or the network drops. */
+async function ask(key, params, body) {
+  let last = '';
+  for (let i = 0; i < 4; i++) {
+    if (i) await wait(1000 * 2 ** i);
+    const r = await repliers(key, '/listings', params, body).catch((e) => ({ status: 0, data: null, error: String(e?.message ?? e) }));
+    if (r.data) return r;
+    last = `${r.status} ${String(r.error ?? '').slice(0, 120)}`;
+    if (r.status && r.status !== 429 && r.status < 500) break; // a bad request won't get better by asking again
+  }
+  throw new Error(`Repliers ${last}`);
+}
+
 async function soldIn(key, map, since) {
   const out = [];
   for (let page = 1; page <= 30; page++) {
-    const r = await repliers(key, '/listings', { status: 'U', lastStatus: 'Sld', type: 'Sale', minSoldDate: since, sortBy: 'soldDateDesc',
+    const r = await ask(key, { status: 'U', lastStatus: 'Sld', type: 'Sale', minSoldDate: since, sortBy: 'soldDateDesc',
       resultsPerPage: 100, pageNum: page, fields: 'mlsNumber,soldPrice,soldDate,status,lastStatus,class,type,map,details,permissions' }, { map });
-    if (!r.data) throw new Error(`Repliers ${r.status}`);
     out.push(...(r.data.listings ?? []));
     if (page >= (r.data.numPages ?? 1)) break;
   }
@@ -81,15 +94,20 @@ export function loadLakeSales() {
     try {
       const started = Date.now();
       // One request per shoreline part (443 for 442 lakes), six at a time.
-      const jobs = Object.keys(shores).flatMap((s) => shores[s].map((poly) => [thin(poly[0])]));
+      // A lake whose request still fails after the retries is listed in "failed": its page shows no snapshot, rather than
+      // a wrong "no homes sold". More than a quarter failing means something bigger is wrong: keep last week's snapshot.
+      const jobs = Object.keys(shores).flatMap((s) => shores[s].map((poly) => ({ slug: s, map: [thin(poly[0])] })));
       const raw = new Map();
-      let next = 0;
+      const failed = new Set();
+      let next = 0, firstError = '';
       await Promise.all(Array.from({ length: PARALLEL }, async () => {
         while (next < jobs.length) {
-          const map = jobs[next++];
-          for (const l of await soldIn(key, map, w.before[0])) raw.set(l.mlsNumber, l);
+          const job = jobs[next++];
+          try { for (const l of await soldIn(key, job.map, w.before[0])) raw.set(l.mlsNumber, l); }
+          catch (e) { failed.add(job.slug); firstError ||= String(e?.message ?? e); }
         }
       }));
+      if (failed.size > jobs.length / 4) throw new Error(`${failed.size} of ${jobs.length} lake requests failed, first: ${firstError}`);
       const prices = {};
       let kept = 0;
       for (const l of raw.values()) {
@@ -102,15 +120,21 @@ export function loadLakeSales() {
         for (const s of lakesAt(x, y)) ((prices[s] ??= { now: [], before: [] })[span]).push(price);
         kept++;
       }
-      const lakes = Object.fromEntries(Object.entries(prices).map(([s, p]) => [s, { now: stat(p.now), before: stat(p.before) }]));
-      console.log(`Lake sales: ${raw.size} sold records in the shoreline zones, ${kept} lakefront homes kept, ${Object.keys(lakes).length} lakes with sales (${Math.round((Date.now() - started) / 1000)} s)`);
-      const out = { version: 2, at: new Date().toISOString(), mode, through: w.label, from: w.fromLabel, lakes };
+      const lakes = Object.fromEntries(Object.entries(prices).filter(([s]) => !failed.has(s)).map(([s, p]) => [s, { now: stat(p.now), before: stat(p.before) }]));
+      console.log(`Lake sales: ${raw.size} sold records in the shoreline zones, ${kept} lakefront homes kept, ${Object.keys(lakes).length} lakes with sales, ${failed.size} lakes failed${firstError ? ` (${firstError})` : ''} (${Math.round((Date.now() - started) / 1000)} s)`);
+      const status = { records: raw.size, kept, lakesWithSales: Object.keys(lakes).length, requests: jobs.length, failedLakes: failed.size, firstError, seconds: Math.round((Date.now() - started) / 1000) };
+      const out = { version: 2, at: new Date().toISOString(), mode, through: w.label, from: w.fromLabel, lakes, failed: [...failed], status };
       mkdirSync(new URL('.cache-keep/', root), { recursive: true });
       writeFileSync(CACHE, JSON.stringify(out));
       return out;
     } catch (err) {
+      // Keep an older snapshot for the same months if there is one (it's at most a few weeks old), otherwise none.
+      try {
+        const old = JSON.parse(readFileSync(CACHE, 'utf8'));
+        if (old.through === w.label && old.version === 2) { console.error(`Lake sales: download failed (${err.message}); keeping the snapshot from ${old.at}`); return { ...old, status: { ...old.status, keptOlder: true, error: err.message } }; }
+      } catch { /* no older snapshot */ }
       console.error(`Lake sales: download failed, building without the snapshot: ${err.message}`);
-      return empty;
+      return { ...empty, status: { error: err.message } };
     }
   })());
 }
