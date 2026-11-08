@@ -37,7 +37,16 @@ const miles = (a: number[], b: number[]) => {
 const nearby = lakes.filter((x) => x !== l).map((x) => ({ x, d: miles(l.center, x.center) })).sort((a, b) => a.d - b.d).slice(0, 8);
 const url = `${origin}${lakeHref(l)}`;
 
+// Title as people search it ("Lake Minnetonka homes for sale"), with the count when the feed has homes on the lake; the
+// city only when the lake sits in one city (Lake Minnetonka touches many, so "Orono" alone misled).
+const priced = (onLake ?? []).map((x) => x.price).sort((a, b) => a - b);
+const titleBase = `${priced.length > 1 ? `${priced.length} ` : ''}${l.name} Homes for Sale${towns.length === 1 ? `, ${townNames[0]}` : ''}, MN`;
+const money = (n: number) => `$${n.toLocaleString('en-US')}`;
+const day = homesData.at ? new Date(homesData.at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }) : '';
 const faq = [
+  ...(onLake ? [{ q: `How many homes are for sale on ${l.name}?`, a: priced.length
+    ? `${priced.length} ${priced.length === 1 ? 'home marked lakefront in the MLS is' : 'homes marked lakefront in the MLS are'} for sale on ${l.name} as of ${day}${priced.length > 1 ? `, from ${money(priced[0])} to ${money(priced.at(-1)!)}` : ` at ${money(priced[0])}`}.`
+    : `No homes marked lakefront in the MLS are for sale on ${l.name} as of ${day}. New listings show up on this page as soon as they're listed.` }] : []),
   { q: `How big is ${l.name}?`, a: `${fmt(l.acres)} acres with ${l.shoreMiles} miles of shoreline, according to the Minnesota DNR${l.name === 'Lake Minnetonka' ? ' (all its bays together)' : ''}, making it number ${rank} of the ${lakes.length} lakes of 10 acres or more in our communities. The DNR's LakeFinder has its depth and water quality (DNR lake number ${l.dnrId}${l.officialName ? `, listed as ${l.officialName}` : ''}).` },
   { q: `What cities are on ${l.name}?`, a: `${l.name} touches ${list(townNames)}, in ${list(l.counties)} County.` },
   { q: `How do I find lakefront homes on ${l.name}?`, a: `Use the "Lakefront homes on ${l.name}" search on this page. It shows homes marked lakefront in the MLS on a map around the lake. A few homes on nearby smaller lakes inside the same map area can show up too, and we can confirm which lake any home is on.` },
@@ -53,7 +62,7 @@ const ld = JSON.stringify([
 ---
 <Base
   breadcrumbs={[{ name: 'Lake homes', href: '/lake-homes' }, { name: l.name, href: lakeHref(l) }]}
-  title={`${l.name} Homes for Sale, ${townNames[0]}, MN${`${l.name} Homes for Sale, ${townNames[0]}, MN | Lakefront Homes`.length > 60 ? '' : ' | Lakefront Homes'} | ${site.name}`}
+  title={`${titleBase}${`${titleBase} | Lakefront Homes`.length > 60 ? '' : ' | Lakefront Homes'} | ${site.name}`}
   description={`Lakefront homes for sale on ${l.name} (${fmt(l.acres)} acres) in ${list(townNames.slice(0, 3))}, MN. See every listing on the lake, the communities around it and nearby lakes.`}
   noindex={l.acres < INDEX_MIN_ACRES}>
   <script slot="head" type="application/ld+json" set:html={ld} />
