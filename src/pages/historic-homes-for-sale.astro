@@ -1,0 +1,51 @@
+---
+// Historic and older homes for sale (/historic-homes-for-sale): homes in our communities built before 1940, from the
+// live MLS feed, by city and by architectural style (read from the listing's description). Rebuilt with every build.
+// Aggregator research (docs/aggregator-watch/2026-11.md): Redfin ranks on "historic homes for sale minneapolis" (140/mo).
+import FeedTopicPage from '../components/FeedTopicPage.astro';
+import { listingsData, homesHref, median, money } from '../data/listings';
+import { communities } from '../data/areas';
+import { site } from '../data/site';
+
+const BEFORE = 1940;
+const data = await listingsData;
+const homes = data.mode === 'off' ? [] : data.listings.filter((l) => l.type !== 'land' && l.price > 1000 && l.yearBuilt && l.yearBuilt > 1800 && l.yearBuilt < BEFORE);
+const STYLES: [string, RegExp][] = [
+  ['Victorian or Queen Anne', /\b(victorian|queen anne|italianate|second empire)\b/i],
+  ['Craftsman or bungalow', /\b(craftsman|arts (and|&) crafts|bungalow|prairie school|prairie style)\b/i],
+  ['Tudor', /\btudor\b/i],
+  ['Colonial or Georgian', /\b(colonial|georgian|federal style|dutch colonial)\b/i],
+  ['Foursquare', /\b(four ?square|4 ?square)\b/i],
+];
+const styleOf = (l: { description: string }) => STYLES.find(([, re]) => re.test(l.description))?.[0] ?? 'Other or not stated';
+const HIST = /\b(historic|historical|original woodwork|built-ins|leaded glass|stained glass|pocket doors|hardwood floors original|character)\b/i;
+const day = data.at ? new Date(data.at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }) : '';
+const name = (slug: string) => communities.find((c) => c.slug === slug)?.name ?? slug;
+const prices = homes.map((l) => l.price);
+const row = (label: string, list: typeof homes, href?: string | null) => ({ label, n: list.length, med: median(list.map((l) => l.price)), href });
+const byCity = [...new Set(homes.map((l) => l.community))].map((s) => row(name(s), homes.filter((l) => l.community === s), data.collections.some((k) => k.path === s) ? homesHref(s) : null)).sort((a, b) => b.n - a.n);
+const byStyle = [...STYLES.map(([k]) => k), 'Other or not stated'].map((k) => row(k, homes.filter((l) => styleOf(l) === k))).filter((r) => r.n);
+const old1900 = homes.filter((l) => l.yearBuilt! < 1900).length;
+const answer = homes.length
+  ? `${homes.length} homes built before ${BEFORE} are for sale in our Minnesota communities as of ${day}, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices)!)}.${old1900 ? ` ${old1900} of them were built before 1900.` : ''}`
+  : '';
+const score = (l: { description: string }) => (styleOf(l) !== 'Other or not stated' ? 2 : 0) + (HIST.test(l.description) ? 1 : 0);
+const shown = [...homes].sort((a, b) => score(b) - score(a) || a.yearBuilt! - b.yearBuilt!).slice(0, 48);
+const faq = [
+  ...(answer ? [{ q: 'How many historic homes are for sale in the Twin Cities?', a: answer }] : []),
+  { q: 'Does a home in a historic district have extra rules?', a: 'Often, yes. In a locally designated historic district or for a designated landmark, the city’s heritage preservation commission usually has to approve exterior changes such as windows, siding, porches and additions. Minneapolis and Saint Paul both have heritage preservation commissions. Ask the city about the specific address before you buy if you plan exterior work.' },
+  { q: 'What should I check when buying an older home?', a: 'The foundation and drainage, the roof, the electrical system (knob-and-tube wiring can affect insurance), plumbing and the sewer line (a sewer scope is worth it), the heating system, and lead paint and asbestos in original materials. Some Twin Cities cities also require a point-of-sale inspection before a home is sold; we can tell you what applies.' },
+  { q: 'Can I get a loan on a historic home?', a: 'Yes, the same loans as any home. A home that needs major work can be harder to finance as-is; a renovation loan can roll repair costs into the mortgage. Talk with a lender early if the home needs more than cosmetic work.' },
+];
+---
+<FeedTopicPage path="/historic-homes-for-sale" crumb="Historic homes" at={data.at} noindex={data.preview || homes.length < 3}
+  title={`Historic Homes for Sale: Minneapolis, St. Paul & Twin Cities${homes.length ? ` (${homes.length})` : ''} | ${site.name}`}
+  description={answer || 'Historic homes built before 1940 for sale in Minneapolis, Saint Paul and around the Twin Cities, by city and style, from NorthstarMLS.'}
+  eyebrow="Historic homes" h1="Historic homes for sale in Minneapolis, St. Paul and the Twin Cities" answer={answer}
+  lede={`Homes built before ${BEFORE} in our communities, from NorthstarMLS. Like homes from the 1950s and 1960s? See <a href="/mid-century-modern-homes-for-sale">mid-century modern homes</a>.`}
+  tables={[{ h: 'By city', col: 'City', rows: byCity }, { h: 'By style', col: 'Style', rows: byStyle }]}
+  note={`Year built is from the listing; style is read from the words in each listing's description, so check the listing. Updated ${day}.`}
+  shown={shown} shownH="Homes with a named style or original details first"
+  ask={{ eyebrow: 'Character you can’t build new', h2: 'Looking for an older home <em>with its details intact?</em>', p: 'Tell us the era, style, area and budget. We’ll watch for it, including homes that come up before they hit the websites, and help you size up the inspection and any historic district rules before you write an offer.', interest: 'Historic homes', msg: 'Era, style, area, budget (optional)' }}
+  faq={faq} faqH="Buying a historic home"
+  links={[['Mid-century modern homes', '/mid-century-modern-homes-for-sale'], ['What’s required to sell in Minnesota', '/selling-in-minnesota'], ['Homes for sale by city', '/homes-for-sale']]} />

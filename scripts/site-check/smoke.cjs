@@ -65,7 +65,7 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
   for (const [path, form] of [['/contact', 'contact'], ['/cash-offer', 'cash-offer'], ['/expired-listing', 'expired'], ['/sell', null],
     // Lead forms added 2026-11-07/08: lake report, new construction (hub and a builder page), land, hobby farms, first-time buyer.
     ['/lake-homes/brainerd', 'lake-report'], ['/new-construction', 'new-construction'], ['/new-construction/builders/lennar', 'new-construction'],
-    ['/land-for-sale', 'community-alert'], ['/hobby-farms-for-sale-mn', 'community-alert'], ['/duplexes-for-sale-mn', 'community-alert'], ['/mid-century-modern-homes-for-sale', 'community-alert'], ['/first-time-home-buyer-minnesota', 'first-time-buyer'],
+    ['/land-for-sale', 'community-alert'], ['/hobby-farms-for-sale-mn', 'community-alert'], ['/duplexes-for-sale-mn', 'community-alert'], ['/mid-century-modern-homes-for-sale', 'community-alert'], ['/historic-homes-for-sale', 'community-alert'], ['/first-time-home-buyer-minnesota', 'first-time-buyer'],
     ['/selling/cost-to-sell-a-house-in-minnesota', 'seller-guide'], ['/buying/listing-status-meanings', 'buyer-guide'], ['/buying/veterans-and-military-home-buyers-minnesota', 'buyer-guide'], ['/downsizing/selling-a-house-in-probate-minnesota', 'downsizing']]) {
     await step(`Form ${path}`, async () => {
       await p.goto(BASE + path, { waitUntil: 'domcontentloaded' });
