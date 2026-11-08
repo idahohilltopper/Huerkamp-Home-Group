@@ -64,7 +64,7 @@ export default async (req, _ctx, call = repliers) => {
       pins = all.filter((l) => onLake(q, l)).map(card).filter((c) => c && c.lat != null)
         .map((c) => [c.lat, c.lng, c.soldPrice ?? 0, c.mls, c.photo, c.street ? `${c.street}, ${c.city}` : `${c.city}, MN ${c.zip}`, c.office, c.ownBrokerage, c.soldDate]);
     }
-    return json(200, { ok: true, total, page: q.page, pages: Math.max(1, Math.ceil(total / PAGE)), months: q.months, results, pins, signedIn, signInFor, disclaimer: SOLD_DISCLAIMER }, !signedIn);
+    return json(200, { ok: true, total, page: q.page, pages: q.lake ? 1 : Math.max(1, Math.ceil(total / PAGE)), months: q.months, results, pins, signedIn, signInFor, disclaimer: SOLD_DISCLAIMER }, !signedIn);
   } catch (e) {
     console.error('sold', e.message);
     return json(502, { ok: false, error: 'mls-error' });
