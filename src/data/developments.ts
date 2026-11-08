@@ -8,15 +8,19 @@ import { communities } from './areas';
 export const MIN_HOMES = 3;
 
 const ORD = '(\\d+(st|nd|rd|th)|first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth)';
+// MLS abbreviations in subdivision names, spelled out ("Brayburn Trls East" → "Brayburn Trails East").
+const ABBR: Record<string, string> = { trls: 'Trails', trl: 'Trail', ests: 'Estates', hts: 'Heights', crk: 'Creek', vlg: 'Village', mdws: 'Meadows', mdw: 'Meadow', xing: 'Crossing', pt: 'Point', lndg: 'Landing', rdg: 'Ridge' };
 const SMALL = new Set(['at', 'of', 'the', 'on', 'in', 'and', 'by']);
 
 /** A subdivision name as people say it: no plat phase, normal capitals. Null for names that aren't a place. */
 export function devName(raw: string | null | undefined): string | null {
   let s = String(raw ?? '').replace(/\s+/g, ' ').trim();
-  if (!s || /^(none|n\/?a|unknown|other|no subdivision|unplatted|metes|cic\b|condo(minium)?\b|\d+$)/i.test(s)) return null;
+  if (!s || /^(none|n\/?a|unknown|other|no subdivision|unplatted|metes|cic\b|condo(minium)?\b|registered land|rls\b|\d+$)/i.test(s)) return null;
   s = s.replace(new RegExp(`\\s*\\b${ORD}\\s+(add(ition|itn|n)?|addn|replat)\\b.*$`, 'i'), '')
     .replace(/\s*\b(add(ition)?|addn|replat|plat|phase\s*\w+|ph\.?\s*\d+)\b.*$/i, '')
+    .replace(new RegExp(`\\s+${ORD}$`, 'i'), '')
     .replace(/[\s,#-]+\d*$/, '').trim();
+  s = s.split(' ').map((w) => ABBR[w.toLowerCase()] ?? w).join(' ');
   if (s.length < 3) return null;
   if (s === s.toUpperCase()) {
     s = s.toLowerCase().split(' ').map((w, i) => (i && SMALL.has(w) ? w : w.replace(/^[a-z]/, (c) => c.toUpperCase()))).join(' ');
