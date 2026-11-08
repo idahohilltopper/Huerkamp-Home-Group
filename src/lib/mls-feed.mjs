@@ -108,6 +108,8 @@ export function compact(l, now = new Date()) {
     type: homeType(l), style: text(d.style), yearBuilt,
     newConstruction: !!yearBuilt && yearBuilt >= year - 1,
     lotAcres: num(l.lot?.acres),
+    // The MLS subdivision ("Artaine at Amber Fields 3rd Addition"), for the new-construction development pages.
+    subdivision: text(a.neighborhood) || null,
     garage: num(d.numGarageSpaces),
     description: text(d.description).slice(0, 4000),
     photos: (l.images ?? []).map((p) => `${CDN}/${p}`), // every photo the MLS has

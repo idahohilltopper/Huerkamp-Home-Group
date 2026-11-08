@@ -739,3 +739,9 @@ Global Privacy Control signal turns it off; the privacy policy describes it.
 - **How:** soldChoices() in src/lib/sold.mjs. /api/sold checks the browser's sign-in session (`x-account` header, sent by soldHeaders() in src/scripts/sold-card.ts); signed-in answers include the sign-in-only sales and are never put in the shared CDN cache. Signed-out answers carry `signInFor` (how many on that page need sign-in) and the community pages and the home search's Sold view show "Sign in free with your email to see every sale."
 - **Still public-only:** the Brainerd lake pages (built ahead of time for everyone) and the home estimate use only sales shown to everyone. Repliers is confirming whether the "N" values already reflect NorthstarMLS's Aug 21, 2026 change; if they say older sales may be public, drop `signInOnly`.
 - **Check:** /api/sold?place=burnsville&why=1 gives counts only (shown, signInOnly, sellerSaidNo, tooOld, noOffice).
+
+## New-construction development pages (2026-11-08)
+
+- **Pages:** /new-construction (every development by city, linked in the Homes menu) and /new-construction/<city>/<development>, e.g. /new-construction/rosemount/artaine-at-amber-fields. Each city's /homes-for-sale/<city>/new-construction page links its developments.
+- **Which:** src/data/developments.ts groups active listings by MLS subdivision (address.neighborhood, now kept in the feed as `subdivision`), folding plat phases ("3rd Addition", "Phase 2") into one name. A development needs 3+ homes for sale (lots/land not counted) with at least half built this year or last. Pages appear and disappear with the feed, every build.
+- **Content:** answer line (count, price range, median, beds, sq ft), listings in the I AGREE block with MLS disclosures, FAQ (prices, kinds of homes, who's listing them, using your own agent with a builder), and a `new-construction` lead form (Follow Up Boss tags Buyer lead, New construction; the development name in "interest").

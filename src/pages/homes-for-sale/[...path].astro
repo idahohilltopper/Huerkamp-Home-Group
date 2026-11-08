@@ -20,6 +20,7 @@ import { communitySearch, searchUrl } from '../../data/ylopo';
 import { hasMarket, marketFor, latest, monthLabel, money as mMoney, count, signed } from '../../data/market';
 import { origin } from '../../data/schema';
 import { site } from '../../data/site';
+import { developmentsData } from '../../data/developments';
 
 export async function getStaticPaths() {
   const data = await listingsData;
@@ -39,6 +40,8 @@ const hubGroups = !c ? regions.map((reg) => ({ reg, list: communities.filter((x)
 const area = c?.area;
 const place = area?.place ?? 'the Twin Cities';
 const st = c ? stats(c.listings) : stats(data.listings);
+// New-construction developments in this city (src/data/developments.ts), linked from its new-construction page.
+const devsHere = c?.area.kind === 'community' && c.facet?.slug === 'new-construction' ? (await developmentsData).list.filter((x) => x.community === c.area.key) : [];
 const h1 = c ? (c.facet ? c.facet.title(place) : `${place} homes for sale`) : 'Twin Cities homes for sale';
 const titleText = c ? (c.facet ? `${c.facet.title(place)}${st.count > 1 ? ` (${st.count.toLocaleString("en-US")})` : ""}` : st.count > 1 ? `${st.count.toLocaleString("en-US")} Homes for Sale in ${place}` : `${place} Homes for Sale`) : "Twin Cities Homes for Sale by City";
 // The live count is in the title, as the portals show it ("385 Homes for Sale in Lakeville, MN"); the "| Huerkamp
@@ -141,6 +144,7 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() },
             <a class="link-arrow" href={fullSearch} rel="noopener">{c.listings.length > SHOW ? `See all ${c.listings.length} on the map` : 'Search these homes on the map'}</a>
           </p>
           <IdxDisclosure at={data.at} />
+          {devsHere.length > 0 && <p class="more devs"><strong>New-home developments in {c.area.name}:</strong> {devsHere.map((x) => <a class="link-arrow" href={`/new-construction/${x.path}`}>{x.name} ({x.listings.length})</a>)}</p>}
           {data.fixture && <p class="notice"><strong>Sample data for layout testing: not real homes.</strong></p>}
         </div>
       </section>
@@ -216,6 +220,7 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() },
 </Base>
 
 <style>
+  .devs { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; align-items: baseline; }
   .section--tight { padding-top: 2rem; }
   .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); gap: 1px; margin: 0 0 1.5rem; background: var(--line); border: 1px solid var(--line); }
   .facts div { padding: .85rem 1rem; background: var(--paper); }

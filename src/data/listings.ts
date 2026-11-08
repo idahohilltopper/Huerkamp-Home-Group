@@ -20,6 +20,8 @@ export type Listing = {
   taxes: number | null; hoa: number | null; heating: string; cooling: string; basement: string;
   community: string; hood: string | null; lakes: string[];
   addressHidden?: boolean; contingency?: string;
+  /** The MLS subdivision name, when the listing has one. */
+  subdivision?: string | null;
   /** Upcoming public open houses (src/lib/open-house.mjs). */
   openHouses?: { date: string; start: string; end: string | null }[];
 };
