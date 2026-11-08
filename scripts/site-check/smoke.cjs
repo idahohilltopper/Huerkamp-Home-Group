@@ -30,6 +30,21 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     await p?.close().catch(() => {});
     p = await ctx.newPage();
     p.on('pageerror', (e) => errors.push(`${p.url()} :: ${e.message.slice(0, 120)}`));
+    p.__console = [];
+    p.on('console', (m) => { if (m.type() === 'error') p.__console.push(m.text().slice(0, 140)); });
+    p.on('framenavigated', (f) => { if (f === p.mainFrame()) (p.__navs ??= []).push(f.url().replace(BASE, '')); });
+  };
+  // What the page looked like when a step failed, so a failure in a browser we can't run here can be understood
+  // from the log alone: the address, every page it went to, the results cards and where they sit, console errors.
+  const diagnose = async () => {
+    try {
+      const d = await p.evaluate(() => {
+        const r = document.querySelector('[data-results]'), c = document.querySelector('[data-results] .lcard');
+        const box = (e) => { if (!e) return 'none'; const b = e.getBoundingClientRect(), st = getComputedStyle(e); return `${Math.round(b.x)},${Math.round(b.y)} ${Math.round(b.width)}x${Math.round(b.height)} display=${st.display} visibility=${st.visibility}`; };
+        return `cards=${document.querySelectorAll('[data-results] .lcard').length}; results ${box(r)}; first card ${box(c)}; map=${document.querySelector('.leaflet-container') ? 'backup' : document.querySelector('.maplibregl-canvas') ? 'main' : 'none'}; window ${innerWidth}x${innerHeight}`;
+      });
+      return `[at ${p.url().replace(BASE, '')}; went to: ${(p.__navs ?? []).join(' > ')}; ${d}; console errors: ${(p.__console ?? []).slice(0, 3).join(' | ') || 'none'}]`;
+    } catch (e) { return `[no page details: ${e.message.slice(0, 80)}]`; }
   };
   const step = async (name, fn) => {
     await fresh();
@@ -39,7 +54,7 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
         await fresh();
         try { return await fn(); } catch (e2) { e = e2; }
       }
-      ok(name, false, e.message.split('\n')[0].slice(0, 140));
+      ok(name, false, `${e.message.replace(/\s+/g, ' ').slice(0, 300)} ${await diagnose()}`);
     }
   };
 
@@ -162,7 +177,7 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     await m.click('#hsrch-q'); await m.waitForTimeout(300);
     const t0 = Date.now();
     await m.locator('text=Use my current location').first().click();
-    await m.waitForURL(/home-search/, { timeout: 10000 });
+    await m.waitForURL(/home-search/, { timeout: 10000, waitUntil: 'domcontentloaded' }); // when the page is showing, not when every image has loaded
     const opened = Date.now() - t0;
     await m.waitForFunction(() => document.querySelector('[data-h1]')?.textContent?.includes('near you'), null, { timeout: 20000 });
     const n = await m.$$eval('[data-results] .lcard', (e) => e.length);
