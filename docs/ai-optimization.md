@@ -24,3 +24,10 @@ Daily log of changes that help AI assistants (ChatGPT, Google AI Overviews, Perp
 - **Why it helps:** AI assistants and Google quote the first sentence of a section; these answers carry the figure, the period and the source.
 - **Sources:** src/data/market.json (NorthstarMLS via Minneapolis Area REALTORS® Local Market Update), src/data/property-tax.json (Census ACS). No new facts.
 - **Checked:** build passes; Eagan FAQ JSON-LD parses (14 questions). check-launch still reports the same 164 old /home-search/... addresses as on 2026-11-04 (unrelated).
+
+## 2026-11-08 — city priority: St. Louis Park (done); next city: mendota-heights
+- **Checked:** /communities/st-louis-park already has the title "St. Louis Park, MN Homes for Sale & Real Estate", the H1, and an FAQ (and matching FAQPage markup) that opens with median sale price ($395,050, 738 sales, 12 months through September 2026, NorthstarMLS), days on market (48), property taxes ($4,380 median, Census ACS), median home value, ZIP codes (55426, 55416), commute and the city's point-of-sale inspection rule. Links to the page from the blog sidebar and video pages already say "St. Louis Park, MN homes for sale".
+- **Changed (city template, so every city page gets it):** the meta description was 168+ characters for longer city names, so the layout cut it off mid-list ("...schools and commute times, from Huerkamp…"). Dropped the words "current listings" so every city's description (max 156 characters) fits in full and still opens "<City>, MN homes for sale:". Code: src/pages/communities/[slug].astro.
+- **Why it helps:** the description is the summary search engines and AI assistants quote; it is now complete and leads with the search phrase for all cities.
+- **Sources:** none needed; no new facts.
+- **Checked:** build passes (7,794 pages); check-launch reports the same 164 old /home-search/... addresses as before (unrelated).
