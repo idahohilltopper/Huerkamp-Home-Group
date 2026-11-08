@@ -46,8 +46,10 @@ const ld = JSON.stringify([{
   author: { '@type': 'Person', name: 'Jason Huerkamp', url: `${origin}/team` },
   publisher: { '@id': business['@id'] },
   ...(places.length && { about: places.map((c) => ({ '@type': 'City', name: `${c.name}, Minnesota`, url: `${origin}/communities/${c.slug}` })) }),
-  ...(chapters.length > 1 && {
-    hasPart: chapters.map((c) => ({ '@type': 'Clip', name: c.label, startOffset: c.t, ...(c.end && { endOffset: c.end }), url: `${youtubeUrl(v)}&t=${c.t}s` })),
+  // Chapters as Clips. Google wants an end time on every Clip, so a chapter whose end isn't known (the last one, when
+  // the video's length is missing) is left out.
+  ...(chapters.filter((c) => c.end).length > 1 && {
+    hasPart: chapters.filter((c) => c.end).map((c) => ({ '@type': 'Clip', name: c.label, startOffset: c.t, endOffset: c.end, url: `${youtubeUrl(v)}&t=${c.t}s` })),
   }),
 }, ...(note?.faq.length ? [{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: note.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }] : [])]);
 ---
