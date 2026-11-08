@@ -24,7 +24,7 @@ const byCity = [...new Set(homes.map((l) => l.community))].map((s) => row(name(s
 const byKind = [...KINDS.map(([k]) => k), 'Other or not stated'].map((k) => row(k, homes.filter((l) => kindOf(l) === k))).filter((r) => r.n);
 const duplexes = homes.filter((l) => kindOf(l) === KINDS[0][0]).length;
 const answer = homes.length
-  ? `${homes.length} duplexes and other multi-family homes are for sale in our Minnesota communities as of ${day}, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices)!)}.${duplexes ? ` ${duplexes} of the listings describe the home as a duplex or two units.` : ''}`
+  ? `${homes.length.toLocaleString('en-US')} duplexes and other multi-family homes are for sale in our Minnesota communities as of ${day}, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices)!)}.${duplexes ? ` ${duplexes} of the listings describe the home as a duplex or two units.` : ''}`
   : '';
 const order = KINDS.map(([k]) => k);
 const shown = [...homes].sort((a, b) => (order.indexOf(kindOf(a)) + 9) % 9 - (order.indexOf(kindOf(b)) + 9) % 9 || a.price - b.price).slice(0, 48);
@@ -36,7 +36,7 @@ const faq = [
 ];
 ---
 <FeedTopicPage path="/duplexes-for-sale-mn" crumb="Duplexes and multi-family" at={data.at} noindex={data.preview || !homes.length}
-  title={`Duplexes for Sale in MN${homes.length ? ` (${homes.length})` : ''}: Twin Cities Multi-Family Homes | ${site.name}`}
+  title={`Duplexes for Sale in MN${homes.length ? ` (${homes.length.toLocaleString('en-US')})` : ''}: Twin Cities Multi-Family Homes | ${site.name}`}
   description={answer || 'Duplexes, triplexes and fourplexes for sale around the Twin Cities, by city and size, from NorthstarMLS.'}
   eyebrow="Duplexes and multi-family" h1="Duplexes and multi-family homes for sale in Minnesota" answer={answer}
   lede={`Duplexes, triplexes and fourplexes in our communities around the Twin Cities, from NorthstarMLS. Buying to rent out? See <a href="/invest">investment property</a>.`}

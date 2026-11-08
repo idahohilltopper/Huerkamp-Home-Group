@@ -27,7 +27,7 @@ const byCity = [...new Set(homes.map((l) => l.community))].map((s) => row(name(s
 const byStyle = [...STYLES.map(([k]) => k), 'Other or not stated'].map((k) => row(k, homes.filter((l) => styleOf(l) === k))).filter((r) => r.n);
 const old1900 = homes.filter((l) => l.yearBuilt! < 1900).length;
 const answer = homes.length
-  ? `${homes.length} homes built before ${BEFORE} are for sale in our Minnesota communities as of ${day}, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices)!)}.${old1900 ? ` ${old1900} of them were built before 1900.` : ''}`
+  ? `${homes.length.toLocaleString('en-US')} homes built before ${BEFORE} are for sale in our Minnesota communities as of ${day}, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices)!)}.${old1900 ? ` ${old1900} of them were built before 1900.` : ''}`
   : '';
 const score = (l: { description: string }) => (styleOf(l) !== 'Other or not stated' ? 2 : 0) + (HIST.test(l.description) ? 1 : 0);
 const shown = [...homes].sort((a, b) => score(b) - score(a) || a.yearBuilt! - b.yearBuilt!).slice(0, 48);
@@ -39,7 +39,7 @@ const faq = [
 ];
 ---
 <FeedTopicPage path="/historic-homes-for-sale" crumb="Historic homes" at={data.at} noindex={data.preview || homes.length < 3}
-  title={`Historic Homes for Sale: Minneapolis, St. Paul & Twin Cities${homes.length ? ` (${homes.length})` : ''} | ${site.name}`}
+  title={`Historic Homes for Sale: Minneapolis, St. Paul & Twin Cities${homes.length ? ` (${homes.length.toLocaleString('en-US')})` : ''} | ${site.name}`}
   description={answer || 'Historic homes built before 1940 for sale in Minneapolis, Saint Paul and around the Twin Cities, by city and style, from NorthstarMLS.'}
   eyebrow="Historic homes" h1="Historic homes for sale in Minneapolis, St. Paul and the Twin Cities" answer={answer}
   lede={`Homes built before ${BEFORE} in our communities, from NorthstarMLS. Like homes from the 1950s and 1960s? See <a href="/mid-century-modern-homes-for-sale">mid-century modern homes</a>.`}

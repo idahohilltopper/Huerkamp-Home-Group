@@ -38,7 +38,7 @@ const faq = [
 const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
 ---
 <Base breadcrumbs={[{ name: 'Homes for sale', href: '/homes-for-sale' }, { name: 'Land and lots', href: '/land-for-sale' }]}
-  title={`Land & Lots for Sale in Minnesota${land.length ? ` (${land.length})` : ''}: Twin Cities Metro | ${site.name}`}
+  title={`Land & Lots for Sale in Minnesota${land.length ? ` (${land.length.toLocaleString('en-US')})` : ''}: Twin Cities Metro | ${site.name}`}
   description={(answer || 'Land and lots for sale across the Twin Cities metro, by city and by acreage, from NorthstarMLS.').slice(0, 300)}
   noindex={data.preview || !land.length}>
   <script slot="head" type="application/ld+json" set:html={ld} />

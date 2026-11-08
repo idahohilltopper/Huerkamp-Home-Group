@@ -18,7 +18,7 @@ const byCity = [...new Set(homes.map((l) => l.community))].map((s) => row(name(s
 const decade = (y: number | null) => (y && y >= 1940 && y < 1980 ? `Built in the ${Math.floor(y / 10) * 10}s` : y ? 'Built before 1940 or after 1979' : 'Year not stated');
 const byDecade = ['Built in the 1940s', 'Built in the 1950s', 'Built in the 1960s', 'Built in the 1970s', 'Built before 1940 or after 1979', 'Year not stated'].map((d) => row(d, homes.filter((l) => decade(l.yearBuilt) === d))).filter((r) => r.n);
 const answer = homes.length
-  ? `${homes.length} ${homes.length === 1 ? 'home is' : 'homes are'} for sale in our Minnesota communities with a listing that describes the home as mid-century, as of ${day}, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}${homes.length > 1 ? `, with a median list price of ${money(median(prices)!)}` : ''}.`
+  ? `${homes.length.toLocaleString('en-US')} ${homes.length === 1 ? 'home is' : 'homes are'} for sale in our Minnesota communities with a listing that describes the home as mid-century, as of ${day}, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}${homes.length > 1 ? `, with a median list price of ${money(median(prices)!)}` : ''}.`
   : '';
 const shown = [...homes].sort((a, b) => (a.yearBuilt ?? 9999) - (b.yearBuilt ?? 9999)).slice(0, 48);
 const faq = [
@@ -29,7 +29,7 @@ const faq = [
 ];
 ---
 <FeedTopicPage path="/mid-century-modern-homes-for-sale" crumb="Mid-century modern homes" at={data.at} noindex={data.preview || homes.length < 3}
-  title={`Mid-Century Modern Homes for Sale: Minneapolis & Twin Cities${homes.length ? ` (${homes.length})` : ''} | ${site.name}`}
+  title={`Mid-Century Modern Homes for Sale: Minneapolis & Twin Cities${homes.length ? ` (${homes.length.toLocaleString('en-US')})` : ''} | ${site.name}`}
   description={answer || 'Mid-century modern homes for sale in Minneapolis and around the Twin Cities, from NorthstarMLS.'}
   eyebrow="Mid-century modern" h1="Mid-century modern homes for sale in Minneapolis and the Twin Cities" answer={answer}
   lede={`Homes in our communities whose listing describes them as mid-century, from NorthstarMLS. Want every home from those years? <a href="/home-search">Search all homes</a> or ask us to set up a search.`}
