@@ -35,7 +35,7 @@ const active = g ? pick(data.groups[g.slug]?.active ?? []) : regionData.flatMap(
 const sold = g ? pick(data.groups[g.slug]?.sold ?? []) : regionData.flatMap((x) => x.sold);
 const sold12 = sold.filter((s) => new Date(s.soldDate) >= yearAgo);
 const name = lake ? lake.name : g ? g.name : region.name;
-const place = lake ? `${lake.name}${g && g.lakes.length > 1 ? ` (${g.name})` : ''}` : g ? g.name : region.groups.every((x) => x.lakes.length === 1) ? region.groups.map((x) => x.name).join(region.groups.length === 2 ? " and " : ", ") : `the ${region.name}`;
+const place = lake ? `${lake.name}${g && g.lakes.length > 1 ? ` (${g.name})` : ''}` : g ? (/chain$/i.test(g.name) ? `the ${g.name}` : g.name) : region.groups.every((x) => x.lakes.length === 1) ? region.groups.map((x) => x.name).join(region.groups.length === 2 ? " and " : ", ") : `the ${region.name}`;
 
 // Month-by-month sales over the 3 years of sold data the MLS allows.
 const months = [...new Set(sold.map((s) => monthKey(s.soldDate)))].sort().reverse();

@@ -19,11 +19,12 @@ const name = (slug: string) => communities.find((c) => c.slug === slug)?.name ??
 
 const byCity = [...new Set(land.map((l) => l.community))].map((slug) => {
   const list = land.filter((l) => l.community === slug);
-  return { slug, city: name(slug), n: list.length, med: median(list.map((l) => l.price)), acres: fmed(list.map((l) => l.lotAcres ?? NaN)), href: page(`${slug}/land`) };
+  return { slug, city: name(slug), n: list.length, med: median(list.map((l) => l.price).filter((p) => p > 1000)), acres: fmed(list.map((l) => l.lotAcres ?? NaN)), href: page(`${slug}/land`) };
 }).sort((a, b) => b.n - a.n);
 const BANDS: [string, number, number][] = [['Under 1 acre', 0, 1], ['1 to 5 acres', 1, 5], ['5 to 20 acres', 5, 20], ['20 acres or more', 20, Infinity]];
-const byAcres = BANDS.map(([label, lo, hi]) => { const list = land.filter((l) => l.lotAcres != null && l.lotAcres >= lo && l.lotAcres < hi); return { label, n: list.length, med: median(list.map((l) => l.price)) }; }).filter((r) => r.n);
-const prices = land.map((l) => l.price);
+const byAcres = BANDS.map(([label, lo, hi]) => { const list = land.filter((l) => l.lotAcres != null && l.lotAcres >= lo && l.lotAcres < hi); return { label, n: list.length, med: median(list.map((l) => l.price).filter((p) => p > 1000)) }; }).filter((r) => r.n);
+// Auction listings carry a placeholder price ($1 and the like): left out of the price figures.
+const prices = land.map((l) => l.price).filter((p) => p > 1000);
 const top = byCity.slice(0, 3).map((c) => `${c.city} (${c.n})`);
 const answer = land.length
   ? `${land.length.toLocaleString('en-US')} lots and parcels of land are for sale in our Minnesota communities as of ${day}, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices)!)}. The most are in ${top.length > 1 ? `${top.slice(0, -1).join(', ')} and ${top.at(-1)}` : top[0]}.`
