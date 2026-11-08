@@ -62,7 +62,10 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     await p.waitForSelector('.est__range', { timeout: 30000 });
     ok('Instant home estimate', true, (await p.textContent('.est__range')).trim());
   });
-  for (const [path, form] of [['/contact', 'contact'], ['/cash-offer', 'cash-offer'], ['/expired-listing', 'expired'], ['/sell', null]]) {
+  for (const [path, form] of [['/contact', 'contact'], ['/cash-offer', 'cash-offer'], ['/expired-listing', 'expired'], ['/sell', null],
+    // Lead forms added 2026-11-07/08: lake report, new construction (hub and a builder page), land, hobby farms, first-time buyer.
+    ['/lake-homes/brainerd', 'lake-report'], ['/new-construction', 'new-construction'], ['/new-construction/builders/lennar', 'new-construction'],
+    ['/land-for-sale', 'community-alert'], ['/hobby-farms-for-sale-mn', 'community-alert'], ['/first-time-home-buyer-minnesota', 'first-time-buyer']]) {
     await step(`Form ${path}`, async () => {
       await p.goto(BASE + path, { waitUntil: 'domcontentloaded' });
       const f = form ? p.locator(`form[data-lead="${form}"]`).first() : p.locator('form[data-lead]').first();
