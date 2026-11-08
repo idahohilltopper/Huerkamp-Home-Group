@@ -7,6 +7,7 @@ import { communities } from '../../data/areas';
 import { communitySearch } from '../../data/ylopo';
 import { business, origin } from '../../data/schema';
 import { site } from '../../data/site';
+import { listingsData, homesHref, median as lmedian, FACETS } from '../../data/listings';
 import {
   source, latest, asOf, REGION, marketFor, hasMarket, history, monthLabel, money, moneyK, count, change, signed, SMALL_SAMPLE,
   pastMonths, areaIn, type AreaMarket, type Metric,
@@ -55,7 +56,30 @@ const compare = [
 const past = pastMonths.filter((x) => (areaIn(x, c.slug)?.closedSales?.month[1] ?? 0) > 0).reverse();
 const nearby = communities.filter((x) => x.slug !== c.slug && x.region === c.region && hasMarket(x.slug)).slice(0, 12);
 
+// Right now: today's homes for sale in the city, from the site's own MLS feed (src/data/listings.ts), broken down by
+// kind of home, price range and ZIP code. Counts and medians only; each row links to the matching homes-for-sale page.
+const feed = await listingsData;
+const live = feed.mode === 'off' ? [] : (feed.collections.find((k) => k.path === c.slug && !k.facet)?.listings ?? []);
+const page = (p: string) => (feed.collections.some((k) => k.path === p) ? homesHref(p) : null);
+const typeFacets = FACETS.filter((f) => f.group === 'Home type');
+const rowsOf = (groups: [string, typeof live][]) => groups.filter(([, l]) => l.length).map(([label, l]) => ({ label, n: l.length, med: lmedian(l.map((x) => x.price)) }));
+const nowTypes = typeFacets.map((f) => ({ f, list: live.filter(f.test) })).filter((r) => r.list.length)
+  .sort((a, b) => b.list.length - a.list.length).map((r) => ({ ...rowsOf([[r.f.label, r.list]])[0], href: page(`${c.slug}/${r.f.slug}`) }));
+const BANDS_NOW: [string, number, number, string | null][] = [
+  ['Under $300,000', 0, 300000, 'under-300000'], ['$300,000 to $400,000', 300000, 400000, null], ['$400,000 to $500,000', 400000, 500000, null],
+  ['$500,000 to $750,000', 500000, 750000, null], ['$750,000 to $1 million', 750000, 1e6, null], ['$1 million and up', 1e6, Infinity, 'luxury-homes'],
+];
+const nowBands = BANDS_NOW.map(([label, lo, hi, slug]) => ({ label, list: live.filter((l) => l.price >= lo && l.price < hi), slug }))
+  .filter((r) => r.list.length).map((r) => ({ ...rowsOf([[r.label, r.list]])[0], href: r.slug ? page(`${c.slug}/${r.slug}`) : null }));
+const zipsNow = [...new Set(live.map((l) => l.zip).filter((z) => /^5[56]\d{3}$/.test(z)))].sort();
+const nowZips = zipsNow.map((z) => ({ ...rowsOf([[z, live.filter((l) => l.zip === z)]])[0], href: page(`zip/${z}`) })).filter((r) => r.n >= 3).sort((a, b) => b.n - a.n);
+const nowMedian = lmedian(live.map((l) => l.price));
+const nowDay = feed.at ? new Date(feed.at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }) : null;
+const nowLead = live.length >= 5 && nowMedian ? `As of ${nowDay}, ${live.length} homes are for sale in ${c.name} at a median list price of ${money(nowMedian)}${v('medianPrice') != null ? `, compared with a median sale price of ${money(v('medianPrice'))} over the 12 months through ${month}` : ''}.` : '';
+
+
 const faq = [
+  nowLead && { q: `How many homes are for sale in ${c.name}, MN right now?`, a: nowLead },
   v('medianPrice') != null && { q: `What is the median home price in ${c.name}, MN?`, a: `${money(v('medianPrice'))} over the 12 months through ${month}, ${change(v('medianPrice', 'r12', 2))} from a year earlier, according to the Minneapolis Area REALTORS® Local Market Update (NorthstarMLS data). In ${month} alone it was ${money(v('medianPrice', 'month'))}.` },
   v('daysOnMarket') != null && { q: `How fast are homes selling in ${c.name}?`, a: `Homes that sold in the 12 months through ${month} spent ${count(v('daysOnMarket'))} days on market (${month}: ${count(v('daysOnMarket', 'month'))} days).` },
   v('monthsSupply', 'month') != null && { q: `Is ${c.name} a buyer's or seller's market?`, a: `At the end of ${month}, ${c.name} had ${v('monthsSupply', 'month')} months of supply (${count(v('inventory', 'month'))} homes for sale). Under about 4 months usually favors sellers; over about 6 favors buyers.` },
@@ -113,6 +137,26 @@ const ld = JSON.stringify([
       </div>
     </div>
   </section>
+
+  {nowLead && (
+    <section class="section" aria-labelledby="now-title">
+      <div class="wrap">
+        <div class="head"><p class="eyebrow">Right now</p><h2 id="now-title">{c.name} homes for sale <em>today</em></h2><p>{nowLead}</p></div>
+        <div class="now-grid">
+          {[['By kind of home', nowTypes], ['By price', nowBands], ['By ZIP code', nowZips]].filter(([, rows]) => (rows as any[]).length > 1).map(([caption, rows]) => (
+            <div class="table-scroll">
+              <table class="data">
+                <caption>{caption}</caption>
+                <thead><tr><th scope="col">{caption === 'By ZIP code' ? 'ZIP' : caption === 'By price' ? 'List price' : 'Kind of home'}</th><th scope="col" class="num">For sale</th><th scope="col" class="num">Median list price</th></tr></thead>
+                <tbody>{(rows as any[]).map((r) => <tr><th scope="row">{r.href ? <a href={r.href}>{r.label}</a> : r.label}</th><td class="num">{r.n}</td><td class="num">{money(r.med)}</td></tr>)}</tbody>
+              </table>
+            </div>
+          ))}
+        </div>
+        <p class="source">Active listings in {c.name} from NorthstarMLS, updated {nowDay}. ZIP codes with fewer than 3 homes for sale are left out. <a href={homesHref(c.slug)}>See all {live.length} {c.name} homes for sale</a>.</p>
+      </div>
+    </section>
+  )}
 
   <section class="section section--paper" aria-labelledby="table-title">
     <div class="wrap">
@@ -178,6 +222,8 @@ const ld = JSON.stringify([
 </Base>
 
 <style>
+  .now-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); gap: 1.25rem; }
+  .now-grid caption { text-align: left; font: 700 .8rem/1.3 var(--ui); letter-spacing: .1em; text-transform: uppercase; padding-bottom: .4rem; }
   .mhead { padding-block: clamp(2rem, 5vw, 3.5rem); background: var(--night); color: #fff; }
   .mhead .wrap { display: grid; gap: .9rem; }
   .crumbs { display: flex; gap: .5rem; font: 700 .72rem/1.3 var(--ui); letter-spacing: .14em; text-transform: uppercase; color: var(--on-dark); }
