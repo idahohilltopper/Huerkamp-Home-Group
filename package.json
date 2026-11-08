@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@types/leaflet": "^1.9.12",
-    "mapshaper": "^0.7.68"
+    "mapshaper": "^0.7.68",
+    "netlify-plugin-cache": "^1.0.3"
   }
 }

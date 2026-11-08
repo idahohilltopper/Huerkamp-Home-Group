@@ -22,3 +22,9 @@
 
 [functions.alerts]
   included_files = ["src/data/geo/communities.geojson", "src/data/geo/neighborhoods.geojson", ".cache/search-index.json"]
+
+# Keeps .cache-keep/ between builds (the lake sales snapshot, src/lib/lake-sales.mjs, is downloaded about once a week).
+[[plugins]]
+  package = "netlify-plugin-cache"
+  [plugins.inputs]
+    paths = [".cache-keep"]

@@ -14,6 +14,7 @@
 import { sellerChoices, homeType, findField } from './mls-feed.mjs';
 import { CDN, isLakefront } from './repliers.mjs';
 import shores from '../data/geo/lake-shores.json' with { type: 'json' };
+import { hull } from './hull.mjs';
 import cities from '../data/ylopo-cities.json' with { type: 'json' };
 import team from '../data/team.json' with { type: 'json' };
 
@@ -147,14 +148,17 @@ export function repliersParams(q, { pageSize = PAGE, page = q.page, fields = FIE
 // A lake's sales: homes inside its 200 m shoreline zone (src/data/geo/lake-shores.json, the same zone the lake pages use
 // for homes for sale) that the MLS marks as lakefront (onLake), so homes across the road from the lake are left out.
 const LAKE_POINTS = 150;
+// One ring only: Repliers reads extra rings as holes (see hull in src/lib/alerts.mjs); a lake whose shoreline zone is in
+// pieces is sent as the convex shape around them, and onLake plus the lakefront flag keep the results on the lake.
 function lakeRings(slug) {
-  return (shores[slug] ?? []).map((poly) => {
-    const ring = poly[0].map(([x, y]) => [Math.round(x * 1e5) / 1e5, Math.round(y * 1e5) / 1e5]);
-    if (ring.length <= LAKE_POINTS) return ring;
-    const step = Math.ceil(ring.length / LAKE_POINTS), out = ring.filter((_, i) => i % step === 0);
-    out.push(ring[0]);
-    return out;
-  });
+  const parts = shores[slug] ?? [];
+  if (!parts.length) return [];
+  let ring = (parts.length === 1 ? parts[0][0] : hull(parts.flatMap((p) => p[0]))).map(([x, y]) => [Math.round(x * 1e5) / 1e5, Math.round(y * 1e5) / 1e5]);
+  if (ring.length > LAKE_POINTS) {
+    const step = Math.ceil(ring.length / LAKE_POINTS);
+    ring = [...ring.filter((_, i) => i % step === 0), ring[0]];
+  }
+  return [ring];
 }
 /** False for a raw Repliers listing that a lake query should leave out (not marked lakefront). */
 export const onLake = (q, l) => !q.lake || isLakefront(l);

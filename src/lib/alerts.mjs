@@ -5,6 +5,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import shores from '../data/geo/lake-shores.json' with { type: 'json' };
+import { hull } from './hull.mjs';
 
 // Community and neighborhood outlines (bundled with the function through netlify.toml included_files).
 const geo = {};
@@ -33,11 +34,17 @@ function thin(ring) {
   out.push(ring[0]);
   return out;
 }
-/** Outer rings of a Polygon or MultiPolygon, as Repliers' "map" (one ring per shape). */
+/**
+ * A Polygon or MultiPolygon as Repliers' "map": ONE ring. Repliers reads extra rings as holes in the first, so a
+ * place in several pieces (Elko New Market has 5) became its first piece minus the others; such a place is sent as
+ * the convex shape around all its pieces instead (it can take in a little land between them).
+ */
 function rings(geom) {
   if (!geom) return null;
   const polys = geom.type === 'Polygon' ? [geom.coordinates] : geom.type === 'MultiPolygon' ? geom.coordinates : [];
-  return polys.map((p) => thin(p[0].map(([x, y]) => [Math.round(x * 1e5) / 1e5, Math.round(y * 1e5) / 1e5])));
+  if (!polys.length) return null;
+  const round = (r) => r.map(([x, y]) => [Math.round(x * 1e5) / 1e5, Math.round(y * 1e5) / 1e5]);
+  return [thin(round(polys.length === 1 ? polys[0][0] : hull(polys.flatMap((p) => p[0]))))];
 }
 const shapeOf = (place) => {
   if (place.startsWith('hood:')) return rings(shapes('neighborhoods.geojson').features.find((f) => f.properties.slug === place.slice(5))?.geometry);

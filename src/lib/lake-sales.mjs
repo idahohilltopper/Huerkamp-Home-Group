@@ -1,10 +1,13 @@
 // Lake sales snapshot for the Twin Cities lake pages: for each lake, how many lakefront homes sold and their median
 // sale price over the last 12 complete months, next to the 12 months before. Downloaded once per site build:
 //   - sold homes (NorthstarMLS via Repliers, status U / lastStatus Sld) in the last 24 complete months, asked for
-//     inside the lakes' 200 m shoreline zones (src/data/geo/lake-shores.json), 25 lakes per request;
+//     inside each lake's 200 m shoreline zone (src/data/geo/lake-shores.json), one request per lake (Repliers reads
+//     several rings in one "map" as one shape with holes, so batching lakes returned only the first lake's sales);
 //   - kept when the MLS marks the home lakefront, it isn't land, the seller didn't choose "Advertising: No", and its
 //     map point is in that lake's shoreline zone (the same rule as the lake pages' homes for sale and sold homes).
 // Only counts and medians are kept here (no addresses or single sale prices); a median needs 3 or more sales.
+// About 443 requests, so the result is kept between builds (.cache-keep/, saved by netlify-plugin-cache in netlify.toml)
+// and downloaded again only once a week or when a new month starts.
 // Local previews: LAKE_SALES_FIXTURE is a saved copy of the result, for checking the layout.
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
@@ -13,10 +16,11 @@ import { repliers, isLakefront } from './repliers.mjs';
 import { soldChoices } from './sold.mjs';
 
 const root = pathToFileURL(`${process.cwd()}/`);
-const CACHE = new URL('.cache/lake-sales.json', root);
+const CACHE = new URL('.cache-keep/lake-sales.json', root);
+const WEEK = 7 * 864e5;
 const shores = JSON.parse(readFileSync(new URL('src/data/geo/lake-shores.json', root), 'utf8'));
 export const MIN_FOR_MEDIAN = 3;
-const BATCH = 25, POINTS = 60;
+const POINTS = 80, PARALLEL = 6;
 
 const boxes = Object.fromEntries(Object.entries(shores).map(([slug, parts]) => {
   const pts = parts.flat(2);
@@ -67,16 +71,25 @@ export function loadLakeSales() {
     const mode = mlsMode();
     const key = (process.env.REPLIERS_API_KEY ?? '').trim();
     if (mode === 'off' || !key || (process.env.MLS_FIXTURE && process.env.NETLIFY !== 'true')) return empty;
-    // One download per build: later pages reuse the file written by the first.
-    if (existsSync(CACHE) && Date.now() - statSync(CACHE).mtimeMs < 3 * 3600e3) return JSON.parse(readFileSync(CACHE, 'utf8'));
+    // Kept from an earlier build (or an earlier page of this one) while it covers the same months and is under a week old.
+    if (existsSync(CACHE)) {
+      try {
+        const old = JSON.parse(readFileSync(CACHE, 'utf8'));
+        if (old.through === w.label && old.version === 2 && Date.now() - Date.parse(old.at) < WEEK) return old;
+      } catch { /* download again */ }
+    }
     try {
       const started = Date.now();
-      const slugs = Object.keys(shores);
+      // One request per shoreline part (443 for 442 lakes), six at a time.
+      const jobs = Object.keys(shores).flatMap((s) => shores[s].map((poly) => [thin(poly[0])]));
       const raw = new Map();
-      for (let i = 0; i < slugs.length; i += BATCH) {
-        const map = slugs.slice(i, i + BATCH).flatMap((s) => shores[s].map((poly) => thin(poly[0])));
-        for (const l of await soldIn(key, map, w.before[0])) raw.set(l.mlsNumber, l);
-      }
+      let next = 0;
+      await Promise.all(Array.from({ length: PARALLEL }, async () => {
+        while (next < jobs.length) {
+          const map = jobs[next++];
+          for (const l of await soldIn(key, map, w.before[0])) raw.set(l.mlsNumber, l);
+        }
+      }));
       const prices = {};
       let kept = 0;
       for (const l of raw.values()) {
@@ -91,8 +104,8 @@ export function loadLakeSales() {
       }
       const lakes = Object.fromEntries(Object.entries(prices).map(([s, p]) => [s, { now: stat(p.now), before: stat(p.before) }]));
       console.log(`Lake sales: ${raw.size} sold records in the shoreline zones, ${kept} lakefront homes kept, ${Object.keys(lakes).length} lakes with sales (${Math.round((Date.now() - started) / 1000)} s)`);
-      const out = { at: new Date().toISOString(), mode, through: w.label, from: w.fromLabel, lakes };
-      mkdirSync(new URL('.cache/', root), { recursive: true });
+      const out = { version: 2, at: new Date().toISOString(), mode, through: w.label, from: w.fromLabel, lakes };
+      mkdirSync(new URL('.cache-keep/', root), { recursive: true });
       writeFileSync(CACHE, JSON.stringify(out));
       return out;
     } catch (err) {
