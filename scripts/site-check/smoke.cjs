@@ -75,7 +75,7 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
   if (LOCAL) skip('Map search + open a home', 'needs the live listing pages'); else await step('Map search + open a home', async () => {
     await p.goto(BASE + '/home-search?view=map', { waitUntil: 'domcontentloaded' });
     await p.waitForSelector('[data-results] .lcard a', { timeout: 20000 });
-    await p.waitForSelector('.maplibregl-canvas', { timeout: 20000 });
+    await p.waitForSelector('.maplibregl-canvas, .leaflet-container', { timeout: 20000 }); // the main map, or the backup map in browsers without 3D graphics
     const href = await p.getAttribute('[data-results] .lcard a[href^="/homes/"]', 'href');
     ok('Map search loads with map', true, `first home ${href}`);
     await p.goto(BASE + href, { waitUntil: 'domcontentloaded' });
