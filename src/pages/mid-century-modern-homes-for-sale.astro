@@ -1,0 +1,41 @@
+---
+// Mid-century modern homes for sale (/mid-century-modern-homes-for-sale): homes in our communities whose listing
+// describes them as mid-century (or MCM), from the live MLS feed, by city and by decade built. Rebuilt with every build.
+// Aggregator research (docs/aggregator-watch/2026-11.md): Redfin ranks on "mid century modern homes" (140–170/mo, KD 0).
+import FeedTopicPage from '../components/FeedTopicPage.astro';
+import { listingsData, homesHref, median, money } from '../data/listings';
+import { communities } from '../data/areas';
+import { site } from '../data/site';
+
+const MCM = /\b(mid[- ]?century|MCM|atomic ranch)\b/i;
+const data = await listingsData;
+const homes = data.mode === 'off' ? [] : data.listings.filter((l) => l.type !== 'land' && l.price > 1000 && MCM.test(l.description));
+const day = data.at ? new Date(data.at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }) : '';
+const name = (slug: string) => communities.find((c) => c.slug === slug)?.name ?? slug;
+const prices = homes.map((l) => l.price);
+const row = (label: string, list: typeof homes, href?: string | null) => ({ label, n: list.length, med: median(list.map((l) => l.price)), href });
+const byCity = [...new Set(homes.map((l) => l.community))].map((s) => row(name(s), homes.filter((l) => l.community === s), data.collections.some((k) => k.path === s) ? homesHref(s) : null)).sort((a, b) => b.n - a.n);
+const decade = (y: number | null) => (y && y >= 1940 && y < 1980 ? `Built in the ${Math.floor(y / 10) * 10}s` : y ? 'Built before 1940 or after 1979' : 'Year not stated');
+const byDecade = ['Built in the 1940s', 'Built in the 1950s', 'Built in the 1960s', 'Built in the 1970s', 'Built before 1940 or after 1979', 'Year not stated'].map((d) => row(d, homes.filter((l) => decade(l.yearBuilt) === d))).filter((r) => r.n);
+const answer = homes.length
+  ? `${homes.length} ${homes.length === 1 ? 'home is' : 'homes are'} for sale in our Minnesota communities with a listing that describes the home as mid-century, as of ${day}, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}${homes.length > 1 ? `, with a median list price of ${money(median(prices)!)}` : ''}.`
+  : '';
+const shown = [...homes].sort((a, b) => (a.yearBuilt ?? 9999) - (b.yearBuilt ?? 9999)).slice(0, 48);
+const faq = [
+  ...(answer ? [{ q: 'How many mid-century modern homes are for sale in the Twin Cities?', a: answer }] : []),
+  { q: 'What counts as a mid-century modern home?', a: 'Usually a home built from the mid-1940s to the early 1970s with clean lines, low or flat rooflines, big windows, open floor plans and a strong connection to the yard. In the Twin Cities that often means ramblers, split levels and architect-designed homes from those years. This page lists homes whose listing calls them mid-century; many more homes from that era are in our home search.' },
+  { q: 'What should I check when buying a mid-century home?', a: 'The roof (flat and low-slope roofs need regular care), original windows and insulation, the electrical panel and wiring, plumbing (galvanized or cast iron pipes), and any asbestos or lead paint in original materials. A good inspection plus a sewer scope is worth it, and we can recommend inspectors who know older homes.' },
+  { q: 'Can you find mid-century homes that aren’t labeled that way?', a: 'Yes. Plenty of homes from the 1950s and 1960s are listed without the words "mid-century". Tell us what you like, such as era, style, area and budget, and we’ll set up a search for homes built in those years and look through the photos for you.' },
+];
+---
+<FeedTopicPage path="/mid-century-modern-homes-for-sale" crumb="Mid-century modern homes" at={data.at} noindex={data.preview || homes.length < 3}
+  title={`Mid-Century Modern Homes for Sale: Minneapolis & Twin Cities${homes.length ? ` (${homes.length})` : ''} | ${site.name}`}
+  description={answer || 'Mid-century modern homes for sale in Minneapolis and around the Twin Cities, from NorthstarMLS.'}
+  eyebrow="Mid-century modern" h1="Mid-century modern homes for sale in Minneapolis and the Twin Cities" answer={answer}
+  lede={`Homes in our communities whose listing describes them as mid-century, from NorthstarMLS. Want every home from those years? <a href="/home-search">Search all homes</a> or ask us to set up a search.`}
+  tables={[{ h: 'By city', col: 'City', rows: byCity }, { h: 'By year built', col: 'Year built', rows: byDecade }]}
+  note={`Homes are included when the listing's description says mid-century (or MCM), so check each listing. Updated ${day}.`}
+  shown={shown} shownH="Oldest first"
+  ask={{ eyebrow: 'Clean lines, big windows', h2: 'Looking for a mid-century home <em>with its character intact?</em>', p: 'Tell us the era, style, area and budget. We’ll watch for it, including homes that are never labeled mid-century and homes that come up before they hit the websites.', interest: 'Mid-century modern', msg: 'Era, style, area, budget (optional)' }}
+  faq={faq} faqH="Buying a mid-century modern home"
+  links={[['Search all homes', '/home-search'], ['One-level homes in Minneapolis', '/homes-for-sale/minneapolis/one-level-homes'], ['Homes for sale by city', '/homes-for-sale']]} />

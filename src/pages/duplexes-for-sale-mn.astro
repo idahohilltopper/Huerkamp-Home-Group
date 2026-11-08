@@ -1,0 +1,48 @@
+---
+// Duplexes and small multi-family homes for sale (/duplexes-for-sale-mn): every multi-family listing in our communities
+// from the live MLS feed, by city and by size (duplex, triplex, fourplex, read from the listing's description).
+// Rebuilt with every build. Aggregator research (docs/aggregator-watch/2026-11.md): "duplex for sale mn" 590/mo, KD 0.
+import FeedTopicPage from '../components/FeedTopicPage.astro';
+import { listingsData, homesHref, median, money } from '../data/listings';
+import { communities } from '../data/areas';
+import { site } from '../data/site';
+
+const data = await listingsData;
+const homes = data.mode === 'off' ? [] : data.listings.filter((l) => l.type === 'multi-family' && l.price > 1000);
+const KINDS: [string, RegExp][] = [
+  ['Duplex (2 units)', /\b(duplex|double bungalow|up\/down|side[- ]by[- ]side|2[- ]unit|two[- ]unit)\b/i],
+  ['Triplex (3 units)', /\b(triplex|tri-plex|3[- ]unit|three[- ]unit)\b/i],
+  ['Fourplex (4 units)', /\b(fourplex|four-plex|4[- ]plex|quadplex|4[- ]unit|four[- ]unit)\b/i],
+];
+const kindOf = (l: { description: string }) => KINDS.find(([, re]) => re.test(l.description))?.[0] ?? 'Other or not stated';
+const day = data.at ? new Date(data.at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }) : '';
+const name = (slug: string) => communities.find((c) => c.slug === slug)?.name ?? slug;
+const page = (p: string) => (data.collections.some((k) => k.path === p) ? homesHref(p) : null);
+const prices = homes.map((l) => l.price);
+const row = (label: string, list: typeof homes, href?: string | null) => ({ label, n: list.length, med: median(list.map((l) => l.price)), href });
+const byCity = [...new Set(homes.map((l) => l.community))].map((s) => row(name(s), homes.filter((l) => l.community === s), page(`${s}/multi-family-homes`))).sort((a, b) => b.n - a.n);
+const byKind = [...KINDS.map(([k]) => k), 'Other or not stated'].map((k) => row(k, homes.filter((l) => kindOf(l) === k))).filter((r) => r.n);
+const duplexes = homes.filter((l) => kindOf(l) === KINDS[0][0]).length;
+const answer = homes.length
+  ? `${homes.length} duplexes and other multi-family homes are for sale in our Minnesota communities as of ${day}, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices)!)}.${duplexes ? ` ${duplexes} of the listings describe the home as a duplex or two units.` : ''}`
+  : '';
+const order = KINDS.map(([k]) => k);
+const shown = [...homes].sort((a, b) => (order.indexOf(kindOf(a)) + 9) % 9 - (order.indexOf(kindOf(b)) + 9) % 9 || a.price - b.price).slice(0, 48);
+const faq = [
+  ...(answer ? [{ q: 'How many duplexes are for sale in Minnesota right now?', a: answer }] : []),
+  { q: 'Can I live in one unit and rent out the other?', a: 'Yes, and it is a common way to buy a first home. Loans for owner-occupied homes, including FHA and VA loans, can be used on two- to four-unit homes you live in, often with a smaller down payment than an investor loan. Your lender will tell you how much of the expected rent it can count toward your income.' },
+  { q: 'Do I need a rental license to rent out a unit?', a: 'In many Twin Cities cities, yes. Minneapolis, for example, requires a rental license for rental units, and other cities have their own licensing or inspection rules. Check with the city before you buy so you know the cost, the inspection and any limits.' },
+  { q: 'What should I check before buying a duplex?', a: 'The current leases and rents, separate or shared utility meters, the age of each unit’s furnace and water heater, the rental license and its last inspection, parking, and the roof and foundation. Ask for the rent roll and the last 12 months of operating costs, and run the numbers with our investment calculators.' },
+];
+---
+<FeedTopicPage path="/duplexes-for-sale-mn" crumb="Duplexes and multi-family" at={data.at} noindex={data.preview || !homes.length}
+  title={`Duplexes for Sale in MN${homes.length ? ` (${homes.length})` : ''}: Twin Cities Multi-Family Homes | ${site.name}`}
+  description={answer || 'Duplexes, triplexes and fourplexes for sale around the Twin Cities, by city and size, from NorthstarMLS.'}
+  eyebrow="Duplexes and multi-family" h1="Duplexes and multi-family homes for sale in Minnesota" answer={answer}
+  lede={`Duplexes, triplexes and fourplexes in our communities around the Twin Cities, from NorthstarMLS. Buying to rent out? See <a href="/invest">investment property</a>.`}
+  tables={[{ h: 'By city', col: 'City', rows: byCity }, { h: 'By size', col: 'Size', rows: byKind }]}
+  note={`Size is read from the words in each listing's description, so check the listing for the actual number of units. Updated ${day}.`}
+  shown={shown} shownH="Duplexes first, then triplexes and fourplexes"
+  ask={{ eyebrow: 'Live in one, rent the other', h2: 'Looking for a duplex <em>that pencils out?</em>', p: 'Tell us the area, your budget and whether you’ll live in it. We’ll watch for it, including homes that come up before they hit the websites, and run the rents and costs with you before you write an offer.', interest: 'Duplex / multi-family', msg: 'Area, budget, units, living in it or renting it all (optional)' }}
+  faq={faq} faqH="Buying a duplex in Minnesota"
+  links={[['Investment property', '/invest'], ['First-time buyer programs', '/first-time-home-buyer-minnesota'], ['Homes for sale by city', '/homes-for-sale']]} />

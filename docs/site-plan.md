@@ -767,3 +767,9 @@ From the Open SEO aggregator research (docs/aggregator-watch/2026-11.md; re-chec
 - /cost-of-living-minnesota: costs only (no incomes, fair housing): Census ACS, MAAR sale prices, Freddie Mac rate, MN Revenue 2026 income tax brackets and 6.875% sales tax. Re-check the tax brackets each January.
 - /calculators/mortgage-payoff (calc-payoff lead form; Ramsey-style "own your home sooner").
 - /ramsey retitled "Dave Ramsey Realtor in the Twin Cities: RamseyTrusted (ELP)"; RamseyTrusted is Ramsey's current name for the ELP program.
+
+## Veterans guide, buyer guides under /buying, duplexes and mid-century (2026-11-08)
+
+- Buyer guides now live at /buying/<slug> (src/pages/buying/[slug].astro); seller guides stay at /selling/<slug>. Both draw src/components/SGuidePage.astro from src/data/sellguides.ts (the lead decides the folder). /selling/listing-status-meanings forwards to /buying/listing-status-meanings.
+- /buying/veterans-and-military-home-buyers-minnesota: "va realtor" 720/mo, "veteran realtor" and "military realtor" 170 each. Sources: VA.gov purchase loans, MN Revenue Disabled Veterans' Market Value Exclusion ($150,000 at 70%+, $300,000 at 100% total and permanent), USAA Agent Connection page (credit capped at $9,500 per transaction). Re-check the exclusion amounts each January.
+- /duplexes-for-sale-mn (all multi-family listings; duplex/triplex/fourplex read from the description) and /mid-century-modern-homes-for-sale (listings whose description says mid-century or MCM; noindex under 3 homes). Both use src/components/FeedTopicPage.astro and a community-alert lead form.

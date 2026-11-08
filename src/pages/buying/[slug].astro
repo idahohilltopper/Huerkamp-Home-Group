@@ -1,0 +1,11 @@
+---
+// Buying guides (src/data/sellguides.ts, lead 'buyer-guide'), drawn by src/components/SGuidePage.astro.
+import SGuidePage from '../../components/SGuidePage.astro';
+import { sguides, type SGuide } from '../../data/sellguides';
+
+export function getStaticPaths() {
+  return sguides.filter((g) => g.lead === 'buyer-guide').map((g) => ({ params: { slug: g.slug }, props: { g } }));
+}
+const { g } = Astro.props as { g: SGuide };
+---
+<SGuidePage g={g} />

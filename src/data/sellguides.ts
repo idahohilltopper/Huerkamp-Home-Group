@@ -1,4 +1,4 @@
-// Selling and buying guides (/selling/<guide>): plain answers to the questions lead aggregators (HomeLight, Clever,
+// Selling guides (/selling/<guide>) and buying guides (/buying/<guide>): plain answers to the questions lead aggregators (HomeLight, Clever,
 // Opendoor, FastExpert) rank on, with Minnesota numbers. Same shape and rules as the downsizing guides
 // (src/data/downsizing.ts): every figure names its source; legal and tax points say "ask your attorney or CPA".
 import { MN } from './calculators';
@@ -12,6 +12,8 @@ export interface SGuide {
   slug: string; title: string; seo: string; description: string; answer: string;
   sections: Section[]; faq: { q: string; a: string }[]; sources: { name: string; url: string }[];
   lead: 'seller-guide' | 'buyer-guide'; topic: string; eyebrow: string;
+  /** Side card text, when the default for the guide's lead form doesn't fit. */
+  card?: { h: string; p: string };
 }
 const pct = (x: number) => `${(x * 100).toFixed(2)}%`;
 const DEED = pct(MN.deedTax), ERF = pct(MN.erf), DEED_ERF = pct(MN.deedTax + MN.erf);
@@ -92,5 +94,35 @@ export const sguides: SGuide[] = [
       { name: 'NorthstarMLS contingency definitions, as shown on Twin Cities listings', url: 'https://www.northstarmls.com/' },
     ],
   },
+  {
+    slug: 'veterans-and-military-home-buyers-minnesota',
+    eyebrow: 'Veterans and service members',
+    title: 'Buying a home in Minnesota as a veteran or service member',
+    seo: 'VA Realtor in Minnesota: Buying a Home as a Veteran or Service Member',
+    description: 'How VA home loans work (no down payment, no mortgage insurance), whether you need a "VA realtor", Minnesota’s property tax exclusion for disabled veterans ($150,000 or $300,000 of market value), and how USAA’s agent program works.',
+    answer: 'Any licensed real estate agent can help you buy with a VA loan: VA guarantees the loan through your lender and doesn’t pick or certify agents. What matters is an agent who knows how to write a VA offer that wins. A VA loan can mean no down payment (as long as the price isn’t above the appraised value) and no private mortgage insurance, and Minnesota takes $150,000 or $300,000 off the taxable value of a disabled veteran’s home.',
+    topic: 'Veterans and VA loans',
+    lead: 'buyer-guide',
+    card: { h: 'Buying with a VA loan?', p: 'We’ll help you find the home, write an offer sellers take seriously, and line up a VA lender if you don’t have one.' },
+    sections: [
+      { h: 'Do you need a “VA realtor”?', html: `<p>No. A VA home loan comes from a private lender, such as a bank, credit union or mortgage company, and VA guarantees part of it. VA doesn’t assign, approve or certify real estate agents, so you can work with any licensed agent you choose.</p><p>What you want is an agent who has closed VA purchases and knows the details that come up: how the VA appraisal works, asking the seller to pay closing costs, and how to make a VA offer as strong as a conventional one when several buyers want the same home.</p>` },
+      { h: 'How a VA home loan works', html: `<p>From VA’s own page on purchase loans:</p><ul><li><strong>No down payment</strong> as long as the sale price isn’t higher than the appraised value.</li><li><strong>No private mortgage insurance</strong> (PMI or MIP).</li><li><strong>Limited closing costs</strong>, and the seller may pay some of them.</li><li><strong>A VA funding fee</strong> may apply; some borrowers, such as many with a service-connected disability, don’t pay it.</li><li>You need a <strong>Certificate of Eligibility (COE)</strong>, which your lender can usually get for you, and you must plan to <strong>live in the home</strong>.</li></ul><p>VA loans can be used more than once, and your lender sets its own credit and income requirements on top of VA’s.</p>` },
+      { h: 'Writing a VA offer that wins', html: `<ul><li><strong>Get pre-approved first</strong> with a lender who closes VA loans often, so the seller sees a lender who knows the program.</li><li><strong>Plan for the appraisal.</strong> If the VA appraisal comes in below your price, you can renegotiate, pay the difference in cash, or cancel under the VA clause in your purchase agreement. In a competitive situation, deciding ahead of time how much of a gap you could cover makes your offer stronger.</li><li><strong>Ask for seller-paid closing costs</strong> when the market allows it, which keeps more cash in your pocket.</li><li><strong>Watch the condition.</strong> A VA appraiser also checks that the home is safe and sound, so a home that needs major repairs can be harder to buy with a VA loan; we’ll flag those before you write.</li></ul>` },
+      { h: 'Minnesota property tax help for disabled veterans', html: `<p>Minnesota’s <strong>Disabled Veterans’ Market Value Exclusion</strong> lowers the taxable value of your homestead:</p><ul><li><strong>$150,000</strong> excluded for a service-connected disability rating of 70% or more.</li><li><strong>$300,000</strong> excluded for a 100% total and permanent disability rating.</li></ul><p>A surviving spouse, and in some cases a primary family caregiver, can also qualify. The home must be your homestead, and you apply to your county assessor; applications are due by December 31 for taxes payable the next year. Check the Minnesota Department of Revenue page below for the current rules and form.</p>` },
+      { h: 'USAA Agent Connection and other bank programs', html: `<p>USAA’s home-buying program today is <strong>USAA Agent Connection, powered by HomeStory</strong>. Members are matched with an agent in HomeStory’s network and can get a credit at closing, paid out of the agent’s commission; USAA says the credit depends on the home’s price and can’t exceed $9,500 per transaction. You don’t need USAA financing to use it. HomeStory runs similar programs for other banks and credit unions.</p><p>The credit only applies with an agent in that network, so ask any agent you’re considering whether they take part. Either way, compare the credit with what the agent will do for you on price and terms: on most homes, negotiating well is worth more than a closing credit.</p>` },
+    ],
+    faq: [
+      { q: 'Do I need a VA-approved realtor to use a VA loan?', a: 'No. VA guarantees the loan through your lender and doesn’t approve or certify real estate agents. You can use any licensed agent; look for one who has closed VA purchases.' },
+      { q: 'Is there a down payment on a VA loan?', a: 'Not as long as the sale price isn’t higher than the appraised value, according to VA. Your lender may still have its own requirements, and there are closing costs and, for many borrowers, a VA funding fee.' },
+      { q: 'Can the seller pay my closing costs on a VA loan?', a: 'Yes, VA allows the seller to pay some of your closing costs. Whether a seller agrees depends on the home and the market, so it’s something to negotiate in your offer.' },
+      { q: 'How much is the Minnesota disabled veteran property tax exclusion?', a: '$150,000 of market value for a service-connected disability rating of 70% or more, and $300,000 for a 100% total and permanent rating. The home must be your homestead; apply to your county assessor by December 31 for the next year’s taxes.' },
+      { q: 'What is USAA Agent Connection?', a: 'USAA’s home-buying program, run by HomeStory. USAA members are matched with an agent in HomeStory’s network and can get a credit at closing paid from the agent’s commission. It only applies when your agent is in that network.' },
+    ],
+    sources: [
+      { name: 'VA: Purchase loan (VA-backed home loans)', url: 'https://www.va.gov/housing-assistance/home-loans/loan-types/purchase-loan/' },
+      { name: 'Minnesota Department of Revenue: Disabled Veterans’ Market Value Exclusion', url: 'https://www.revenue.state.mn.us/market-value-exclusion-veterans-disability' },
+      { name: 'USAA: Agent Connection, powered by HomeStory', url: 'https://www.usaa.com/banking/home-mortgages/agent-connection/' },
+    ],
+  },
 ];
-export const sguideHref = (g: SGuide) => `/selling/${g.slug}`;
+export const sguideHref = (g: SGuide) => `/${g.lead === 'seller-guide' ? 'selling' : 'buying'}/${g.slug}`;

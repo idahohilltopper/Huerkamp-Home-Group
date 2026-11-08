@@ -1,0 +1,124 @@
+---
+// A "homes for sale of one kind" page drawn from the live MLS feed (duplexes, mid-century modern): direct answer,
+// counts by city and by a second breakdown, the homes, a lead form (community-alert with the topic as its interest)
+// and quick answers. Used by src/pages/duplexes-for-sale-mn.astro and src/pages/mid-century-modern-homes-for-sale.astro.
+import Base from '../layouts/Base.astro';
+import ListingCard from './ListingCard.astro';
+import IdxDisclosure from './IdxDisclosure.astro';
+import { money, type Listing } from '../data/listings';
+import { site } from '../data/site';
+
+type Row = { label: string; n: number; med: number | null; href?: string | null };
+interface Props {
+  path: string; crumb: string; title: string; description: string; noindex: boolean; at: string | null;
+  eyebrow: string; h1: string; answer: string; lede: string;
+  tables: { h: string; col: string; rows: Row[] }[]; note: string;
+  shown: Listing[]; shownH: string;
+  ask: { eyebrow: string; h2: string; p: string; interest: string; msg: string };
+  faq: { q: string; a: string }[]; faqH: string; links: [string, string][];
+}
+const P = Astro.props;
+const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: P.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
+const id = P.path.replace(/\W+/g, '').slice(0, 6);
+---
+<Base breadcrumbs={[{ name: 'Homes for sale', href: '/homes-for-sale' }, { name: P.crumb, href: P.path }]} title={P.title} description={P.description.slice(0, 300)} noindex={P.noindex}>
+  <script slot="head" type="application/ld+json" set:html={ld} />
+
+  <section class="nhead">
+    <div class="wrap">
+      <p class="eyebrow">{P.eyebrow}</p>
+      <h1>{P.h1}</h1>
+      {P.answer && <p class="answer">{P.answer}</p>}
+      <p class="lede" set:html={P.lede} />
+      <p class="hero-btns"><a class="btn" href="#ask">Tell us what you're looking for</a> <a class="btn btn--ghost" href={site.phoneHref}>Call or text {site.phone}</a></p>
+    </div>
+  </section>
+
+  {P.tables.some((t) => t.rows.length) && (
+    <section class="section">
+      <div class="wrap two">
+        {P.tables.filter((t) => t.rows.length).map((t) => (
+          <div>
+            <h2>{t.h}</h2>
+            <div class="table-scroll">
+              <table class="data">
+                <thead><tr><th scope="col">{t.col}</th><th scope="col" class="num">For sale</th><th scope="col" class="num">Median price</th></tr></thead>
+                <tbody>{t.rows.map((r) => <tr><th scope="row">{r.href ? <a href={r.href}>{r.label}</a> : r.label}</th><td class="num">{r.n}</td><td class="num">{r.med ? money(r.med) : ''}</td></tr>)}</tbody>
+              </table>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="wrap"><p class="source">{P.note}</p></div>
+    </section>
+  )}
+
+  {P.shown.length > 0 && (
+    <section class="section section--paper">
+      <div class="wrap">
+        <div class="head"><p class="eyebrow">For sale now</p><h2>{P.shownH}</h2></div>
+        <div data-idx><ul class="lcards">{P.shown.map((l, i) => <ListingCard l={l} eager={i < 3} />)}</ul></div>
+        <IdxDisclosure at={P.at} />
+      </div>
+    </section>
+  )}
+
+  <section class="section section--dark" id="ask" aria-labelledby="ask-title">
+    <div class="wrap split">
+      <div class="prose">
+        <p class="eyebrow">{P.ask.eyebrow}</p>
+        <h2 id="ask-title" set:html={P.ask.h2} />
+        <p>{P.ask.p}</p>
+        <p>Call or text <a href={site.phoneHref}>{site.phone}</a>.</p>
+      </div>
+      <form class="form" data-lead="community-alert">
+        <input type="hidden" name="interest" value={P.ask.interest} />
+        <div class="form__row">
+          <div class="field"><label for={`${id}-first`}>First name</label><input id={`${id}-first`} name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for={`${id}-last`}>Last name</label><input id={`${id}-last`} name="lastName" autocomplete="family-name" required /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for={`${id}-email`}>Email</label><input id={`${id}-email`} name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for={`${id}-phone`}>Phone</label><input id={`${id}-phone`} name="phone" type="tel" autocomplete="tel" required pattern="[^0-9]*([0-9][^0-9]*){10,}" title="Please enter your phone number, including area code." /></div>
+        </div>
+        <div class="field"><label for={`${id}-msg`}>{P.ask.msg}</label><textarea id={`${id}-msg`} name="message" rows="3"></textarea></div>
+        <button class="btn" type="submit">Send</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="faq-title">
+    <div class="wrap faq">
+      <div class="head"><p class="eyebrow">Quick answers</p><h2 id="faq-title">{P.faqH}</h2></div>
+      {P.faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+      <p class="links">{P.links.map(([t, h]) => <a class="link-arrow" href={h}>{t}</a>)}</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nhead { padding: clamp(2.5rem, 6vw, 4.5rem) 0 clamp(2rem, 4vw, 3rem); background: var(--night); color: var(--on-dark); }
+  .nhead h1 { font: 500 clamp(2.2rem, 5vw, 3.6rem)/1.05 var(--serif-display); color: #fff; }
+  .nhead .eyebrow { color: var(--rose); }
+  .nhead .lede { color: var(--on-dark); }
+  .nhead .lede :global(a) { color: #fff; font-weight: 700; }
+  .answer { max-width: 52rem; margin: .9rem 0 .4rem; color: #fff; font: 500 clamp(1.05rem, 2.2vw, 1.25rem)/1.5 var(--ui); }
+  .hero-btns { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.25rem; }
+  .head { margin-bottom: 1.25rem; }
+  .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: 2rem; }
+  .two h2 { font: 500 1.6rem/1.2 var(--serif); margin-bottom: .6rem; }
+  .table-scroll { overflow-x: auto; }
+  table.data { width: 100%; border-collapse: collapse; font-size: .98rem; }
+  table.data th, table.data td { padding: .55rem .7rem; border-bottom: 1px solid var(--line); text-align: left; }
+  table.data .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .source { margin-top: 1rem; font-size: .9rem; color: var(--text-soft); }
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+  .split .prose a { color: #fff; font-weight: 700; }
+  .split :global(em) { font-style: italic; }
+  .faq { display: grid; gap: .75rem; max-width: 52rem; }
+  .faq details { padding: 1rem 1.2rem; background: var(--paper); border: 1px solid var(--line); }
+  .faq summary { cursor: pointer; font: 600 1.15rem/1.3 var(--serif); }
+  .links { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: 1rem; }
+</style>
