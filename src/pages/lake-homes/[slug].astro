@@ -1,6 +1,7 @@
 ---
 // One lake: its lakefront homes for sale (map search around the lake, and live listings in its shoreline
 // communities), size and shoreline from the Minnesota DNR, the communities around it and the lakes nearby.
+import SoldHomes from '../../components/SoldHomes.astro';
 import { OWN } from '../../data/search';
 import Base from '../../layouts/Base.astro';
 import AreaMap from '../../components/AreaMap.astro';
@@ -110,6 +111,8 @@ const ld = JSON.stringify([
       </div>
     </section>
   )}
+
+  <SoldHomes place={`lake:${l.slug}`} name={l.name} months={12} />
 
   {searchable && (
     <section class="section section--paper" id="listings" aria-labelledby="listings-title">

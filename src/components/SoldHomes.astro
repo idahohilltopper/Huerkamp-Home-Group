@@ -7,11 +7,12 @@ import { BR_THUMB } from '../data/mls-logos';
 import { SOLD_DISCLAIMER, DEFAULT_MONTHS } from '../lib/sold.mjs';
 import { ownSearchHref } from '../data/search';
 import IdxDisclosure from './IdxDisclosure.astro';
-interface Props { place?: string; name: string; agent?: string }
-const { place, name, agent } = Astro.props;
+interface Props { place?: string; name: string; agent?: string; months?: number }
+const { place, name, agent, months } = Astro.props;
+const lake = place?.startsWith('lake:');
 const all = place ? `${ownSearchHref({ places: [place] })}${ownSearchHref({ places: [place] }).includes('?') ? '&' : '?'}status=sold&view=map` : null;
 // An agent's page: their own sales over 12 months. A community page: everything sold there in the last 6 months.
-const query = agent ? `agent=${encodeURIComponent(agent)}&months=12` : `place=${encodeURIComponent(place ?? '')}`;
+const query = agent ? `agent=${encodeURIComponent(agent)}&months=12` : `place=${encodeURIComponent(place ?? '')}${months ? `&months=${months}` : ''}`;
 ---
 {OWN && (
   <section class="section section--paper sold" aria-labelledby="sold-title" data-sold={query} data-br-thumb={BR_THUMB ?? undefined} hidden>
@@ -20,7 +21,9 @@ const query = agent ? `agent=${encodeURIComponent(agent)}&months=12` : `place=${
         <p class="eyebrow">Recently sold</p>
         {agent
           ? <><h2 id="sold-title">Homes <em>{name}</em> sold</h2><p>{name}'s listings that sold in the last 12 months, from NorthstarMLS.</p></>
-          : <><h2 id="sold-title">What did homes in {name} <em>sell for?</em></h2><p>Homes sold in {name} in the last {DEFAULT_MONTHS} months, from NorthstarMLS.</p></>}
+          : lake
+            ? <><h2 id="sold-title">What did homes on {name} <em>sell for?</em></h2><p>Lakefront homes sold on {name} in the last {months ?? DEFAULT_MONTHS} months, from NorthstarMLS: homes the MLS marks as lakefront, inside 200 meters of the DNR shoreline.</p></>
+            : <><h2 id="sold-title">What did homes in {name} <em>sell for?</em></h2><p>Homes sold in {name} in the last {months ?? DEFAULT_MONTHS} months, from NorthstarMLS.</p></>}
       </div>
       <div data-idx><ul class="lcards" data-sold-list></ul></div>
       {all && <p class="sold__more"><a class="link-arrow" href={all}>See every {name} sale on the map</a></p>}

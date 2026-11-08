@@ -782,3 +782,8 @@ Our own version of Local Logic-style neighborhood info, free and fair-housing sa
 - Grocery, park, library and gym names are filtered (Overture files food makers, nonprofits and private collections under those) and duplicates within 150 m merged; confidence 0.8+.
 - src/lib/nearby.mjs: nearest place of each kind and counts within 0.6 mi straight-line (about a 15-minute walk); "everyday walkability" score: grocery 25, restaurants 15, parks 15, transit 15, coffee 10, pharmacy 10, library 5, gym 5. Transit row shown only within 3 miles.
 - src/components/NearbyPlaces.astro on /homes/<slug> (not shown when the seller hides the address). Transit includes MVTA (srv.mvta.com GTFS) as well as Metro Transit; stops within about 30 m are merged. `--transit-only` refreshes just the stops. Quarterly refresh reminder: a routine in the Claude session (1st of Feb, May, Aug, Nov).
+
+## Lake pages: recently sold (2026-11-08)
+
+- /api/sold takes place=lake:<slug>: sales in the lake's 200 m shoreline zone (src/data/geo/lake-shores.json) that the MLS marks lakefront, last 12 months on the lake pages (SoldHomes months={12}). Same sold rules and sign-in gate as community pages.
+- Footer Company column links to joinhhg.com ("Join our team: agent careers"), alongside the top-bar and mobile-menu links.

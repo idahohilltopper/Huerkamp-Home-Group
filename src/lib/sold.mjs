@@ -12,7 +12,8 @@
 //     price, sold date, address, MLS number and listing office, as for homes for sale (thumbnail());
 //   - every display carries the Broker Reciprocity logo, the accuracy disclaimer (IdxDisclosure) and SOLD_DISCLAIMER.
 import { sellerChoices, homeType, findField } from './mls-feed.mjs';
-import { CDN } from './repliers.mjs';
+import { CDN, isLakefront } from './repliers.mjs';
+import shores from '../data/geo/lake-shores.json' with { type: 'json' };
 import cities from '../data/ylopo-cities.json' with { type: 'json' };
 import team from '../data/team.json' with { type: 'json' };
 
@@ -107,6 +108,7 @@ export function soldQuery(sp, now = new Date()) {
   const place = text(sp.get('place')).toLowerCase();
   if (/^zip:\d{5}$/.test(place)) q.zip = place.slice(4);
   else if (CITY[place]) q.city = CITY[place];
+  else if (/^lake:[a-z0-9-]{2,60}$/.test(place) && shores[place.slice(5)]) q.lake = place.slice(5);
   else if (place) q.unsupported = place;
   const agent = text(sp.get('agent')).toLowerCase();
   if (AGENT[agent]) q.agentName = AGENT[agent];
@@ -120,7 +122,7 @@ export function soldQuery(sp, now = new Date()) {
   if (b.length === 4 && b.every(Number.isFinite) && b[0] < b[2] && b[1] < b[3] && b[2] - b[0] < 3 && b[3] - b[1] < 3) q.bbox = b;
   // No town, ZIP, map area, agent or single home: the Twin Cities area the site covers (the same box the search map opens
   // on), not every sale in the MLS, which reaches across Minnesota and zooms the map out to the whole state.
-  if (!q.city && !q.zip && !q.bbox && !q.agentName && !q.mls && !q.unsupported) q.bbox = TWIN_CITIES_BOX;
+  if (!q.city && !q.zip && !q.lake && !q.bbox && !q.agentName && !q.mls && !q.unsupported) q.bbox = TWIN_CITIES_BOX;
   const from = new Date(now); from.setMonth(from.getMonth() - q.months);
   q.since = from.toISOString().slice(0, 10);
   return q;
@@ -138,6 +140,21 @@ export function repliersParams(q, { pageSize = PAGE, page = q.page, fields = FIE
   if (q.beds) p.minBedrooms = q.beds;
   if (q.baths) p.minBaths = q.baths;
   const [w, s, e, n] = q.bbox ?? [];
-  const body = q.bbox ? { map: [[[w, n], [e, n], [e, s], [w, s], [w, n]]] } : undefined;
+  const body = q.lake ? { map: lakeRings(q.lake) } : q.bbox ? { map: [[[w, n], [e, n], [e, s], [w, s], [w, n]]] } : undefined;
   return { params: p, body };
 }
+
+// A lake's sales: homes inside its 200 m shoreline zone (src/data/geo/lake-shores.json, the same zone the lake pages use
+// for homes for sale) that the MLS marks as lakefront (onLake), so homes across the road from the lake are left out.
+const LAKE_POINTS = 150;
+function lakeRings(slug) {
+  return (shores[slug] ?? []).map((poly) => {
+    const ring = poly[0].map(([x, y]) => [Math.round(x * 1e5) / 1e5, Math.round(y * 1e5) / 1e5]);
+    if (ring.length <= LAKE_POINTS) return ring;
+    const step = Math.ceil(ring.length / LAKE_POINTS), out = ring.filter((_, i) => i % step === 0);
+    out.push(ring[0]);
+    return out;
+  });
+}
+/** False for a raw Repliers listing that a lake query should leave out (not marked lakefront). */
+export const onLake = (q, l) => !q.lake || isLakefront(l);
