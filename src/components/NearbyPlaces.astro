@@ -1,0 +1,58 @@
+---
+// "What's nearby" on a listing page (src/lib/nearby.mjs): everyday walkability score, then the closest grocery store,
+// coffee shop, pharmacy, park, transit stop, library and gym, with how many of each are within a 15-minute walk.
+// Places only (fair housing): no schools, places of worship, demographics or crime.
+import { nearby, fmtMi, WALK_MI, nearbySources } from '../lib/nearby.mjs';
+
+interface Props { lat: number; lng: number; place: string }
+const { lat, lng, place } = Astro.props;
+const n = nearby(lat, lng);
+const walkWord = (row: { walkCount: number; plural: string }) =>
+  row.walkCount ? `${row.walkCount} within a 15-minute walk` : 'none within a 15-minute walk';
+const summary = n && (() => {
+  const w = n.rows.filter((r) => r.walkCount).map((r) => r.plural);
+  return w.length
+    ? `Within about a 15-minute walk: ${w.slice(0, -1).join(', ')}${w.length > 1 ? ' and ' : ''}${w.at(-1)}.`
+    : 'Most errands from here are a drive.';
+})();
+---
+{n && (
+  <div class="nearby">
+    <h2>What's nearby</h2>
+    <div class="nearby__score">
+      <p class="nearby__num"><strong>{n.score}</strong><span>/100</span></p>
+      <div><p class="nearby__label">{n.label}</p><p>Everyday walkability for {place}. {summary}</p></div>
+    </div>
+    <ul class="nearby__list">
+      {n.rows.map((r) => (
+        <li>
+          <span class="nearby__kind">{r.label}</span>
+          <span class="nearby__what">
+            {r.key === 'restaurant'
+              ? <>Closest {fmtMi(r.mi)} away</>
+              : <><strong>{r.name}</strong>{r.detail && <> ({r.detail.includes(',') ? 'routes' : 'route'} {r.detail})</>}, {fmtMi(r.mi)}</>}
+            <small>{walkWord(r)}</small>
+          </span>
+        </li>
+      ))}
+      {n.rail && n.rail.name !== n.rows.find((r) => r.key === 'transit')?.name && <li><span class="nearby__kind">Light rail or rapid bus</span><span class="nearby__what"><strong>{n.rail.name}</strong> ({n.rail.routes}), {fmtMi(n.rail.mi)}</span></li>}
+    </ul>
+    <p class="nearby__note">Straight-line distances from the home; a 15-minute walk is taken as {WALK_MI} miles in a straight line (about ¾ mile on streets). The score adds points for each kind of everyday place within that walk: grocery 25, restaurants 15, parks 15, transit 15, coffee 10, pharmacy 10, library 5, gym 5. Places: {nearbySources.places}; transit: {nearbySources.transit}. Businesses open and close, so check before you count on one.</p>
+  </div>
+)}
+
+<style>
+  .nearby { margin: 2rem 0 1.5rem; }
+  .nearby h2 { margin-bottom: .75rem; }
+  .nearby__score { display: flex; gap: 1rem; align-items: center; padding: 1rem 1.2rem; border: 1px solid var(--line); background: #fff; }
+  .nearby__num { margin: 0; font: 600 2.4rem/1 var(--serif); white-space: nowrap; }
+  .nearby__num span { font-size: 1rem; color: var(--text-soft); }
+  .nearby__label { margin: 0 0 .2rem; font-weight: 700; }
+  .nearby__score p:not(.nearby__num) { font-size: 1rem; }
+  .nearby__list { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 0; }
+  .nearby__list li { display: grid; grid-template-columns: minmax(8rem, 12rem) 1fr; gap: .75rem; padding: .6rem 0; border-bottom: 1px solid var(--line); font-size: 1rem; }
+  @media (max-width: 520px) { .nearby__list li { grid-template-columns: 1fr; gap: .15rem; } }
+  .nearby__kind { color: var(--text-soft); }
+  .nearby__what small { display: block; color: var(--text-soft); font-size: .9rem; }
+  .nearby__note { margin-top: .75rem; font-size: .85rem; color: var(--text-soft); }
+</style>

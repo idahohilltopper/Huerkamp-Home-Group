@@ -774,3 +774,11 @@ From the Open SEO aggregator research (docs/aggregator-watch/2026-11.md; re-chec
 - /buying/veterans-and-military-home-buyers-minnesota: "va realtor" 720/mo, "veteran realtor" and "military realtor" 170 each. Sources: VA.gov purchase loans, MN Revenue Disabled Veterans' Market Value Exclusion ($150,000 at 70%+, $300,000 at 100% total and permanent), USAA Agent Connection page (credit capped at $9,500 per transaction). Re-check the exclusion amounts each January.
 - /duplexes-for-sale-mn (all multi-family listings; duplex/triplex/fourplex read from the description) and /mid-century-modern-homes-for-sale (listings whose description says mid-century or MCM; noindex under 3 homes). Both use src/components/FeedTopicPage.astro and a community-alert lead form.
 - /historic-homes-for-sale: homes built before 1940, by city and style (from the description); same component and form.
+
+## What's nearby on listing pages (2026-11-08)
+
+Our own version of Local Logic-style neighborhood info, free and fair-housing safe (places only: no schools, places of worship, demographics or crime).
+- Data: `python3 -m pip install duckdb && python3 scripts/build-nearby-places.py` writes src/data/places.json (about 1 MB) from Overture Maps places (latest release on Overture's public S3 bucket) and Metro Transit GTFS stops. Re-run every 3 months and commit the file. Overpass/Geofabrik (OpenStreetMap) were unreachable from the build container, so Overture is the source.
+- Grocery, park, library and gym names are filtered (Overture files food makers, nonprofits and private collections under those) and duplicates within 150 m merged; confidence 0.8+.
+- src/lib/nearby.mjs: nearest place of each kind and counts within 0.6 mi straight-line (about a 15-minute walk); "everyday walkability" score: grocery 25, restaurants 15, parks 15, transit 15, coffee 10, pharmacy 10, library 5, gym 5. Transit row shown only within 3 miles.
+- src/components/NearbyPlaces.astro on /homes/<slug> (not shown when the seller hides the address). MVTA (Apple Valley, Burnsville, Eagan, Savage etc.) runs its own GTFS feed and isn't included yet.

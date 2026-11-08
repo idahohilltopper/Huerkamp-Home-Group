@@ -19,6 +19,7 @@ import { formatOpenHouse, OPEN_HOUSE_NOTE } from '../../lib/open-house.mjs';
 import { origin } from '../../data/schema';
 import { site } from '../../data/site';
 import { developmentsData } from '../../data/developments';
+import NearbyPlaces from '../../components/NearbyPlaces.astro';
 
 export async function getStaticPaths() {
   const data = await listingsData;
@@ -170,6 +171,7 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() }, { name: community
           {lakes.filter((x) => x.href).map((x) => <li><a href={x.href!}><strong>{x.name}</strong><span>Lake facts from the Minnesota DNR, access and every lakefront home for sale.</span></a></li>)}
           {mk?.medianPrice?.r12[1] != null && <li><a href={`/market/${community.slug}`}><strong>{community.name} housing market, {monthLabel(latest)}</strong><span>Homes sold for a median {mMoney(mk.medianPrice.r12[1])} over 12 months ({signed(mk.medianPrice.r12[2])}), {count(mk.daysOnMarket?.r12[1])} days on market. Source: Minneapolis Area REALTORS®.</span></a></li>}
         </ul>
+        {!l.addressHidden && <NearbyPlaces lat={l.lat} lng={l.lng} place={l.street} />}
         <PaymentEstimate price={l.price} taxes={l.taxes} hoa={l.hoa} />
         {!l.addressHidden && <p class="home__map"><a class="link-arrow" href={`https://www.google.com/maps/search/?api=1&query=${l.lat},${l.lng}`} rel="noopener">See it on the map</a></p>}
       </div>
