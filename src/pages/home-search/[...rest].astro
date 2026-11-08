@@ -269,6 +269,8 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
   :global(.hs-hover .maplibregl-popup-tip) { display: none; }
   :global(.hs-popup .maplibregl-popup-content) { padding: 0; border-radius: 8px; overflow: hidden; box-shadow: 0 8px 24px rgba(0, 0, 0, .22); }
   :global(.hs-mappop) { position: relative; }
+  :global(.hs-near__dot) { display: inline-block; width: .7rem; height: .7rem; margin-right: .4rem; border-radius: 50%; background: var(--crimson); animation: hs-pulse 1s ease-in-out infinite alternate; vertical-align: middle; }
+  @keyframes hs-pulse { from { opacity: .25; transform: scale(.8); } to { opacity: 1; transform: scale(1.1); } }
   /* The backup flat map (src/scripts/search-map-flat.ts, Leaflet): same pop-up card and price tag look as the main map. */
   :global(.hs-flat-pop .leaflet-popup-content-wrapper) { padding: 0; border-radius: 8px; overflow: hidden; box-shadow: 0 8px 24px rgba(0, 0, 0, .22); }
   :global(.hs-flat-pop .leaflet-popup-content) { margin: 0; width: auto !important; }

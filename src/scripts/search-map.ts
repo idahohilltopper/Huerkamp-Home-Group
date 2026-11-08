@@ -133,5 +133,8 @@ export function showHome(map: any, home: { lat: number; lng: number; street: str
   if (estimateHref) map.__home.togglePopup();
 }
 
+/** Move the map to an area (west, south, east, north). */
+export function fitBox(map: any, b: number[]) { map.fitBounds([[b[0], b[1]], [b[2], b[3]]], { padding: 0, duration: 800 }); }
+
 /** The visible map area as "west,south,east,north". */
 export const boxOf = (map: any) => { const b = map.getBounds(); return [b.getWest(), b.getSouth(), b.getEast(), b.getNorth()].map((n: number) => n.toFixed(4)).join(','); };

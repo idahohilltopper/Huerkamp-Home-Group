@@ -62,7 +62,10 @@ export function initSearch(root: HTMLElement) {
     const pl = (params().get('place') ?? '').split(',').filter(Boolean);
     const one = pl.length === 1 ? pl[0] : '';
     const name = !one ? '' : one.startsWith('zip:') ? `ZIP ${one.slice(4)}` : one.startsWith('hood:') || one.startsWith('lake:') ? (names[one] ?? '') : names[one] ? `${names[one]}, MN` : '';
-    h1.textContent = name ? (sold ? `Recently sold homes in ${name}` : `${name} homes for sale`) : sold ? 'Recently sold Twin Cities homes' : 'Twin Cities homes for sale';
+    const near = !name && nearHere && !!params().get('bbox');
+    h1.textContent = name ? (sold ? `Recently sold homes in ${name}` : `${name} homes for sale`)
+      : near ? (sold ? 'Recently sold homes near you' : 'Homes for sale near you')
+      : sold ? 'Recently sold Twin Cities homes' : 'Twin Cities homes for sale';
     // One town or neighborhood searched: link to its community guide.
     const guide = root.querySelector<HTMLAnchorElement>('[data-guide]');
     if (guide) {
@@ -73,6 +76,7 @@ export function initSearch(root: HTMLElement) {
   };
 
   // ---- filters <-> address ----
+  let nearHere = false; // the map area came from "Use my current location" (heading: "Homes for sale near you")
   const params = () => {
     const p = new URLSearchParams();
     const fd = new FormData(form);
@@ -466,6 +470,35 @@ export function initSearch(root: HTMLElement) {
       bar.querySelector('[role=status]')!.textContent = a.ok ? 'Updated! New matches will come by email.' : a.error && !/mls-error|link-expired|not-found/.test(a.error) ? a.error : 'That didn’t work. Open the alert email again and use its link.';
     });
   }
+  // "Use my current location" (?near=1 from the home page): the page and map are already loading; ask the browser where
+  // the person is, then search the 3 miles around them. A note says what's happening, since the browser can take a few
+  // seconds on a computer without GPS.
+  const nearMe = () => {
+    const u = new URL(location.href); u.searchParams.delete('near'); history.replaceState(null, '', u);
+    const bar = document.createElement('div');
+    bar.className = 'hs-editbar hs-near';
+    bar.setAttribute('role', 'status');
+    bar.innerHTML = '<p><span class="hs-near__dot" aria-hidden="true"></span> Finding homes near you…</p>';
+    root.querySelector('.hs-panel')?.prepend(bar);
+    const say = (t: string) => { bar.innerHTML = `<p>${t}</p>`; setTimeout(() => bar.remove(), 8000); };
+    if (!('geolocation' in navigator)) return say('Your browser can’t share its location. Type a city or ZIP code in the search box instead.');
+    navigator.geolocation.getCurrentPosition(async (pos) => {
+      const { latitude: lat, longitude: lng } = pos.coords;
+      // More than about 60 miles from the Twin Cities: outside the areas we cover.
+      if (Math.hypot((lat - 44.98) * 69, (lng + 93.27) * 69 * 0.71) > 75) return say('You look to be outside the areas we cover, so here are all Twin Cities homes for sale.');
+      const d = 0.043; // about 3 miles each way (0.043 degrees of latitude; longitude scaled for Minnesota)
+      const box = [lng - d * 1.4, lat - d, lng + d * 1.4, lat + d];
+      (form.elements.namedItem('bbox') as HTMLInputElement).value = box.map((n) => n.toFixed(4)).join(',');
+      setPage(1);
+      bar.remove();
+      nearHere = true;
+      await run();
+      showMode();
+      await (opening ?? Promise.resolve());
+      if (map && mapApi?.fitBox) mapApi.fitBox(map, box);
+    }, () => say('We couldn’t get your location (it may be turned off for this site), so here are all Twin Cities homes. Type a city or ZIP code to narrow it down.'),
+    { enableHighAccuracy: false, timeout: 15000, maximumAge: 1800000 });
+  };
   showMode();
   pillLabels();
   const begin = () => {
@@ -478,6 +511,7 @@ export function initSearch(root: HTMLElement) {
       fetch('/api/search', { headers: { 'x-idx-eula': 'agreed' } }).then((r) => r.json()).then((a: Answer) => { if (a.ok && seq === 0) draw(a); }).catch(() => {});
     }
     showMap(start.get('view') === 'map' && phone.matches);
+    if (start.get('near') === '1') nearMe();
     // Arrived with an address (the home page search box sends /home-search?addr=...): go straight to it.
     const addr = start.get('addr');
     if (addr && looksLikeAddress(addr)) { where.value = addr; findAddress(addr); }

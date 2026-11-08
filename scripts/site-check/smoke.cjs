@@ -121,6 +121,23 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
       await m.close();
     });
   }
+  // "Use my current location" on the home page: the search page must open right away (under 3 s, while the browser
+  // finds the location) and then show homes near that spot (Lakeville here).
+  await step('Use my current location', async () => {
+    const c3 = await b.newContext({ viewport: { width: 1366, height: 900 }, geolocation: { latitude: 44.6497, longitude: -93.2427 }, permissions: ['geolocation'] });
+    await c3.addInitScript(() => { try { sessionStorage.setItem('idx-eula', '1'); } catch {} });
+    const m = await c3.newPage();
+    await m.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
+    await m.click('#hsrch-q'); await m.waitForTimeout(300);
+    const t0 = Date.now();
+    await m.locator('text=Use my current location').first().click();
+    await m.waitForURL(/home-search/, { timeout: 10000 });
+    const opened = Date.now() - t0;
+    await m.waitForFunction(() => document.querySelector('[data-h1]')?.textContent?.includes('near you'), null, { timeout: 20000 });
+    const n = await m.$$eval('[data-results] .lcard', (e) => e.length);
+    ok('Use my current location', opened < 3000 && n > 0, `search page opened in ${(opened / 1000).toFixed(1)} s, ${n} homes near the spot`);
+    await c3.close();
+  });
   // A browser with 3D graphics (WebGL) turned off gets the backup flat map (src/scripts/search-map-flat.ts), with pins.
   await step('Map without 3D graphics', async () => {
     const b2 = await chromium.launch({ args: ['--disable-webgl', '--disable-3d-apis'] });

@@ -99,5 +99,8 @@ export function showHome(map: FlatMap, home: { lat: number; lng: number; street:
   if (estimateHref) map.__home.openPopup();
 }
 
+/** Move the map to an area (west, south, east, north). */
+export function fitBox(map: FlatMap, b: number[]) { (map as any).__auto = true; map.fitBounds([[b[1], b[0]], [b[3], b[2]]]); }
+
 /** The visible map area as "west,south,east,north". */
 export const boxOf = (map: FlatMap) => { const b = map.getBounds(); return [b.getWest(), b.getSouth(), b.getEast(), b.getNorth()].map((n) => n.toFixed(4)).join(','); };
