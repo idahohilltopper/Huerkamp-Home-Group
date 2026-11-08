@@ -66,7 +66,7 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
       <details class="hs-pill" data-pill="months" data-sold-only hidden>
         <summary data-pill-label="Sold in the last">Sold in the last</summary>
         <div class="hs-pop">
-          <div class="hs-f"><label for="hs-months">Sold within</label><select id="hs-months" name="months">{[3, 6, 12, 24].map((m) => <option value={m === DEFAULT_MONTHS ? '' : m} selected={m === DEFAULT_MONTHS}>{m < 12 ? `${m} months` : `${m / 12} year${m > 12 ? 's' : ''}`}</option>)}</select></div>
+          <div class="hs-f"><label for="hs-months">Sold within</label><select id="hs-months" name="months">{[3, 6, 12, 24, 36].map((m) => <option value={m === DEFAULT_MONTHS ? '' : m} selected={m === DEFAULT_MONTHS}>{m < 12 ? `${m} months` : `${m / 12} year${m > 12 ? 's' : ''}`}</option>)}</select></div>
         </div>
       </details>
       <details class="hs-pill" data-pill="rooms">
@@ -128,7 +128,7 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
           <span data-pageinfo>Page 1 of {Math.max(1, Math.ceil(total / PAGE_SIZE))}</span>
           <button type="button" data-next disabled={total <= PAGE_SIZE}>Next →</button>
         </nav>
-        <p class="hs-sold-note" data-sold-only hidden>{SOLD_DISCLAIMER} Sold homes are shown for the last 2 years at most, without homes whose sellers asked not to be advertised.</p>
+        <p class="hs-sold-note" data-sold-only hidden>{SOLD_DISCLAIMER} Sold homes are shown for the last 3 years at most, without homes whose sellers asked not to be advertised.</p>
         <IdxDisclosure at={feedAt} />
       </div>
     </div>

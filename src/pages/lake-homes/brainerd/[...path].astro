@@ -43,7 +43,7 @@ const sold12 = sold.filter((s) => new Date(s.soldDate) >= yearAgo);
 const name = lake ? lake.name : g ? g.name : region.name;
 const place = lake ? `${lake.name}${g && g.lakes.length > 1 ? ` (${g.name})` : ''}` : g ? g.name : `the ${region.name}`;
 
-// Month-by-month sales over the 24 months of sold data the MLS allows.
+// Month-by-month sales over the 3 years of sold data the MLS allows.
 const months = [...new Set(sold.map((s) => monthKey(s.soldDate)))].sort().reverse();
 const byMonth = months.map((m) => { const list = sold.filter((s) => monthKey(s.soldDate) === m); return { m, n: list.length, med: median(list.map((s) => s.soldPrice)), top: Math.max(...list.map((s) => s.soldPrice)) }; });
 
@@ -75,7 +75,7 @@ const formLake = lake ? lake.name : g ? g.name : region.name;
       <p class="eyebrow">{region.name} · Minnesota</p>
       <h1>{lake ? `${lake.name} homes for sale` : g ? `${g.name} homes for sale` : 'Brainerd Lakes homes for sale'}</h1>
       {answer && <p class="answer">{answer}</p>}
-      {!g && <p class="answer">Lakefront homes on the Gull Lake Chain, Pelican Lake and the Whitefish Chain, for sale now and sold in the last two years, from a team that sells cabins up north.</p>}
+      {!g && <p class="answer">Lakefront homes on the Gull Lake Chain, Pelican Lake and the Whitefish Chain, for sale now and sold in the last three years, from a team that sells cabins up north.</p>}
       <p class="lede">{updated ? `Updated ${updated} from NorthstarMLS. ` : ''}Lake facts from the Minnesota DNR.</p>
       <p class="hero-btns"><a class="btn" href="#report">Get the monthly lake report</a> <a class="btn btn--ghost" href={site.phoneHref}>Call or text {site.phone}</a></p>
     </div>
@@ -131,7 +131,7 @@ const formLake = lake ? lake.name : g ? g.name : region.name;
     <section class="section section--paper" aria-labelledby="sold-title">
       <div class="wrap">
         <div class="head"><p class="eyebrow">Recently sold</p><h2 id="sold-title">What lake homes on {name} <em>sold for</em></h2>
-          <p>Lakefront sales in the last 24 months, newest first, from NorthstarMLS.</p></div>
+          <p>Lakefront sales in the last 3 years, newest first, from NorthstarMLS.</p></div>
         <div data-idx>
           <div class="table-scroll">
             <table class="data months">

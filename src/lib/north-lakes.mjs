@@ -3,7 +3,7 @@
 // don't land in the Twin Cities searches, ZIP pages or community counts.
 //   - For sale: active listings in each chain's map box, kept when the MLS marks them lakefront and their map point is
 //     in a lake's 200 m shoreline zone (src/data/geo/north-lake-shores.json).
-//   - Sold: the last 24 months (MAX_MONTHS in src/lib/sold.mjs), the same way, through soldCard(), which applies the
+//   - Sold: the last 36 months (MAX_MONTHS in src/lib/sold.mjs), the same way, through soldCard(), which applies the
 //     NorthstarMLS sold-content rules (Sold status only, seller choices, allowed fields, list office required).
 // Pages show sold homes inside the license-gated listing blocks, like every listing display on the site.
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
@@ -33,7 +33,7 @@ async function soldIn(key, box, now) {
   const since = new Date(now); since.setMonth(since.getMonth() - MAX_MONTHS);
   const [w, s, e, n] = box;
   const out = [];
-  for (let page = 1; page <= 20; page++) {
+  for (let page = 1; page <= 40; page++) {
     const r = await repliers(key, '/listings', { status: 'U', lastStatus: 'Sld', type: 'Sale', minSoldDate: since.toISOString().slice(0, 10),
       sortBy: 'soldDateDesc', resultsPerPage: 100, pageNum: page, fields: `${SOLD_FIELDS},details` }, { map: [[[w, n], [e, n], [e, s], [w, s], [w, n]]] });
     if (!r.data) throw new Error(`Repliers sold ${r.status}`);

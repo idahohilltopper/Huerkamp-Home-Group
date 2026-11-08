@@ -2,8 +2,8 @@
 // and cached for a day by /api/sold (netlify/functions/sold.mjs). Kept apart from the function so the rules can be
 // tested without calling Repliers. The rules, all enforced here:
 //   - only homes reported Sold (or Comp Sold), never expired, cancelled or temporarily-not-available listings;
-//   - nothing sold more than 2 years ago (MAX_MONTHS). NorthstarMLS allows 3 years, but our Repliers feed has 2 years of
-//     sold data without the Archived Data add-on (Repliers, 2026-11-04); raise to 36 only if that add-on is bought;
+//   - nothing sold more than 3 years ago (MAX_MONTHS), the most NorthstarMLS allows (notice of Aug 21, 2026). Repliers
+//     confirmed 2026-11-07 that our feed has sold history back to 1992, so the limit is the MLS rule, not the data. (Was 2 years while we thought the feed stopped there.)
 //   - never a home whose seller chose "Advertising: No"; no address (and no map point, which would give it away)
 //     for one that chose "Display Address: No";
 //   - only the fields NorthstarMLS lists for sold listings (Attachment A). Notably NOT square feet, list price,
@@ -16,7 +16,7 @@ import { CDN } from './repliers.mjs';
 import cities from '../data/ylopo-cities.json' with { type: 'json' };
 import team from '../data/team.json' with { type: 'json' };
 
-export const MAX_MONTHS = 24;
+export const MAX_MONTHS = 36;
 /** west, south, east, north: the Twin Cities area (matches TWIN_CITIES in src/scripts/search-map.ts). */
 export const TWIN_CITIES_BOX = [-93.9, 44.55, -92.75, 45.3];
 export const DEFAULT_MONTHS = 6;
