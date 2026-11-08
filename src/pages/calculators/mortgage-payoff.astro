@@ -1,0 +1,115 @@
+---
+// Mortgage payoff calculator: balance, rate and monthly principal-and-interest payment, plus an extra amount each
+// month (and an optional one-time lump sum) → payoff date, months saved and interest saved. Pure arithmetic in the
+// browser; nothing is sent anywhere unless the person uses the form.
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CalcLead from '../../components/CalcLead.astro';
+import { site } from '../../data/site';
+
+const faq = [
+  { q: 'How much sooner will I pay off my mortgage with extra payments?', a: 'It depends on your balance, rate and how much extra you pay. Every extra dollar goes straight to principal, so it also cuts the interest charged in every month after. Enter your numbers above to see the exact payoff date and interest saved.' },
+  { q: 'Is it better to pay extra each month or make one lump sum?', a: 'Both reduce interest; the earlier the money goes to principal, the more it saves. A steady monthly extra is easier to keep up, and a lump sum (from a bonus or tax refund) saves more the earlier in the loan it is made. The calculator lets you try both.' },
+  { q: 'Do I need to tell my lender the extra payment is for principal?', a: 'Usually yes: mark extra payments as "principal only" so the lender doesn’t hold them toward your next payment. Check your loan for any prepayment penalty; most home loans today don’t have one.' },
+  { q: 'What does Ramsey recommend about paying off a mortgage?', a: 'Ramsey Solutions’ plan puts paying off the home early after you are debt-free except the house and have a full emergency fund and retirement saving underway. Huerkamp Home Group has been a Ramsey Endorsed Local Provider, now called RamseyTrusted, for more than 15 years.' },
+];
+const ld = JSON.stringify([
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+  { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Mortgage payoff calculator', applicationCategory: 'FinanceApplication', operatingSystem: 'Any', url: 'https://www.huerkamphomes.com/calculators/mortgage-payoff', offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }, provider: { '@type': 'RealEstateAgent', name: site.name } },
+]);
+---
+<Base breadcrumbs={[{ name: 'Calculators', href: '/calculators' }, { name: 'Mortgage payoff', href: '/calculators/mortgage-payoff' }]}
+  title={`Mortgage Payoff Calculator: Pay Off Your House Early | ${site.name}`}
+  description="See how much sooner you'd own your home and how much interest you'd save by paying extra each month or making a lump-sum payment. Free mortgage payoff calculator.">
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <PageHero eyebrow="Calculator" title="Mortgage payoff calculator"
+    lede="How much sooner you'd own your home, and how much interest you'd keep, by paying a little extra each month or putting a lump sum toward principal." />
+
+  <section class="section">
+    <div class="wrap pcalc">
+      <form class="pform" id="p-form" onsubmit="return false">
+        <div class="field"><label for="p-bal">Loan balance today</label><input id="p-bal" inputmode="decimal" value="300,000" /></div>
+        <div class="field"><label for="p-rate">Interest rate (%)</label><input id="p-rate" inputmode="decimal" value="6.5" /></div>
+        <div class="field"><label for="p-pay">Monthly principal + interest payment</label><input id="p-pay" inputmode="decimal" value="2,100" /><small>From your mortgage statement; leave out taxes and insurance (escrow).</small></div>
+        <div class="field"><label for="p-extra">Extra each month</label><input id="p-extra" inputmode="decimal" value="200" /></div>
+        <div class="field"><label for="p-lump">One-time extra payment now (optional)</label><input id="p-lump" inputmode="decimal" value="0" /></div>
+      </form>
+      <div class="presult" aria-live="polite">
+        <p class="pbig" id="p-head">—</p>
+        <dl class="pgrid">
+          <div><dt>Paid off, as is</dt><dd id="p-base">—</dd></div>
+          <div><dt>Paid off, with extra</dt><dd id="p-new">—</dd></div>
+          <div><dt>Time saved</dt><dd id="p-saved">—</dd></div>
+          <div><dt>Interest saved</dt><dd id="p-int">—</dd></div>
+          <div><dt>Interest left, as is</dt><dd id="p-ib">—</dd></div>
+          <div><dt>Interest left, with extra</dt><dd id="p-in">—</dd></div>
+        </dl>
+        <p class="pnote" id="p-warn" hidden></p>
+        <p class="pnote">Estimates assume a fixed rate and on-time payments; your lender's payoff statement is the exact figure.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper" aria-labelledby="faq-title">
+    <div class="wrap faq">
+      <div class="head"><p class="eyebrow">Quick answers</p><h2 id="faq-title">Paying off your mortgage</h2></div>
+      {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+      <p class="links"><a class="link-arrow" href="/calculators/seller-net-proceeds">Seller net proceeds</a> <a class="link-arrow" href="/calculators/affordability">How much house can I afford?</a> <a class="link-arrow" href="/ramsey">Buy or sell the Ramsey way</a> <a class="link-arrow" href="/downsizing/pay-cash-for-your-next-home">Downsizing to a paid-for home</a></p>
+    </div>
+  </section>
+
+  <CalcLead form="calc-payoff" title="Thinking about your next move?" button="Let's talk"
+    text="Paying the house off, downsizing to a paid-for home, or wondering what your equity could do? We'll run the real numbers with you, no pressure." />
+</Base>
+
+<script>
+  const $ = (id: string) => document.getElementById(id) as HTMLInputElement;
+  const num = (id: string) => Math.max(0, parseFloat(($(id).value || '0').replace(/[^0-9.]/g, '')) || 0);
+  const usd = (n: number) => `$${Math.round(n).toLocaleString('en-US')}`;
+  const span = (m: number) => { const y = Math.floor(m / 12), r = m % 12; return [y && `${y} year${y > 1 ? 's' : ''}`, r && `${r} month${r > 1 ? 's' : ''}`].filter(Boolean).join(' ') || '0 months'; };
+  const when = (m: number) => { const d = new Date(); d.setMonth(d.getMonth() + m); return d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' }); };
+  // Months and interest to pay off `bal` at monthly rate r with payment `pay`; null if the payment never pays it off.
+  function run(bal: number, r: number, pay: number) {
+    let m = 0, interest = 0;
+    while (bal > 0.005 && m < 1200) { const i = bal * r; if (pay <= i) return null; interest += i; bal = bal + i - pay; m++; }
+    return { m, interest };
+  }
+  function calc() {
+    const bal = num('p-bal'), r = num('p-rate') / 100 / 12, pay = num('p-pay'), extra = num('p-extra'), lump = Math.min(num('p-lump'), bal);
+    const warn = document.getElementById('p-warn')!;
+    const base = run(bal, r, pay);
+    if (!bal || !pay || !base) { warn.hidden = false; warn.textContent = 'That payment doesn’t cover the monthly interest; check the payment and rate.'; return; }
+    warn.hidden = true;
+    const plus = run(bal - lump, r, pay + extra)!;
+    const saved = base.m - plus.m, intSaved = base.interest - plus.interest;
+    document.getElementById('p-head')!.textContent = saved > 0 ? `Own your home ${span(saved)} sooner and keep ${usd(intSaved)} in interest.` : 'Add an extra amount to see how much sooner you could own your home.';
+    document.getElementById('p-base')!.textContent = `${when(base.m)} (${span(base.m)})`;
+    document.getElementById('p-new')!.textContent = `${when(plus.m)} (${span(plus.m)})`;
+    document.getElementById('p-saved')!.textContent = span(Math.max(0, saved));
+    document.getElementById('p-int')!.textContent = usd(Math.max(0, intSaved));
+    document.getElementById('p-ib')!.textContent = usd(base.interest);
+    document.getElementById('p-in')!.textContent = usd(plus.interest);
+    const sum = document.querySelector<HTMLInputElement>('[data-calc-summary]');
+    if (sum) sum.value = `Mortgage payoff: balance ${usd(bal)} at ${num('p-rate')}%, P&I ${usd(pay)}/mo, extra ${usd(extra)}/mo, lump ${usd(lump)}. Paid off ${when(plus.m)} instead of ${when(base.m)}; interest saved ${usd(intSaved)}.`;
+  }
+  document.getElementById('p-form')!.addEventListener('input', calc);
+  calc();
+</script>
+
+<style>
+  .pcalc { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: clamp(1.5rem, 4vw, 3rem); align-items: start; }
+  @media (max-width: 860px) { .pcalc { grid-template-columns: 1fr; } }
+  .pform { display: grid; gap: .9rem; }
+  .pform small { color: var(--text-soft); font-size: .85rem; }
+  .presult { padding: 1.5rem; background: var(--paper); border: 1px solid var(--line); }
+  .pbig { font: 500 clamp(1.4rem, 3vw, 1.9rem)/1.25 var(--serif); margin-bottom: 1rem; }
+  .pgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .9rem 1.25rem; margin: 0; }
+  .pgrid dt { font: 700 .72rem/1.3 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--crimson); }
+  .pgrid dd { margin: .2rem 0 0; font-variant-numeric: tabular-nums; }
+  .pnote { margin-top: 1rem; font-size: .9rem; color: var(--text-soft); }
+  .head { margin-bottom: 1.25rem; }
+  .faq { display: grid; gap: .75rem; max-width: 52rem; }
+  .faq details { padding: 1rem 1.2rem; background: var(--paper); border: 1px solid var(--line); }
+  .faq summary { cursor: pointer; font: 600 1.15rem/1.3 var(--serif); }
+  .links { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: 1rem; }
+</style>

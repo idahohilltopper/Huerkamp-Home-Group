@@ -52,7 +52,10 @@ export const FORMS = {
   'register':          { type: 'Registration',     label: 'Signed up to keep viewing homes', tags: ['Buyer lead', 'Website registration'] },
   'calc-seller':       { type: 'Seller Inquiry',  label: 'Net proceeds calculator', tags: ['Seller lead', 'Net proceeds calculator'] },
   'first-time-buyer':  { type: 'General Inquiry', label: 'First-time buyer guide form', tags: ['Buyer lead', 'First-time buyer'] },
+  'seller-guide':      { type: 'Seller Inquiry',  label: 'Seller guide form',       tags: ['Seller lead', 'Seller guide'] },
+  'buyer-guide':       { type: 'General Inquiry', label: 'Buyer guide form',        tags: ['Buyer lead', 'Buyer guide'] },
   'calc-buyer':        { type: 'General Inquiry', label: 'Affordability calculator', tags: ['Buyer lead', 'Affordability calculator'] },
+  'calc-payoff':       { type: 'General Inquiry', label: 'Mortgage payoff calculator', tags: ['Homeowner', 'Mortgage payoff calculator'] },
   'calc-rentbuy':      { type: 'General Inquiry', label: 'Rent vs. buy calculator', tags: ['Buyer lead', 'Rent vs. buy calculator'] },
   'youtube':           { type: 'General Inquiry', label: 'YouTube viewer form',    tags: ['YouTube'], source: 'YouTube - Living in Minneapolis' },
 };

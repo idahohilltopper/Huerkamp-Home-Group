@@ -757,3 +757,13 @@ Global Privacy Control signal turns it off; the privacy policy describes it.
 ## Builder pages (2026-11-08)
 
 - /new-construction/builders/<builder> (Lennar, Pulte Homes, D.R. Horton, M/I Homes, Robert Thomas Homes, Gonyea Homes, David Weekley Homes, Youngfield Homes, Hanson Builders), listed under "By builder" on /new-construction. A builder's homes are the listings whose brokerage is its own sales company (src/data/builders.ts: add a row with the brokerage name's start to add a builder); page needs 3+ homes for sale. Each page says we're independent and not affiliated with the builder. Open SEO search volume (Nov 2026): Robert Thomas Homes 2,400, Hanson Builders 1,900, Lennar MN ~1,700, Gonyea 590, Pulte MN ~530, D.R. Horton MN 260.
+
+
+## Pages against the lead aggregators (2026-11-08)
+
+From the Open SEO aggregator research (docs/aggregator-watch/2026-11.md; re-checked monthly by routine trig_01U2kn7VDsCXvo1smSv7Vc4k):
+- /selling/cost-to-sell-a-house-in-minnesota, /selling/cash-offer-vs-listing (seller-guide lead form) and /selling/listing-status-meanings (buyer-guide form): src/data/sellguides.ts, rendered by src/pages/selling/[slug].astro.
+- /downsizing/selling-a-house-in-probate-minnesota (in src/data/downsizing.ts; Minn. Stat. 524.3-715 and 524.3-801, MN Judicial Branch).
+- /cost-of-living-minnesota: costs only (no incomes, fair housing): Census ACS, MAAR sale prices, Freddie Mac rate, MN Revenue 2026 income tax brackets and 6.875% sales tax. Re-check the tax brackets each January.
+- /calculators/mortgage-payoff (calc-payoff lead form; Ramsey-style "own your home sooner").
+- /ramsey retitled "Dave Ramsey Realtor in the Twin Cities: RamseyTrusted (ELP)"; RamseyTrusted is Ramsey's current name for the ELP program.

@@ -2,7 +2,7 @@
 // "Get your exact numbers" form under each calculator. The calculator page keeps the hidden "calc" field
 // filled with the person's current inputs and results, so the agent sees them in Follow Up Boss.
 import { site } from '../data/site';
-interface Props { form: 'calc-seller' | 'calc-buyer' | 'calc-rentbuy'; title: string; text: string; button: string; address?: boolean }
+interface Props { form: 'calc-seller' | 'calc-buyer' | 'calc-rentbuy' | 'calc-payoff'; title: string; text: string; button: string; address?: boolean }
 const { form, title, text, button, address = false } = Astro.props;
 const id = form;
 ---

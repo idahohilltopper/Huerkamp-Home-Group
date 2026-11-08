@@ -46,5 +46,6 @@ export const fmtDate = (iso: string) => new Date(`${iso}T12:00:00`).toLocaleDate
 export const calculators = [
   { slug: 'seller-net-proceeds', title: 'Seller net proceeds calculator', short: 'What you could walk away with after the mortgage payoff, Minnesota deed tax, commission and closing costs.' },
   { slug: 'affordability', title: 'How much house can I afford?', short: 'Your price range from income, debts and down payment, with real Twin Cities property tax rates, plus the Ramsey 25% guideline.' },
+  { slug: 'mortgage-payoff', title: 'Mortgage payoff calculator', short: 'How much sooner you’d own your home, and how much interest you’d save, by paying extra each month.' },
   { slug: 'rent-vs-buy', title: 'Rent vs. buy calculator', short: 'Compare your wealth after renting or buying in the Twin Cities, year by year, using the metro home price index.' },
 ];
