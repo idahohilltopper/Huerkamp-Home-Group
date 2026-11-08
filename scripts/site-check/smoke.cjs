@@ -106,6 +106,27 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     await p.waitForURL(/\/homes\//, { timeout: 15000 });
     ok('Alert email "See photos & details" link', true, `MLS ${mls} opened ${p.url().replace(BASE, '')}`);
   });
+  // "Use my current location" opens a map of the 3 miles around you; checked on a big desktop screen and a phone,
+  // since a blank map there was reported (Nov 8, 2026). The map must draw, with its zoom buttons, and no empty boxes.
+  for (const [label, vp] of [['big desktop', { width: 2000, height: 740 }], ['phone', { width: 390, height: 844 }]]) {
+    await step(`Near-me map (${label})`, async () => {
+      const m = await ctx.newPage(); await m.setViewportSize(vp);
+      m.on('pageerror', (e) => errors.push(`${m.url()} :: ${e.message.slice(0, 120)}`));
+      await m.goto(BASE + '/home-search?bbox=-93.4142,44.5220,-93.2458,44.6080&view=map', { waitUntil: 'domcontentloaded' });
+      await m.waitForSelector('.maplibregl-ctrl-zoom-in', { state: 'visible', timeout: 25000 });
+      const fail = await m.locator('.hs-mapfail').count();
+      const loaded = await m.waitForFunction(() => !!document.querySelector('.maplibregl-canvas') && document.querySelector('.maplibregl-canvas').width > 0, null, { timeout: 15000 }).then(() => true, () => false);
+      const emptyBoxes = await m.$$eval('.hs-addr, .hs-panel [role=alert], .form__status', (els) => els.filter((e) => e.offsetParent && !e.textContent.trim() && e.getBoundingClientRect().height > 20).length);
+      ok(`Near-me map (${label})`, loaded && !fail && !emptyBoxes, `${await m.$$eval('[data-results] .lcard', (e) => e.length)} homes listed${emptyBoxes ? `, ${emptyBoxes} empty box(es) showing` : ''}${fail ? ', map failed message shown' : ''}`);
+      await m.close();
+    });
+  }
+  // What visitors' browsers hit in the last 7 days (netlify/functions/client-error.mjs).
+  await step('Visitor errors (7 days)', async () => {
+    const r = await (await fetch(BASE + '/api/client-error')).json();
+    const top = (r.errors ?? []).slice(0, 5).map((g) => `${g.count}× ${g.kind} "${g.msg.slice(0, 70)}" on ${g.page}`).join(' | ');
+    ok('Visitor errors (7 days)', (r.total ?? 0) <= 20, `${r.total ?? 0} reported${top ? `: ${top}` : ''}`);
+  });
   ok('No JavaScript errors', errors.length === 0, errors.slice(0, 5).join(' | '));
   console.log(results.join('\n'));
   process.exitCode = results.some((r) => r.startsWith('FAIL')) ? 1 : 0;

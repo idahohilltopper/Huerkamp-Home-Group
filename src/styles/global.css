@@ -43,6 +43,8 @@
 }
 
 * { box-sizing: border-box; }
+/* Anything marked hidden stays hidden, even when a class gives it display: grid/flex (an empty box showed on the search page). */
+[hidden] { display: none !important; }
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 

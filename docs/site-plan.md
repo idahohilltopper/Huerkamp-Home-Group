@@ -787,3 +787,11 @@ Our own version of Local Logic-style neighborhood info, free and fair-housing sa
 
 - /api/sold takes place=lake:<slug>: sales in the lake's 200 m shoreline zone (src/data/geo/lake-shores.json) that the MLS marks lakefront, last 12 months on the lake pages (SoldHomes months={12}). Same sold rules and sign-in gate as community pages.
 - Footer Company column links to joinhhg.com ("Join our team: agent careers"), alongside the top-bar and mobile-menu links.
+
+## Catching errors visitors hit (2026-11-08)
+
+- Base.astro inline script: browser errors on our own scripts go to /api/client-error (netlify/functions/client-error.mjs, Netlify Blobs "client-errors"): message, page path, browser family, screen width; nothing personal; at most 5 per page view; bots ignored. GET /api/client-error = last 7 days grouped.
+- A page left open across a deploy asks for script files that no longer exist: it reloads itself once (per 10 minutes) instead of half-working.
+- Home search map: no WebGL, or the base map not loaded in 20 s, shows "The map didn't load" with a Reload button (list keeps working) and reports it.
+- global.css: [hidden] always hides (an empty red address box showed on the search page because its class set display: grid).
+- Daily site check (smoke.cjs) now: near-me map on a 2000-px desktop and a phone (map draws, zoom buttons, no empty boxes), and the visitor-error summary (FAIL over 20 in 7 days).

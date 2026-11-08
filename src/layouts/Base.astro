@@ -102,6 +102,21 @@ const pageTitle = title.length > 60 && title.endsWith(brandEnd) ? title.slice(0,
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <!-- A listing opened inside the map search's panel (src/scripts/home-search.ts) shows without the site's header and footer. -->
   <script is:inline>if (/[?&]embed=1\b/.test(location.search) && window.top !== window.self) document.documentElement.classList.add('is-embed');</script>
+  <!-- Error reporting (netlify/functions/client-error.mjs): errors visitors' browsers hit on our own scripts are sent
+       (message, page path, browser family; nothing personal), at most 5 per page view. A page left open across a deploy
+       asks for script files that no longer exist; that page reloads itself once instead of half-working. -->
+  <script is:inline>(function(){var n=0,own=location.origin;
+    function stale(m){return /dynamically imported module|Importing a module script failed|error loading dynamically imported|Failed to fetch dynamically|Unable to preload CSS/i.test(m||'')}
+    function report(kind,msg,src,line){try{if(n++>=5||!msg)return;if(src&&src.indexOf(own)!==0&&src.indexOf('/')!==0)return;if(/ResizeObserver loop|^Script error\.?$/i.test(msg))return;
+      var b=JSON.stringify({kind:kind,msg:String(msg).slice(0,300),src:src||'',line:line||0,page:location.pathname,width:innerWidth});
+      if(navigator.sendBeacon)navigator.sendBeacon('/api/client-error',new Blob([b],{type:'application/json'}));else fetch('/api/client-error',{method:'POST',body:b,keepalive:true});}catch(e){}}
+    function reloadOnce(msg){try{var k='hhg-reloaded',t=+sessionStorage.getItem(k)||0;if(Date.now()-t>600000){sessionStorage.setItem(k,String(Date.now()));report('stale',msg,'',0);location.reload();return true}}catch(e){}return false}
+    window.hhgReport=report;window.hhgReloadOnce=reloadOnce;
+    addEventListener('error',function(e){if(e.target&&e.target!==window&&e.target.tagName==='SCRIPT'&&/\/_astro\//.test(e.target.src||'')){if(!reloadOnce('script failed: '+e.target.src))report('script',e.target.src,e.target.src,0);return}
+      if(e.message)report('error',e.message,e.filename,e.lineno)},true);
+    addEventListener('unhandledrejection',function(e){var r=e.reason,m=r&&(r.message||String(r));if(stale(m)&&reloadOnce(m))return;report('promise',m,r&&r.stack&&(String(r.stack).match(/https?:\/\/[^\s)]+/)||[''])[0],0)});
+    addEventListener('vite:preloadError',function(e){if(reloadOnce('preload: '+(e.payload&&e.payload.message)))e.preventDefault()});
+  })();</script>
   <title>{pageTitle}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />

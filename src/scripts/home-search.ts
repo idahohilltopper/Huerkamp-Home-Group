@@ -297,7 +297,20 @@ export function initSearch(root: HTMLElement) {
   // ---- map ----
   // One map only: a second call while the first is still loading waits for it instead of making another.
   let opening: Promise<void> | null = null;
-  const openMap = () => (map ? (map.resize(), Promise.resolve()) : (opening ??= makeMap()));
+  const openMap = () => (map ? (map.resize(), Promise.resolve()) : (opening ??= makeMap().catch(mapFailed)));
+  // The map couldn't start: say so where the map would be, with a way to try again (the list keeps working).
+  const mapFailed = (e: unknown) => {
+    opening = null;
+    const msg = e instanceof Error ? e.message : String(e);
+    const w = window as any;
+    if (/dynamically imported|Importing a module|preload|Failed to fetch/i.test(msg) && w.hhgReloadOnce?.(msg)) return;
+    w.hhgReport?.('map', msg, '', 0);
+    const box = root.querySelector<HTMLElement>('[data-map]')!;
+    box.innerHTML = `<div class="hs-mapfail" role="alert"><p><strong>The map didn't load.</strong> The homes are all in the list${phone.matches ? ' (tap List)' : ' on the right'}.</p>`
+      + `<p>${/WebGL/.test(msg) ? 'Your browser has 3D graphics turned off, which the map needs. Try another browser, or turn on hardware acceleration in your browser settings.' : 'This is usually a slow connection or an old copy of the page.'}</p>`
+      + `<button type="button" class="btn">Reload the page</button></div>`;
+    box.querySelector('button')!.addEventListener('click', () => location.reload());
+  };
   const makeMap = async () => {
     mapApi = await import('./search-map');
     map = await mapApi.createMap(root.querySelector<HTMLElement>('[data-map]')!, root.dataset.mapStyle!, root.dataset.brThumb ?? '', () => {

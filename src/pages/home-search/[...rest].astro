@@ -181,6 +181,8 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
   /* A searched street address: "Homes near ..." with the home value offer, and its marker on the map. */
   .hs-panel :global(.hs-addr) { display: grid; gap: .5rem; justify-items: start; margin-bottom: 1rem; padding: 1rem 1.1rem; border: 2px solid var(--crimson); border-radius: 8px; background: #fff6f6; }
   .hs-panel :global(.hs-addr p) { margin: 0; }
+  .hs :global(.hs-mapfail) { display: grid; gap: .6rem; align-content: center; justify-items: start; height: 100%; max-width: 28rem; margin: 0 auto; padding: 1.5rem; }
+  .hs :global(.hs-mapfail p) { margin: 0; }
   .hs-panel :global(.hs-addr__where) { font-size: 1.05rem; }
   :global(.hs-homepin) { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border: 3px solid #fff; border-radius: 50%;
     background: var(--crimson); color: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, .35); cursor: pointer; }
