@@ -18,6 +18,7 @@ import PhotoGallery from '../../components/PhotoGallery.astro';
 import { formatOpenHouse, OPEN_HOUSE_NOTE } from '../../lib/open-house.mjs';
 import { origin } from '../../data/schema';
 import { site } from '../../data/site';
+import { developmentsData } from '../../data/developments';
 
 export async function getStaticPaths() {
   const data = await listingsData;
@@ -59,7 +60,10 @@ const similar = [...new Set([...near(peers), ...near(data.listings.filter((x) =>
 const exists = (path: string) => data.collections.some((k) => k.path === path);
 const band = FACETS.find((f) => f.group === 'Price' && f.slug.startsWith('under-') && f.test(l) && exists(`${l.community}/${f.slug}`));
 const typeFacet = FACETS.find((f) => f.group === 'Home type' && f.test(l) && exists(`${l.community}/${f.slug}`));
+// The new-construction development this home is in, when it has its own page (src/data/developments.ts).
+const dev = (await developmentsData).list.find((d) => d.community === l.community && d.listings.some((x) => x.mls === l.mls));
 const next = [
+  dev && { href: `/new-construction/${dev.path}`, label: `New homes for sale in ${dev.name}` },
   { href: homesHref(l.community), label: `All homes for sale in ${community.name}` },
   typeFacet && { href: homesHref(`${l.community}/${typeFacet.slug}`), label: typeFacet.title(community.name) },
   band && { href: homesHref(`${l.community}/${band.slug}`), label: band.title(community.name) },
@@ -161,6 +165,7 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() }, { name: community
         <h2>The location</h2>
         <ul class="home__local">
           <li><a href={`/communities/${community.slug}`}><strong>{community.name} community guide</strong><span>Schools, commutes, parks, home values and local stories.</span></a></li>
+          {dev && <li><a href={`/new-construction/${dev.path}`}><strong>{dev.name}, {community.name}</strong><span>{dev.listings.length} new-construction {dev.listings.length === 1 ? 'home' : 'homes'} for sale in this development, from {money(dev.min)}.</span></a></li>}
           {hood && <li><a href={hoodHref(hood)}><strong>{hood.name}, {CITY_NAME[hood.city]}</strong><span>The neighborhood guide: homes, history, parks and market numbers.</span></a></li>}
           {lakes.filter((x) => x.href).map((x) => <li><a href={x.href!}><strong>{x.name}</strong><span>Lake facts from the Minnesota DNR, access and every lakefront home for sale.</span></a></li>)}
           {mk?.medianPrice?.r12[1] != null && <li><a href={`/market/${community.slug}`}><strong>{community.name} housing market, {monthLabel(latest)}</strong><span>Homes sold for a median {mMoney(mk.medianPrice.r12[1])} over 12 months ({signed(mk.medianPrice.r12[2])}), {count(mk.daysOnMarket?.r12[1])} days on market. Source: Minneapolis Area REALTORS®.</span></a></li>}

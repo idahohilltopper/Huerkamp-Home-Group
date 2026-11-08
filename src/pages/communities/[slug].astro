@@ -132,7 +132,10 @@ const faqs = [
     a: `The median gross rent (rent plus utilities) is ${money(a.medianGrossRent)} a month, compared with ${money(county.medianGrossRent)} in ${countyName} (Census ACS 2020–2024).` },
   ...(d.zips.length ? [{ q: `What ZIP codes are in ${c.name}?`,
     a: `${list(d.zips.map((z: any) => z.zip))} ${d.zips.length === 1 ? 'covers' : 'cover'} most of the city. ZIP code areas and city limits don't match exactly, so check the city on the property record.` }] : []),
-  ...(d.lakes.length ? [{ q: `What lakes are in ${c.name}?`,
+  // DNR lakes (official names and acreage) when the city has any; the Census water map's names are rougher ("Battle Cr Lake").
+  ...(cityLakes.length ? [{ q: `What lakes are in ${c.name}?`,
+    a: `The largest lakes in or touching ${c.name} are ${list([...cityLakes].sort((x, y) => y.acres - x.acres).slice(0, 4).map((l) => `${l.name} (${fmt(l.acres)} acres)`))}, by Minnesota DNR records. Each has a page with its lakefront homes for sale.` }]
+    : d.lakes.length ? [{ q: `What lakes are in ${c.name}?`,
     a: `The largest named lakes inside the city are ${list(d.lakes.slice(0, 4).map((l: any) => `${l.name} (about ${fmt(l.acresInCity)} acres)`))}, based on Census water maps.` }] : []),
   { q: `How long does it take to close on a home in ${c.name}?`,
     a: `Most financed purchases close about 30 to 45 days after an accepted offer, and cash purchases can close sooner. Your lender, the appraisal and the title company set the actual timeline.` },
