@@ -23,9 +23,25 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
   await ctx.route('**/api/client-error', (r) => r.fulfill({ status: 202, body: '{}' })); // our own test runs aren't visitor errors
   const skip = (name, why) => results.push(`SKIP  ${name}  — ${why}`);
   const errors = [];
-  const p = await ctx.newPage();
-  p.on('pageerror', (e) => errors.push(`${p.url()} :: ${e.message.slice(0, 120)}`));
-  const step = async (name, fn) => { try { await fn(); } catch (e) { ok(name, false, e.message.split('\n')[0].slice(0, 140)); } };
+  // Each step gets a fresh tab, so one page still busy (a redirect, a running search) can't break the next step's
+  // navigation. Safari and Firefox abort a navigation that starts while the page is still navigating; Chrome doesn't.
+  let p = null;
+  const fresh = async () => {
+    await p?.close().catch(() => {});
+    p = await ctx.newPage();
+    p.on('pageerror', (e) => errors.push(`${p.url()} :: ${e.message.slice(0, 120)}`));
+  };
+  const step = async (name, fn) => {
+    await fresh();
+    try { await fn(); } catch (e) {
+      // A navigation aborted by the browser itself (not the site) gets one more try on a new tab.
+      if (/interrupted by|NS_BINDING_ABORTED|NS_ERROR_ABORT|frame was detached/.test(e.message)) {
+        await fresh();
+        try { return await fn(); } catch (e2) { e = e2; }
+      }
+      ok(name, false, e.message.split('\n')[0].slice(0, 140));
+    }
+  };
 
   await step('Home page + city search', async () => {
     await p.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
