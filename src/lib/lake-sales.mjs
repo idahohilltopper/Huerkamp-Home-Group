@@ -20,7 +20,7 @@ const CACHE = new URL('.cache-keep/lake-sales.json', root);
 const WEEK = 7 * 864e5;
 const shores = JSON.parse(readFileSync(new URL('src/data/geo/lake-shores.json', root), 'utf8'));
 export const MIN_FOR_MEDIAN = 3;
-const POINTS = 80, PARALLEL = 3;
+const POINTS = 80, PARALLEL = 2;
 
 const boxes = Object.fromEntries(Object.entries(shores).map(([slug, parts]) => {
   const pts = parts.flat(2);
@@ -44,8 +44,8 @@ const wait = (ms) => new Promise((ok) => setTimeout(ok, ms));
 /** One request, tried up to 4 times when Repliers is busy (429), has a server error (5xx) or the network drops. */
 async function ask(key, params, body) {
   let last = '';
-  for (let i = 0; i < 4; i++) {
-    if (i) await wait(1000 * 2 ** i);
+  for (let i = 0; i < 6; i++) {
+    if (i) await wait(1500 * 2 ** i); // 3, 6, 12, 24, 48 seconds: Repliers says 429 when asked too fast
     const r = await repliers(key, '/listings', params, body).catch((e) => ({ status: 0, data: null, error: String(e?.message ?? e) }));
     if (r.data) return r;
     last = `${r.status} ${String(r.error ?? '').slice(0, 120)}`;

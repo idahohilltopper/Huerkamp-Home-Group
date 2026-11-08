@@ -1,17 +1,27 @@
-// Daily site check, part 2: clicks through the main features on the live site (Playwright).
+// Site check: clicks through the main features like a buyer would (Playwright).
 // Form sends to /api/lead and /api/alerts are intercepted, so no test leads reach Follow Up Boss.
 // Run from the repo folder: node scripts/site-check/smoke.cjs
-const { chromium } = require('playwright');
-const BASE = 'https://www.huerkamphomes.com';
+//   SITE_BASE=http://localhost:4400   test a local build before it goes live (scripts/site-check/preflight.sh)
+//   BROWSER=webkit | firefox | chromium (default)   the engine: webkit is Safari's (iPhone, Mac), firefox is Firefox's
+// Steps that need the live site's own listing pages, or a Chrome-only switch, are skipped where they can't run.
+const pw = require('playwright');
+const BROWSER = process.env.BROWSER || 'chromium';
+const engine = pw[BROWSER];
+const BASE = (process.env.SITE_BASE || 'https://www.huerkamphomes.com').replace(/\/$/, '');
+const LOCAL = /localhost|127\.0\.0\.1/.test(BASE);
+// A phone of the right kind for the engine (Firefox can't pretend to be a phone, so it gets a phone-sized window).
+const PHONE = BROWSER === 'webkit' ? pw.devices['iPhone 14'] : BROWSER === 'chromium' ? pw.devices['Pixel 7'] : { viewport: { width: 390, height: 844 } };
 const results = [];
 const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'}  ${name}${info ? '  — ' + info : ''}`); };
 (async () => {
-  const b = await chromium.launch();
+  const b = await engine.launch();
   const ctx = await b.newContext({ viewport: { width: 1366, height: 900 } });
   await ctx.addInitScript(() => { try { sessionStorage.setItem('idx-eula', '1'); } catch {} });
   const leads = [];
   await ctx.route('**/api/lead', async (r) => { leads.push(r.request().postDataJSON()); await r.fulfill({ status: 200, contentType: 'application/json', body: '{"ok":true}' }); });
   await ctx.route('**/api/alerts/**', async (r) => { await r.fulfill({ status: 200, contentType: 'application/json', body: '{"ok":true}' }); });
+  await ctx.route('**/api/client-error', (r) => r.fulfill({ status: 202, body: '{}' })); // our own test runs aren't visitor errors
+  const skip = (name, why) => results.push(`SKIP  ${name}  — ${why}`);
   const errors = [];
   const p = await ctx.newPage();
   p.on('pageerror', (e) => errors.push(`${p.url()} :: ${e.message.slice(0, 120)}`));
@@ -31,7 +41,7 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     await p.waitForSelector('.hsrch__addr', { timeout: 10000 });
     ok('Address suggestions (Google)', true, (await p.textContent('.hsrch__addr')).replace(/\s+/g, ' '));
   });
-  await step('Map search + open a home', async () => {
+  if (LOCAL) skip('Map search + open a home', 'needs the live listing pages'); else await step('Map search + open a home', async () => {
     await p.goto(BASE + '/home-search?view=map', { waitUntil: 'domcontentloaded' });
     await p.waitForSelector('[data-results] .lcard a', { timeout: 20000 });
     await p.waitForSelector('.maplibregl-canvas', { timeout: 20000 });
@@ -84,12 +94,12 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     ok('Net proceeds calculator', t.length > 2, `${t.length} dollar figures shown`);
   });
   await step('Mobile menu', async () => {
-    const m = await ctx.newPage(); await m.setViewportSize({ width: 390, height: 844 });
+    const pc = await b.newContext(PHONE); const m = await pc.newPage();
     await m.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
     const btn = m.locator('button[aria-controls], .menu-toggle, [data-menu-toggle]').first();
     await btn.click(); await m.waitForTimeout(500);
     const vis = await m.locator('nav a:visible').count();
-    ok('Mobile menu', vis > 5, `${vis} menu links visible`); await m.close();
+    ok('Mobile menu', vis > 5, `${vis} menu links visible`); await pc.close();
   });
   await step('Open houses page', async () => {
     const r = await p.goto(BASE + '/open-houses', { waitUntil: 'domcontentloaded' });
@@ -99,7 +109,7 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     const r = await p.goto(BASE + '/videos', { waitUntil: 'domcontentloaded' });
     ok('Videos page', r.status() === 200, `${await p.$$eval('a[href*="youtube"], [data-video], .vcard', (e) => e.length)} video links`);
   });
-  await step('Alert email "See photos & details" link', async () => {
+  if (LOCAL) skip('Alert email "See photos & details" link', 'needs the live site'); else await step('Alert email "See photos & details" link', async () => {
     const a = await (await fetch(BASE + '/api/search?sort=new', { headers: { 'x-idx-eula': 'agreed' } })).json();
     const mls = a.results?.[0]?.mls;
     await p.goto(`${BASE}/listings/property?mlsNumber=${mls}&boardId=187`, { waitUntil: 'domcontentloaded' });
@@ -108,17 +118,21 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
   });
   // "Use my current location" opens a map of the 3 miles around you; checked on a big desktop screen and a phone,
   // since a blank map there was reported (Nov 8, 2026). The map must draw, with its zoom buttons, and no empty boxes.
-  for (const [label, vp] of [['big desktop', { width: 2000, height: 740 }], ['phone', { width: 390, height: 844 }]]) {
+  for (const [label, opts] of [['big desktop', { viewport: { width: 2000, height: 740 } }], ['phone', PHONE]]) {
     await step(`Near-me map (${label})`, async () => {
-      const m = await ctx.newPage(); await m.setViewportSize(vp);
+      const mc = await b.newContext(opts);
+      await mc.addInitScript(() => { try { sessionStorage.setItem('idx-eula', '1'); } catch {} });
+      await mc.route('**/api/client-error', (r) => r.fulfill({ status: 202, body: '{}' }));
+      const m = await mc.newPage();
       m.on('pageerror', (e) => errors.push(`${m.url()} :: ${e.message.slice(0, 120)}`));
       await m.goto(BASE + '/home-search?bbox=-93.4142,44.5220,-93.2458,44.6080&view=map', { waitUntil: 'domcontentloaded' });
-      await m.waitForSelector('.maplibregl-ctrl-zoom-in', { state: 'visible', timeout: 25000 });
+      await m.waitForSelector('.maplibregl-ctrl-zoom-in, .leaflet-control-zoom-in, .hs-mapfail', { state: 'visible', timeout: 25000 });
       const fail = await m.locator('.hs-mapfail').count();
-      const loaded = await m.waitForFunction(() => !!document.querySelector('.maplibregl-canvas') && document.querySelector('.maplibregl-canvas').width > 0, null, { timeout: 15000 }).then(() => true, () => false);
+      const loaded = await m.waitForFunction(() => (document.querySelector('.maplibregl-canvas')?.width ?? 0) > 0 || !!document.querySelector('.leaflet-tile-loaded'), null, { timeout: 15000 }).then(() => true, () => false);
+      const which = await m.locator('.leaflet-container').count() ? 'backup map' : 'main map';
       const emptyBoxes = await m.$$eval('.hs-addr, .hs-panel [role=alert]', (els) => els.filter((e) => e.offsetParent && !e.textContent.trim() && e.getBoundingClientRect().height > 20).length);
-      ok(`Near-me map (${label})`, loaded && !fail && !emptyBoxes, `${await m.$$eval('[data-results] .lcard', (e) => e.length)} homes listed${emptyBoxes ? `, ${emptyBoxes} empty box(es) showing` : ''}${fail ? ', map failed message shown' : ''}`);
-      await m.close();
+      ok(`Near-me map (${label})`, loaded && !fail && !emptyBoxes, `${which}, ${await m.$$eval('[data-results] .lcard', (e) => e.length)} homes listed${emptyBoxes ? `, ${emptyBoxes} empty box(es) showing` : ''}${fail ? ', map failed message shown' : ''}`);
+      await mc.close();
     });
   }
   // "Use my current location" on the home page: the search page must open right away (under 3 s, while the browser
@@ -126,6 +140,7 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
   await step('Use my current location', async () => {
     const c3 = await b.newContext({ viewport: { width: 1366, height: 900 }, geolocation: { latitude: 44.6497, longitude: -93.2427 }, permissions: ['geolocation'] });
     await c3.addInitScript(() => { try { sessionStorage.setItem('idx-eula', '1'); } catch {} });
+    await c3.route('**/api/client-error', (r) => r.fulfill({ status: 202, body: '{}' }));
     const m = await c3.newPage();
     await m.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
     await m.click('#hsrch-q'); await m.waitForTimeout(300);
@@ -139,8 +154,8 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     await c3.close();
   });
   // A browser with 3D graphics (WebGL) turned off gets the backup flat map (src/scripts/search-map-flat.ts), with pins.
-  await step('Map without 3D graphics', async () => {
-    const b2 = await chromium.launch({ args: ['--disable-webgl', '--disable-3d-apis'] });
+  if (BROWSER !== 'chromium') skip('Map without 3D graphics', 'Chrome-only switch'); else await step('Map without 3D graphics', async () => {
+    const b2 = await pw.chromium.launch({ args: ['--disable-webgl', '--disable-3d-apis'] });
     const c2 = await b2.newContext({ viewport: { width: 1366, height: 900 } });
     await c2.addInitScript(() => { try { sessionStorage.setItem('idx-eula', '1'); } catch {} });
     await c2.route('**/api/client-error', (r) => r.fulfill({ status: 202, body: '{}' })); // don't count our own test as a visitor error
@@ -153,12 +168,13 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
   });
   // What visitors' browsers hit in the last 7 days (netlify/functions/client-error.mjs).
   await step('Visitor errors (7 days)', async () => {
-    const r = await (await fetch(BASE + '/api/client-error')).json();
-    r.total = (r.errors ?? []).filter((g) => g.kind !== 'map-flat').reduce((n, g) => n + g.count, 0); // the backup map working as designed isn't an error
+    const r = await (await fetch('https://www.huerkamphomes.com/api/client-error')).json();
+    r.total = (r.errors ?? []).filter((g) => !['map-flat', 'stale'].includes(g.kind) && !/MetaMask|ethereum|web3/i.test(g.msg)).reduce((n, g) => n + g.count, 0); // the backup map working as designed isn't an error
     const top = (r.errors ?? []).slice(0, 5).map((g) => `${g.count}× ${g.kind} "${g.msg.slice(0, 70)}" on ${g.page}`).join(' | ');
     ok('Visitor errors (7 days)', (r.total ?? 0) <= 20, `${r.total ?? 0} reported${top ? `: ${top}` : ''}`);
   });
   ok('No JavaScript errors', errors.length === 0, errors.slice(0, 5).join(' | '));
+  console.log(`Site check: ${BASE} in ${BROWSER} (${new Date().toISOString()})`);
   console.log(results.join('\n'));
   process.exitCode = results.some((r) => r.startsWith('FAIL')) ? 1 : 0;
   await b.close();

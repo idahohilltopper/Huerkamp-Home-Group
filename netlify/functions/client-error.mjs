@@ -31,13 +31,16 @@ export default async (req) => {
     return json(202, { ok: true });
   }
   if (req.method !== 'GET') return json(405, { ok: false });
+  // ?hours=N: only the last N hours (the hourly check looks for a sudden jump); otherwise the last 7 days.
+  const hours = Math.min(Number(new URL(req.url).searchParams.get('hours')) || 0, DAYS * 24);
+  const since = hours ? new Date(Date.now() - hours * 3600e3).toISOString() : '';
   const groups = new Map();
-  for (let d = 0; d < DAYS; d++) {
+  for (let d = 0; d < (hours ? Math.ceil(hours / 24) + 1 : DAYS); d++) {
     const day = new Date(Date.now() - d * 864e5).toISOString().slice(0, 10);
     const { blobs } = await store.list({ prefix: `${day}/` });
     for (const { key } of blobs.slice(0, 500)) {
       const e = await store.get(key, { type: 'json' }).catch(() => null);
-      if (!e) continue;
+      if (!e || (since && e.at < since)) continue;
       const k = `${e.kind}|${e.msg}|${e.page}`;
       const g = groups.get(k) ?? { kind: e.kind, msg: e.msg, page: e.page, src: e.src, line: e.line, count: 0, last: e.at, browsers: {} };
       g.count++; if (e.at > g.last) g.last = e.at;
@@ -46,7 +49,7 @@ export default async (req) => {
     }
   }
   const errors = [...groups.values()].sort((a, b) => b.count - a.count);
-  return json(200, { ok: true, days: DAYS, total: errors.reduce((s, g) => s + g.count, 0), errors: errors.slice(0, 50) });
+  return json(200, { ok: true, days: hours ? hours / 24 : DAYS, ...(hours ? { hours } : {}), total: errors.reduce((s, g) => s + g.count, 0), errors: errors.slice(0, 50) });
 };
 
 export const config = { path: '/api/client-error' };

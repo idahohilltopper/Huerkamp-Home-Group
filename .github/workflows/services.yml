@@ -1,0 +1,18 @@
+# Hourly check of the services the site depends on (scripts/site-check/services.mjs): map images, the MLS feed and
+# its last download, sold homes, Google address suggestions, the lead form endpoint, and a jump in visitor errors.
+# No browser needed, so it takes well under a minute. A failed run emails the repository owner.
+name: Services check
+on:
+  schedule:
+    - cron: '41 * * * *'   # every hour at :41
+  workflow_dispatch:
+jobs:
+  services:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/site-check/services.mjs

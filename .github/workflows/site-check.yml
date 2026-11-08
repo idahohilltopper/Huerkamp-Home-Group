@@ -1,0 +1,46 @@
+# Site check in three browser engines: Chrome (chromium), Safari (webkit, the engine of every iPhone browser) and
+# Firefox, desktop and phone sizes (scripts/site-check/smoke.cjs). Runs every morning, after every push to the live
+# branch (once Netlify has deployed it), and on demand (Actions tab > Site check > Run workflow).
+# A failed run emails the repository owner (GitHub's default for failed Actions runs).
+name: Site check
+on:
+  schedule:
+    - cron: '17 12 * * *'   # 6:17 AM Central (7:17 in summer)
+  push:
+    branches: [claude/real-estate-website-build-9itecr]
+  workflow_dispatch:
+concurrency:
+  group: site-check-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, webkit, firefox]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Playwright and the ${{ matrix.browser }} browser
+        run: |
+          mkdir -p /tmp/pw && cd /tmp/pw && npm init -y >/dev/null && npm install --no-audit --no-fund playwright@1.63.0
+          npx playwright install --with-deps ${{ matrix.browser }}
+      - name: Wait for Netlify to deploy this push
+        if: github.event_name == 'push'
+        run: |
+          pushed=$(date -u -d "${{ github.event.head_commit.timestamp }}" +%s)
+          for i in $(seq 1 40); do
+            built=$(curl -s "https://www.huerkamphomes.com/mls-status.json?t=$RANDOM" | grep -o '"builtAt": *"[^"]*"' | grep -o '[0-9T:.-]*Z' || true)
+            if [ -n "$built" ] && [ "$(date -u -d "$built" +%s)" -ge "$pushed" ]; then echo "Live build from $built"; exit 0; fi
+            sleep 30
+          done
+          echo "The deploy didn't show up within 20 minutes; checking the live site as it is."
+      - name: Site check (${{ matrix.browser }})
+        env:
+          BROWSER: ${{ matrix.browser }}
+          NODE_PATH: /tmp/pw/node_modules
+        run: node scripts/site-check/smoke.cjs
