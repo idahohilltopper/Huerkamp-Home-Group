@@ -85,7 +85,7 @@ export function soldCard(l, now = new Date(), { signedIn = false } = {}) {
     mls: text(l.mlsNumber),
     status: 'Sold',
     soldPrice: num(l.soldPrice), soldDate,
-    street: choices.hideAddress ? '' : street, city: text(a.city), state: 'MN', zip: text(a.zip).slice(0, 5),
+    street: choices.hideAddress ? '' : street, city: text(a.city), state: /^(wi|wisconsin)$/i.test(text(a.state)) ? 'WI' : 'MN', zip: text(a.zip).slice(0, 5),
     addressHidden: choices.hideAddress ? 1 : 0,
     county: text(a.area ?? a.county) || null, schoolDistrict: text(a.district) || null,
     type: homeType(l), style: text(d.style) || null, yearBuilt: num(d.yearBuilt),

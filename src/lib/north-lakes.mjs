@@ -14,8 +14,10 @@ import { soldCard, FIELDS as SOLD_FIELDS, MAX_MONTHS } from './sold.mjs';
 
 const root = pathToFileURL(`${process.cwd()}/`);
 const read = (p) => JSON.parse(readFileSync(new URL(p, root), 'utf8'));
-const CACHE = new URL('.cache/north-lakes.json', root);
+const CACHE = new URL('.cache/north-lakes-v2.json', root);
 export const north = read('src/data/north-lakes.json');
+/** Every lake group (a chain or one lake), across all regions. */
+export const allGroups = north.regions.flatMap((r) => r.groups);
 const shores = read('src/data/geo/north-lake-shores.json');
 // Leave out anything under $200,000 (mostly lots and lake-access parcels), for sale and sold. Jason, 2026-11-07.
 const MIN_PRICE = 200000;
@@ -47,7 +49,7 @@ async function soldIn(key, box, now) {
 let loading;
 export function loadNorthLakes() {
   return (loading ??= (async () => {
-    const empty = { at: null, mode: 'off', groups: Object.fromEntries(north.groups.map((g) => [g.slug, { active: [], sold: [] }])) };
+    const empty = { at: null, mode: 'off', groups: Object.fromEntries(allGroups.map((g) => [g.slug, { active: [], sold: [] }])) };
     const fixture = process.env.MLS_FIXTURE;
     if (fixture && process.env.NETLIFY !== 'true') {
       // Local previews: NORTH_FIXTURE is a saved copy of this function's result, for checking the pages' layout.
@@ -61,7 +63,7 @@ export function loadNorthLakes() {
     try {
       const now = new Date();
       const groups = {};
-      for (const g of north.groups) {
+      for (const g of allGroups) {
         const { listings } = await download(key, g.bbox);
         const active = [];
         for (const raw of listings) {

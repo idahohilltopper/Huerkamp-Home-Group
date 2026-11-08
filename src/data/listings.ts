@@ -22,6 +22,8 @@ export type Listing = {
   addressHidden?: boolean; contingency?: string;
   /** The MLS subdivision name, when the listing has one. */
   subdivision?: string | null;
+  /** 'MN', or 'WI' for western Wisconsin homes. */
+  state?: string;
   /** Upcoming public open houses (src/lib/open-house.mjs). */
   openHouses?: { date: string; start: string; end: string | null }[];
 };

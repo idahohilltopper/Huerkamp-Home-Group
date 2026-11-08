@@ -1,0 +1,17 @@
+---
+// The polk-county-wi lake region's pages (hub, each chain or big lake, each lake on a chain): src/components/NorthLakePage.astro.
+import NorthLakePage, { type Region } from '../../../components/NorthLakePage.astro';
+import { north } from '../../../lib/north-lakes.mjs';
+
+export function getStaticPaths() {
+  const region = north.regions.find((r) => r.slug === 'polk-county-wi')!;
+  const paths = [{ params: { path: undefined as string | undefined }, props: { region, g: null as any, lake: null as any } }];
+  for (const g of region.groups) {
+    paths.push({ params: { path: g.slug }, props: { region, g, lake: null } });
+    if (g.lakes.length > 1) for (const lake of g.lakes) paths.push({ params: { path: `${g.slug}/${lake.slug}` }, props: { region, g, lake } });
+  }
+  return paths;
+}
+const { region, g, lake } = Astro.props as { region: Region; g: any; lake: any };
+---
+<NorthLakePage region={region} g={g} lake={lake} />

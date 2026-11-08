@@ -134,9 +134,11 @@ const ld = JSON.stringify([
 
   <section class="section section--paper" aria-labelledby="north-title">
     <div class="wrap">
-      <div class="head"><p class="eyebrow">Up north</p><h2 id="north-title">Brainerd <em>lake homes</em></h2>
-        <p>We sell cabins and lake homes up north too. Lakefront homes for sale and recently sold on the {north.groups.map((g) => g.name).join(', ').replace(/, ([^,]*)$/, ' and $1')}.</p></div>
-      <p class="chains">{north.groups.map((g) => <a class="link-arrow" href={`/lake-homes/${north.region.slug}/${g.slug}`}>{g.name}</a>)} <a class="link-arrow" href={`/lake-homes/${north.region.slug}`}>All Brainerd lakes</a></p>
+      <div class="head"><p class="eyebrow">Up north</p><h2 id="north-title">Cabins and lake homes <em>up north</em></h2>
+        <p>We sell cabins and lake homes up north too, in Minnesota and Wisconsin. Lakefront homes for sale and recently sold:</p></div>
+      {north.regions.map((r) => (
+        <p class="chains"><strong>{r.name}:</strong> {r.groups.map((g) => <a class="link-arrow" href={`/lake-homes/${r.slug}/${g.slug}`}>{g.name}</a>)} <a class="link-arrow" href={`/lake-homes/${r.slug}`}>All {r.name} lakes</a></p>
+      ))}
     </div>
   </section>
 

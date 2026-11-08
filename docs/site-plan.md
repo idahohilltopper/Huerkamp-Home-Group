@@ -747,3 +747,9 @@ Global Privacy Control signal turns it off; the privacy policy describes it.
 - **Content:** answer line (count, price range, median, beds, sq ft), listings in the I AGREE block with MLS disclosures, FAQ (prices, kinds of homes, who's listing them, using your own agent with a builder), and a `new-construction` lead form (Follow Up Boss tags Buyer lead, New construction; the development name in "interest").
 
 **2026-11-08:** sold homes now go back 3 years (MAX_MONTHS 36), the NorthstarMLS maximum; Repliers confirmed our feed has sold history back to 1992. The home search's "Sold within" adds "3 years"; the Brainerd lake pages show 3 years of monthly sales.
+
+## Up-north lake regions (2026-11-08)
+
+- src/data/north-lakes.json now holds `regions` (Brainerd Lakes MN; Polk County WI), each with its groups and lakes; scripts/build-north-lakes.py builds both (Wisconsin: DNR 24K Hydro "Lakes and Ponds" outlines by WBIC, acreage and maximum depth parsed from each DNR Lake Page, shoreline measured from the outline and labeled "measured").
+- Pages: src/components/NorthLakePage.astro, rendered by one small page per region folder (src/pages/lake-homes/brainerd/, src/pages/lake-homes/polk-county-wi/). Polk County: /lake-homes/polk-county-wi, /balsam-lake (WBIC 2620600, 1,901 acres, 37 ft), /bone-lake (WBIC 2628100, 1,667 acres, 43 ft). Linked from /lake-homes and the Homes menu.
+- Listings and sold cards now carry `state` (WI for Wisconsin homes in NorthstarMLS). To add a region (Hayward/Stone Lake/Lac Courte Oreilles once the Northwestern Wisconsin MLS is on Repliers): add it to REGIONS in the script, run it, and copy a region folder's page with the new slug.

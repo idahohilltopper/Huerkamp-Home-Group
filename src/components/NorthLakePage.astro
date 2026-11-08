@@ -1,0 +1,239 @@
+---
+// One up-north lake region (src/data/north-lakes.json: Brainerd Lakes, Polk County WI, ...): the region's hub, a page per
+// chain or big lake, and one per lake on a chain. Each region's folder under src/pages/lake-homes/ has a small page that
+// lists its addresses and renders this. Lakes and facts come from the state DNR (scripts/build-north-lakes.py); homes
+// from src/lib/north-lakes.mjs (NorthstarMLS lakefront homes for sale and sold in the last 3 years, at each build). The
+// monthly numbers are computed from those sales, so each month's update is automatic and past months stay in the table.
+import Base from '../layouts/Base.astro';
+import ListingCard from './ListingCard.astro';
+import IdxDisclosure from './IdxDisclosure.astro';
+import { north, loadNorthLakes } from '../lib/north-lakes.mjs';
+import { SOLD_DISCLAIMER } from '../lib/sold.mjs';
+import { isOwnBrokerage } from '../data/mls';
+import { BR_THUMB, BR_THUMB_SIZE } from '../data/mls-logos';
+import { site } from '../data/site';
+
+export type Region = (typeof north.regions)[number];
+type Group = Region['groups'][number];
+type Lake = Group['lakes'][number] & { maxDepth?: number };
+interface Props { region: Region; g: Group | null; lake: Lake | null }
+const { region, g, lake } = Astro.props;
+const data = await loadNorthLakes();
+const base = `/lake-homes/${region.slug}`;
+const fmt = (n: number) => n.toLocaleString('en-US');
+const money = (n: number | null | undefined) => (n == null ? '—' : `$${Math.round(n).toLocaleString('en-US')}`);
+const median = (a: number[]) => { const s = [...a].sort((x, y) => x - y); return s.length ? (s.length % 2 ? s[(s.length - 1) / 2] : (s[s.length / 2 - 1] + s[s.length / 2]) / 2) : null; };
+const monthKey = (d: string) => d.slice(0, 7);
+const monthName = (k: string) => new Date(`${k}-15T12:00:00Z`).toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+const yearAgo = new Date(); yearAgo.setFullYear(yearAgo.getFullYear() - 1);
+const updated = data.at ? new Date(data.at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }) : null;
+
+// Homes for this page: the whole group, or one lake of it.
+const pick = <T extends { northLakes: string[] }>(list: T[]) => (lake ? list.filter((x) => x.northLakes.includes(lake.key)) : list);
+const regionData = region.groups.map((gg) => data.groups[gg.slug] ?? { active: [], sold: [] });
+const active = g ? pick(data.groups[g.slug]?.active ?? []) : regionData.flatMap((x) => x.active);
+const sold = g ? pick(data.groups[g.slug]?.sold ?? []) : regionData.flatMap((x) => x.sold);
+const sold12 = sold.filter((s) => new Date(s.soldDate) >= yearAgo);
+const name = lake ? lake.name : g ? g.name : region.name;
+const place = lake ? `${lake.name}${g && g.lakes.length > 1 ? ` (${g.name})` : ''}` : g ? g.name : `the ${region.name}`;
+
+// Month-by-month sales over the 3 years of sold data the MLS allows.
+const months = [...new Set(sold.map((s) => monthKey(s.soldDate)))].sort().reverse();
+const byMonth = months.map((m) => { const list = sold.filter((s) => monthKey(s.soldDate) === m); return { m, n: list.length, med: median(list.map((s) => s.soldPrice)), top: Math.max(...list.map((s) => s.soldPrice)) }; });
+
+const stats = { forSale: active.length, low: active.length ? Math.min(...active.map((l) => l.price)) : null, high: active.length ? Math.max(...active.map((l) => l.price)) : null,
+  medList: median(active.map((l) => l.price)), sold12: sold12.length, medSold: median(sold12.map((s) => s.soldPrice)) };
+const answer = data.mode === 'off' ? '' : [
+  stats.forSale ? `${stats.forSale} lakefront ${stats.forSale === 1 ? 'home is' : 'homes are'} for sale on ${place}${stats.forSale > 1 ? `, from ${money(stats.low)} to ${money(stats.high)}` : ` at ${money(stats.low)}`}.` : `No lakefront homes are for sale on ${place} right now.`,
+  stats.sold12 ? ` In the last 12 months, ${stats.sold12} lakefront ${stats.sold12 === 1 ? 'home' : 'homes'} sold for a median ${money(stats.medSold)}.` : '',
+].join('');
+const facts: Lake | null = lake ?? (g && g.lakes.length === 1 ? g.lakes[0] : null);
+const mn = region.state === 'MN';
+const lakeUrl = (l: Lake) => (mn ? `https://www.dnr.state.mn.us/lakefind/lake.html?id=${l.dnrId}` : `https://apps.dnr.wi.gov/lakes/lakepages/LakeDetail.aspx?wbic=${l.dnrId}`);
+const lakesHere = g ? g.lakes : region.groups.flatMap((x) => x.lakes);
+const lakeStats = (l: Lake, gs: string) => ({ forSale: (data.groups[gs]?.active ?? []).filter((x) => x.northLakes.includes(l.key)).length, sold: (data.groups[gs]?.sold ?? []).filter((x) => x.northLakes.includes(l.key) && new Date(x.soldDate) >= yearAgo).length });
+const title = lake ? `${lake.name} Homes for Sale & Recent Sales (${g!.name})` : g ? (mn ? `${g.name} Homes for Sale & Recent Lakefront Sales` : `${g.name}, ${region.state} Lake Homes for Sale & Recent Sales`) : region.title;
+const description = answer || `Lakefront homes for sale and recently sold on ${place}, updated from NorthstarMLS, with lake facts from the ${region.agency}.`;
+const crumbs = [{ name: 'Lake homes', href: '/lake-homes' }, { name: region.name, href: base }, ...(g ? [{ name: g.name, href: `${base}/${g.slug}` }] : []), ...(lake ? [{ name: lake.name, href: `${base}/${g!.slug}/${lake.slug}` }] : [])];
+const faq = [
+  ...(answer ? [{ q: `How many homes are for sale on ${name}?`, a: answer }] : []),
+  ...(facts ? [{ q: `How big is ${facts.name}?`, a: mn
+    ? `${fmt(facts.acres)} acres with ${facts.shoreMiles} miles of shoreline, according to the Minnesota DNR (lake number ${facts.dnrId}${facts.dnrName && !facts.name.startsWith(facts.dnrName) ? `, listed as ${facts.dnrName}` : ''}), in ${facts.county} County.`
+    : `${fmt(facts.acres)} acres${facts.maxDepth ? ` and ${facts.maxDepth} feet at its deepest` : ''}, according to the Wisconsin DNR (WBIC ${facts.dnrId}), in ${facts.county} County, with about ${facts.shoreMiles} miles of shoreline measured from the DNR's lake outline.` }] : []),
+  ...(g && !lake && g.lakes.length > 1 ? [{ q: `Which lakes are on the ${g.name}?`, a: `${g.lakes.map((l) => l.name).join(', ')}: ${fmt(g.acres)} acres and ${g.shoreMiles} miles of shoreline in all (${region.agency}).` }] : []),
+];
+const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
+const formLake = lake ? lake.name : g ? g.name : region.name;
+---
+<Base breadcrumbs={crumbs} title={`${title} | ${site.name}`} description={description.slice(0, 300)}>
+  {faq.length > 0 && <script slot="head" type="application/ld+json" set:html={ld} />}
+
+  <section class="nhead">
+    <div class="wrap">
+      <p class="eyebrow">{mn ? `${region.name} · Minnesota` : region.name}</p>
+      <h1>{lake ? `${lake.name} homes for sale` : g ? `${g.name} homes for sale` : region.h1}</h1>
+      {answer && <p class="answer">{answer}</p>}
+      {!g && <p class="answer">{region.intro}</p>}
+      <p class="lede">{updated ? `Updated ${updated} from NorthstarMLS. ` : ''}Lake facts from the {region.agency}.</p>
+      <p class="hero-btns"><a class="btn" href="#report">Get the monthly lake report</a> <a class="btn btn--ghost" href={site.phoneHref}>Call or text {site.phone}</a></p>
+    </div>
+  </section>
+
+  {facts && (
+    <section class="section section--paper">
+      <div class="wrap">
+        <ul class="facts">
+          <li><strong>{fmt(facts.acres)}</strong><span>acres</span></li>
+          <li><strong>{facts.shoreMiles}</strong><span>miles of shoreline{mn ? '' : ' (measured)'}</span></li>
+          {facts.maxDepth && <li><strong>{facts.maxDepth} ft</strong><span>maximum depth</span></li>}
+          <li><strong>{facts.county}</strong><span>County</span></li>
+          <li><strong>{facts.dnrId}</strong><span>{mn ? 'DNR lake number' : 'DNR lake ID (WBIC)'}</span></li>
+        </ul>
+        <p class="source">{mn ? 'Minnesota DNR Hydrography.' : 'Wisconsin DNR 24K Hydro and Lake Pages.'} Depth, water clarity and fish: <a href={lakeUrl(facts)} rel="noopener">{mn ? 'DNR LakeFinder' : 'DNR Lake Page'} for {facts.name}</a>.</p>
+      </div>
+    </section>
+  )}
+
+  {(!lake && !(g && g.lakes.length === 1)) && (
+    <section class="section section--paper" aria-labelledby="lakes-title">
+      <div class="wrap">
+        <div class="head"><p class="eyebrow">{g ? `The ${g.name}` : 'The lakes'}</p><h2 id="lakes-title">{g ? `Lakes on the ${g.name}` : `${region.name} lakes we cover`}</h2>
+          {g && <p>{fmt(g.acres)} acres and {g.shoreMiles} miles of shoreline in all, by {region.agency} measurements.</p>}</div>
+        <div class="table-scroll">
+          <table class="data">
+            <thead><tr><th scope="col">Lake</th><th scope="col" class="num">Acres</th><th scope="col" class="num">Shoreline (mi)</th>{data.mode !== 'off' && <><th scope="col" class="num">For sale</th><th scope="col" class="num">Sold, 12 months</th></>}</tr></thead>
+            <tbody>{(g ? [g] : region.groups).flatMap((gg) => gg.lakes.map((l) => {
+              const s = lakeStats(l, gg.slug);
+              const href = gg.lakes.length > 1 ? `${base}/${gg.slug}/${l.slug}` : `${base}/${gg.slug}`;
+              return <tr><th scope="row"><a href={href}>{l.name}</a>{!g && <span class="grp"> · {gg.name}</span>}</th><td class="num">{fmt(l.acres)}</td><td class="num">{l.shoreMiles}</td>{data.mode !== 'off' && <><td class="num">{s.forSale}</td><td class="num">{s.sold}</td></>}</tr>;
+            }))}</tbody>
+          </table>
+        </div>
+        {!g && <p class="chains">{region.groups.map((gg) => <a class="link-arrow" href={`${base}/${gg.slug}`}>{gg.name}</a>)}</p>}
+      </div>
+    </section>
+  )}
+
+  {data.mode !== 'off' && (
+    <section class="section" aria-labelledby="sale-title">
+      <div class="wrap">
+        <div class="head"><p class="eyebrow">For sale now</p><h2 id="sale-title">Lakefront homes for sale on {name}</h2></div>
+        <div data-idx>
+          {active.length ? <ul class="lcards">{active.slice(0, 48).map((l) => <ListingCard l={l as any} href={`/homes/listing?mls=${encodeURIComponent(l.mls)}`} />)}</ul>
+            : <p>None right now. <a href="#report">Get the monthly report</a> and we'll tell you when one lists.</p>}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {data.mode !== 'off' && sold.length > 0 && (
+    <section class="section section--paper" aria-labelledby="sold-title">
+      <div class="wrap">
+        <div class="head"><p class="eyebrow">Recently sold</p><h2 id="sold-title">What lake homes on {name} <em>sold for</em></h2>
+          <p>Lakefront sales in the last 3 years, newest first, from NorthstarMLS.</p></div>
+        <div data-idx>
+          <div class="table-scroll">
+            <table class="data months">
+              <thead><tr><th scope="col">Month</th><th scope="col" class="num">Homes sold</th><th scope="col" class="num">Median sale price</th><th scope="col" class="num">Highest sale</th></tr></thead>
+              <tbody>{byMonth.map((r) => <tr><th scope="row">{monthName(r.m)}</th><td class="num">{r.n}</td><td class="num">{money(r.med)}</td><td class="num">{money(r.top)}</td></tr>)}</tbody>
+            </table>
+          </div>
+          <ul class="soldlist">{sold.slice(0, 60).map((s) => {
+            const own = isOwnBrokerage(s.office);
+            const addr = s.addressHidden ? `${s.city}, ${s.state ?? 'MN'} ${s.zip}` : `${s.street}, ${s.city}, ${s.state ?? 'MN'} ${s.zip}`;
+            return <li>
+              {s.photo && <img src={`${s.photo}?class=small`} alt={addr} width="160" height="107" loading="lazy" decoding="async" />}
+              <div><strong>{money(s.soldPrice)}</strong> <span class="when">sold {new Date(`${s.soldDate}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                <span class="addr">{addr}</span>
+                {own && [s.beds && `${s.beds} bd`, s.baths && `${s.baths} ba`].filter(Boolean).length > 0 && <span class="specs">{[s.beds && `${s.beds} bd`, s.baths && `${s.baths} ba`].filter(Boolean).join(' · ')}</span>}
+                <span class="office">{!own && BR_THUMB && <img src={BR_THUMB} alt="Broker Reciprocity listing" width={BR_THUMB_SIZE.w} height={BR_THUMB_SIZE.h} />}MLS #{s.mls} · Listing courtesy of {s.office}</span></div>
+            </li>;
+          })}</ul>
+          <p class="source">{SOLD_DISCLAIMER}</p>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {data.mode !== 'off' && <section class="section"><div class="wrap"><IdxDisclosure at={data.at} /></div></section>}
+
+  <section class="section section--dark" id="report" aria-labelledby="report-title">
+    <div class="wrap split">
+      <div class="prose">
+        <p class="eyebrow">Own on {formLake}, or want to?</p>
+        <h2 id="report-title">Get the {formLake} <em>monthly lake report.</em></h2>
+        <p>Once a month: what sold on the lake and for how much, what's new on the market, and what it means for your place. We sell cabins and lake homes up north, in Minnesota and Wisconsin, so ask us anything about buying or selling on the lake.</p>
+        <p>Prefer to talk? Call or text <a href={site.phoneHref}>{site.phone}</a>.</p>
+      </div>
+      <form class="form" data-lead="lake-report">
+        <input type="hidden" name="lake" value={formLake} />
+        <div class="form__row">
+          <div class="field"><label for="nl-first">First name</label><input id="nl-first" name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for="nl-last">Last name</label><input id="nl-last" name="lastName" autocomplete="family-name" required /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="nl-email">Email</label><input id="nl-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="nl-phone">Phone</label><input id="nl-phone" name="phone" type="tel" autocomplete="tel" /></div>
+        </div>
+        <div class="field">
+          <label for="nl-goal">I'm interested in</label>
+          <select id="nl-goal" name="goal"><option value="">Choose one</option><option>Just the monthly report</option><option>Buying on the lake</option><option>Selling my place on the lake</option><option>What my lake home is worth</option></select>
+        </div>
+        <button class="btn" type="submit">Send me the monthly report</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  {faq.length > 0 && (
+    <section class="section" aria-labelledby="faq-title">
+      <div class="wrap faq">
+        <div class="head"><p class="eyebrow">Quick answers</p><h2 id="faq-title">{name} questions</h2></div>
+        {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+      </div>
+    </section>
+  )}
+
+  {g && (
+    <section class="section section--paper">
+      <div class="wrap">
+        <p class="chains">
+          {lake && <a class="link-arrow" href={`${base}/${g.slug}`}>All of the {g.name}</a>}
+          {lake && g.lakes.filter((l) => l.slug !== lake.slug).map((l) => <a class="link-arrow" href={`${base}/${g.slug}/${l.slug}`}>{l.name}</a>)}
+          <a class="link-arrow" href={base}>All {region.name} lakes</a>{north.regions.filter((r) => r.slug !== region.slug).map((r) => <> <a class="link-arrow" href={`/lake-homes/${r.slug}`}>{r.name} lakes</a></>)} <a class="link-arrow" href="/lake-homes">Twin Cities lake homes</a>
+        </p>
+      </div>
+    </section>
+  )}
+</Base>
+
+<style>
+  .nhead { padding: clamp(2.5rem, 6vw, 4.5rem) 0 clamp(2rem, 4vw, 3rem); background: var(--night); color: var(--on-dark); }
+  .nhead h1 { font: 500 clamp(2.2rem, 5vw, 3.6rem)/1.05 var(--serif-display); color: #fff; }
+  .nhead .eyebrow { color: var(--rose); }
+  .answer { max-width: 52rem; margin: .9rem 0 .4rem; color: #fff; font: 500 clamp(1.05rem, 2.2vw, 1.25rem)/1.5 var(--ui); }
+  .lede { color: var(--on-dark); }
+  .hero-btns { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.25rem; }
+  .facts { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); gap: 1rem; }
+  .facts li { display: grid; gap: .2rem; padding: 1rem 1.2rem; background: var(--surface); border: 1px solid var(--line); }
+  .facts strong { font: 600 1.6rem/1.1 var(--serif); }
+  .facts span { color: var(--text-soft); font-size: .9rem; }
+  .source { margin-top: 1rem; font-size: .9rem; color: var(--text-soft); }
+  .head { margin-bottom: 1.25rem; }
+  .table-scroll { overflow-x: auto; margin-bottom: 1.25rem; }
+  table.data { width: 100%; border-collapse: collapse; font-size: .98rem; }
+  table.data th, table.data td { padding: .55rem .7rem; border-bottom: 1px solid var(--line); text-align: left; }
+  table.data .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .grp { color: var(--text-soft); font-weight: 400; font-size: .9rem; }
+  .chains { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: 1rem; }
+  .soldlist { list-style: none; margin: 1rem 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr)); gap: .75rem; }
+  .soldlist li { display: flex; gap: .85rem; align-items: flex-start; padding: .75rem; background: var(--surface); border: 1px solid var(--line); }
+  .soldlist li > img { width: 120px; height: auto; flex: none; }
+  .soldlist div { display: grid; gap: .15rem; font-size: .95rem; }
+  .soldlist strong { font-size: 1.15rem; }
+  .soldlist .when, .soldlist .specs, .soldlist .office { color: var(--text-soft); font-size: .85rem; }
+  .soldlist .office img { vertical-align: middle; margin-right: .3rem; }
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+  .split .prose a { color: #fff; font-weight: 700; }
+</style>

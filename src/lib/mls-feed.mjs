@@ -98,6 +98,8 @@ export function compact(l, now = new Date()) {
     mls: text(l.mlsNumber),
     slug: slugify(`${choices.hideAddress ? 'home-for-sale' : street} ${city} mn ${zip} ${l.mlsNumber}`),
     street: choices.hideAddress ? 'Address withheld by the seller' : street, city, zip,
+    // Western Wisconsin homes are in NorthstarMLS too (the up-north lake pages); everything else is Minnesota.
+    state: /^(wi|wisconsin)$/i.test(text(a.state)) ? 'WI' : 'MN',
     addressHidden: choices.hideAddress, hide: choices.hide,
     contingency: contingency && !/^none$/i.test(contingency) ? contingency : '',
     price: num(l.listPrice),

@@ -1,489 +1,583 @@
 {
- "region": {
-  "slug": "brainerd",
-  "name": "Brainerd Lakes",
-  "state": "MN"
- },
- "source": "Minnesota DNR Hydrography (lake outlines, official acreage, shoreline miles, DNR lake numbers)",
- "groups": [
+ "source": "Minnesota DNR Hydrography (lake outlines, official acreage, shoreline miles, DNR lake numbers); Wisconsin DNR 24K Hydro and Lake Pages (outlines, WBICs, acreage, maximum depth)",
+ "regions": [
   {
-   "slug": "gull-lake-chain",
-   "name": "Gull Lake Chain",
-   "acres": 13094,
-   "shoreMiles": 79.7,
-   "bbox": [
-    -94.42284,
-    46.38056,
-    -94.25469,
-    46.54482
-   ],
-   "lakes": [
+   "slug": "brainerd",
+   "name": "Brainerd Lakes",
+   "state": "MN",
+   "stateName": "Minnesota",
+   "agency": "Minnesota DNR",
+   "title": "Brainerd Lakes Homes for Sale: Gull, Pelican & Whitefish Chain",
+   "h1": "Brainerd Lakes homes for sale",
+   "intro": "Lakefront homes on the Gull Lake Chain, Pelican Lake and the Whitefish Chain, for sale now and sold in the last three years, from a team that sells cabins up north.",
+   "groups": [
     {
-     "slug": "gull-lake",
-     "key": "brainerd/gull-lake",
-     "name": "Gull Lake",
-     "dnrName": "Gull",
-     "dnrId": "11030500",
-     "acres": 10010,
-     "shoreMiles": 46.1,
-     "county": "Cass",
-     "center": [
-      -94.34004,
-      46.4479
-     ],
+     "slug": "gull-lake-chain",
+     "name": "Gull Lake Chain",
+     "region": "brainerd",
+     "acres": 13094,
+     "shoreMiles": 79.7,
      "bbox": [
-      -94.41784,
-      46.38556,
-      -94.2958,
-      46.5105
+      -94.42284,
+      46.38056,
+      -94.25469,
+      46.54482
+     ],
+     "lakes": [
+      {
+       "slug": "gull-lake",
+       "key": "brainerd/gull-lake",
+       "name": "Gull Lake",
+       "dnrName": "Gull",
+       "dnrId": "11030500",
+       "acres": 10010,
+       "shoreMiles": 46.1,
+       "county": "Cass",
+       "center": [
+        -94.34004,
+        46.4479
+       ],
+       "bbox": [
+        -94.41784,
+        46.38556,
+        -94.2958,
+        46.5105
+       ]
+      },
+      {
+       "slug": "round-lake",
+       "key": "brainerd/round-lake",
+       "name": "Round Lake",
+       "dnrName": "Round",
+       "dnrId": "18037300",
+       "acres": 1650,
+       "shoreMiles": 6.6,
+       "county": "Crow Wing",
+       "center": [
+        -94.28198,
+        46.45783
+       ],
+       "bbox": [
+        -94.30329,
+        46.44554,
+        -94.25969,
+        46.47017
+       ]
+      },
+      {
+       "slug": "upper-gull-lake",
+       "key": "brainerd/upper-gull-lake",
+       "name": "Upper Gull Lake",
+       "dnrName": "Upper Gull",
+       "dnrId": "11021800",
+       "acres": 422,
+       "shoreMiles": 8.6,
+       "county": "Cass",
+       "center": [
+        -94.3469,
+        46.52391
+       ],
+       "bbox": [
+        -94.35477,
+        46.50798,
+        -94.33495,
+        46.53982
+       ]
+      },
+      {
+       "slug": "lake-margaret",
+       "key": "brainerd/lake-margaret",
+       "name": "Lake Margaret",
+       "dnrName": "Margaret",
+       "dnrId": "11022200",
+       "acres": 251,
+       "shoreMiles": 5.5,
+       "county": "Cass",
+       "center": [
+        -94.36359,
+        46.49469
+       ],
+       "bbox": [
+        -94.37277,
+        46.48143,
+        -94.35331,
+        46.50794
+       ]
+      },
+      {
+       "slug": "nisswa-lake",
+       "key": "brainerd/nisswa-lake",
+       "name": "Nisswa Lake",
+       "dnrName": "Nisswa",
+       "dnrId": "18039900",
+       "acres": 219,
+       "shoreMiles": 2.8,
+       "county": "Crow Wing",
+       "center": [
+        -94.29772,
+        46.51921
+       ],
+       "bbox": [
+        -94.30611,
+        46.51286,
+        -94.28885,
+        46.52568
+       ]
+      },
+      {
+       "slug": "roy-lake",
+       "key": "brainerd/roy-lake",
+       "name": "Roy Lake",
+       "dnrName": "Roy",
+       "dnrId": "18039800",
+       "acres": 320,
+       "shoreMiles": 5.7,
+       "county": "Crow Wing",
+       "center": [
+        -94.32548,
+        46.51611
+       ],
+       "bbox": [
+        -94.33512,
+        46.50444,
+        -94.30876,
+        46.52785
+       ]
+      },
+      {
+       "slug": "love-lake",
+       "key": "brainerd/love-lake",
+       "name": "Love Lake",
+       "dnrName": "Love",
+       "dnrId": "18038800",
+       "acres": 79,
+       "shoreMiles": 1.8,
+       "county": "Crow Wing",
+       "center": [
+        -94.31965,
+        46.43903
+       ],
+       "bbox": [
+        -94.32287,
+        46.4348,
+        -94.31441,
+        46.44323
+       ]
+      },
+      {
+       "slug": "ray-lake",
+       "key": "brainerd/ray-lake",
+       "name": "Ray Lake",
+       "dnrName": "Ray",
+       "dnrId": "11022000",
+       "acres": 143,
+       "shoreMiles": 2.6,
+       "county": "Cass",
+       "center": [
+        -94.33027,
+        46.52219
+       ],
+       "bbox": [
+        -94.33803,
+        46.51761,
+        -94.32471,
+        46.52675
+       ]
+      }
      ]
     },
-    {
-     "slug": "round-lake",
-     "key": "brainerd/round-lake",
-     "name": "Round Lake",
-     "dnrName": "Round",
-     "dnrId": "18037300",
-     "acres": 1650,
-     "shoreMiles": 6.6,
-     "county": "Crow Wing",
-     "center": [
-      -94.28198,
-      46.45783
-     ],
-     "bbox": [
-      -94.30329,
-      46.44554,
-      -94.25969,
-      46.47017
-     ]
-    },
-    {
-     "slug": "upper-gull-lake",
-     "key": "brainerd/upper-gull-lake",
-     "name": "Upper Gull Lake",
-     "dnrName": "Upper Gull",
-     "dnrId": "11021800",
-     "acres": 422,
-     "shoreMiles": 8.6,
-     "county": "Cass",
-     "center": [
-      -94.3469,
-      46.52391
-     ],
-     "bbox": [
-      -94.35477,
-      46.50798,
-      -94.33495,
-      46.53982
-     ]
-    },
-    {
-     "slug": "lake-margaret",
-     "key": "brainerd/lake-margaret",
-     "name": "Lake Margaret",
-     "dnrName": "Margaret",
-     "dnrId": "11022200",
-     "acres": 251,
-     "shoreMiles": 5.5,
-     "county": "Cass",
-     "center": [
-      -94.36359,
-      46.49469
-     ],
-     "bbox": [
-      -94.37277,
-      46.48143,
-      -94.35331,
-      46.50794
-     ]
-    },
-    {
-     "slug": "nisswa-lake",
-     "key": "brainerd/nisswa-lake",
-     "name": "Nisswa Lake",
-     "dnrName": "Nisswa",
-     "dnrId": "18039900",
-     "acres": 219,
-     "shoreMiles": 2.8,
-     "county": "Crow Wing",
-     "center": [
-      -94.29772,
-      46.51921
-     ],
-     "bbox": [
-      -94.30611,
-      46.51286,
-      -94.28885,
-      46.52568
-     ]
-    },
-    {
-     "slug": "roy-lake",
-     "key": "brainerd/roy-lake",
-     "name": "Roy Lake",
-     "dnrName": "Roy",
-     "dnrId": "18039800",
-     "acres": 320,
-     "shoreMiles": 5.7,
-     "county": "Crow Wing",
-     "center": [
-      -94.32548,
-      46.51611
-     ],
-     "bbox": [
-      -94.33512,
-      46.50444,
-      -94.30876,
-      46.52785
-     ]
-    },
-    {
-     "slug": "love-lake",
-     "key": "brainerd/love-lake",
-     "name": "Love Lake",
-     "dnrName": "Love",
-     "dnrId": "18038800",
-     "acres": 79,
-     "shoreMiles": 1.8,
-     "county": "Crow Wing",
-     "center": [
-      -94.31965,
-      46.43903
-     ],
-     "bbox": [
-      -94.32287,
-      46.4348,
-      -94.31441,
-      46.44323
-     ]
-    },
-    {
-     "slug": "ray-lake",
-     "key": "brainerd/ray-lake",
-     "name": "Ray Lake",
-     "dnrName": "Ray",
-     "dnrId": "11022000",
-     "acres": 143,
-     "shoreMiles": 2.6,
-     "county": "Cass",
-     "center": [
-      -94.33027,
-      46.52219
-     ],
-     "bbox": [
-      -94.33803,
-      46.51761,
-      -94.32471,
-      46.52675
-     ]
-    }
-   ]
-  },
-  {
-   "slug": "pelican-lake",
-   "name": "Pelican Lake",
-   "acres": 8367,
-   "shoreMiles": 27.8,
-   "bbox": [
-    -94.22205,
-    46.52893,
-    -94.1286,
-    46.61896
-   ],
-   "lakes": [
     {
      "slug": "pelican-lake",
-     "key": "brainerd/pelican-lake",
      "name": "Pelican Lake",
-     "dnrName": "Pelican",
-     "dnrId": "18030800",
+     "region": "brainerd",
      "acres": 8367,
      "shoreMiles": 27.8,
-     "county": "Crow Wing",
-     "center": [
-      -94.17734,
-      46.57397
-     ],
      "bbox": [
-      -94.21705,
-      46.53393,
-      -94.1336,
-      46.61396
+      -94.22205,
+      46.52893,
+      -94.1286,
+      46.61896
+     ],
+     "lakes": [
+      {
+       "slug": "pelican-lake",
+       "key": "brainerd/pelican-lake",
+       "name": "Pelican Lake",
+       "dnrName": "Pelican",
+       "dnrId": "18030800",
+       "acres": 8367,
+       "shoreMiles": 27.8,
+       "county": "Crow Wing",
+       "center": [
+        -94.17734,
+        46.57397
+       ],
+       "bbox": [
+        -94.21705,
+        46.53393,
+        -94.1336,
+        46.61396
+       ]
+      }
+     ]
+    },
+    {
+     "slug": "whitefish-chain",
+     "name": "Whitefish Chain",
+     "region": "brainerd",
+     "acres": 14363,
+     "shoreMiles": 120.0,
+     "bbox": [
+      -94.30254,
+      46.63264,
+      -94.05105,
+      46.73283
+     ],
+     "lakes": [
+      {
+       "slug": "whitefish-lake",
+       "key": "brainerd/whitefish-lake",
+       "name": "Whitefish Lake",
+       "dnrName": "Whitefish",
+       "dnrId": "18031000",
+       "acres": 7714,
+       "shoreMiles": 32.2,
+       "county": "Crow Wing",
+       "center": [
+        -94.19457,
+        46.69155
+       ],
+       "bbox": [
+        -94.28851,
+        46.6686,
+        -94.13969,
+        46.71445
+       ]
+      },
+      {
+       "slug": "cross-lake",
+       "key": "brainerd/cross-lake",
+       "name": "Cross Lake",
+       "dnrName": "Cross Lake Reservoir",
+       "dnrId": "18031200",
+       "acres": 1815,
+       "shoreMiles": 21.8,
+       "county": "Crow Wing",
+       "center": [
+        -94.12773,
+        46.66803
+       ],
+       "bbox": [
+        -94.16101,
+        46.63764,
+        -94.11142,
+        46.69849
+       ]
+      },
+      {
+       "slug": "big-trout-lake",
+       "key": "brainerd/big-trout-lake",
+       "name": "Big Trout Lake",
+       "dnrName": "Big Trout",
+       "dnrId": "18031500",
+       "acres": 1366,
+       "shoreMiles": 8.9,
+       "county": "Crow Wing",
+       "center": [
+        -94.16578,
+        46.71565
+       ],
+       "bbox": [
+        -94.18719,
+        46.70347,
+        -94.12785,
+        46.72783
+       ]
+      },
+      {
+       "slug": "rush-hen-lake",
+       "key": "brainerd/rush-hen-lake",
+       "name": "Rush-Hen Lake",
+       "dnrName": "Rush-Hen",
+       "dnrId": "18031100",
+       "acres": 858,
+       "shoreMiles": 14.8,
+       "county": "Crow Wing",
+       "center": [
+        -94.13861,
+        46.69369
+       ],
+       "bbox": [
+        -94.16124,
+        46.68172,
+        -94.11952,
+        46.70565
+       ]
+      },
+      {
+       "slug": "lower-hay-lake",
+       "key": "brainerd/lower-hay-lake",
+       "name": "Lower Hay Lake",
+       "dnrName": "Lower Hay",
+       "dnrId": "18037800",
+       "acres": 700,
+       "shoreMiles": 4.4,
+       "county": "Crow Wing",
+       "center": [
+        -94.2844,
+        46.66946
+       ],
+       "bbox": [
+        -94.29754,
+        46.66023,
+        -94.27028,
+        46.67864
+       ]
+      },
+      {
+       "slug": "island-lake",
+       "key": "brainerd/island-lake",
+       "name": "Island Lake",
+       "dnrName": "Island-Loon",
+       "dnrId": "18026900",
+       "acres": 232,
+       "shoreMiles": 5.2,
+       "county": "Crow Wing",
+       "center": [
+        -94.13501,
+        46.71023
+       ],
+       "bbox": [
+        -94.14139,
+        46.70324,
+        -94.12468,
+        46.71722
+       ]
+      },
+      {
+       "slug": "bertha-lake",
+       "key": "brainerd/bertha-lake",
+       "name": "Bertha Lake",
+       "dnrName": "Bertha",
+       "dnrId": "18035500",
+       "acres": 337,
+       "shoreMiles": 3.8,
+       "county": "Crow Wing",
+       "center": [
+        -94.25526,
+        46.66327
+       ],
+       "bbox": [
+        -94.26362,
+        46.65547,
+        -94.24224,
+        46.67123
+       ]
+      },
+      {
+       "slug": "little-pine-lake",
+       "key": "brainerd/little-pine-lake",
+       "name": "Little Pine Lake",
+       "dnrName": "Little Pine",
+       "dnrId": "18026600",
+       "acres": 330,
+       "shoreMiles": 6.2,
+       "county": "Crow Wing",
+       "center": [
+        -94.06642,
+        46.70359
+       ],
+       "bbox": [
+        -94.08419,
+        46.6964,
+        -94.05605,
+        46.71079
+       ]
+      },
+      {
+       "slug": "arrowhead-lake",
+       "key": "brainerd/arrowhead-lake",
+       "name": "Arrowhead Lake",
+       "dnrName": "Arrowhead",
+       "dnrId": "18036600",
+       "acres": 296,
+       "shoreMiles": 4.1,
+       "county": "Crow Wing",
+       "center": [
+        -94.21821,
+        46.71529
+       ],
+       "bbox": [
+        -94.22903,
+        46.70782,
+        -94.2046,
+        46.72284
+       ]
+      },
+      {
+       "slug": "daggett-lake",
+       "key": "brainerd/daggett-lake",
+       "name": "Daggett Lake",
+       "dnrName": "Daggett",
+       "dnrId": "18027100",
+       "acres": 258,
+       "shoreMiles": 7.5,
+       "county": "Crow Wing",
+       "center": [
+        -94.09398,
+        46.68937
+       ],
+       "bbox": [
+        -94.11142,
+        46.68167,
+        -94.07303,
+        46.69709
+       ]
+      },
+      {
+       "slug": "loon-lake",
+       "key": "brainerd/loon-lake",
+       "name": "Loon Lake",
+       "dnrName": "Loon",
+       "dnrId": "18026800",
+       "acres": 50,
+       "shoreMiles": 1.6,
+       "county": "Crow Wing",
+       "center": [
+        -94.12705,
+        46.71359
+       ],
+       "bbox": [
+        -94.13092,
+        46.70994,
+        -94.12468,
+        46.71722
+       ]
+      },
+      {
+       "slug": "clamshell-lake",
+       "key": "brainerd/clamshell-lake",
+       "name": "Clamshell Lake",
+       "dnrName": "Clamshell",
+       "dnrId": "18035600",
+       "acres": 211,
+       "shoreMiles": 6.5,
+       "county": "Crow Wing",
+       "center": [
+        -94.22709,
+        46.66839
+       ],
+       "bbox": [
+        -94.24296,
+        46.66259,
+        -94.21742,
+        46.67418
+       ]
+      },
+      {
+       "slug": "pig-lake",
+       "key": "brainerd/pig-lake",
+       "name": "Pig Lake",
+       "dnrName": "Pig",
+       "dnrId": "18035400",
+       "acres": 196,
+       "shoreMiles": 3.0,
+       "county": "Crow Wing",
+       "center": [
+        -94.18423,
+        46.67578
+       ],
+       "bbox": [
+        -94.19201,
+        46.67145,
+        -94.17677,
+        46.68006
+       ]
+      }
      ]
     }
    ]
   },
   {
-   "slug": "whitefish-chain",
-   "name": "Whitefish Chain",
-   "acres": 14363,
-   "shoreMiles": 120.0,
-   "bbox": [
-    -94.30254,
-    46.63264,
-    -94.05105,
-    46.73283
-   ],
-   "lakes": [
+   "slug": "polk-county-wi",
+   "name": "Polk County, Wisconsin",
+   "state": "WI",
+   "stateName": "Wisconsin",
+   "agency": "Wisconsin DNR",
+   "title": "Balsam Lake & Bone Lake Homes for Sale (Polk County, WI)",
+   "h1": "Balsam Lake and Bone Lake homes for sale",
+   "intro": "Lakefront homes on Balsam Lake and Bone Lake in Polk County, Wisconsin, for sale now and sold in the last three years, from a team that has sold cabins on both lakes.",
+   "groups": [
     {
-     "slug": "whitefish-lake",
-     "key": "brainerd/whitefish-lake",
-     "name": "Whitefish Lake",
-     "dnrName": "Whitefish",
-     "dnrId": "18031000",
-     "acres": 7714,
-     "shoreMiles": 32.2,
-     "county": "Crow Wing",
-     "center": [
-      -94.19457,
-      46.69155
-     ],
+     "slug": "balsam-lake",
+     "name": "Balsam Lake",
+     "region": "polk-county-wi",
+     "acres": 1901,
+     "shoreMiles": 21.4,
      "bbox": [
-      -94.28851,
-      46.6686,
-      -94.13969,
-      46.71445
+      -92.47417,
+      45.44689,
+      -92.38093,
+      45.49516
+     ],
+     "lakes": [
+      {
+       "slug": "balsam-lake",
+       "key": "polk-county-wi/balsam-lake",
+       "name": "Balsam Lake",
+       "dnrName": "Balsam Lake",
+       "dnrId": "2620600",
+       "acres": 1901,
+       "shoreMiles": 21.4,
+       "county": "Polk",
+       "center": [
+        -92.39585,
+        45.47102
+       ],
+       "bbox": [
+        -92.46917,
+        45.45189,
+        -92.38593,
+        45.49016
+       ],
+       "maxDepth": 37
+      }
      ]
     },
     {
-     "slug": "cross-lake",
-     "key": "brainerd/cross-lake",
-     "name": "Cross Lake",
-     "dnrName": "Cross Lake Reservoir",
-     "dnrId": "18031200",
-     "acres": 1815,
-     "shoreMiles": 21.8,
-     "county": "Crow Wing",
-     "center": [
-      -94.12773,
-      46.66803
-     ],
+     "slug": "bone-lake",
+     "name": "Bone Lake",
+     "region": "polk-county-wi",
+     "acres": 1667,
+     "shoreMiles": 12.6,
      "bbox": [
-      -94.16101,
-      46.63764,
-      -94.11142,
-      46.69849
-     ]
-    },
-    {
-     "slug": "big-trout-lake",
-     "key": "brainerd/big-trout-lake",
-     "name": "Big Trout Lake",
-     "dnrName": "Big Trout",
-     "dnrId": "18031500",
-     "acres": 1366,
-     "shoreMiles": 8.9,
-     "county": "Crow Wing",
-     "center": [
-      -94.16578,
-      46.71565
+      -92.40889,
+      45.49574,
+      -92.36804,
+      45.57253
      ],
-     "bbox": [
-      -94.18719,
-      46.70347,
-      -94.12785,
-      46.72783
-     ]
-    },
-    {
-     "slug": "rush-hen-lake",
-     "key": "brainerd/rush-hen-lake",
-     "name": "Rush-Hen Lake",
-     "dnrName": "Rush-Hen",
-     "dnrId": "18031100",
-     "acres": 858,
-     "shoreMiles": 14.8,
-     "county": "Crow Wing",
-     "center": [
-      -94.13861,
-      46.69369
-     ],
-     "bbox": [
-      -94.16124,
-      46.68172,
-      -94.11952,
-      46.70565
-     ]
-    },
-    {
-     "slug": "lower-hay-lake",
-     "key": "brainerd/lower-hay-lake",
-     "name": "Lower Hay Lake",
-     "dnrName": "Lower Hay",
-     "dnrId": "18037800",
-     "acres": 700,
-     "shoreMiles": 4.4,
-     "county": "Crow Wing",
-     "center": [
-      -94.2844,
-      46.66946
-     ],
-     "bbox": [
-      -94.29754,
-      46.66023,
-      -94.27028,
-      46.67864
-     ]
-    },
-    {
-     "slug": "island-lake",
-     "key": "brainerd/island-lake",
-     "name": "Island Lake",
-     "dnrName": "Island-Loon",
-     "dnrId": "18026900",
-     "acres": 232,
-     "shoreMiles": 5.2,
-     "county": "Crow Wing",
-     "center": [
-      -94.13501,
-      46.71023
-     ],
-     "bbox": [
-      -94.14139,
-      46.70324,
-      -94.12468,
-      46.71722
-     ]
-    },
-    {
-     "slug": "bertha-lake",
-     "key": "brainerd/bertha-lake",
-     "name": "Bertha Lake",
-     "dnrName": "Bertha",
-     "dnrId": "18035500",
-     "acres": 337,
-     "shoreMiles": 3.8,
-     "county": "Crow Wing",
-     "center": [
-      -94.25526,
-      46.66327
-     ],
-     "bbox": [
-      -94.26362,
-      46.65547,
-      -94.24224,
-      46.67123
-     ]
-    },
-    {
-     "slug": "little-pine-lake",
-     "key": "brainerd/little-pine-lake",
-     "name": "Little Pine Lake",
-     "dnrName": "Little Pine",
-     "dnrId": "18026600",
-     "acres": 330,
-     "shoreMiles": 6.2,
-     "county": "Crow Wing",
-     "center": [
-      -94.06642,
-      46.70359
-     ],
-     "bbox": [
-      -94.08419,
-      46.6964,
-      -94.05605,
-      46.71079
-     ]
-    },
-    {
-     "slug": "arrowhead-lake",
-     "key": "brainerd/arrowhead-lake",
-     "name": "Arrowhead Lake",
-     "dnrName": "Arrowhead",
-     "dnrId": "18036600",
-     "acres": 296,
-     "shoreMiles": 4.1,
-     "county": "Crow Wing",
-     "center": [
-      -94.21821,
-      46.71529
-     ],
-     "bbox": [
-      -94.22903,
-      46.70782,
-      -94.2046,
-      46.72284
-     ]
-    },
-    {
-     "slug": "daggett-lake",
-     "key": "brainerd/daggett-lake",
-     "name": "Daggett Lake",
-     "dnrName": "Daggett",
-     "dnrId": "18027100",
-     "acres": 258,
-     "shoreMiles": 7.5,
-     "county": "Crow Wing",
-     "center": [
-      -94.09398,
-      46.68937
-     ],
-     "bbox": [
-      -94.11142,
-      46.68167,
-      -94.07303,
-      46.69709
-     ]
-    },
-    {
-     "slug": "loon-lake",
-     "key": "brainerd/loon-lake",
-     "name": "Loon Lake",
-     "dnrName": "Loon",
-     "dnrId": "18026800",
-     "acres": 50,
-     "shoreMiles": 1.6,
-     "county": "Crow Wing",
-     "center": [
-      -94.12705,
-      46.71359
-     ],
-     "bbox": [
-      -94.13092,
-      46.70994,
-      -94.12468,
-      46.71722
-     ]
-    },
-    {
-     "slug": "clamshell-lake",
-     "key": "brainerd/clamshell-lake",
-     "name": "Clamshell Lake",
-     "dnrName": "Clamshell",
-     "dnrId": "18035600",
-     "acres": 211,
-     "shoreMiles": 6.5,
-     "county": "Crow Wing",
-     "center": [
-      -94.22709,
-      46.66839
-     ],
-     "bbox": [
-      -94.24296,
-      46.66259,
-      -94.21742,
-      46.67418
-     ]
-    },
-    {
-     "slug": "pig-lake",
-     "key": "brainerd/pig-lake",
-     "name": "Pig Lake",
-     "dnrName": "Pig",
-     "dnrId": "18035400",
-     "acres": 196,
-     "shoreMiles": 3.0,
-     "county": "Crow Wing",
-     "center": [
-      -94.18423,
-      46.67578
-     ],
-     "bbox": [
-      -94.19201,
-      46.67145,
-      -94.17677,
-      46.68006
+     "lakes": [
+      {
+       "slug": "bone-lake",
+       "key": "polk-county-wi/bone-lake",
+       "name": "Bone Lake",
+       "dnrName": "Bone Lake",
+       "dnrId": "2628100",
+       "acres": 1667,
+       "shoreMiles": 12.6,
+       "county": "Polk",
+       "center": [
+        -92.39366,
+        45.53412
+       ],
+       "bbox": [
+        -92.40389,
+        45.50074,
+        -92.37304,
+        45.56753
+       ],
+       "maxDepth": 43
+      }
      ]
     }
    ]

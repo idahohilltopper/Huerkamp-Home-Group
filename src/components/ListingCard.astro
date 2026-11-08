@@ -18,7 +18,8 @@ const open = l.openHouses?.[0];
 // MLS number, photo and brokerage); every home's own page shows it (src/pages/homes/[slug].astro).
 const cutAmt = l.priceCut ?? 0;
 const cut = full && cutAmt >= 1000 ? `Price cut $${cutAmt >= 1e6 ? `${(cutAmt / 1e6).toFixed(1)}M` : `${Math.round(cutAmt / 1000)}K`}` : '';
-const address = l.addressHidden ? `${l.city}, MN ${l.zip}` : `${l.street}, ${l.city}, MN ${l.zip}`;
+const st = l.state ?? 'MN';
+const address = l.addressHidden ? `${l.city}, ${st} ${l.zip}` : `${l.street}, ${l.city}, ${st} ${l.zip}`;
 ---
 <li class="lcard">
   <a href={href ?? listingHref(l)}>
