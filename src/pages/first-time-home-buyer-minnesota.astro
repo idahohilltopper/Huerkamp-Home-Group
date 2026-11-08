@@ -1,0 +1,149 @@
+---
+// First-time home buyer programs in Minnesota. Every program fact is from Minnesota Housing's own pages (checked
+// 2026-11-08, see SOURCES); limits change, so re-check them each year (Minnesota Housing usually updates limits mid-year).
+// Programs that are closed are named as closed. No county or city programs are listed until checked on their own sites.
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+
+const CHECKED = 'November 8, 2026';
+const SOURCES = [
+  { name: 'Minnesota Housing: Buy a Home & Refinance (Start Up, Step Up, down payment and closing cost loans)', url: 'https://www.mnhousing.gov/home/homeownership/buy-home-refinance' },
+  { name: 'Minnesota Housing: First-Generation Homebuyer Loan Program (closed)', url: 'https://www.mnhousing.gov/home/homeownership/buy-home-refinance/first-generation-homebuyer-loan-program' },
+  { name: 'Minnesota Homeownership Center: Homebuyer Education (Home Stretch)', url: 'https://www.hocmn.org/for-homebuyers/homebuyer-education/' },
+];
+const answer = `Minnesota Housing's Start Up program is the state's main first-time buyer loan: for buyers who haven't owned their home in the last three years, with household income up to $156,100 (depending on the county) and a price up to $515,200 in the 11-county Twin Cities metro. It can come with up to $18,000 for the down payment and closing costs, as a loan, not a grant.`;
+const faq = [
+  { q: 'Who counts as a first-time home buyer in Minnesota?', a: "For Minnesota Housing's Start Up program, someone who has not had an ownership interest in a principal residence in the last three years. So if you owned a home before but not in the last three years, you can still qualify." },
+  { q: 'What are the income and price limits for Start Up?', a: `Household income up to $156,100, depending on the county, and a purchase price up to $515,200 in the 11-county Twin Cities metro area or $472,030 in the rest of Minnesota (Minnesota Housing, as of ${CHECKED}).` },
+  { q: 'How much down payment help can I get in Minnesota?', a: "With a Start Up first mortgage: a Deferred Payment Loan of up to $14,000 or a Deferred Payment Loan Plus of up to $18,000, with no interest and no monthly payments, repaid when the mortgage ends or when you sell, move or refinance; or a Monthly Payment Loan of up to $14,000, repaid over 15 years at your mortgage's rate. You can use one of them, not several." },
+  { q: 'Are there first-time home buyer grants in Minnesota?', a: "Minnesota Housing's down payment and closing cost help comes as loans, not grants. Its one-time First-Generation Homebuyer Loan Program, which could be partly forgiven, ran out of money and closed on December 19, 2024. Some cities, counties and nonprofits run their own programs; a participating lender can tell you what applies where you're buying." },
+  { q: 'Do I have to take a homebuyer class?', a: 'Yes, if you get a Minnesota Housing loan and all borrowers are first-time buyers: at least one of you must complete an approved homebuyer education course before closing. The Minnesota Homeownership Center\'s Home Stretch course is offered as a workshop or online, and it helps most when you take it early.' },
+  { q: 'How do I apply?', a: "Through a lender that takes part in Minnesota Housing's programs, the same way you'd apply for any mortgage; Minnesota Housing doesn't make the loans itself. Get pre-approved before you start touring so you know your budget." },
+  { q: "What if I've owned a home before, or I'm over the Start Up limits?", a: "Minnesota Housing's Step Up program is for repeat buyers and for first-time buyers over the Start Up limits: income up to $196,600, depending on the county, and the same $515,200 price limit in the metro ($498,257 elsewhere). It can be paired with a Monthly Payment Loan of up to $14,000." },
+];
+const ld = JSON.stringify([
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+  { '@context': 'https://schema.org', '@type': 'Article', headline: 'First-time home buyer programs in Minnesota', dateModified: '2026-11-08', author: { '@type': 'Organization', name: site.name }, citation: SOURCES.map((s) => s.url) },
+]);
+---
+<Base breadcrumbs={[{ name: 'Buy', href: '/buy' }, { name: 'First-time buyers in Minnesota', href: '/first-time-home-buyer-minnesota' }]}
+  title={`First-Time Home Buyer Programs in Minnesota (2026) | ${site.name}`}
+  description={answer.slice(0, 300)}>
+  <script slot="head" type="application/ld+json" set:html={ld} />
+
+  <section class="nhead">
+    <div class="wrap">
+      <p class="eyebrow">First-time buyers · Minnesota</p>
+      <h1>First-time home buyer programs in Minnesota</h1>
+      <p class="answer">{answer}</p>
+      <p class="lede">From Minnesota Housing's own pages, checked {CHECKED}. Limits change, usually once a year.</p>
+      <p class="hero-btns"><a class="btn" href="#ask">Ask us what you'd qualify for</a> <a class="btn btn--ghost" href="/calculators/affordability">How much house can I afford?</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap prose-wide">
+      <h2>Start Up: the state's first-time buyer loan</h2>
+      <div class="table-scroll">
+        <table class="data">
+          <tbody>
+            <tr><th scope="row">Who</th><td>Buyers who haven't had an ownership interest in a principal residence in the last three years</td></tr>
+            <tr><th scope="row">Income limit</th><td>Up to $156,100, depending on the county</td></tr>
+            <tr><th scope="row">Price limit</th><td>$515,200 in the 11-county Twin Cities metro; $472,030 elsewhere in Minnesota</td></tr>
+            <tr><th scope="row">Down payment help</th><td>Up to $18,000 (see below)</td></tr>
+            <tr><th scope="row">Also required</th><td>A minimum credit score, living in the home, and homebuyer education</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Down payment and closing cost loans</h2>
+      <p>These come with a Minnesota Housing first mortgage. They are loans, not grants, and you can use one of them.</p>
+      <div class="table-scroll">
+        <table class="data">
+          <thead><tr><th scope="col">Loan</th><th scope="col">With</th><th scope="col" class="num">Up to</th><th scope="col">How it's repaid</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Deferred Payment Loan Plus</th><td>Start Up</td><td class="num">$18,000</td><td>No interest or monthly payments; repaid when the mortgage ends, or when you sell, move or refinance</td></tr>
+            <tr><th scope="row">Deferred Payment Loan</th><td>Start Up</td><td class="num">$14,000</td><td>Same as above</td></tr>
+            <tr><th scope="row">Monthly Payment Loan</th><td>Start Up or Step Up</td><td class="num">$14,000</td><td>Monthly payments over 15 years, at your first mortgage's rate</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Already owned a home, or over the limits?</h2>
+      <p>Step Up is Minnesota Housing's loan for repeat buyers and for first-time buyers over the Start Up limits: income up to $196,600 depending on the county, the same $515,200 metro price limit ($498,257 elsewhere), and a Monthly Payment Loan of up to $14,000.</p>
+
+      <h2>Closed: the First-Generation Homebuyer Loan</h2>
+      <p>You may still see Minnesota's First-Generation Homebuyer Loan advertised. Minnesota Housing says its one-time funds ran out and the program closed on December 19, 2024.</p>
+
+      <h2>How to use these programs</h2>
+      <ol>
+        <li><strong>Know your number.</strong> Work out a monthly payment you're comfortable with, including taxes and insurance: <a href="/calculators/affordability">affordability calculator</a>.</li>
+        <li><strong>Talk to a participating lender.</strong> Minnesota Housing's loans are made through participating lenders; get pre-approved and ask which program fits.</li>
+        <li><strong>Take the homebuyer class.</strong> Required for Minnesota Housing loans when every borrower is a first-time buyer: <a href="https://www.hocmn.org/for-homebuyers/homebuyer-education/" rel="noopener">Home Stretch</a>, in person, live online or self-paced.</li>
+        <li><strong>Shop within the limits.</strong> We'll keep your search under the program's price limit and tell you up front about costs like property taxes and HOA dues.</li>
+      </ol>
+      <p>Prefer to buy with as little debt as possible? We've been a <a href="/ramsey">Ramsey Endorsed Local Provider</a> for more than 15 years and work with plenty of buyers who skip second loans altogether.</p>
+    </div>
+  </section>
+
+  <section class="section section--dark" id="ask" aria-labelledby="ask-title">
+    <div class="wrap split">
+      <div class="prose">
+        <p class="eyebrow">Buying your first home</p>
+        <h2 id="ask-title">Not sure which program <em>fits you?</em></h2>
+        <p>Tell us where you want to buy and roughly what you'd like to spend. We'll connect you with a lender who does Minnesota Housing loans and show you homes that fit the limits.</p>
+        <p>Call or text <a href={site.phoneHref}>{site.phone}</a>.</p>
+      </div>
+      <form class="form" data-lead="first-time-buyer">
+        <div class="form__row">
+          <div class="field"><label for="fb-first">First name</label><input id="fb-first" name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for="fb-last">Last name</label><input id="fb-last" name="lastName" autocomplete="family-name" required /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="fb-email">Email</label><input id="fb-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="fb-phone">Phone</label><input id="fb-phone" name="phone" type="tel" autocomplete="tel" required pattern="[^0-9]*([0-9][^0-9]*){10,}" title="Please enter your phone number, including area code." /></div>
+        </div>
+        <div class="field"><label for="fb-msg">Where and roughly what price? (optional)</label><textarea id="fb-msg" name="message" rows="3"></textarea></div>
+        <button class="btn" type="submit">Send</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="faq-title">
+    <div class="wrap faq">
+      <div class="head"><p class="eyebrow">Quick answers</p><h2 id="faq-title">First-time buyer questions</h2></div>
+      {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+      <div class="sources">
+        <h3>Sources</h3>
+        <ul>{SOURCES.map((s) => <li><a href={s.url} rel="noopener">{s.name}</a></li>)}</ul>
+        <p>Checked {CHECKED}. Minnesota Housing doesn't make or arrange loans; lenders set rates, fees and approval. This page is general information, not a loan offer.</p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nhead { padding: clamp(2.5rem, 6vw, 4.5rem) 0 clamp(2rem, 4vw, 3rem); background: var(--night); color: var(--on-dark); }
+  .nhead h1 { font: 500 clamp(2.2rem, 5vw, 3.6rem)/1.05 var(--serif-display); color: #fff; }
+  .nhead .eyebrow { color: var(--rose); }
+  .answer { max-width: 52rem; margin: .9rem 0 .4rem; color: #fff; font: 500 clamp(1.05rem, 2.2vw, 1.25rem)/1.5 var(--ui); }
+  .lede { color: var(--on-dark); }
+  .hero-btns { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.25rem; }
+  .prose-wide { max-width: 56rem; display: grid; gap: 1rem; }
+  .prose-wide h2 { font: 500 1.7rem/1.2 var(--serif); margin-top: 1.25rem; }
+  .prose-wide ol { display: grid; gap: .6rem; padding-left: 1.25rem; }
+  .table-scroll { overflow-x: auto; }
+  table.data { width: 100%; border-collapse: collapse; font-size: .98rem; }
+  table.data th, table.data td { padding: .6rem .7rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  table.data .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+  .split .prose a { color: #fff; font-weight: 700; }
+  .faq { display: grid; gap: .75rem; max-width: 52rem; }
+  .faq details { padding: 1rem 1.2rem; background: var(--paper); border: 1px solid var(--line); }
+  .faq summary { cursor: pointer; font: 600 1.15rem/1.3 var(--serif); }
+  .sources { margin-top: 1.5rem; font-size: .92rem; color: var(--text-soft); }
+  .sources h3 { font: 700 .8rem/1.3 var(--ui); letter-spacing: .1em; text-transform: uppercase; margin-bottom: .4rem; }
+  .sources ul { display: grid; gap: .3rem; padding-left: 1.1rem; margin-bottom: .6rem; }
+</style>
