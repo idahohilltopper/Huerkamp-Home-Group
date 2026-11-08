@@ -4,8 +4,9 @@
 Sources (both free, openly licensed):
 - Overture Maps places (overturemaps.org, CDLA-Permissive-2.0 / ODbL): grocery stores, coffee shops, restaurants,
   pharmacies, parks and trails, libraries, gyms. Read straight from Overture's public S3 bucket with DuckDB.
-- Metro Transit GTFS (svc.metrotransit.org/mtgtfs/gtfs.zip): bus, rapid bus and light rail stops with the routes
-  that serve them (Metro Transit plus Maple Grove, Plymouth, SouthWest Transit and U of M routes).
+- Metro Transit GTFS (svc.metrotransit.org/mtgtfs/gtfs.zip; Metro Transit plus Maple Grove, Plymouth, SouthWest
+  Transit and U of M routes) and MVTA GTFS (srv.mvta.com/InfoPoint/GTFS-zip.ashx): stops and the routes serving them.
+  --transit-only refreshes just the stops.
 
 Fair housing: places only. No schools, places of worship, demographics or crime.
 """
@@ -19,6 +20,7 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / 'src/data/places.json'
 BBOX = (-94.7, 43.9, -92.2, 46.8)  # Twin Cities metro, Brainerd lakes, western Wisconsin
 GTFS = 'https://svc.metrotransit.org/mtgtfs/gtfs.zip'
+MVTA = 'https://srv.mvta.com/InfoPoint/GTFS-zip.ashx'
 
 
 def latest_release(c):
@@ -79,35 +81,56 @@ def places():
     return rel, out
 
 
-def transit():
-    req = urllib.request.Request(GTFS, headers={'User-Agent': 'huerkamphomes-build/1.0'})
+def feed_stops(url, prefix=''):
+    req = urllib.request.Request(url, headers={'User-Agent': 'huerkamphomes-build/1.0'})
     z = zipfile.ZipFile(io.BytesIO(urllib.request.urlopen(req, timeout=300).read()))
     rd = lambda f: csv.DictReader(io.TextIOWrapper(z.open(f), 'utf-8-sig'))
-    routes = {r['route_id']: (r['route_short_name'] or r['route_long_name']).strip() for r in rd('routes.txt')}
+    routes = {r['route_id']: prefix + (r['route_short_name'] or r['route_long_name']).strip() for r in rd('routes.txt')}
     rail = {r['route_id'] for r in rd('routes.txt') if r['route_type'] in ('0', '2') or r['route_long_name'].startswith('METRO ')}
     trip_route = {t['trip_id']: t['route_id'] for t in rd('trips.txt')}
     served = {}
     for st in rd('stop_times.txt'):
         served.setdefault(st['stop_id'], set()).add(trip_route.get(st['trip_id']))
-    stops = []
+    out = []
     for s in rd('stops.txt'):
         rs = {r for r in served.get(s['stop_id'], ()) if r}
-        if not rs or s.get('location_type') not in ('', '0'):
+        if not rs or (s.get('location_type') or '0') != '0':
             continue
-        names = sorted({routes[r] for r in rs}, key=lambda n: (not n.startswith('METRO'), len(n), n))
-        stops.append([round(float(s['stop_lat']), 5), round(float(s['stop_lon']), 5), s['stop_name'], ', '.join(names[:4]), 1 if rs & rail else 0])
-    print('transit stops', len(stops), file=sys.stderr)
-    return sorted(stops)
+        out.append((round(float(s['stop_lat']), 5), round(float(s['stop_lon']), 5), s['stop_name'].strip(), {routes[r] for r in rs}, bool(rs & rail)))
+    print(url, len(out), 'stops', file=sys.stderr)
+    return out
+
+
+def transit():
+    # Metro Transit's feed covers Metro Transit, Maple Grove, Plymouth, SouthWest Transit and U of M routes;
+    # MVTA (Apple Valley, Burnsville, Eagan, Rosemount, Savage, Prior Lake, Shakopee) publishes its own.
+    stops = feed_stops(GTFS) + feed_stops(MVTA, 'MVTA ')
+    merged = []  # one entry per spot: an MVTA stop at a Metro Transit station joins it (within about 30 m)
+    for lat, lng, name, rs, rail in sorted(stops, key=lambda x: (x[0], x[1])):
+        hit = next((m for m in merged[-40:] if abs(m[0] - lat) < 0.0003 and abs(m[1] - lng) < 0.0004), None)
+        if hit:
+            hit[3] |= rs; hit[4] = hit[4] or rail
+        else:
+            merged.append([lat, lng, name, set(rs), rail])
+    rows = []
+    for lat, lng, name, rs, rail in merged:
+        names = sorted(rs, key=lambda n: (not n.startswith('METRO'), n.startswith('MVTA'), len(n), n))
+        rows.append([lat, lng, name, ', '.join(names[:4]), 1 if rail else 0])
+    print('transit stops', len(rows), file=sys.stderr)
+    return sorted(rows)
 
 
 if __name__ == '__main__':
-    rel, cats = places()
+    if '--transit-only' in sys.argv:  # keep the places, refresh only the transit stops
+        old = json.loads(OUT.read_text()); cats = old['cats']; rel = re.search(r'release (\S+)', old['sources']['places']).group(1)
+    else:
+        rel, cats = places()
     cats['transit'] = transit()
     OUT.write_text(json.dumps({
         'built': date.today().isoformat(),
         'sources': {
             'places': f'Overture Maps Foundation places, release {rel} (overturemaps.org)',
-            'transit': 'Metro Transit GTFS schedule data (metrotransit.org)',
+            'transit': 'Metro Transit and MVTA GTFS schedule data (metrotransit.org, mvta.com)',
         },
         'cats': cats,
     }, separators=(',', ':')))
