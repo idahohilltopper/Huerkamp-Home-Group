@@ -312,7 +312,16 @@ export function initSearch(root: HTMLElement) {
       + `<button type="button" class="btn">Reload the page</button></div>`;
     box.querySelector('button')!.addEventListener('click', () => location.reload());
   };
-  const hasWebGL = () => { try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch { return false; } };
+  // WebGL check. When the browser refuses, it says why in a "webglcontextcreationerror" event (for example "GPU process
+  // was unable to boot" or "Web page caused context loss and was blocked"); that reason goes in the error report.
+  let glWhy = '';
+  const hasWebGL = () => {
+    try {
+      const c = document.createElement('canvas');
+      c.addEventListener('webglcontextcreationerror', (e: any) => { if (e.statusMessage) glWhy = e.statusMessage; }, false);
+      return !!(c.getContext('webgl2') || c.getContext('webgl'));
+    } catch (e) { glWhy = e instanceof Error ? e.message : String(e); return false; }
+  };
   const makeMap = async () => {
     const el = root.querySelector<HTMLElement>('[data-map]')!;
     const args = [root.dataset.mapStyle!, root.dataset.brThumb ?? '', () => {
@@ -322,7 +331,7 @@ export function initSearch(root: HTMLElement) {
       setPage(1); run();
     }, (params().get('bbox') ?? '').split(',').map(Number).filter((n, i, a) => a.length === 4)] as const;
     try {
-      if (!hasWebGL()) throw new Error('map: no WebGL, using the flat map');
+      if (!hasWebGL()) throw new Error(`map: no WebGL, using the flat map (browser says: ${glWhy || 'no reason given'})`);
       mapApi = await import('./search-map');
       map = await mapApi.createMap(el, ...args);
     } catch (e) {
