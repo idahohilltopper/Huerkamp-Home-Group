@@ -39,14 +39,15 @@ const ld = JSON.stringify([
 ---
 <Base
   breadcrumbs={[{ name: 'Lake homes', href: '/lake-homes' }]}
-  title="Twin Cities Lake Homes for Sale: Every Lake 10+ Acres | Huerkamp Home Group"
-  description={`Lakefront homes for sale on ${counts.all} Twin Cities lakes of 10 acres or more, from Lake Minnetonka to Prior Lake, White Bear Lake and Lake Waconia. Search by lake.`}>
+  title="Minnesota Lake Homes for Sale: Twin Cities Lakes & Up North | Huerkamp Home Group"
+  description={`Minnesota lake homes for sale: lakefront homes on ${counts.all} Twin Cities lakes of 10 acres or more, from Lake Minnetonka to Prior Lake and White Bear Lake, plus the Brainerd lakes and western Wisconsin. Search by lake.`}>
   <script slot="head" type="application/ld+json" set:html={ld} />
-  <PageHero eyebrow="Lake homes" title="Twin Cities lakefront homes"
-    lede={`Every lake of 10 acres or more in our ${communityCount} lake communities, ${counts.all} lakes in all, and the lakefront homes for sale on them.`}>
+  <PageHero eyebrow="Lake homes" title="Minnesota lake homes for sale"
+    lede={`Every lake of 10 acres or more in our ${communityCount} Twin Cities lake communities, ${counts.all} lakes in all, plus the Brainerd lakes and Balsam and Bone Lake in Wisconsin, with the lakefront homes for sale on each.`}>
     <div class="hero-actions">
       <a class="btn" href={allLakefrontUrl()} rel="noopener">See every lakefront home for sale</a>
       <a class="btn btn--ghost" href="#lakes">Find your lake</a>
+      <a class="btn btn--ghost" href="#up-north">Brainerd and Wisconsin lakes</a>
     </div>
   </PageHero>
 
@@ -132,7 +133,7 @@ const ld = JSON.stringify([
     </div>
   </section>
 
-  <section class="section section--paper" aria-labelledby="north-title">
+  <section class="section section--paper" id="up-north" aria-labelledby="north-title">
     <div class="wrap">
       <div class="head"><p class="eyebrow">Up north</p><h2 id="north-title">Cabins and lake homes <em>up north</em></h2>
         <p>We sell cabins and lake homes up north too, in Minnesota and Wisconsin. Lakefront homes for sale and recently sold:</p></div>

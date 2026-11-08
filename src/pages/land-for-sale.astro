@@ -1,0 +1,145 @@
+---
+// Land and lots for sale across our communities (/land-for-sale), from the live MLS feed (src/data/listings.ts): counts
+// and median prices by city and by acreage, the newest listings (inside the I AGREE block), each city's land page, and
+// what to check before buying land. Rebuilt with every build.
+import Base from '../layouts/Base.astro';
+import ListingCard from '../components/ListingCard.astro';
+import IdxDisclosure from '../components/IdxDisclosure.astro';
+import { listingsData, homesHref, median, money } from '../data/listings';
+import { communities } from '../data/areas';
+import { site } from '../data/site';
+
+const data = await listingsData;
+const land = data.mode === 'off' ? [] : data.listings.filter((l) => l.type === 'land');
+const day = data.at ? new Date(data.at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }) : '';
+const fmed = (xs: number[]) => { const v = xs.filter(Number.isFinite).sort((a, b) => a - b); return v.length ? (v.length % 2 ? v[v.length >> 1] : (v[v.length / 2 - 1] + v[v.length / 2]) / 2) : null; };
+const fmtAcres = (n: number | null) => (n == null ? '—' : n >= 10 ? `${Math.round(n)}` : n.toFixed(n >= 1 ? 1 : 2));
+const page = (p: string) => (data.collections.some((k) => k.path === p) ? homesHref(p) : null);
+const name = (slug: string) => communities.find((c) => c.slug === slug)?.name ?? slug;
+
+const byCity = [...new Set(land.map((l) => l.community))].map((slug) => {
+  const list = land.filter((l) => l.community === slug);
+  return { slug, city: name(slug), n: list.length, med: median(list.map((l) => l.price)), acres: fmed(list.map((l) => l.lotAcres ?? NaN)), href: page(`${slug}/land`) };
+}).sort((a, b) => b.n - a.n);
+const BANDS: [string, number, number][] = [['Under 1 acre', 0, 1], ['1 to 5 acres', 1, 5], ['5 to 20 acres', 5, 20], ['20 acres or more', 20, Infinity]];
+const byAcres = BANDS.map(([label, lo, hi]) => { const list = land.filter((l) => l.lotAcres != null && l.lotAcres >= lo && l.lotAcres < hi); return { label, n: list.length, med: median(list.map((l) => l.price)) }; }).filter((r) => r.n);
+const prices = land.map((l) => l.price);
+const top = byCity.slice(0, 3).map((c) => `${c.city} (${c.n})`);
+const answer = land.length
+  ? `${land.length.toLocaleString('en-US')} lots and parcels of land are for sale in our Minnesota communities as of ${day}, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices)!)}. The most are in ${top.length > 1 ? `${top.slice(0, -1).join(', ')} and ${top.at(-1)}` : top[0]}.`
+  : '';
+const shown = land.slice(0, 48);
+const faq = [
+  ...(answer ? [{ q: 'How much land is for sale in Minnesota right now?', a: answer }] : []),
+  { q: 'What should I check before buying land in Minnesota?', a: "Zoning and what the city or township allows you to build; whether city sewer and water reach the lot, or whether it needs a septic system (ask about a soil or perc test) and a well; access, easements and a survey of the boundaries; wetlands, floodplain or shoreland rules that limit where a house can go; and any association covenants. The seller's disclosures and the county's property records answer some of these; the city or county planning office answers the rest." },
+  { q: 'Can I get a loan to buy land?', a: 'Often, but land loans usually need a bigger down payment and shorter terms than a home mortgage, and some lenders only lend on lots with utilities. A construction loan can cover the lot and the build together. Talk to a lender before you make an offer.' },
+];
+const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
+---
+<Base breadcrumbs={[{ name: 'Homes for sale', href: '/homes-for-sale' }, { name: 'Land and lots', href: '/land-for-sale' }]}
+  title={`Land & Lots for Sale in Minnesota${land.length ? ` (${land.length})` : ''}: Twin Cities Metro | ${site.name}`}
+  description={(answer || 'Land and lots for sale across the Twin Cities metro, by city and by acreage, from NorthstarMLS.').slice(0, 300)}
+  noindex={data.preview || !land.length}>
+  <script slot="head" type="application/ld+json" set:html={ld} />
+
+  <section class="nhead">
+    <div class="wrap">
+      <p class="eyebrow">Land and lots</p>
+      <h1>Land and lots for sale in Minnesota</h1>
+      {answer && <p class="answer">{answer}</p>}
+      <p class="hero-btns"><a class="btn" href="#ask">Ask us about a lot</a> <a class="btn btn--ghost" href={site.phoneHref}>Call or text {site.phone}</a></p>
+    </div>
+  </section>
+
+  {land.length > 0 && (
+    <section class="section">
+      <div class="wrap two">
+        <div>
+          <h2>By city</h2>
+          <div class="table-scroll">
+            <table class="data">
+              <thead><tr><th scope="col">City</th><th scope="col" class="num">For sale</th><th scope="col" class="num">Median price</th><th scope="col" class="num">Median acres</th></tr></thead>
+              <tbody>{byCity.map((r) => <tr><th scope="row">{r.href ? <a href={r.href}>{r.city}</a> : r.city}</th><td class="num">{r.n}</td><td class="num">{money(r.med!)}</td><td class="num">{fmtAcres(r.acres)}</td></tr>)}</tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <h2>By size</h2>
+          <div class="table-scroll">
+            <table class="data">
+              <thead><tr><th scope="col">Lot size</th><th scope="col" class="num">For sale</th><th scope="col" class="num">Median price</th></tr></thead>
+              <tbody>{byAcres.map((r) => <tr><th scope="row">{r.label}</th><td class="num">{r.n}</td><td class="num">{money(r.med!)}</td></tr>)}</tbody>
+            </table>
+          </div>
+          <p class="source">Active land and lot listings in NorthstarMLS in our communities, updated {day}. Lots without a size in the listing are left out of this table.</p>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {shown.length > 0 && (
+    <section class="section section--paper">
+      <div class="wrap">
+        <div class="head"><p class="eyebrow">Newest listings</p><h2>The newest land and lots for sale</h2></div>
+        <div data-idx><ul class="lcards">{shown.map((l, i) => <ListingCard l={l} eager={i < 3} />)}</ul></div>
+        <IdxDisclosure at={data.at} />
+      </div>
+    </section>
+  )}
+
+  <section class="section section--dark" id="ask" aria-labelledby="ask-title">
+    <div class="wrap split">
+      <div class="prose">
+        <p class="eyebrow">Buying land</p>
+        <h2 id="ask-title">Before you buy a lot, <em>ask the right questions.</em></h2>
+        <p>Zoning, septic and well, utilities, wetlands and setbacks decide what you can build. We'll help you check them, and connect you with builders and lenders who do land and construction loans.</p>
+        <p>Call or text <a href={site.phoneHref}>{site.phone}</a>.</p>
+      </div>
+      <form class="form" data-lead="community-alert">
+        <input type="hidden" name="interest" value="Land and lots for sale" />
+        <div class="form__row">
+          <div class="field"><label for="ld-first">First name</label><input id="ld-first" name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for="ld-last">Last name</label><input id="ld-last" name="lastName" autocomplete="family-name" required /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="ld-email">Email</label><input id="ld-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="ld-phone">Phone</label><input id="ld-phone" name="phone" type="tel" autocomplete="tel" required pattern="[^0-9]*([0-9][^0-9]*){10,}" title="Please enter your phone number, including area code." /></div>
+        </div>
+        <div class="field"><label for="ld-msg">Where, how much land, and what you'd build (optional)</label><textarea id="ld-msg" name="message" rows="3"></textarea></div>
+        <button class="btn" type="submit">Send</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="faq-title">
+    <div class="wrap faq">
+      <div class="head"><p class="eyebrow">Quick answers</p><h2 id="faq-title">Buying land in Minnesota</h2></div>
+      {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+      <p class="links"><a class="link-arrow" href="/new-construction">New construction by development</a> <a class="link-arrow" href="/homes-for-sale">Homes for sale by city</a> <a class="link-arrow" href="/lake-homes">Minnesota lake homes</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nhead { padding: clamp(2.5rem, 6vw, 4.5rem) 0 clamp(2rem, 4vw, 3rem); background: var(--night); color: var(--on-dark); }
+  .nhead h1 { font: 500 clamp(2.2rem, 5vw, 3.6rem)/1.05 var(--serif-display); color: #fff; }
+  .nhead .eyebrow { color: var(--rose); }
+  .answer { max-width: 52rem; margin: .9rem 0 .4rem; color: #fff; font: 500 clamp(1.05rem, 2.2vw, 1.25rem)/1.5 var(--ui); }
+  .hero-btns { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.25rem; }
+  .head { margin-bottom: 1.25rem; }
+  .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: 2rem; }
+  .two h2 { font: 500 1.6rem/1.2 var(--serif); margin-bottom: .6rem; }
+  .table-scroll { overflow-x: auto; }
+  table.data { width: 100%; border-collapse: collapse; font-size: .98rem; }
+  table.data th, table.data td { padding: .55rem .7rem; border-bottom: 1px solid var(--line); text-align: left; }
+  table.data .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .source { margin-top: 1rem; font-size: .9rem; color: var(--text-soft); }
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+  .split .prose a { color: #fff; font-weight: 700; }
+  .faq { display: grid; gap: .75rem; max-width: 52rem; }
+  .faq details { padding: 1rem 1.2rem; background: var(--paper); border: 1px solid var(--line); }
+  .faq summary { cursor: pointer; font: 600 1.15rem/1.3 var(--serif); }
+  .links { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: 1rem; }
+</style>
