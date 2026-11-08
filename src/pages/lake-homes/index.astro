@@ -12,6 +12,7 @@ import {
 import { business, origin } from '../../data/schema';
 import { site } from '../../data/site';
 import { north } from '../../lib/north-lakes.mjs';
+import { loadLakeSales } from '../../lib/lake-sales.mjs';
 
 const fmt = (n: number) => n.toLocaleString('en-US');
 const big = lakes.filter((l) => l.acres >= 500);
@@ -23,7 +24,12 @@ const groups = regions.map((reg) => ({
   list: lakes.filter((l) => lakeCommunities(l)[0]?.region === reg).sort((a, b) => a.name.localeCompare(b.name)),
 })).filter((g) => g.list.length);
 
+// The lakes with the most lakefront home sales in the last 12 complete months (src/lib/lake-sales.mjs).
+const sales = await loadLakeSales();
+const active = lakes.map((l) => ({ l, s: sales.lakes[l.slug] })).filter((x) => x.s && x.s.now.sold >= 3).sort((a, b) => b.s.now.sold - a.s.now.sold).slice(0, 20);
+const usd = (n: number | null) => (n ? `$${n.toLocaleString('en-US')}` : '');
 const faq = [
+  ...(active.length ? [{ q: 'Which Twin Cities lakes have the most lakefront home sales?', a: `From ${sales.from} through ${sales.through}: ${active.slice(0, 5).map((x) => `${x.l.name} (${x.s.now.sold} sold${x.s.now.median ? `, median ${usd(x.s.now.median)}` : ''})`).join(', ')}. From NorthstarMLS sold data for homes marked lakefront within 200 meters of the shoreline.` }] : []),
   { q: 'Which lakes are on this page?', a: `Every named lake or reservoir of 10 acres or more that touches one of our ${communityCount} lake communities, ${counts.all} in all, from the Minnesota DNR's lake map, with the DNR's official acreage. Rivers, creeks and ponds are left out, and a lake the DNR splits into bays (like Lake Minnetonka) counts as one lake.` },
   { q: 'What counts as a lakefront home?', a: 'A home the listing agent marked as lakefront in the MLS (NorthstarMLS). Our lakefront searches use that field, so homes that are only near a lake or have a lake view are left out.' },
   { q: 'How do I see the homes on one lake?', a: 'Open the lake from the map or the list. Each lake has a "lakefront homes" search on a map around that lake. A few homes on nearby smaller lakes inside the same map area can show up too.' },
@@ -72,6 +78,21 @@ const ld = JSON.stringify([
       <YlopoListings search={lakefrontWidgetSearch(lakeCommunitySlugs.slice(0, 30), 16)} layout="scroll" moreHref={allLakefrontUrl()} moreLabel="See every lakefront home for sale" />
     </div>
   </section>
+
+  {active.length > 0 && (
+    <section class="section" aria-labelledby="active-title">
+      <div class="wrap">
+        <div class="head"><p class="eyebrow">Sales snapshot · {sales.through}</p><h2 id="active-title">Most active lakes: lakefront home sales, last 12 months</h2></div>
+        <div class="table-scroll">
+          <table class="data">
+            <thead><tr><th scope="col">Lake</th><th scope="col" class="num">Homes sold</th><th scope="col" class="num">Median sale price</th><th scope="col" class="num">Sold, year before</th><th scope="col" class="num">Median, year before</th></tr></thead>
+            <tbody>{active.map(({ l, s }) => <tr><th scope="row"><a href={lakeHref(l)}>{l.name}</a></th><td class="num">{s.now.sold}</td><td class="num">{usd(s.now.median)}</td><td class="num">{s.before.sold}</td><td class="num">{usd(s.before.median)}</td></tr>)}</tbody>
+          </table>
+        </div>
+        <p class="snap-note">{sales.from} through {sales.through}, from NorthstarMLS sold data: homes marked lakefront within 200 meters of the DNR shoreline, land left out; lakes with 3 or more sales. Updated monthly. Not an appraisal, competitive or comparative market analysis, CMA or home valuation.</p>
+      </div>
+    </section>
+  )}
 
   <section class="section section--paper" aria-labelledby="map-title">
     <div class="wrap">
@@ -249,4 +270,9 @@ const ld = JSON.stringify([
   .faq details { padding: 1rem 1.2rem; background: var(--paper); border: 1px solid var(--line); }
   .faq summary { cursor: pointer; font: 600 1.15rem/1.3 var(--serif); }
   .faq details p { margin-top: .6rem; color: var(--text-soft); }
+  .table-scroll { overflow-x: auto; }
+  table.data { width: 100%; border-collapse: collapse; font-size: .98rem; }
+  table.data th, table.data td { padding: .55rem .7rem; border-bottom: 1px solid var(--line); text-align: left; }
+  table.data .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .snap-note { margin-top: .9rem; max-width: 52rem; font-size: .88rem; color: var(--text-soft); }
 </style>

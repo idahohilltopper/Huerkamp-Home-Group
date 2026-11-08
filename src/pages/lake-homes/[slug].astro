@@ -1,6 +1,8 @@
 ---
 // One lake: its lakefront homes for sale (map search around the lake, and live listings in its shoreline
 // communities), size and shoreline from the Minnesota DNR, the communities around it and the lakes nearby.
+import { loadLakeSales } from '../../lib/lake-sales.mjs';
+import { SOLD_DISCLAIMER } from '../../lib/sold.mjs';
 import SoldHomes from '../../components/SoldHomes.astro';
 import { OWN } from '../../data/search';
 import Base from '../../layouts/Base.astro';
@@ -44,7 +46,19 @@ const priced = (onLake ?? []).map((x) => x.price).sort((a, b) => a - b);
 const titleBase = `${priced.length > 1 ? `${priced.length} ` : ''}${l.name} Homes for Sale${towns.length === 1 ? `, ${townNames[0]}` : ''}, MN`;
 const money = (n: number) => `$${n.toLocaleString('en-US')}`;
 const day = homesData.at ? new Date(homesData.at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }) : '';
+// Sales snapshot (src/lib/lake-sales.mjs): lakefront homes sold on this lake, last 12 complete months vs the 12 before.
+const sales = await loadLakeSales();
+const snap = sales.mode === 'off' ? null : (sales.lakes[l.slug] ?? { now: { sold: 0, median: null }, before: { sold: 0, median: null } });
+const homesWord = (n: number) => (n === 1 ? 'lakefront home' : 'lakefront homes');
+const change = snap?.now.median && snap.before.median ? Math.round(((snap.now.median - snap.before.median) / snap.before.median) * 100) : null;
+const salesAnswer = snap
+  ? (snap.now.sold
+    ? `From ${sales.from} through ${sales.through}, ${snap.now.sold} ${homesWord(snap.now.sold)} sold on ${l.name}${snap.now.median ? `, at a median sale price of ${money(snap.now.median)}` : ''}.`
+    : `No homes marked lakefront in the MLS sold on ${l.name} from ${sales.from} through ${sales.through}.`)
+    + (snap.before.sold ? ` In the 12 months before, ${snap.before.sold} sold${snap.before.median ? ` at a median of ${money(snap.before.median)}` : ''}${change != null ? ` (the median is ${change === 0 ? 'unchanged' : `${change > 0 ? 'up' : 'down'} ${Math.abs(change)}%`})` : ''}.` : '')
+  : '';
 const faq = [
+  ...(salesAnswer ? [{ q: `What do homes on ${l.name} sell for?`, a: salesAnswer }] : []),
   ...(onLake ? [{ q: `How many homes are for sale on ${l.name}?`, a: priced.length
     ? `${priced.length} ${priced.length === 1 ? 'home marked lakefront in the MLS is' : 'homes marked lakefront in the MLS are'} for sale on ${l.name} as of ${day}${priced.length > 1 ? `, from ${money(priced[0])} to ${money(priced.at(-1)!)}` : ` at ${money(priced[0])}`}.`
     : `No homes marked lakefront in the MLS are for sale on ${l.name} as of ${day}. New listings show up on this page as soon as they're listed.` }] : []),
@@ -97,6 +111,22 @@ const ld = JSON.stringify([
       <AreaMap src={lakeGeoUrl} info={lakeInfo} mode="focus" focus={l.slug} label="Hover a lake" height="440px" />
     </div>
   </section>
+
+  {snap && (
+    <section class="section section--paper" aria-labelledby="sales-title">
+      <div class="wrap">
+        <div class="head"><p class="eyebrow">Sales snapshot · {sales.through}</p><h2 id="sales-title">{l.name} home sales, last 12 months</h2></div>
+        <p class="snap__answer">{salesAnswer}</p>
+        <ul class="facts facts--4">
+          <li><span>Lakefront homes sold</span><strong>{snap.now.sold}</strong></li>
+          <li><span>Median sale price</span><strong>{snap.now.median ? money(snap.now.median) : snap.now.sold ? 'Too few sales' : '–'}</strong></li>
+          <li><span>Sold, year before</span><strong>{snap.before.sold}</strong></li>
+          <li><span>Median, year before</span><strong>{snap.before.median ? money(snap.before.median) : snap.before.sold ? 'Too few sales' : '–'}</strong></li>
+        </ul>
+        <p class="snap__note">{sales.from} through {sales.through}, from NorthstarMLS sold data: homes the MLS marks as lakefront, inside 200 meters of the DNR shoreline (land and lots left out). A median needs at least 3 sales. Updated monthly. {SOLD_DISCLAIMER}</p>
+      </div>
+    </section>
+  )}
 
   {!onLake && !OWN && <MlsListings lake={l.slug} lakeName={l.name} moreHref={lakeSearchUrl(l)} />}
   {onLake && onLake.length > 0 && (
@@ -207,6 +237,9 @@ const ld = JSON.stringify([
   .facts li { display: grid; gap: .2rem; padding: .9rem 1rem; background: var(--paper); }
   .facts span { font: 700 .68rem/1.2 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--crimson); }
   .facts strong { font: 500 1.25rem/1.2 var(--serif); }
+  .facts--4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); max-width: 60rem; }
+  .snap__answer { max-width: 52rem; margin-bottom: 1rem; font-size: 1.1rem; }
+  .snap__note { max-width: 52rem; margin-top: .9rem; font-size: .88rem; color: var(--text-soft); }
   .towns, .near { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); gap: .75rem 1.5rem; }
   .towns a, .near a { display: grid; gap: .15rem; padding: .8rem 0; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--text); }
   .towns strong, .near strong { font: 600 1.2rem/1.2 var(--serif); }

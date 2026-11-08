@@ -795,3 +795,9 @@ Our own version of Local Logic-style neighborhood info, free and fair-housing sa
 - Home search map: no WebGL, or the base map not loaded in 20 s, shows "The map didn't load" with a Reload button (list keeps working) and reports it.
 - global.css: [hidden] always hides (an empty red address box showed on the search page because its class set display: grid).
 - Daily site check (smoke.cjs) now: near-me map on a 2000-px desktop and a phone (map draws, zoom buttons, no empty boxes), and the visitor-error summary (FAIL over 20 in 7 days).
+
+## Lake sales snapshot (2026-11-08)
+
+- src/lib/lake-sales.mjs (once per build, cached in .cache/lake-sales.json): sold homes in the last 24 complete months inside the lakes' 200 m shoreline zones, 25 lakes per Repliers request; kept if marked lakefront, not land, not "Advertising: No". Per lake: homes sold and median (3+ sales) for the last 12 complete months and the 12 before. Counts and medians only.
+- Lake pages: "<Lake> home sales, last 12 months" section and FAQ "What do homes on <Lake> sell for?". /lake-homes: "Most active lakes" table (top 20 with 3+ sales) and FAQ.
+- Local layout check: LAKE_SALES_FIXTURE=<json> (the fixture is made-up numbers; never commit it).
