@@ -1,0 +1,40 @@
+// The pop-up card for one home on the search map (both the MapLibre map, src/scripts/search-map.ts, and the
+// no-WebGL backup map, src/scripts/search-map-flat.ts). NorthstarMLS Rule 12.3(f): like a listing card, it shows the
+// photo, price, address and listing brokerage, with the Broker Reciprocity thumbnail logo on other brokerages' listings.
+export function pinCard(p: any, brThumb: string): HTMLElement {
+  const a = document.createElement(p.sold ? 'div' : 'a');
+  a.className = 'hs-pop-card';
+  if (!p.sold) (a as HTMLAnchorElement).href = `/homes/${encodeURIComponent(p.slug)}`;
+  const ph = document.createElement('span');
+  ph.className = 'hs-pop-card__photo';
+  if (p.photo) {
+    const img = Object.assign(document.createElement('img'), { src: `${p.photo}?class=small`, alt: p.addr, width: 240, height: 160, decoding: 'async' });
+    img.onerror = () => { ph.textContent = 'Photo coming soon'; };
+    ph.append(img);
+  } else ph.textContent = 'Photo coming soon';
+  const price = document.createElement('strong');
+  price.textContent = p.price > 1 ? `$${Number(p.price).toLocaleString('en-US')}` : 'Auction';
+  const addr = document.createElement('span');
+  addr.textContent = p.addr;
+  const when = document.createElement('span');
+  if (p.sold) when.textContent = `Sold ${new Date(`${p.sold}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
+  const by = document.createElement('small');
+  if (!p.own && brThumb) by.append(Object.assign(document.createElement('img'), { src: brThumb, alt: 'Broker Reciprocity listing', height: 14 }));
+  by.append(`Listing courtesy of ${p.brokerage || 'the listing brokerage'}`);
+  a.append(ph, price, ...(p.sold ? [when] : []), addr, by);
+  // Homes for sale get a heart on the photo, like the cards (src/scripts/favorites.ts handles the click and fills it in
+  // when saved; it runs before the click could open the home). The MLS number is the end of the home's address slug.
+  const box = document.createElement('div');
+  box.className = 'hs-mappop';
+  box.append(a);
+  const mls = p.sold ? '' : String(p.slug).split('-').pop() ?? '';
+  if (mls) {
+    const [street = '', city = ''] = String(p.addr).split(',').map((x: string) => x.trim());
+    const heart = Object.assign(document.createElement('button'), { type: 'button', className: 'fav hs-mappop__fav', textContent: '♡' });
+    Object.assign(heart.dataset, { fav: mls, favName: p.addr, favStreet: street, favCity: city, favZip: (String(p.addr).match(/\b\d{5}\b/) ?? [''])[0], favPrice: String(p.price) });
+    heart.setAttribute('aria-pressed', 'false');
+    heart.setAttribute('aria-label', `Save: ${p.addr}`);
+    box.append(heart);
+  }
+  return box;
+}

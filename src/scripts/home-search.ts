@@ -43,7 +43,8 @@ export function initSearch(root: HTMLElement) {
   const summaryEl = document.querySelector<HTMLElement>('[data-alert-summary]');
   let last: Answer | null = null;
   let map: any = null;
-  let mapApi: typeof import('./search-map') | null = null;
+  // The main map (MapLibre, needs WebGL) or, when the browser can't run it, the backup flat map (Leaflet); same functions.
+  let mapApi: any = null;
   const modeBtns = [...form.querySelectorAll<HTMLButtonElement>('[data-mode]')];
   const isSold = () => String(new FormData(form).get('status') ?? '') === 'sold';
   const defaultMonths = Number(root.dataset.defaultMonths ?? 6);
@@ -307,18 +308,32 @@ export function initSearch(root: HTMLElement) {
     w.hhgReport?.('map', msg, '', 0);
     const box = root.querySelector<HTMLElement>('[data-map]')!;
     box.innerHTML = `<div class="hs-mapfail" role="alert"><p><strong>The map didn't load.</strong> The homes are all in the list${phone.matches ? ' (tap List)' : ' on the right'}.</p>`
-      + `<p>${/WebGL/.test(msg) ? 'Your browser has 3D graphics turned off, which the map needs. Try another browser, or turn on hardware acceleration in your browser settings.' : 'This is usually a slow connection or an old copy of the page.'}</p>`
+      + `<p>This is usually a slow connection. Reloading the page normally fixes it.</p>`
       + `<button type="button" class="btn">Reload the page</button></div>`;
     box.querySelector('button')!.addEventListener('click', () => location.reload());
   };
+  const hasWebGL = () => { try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch { return false; } };
   const makeMap = async () => {
-    mapApi = await import('./search-map');
-    map = await mapApi.createMap(root.querySelector<HTMLElement>('[data-map]')!, root.dataset.mapStyle!, root.dataset.brThumb ?? '', () => {
+    const el = root.querySelector<HTMLElement>('[data-map]')!;
+    const args = [root.dataset.mapStyle!, root.dataset.brThumb ?? '', () => {
       // The person moved the map: search that area if "Search as I move the map" is on.
       if (!follow.checked || !map || !mapApi) return;
       (form.elements.namedItem('bbox') as HTMLInputElement).value = mapApi.boxOf(map);
       setPage(1); run();
-    }, (params().get('bbox') ?? '').split(',').map(Number).filter((n, i, a) => a.length === 4));
+    }, (params().get('bbox') ?? '').split(',').map(Number).filter((n, i, a) => a.length === 4)] as const;
+    try {
+      if (!hasWebGL()) throw new Error('map: no WebGL, using the flat map');
+      mapApi = await import('./search-map');
+      map = await mapApi.createMap(el, ...args);
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : String(e);
+      if (/dynamically imported|Importing a module|preload|Failed to fetch/i.test(msg)) throw e; // an old copy of the page: mapFailed reloads it
+      // The main map can't run here (no WebGL, or its base map didn't load): the flat map has the same homes and pop-ups.
+      (window as any).hhgReport?.('map-flat', msg, '', 0);
+      map?.remove?.(); map = null;
+      mapApi = await import('./search-map-flat');
+      map = await mapApi.createMap(el, ...args);
+    }
     showPlace();
     if (home) mapApi.showHome(map, home, undefined, estimateHref(home));
     if (last && !isSold()) mapApi.setPins(map, last.pins, !params().get('bbox'));

@@ -269,6 +269,13 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
   :global(.hs-hover .maplibregl-popup-tip) { display: none; }
   :global(.hs-popup .maplibregl-popup-content) { padding: 0; border-radius: 8px; overflow: hidden; box-shadow: 0 8px 24px rgba(0, 0, 0, .22); }
   :global(.hs-mappop) { position: relative; }
+  /* The backup flat map (src/scripts/search-map-flat.ts, Leaflet): same pop-up card and price tag look as the main map. */
+  :global(.hs-flat-pop .leaflet-popup-content-wrapper) { padding: 0; border-radius: 8px; overflow: hidden; box-shadow: 0 8px 24px rgba(0, 0, 0, .22); }
+  :global(.hs-flat-pop .leaflet-popup-content) { margin: 0; width: auto !important; }
+  :global(.hs-flat-pop .hs-homepop) { padding: .75rem .9rem; }
+  :global(.hs-flat-tip) { padding: .25rem .5rem; border: 0; border-radius: 6px; background: var(--crimson); color: #fff; font: 700 .85rem/1 var(--ui); box-shadow: 0 3px 10px rgba(0, 0, 0, .25); }
+  :global(.hs-flat-tip::before) { display: none; }
+  :global(.leaflet-container) { font: inherit; }
   :global(.hs-mappop__fav) { position: absolute; top: .45rem; right: .45rem; z-index: 2; }
   :global(.hs-pop-card) { display: grid; gap: .2rem; width: 240px; padding-bottom: .7rem; font: 500 .85rem/1.3 var(--ui); color: var(--text); text-decoration: none; }
   :global(.hs-pop-card > :not(.hs-pop-card__photo)) { padding-inline: .75rem; }

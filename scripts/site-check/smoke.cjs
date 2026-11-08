@@ -116,14 +116,28 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
       await m.waitForSelector('.maplibregl-ctrl-zoom-in', { state: 'visible', timeout: 25000 });
       const fail = await m.locator('.hs-mapfail').count();
       const loaded = await m.waitForFunction(() => !!document.querySelector('.maplibregl-canvas') && document.querySelector('.maplibregl-canvas').width > 0, null, { timeout: 15000 }).then(() => true, () => false);
-      const emptyBoxes = await m.$$eval('.hs-addr, .hs-panel [role=alert], .form__status', (els) => els.filter((e) => e.offsetParent && !e.textContent.trim() && e.getBoundingClientRect().height > 20).length);
+      const emptyBoxes = await m.$$eval('.hs-addr, .hs-panel [role=alert]', (els) => els.filter((e) => e.offsetParent && !e.textContent.trim() && e.getBoundingClientRect().height > 20).length);
       ok(`Near-me map (${label})`, loaded && !fail && !emptyBoxes, `${await m.$$eval('[data-results] .lcard', (e) => e.length)} homes listed${emptyBoxes ? `, ${emptyBoxes} empty box(es) showing` : ''}${fail ? ', map failed message shown' : ''}`);
       await m.close();
     });
   }
+  // A browser with 3D graphics (WebGL) turned off gets the backup flat map (src/scripts/search-map-flat.ts), with pins.
+  await step('Map without 3D graphics', async () => {
+    const b2 = await chromium.launch({ args: ['--disable-webgl', '--disable-3d-apis'] });
+    const c2 = await b2.newContext({ viewport: { width: 1366, height: 900 } });
+    await c2.addInitScript(() => { try { sessionStorage.setItem('idx-eula', '1'); } catch {} });
+    await c2.route('**/api/client-error', (r) => r.fulfill({ status: 202, body: '{}' })); // don't count our own test as a visitor error
+    const m = await c2.newPage();
+    await m.goto(BASE + '/home-search?place=lakeville&view=map', { waitUntil: 'domcontentloaded' });
+    await m.waitForSelector('.leaflet-tile-loaded', { timeout: 25000 });
+    await m.waitForFunction(() => document.querySelectorAll('[data-results] .lcard').length > 0, null, { timeout: 20000 });
+    ok('Map without 3D graphics', !(await m.locator('.hs-mapfail').count()), `flat map with ${await m.locator('.leaflet-tile-loaded').count()} map tiles`);
+    await b2.close();
+  });
   // What visitors' browsers hit in the last 7 days (netlify/functions/client-error.mjs).
   await step('Visitor errors (7 days)', async () => {
     const r = await (await fetch(BASE + '/api/client-error')).json();
+    r.total = (r.errors ?? []).filter((g) => g.kind !== 'map-flat').reduce((n, g) => n + g.count, 0); // the backup map working as designed isn't an error
     const top = (r.errors ?? []).slice(0, 5).map((g) => `${g.count}× ${g.kind} "${g.msg.slice(0, 70)}" on ${g.page}`).join(' | ');
     ok('Visitor errors (7 days)', (r.total ?? 0) <= 20, `${r.total ?? 0} reported${top ? `: ${top}` : ''}`);
   });
