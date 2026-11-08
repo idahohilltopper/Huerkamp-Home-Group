@@ -32,7 +32,9 @@ export const MIN_INDEX = 5;
 export const SHOW = 60; // homes listed on a page; the rest are a click away in the full search
 
 export interface Facet { slug: string; label: string; title: (place: string) => string; test: (l: Listing) => boolean; group: string }
-const money = (n: number) => (n >= 1e6 ? `$${(n / 1e6).toString().replace(/\.0+$/, '')} million` : `$${n.toLocaleString('en-US')}`);
+// "$1.5 million" only for round amounts (price bands, $1,500,000); any other price is shown exactly ("$1,058,280"),
+// never as "$1.05828 million".
+const money = (n: number) => (n >= 1e6 && n % 10000 === 0 ? `$${(n / 1e6).toString().replace(/\.0+$/, '')} million` : `$${Math.round(n).toLocaleString('en-US')}`);
 const BANDS = [200000, 250000, 300000, 350000, 400000, 450000, 500000, 600000, 700000, 800000, 1000000, 1500000, 2000000];
 const TYPES: [string, string, string][] = [
   ['single-family', 'single-family-homes', 'Single-family homes'], ['townhome', 'townhomes', 'Townhomes'], ['condo', 'condos', 'Condos'],
