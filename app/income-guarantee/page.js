@@ -39,7 +39,7 @@ export default function IncomeGuarantee() {
         <h2>3. The five requirements</h2>
         <p>You must meet all five. They are tracked in Follow Up Boss, except for meeting attendance, which HHG records.</p>
         <ul>
-          <li><strong>Appointments every week.</strong> You set at least 4 appointments and meet at least 3 appointments in a week, logged in Follow Up Boss, in at least 48 of the 52 weeks of your 12-month period. An appointment set is an agreed date and time with a qualified prospect to meet virtually or in person about a real estate need. An appointment met is one where the client actually shows and the meeting happens.</li>
+          <li><strong>Weekly activity.</strong> Every week you have at least 20 conversations, set at least 4 appointments, and meet at least 3 appointments, logged in Follow Up Boss, in at least 48 of the 52 weeks of your 12-month period. A conversation is live, two-way contact with a potential buyer, seller, or referral partner about real estate. An appointment set is an agreed date and time with a qualified prospect to meet virtually or in person about a real estate need. An appointment met is one where the client actually shows and the meeting happens.</li>
           <li><strong>A signed agreement pace.</strong> You keep a pace of at least 2 signed agreements every 3 weeks, averaged over the year. We check this monthly on a rolling basis.</li>
           <li><strong>48 weekly accountability meetings a year.</strong> You attend 48 of our weekly accountability meetings (WAM) over the 12 months.</li>
           <li><strong>No more than 100 leads.</strong> You never have more than 100 leads assigned to you in Follow Up Boss at one time.</li>
@@ -59,7 +59,7 @@ export default function IncomeGuarantee() {
         </ul>
 
         <h2>5. Follow Up Boss is the scoreboard</h2>
-        <p>You log your appointments set and met, signed agreements, properties under contract, and closed units and commission in Follow Up Boss. Your activity is measured there. If it is not logged there, it does not count toward the program. That also means we can coach it, you can improve it, and it is part of the record we review at the end of your 12 months. You are responsible for logging your own activity accurately and on time.</p>
+        <p>You log your conversations, appointments set and met, signed agreements, properties under contract, and closed units and commission in Follow Up Boss. Your activity is measured there. If it is not logged there, it does not count toward the program. That also means we can coach it, you can improve it, and it is part of the record we review at the end of your 12 months. You are responsible for logging your own activity accurately and on time.</p>
 
         <h2>6. When the guarantee does not apply</h2>
         <p>No payout is made if:</p>
@@ -67,7 +67,7 @@ export default function IncomeGuarantee() {
           <li>you leave the team before your 12 months are complete;</li>
           <li>you are terminated for cause or for violating team or brokerage policy;</li>
           <li>you do not log your activity consistently in Follow Up Boss;</li>
-          <li>you miss the weekly appointment standards (4 set and 3 met) in more than 4 weeks during the 12 months;</li>
+          <li>you miss the weekly activity standards (20 conversations, 4 appointments set, and 3 met) in more than 4 weeks during the 12 months;</li>
           <li>you fall short of any of the five requirements; or</li>
           <li>you take part in conduct that harms the team&rsquo;s reputation, operations, or clients.</li>
         </ul>
