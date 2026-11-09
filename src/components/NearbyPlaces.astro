@@ -3,10 +3,13 @@
 // coffee shop, pharmacy, park, transit stop, library and gym, with how many of each are within a 15-minute walk.
 // Places only (fair housing): no schools, places of worship, demographics or crime.
 import { nearby, fmtMi, WALK_MI, nearbySources } from '../lib/nearby.mjs';
+import { nearestSpot, DDD_PATH } from '../data/ddd';
 
 interface Props { lat: number; lng: number; place: string }
 const { lat, lng, place } = Astro.props;
 const n = nearby(lat, lng);
+// The closest Twin Cities restaurant from Food Network's Diners, Drive-Ins and Dives that's still open (src/data/ddd.ts).
+const ddd = nearestSpot(lat, lng);
 const walkWord = (row: { walkCount: number; plural: string }) =>
   row.walkCount ? `${row.walkCount} within a 15-minute walk` : 'none within a 15-minute walk';
 const summary = n && (() => {
@@ -36,6 +39,7 @@ const summary = n && (() => {
         </li>
       ))}
       {n.rail && n.rail.name !== n.rows.find((r) => r.key === 'transit')?.name && <li><span class="nearby__kind">Light rail or rapid bus</span><span class="nearby__what"><strong>{n.rail.name}</strong> ({n.rail.routes}), {fmtMi(n.rail.mi)}</span></li>}
+      {ddd && <li><span class="nearby__kind">Diners, Drive-Ins and Dives</span><span class="nearby__what"><strong>{ddd.s.name}</strong>, {fmtMi(ddd.mi)}<small>The closest restaurant featured on Food Network's show that's still open (we're not affiliated with the show). <a href={DDD_PATH}>See every Twin Cities spot</a></small></span></li>}
     </ul>
     <p class="nearby__note">Straight-line distances from the home; a 15-minute walk is taken as {WALK_MI} miles in a straight line (about ¾ mile on streets). The score adds points for each kind of everyday place within that walk: grocery 25, restaurants 15, parks 15, transit 15, coffee 10, pharmacy 10, library 5, gym 5. Places: {nearbySources.places}; transit: {nearbySources.transit}. Businesses open and close, so check before you count on one.</p>
   </div>

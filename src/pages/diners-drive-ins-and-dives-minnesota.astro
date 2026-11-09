@@ -1,0 +1,96 @@
+---
+// /diners-drive-ins-and-dives-minnesota: every Twin Cities restaurant featured on Food Network's "Diners, Drive-Ins
+// and Dives", open or closed, with the community and neighborhood it's in and the homes for sale around it.
+// Data and sources: src/data/ddd.json (scripts/build-ddd.py). Trademark care: the show's name is used only to say which
+// restaurants appeared on it (plain text, no logo, styling, host name or likeness, no nicknames), with the trademark
+// notice and "not affiliated" line in the sources; only facts (names, addresses, air months), no copied descriptions.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { communities } from '../data/areas';
+import { hoods, hoodKey, hoodHref } from '../data/neighborhoods';
+import { spots, openSpots, dddChecked, homesNear, DDD_PATH, type Spot } from '../data/ddd';
+import { site } from '../data/site';
+
+const comm = new Map(communities.map((c) => [c.slug, c]));
+const hood = new Map(hoods.map((h) => [hoodKey(h), h]));
+const where = (s: Spot) => {
+  const c = s.community ? comm.get(s.community) : undefined, h = s.hood ? hood.get(s.hood) : undefined;
+  return { c, h };
+};
+const closed = spots.filter((s) => s.status === 'closed');
+const unconfirmed = spots.filter((s) => s.status === 'unconfirmed');
+const byPlace = (list: Spot[]) => [...list].sort((a, b) => (where(a).c?.name ?? '').localeCompare(where(b).c?.name ?? '') || a.name.localeCompare(b.name));
+const open = byPlace(openSpots);
+const count = (slug: string) => openSpots.filter((s) => s.community === slug).length;
+const list = (xs: string[]) => (xs.length < 2 ? xs.join('') : `${xs.slice(0, -1).join(', ')} and ${xs.at(-1)}`);
+const checked = new Date(`${dddChecked}T12:00:00`).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+const outside = [...new Set(open.map((s) => where(s).c?.name).filter((n) => n && n !== 'Minneapolis' && n !== 'Saint Paul'))] as string[];
+const answer = `${openSpots.length} of the ${spots.length} Twin Cities restaurants featured on Food Network's Diners, Drive-Ins and Dives were still open when we checked in ${checked}: ${count('minneapolis')} in Minneapolis, ${count('saint-paul')} in Saint Paul, and ${list(outside.map((n) => `one in ${n}`))}. Below is every one, open or closed, with the neighborhood it's in and the homes for sale around it.`;
+const faq = [
+  { q: 'Which Minneapolis restaurants have been on Diners, Drive-Ins and Dives?', a: `Still open: ${list(open.filter((s) => s.community === 'minneapolis').map((s) => s.name))}.` },
+  { q: 'Which Saint Paul restaurants have been on Diners, Drive-Ins and Dives?', a: `Still open: ${list(open.filter((s) => s.community === 'saint-paul').map((s) => s.name))}. The Dari-Ette Drive-In, featured in 2008, closed in October 2021.` },
+  { q: 'Which Twin Cities Diners, Drive-Ins and Dives restaurants have closed?', a: `${list(closed.map((s) => s.name))}.` },
+  { q: 'Which neighborhood has the most Diners, Drive-Ins and Dives spots?', a: (() => {
+    const n = new Map<string, number>(); for (const s of openSpots) if (s.hood) n.set(s.hood, (n.get(s.hood) ?? 0) + 1);
+    const top = [...n.entries()].sort((a, b) => b[1] - a[1]).filter(([, v], _, all) => v === all[0][1]);
+    return `${list(top.map(([k]) => `${hood.get(k)?.name} in ${k.startsWith('minneapolis') ? 'Minneapolis' : 'Saint Paul'}`))}, with ${top[0][1]} open spots each.`;
+  })() },
+  { q: 'How far is a home from the nearest one?', a: "Every home for sale on our site lists the nearest Diners, Drive-Ins and Dives restaurant that's still open, with the distance, under What's nearby." },
+];
+const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
+---
+<Base breadcrumbs={[{ name: 'Communities', href: '/communities' }, { name: 'Diners, Drive-Ins and Dives', href: DDD_PATH }]}
+  title={`Diners, Drive-Ins and Dives in Minneapolis, St. Paul & Minnesota | ${site.name}`}
+  description={`Every Twin Cities restaurant on Food Network's Diners, Drive-Ins and Dives: ${openSpots.length} still open, ${closed.length} closed, with neighborhoods and homes for sale nearby. Checked ${checked}.`}>
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <PageHero eyebrow="Diners, Drive-Ins and Dives" title="Diners, Drive-Ins and Dives in Minneapolis, St. Paul and Minnesota" lede={answer} />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="head"><p class="eyebrow">{openSpots.length} still open</p><h2>Twin Cities spots you can still eat at</h2>
+        <p>By community, with the month the episode first aired. Hours and menus change, so check with the restaurant before you go.</p></div>
+      <div class="table-scroll">
+        <table class="data">
+          <thead><tr><th scope="col">Restaurant</th><th scope="col">Address</th><th scope="col">Community</th><th scope="col">First aired</th><th scope="col"><span class="visually-hidden">Homes nearby</span></th></tr></thead>
+          <tbody>{open.map((s) => { const { c, h } = where(s); return (
+            <tr><th scope="row">{s.name}{s.note && <small>{s.note}</small>}</th><td>{s.street}</td>
+              <td>{c ? <a href={`/communities/${c.slug}`}>{c.name}</a> : '—'}{h && <>, <a href={hoodHref(h)}>{h.name}</a></>}</td>
+              <td class="nowrap">{s.aired}</td><td class="nowrap"><a href={homesNear(s)}>Homes within a mile</a></td></tr>); })}</tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="wrap">
+      <div class="head"><p class="eyebrow">{closed.length + unconfirmed.length} more</p><h2>Closed, or not confirmed open</h2></div>
+      <ul class="gone">
+        {byPlace([...unconfirmed, ...closed]).map((s) => { const { c } = where(s); return (
+          <li><strong>{s.name}</strong>, {s.street.replace(/, [^,]+$/, '')}{c && <>, {c.name}</>} — {s.status === 'closed' ? 'closed' : 'not confirmed open'}{s.note && `. ${s.note}`}</li>); })}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="faq-title">
+    <div class="wrap faq">
+      <div class="head"><p class="eyebrow">Quick answers</p><h2 id="faq-title">Diners, Drive-Ins and Dives questions</h2></div>
+      {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+      <p class="source">Restaurants, addresses and air dates: <a href="https://www.flavortownusa.com/states/minnesota">Flavortown USA's episode guide</a>. Open or closed: <a href="https://overturemaps.org/">Overture Maps</a> places data and local news reports, checked {checked}. Diners, Drive-Ins and Dives is a trademark of Television Food Network, G.P. We use the name only to say which restaurants appeared on the show. This is an independent guide by a real estate team; it isn't affiliated with, sponsored or endorsed by Food Network, the show or the restaurants. Every home's page on this site lists the nearest spot that's still open.</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .head { margin-bottom: 1.25rem; }
+  .head p { max-width: 52rem; }
+  .table-scroll { overflow-x: auto; }
+  table.data { width: 100%; border-collapse: collapse; font-size: .98rem; }
+  table.data th, table.data td { padding: .55rem .7rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  table.data th small { display: block; font-weight: 400; color: var(--text-soft); font-size: .85rem; }
+  .nowrap { white-space: nowrap; }
+  .gone { display: grid; gap: .45rem; padding-left: 1.1rem; max-width: 56rem; }
+  .faq { display: grid; gap: .75rem; max-width: 52rem; }
+  .faq details { padding: 1rem 1.2rem; background: var(--paper); border: 1px solid var(--line); }
+  .faq summary { cursor: pointer; font: 600 1.15rem/1.3 var(--serif); }
+  .source { margin-top: 1rem; font-size: .88rem; color: var(--text-soft); }
+</style>

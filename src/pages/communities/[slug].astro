@@ -16,6 +16,7 @@ import { communities, communityGeoUrl, communityInfo, fmt, type Community } from
 import { lakesTouching, lakeHref, lakeSearchUrl } from '../../data/lakes';
 import detailData from '../../data/community-details.json';
 import zipTowns from '../../data/zip-towns.json';
+import { nearestSpot, openSpots } from '../../data/ddd';
 import rates from '../../data/rates.json';
 import taxData from '../../data/property-tax.json';
 import reviewData from '../../data/reviews.json';
@@ -141,6 +142,13 @@ const faqs = [
     a: `It depends on what you need. In ${c.name} the median home value is ${money(a.medianHomeValue)}, ${pctS(a.ownerOccupiedPct)} of households own their home and the average commute is ${a.meanCommuteMinutes} minutes. Visit at the times you'd normally drive, check the school assignment for the address, and compare total ownership costs before you decide.` },
   { q: `What does it cost to rent in ${c.name}?`,
     a: `The median gross rent (rent plus utilities) is ${money(a.medianGrossRent)} a month, compared with ${money(county.medianGrossRent)} in ${countyName} (Census ACS 2020–2024).` },
+  // Food Network's Diners, Drive-Ins and Dives: the open spots in the city, or the closest one to its center (src/data/ddd.ts).
+  ...(() => {
+    const here = openSpots.filter((s) => s.community === c.slug);
+    if (here.length) return [{ q: `Are there any Diners, Drive-Ins and Dives restaurants in ${c.name}?`, a: `Yes: ${list(here.map((s) => s.name))} ${here.length === 1 ? 'was' : 'were'} featured on the Food Network show and ${here.length === 1 ? 'is' : 'are'} still open. Our Diners, Drive-Ins and Dives page lists every Twin Cities spot.` }];
+    const near = nearestSpot(c.center[1], c.center[0], 30);
+    return near ? [{ q: `What's the closest Diners, Drive-Ins and Dives restaurant to ${c.name}?`, a: `${near.s.name} (${near.s.street}), about ${Math.round(near.mi)} miles from the middle of ${c.name} in a straight line, is the closest Twin Cities spot from the Food Network show that's still open.` }] : [];
+  })(),
   ...(d.zips.length ? [{ q: `What ZIP codes are in ${c.name}?`,
     a: `${list(d.zips.map((z: any) => zipWithTown(z.zip)))} ${d.zips.length === 1 ? 'covers' : 'cover'} most of the city${d.zips.some((z: any) => otherTown(z.zip)) ? ' (post office town in parentheses)' : ''}.${!ownZip && d.zips.some((z: any) => town(z.zip)) ? ` None of them is named for ${c.name}: ZIP codes follow post office routes, not city limits, so many ${c.name} addresses carry the post office town's name.` : ''} ZIP code areas and city limits don't match exactly, so check the city on the property record.` }] : []),
   // DNR lakes (official names and acreage) when the city has any; the Census water map's names are rougher ("Battle Cr Lake").

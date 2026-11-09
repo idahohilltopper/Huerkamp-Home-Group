@@ -821,3 +821,16 @@ All five Repliers templates in our brand: the three alert emails from Nov 4-5 (u
 ## Walkability by community and neighborhood (2026-11-09)
 
 scripts/build-walkability.mjs -> src/data/walkability.json: a point every quarter mile across each community and Minneapolis/Saint Paul neighborhood boundary (parks and water included), the everyday walkability score at each (same rule as the listing pages, src/lib/nearby.mjs walkAt), averaged; share of the area within 0.6 mi of a grocery store, park, transit stop; places inside the boundary. Shown by src/components/AreaWalk.astro on community and neighborhood pages (plus an 'Is X walkable?' FAQ) and ranked on /walkability (menu: Most walkable places). Places only, no people. Rebuilt in the quarterly nearby-places routine. First run: top suburbs Osseo 89, Spring Lake Park 83, Hilltop 81, Richfield 78, Hopkins 76; Minneapolis 75, Saint Paul 66, Lakeville 23.
+
+## Diners, Drive-Ins and Dives (2026-11-09)
+
+- `/diners-drive-ins-and-dives-minnesota`: every Twin Cities restaurant featured on Food Network's show (40), open
+  (27), closed (12) or not confirmed (Bayport BBQ), with community, neighborhood and "homes within a mile" links.
+  Searches: "diners drive ins and dives minneapolis" and "... minnesota" ~880/month each, difficulty 0–1.
+- Every home's "What's nearby" names the closest open spot; every community page has a FAQ (the open spots in it, or
+  the closest one to its center).
+- Data: `src/data/ddd.json` from `scripts/build-ddd.py` (list and air months from Flavortown USA's episode guide; open
+  or closed from Overture Maps and local news, with notes). Re-check statuses with the quarterly places refresh.
+- Trademark care (Jason, Nov 9): the show's name only to say which restaurants appeared on it; plain text, no logo,
+  styling, host name or likeness, no "Triple D"/"Flavortown" in our own words; the trademark notice and "not affiliated
+  with, sponsored or endorsed by" line on the page; facts only, no copied descriptions or photos.
