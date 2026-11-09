@@ -324,6 +324,12 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     await m.waitForSelector('.leaflet-tile-loaded', { timeout: 25000 });
     await m.waitForFunction(() => document.querySelectorAll('[data-results] .lcard').length > 0, null, { timeout: 20000 });
     ok('Map without 3D graphics', !(await m.locator('.hs-mapfail').count()), `flat map with ${await m.locator('.leaflet-tile-loaded').count()} map tiles`);
+    // The flat map's own layers once covered our map buttons (Firefox and Safari use it more often).
+    const blocked = [];
+    for (const [sel, name] of [['[data-remove-boundary]', 'Remove boundary'], ['[data-draw]', 'Draw boundary'], ['[data-locate]', 'Use my location']]) {
+      await m.locator(sel).click({ timeout: 5000, trial: true }).catch(() => blocked.push(name));
+    }
+    ok('Flat map: buttons can be clicked', !blocked.length, blocked.length ? `covered by the map: ${blocked.join(', ')}` : 'Remove boundary, Draw boundary, Use my location');
     await b2.close();
   });
   // Pointing at a home on the map makes it bigger and clicking opens its photo card (src/scripts/map-card.ts), on whichever map this

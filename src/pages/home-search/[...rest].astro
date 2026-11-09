@@ -240,7 +240,8 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
 
   .hs-split { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(30rem, 1fr); align-items: start; }
   .hs-map { position: sticky; top: var(--hs-nav); height: calc(100vh - var(--hs-nav)); min-height: 420px; background: #e9eef0; }
-  .hs-map__canvas { position: absolute; inset: 0; }
+  /* isolation keeps the backup map's own layers (Leaflet uses z-index up to 1000) under our buttons. */
+  .hs-map__canvas { position: absolute; inset: 0; z-index: 0; isolation: isolate; }
   .hs-map__count { position: absolute; top: .9rem; left: .9rem; z-index: 2; margin: 0; padding: .45rem .8rem; border-radius: 999px; background: rgba(21, 18, 19, .82); color: #fff; font: 600 .85rem/1.2 var(--ui); pointer-events: none; }
   .hs-map__follow { position: absolute; left: 50%; bottom: 1.1rem; z-index: 2; transform: translateX(-50%); display: inline-flex; gap: .45rem; align-items: center; padding: .5rem .85rem; border-radius: 999px; background: #fff; box-shadow: 0 4px 14px rgba(0, 0, 0, .18); font: 600 .85rem/1 var(--ui); cursor: pointer; white-space: nowrap; }
   .hs-map__follow input { accent-color: var(--crimson); }
