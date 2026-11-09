@@ -61,7 +61,7 @@ const attachedMore = attachedKind && st.count >= 3 ? [
   hoaMedian ? ` The median association fee listed is ${money(hoaMedian)} (usually monthly), which typically covers exterior upkeep, lawn care and snow removal; check each listing for what's included.` : '',
   sfMedian && st.median ? ` Single-family homes in ${place} have a median list price of ${money(sfMedian)}, so a ${attachedKind} costs about ${money(Math.abs(sfMedian - st.median))} ${sfMedian > st.median ? 'less' : 'more'} at the middle of the market.` : '',
 ].join('') : '';
-const description = c ? `${answer} See every one, plus ${place}'s market report, schools and local guide from ${site.name}.`.slice(0, 300) : `${answer} Pick a city for its homes for sale, prices and local guide.`;
+const description = c ? `${c.facet ? '' : `${place} homes for sale: `}${answer} See every one, plus ${place}'s market report, schools and local guide from ${site.name}.`.slice(0, 300) : `${answer} Pick a city for its homes for sale, prices and local guide.`;
 
 const mk = area?.kind === 'community' && hasMarket(area.key) ? marketFor(area.key) : area?.kind === 'hood' && hasMarket(area.key) ? marketFor(area.key) : undefined;
 const sibling = (slug: string) => data.collections.find((k) => k.path === (slug ? `${area!.path}/${slug}` : area!.path));

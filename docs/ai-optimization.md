@@ -40,3 +40,12 @@ homes-for-sale page at #18, the community guide at #43). Now:
 - `/communities/<town>` is the guide for "living in <town>" searches: title "Living in <Town>, MN: Home Prices,
   Taxes, Commute & Local Guide", H1 "Living in <Town>, MN", and its main button links "See all N <Town> homes for sale".
 Don't retitle community pages back to "homes for sale"; strengthen the homes-for-sale pages for those searches.
+
+## 2026-11-09 — city priority: Mendota Heights (done); next city: rosemount
+- **Checked:** /communities/mendota-heights uses the "Living in …" title and H1, and its FAQ (with matching FAQPage markup) already opens with median sale price, days on market, property taxes, ZIPs, commute and the point-of-sale rule, all from the site's sourced data.
+- **Changed (shared templates, so every city gets it):**
+  - /homes-for-sale/<city> meta description now opens "<City>, MN homes for sale: …" before the live count (src/pages/homes-for-sale/[...path].astro).
+  - Blog posts and video pages: the "<City>, MN homes for sale" link now goes to /homes-for-sale/<city> (when that page exists), with a separate "Living in <City>, MN" link to the guide. Before, those links labelled "homes for sale" pointed at the guide.
+  - Commute, comparison and market pages: the guide link is now worded as the guide ("Living in <City>: prices, taxes and commute" / "<City> community guide"); the market page's "homes for sale" link goes to the homes-for-sale page.
+- **Why it helps:** each page now has one job, so "<City> homes for sale" signals point to the homes-for-sale page and the fact searches point to the guide.
+- **Sources:** none needed; no new facts.
