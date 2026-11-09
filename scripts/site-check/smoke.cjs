@@ -215,7 +215,8 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     await p.waitForFunction(() => !!window.__hsMap, null, { timeout: 25000 });
     await p.waitForSelector('[data-results] .lcard', { timeout: 20000 });
     await p.waitForTimeout(2500); // pins drawn and the map settled
-    const pt = await p.evaluate(() => {
+    // The map can still be moving into place on a slow machine, so find the pin again and retry up to three times.
+    const find = () => p.evaluate(() => {
       const { kind, map } = window.__hsMap;
       const box = map.getContainer().getBoundingClientRect();
       if (kind === 'main') {
@@ -226,12 +227,21 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
       }
       const m = [...map.__bySlug.values()].find((x) => map.getBounds().contains(x.getLatLng()));
       if (!m) return null;
+      const r = m.getElement?.()?.getBoundingClientRect(); // the pin as drawn on screen, when drawn as its own shape
+      if (r && r.width) return { x: r.left + r.width / 2, y: r.top + r.height / 2, kind };
       const q = map.latLngToContainerPoint(m.getLatLng());
       return { x: box.left + q.x, y: box.top + q.y, kind };
     });
+    let pt = null, seen = false;
+    for (let t = 0; t < 3 && !seen; t++) {
+      if (t) { await p.mouse.move(5, 5); await p.waitForTimeout(1500); }
+      pt = await find();
+      if (!pt) continue;
+      await p.mouse.move(pt.x - 30, pt.y - 30); await p.mouse.move(pt.x, pt.y, { steps: 5 });
+      seen = await p.waitForSelector('.hs-peek', { state: 'visible', timeout: 4000 }).then(() => true, () => false);
+    }
     if (!pt) throw new Error('no home pin visible on the map');
-    await p.mouse.move(pt.x - 30, pt.y - 30); await p.mouse.move(pt.x, pt.y, { steps: 5 });
-    await p.waitForSelector('.hs-peek', { state: 'visible', timeout: 5000 });
+    if (!seen) throw new Error(`no preview after pointing at a pin 3 times (${pt.kind} map)`);
     const peek = await p.$eval('.hs-peek', (e) => ({ text: e.textContent.replace(/\s+/g, ' ').trim(), photo: !!e.querySelector('.hs-peek__photo img') || /coming soon/i.test(e.textContent) }));
     ok('Map hover preview', peek.photo && /\$|Auction/.test(peek.text) && /courtesy of/i.test(peek.text), `${pt.kind} map: ${peek.text.slice(0, 90)}`);
   });
