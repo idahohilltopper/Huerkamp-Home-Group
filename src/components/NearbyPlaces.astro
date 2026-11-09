@@ -2,7 +2,8 @@
 // "What's nearby" on a listing page (src/lib/nearby.mjs): everyday walkability score, then the closest grocery store,
 // coffee shop, pharmacy, park, transit stop, library and gym, with how many of each are within a 15-minute walk.
 // Places only (fair housing): no schools, places of worship, demographics or crime.
-import { nearby, fmtMi, WALK_MI, nearbySources } from '../lib/nearby.mjs';
+import { nearby, fmtMi, WALK_MI, nearbySources, miles } from '../lib/nearby.mjs';
+import { airport, venues } from '../data/landmarks';
 import { nearestSpot, DDD_PATH } from '../data/ddd';
 
 interface Props { lat: number; lng: number; place: string }
@@ -10,6 +11,10 @@ const { lat, lng, place } = Astro.props;
 const n = nearby(lat, lng);
 // The closest Twin Cities restaurant from Food Network's Diners, Drive-Ins and Dives that's still open (src/data/ddd.ts).
 const ddd = nearestSpot(lat, lng);
+// Getting around: MSP Airport and the major sports venues, straight-line, nearest venue first (src/data/landmarks.ts).
+const airMi = miles(lat, lng, airport.lat, airport.lng);
+const venueMi = venues.map((v) => ({ v, mi: miles(lat, lng, v.lat, v.lng) })).sort((a, b) => a.mi - b.mi);
+const around = airMi <= 120;
 const walkWord = (row: { walkCount: number; plural: string }) =>
   row.walkCount ? `${row.walkCount} within a 15-minute walk` : 'none within a 15-minute walk';
 const summary = n && (() => {
@@ -41,6 +46,15 @@ const summary = n && (() => {
       {n.rail && n.rail.name !== n.rows.find((r) => r.key === 'transit')?.name && <li><span class="nearby__kind">Light rail or rapid bus</span><span class="nearby__what"><strong>{n.rail.name}</strong> ({n.rail.routes}), {fmtMi(n.rail.mi)}</span></li>}
       {ddd && <li><span class="nearby__kind">Diners, Drive-Ins and Dives</span><span class="nearby__what"><strong>{ddd.s.name}</strong>, {fmtMi(ddd.mi)}<small>The closest restaurant featured on Food Network's show that's still open (we're not affiliated with the show). <a href={DDD_PATH}>See every Twin Cities spot</a></small></span></li>}
     </ul>
+    {around && (
+      <>
+        <h3 class="nearby__sub">Getting around</h3>
+        <ul class="nearby__list">
+          <li><span class="nearby__kind">{airport.name}</span><span class="nearby__what"><strong>{fmtMi(airMi)}</strong> to {airport.what}<small><a href="/commute/msp-airport">Drive times to the airport from every community</a></small></span></li>
+          <li><span class="nearby__kind">Sports venues</span><span class="nearby__what"><ul class="nearby__venues">{venueMi.map(({ v, mi }) => <li><strong>{v.name}</strong> ({v.what}), {fmtMi(mi)}</li>)}</ul></span></li>
+        </ul>
+      </>
+    )}
     <p class="nearby__note">Straight-line distances from the home; a 15-minute walk is taken as {WALK_MI} miles in a straight line (about ¾ mile on streets). The score adds points for each kind of everyday place within that walk: grocery 25, restaurants 15, parks 15, transit 15, coffee 10, pharmacy 10, library 5, gym 5. Places: {nearbySources.places}; transit: {nearbySources.transit}. Businesses open and close, so check before you count on one.</p>
   </div>
 )}
@@ -58,5 +72,8 @@ const summary = n && (() => {
   @media (max-width: 520px) { .nearby__list li { grid-template-columns: 1fr; gap: .15rem; } }
   .nearby__kind { color: var(--text-soft); }
   .nearby__what small { display: block; color: var(--text-soft); font-size: .9rem; }
+  .nearby__sub { margin: 1.4rem 0 .2rem; font-size: 1.15rem; }
+  .nearby__venues { list-style: none; margin: 0; padding: 0; display: grid; gap: .15rem; }
+  .nearby__venues li { display: block; padding: 0; border: 0; }
   .nearby__note { margin-top: .75rem; font-size: .85rem; color: var(--text-soft); }
 </style>

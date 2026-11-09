@@ -13,10 +13,16 @@ export const miles = (a, b, c, d) => {
   return 2 * R * Math.asin(Math.sqrt(x));
 };
 
+// Places of worship and religious centers never appear (fair housing), even when the map data files one as a gym,
+// coffee shop or restaurant (seen: a mosque listed as a gym). Bus stop names that mention a church are kept: they are
+// the official stop names.
+const WORSHIP = /\b(masjid|mosque|church|chapel|temple|synagogue|parish|cathedral|gurdwara|mandir|kingdom hall|islamic center|jewish community center)\b/i;
+const NOT_WORSHIP = /\b(brewing|beverage company)\b/i;
 const grids = {};
 for (const [key, list] of Object.entries(places.cats)) {
   const g = new Map();
   for (const p of list) {
+    if (key !== 'transit' && typeof p[2] === 'string' && WORSHIP.test(p[2]) && !NOT_WORSHIP.test(p[2])) continue;
     const k = `${Math.floor(p[0] / CELL)}:${Math.floor(p[1] / CELL)}`;
     if (!g.has(k)) g.set(k, []);
     g.get(k).push(p);

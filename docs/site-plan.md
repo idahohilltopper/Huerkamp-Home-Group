@@ -834,3 +834,13 @@ scripts/build-walkability.mjs -> src/data/walkability.json: a point every quarte
 - Trademark care (Jason, Nov 9): the show's name only to say which restaurants appeared on it; plain text, no logo,
   styling, host name or likeness, no "Triple D"/"Flavortown" in our own words; the trademark notice and "not affiliated
   with, sponsored or endorsed by" line on the page; facts only, no copied descriptions or photos.
+
+## Getting around: MSP Airport and sports venues on every home (2026-11-09)
+
+- Every home's What's nearby has "Getting around": straight-line miles to MSP Terminal 1 (linking the airport drive
+  times by community, /commute/msp-airport) and to the seven major venues, nearest first: U.S. Bank Stadium (Vikings),
+  Target Field (Twins), Target Center (Timberwolves and Lynx), Grand Casino Arena (Wild; Xcel Energy Center until
+  Sept. 3, 2025), Allianz Field (Minnesota United), CHS Field (St. Paul Saints), Huntington Bank Stadium (Gophers
+  football). Points: src/data/landmarks.ts (Overture Maps). Community pages already give drive minutes to MSP.
+- Fair housing fix the same day: src/lib/nearby.mjs drops places of worship and religious centers that the map data
+  files under gyms, coffee or restaurants (a mosque had shown as a home's nearest gym). Bus stop names are kept.
