@@ -104,6 +104,12 @@ export function showHome(map: FlatMap, home: { lat: number; lng: number; street:
   if (estimateHref) map.__home.openPopup();
 }
 
+/** "You are here": a blue dot where the browser says the visitor is ("Use my current location"). */
+export function showHere(map: FlatMap, lng: number, lat: number) {
+  (map as any).__here?.remove();
+  (map as any).__here = L.marker([lat, lng], { icon: L.divIcon({ className: 'hs-here', iconSize: [18, 18] }), title: 'You are here', interactive: false }).addTo(map);
+}
+
 /** Move the map to an area (west, south, east, north). */
 export function fitBox(map: FlatMap, b: number[]) { (map as any).__auto = true; map.fitBounds([[b[1], b[0]], [b[3], b[2]]]); }
 

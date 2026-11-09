@@ -147,6 +147,15 @@ export function showHome(map: any, home: { lat: number; lng: number; street: str
   if (estimateHref) map.__home.togglePopup();
 }
 
+/** "You are here": a blue dot where the browser says the visitor is ("Use my current location"). */
+export function showHere(map: any, lng: number, lat: number) {
+  map.__here?.remove();
+  const el = document.createElement('div');
+  el.className = 'hs-here';
+  el.setAttribute('aria-label', 'You are here');
+  map.__here = new maplibregl.Marker({ element: el, anchor: 'center' }).setLngLat([lng, lat]).addTo(map);
+}
+
 /** Move the map to an area (west, south, east, north). */
 export function fitBox(map: any, b: number[]) { map.fitBounds([[b[0], b[1]], [b[2], b[3]]], { padding: 0, duration: 800 }); }
 

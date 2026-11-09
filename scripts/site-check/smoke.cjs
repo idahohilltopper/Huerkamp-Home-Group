@@ -167,7 +167,7 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     await p.waitForTimeout(1500);
     const pencil = p.locator('[data-draw]');
     await pencil.hover(); await p.waitForTimeout(300);
-    const tip = await p.locator('.hs-map__tip').evaluate((e) => ({ text: e.textContent.trim(), op: getComputedStyle(e).opacity }));
+    const tip = await p.locator('[data-draw] .hs-map__tip').evaluate((e) => ({ text: e.textContent.trim(), op: getComputedStyle(e).opacity }));
     if (tip.text !== 'Draw boundary' || Number(tip.op) < 0.9) throw new Error(`the pencil's "Draw boundary" label didn't show on hover (${tip.text}, opacity ${tip.op})`);
     await pencil.click();
     const box = await p.locator('[data-sketch]').boundingBox();
@@ -280,7 +280,17 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     const opened = Date.now() - t0;
     await m.waitForFunction(() => document.querySelector('[data-h1]')?.textContent?.includes('near you'), null, { timeout: 20000 });
     const n = await m.$$eval('[data-results] .lcard', (e) => e.length);
-    ok('Use my current location', opened < 3000 && n > 0, `search page opened in ${(opened / 1000).toFixed(1)} s, ${n} homes near the spot`);
+    // The map must zoom in to the spot and mark it (it once stayed on the whole metro).
+    const zoomed = await m.waitForFunction(() => { const h = window.__hsMap; return h && h.map.getZoom() >= 11 && !!document.querySelector('.hs-here'); }, null, { timeout: 15000 }).then(() => true, () => false);
+    const z = await m.evaluate(() => window.__hsMap?.map.getZoom().toFixed(1));
+    ok('Use my current location', opened < 3000 && n > 0 && zoomed, `search page opened in ${(opened / 1000).toFixed(1)} s, ${n} homes near the spot, map zoom ${z}${zoomed ? ' with the you-are-here dot' : ' (did not zoom in to the spot)'}`);
+    // The map's own locate button, starting from a city search somewhere else.
+    await m.goto(BASE + '/home-search?place=edina&view=map', { waitUntil: 'domcontentloaded' });
+    await m.waitForFunction(() => !!window.__hsMap, null, { timeout: 25000 });
+    await m.waitForSelector('[data-results] .lcard', { timeout: 20000 });
+    await m.click('[data-locate]');
+    const moved = await m.waitForFunction(() => document.querySelector('[data-h1]')?.textContent?.includes('near you') && !!document.querySelector('.hs-here'), null, { timeout: 20000 }).then(() => true, () => false);
+    ok('Map: use my location button', moved, moved ? 'searched near the spot and marked it' : 'did not move to the spot');
     await c3.close();
   });
   // A browser with 3D graphics (WebGL) turned off gets the backup flat map (src/scripts/search-map-flat.ts), with pins.

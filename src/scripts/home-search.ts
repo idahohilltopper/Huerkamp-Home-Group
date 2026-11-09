@@ -533,13 +533,15 @@ export function initSearch(root: HTMLElement) {
   // the person is, then search the 3 miles around them. A note says what's happening, since the browser can take a few
   // seconds on a computer without GPS.
   const nearMe = () => {
-    const u = new URL(location.href); u.searchParams.delete('near'); history.replaceState(null, '', u);
+    const u = new URL(location.href);
+    if (u.searchParams.has('near')) { u.searchParams.delete('near'); history.replaceState(null, '', u); }
+    root.querySelector('.hs-near')?.remove();
     const bar = document.createElement('div');
     bar.className = 'hs-editbar hs-near';
     bar.setAttribute('role', 'status');
     bar.innerHTML = '<p><span class="hs-near__dot" aria-hidden="true"></span> Finding homes near you…</p>';
     root.querySelector('.hs-panel')?.prepend(bar);
-    const say = (t: string) => { bar.innerHTML = `<p>${t}</p>`; setTimeout(() => bar.remove(), 8000); };
+    const say = (t: string) => { bar.innerHTML = `<p>${t}</p>`; setTimeout(() => bar.remove(), 20000); };
     if (!('geolocation' in navigator)) return say('Your browser can’t share its location. Type a city or ZIP code in the search box instead.');
     navigator.geolocation.getCurrentPosition(async (pos) => {
       const { latitude: lat, longitude: lng } = pos.coords;
@@ -547,17 +549,29 @@ export function initSearch(root: HTMLElement) {
       if (Math.hypot((lat - 44.98) * 69, (lng + 93.27) * 69 * 0.71) > 75) return say('You look to be outside the areas we cover, so here are all Twin Cities homes for sale.');
       const d = 0.043; // about 3 miles each way (0.043 degrees of latitude; longitude scaled for Minnesota)
       const box = [lng - d * 1.4, lat - d, lng + d * 1.4, lat + d];
+      // A place or a drawn shape would keep the search somewhere else: the area around you replaces them.
+      (form.elements.namedItem('place') as HTMLInputElement).value = '';
+      (form.elements.namedItem('poly') as HTMLInputElement).value = '';
+      where.value = '';
       (form.elements.namedItem('bbox') as HTMLInputElement).value = box.map((n) => n.toFixed(4)).join(',');
       setPage(1);
       bar.remove();
       nearHere = true;
-      await run();
-      showMode();
+      // Move the map right away (the homes follow a moment later), and mark where you are.
+      const zoom = () => { if (map && mapApi?.fitBox) { mapApi.fitBox(map, box); mapApi.showHere?.(map, lng, lat); } };
+      if (map) zoom();
+      const searching = run();
       await (opening ?? Promise.resolve());
-      if (map && mapApi?.fitBox) mapApi.fitBox(map, box);
-    }, () => say('We couldn’t get your location (it may be turned off for this site), so here are all Twin Cities homes. Type a city or ZIP code to narrow it down.'),
-    { enableHighAccuracy: false, timeout: 15000, maximumAge: 1800000 });
+      zoom();
+      await searching;
+      showMode();
+      zoom();
+    }, (err) => say(err?.code === 1
+      ? 'Your browser is blocking your location for this site. Allow location for huerkamphomes.com in your browser’s settings, or type a city or ZIP code.'
+      : 'We couldn’t get your location just now, so here are all Twin Cities homes. Try again, or type a city or ZIP code.'),
+    { enableHighAccuracy: false, timeout: 15000, maximumAge: 300000 });
   };
+  root.querySelector('[data-locate]')?.addEventListener('click', () => nearMe());
   showMode();
   pillLabels();
   const begin = () => {
