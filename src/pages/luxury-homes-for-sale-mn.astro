@@ -1,0 +1,47 @@
+---
+// Luxury homes for sale in Minnesota (/luxury-homes-for-sale-mn): every listing of $1 million and up in our communities
+// from the live MLS feed, the most expensive first, with counts by city (linking each city's $1M+ page) and by price.
+// Rebuilt with every build. Open SEO (Nov 9, 2026): "most expensive homes in minnesota" 1,600/mo (KD 0), "luxury homes
+// minneapolis" 260, "luxury homes for sale minneapolis/mn" 210 each; the big luxury searches are the towns' own
+// "homes for sale" (Edina, Minnetonka 3,600; Lake Minnetonka 1,900; Wayzata, North Oaks 1,600), which this page links.
+import FeedTopicPage from '../components/FeedTopicPage.astro';
+import { listingsData, homesHref, median, money } from '../data/listings';
+import { communities } from '../data/areas';
+import { site } from '../data/site';
+
+const data = await listingsData;
+const homes = data.mode === 'off' ? [] : data.listings.filter((l) => l.price >= 1e6);
+const day = data.at ? new Date(data.at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }) : '';
+const name = (slug: string) => communities.find((c) => c.slug === slug)?.name ?? slug;
+const page = (p: string) => (data.collections.some((k) => k.path === p) ? homesHref(p) : null);
+const prices = homes.map((l) => l.price);
+const row = (label: string, list: typeof homes, href?: string | null) => ({ label, n: list.length, med: median(list.map((l) => l.price)), href });
+const byCity = [...new Set(homes.map((l) => l.community))].map((s) => row(name(s), homes.filter((l) => l.community === s), page(`${s}/luxury-homes`) ?? page(s))).sort((a, b) => b.n - a.n);
+const BANDS: [string, number, number][] = [['$1 million to $1.5 million', 1e6, 1.5e6], ['$1.5 million to $2 million', 1.5e6, 2e6], ['$2 million to $3 million', 2e6, 3e6], ['$3 million to $5 million', 3e6, 5e6], ['$5 million and up', 5e6, Infinity]];
+const byPrice = BANDS.map(([label, lo, hi]) => row(label, homes.filter((l) => l.price >= lo && l.price < hi))).filter((r) => r.n);
+const lakefront = homes.filter((l) => l.lakefront).length;
+const top = [...homes].sort((a, b) => b.price - a.price);
+const first = top[0];
+const where = (l: (typeof homes)[number]) => `${l.city}`;
+const answer = homes.length
+  ? `${homes.length.toLocaleString('en-US')} homes priced at $1 million or more are for sale in our Minnesota communities as of ${day}, with a median list price of ${money(median(prices)!)}. The most expensive is listed at ${money(first.price)} in ${where(first)}. ${byCity.slice(0, 3).map((r) => r.label).join(', ')} have the most${lakefront ? `, and ${lakefront.toLocaleString('en-US')} of the homes are lakefront` : ''}.`
+  : '';
+const faq = [
+  ...(answer ? [{ q: 'What are the most expensive homes for sale in Minnesota right now?', a: `The highest-priced homes for sale in our Twin Cities communities as of ${day}: ${top.slice(0, 5).map((l) => `${money(l.price)} in ${where(l)}`).join('; ')}. The full list, most expensive first, is on this page and updates several times a day from NorthstarMLS.` }] : []),
+  ...(answer ? [{ q: 'How many million-dollar homes are for sale in the Twin Cities?', a: answer }] : []),
+  ...(byCity.length ? [{ q: 'Which Twin Cities towns have the most luxury homes for sale?', a: `By the number of homes listed at $1 million or more: ${byCity.slice(0, 8).map((r) => `${r.label} (${r.n})`).join(', ')}.` }] : []),
+  { q: 'Do I need a jumbo loan for a $1 million home?', a: 'Usually. A loan above the conforming limit set each year by the Federal Housing Finance Agency is a jumbo loan, which often asks for a larger down payment and more cash reserves. A lender can tell you the current limit for your county and what you would need.' },
+  { q: 'Can I see luxury homes privately?', a: `Yes. Tell us the homes or the area and we'll set up private showings on your schedule, and watch for homes that come up before they're widely marketed. Call or text ${site.phone}.` },
+];
+---
+<FeedTopicPage path="/luxury-homes-for-sale-mn" crumb="Luxury homes ($1M+)" at={data.at} noindex={data.preview || !homes.length}
+  title={`Luxury Homes for Sale in MN${homes.length ? ` (${homes.length.toLocaleString('en-US')})` : ''}: Most Expensive Twin Cities Homes | ${site.name}`}
+  description={answer || 'Luxury homes of $1 million and up for sale around the Twin Cities, most expensive first, by city and price, from NorthstarMLS.'}
+  eyebrow="Luxury homes, $1 million and up" h1="Luxury homes for sale in Minnesota: the most expensive Twin Cities homes" answer={answer}
+  lede={`Every home listed at $1 million or more in our communities around the Twin Cities, from NorthstarMLS, most expensive first. On the water? See <a href="/lake-homes">lake homes</a>, including <a href="/lake-homes/lake-minnetonka">Lake Minnetonka</a>.`}
+  tables={[{ h: 'By city', col: 'City', rows: byCity }, { h: 'By price', col: 'Price', rows: byPrice }]}
+  note={`Each city links to its own list of $1 million-plus homes. Updated ${day}.`}
+  shown={top.slice(0, 48)} shownH="The most expensive homes for sale right now"
+  ask={{ eyebrow: 'Private showings', h2: 'Looking for a luxury home <em>on your terms?</em>', p: 'Tell us the area, the price range and what matters most: water, land, privacy, a short drive downtown. We’ll set up private showings and watch for homes that come up before they’re widely marketed.', interest: 'Luxury home ($1M+)', msg: 'Area, price range, must-haves (optional)' }}
+  faq={faq} faqH="Luxury homes in the Twin Cities"
+  links={[['Lake homes', '/lake-homes'], ['Lake Minnetonka', '/lake-homes/lake-minnetonka'], ['New construction', '/new-construction'], ['Homes for sale by city', '/homes-for-sale']]} />
