@@ -35,7 +35,7 @@ jobs:
           pushed=$(date -u -d "${{ github.event.head_commit.timestamp }}" +%s)
           for i in $(seq 1 40); do
             built=$(curl -s "https://www.huerkamphomes.com/mls-status.json?t=$RANDOM" | grep -o '"builtAt": *"[^"]*"' | grep -o '[0-9T:.-]*Z' || true)
-            if [ -n "$built" ] && [ "$(date -u -d "$built" +%s)" -ge "$pushed" ]; then echo "Live build from $built"; exit 0; fi
+            if [ -n "$built" ] && [ "$(date -u -d "$built" +%s)" -ge "$pushed" ]; then echo "Live build from $built; waiting 90 s for Netlify's servers to settle"; sleep 90; exit 0; fi
             sleep 30
           done
           echo "The deploy didn't show up within 20 minutes; checking the live site as it is."

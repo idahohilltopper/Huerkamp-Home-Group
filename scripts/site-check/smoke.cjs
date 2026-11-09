@@ -81,6 +81,7 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     await p.waitForSelector('.maplibregl-canvas, .leaflet-container', { timeout: 20000 }); // the main map, or the backup map in browsers without 3D graphics
     const href = await p.getAttribute('[data-results] .lcard a[href^="/homes/"]', 'href');
     ok('Map search loads with map', true, `first home ${href}`);
+    await p.waitForLoadState('networkidle', { timeout: 15000 }).catch(() => {}); // the page may reload itself once right after a deploy
     await p.goto(BASE + href, { waitUntil: 'domcontentloaded' });
     const photos = await p.$$eval('img', (e) => e.filter((i) => /photo|cdn\.repliers|repliers/.test(i.src)).length);
     ok('Listing page', (await p.title()).length > 5, `${await p.title()} · ${photos} photo images`);

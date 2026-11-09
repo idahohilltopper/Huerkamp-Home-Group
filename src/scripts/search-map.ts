@@ -34,7 +34,8 @@ export async function createMap(el: HTMLElement, style: string, brThumb: string,
   await new Promise<void>((ok, fail) => {
     const t = setTimeout(() => fail(new Error('map: the base map did not load within 20 seconds')), 20000);
     map.on('load', () => { clearTimeout(t); ok(); });
-    map.on('error', (e: any) => { if (!map.loaded() && /style/i.test(String(e?.error?.message ?? ''))) { clearTimeout(t); fail(new Error(`map: ${e.error.message}`)); } });
+    // A style that won't load, or the map's helper file (web worker) missing, e.g. a page from before a deploy.
+    map.on('error', (e: any) => { if (!map.loaded() && /style|worker/i.test(String(e?.error?.message ?? ''))) { clearTimeout(t); fail(new Error(`map: ${e.error.message}`)); } });
   });
   // The searched place's outline (a town or neighborhood), under the dots: a light wash and a blue line, like the portals.
   map.addSource('place', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });

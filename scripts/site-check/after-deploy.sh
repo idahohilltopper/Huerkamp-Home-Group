@@ -10,7 +10,7 @@ echo "Waiting for the deploy of $(git log -1 --format='%h %s' | cut -c1-80) ..."
 # /mls-status.json is written by every build; its builtAt changes when the new deploy is live.
 for i in $(seq 1 60); do
   built=$(curl -s "$SITE/mls-status.json?t=$RANDOM" | grep -o '"builtAt": *"[^"]*"' | grep -o '[0-9T:.-]*Z')
-  if [ -n "$built" ] && [ "$(date -u -d "$built" +%s)" -ge "$((PUSHED - 60))" ]; then echo "Live build from $built"; break; fi
+  if [ -n "$built" ] && [ "$(date -u -d "$built" +%s)" -ge "$((PUSHED - 60))" ]; then echo "Live build from $built; waiting 90 s for the servers to settle"; sleep 90; break; fi
   sleep 30
 done
 timeout 900 node scripts/site-check/smoke.cjs 2>&1 | grep -v "UNDICI\|trace-warn\|EnvHttpProxyAgent" | tee .cache/after-deploy.log

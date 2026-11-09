@@ -340,7 +340,9 @@ export function initSearch(root: HTMLElement) {
       map = await mapApi.createMap(el, ...args);
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e);
-      if (/dynamically imported|Importing a module|preload|Failed to fetch/i.test(msg)) throw e; // an old copy of the page: mapFailed reloads it
+      // An old copy of the page (a deploy renamed the map's files): reload once for the new copy; if this page already
+      // reloaded, go on to the backup map below rather than leave the map blank.
+      if (/dynamically imported|Importing a module|preload|Failed to fetch|worker/i.test(msg) && (window as any).hhgReloadOnce?.(msg)) return;
       // The main map can't run here (no WebGL, or its base map didn't load): the flat map has the same homes and pop-ups.
       (window as any).hhgReport?.('map-flat', msg, '', 0);
       map?.remove?.(); map = null;
