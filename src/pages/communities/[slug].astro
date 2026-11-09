@@ -15,6 +15,7 @@ import LineChart from '../../components/LineChart.astro';
 import { communities, communityGeoUrl, communityInfo, fmt, type Community } from '../../data/areas';
 import { lakesTouching, lakeHref, lakeSearchUrl } from '../../data/lakes';
 import detailData from '../../data/community-details.json';
+import zipTowns from '../../data/zip-towns.json';
 import rates from '../../data/rates.json';
 import taxData from '../../data/property-tax.json';
 import reviewData from '../../data/reviews.json';
@@ -43,6 +44,12 @@ const homesData = await listingsData;
 const homes = homesData.collections.find((k) => k.path === c.slug && !k.facet);
 const comparisons = pairsFor(c.slug).filter((p) => p.kind === 'community').slice(0, 10);
 const d = (detailData.communities as any)[c.slug];
+// The post office town for each ZIP (GeoNames). Many cities have no ZIP of their own name (Medina: Hamel, Long Lake...).
+const town = (z: string): string | undefined => (zipTowns.towns as Record<string, string>)[z];
+const norm = (s: string) => s.toLowerCase().replace(/^st\.? /, 'saint ');
+const otherTown = (z: string) => (town(z) && norm(town(z)!) !== norm(c.name) ? town(z) : undefined); // shown only when it isn't the city's own name
+const zipWithTown = (z: string) => (otherTown(z) ? `${z} (${otherTown(z)})` : z);
+const ownZip = (d.zips ?? []).some((z: any) => town(z.zip) && norm(town(z.zip)!) === norm(c.name));
 const a = d.acs;
 const county = (detailData.baselines.counties as any)[d.primaryCounty.fips];
 const mn = detailData.baselines.minnesota;
@@ -135,7 +142,7 @@ const faqs = [
   { q: `What does it cost to rent in ${c.name}?`,
     a: `The median gross rent (rent plus utilities) is ${money(a.medianGrossRent)} a month, compared with ${money(county.medianGrossRent)} in ${countyName} (Census ACS 2020–2024).` },
   ...(d.zips.length ? [{ q: `What ZIP codes are in ${c.name}?`,
-    a: `${list(d.zips.map((z: any) => z.zip))} ${d.zips.length === 1 ? 'covers' : 'cover'} most of the city. ZIP code areas and city limits don't match exactly, so check the city on the property record.` }] : []),
+    a: `${list(d.zips.map((z: any) => zipWithTown(z.zip)))} ${d.zips.length === 1 ? 'covers' : 'cover'} most of the city${d.zips.some((z: any) => otherTown(z.zip)) ? ' (post office town in parentheses)' : ''}.${!ownZip && d.zips.some((z: any) => town(z.zip)) ? ` None of them is named for ${c.name}: ZIP codes follow post office routes, not city limits, so many ${c.name} addresses carry the post office town's name.` : ''} ZIP code areas and city limits don't match exactly, so check the city on the property record.` }] : []),
   // DNR lakes (official names and acreage) when the city has any; the Census water map's names are rougher ("Battle Cr Lake").
   ...(cityLakes.length ? [{ q: `What lakes are in ${c.name}?`,
     a: `The largest lakes in or touching ${c.name} are ${list([...cityLakes].sort((x, y) => y.acres - x.acres).slice(0, 4).map((l) => `${l.name} (${fmt(l.acres)} acres)`))}, by Minnesota DNR records. Each has a page with its lakefront homes for sale.` }]
@@ -237,7 +244,7 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
 <Base
   breadcrumbs={[{ name: 'Communities', href: '/communities' }, { name: c.name, href: `/communities/${c.slug}` }]}
   title={`${c.name}, MN Homes for Sale & Real Estate | Huerkamp Home Group`}
-  description={`${c.name}, MN homes for sale: median sale price, days on market, property taxes, ZIP codes, schools and commute times, from Huerkamp Home Group.`}>
+  description={zipList.length ? `${c.name}, MN homes for sale. ZIP code${zipList.length > 1 ? 's' : ''}: ${zipList.slice(0, 4).map((z: string) => (otherTown(z) ? `${z} ${otherTown(z)}` : z)).join(', ')}. Median sale price, property taxes, schools and commute times.` : `${c.name}, MN homes for sale: median sale price, days on market, property taxes, schools and commute times, from Huerkamp Home Group.`}>
   <script type="application/ld+json" set:html={faqLd} />
 
   <PageHero eyebrow={`${c.name}, Minnesota`} title={`${c.name} Homes for Sale & Real Estate`}
@@ -493,19 +500,19 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
         <div class="head">
           <p class="eyebrow">By ZIP code</p>
           <h2 id="zip-title">What does {c.name} look like <em>by ZIP code?</em></h2>
-          <p>{d.zips.length === 1 ? `ZIP ${d.zips[0].zip} covers most of ${c.name}.` : `${d.zips.length} ZIP codes cover most of ${c.name}.`}</p>
+          <p>{d.zips.length === 1 ? `ZIP ${zipWithTown(d.zips[0].zip)} covers most of ${c.name}.` : `${d.zips.length} ZIP codes cover most of ${c.name}: ${list(d.zips.map((z: any) => zipWithTown(z.zip)))}.`}{!ownZip && d.zips.some((z: any) => town(z.zip)) ? ` None is named for ${c.name}; ZIP codes follow post office routes, not city limits, so addresses here often carry the post office town's name.` : ''}</p>
         </div>
         <div class="table-scroll">
           <table class="data">
-            <thead><tr><th scope="col">ZIP</th><th scope="col" class="num">Share of city</th><th scope="col" class="num">Median home value</th><th scope="col" class="num">Homeowners</th><th scope="col"><span class="visually-hidden">Listings</span></th></tr></thead>
+            <thead><tr><th scope="col">ZIP</th><th scope="col">Post office</th><th scope="col" class="num">Share of city</th><th scope="col" class="num">Median home value</th><th scope="col" class="num">Homeowners</th><th scope="col"><span class="visually-hidden">Listings</span></th></tr></thead>
             <tbody>
               {d.zips.map((z: any) => (
-                <tr><th scope="row">{z.zip}</th><td class="num">{z.pctOfCityLand}%</td><td class="num">{money(z.medianHomeValue)}</td><td class="num">{pctS(z.ownerOccupiedPct)}</td><td><a href={searchUrl({ zips: [z.zip] })} rel="noopener">Homes for sale</a></td></tr>
+                <tr><th scope="row">{z.zip}</th><td>{town(z.zip) ?? ''}</td><td class="num">{z.pctOfCityLand}%</td><td class="num">{money(z.medianHomeValue)}</td><td class="num">{pctS(z.ownerOccupiedPct)}</td><td><a href={searchUrl({ zips: [z.zip] })} rel="noopener">Homes for sale</a></td></tr>
               ))}
             </tbody>
           </table>
         </div>
-        <p class="source">ZIP code areas (ZCTAs) covering at least 5% of the city; values for the whole ZIP area, Census ACS 2020–2024.</p>
+        <p class="source">ZIP code areas (ZCTAs) covering at least 5% of the city; values for the whole ZIP area, Census ACS 2020–2024. Post office towns: <a href="https://www.geonames.org/">GeoNames</a> (CC BY 4.0).</p>
       </div>
     </section>
   )}
