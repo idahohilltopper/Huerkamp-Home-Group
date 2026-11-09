@@ -212,7 +212,7 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     ok('Map without 3D graphics', !(await m.locator('.hs-mapfail').count()), `flat map with ${await m.locator('.leaflet-tile-loaded').count()} map tiles`);
     await b2.close();
   });
-  // Pointing at a home on the map shows a photo preview (src/scripts/map-card.ts hoverCard), on whichever map this
+  // Pointing at a home on the map makes it bigger and clicking opens its photo card (src/scripts/map-card.ts), on whichever map this
   // browser gets (main or backup). Finds a pin on screen through the map object the page exposes for tests.
   await step('Map hover preview', async () => {
     await p.setViewportSize({ width: 1366, height: 900 });
@@ -237,25 +237,41 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
       const q = map.latLngToContainerPoint(m.getLatLng());
       return { x: box.left + q.x, y: box.top + q.y, kind };
     });
-    let pt = null, seen = false;
-    for (let t = 0; t < 3 && !seen; t++) {
+    // Pointing at a home makes it 50% bigger, with no preview (Jason, Nov 9, 2026); clicking opens the photo card, whose
+    // arrows show only while the pointer is over the photo.
+    const bigger = () => p.evaluate(() => {
+      const { kind, map } = window.__hsMap;
+      if (kind === 'main') return ['homes-hover', 'homes-tags-hover'].some((l) => /"[a-z0-9-]{6,}"/.test(JSON.stringify(map.getFilter(l) ?? '')));
+      return [...map.__bySlug.values()].some((m) => m.getRadius() > 6);
+    });
+    let pt = null, big = false;
+    for (let t = 0; t < 3 && !big; t++) {
       if (t) { await p.mouse.move(5, 5); await p.waitForTimeout(1500); }
       pt = await find();
       if (!pt) continue;
       await p.mouse.move(pt.x - 30, pt.y - 30); await p.mouse.move(pt.x, pt.y, { steps: 5 });
-      seen = await p.waitForSelector('.hs-peek', { state: 'visible', timeout: 4000 }).then(() => true, () => false);
+      await p.waitForTimeout(400);
+      big = await bigger();
     }
     if (!pt) throw new Error('no home pin visible on the map');
-    if (!seen) throw new Error(`no preview after pointing at a pin 3 times (${pt.kind} map)`);
-    // The home under the mouse is drawn 50% bigger (Jason, Nov 9, 2026).
-    const bigger = await p.evaluate(() => {
-      const { kind, map } = window.__hsMap;
-      if (kind === 'main') return ['homes-hover', 'homes-tags-hover'].some((l) => JSON.stringify(map.getFilter(l) ?? '').match(/"[a-z0-9-]{6,}"/));
-      return [...map.__bySlug.values()].some((m) => m.getRadius() > 6);
-    });
-    if (!bigger) throw new Error('the home under the mouse did not get bigger');
-    const peek = await p.$eval('.hs-peek', (e) => ({ text: e.textContent.replace(/\s+/g, ' ').trim(), photo: !!e.querySelector('.hs-peek__photo img') || /coming soon/i.test(e.textContent) }));
-    ok('Map hover preview', peek.photo && /\$|Auction/.test(peek.text) && /courtesy of/i.test(peek.text), `${pt.kind} map: ${peek.text.slice(0, 90)}`);
+    if (!big) throw new Error(`the home under the mouse did not get bigger after 3 tries (${pt.kind} map)`);
+    if (await p.locator('.hs-peek:visible').count()) throw new Error('a hover preview appeared; it should open only on click');
+    await p.mouse.click(pt.x, pt.y);
+    await p.waitForSelector('.hs-pop-card', { state: 'visible', timeout: 5000 });
+    const card = await p.$eval('.hs-pop-card', (e) => ({ text: e.textContent.replace(/\s+/g, ' ').trim(), photo: !!e.querySelector('.hs-pop-card__photo img') || /coming soon/i.test(e.textContent) }));
+    let arrows = 'one photo';
+    const next = p.locator('.hs-mappop__next').first();
+    if (await next.count()) {
+      const op = () => next.evaluate((e) => getComputedStyle(e).opacity);
+      await p.mouse.move(5, 5); await p.waitForTimeout(300);
+      const hidden = await op();
+      const ph = await p.locator('.hs-pop-card:visible .hs-pop-card__photo').first().boundingBox();
+      await p.mouse.move(ph.x + ph.width / 2, ph.y + ph.height / 2); await p.waitForTimeout(400);
+      const shown = await op();
+      if (!(Number(hidden) < 0.1 && Number(shown) > 0.9)) throw new Error(`photo arrows should show only over the photo (opacity away ${hidden}, over ${shown})`);
+      arrows = 'arrows on hover';
+    }
+    ok('Map hover preview', card.photo && /\$|Auction/.test(card.text) && /courtesy of/i.test(card.text), `${pt.kind} map: dot grew; card: ${card.text.slice(0, 70)}; ${arrows}`);
   });
   // On a phone, tapping a home's dot opens the full card (not the mouse-only preview), and tapping its photo opens the
   // home. Reported Nov 9, 2026: on an iPhone the tap showed the preview, which couldn't be tapped.

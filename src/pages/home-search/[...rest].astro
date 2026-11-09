@@ -290,11 +290,14 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
   :global(.hs-flat-tip::before) { display: none; }
   :global(.leaflet-container) { font: inherit; }
   :global(.hs-mappop__fav) { position: absolute; top: .45rem; right: .45rem; z-index: 2; }
-  :global(.hs-mappop__arrow) { position: absolute; top: 80px; transform: translateY(-50%); z-index: 2; width: 32px; height: 32px; display: grid; place-items: center; padding: 0 0 3px; border: 0; border-radius: 50%; background: rgba(255,255,255,.92); color: #151213; font: 700 1.4rem/1 var(--ui); cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.25); }
-  :global(.hs-mappop__arrow:hover) { background: #fff; }
+  /* Photo arrows: plain white arrows (a soft shadow keeps them visible on light photos), shown while the pointer is over
+     the photo; on touch screens, which can't hover, they always show. */
+  :global(.hs-mappop__arrow) { position: absolute; top: 80px; transform: translateY(-50%); z-index: 2; width: 36px; height: 48px; display: grid; place-items: center; padding: 0 0 4px; border: 0; background: none; color: #fff; font: 400 2.6rem/1 var(--ui); text-shadow: 0 1px 4px rgba(0,0,0,.7); cursor: pointer; opacity: 0; transition: opacity .15s; }
+  :global(.hs-mappop:has(.hs-pop-card__photo:hover) .hs-mappop__arrow), :global(.hs-mappop__arrow:hover), :global(.hs-mappop__arrow:focus-visible) { opacity: 1; }
+  @media (hover: none) { :global(.hs-mappop__arrow) { opacity: 1; } }
   :global(.hs-mappop__arrow:focus-visible) { outline: 2px solid var(--crimson); outline-offset: 2px; }
-  :global(.hs-mappop__prev) { left: .45rem; }
-  :global(.hs-mappop__next) { right: .45rem; }
+  :global(.hs-mappop__prev) { left: .1rem; }
+  :global(.hs-mappop__next) { right: .1rem; }
   :global(.hs-mappop__count) { position: absolute; top: 138px; left: .5rem; z-index: 2; padding: .1rem .45rem; border-radius: 999px; background: rgba(21,18,19,.75); color: #fff; font: 600 .7rem/1.4 var(--ui); pointer-events: none; }
   :global(.hs-pop-card) { display: grid; gap: .2rem; width: 240px; padding-bottom: .7rem; font: 500 .85rem/1.3 var(--ui); color: var(--text); text-decoration: none; }
   :global(.hs-pop-card > :not(.hs-pop-card__photo)) { padding-inline: .75rem; }

@@ -3,7 +3,7 @@
 // home's page; pointing at a card in the list lights up its marker.
 import * as maplibregl from 'maplibre-gl';
 import type { Pin } from './home-search';
-import { pinCard, hoverCard, canHover } from './map-card';
+import { pinCard, canHover } from './map-card';
 import mapCssUrl from 'maplibre-gl/dist/maplibre-gl.css?url';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 maplibregl.setWorkerUrl(workerUrl);
@@ -67,24 +67,18 @@ export async function createMap(el: HTMLElement, style: string, brThumb: string,
     paint: { 'text-color': '#fff' } });
   map.addLayer({ id: 'homes-hot', type: 'circle', source: 'homes', filter: ['==', ['get', 'slug'], ''], paint: {
     'circle-radius': 11, 'circle-color': '#151213', 'circle-stroke-color': '#fff', 'circle-stroke-width': 2.5 } });
-  // Pointing at a dot or a price tag shows a preview: photo, price, address, brokerage (src/scripts/map-card.ts).
-  // Built once per home, not on every mouse move.
-  const hoverTag = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 14, className: 'hs-hover', maxWidth: '240px' });
+  // Pointing at a dot or a price tag makes it 50% bigger (no preview: the photo card opens on click; Jason, Nov 9, 2026).
   let hovered = '';
   if (canHover()) for (const layer of ['homes', 'homes-tags']) {
     map.on('mousemove', layer, (e: any) => {
       const f = e.features?.[0];
-      if (!f) return;
-      if (f.properties.slug !== hovered || !hoverTag.isOpen()) {
-        hovered = f.properties.slug; hoverTag.setDOMContent(hoverCard(f.properties, brThumb));
-        for (const l of ['homes-hover', 'homes-tags-hover']) map.setFilter(l, ['==', ['get', 'slug'], hovered]);
-      }
-      hoverTag.setLngLat(f.geometry.coordinates).addTo(map);
+      if (!f || f.properties.slug === hovered) return;
+      hovered = f.properties.slug;
+      for (const l of ['homes-hover', 'homes-tags-hover']) map.setFilter(l, ['==', ['get', 'slug'], hovered]);
     });
-    map.on('mouseleave', layer, () => { hoverTag.remove(); hovered = ''; unhover(); });
+    map.on('mouseleave', layer, () => { hovered = ''; unhover(); });
   }
   const unhover = () => { for (const l of ['homes-hover', 'homes-tags-hover']) map.setFilter(l, none); };
-  map.on('click', () => { hoverTag.remove(); hovered = ''; unhover(); });
   for (const layer of ['homes', 'homes-tags']) {
     map.on('mouseenter', layer, () => { map.getCanvas().style.cursor = 'pointer'; });
     map.on('mouseleave', layer, () => { map.getCanvas().style.cursor = ''; });
