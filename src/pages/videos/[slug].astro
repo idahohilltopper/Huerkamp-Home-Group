@@ -10,11 +10,15 @@ import { communities } from '../../data/areas';
 import { videoNotes } from '../../data/videoNotes';
 import { business, origin } from '../../data/schema';
 import { site } from '../../data/site';
+import { listingsData, homesHref } from '../../data/listings';
 
 export function getStaticPaths() {
   return watchable.map((v) => ({ params: { slug: v.slug }, props: { v } }));
 }
 const { v } = Astro.props as { v: Video };
+const homesFeed = await listingsData;
+// "<City> homes for sale" goes to the homes-for-sale page when it exists; the guide link is worded as the guide.
+const homesLink = (slug: string) => (homesFeed.collections.some((k) => k.path === slug && !k.facet) ? homesHref(slug) : null);
 const url = `${origin}/videos/${v.slug}`;
 const date = new Date(v.published!);
 const dateText = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
@@ -105,7 +109,7 @@ const ld = JSON.stringify([{
           {places.length > 0 && (
             <div class="box">
               <h2>Community guides</h2>
-              <ul>{places.map((c) => <li><a href={`/communities/${c.slug}`}>{c.name}, MN homes for sale</a></li>)}</ul>
+              <ul>{places.map((c) => <li>{homesLink(c.slug) ? <><a href={homesLink(c.slug)!}>{c.name}, MN homes for sale</a> · <a href={`/communities/${c.slug}`}>Living in {c.name}</a></> : <a href={`/communities/${c.slug}`}>{c.name}, MN community guide</a>}</li>)}</ul>
             </div>
           )}
           <div class="box box--dark">

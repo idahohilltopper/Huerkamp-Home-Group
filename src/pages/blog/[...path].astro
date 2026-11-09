@@ -11,6 +11,7 @@ import { business, origin } from '../../data/schema';
 import { communities } from '../../data/areas';
 import team from '../../data/team.json';
 import { site } from '../../data/site';
+import { listingsData, homesHref } from '../../data/listings';
 
 export async function getStaticPaths() {
   const posts = await getPosts();
@@ -28,6 +29,8 @@ const jason = team.members.find((m) => m.name === 'Jason Huerkamp')!;
 const byJason = author === 'Jason Huerkamp';
 const more = related(post, posts);
 // Community guides this post is about (local stories link back to their town's page).
+const homesFeed = await listingsData;
+const hasHomesPage = (slug: string) => homesFeed.collections.some((k) => k.path === slug && !k.facet);
 const places = post.data.communities.map((slug: string) => communities.find((c) => c.slug === slug)).filter((c) => c != null);
 
 const ld = JSON.stringify({
@@ -98,10 +101,18 @@ const ld = JSON.stringify({
         <div class="guides">
           <p class="eyebrow">Community guide{places.length > 1 ? 's' : ''}</p>
           {places.map((c) => (
-            <a class="guides__link" href={`/communities/${c.slug}`}>
-              <strong>{c.name}, MN homes for sale</strong>
-              <span>Homes for sale, home values, schools, commutes and more local stories</span>
-            </a>
+            <>
+              {hasHomesPage(c.slug) && (
+                <a class="guides__link" href={homesHref(c.slug)}>
+                  <strong>{c.name}, MN homes for sale</strong>
+                  <span>Current listings and prices, updated daily</span>
+                </a>
+              )}
+              <a class="guides__link" href={`/communities/${c.slug}`}>
+                <strong>{hasHomesPage(c.slug) ? `Living in ${c.name}, MN` : `${c.name}, MN homes for sale`}</strong>
+                <span>{hasHomesPage(c.slug) ? 'Home prices, taxes, commute and local guide' : 'Homes for sale, home values, schools, commutes and more local stories'}</span>
+              </a>
+            </>
           ))}
         </div>
       )}
