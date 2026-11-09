@@ -8,6 +8,8 @@ export async function GET() {
   const lake: any = await loadLakeSales();
   const body = {
     builtAt: new Date().toISOString(),
+    // The git commit Netlify built (scripts/site-check/after-deploy.sh waits for the one just pushed).
+    commit: process.env.COMMIT_REF ?? null,
     mode: feed.mode,
     listingsAt: feed.at,
     listings: feed.listings.length,
