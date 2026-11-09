@@ -8,6 +8,9 @@ const pw = require('playwright');
 const BROWSER = process.env.BROWSER || 'chromium';
 const engine = pw[BROWSER];
 const BASE = (process.env.SITE_BASE || 'https://www.huerkamphomes.com').replace(/\/$/, '');
+// Safari reports a map-image download cut off because the tab closed (our test moving on) as an "access control"
+// error; that isn't something a visitor sees, so it isn't counted.
+const NOISE = /due to access control checks|Load failed|NetworkError when attempting to fetch|The operation was aborted|AbortError/i;
 const LOCAL = /localhost|127\.0\.0\.1/.test(BASE);
 // A phone of the right kind for the engine (Firefox can't pretend to be a phone, so it gets a phone-sized window).
 const PHONE = BROWSER === 'webkit' ? pw.devices['iPhone 14'] : BROWSER === 'chromium' ? pw.devices['Pixel 7'] : { viewport: { width: 390, height: 844 } };
@@ -29,7 +32,7 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
   const fresh = async () => {
     await p?.close().catch(() => {});
     p = await ctx.newPage();
-    p.on('pageerror', (e) => errors.push(`${p.url()} :: ${e.message.slice(0, 120)}`));
+    p.on('pageerror', (e) => { if (!NOISE.test(e.message)) errors.push(`${p.url()} :: ${e.message.slice(0, 120)}`); });
     p.__console = [];
     p.on('console', (m) => { if (m.type() === 'error') p.__console.push(m.text().slice(0, 140)); });
     p.on('framenavigated', (f) => { if (f === p.mainFrame()) (p.__navs ??= []).push(f.url().replace(BASE, '')); });
@@ -86,7 +89,10 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
       for (const [n, v] of [['firstName', 'Test'], ['lastName', 'Smoke'], ['email', 'smoke@example.com'], ['phone', '6125550100']]) await showing.locator(`[name=${n}]`).fill(v).catch(() => {});
       for (const s of await showing.locator('select[required]').all()) await s.selectOption({ index: 1 });
       await showing.locator('button[type=submit]').click(); await p.waitForTimeout(1500);
-      ok('Schedule a showing form', leads.some((l) => l.form === 'showing'), (await showing.locator('.form__status').textContent()).trim());
+      const sent = leads.some((l) => l.form === 'showing');
+      // When it isn't sent, say which fields the browser refused (its own form check), so a Safari-only problem is clear.
+      const bad = sent ? '' : await showing.evaluate((f) => [...f.querySelectorAll(':invalid')].map((e) => `${e.name || e.id}: ${e.validationMessage}`).join('; '));
+      ok('Schedule a showing form', sent, `${(await showing.locator('.form__status').textContent()).trim()}${bad ? ` [fields refused: ${bad}]` : ''}`);
     } else ok('Schedule a showing form', false, 'form not found');
   });
   await step('Sold homes view', async () => {

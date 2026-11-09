@@ -107,7 +107,7 @@ const pageTitle = title.length > 60 && title.endsWith(brandEnd) ? title.slice(0,
        asks for script files that no longer exist; that page reloads itself once instead of half-working. -->
   <script is:inline>(function(){var n=0,own=location.origin;
     function stale(m){return /dynamically imported module|Importing a module script failed|error loading dynamically imported|Failed to fetch dynamically|Unable to preload CSS/i.test(m||'')}
-    function report(kind,msg,src,line){try{if(n++>=5||!msg)return;if(src&&src.indexOf(own)!==0&&src.indexOf('/')!==0)return;if(/ResizeObserver loop|^Script error\.?$|MetaMask|ethereum|web3|chrome-extension:|moz-extension:|safari-extension:/i.test(msg))return;
+    function report(kind,msg,src,line){try{if(n++>=5||!msg)return;if(src&&src.indexOf(own)!==0&&src.indexOf('/')!==0)return;if(/ResizeObserver loop|^Script error\.?$|MetaMask|ethereum|web3|due to access control checks|Load failed|AbortError|chrome-extension:|moz-extension:|safari-extension:/i.test(msg))return;
       var b=JSON.stringify({kind:kind,msg:String(msg).slice(0,300),src:src||'',line:line||0,page:location.pathname,width:innerWidth});
       if(navigator.sendBeacon)navigator.sendBeacon('/api/client-error',new Blob([b],{type:'application/json'}));else fetch('/api/client-error',{method:'POST',body:b,keepalive:true});}catch(e){}}
     function reloadOnce(msg){try{var k='hhg-reloaded',t=+sessionStorage.getItem(k)||0;if(Date.now()-t>600000){sessionStorage.setItem(k,String(Date.now()));report('stale',msg,'',0);location.reload();return true}}catch(e){}return false}
