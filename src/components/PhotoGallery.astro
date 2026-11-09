@@ -24,7 +24,7 @@ const srcset = (p: string) => `${src(p, 'small')} 400w, ${src(p, 'medium')} 800w
       <ul class="gal__track" data-track tabindex="0" aria-label={`${photos.length} photos. Use the arrows to see more.`}>
         {photos.map((p, i) => (
           <li><button type="button" class="gal__open" data-open={i} aria-label={`Open photo ${i + 1} of ${photos.length} full screen`}>
-            <img src={src(p, i ? 'medium' : 'large')} srcset={srcset(p)} sizes="(max-width: 900px) 100vw, 900px" alt={`Photo ${i + 1} of ${photos.length}: ${alt}`} width="1200" height="800" loading={i ? 'lazy' : 'eager'} fetchpriority={i ? undefined : 'high'} decoding="async" />
+            <img src={src(p, i ? 'medium' : 'large')} srcset={srcset(p)} sizes="(max-width: 900px) 100vw, 900px" alt={`Photo ${i + 1} of ${photos.length}: ${alt}`} width="1200" height="800" loading={i ? 'lazy' : 'eager'} fetchpriority={i ? 'low' : 'high'} decoding="async" />
           </button></li>
         ))}
       </ul>

@@ -116,6 +116,7 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() }, { name: community
   ...(hood && exists(l.hood!) ? [{ name: hood.name, href: homesHref(l.hood!) }] : []), { name: l.addressHidden ? `MLS #${l.mls}` : l.street, href: listingHref(l) }];
 ---
 <Base breadcrumbs={crumbs} title={title} description={description} image={l.photos[0] ? photo(l.photos[0], 'large') : undefined} noindex={data.preview}>
+  <link slot="head" rel="preconnect" href="https://cdn.repliers.io" />
   <script slot="head" type="application/ld+json" set:html={ld} />
   <!-- The listing (MLS data only). NorthstarMLS Rule 12.3(g)-(h): the listing broker, the Broker Reciprocity logo and the
        RMLS copyright follow the property information; no contact form or team branding inside it. -->
