@@ -13,6 +13,10 @@ broken change reaches buyers right away. Jason (the owner) is not a developer: e
 3. **After pushing:** `bash scripts/site-check/after-deploy.sh` waits for Netlify's deploy and runs the site check on
    the live site. **If it fails, revert at once** (`git revert --no-edit HEAD && git push`), then fix and try again.
 4. Small text-only changes (docs, data JSON) can skip step 1, never step 3.
+5. **Every push is a Netlify production deploy and counts against the Netlify plan's monthly usage.** On Nov 9, 2026
+   the account ran out and Netlify paused the whole site (every page answered 503 "usage_exceeded"). Batch changes into
+   as few pushes as possible; don't push docs-only changes on their own. The site also rebuilds itself 4 times a day
+   (`netlify/functions/rebuild.mjs`).
 
 ## Checks that run on their own
 

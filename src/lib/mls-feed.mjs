@@ -55,7 +55,10 @@ export function homeType(l) {
   if (/land|lot\b|acreage/i.test(s) && !/residen|house|home/i.test(l.details?.propertyType ?? '')) return 'land';
   // NorthstarMLS files townhouses under the condo class, with "Townhouse" (or twin home, quad...) as the style, so the
   // style decides first; otherwise every townhouse would be listed as a condo.
-  if (/town|twin ?home|row ?house|quad/i.test(l.details?.style ?? '')) return 'townhome';
+  if (/^\(th\)|town|twin ?home|row ?house|quad/i.test(l.details?.style ?? '') || /town|twin ?home/i.test(l.details?.propertyType ?? '')) return 'townhome';
+  // A detached house in an association can be filed under the condo class; its property type ("Single Family
+  // Residence") or a "(SF)"/detached style says what it really is. (Reported Nov 9, 2026: a Medina house showed as a condo.)
+  if (/single ?family|detached/i.test(l.details?.propertyType ?? '') || /^\(sf\)|single ?family|detached/i.test(l.details?.style ?? '')) return 'single-family';
   if (/condo/i.test(s)) return 'condo';
   if (/town|twin ?home|row ?house|quad|attached/i.test(s)) return 'townhome';
   if (/multi|duplex|triplex|fourplex|4-?plex|income/i.test(s)) return 'multi-family';

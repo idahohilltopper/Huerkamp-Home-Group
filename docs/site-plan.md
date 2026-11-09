@@ -413,7 +413,7 @@ Thousands of pages built from the MLS feed, so we compete with Zillow, Homes.com
   - The menu and footer get "Homes for sale by city".
   - llms.txt lists counts and median prices (live mode only).
   - Sitemap dates come from each listing's last MLS update.
-- **Freshness:** `netlify/functions/rebuild.mjs` rebuilds the site at 6 AM and 6 PM Central. It needs `BUILD_HOOK_URL` (Netlify > Build & deploy > Build hooks). Each rebuild takes a few minutes of Netlify build time, so check the plan's monthly build minutes.
+- **Freshness:** `netlify/functions/rebuild.mjs` rebuilds the site at 6 AM, 11 AM, 4 PM and 9 PM Central (hourly 8 AM-10 PM until Nov 9, 2026, when the Netlify account ran past its plan's usage and the site was paused). It needs `BUILD_HOOK_URL` (Netlify > Build & deploy > Build hooks). Each rebuild takes a few minutes of Netlify build time, so check the plan's monthly build minutes.
 - **Testing without the MLS:** run `MLS_FIXTURE=<file of sample listings> npm run build` locally. Netlify refuses the sample file. Pages built from it say "Sample data".
 
 ## Comparison pages (/compare), October 2026

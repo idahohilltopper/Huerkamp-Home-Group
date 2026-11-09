@@ -1,5 +1,7 @@
-// Rebuilds the site every hour from 8 AM to 10 PM Central (15 times a day) so the listings stay current. Overnight
-// the gap is 10 hours, inside NorthstarMLS Rule 12.2(f) (refresh at least every 12 hours).
+// Rebuilds the site 4 times a day, at 6 AM, 11 AM, 4 PM and 9 PM Central, so the listings stay current. The longest gap
+// (overnight) is 9 hours, inside NorthstarMLS Rule 12.2(f) (refresh at least every 12 hours). It was hourly (15 a day)
+// until Nov 9, 2026, when the Netlify account ran past its plan's monthly usage and Netlify paused the site: every
+// rebuild is a production deploy, which counts against the plan.
 // Netlify runs schedules in UTC, so this runs at the top of every hour and checks the Minneapolis clock itself;
 // that keeps 8 AM-10 PM right through daylight saving time changes.
 // Does nothing until both are set in Netlify:
@@ -10,8 +12,7 @@ import { agentId } from './alerts.mjs';
 
 const env = (k) => (globalThis.Netlify?.env?.get(k) ?? process.env[k] ?? '').trim();
 
-export const FIRST_HOUR = 8; // 8 AM Central
-export const LAST_HOUR = 22; // 10 PM Central
+export const HOURS = [6, 11, 16, 21]; // Central time
 
 /** The hour (0-23) in Minneapolis right now. */
 export const centralHour = (now = new Date()) =>
@@ -22,14 +23,14 @@ export default async (_req, _ctx, now = new Date(), checkAgent = agentId) => {
   const key = env('REPLIERS_API_KEY');
   if (key) await checkAgent(key, fetch).catch((err) => console.error('agent phone check', err?.message));
   const hour = centralHour(now);
-  if (hour < FIRST_HOUR || hour > LAST_HOUR) return new Response('skipped: outside 8 AM-10 PM Central');
+  if (!HOURS.includes(hour)) return new Response('skipped: rebuilds run at 6 AM, 11 AM, 4 PM and 9 PM Central');
   const mode = env('MLS_PUBLIC').toLowerCase();
   const hook = env('BUILD_HOOK_URL');
   if (!['yes', 'preview'].includes(mode) || !/^https:\/\/api\.netlify\.com\/build_hooks\//.test(hook)) {
     console.log('rebuild skipped: MLS_PUBLIC or BUILD_HOOK_URL not set');
     return new Response('skipped');
   }
-  const r = await fetch(`${hook}?trigger_title=${encodeURIComponent('MLS listings refresh (hourly, 8 AM-10 PM)')}`, { method: 'POST' });
+  const r = await fetch(`${hook}?trigger_title=${encodeURIComponent('MLS listings refresh (6 AM, 11 AM, 4 PM, 9 PM)')}`, { method: 'POST' });
   console.log(`rebuild requested: ${r.status}`);
   return new Response(`requested ${r.status}`);
 };
