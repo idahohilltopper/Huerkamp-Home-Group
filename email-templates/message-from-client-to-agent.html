@@ -1,0 +1,117 @@
+<!--:: Please reply above this line ::-->
+<!DOCTYPE html>
+<html lang="en">
+  <head></head>
+  <body style="padding: 0px; margin: 0px;">
+    <div role="presentation" style="background: #1f1b1c; border-bottom: 4px solid #d40000;">
+      <div align="left" style="padding: 18px 28px; margin: auto;"><a href="https://www.huerkamphomes.com/"><img src="https://www.huerkamphomes.com/brand/hhg-logo-reverse.png" alt="Huerkamp Home Group" width="150" style="display:block; width:150px; height:auto; border:0;"></a>
+        <!--[if mso]>
+				<div role="presentation"></div>
+				<![endif]-->
+      </div>
+    </div>
+    <div role="presentation" style="margin: 30px auto; padding: 0 25px;">
+      <div style="border-bottom: 1px #ddd solid;">
+        <div style="padding: 20px; font-family: Helvetica, Arial, sans-serif; font-size: 18px; line-height: 26px; color: #000;">{{if agentAvatar and sender == "agent"}}
+          <div style="display: inline-block; vertical-align: top; margin-right: 10px;">
+            <img height="50" src="{{{agentAvatar}}}" />
+          </div>{{end}}
+          <div style="display: inline-block;">
+            <p style="margin:0; font-size:20px;">{{if sender != "agent"}}
+              <a href="{{{client_url_for_agent}}}">{{end}}{{fromName}}{{if sender != "agent"}}</a>{{end}}
+            </p>
+            <p style="margin: 0 0 10px 0; font-size: 14px; color: #5e5e5e;">{{datetime}}</p>
+          </div>
+          {{if message.text}}
+          <p style="font-weight: 500;">{{if messageHtml}}{{{message.text}}}{{else}}{{message.text}}{{end}}</p>
+          {{end}}
+          {{if message.searches and #message.searches > 0}}
+          <p>{{each message.searches}}{{if sender != "agent" }}
+            <a href="{{{loop_vars.searches.url}}}{{{loop_vars.searches.clientId}}}" style="display: block;">
+              {{else}}
+                <a href="{{{loop_vars.searches.url}}}" style="display: block;">{{end}}Click here to view search results</a>{{end}}
+          </p>{{end}}{{if message.pictures and #message.pictures > 0}}
+          <p>{{each message.pictures}}
+            <a href="{{{loop_vars.pictures}}}">
+              <img src="{{{loop_vars.pictures}}}" width="50px" height="50px" alt="" title="" style="margin: 0 10px 0 0;" />
+            </a>{{end}}
+          </p>{{end}}{{if message.listings and #message.listings > 0}}
+          <p>{{each message.listings}}{{if sender != "agent"}}
+            <a href="{{{loop_vars.listings.url}}}{{{loop_vars.listings.clientId}}}{{{loop_vars.listings.matchId}}}{{{loop_vars.listings.searchId}}}">
+              {{else}}
+                <a href="{{{loop_vars.listings.url}}}{{{loop_vars.listings.matchId}}}{{{loop_vars.listings.searchId}}}">{{end}}
+                  <img src="{{{loop_vars.listings.image}}}" width="50px" height="50px" alt="" title="" style="margin: 0 10px 0 0;" />{{end}}
+                </a>
+          </p>{{end}}{{if message.links and #message.links > 0}}
+          <p>{{each message.links}}
+            <a href="{{{loop_vars.links}}}" style="display: block;">Please click this link</a>{{end}}
+          </p>{{end}}
+          
+          {{if estimateId}}
+          <a href="{{{estimates_url}}}" style="background-color: #d40000; width: 100%; text-align: center; display: block; padding: 10px 0; color: #fff; text-decoration: none; font-size: 24px; font-weight: bold; margin: 0 auto 30px; border-radius: 10px;">View Property Value</a>
+          {{end}}
+          
+          <p style="font-size: 14px;">-- <br />Just reply to this email to continue the conversation. </p>
+        </div>
+      </div>{{each messages}}
+      <div aria-hidden="true" style="font-size: 0px; line-height: 0px;height: 40px;">&nbsp;</div>{{if loop_vars.messages.sender == "agent"}}
+      <div style="background-color: #f7ebfc; border-radius: 10px; text-align: left;">
+        {{else}}
+          <div style="background-color: #eaeafc; border-radius: 10px; text-align: left;">{{end}}
+            <div style="padding: 20px; font-family: Helvetica, Arial, sans-serif; font-size: 18px; line-height: 26px; color: #000;">{{if loop_vars.messages.agentAvatar and loop_vars.messages.sender == "agent"}}
+              <div style="display: inline-block; vertical-align: top; margin-right: 10px;">
+                <img height="50" src="{{{loop_vars.messages.agentAvatar}}}" />
+              </div>{{end}}
+              <div style="display: inline-block;">
+                <p style="margin:0; font-size:20px;">{{if sender != "agent" and loop_vars.messages.sender != "agent"}}
+                  <a href="{{{client_url_for_agent}}}">{{loop_vars.messages.fullname}}</a>{{elseif loop_vars.messages.sender != sender}}You
+                  {{else}}{{loop_vars.messages.fullname}}{{end}}
+                </p>
+                <p style="margin: 0 0 10px 0; font-size: 14px; color: #5e5e5e;">{{loop_vars.messages.datetime}}</p>
+              </div>
+              <div>
+                <p style="margin: 0; word-break: break-word;">{{loop_vars.messages.text}}</p>{{if #loop_vars.messages.searches > 0}}
+                <p>{{each loop_vars.messages.searches}}{{if sender != "agent" }}
+                  <a href="{{{loop_vars.searches.url}}}{{{loop_vars.searches.clientId}}}" style="display: block;">
+                    {{else}}
+                      <a href="{{{loop_vars.searches.url}}}" style="display: block;">{{end}}Click here to view search results</a>{{end}}
+                </p>{{end}}{{if #loop_vars.messages.pictures > 0}}
+                <p>{{each loop_vars.messages.pictures}}
+                  <a href="{{{loop_vars.pictures}}}">
+                    <img src="{{{loop_vars.pictures}}}" width="50px" height="50px" alt="" title="" style="margin: 0 10px 0 0;" />
+                  </a>{{end}}
+                </p>{{end}}{{if #loop_vars.messages.listings > 0}}
+                <p>{{each loop_vars.messages.listings}}{{if sender != "agent"}}
+                  <a href="{{{loop_vars.listings.url}}}{{{loop_vars.listings.clientId}}}{{{loop_vars.listings.matchId}}}{{{loop_vars.listings.searchId}}}">
+                    {{else}}
+                      <a href="{{{loop_vars.listings.url}}}{{{loop_vars.listings.matchId}}}{{{loop_vars.listings.searchId}}}">{{end}}
+                        <img src="{{{loop_vars.listings.image}}}" width="50px" height="50px" alt="" title="" style="margin: 0 10px 0 0;" />{{end}}
+                      </a>
+                </p>{{end}}{{if #loop_vars.messages.links > 0}}
+                <p>{{each loop_vars.messages.links}}
+                  <a href="{{{loop_vars.links}}}" style="display: block;">{{loop_vars.links}}</a>{{end}}
+                </p>{{end}}
+              </div>
+            </div>
+          </div>{{end}}
+          <div aria-hidden="true" style="font-size: 0px; line-height: 0px; height: 40px">&nbsp;</div>
+      </div>
+      <div style="margin: 25px auto 0;">
+        <div style="padding: 20px; font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 18px; text-align: center; color: #727272;">{{if logo}}
+          <img src="{{{logo}}}" style="width: 200px; margin-bottom: 10px;" />{{end}}
+          <!--  <p style="margin: 0 0 10px 0;"><a href="https://twitter.com/repliers_io" style="text-decoration: none; margin: 0 10px;"><img src="https://s3.amazonaws.com/email.repliers.io/images/icons/twitter-email.png" alt="" title=""/></a><a href="#" style="text-decoration: none; margin: 0 10px;"><img src="https://s3.amazonaws.com/email.repliers.io/images/icons/facebook-email.png" alt="" title=""/></a><a href="#" style="text-decoration: none; margin: 0 10px;"><img src="https://s3.amazonaws.com/email.repliers.io/images/icons/instagram-email.png" alt="" title=""/></a></p> -->
+          <p style="color: #a4a4a4;">
+            <span style="color: #727272;">{{ business_name }}</span> {{ business_address }}
+          </p>{{if sender != "client"}}
+          <p>
+            <a href="{{{ unsubscribe_url }}}" style="padding: 0 10px; color: #727272;">Unsubscribe</a>
+            <a href="{{{ settings_url }}}" style="padding: 0; color: #727272;">Profile & Settings</a>
+          </p>{{end}}{{if showPoweredBy}}
+          <p>
+            <span style="padding: 0; color: #a4a4a4;">Powered by </span>
+            <a href="https://repliers.io?utm_source=Repliers&utm_campaign={{account.username}}&utm_medium=email&utm_content=footer" style="padding: 0;">Repliers</a>
+          </p>{{end}}
+         </div>
+    </div>
+  </body>
+</html>

@@ -813,3 +813,7 @@ See CLAUDE.md. Before a push: scripts/site-check/preflight.sh (build with fake s
 ## TCPA check (2026-11-09)
 
 scripts/site-check/tcpa.cjs: lead logic (consent only with the box checked and a 10-digit phone; record keeps words, version, time, page, IP), every phone form on ~46 pages (unchecked, optional, 12px+, above submit, exact wording, SMS Terms and Privacy links), a real send with and without the box (intercepted), and the SMS Terms and Privacy pages. Runs in preflight, monthly in GitHub Actions (.github/workflows/tcpa.yml, 2nd of the month) and in a monthly routine that also watches for TCPA/FCC/Minnesota rule changes. First run: 94 forms on 46 pages; only /account lacked the box, now added.
+
+## Repliers email templates (2026-11-09)
+
+All five Repliers templates in our brand: the three alert emails from Nov 4-5 (unchanged; Rule 12.3(f) means no beds/baths/sqft/neighbourhood on other brokerages' homes) and the two message emails (Repliers' layout, our colors and logo). scripts/email-templates/build.mjs checks every Repliers tag is kept (allowed gaps: the Rule 12.3(f) fields and the hard-coded logo, team name and office address) and writes previews to email-templates/preview/. Download links: /files/email-templates/ (zip of all five). alerts.huerkamphomes.com has Repliers' MX (SparkPost) since Nov 5. Still needed from Repliers: the tag for the listing brokerage name (the 'Listing courtesy of' line; alerts must not go live without it) and switching our account to these templates.
