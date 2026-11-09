@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 const reqs = [
-  ['4 + 3', 'appointments a week', 'Set 4 appointments and meet 3 every week, tracked in our CRM, Follow Up Boss, in at least 48 of the 52 weeks.'],
+  ['20 · 4 · 3', 'weekly activity', 'Every week: 20 conversations, 4 appointments set, and 3 appointments met, tracked in our CRM, Follow Up Boss, in at least 48 of the 52 weeks.'],
   ['2 / 3', 'signed agreements per 3 weeks', 'Keep a pace of at least 2 signed agreements every 3 weeks, averaged over the year.'],
   ['48', 'weekly accountability meetings', 'Attend 48 weekly accountability meetings (WAM) a year.'],
   ['100', 'leads, maximum', 'Never more than 100 leads assigned to you in Follow Up Boss.'],
