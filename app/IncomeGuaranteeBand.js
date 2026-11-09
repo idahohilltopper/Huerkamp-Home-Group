@@ -12,7 +12,7 @@ export default function IncomeGuaranteeBand({ compact = false }) {
     <section className="ig-band" id="income-guarantee">
       <div className="ig-inner">
         <p className="ig-eyebrow">Income guarantee*</p>
-        <h2><span className="ig-amount">$150,000</span> guaranteed income*</h2>
+        <h2><span className="ig-amount">$100,000</span> guaranteed income*</h2>
         <p className="ig-lead">When you hold up your end. Meet all four requirements below and we stand behind your income.</p>
         <div className="ig-grid">
           {reqs.map(([n, label, d]) => (
@@ -24,7 +24,7 @@ export default function IncomeGuaranteeBand({ compact = false }) {
           ))}
         </div>
         {!compact && <Link href="/income-guarantee" className="btn ig-btn">See exactly how the guarantee works</Link>}
-        <p className="ig-fine">*The guarantee applies only to agents who meet all four requirements. If your income falls short, HHG pays the difference up to $150,000. <Link href="/terms#income-guarantee">Terms and conditions apply.</Link></p>
+        <p className="ig-fine">*The guarantee applies only to agents who meet all four requirements. If your income falls short, HHG pays the difference up to $100,000. <Link href="/terms#income-guarantee">Terms and conditions apply.</Link></p>
       </div>
     </section>
   );

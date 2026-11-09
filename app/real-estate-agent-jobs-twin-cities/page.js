@@ -17,7 +17,7 @@ const jobPosting = {
   title: 'Real Estate Agent (Licensed or Getting Licensed)',
   description:
     '<p>Huerkamp Home Group, a Keller Williams Preferred Realty team in Burnsville, MN, is looking for real estate agents across the Twin Cities. We talk with licensed agents, agents in the licensing process, and people curious about the career.</p>' +
-    '<p>What you get: team-provided leads, weekly coaching 46 weeks a year, a Client Care Manager, a showing partner, weekly accountability meetings, and a $150,000 income guarantee for full-time agents who meet the requirements (terms and conditions apply).</p>' +
+    '<p>What you get: team-provided leads, weekly coaching 46 weeks a year, a Client Care Manager, a showing partner, weekly accountability meetings, and a $100,000 income guarantee for full-time agents who meet the requirements (terms and conditions apply).</p>' +
     '<p>Apply for free at ' + SITE + '/apply. It is confidential and there is no obligation.</p>',
   datePosted: '2026-11-08',
   industry: 'Real Estate',
@@ -42,7 +42,7 @@ const get = [
   ['Leads', 'Team-provided buyer and seller leads, so you spend your time working them, not buying them.'],
   ['Coaching', 'Weekly coaching 46 weeks a year, plus a weekly accountability meeting.'],
   ['Support', 'A Client Care Manager and a showing partner who gives you time back with buyers.'],
-  ['Income*', 'A $150,000 income guarantee for full-time agents who meet the requirements.'],
+  ['Income*', 'A $100,000 income guarantee for full-time agents who meet the requirements.'],
   ['Extra earnings*', 'Agent+ with Mutual of Omaha Mortgage and a matching 401(k) for licensed loan officers.'],
   ['A $5,000 bonus*', 'The agent recruiting bonus applies to you if you join, and to anyone you bring on.'],
 ];

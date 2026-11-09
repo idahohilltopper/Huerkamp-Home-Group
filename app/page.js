@@ -14,7 +14,7 @@ export const metadata = {
   alternates: { canonical: '/' },
 };
 
-const badges = ['$150,000 guaranteed income* (when you meet the requirements)', 'Earn up to $4,000 per buy-side file on top of your commission', 'Matching 401(k)', '#1 Keller Williams team in the North Central region', '#1 realtor.com lead purchaser in the Twin Cities', 'Zillow Preferred team', '100% free to apply', 'Reply within 1 business day', 'Confidential conversation'];
+const badges = ['$100,000 guaranteed income* (when you meet the requirements)', 'Earn up to $4,000 per buy-side file on top of your commission', 'Matching 401(k)', '#1 Keller Williams team in the North Central region', '#1 realtor.com lead purchaser in the Twin Cities', 'Zillow Preferred team', '100% free to apply', 'Reply within 1 business day', 'Confidential conversation'];
 
 const matchCards = [
   { who: 'You', tag: 'Ambitious agent', rows: [['Looking for', 'Leads · Training · Culture'], ['Goal', 'Close more deals'], ['Style', 'Collaborative']] },

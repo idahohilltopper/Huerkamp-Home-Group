@@ -5,8 +5,8 @@ import ApplySection from '../ApplySection';
 import IncomeGuaranteeBand from '../IncomeGuaranteeBand';
 
 export const metadata = {
-  title: '$150,000 Income Guarantee for Agents',
-  description: 'How the Huerkamp Home Group $150,000 income guarantee works: the four requirements, how activity is tracked in Follow Up Boss, and how the payout is figured.',
+  title: '$100,000 Income Guarantee for Agents',
+  description: 'How the Huerkamp Home Group $100,000 income guarantee works: the four requirements, how activity is tracked in Follow Up Boss, and how the payout is figured.',
   alternates: { canonical: '/income-guarantee' },
 };
 
@@ -14,13 +14,13 @@ export default function IncomeGuarantee() {
   return (
     <>
       <SiteHeader />
-      <PageHero eyebrow="Income guarantee" title="The $150,000 income guarantee">
+      <PageHero eyebrow="Income guarantee" title="The $100,000 income guarantee">
         Income insurance for agents who do the work. Here is exactly how it works, so you know what to expect before you join.
       </PageHero>
       <IncomeGuaranteeBand compact />
       <article className="section prose">
         <h2>1. What it is</h2>
-        <p>The guarantee is built for full-time agents at Huerkamp Home Group who commit to our system and show up week after week. If you meet every requirement for a full 12 months and your commission income comes in under $150,000, HHG pays you the difference.</p>
+        <p>The guarantee is built for full-time agents at Huerkamp Home Group who commit to our system and show up week after week. If you meet every requirement for a full 12 months and your commission income comes in under $100,000, HHG pays you the difference.</p>
         <p>It is not a handout. It is a safety net for people who do the work.</p>
 
         <h2>2. How the payout works</h2>
@@ -28,11 +28,11 @@ export default function IncomeGuarantee() {
           <li>Your 12-month period starts on the date you sign the program acknowledgment, and you can sign only during your first year on the team.</li>
           <li>At the end of your 12-month period, we review your records to confirm you met every requirement.</li>
           <li>We total your commission income for the period. That means your own share of each commission after the team split, on transactions that closed.</li>
-          <li>If you met every requirement and your total is below $150,000, HHG pays you the difference between your total and $150,000, as a lump sum or in another way we agree on in writing.</li>
-          <li>If your total is $150,000 or more, nothing is owed. You simply earned it.</li>
+          <li>If you met every requirement and your total is below $100,000, HHG pays you the difference between your total and $100,000, as a lump sum or in another way we agree on in writing.</li>
+          <li>If your total is $100,000 or more, nothing is owed. You simply earned it.</li>
           <li>If you did not meet every requirement, no payout is due under the program.</li>
         </ul>
-        <p><strong>Example:</strong> if you meet every requirement and your own commission income for the 12 months is $112,000, HHG pays you $38,000, which brings you to $150,000.</p>
+        <p><strong>Example:</strong> if you meet every requirement and your own commission income for the 12 months is $72,000, HHG pays you $28,000, which brings you to $100,000.</p>
 
         <h2>3. The four requirements</h2>
         <p>You must meet all four. They are tracked in Follow Up Boss, except for meeting attendance, which HHG records.</p>
