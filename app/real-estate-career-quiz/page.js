@@ -35,7 +35,7 @@ export default function CareerQuiz() {
         <div className="faq">
           {faqs.map(([q, a]) => (<details key={q}><summary>{q}</summary><p>{a}</p></details>))}
         </div>
-        <p className="sub">Prefer to read first? Start with how to <a href="/become-a-real-estate-agent-minnesota">become a real estate agent in Minnesota</a>, or see <a href="/real-estate-agent-jobs-twin-cities">agent jobs in the Twin Cities</a>.</p>
+        <p className="sub">Prefer to read first? Start with how to <a href="/become-a-real-estate-agent-minnesota">become a real estate agent in Minnesota</a>, read <a href="/is-real-estate-a-good-career">is real estate a good career?</a>, or see <a href="/real-estate-agent-jobs-twin-cities">agent jobs in the Twin Cities</a>.</p>
       </section>
       <SiteFooter />
     </>
