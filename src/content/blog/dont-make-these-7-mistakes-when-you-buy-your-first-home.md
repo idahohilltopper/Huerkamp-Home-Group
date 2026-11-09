@@ -36,7 +36,7 @@ These advertised low rates are all over the internet, and online home valuation 
 
 <figure class="post-figure"><img src="/blog/dont-make-these-7-mistakes-when-you-buy-your-first-home/5.webp" alt="" loading="lazy" decoding="async" width="427" height="427" /></figure>
 
-You might have found the house of your dreams, but, it doesn't exist in a bubble. It’s best to know about the status of the location of the house in terms of the ease of transport around the area, crime levels, the presence of earthquake fault lines, proximity to schools, hospitals, and police stations, etc. After all, location is key.
+You might have found the house of your dreams, but, it doesn't exist in a bubble. It’s best to know about the status of the location of the house in terms of the ease of transport around the area, flood zones, proximity to schools, hospitals, parks and shops, etc. After all, location is key.
 
 ### **5. Going house hunting without a pre-approved mortgage.**
 

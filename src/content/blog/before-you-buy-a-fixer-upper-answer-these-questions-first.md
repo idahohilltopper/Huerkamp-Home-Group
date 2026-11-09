@@ -22,7 +22,7 @@ importedFrom: squarespace
 
 Before you get infatuated with a fixer-upper house and all its potential, first learn about the neighborhood. Experts recommend buying “the worst house on the best block.” Why? Because there's no denying that homes located in a sought-after neighborhood will positively influence the price of the “ugly duckling” that you are interested in. Well, once it has been renovated, anyway. 
 
-Most buyers choose fixer-upper homes because they loved the area first and saw the potential of a thriving neighborhood. Unlike other home buyers, they can see past the external imperfections of the house, such as peeling paint or an unkempt yard, and realize that it is in an area with sustainable growth. So to choose wisely, do your research and love the neighborhood first. Is it close to public transit for easy commutes? Are there any parks and local attractions nearby? Is it in a good school district? If you answer “yes” to one or more of these questions, it might be worth it to get your hands dirty for that bargain.
+Most buyers choose fixer-upper homes because they loved the area first and saw the potential of a thriving neighborhood. Unlike other home buyers, they can see past the external imperfections of the house, such as peeling paint or an unkempt yard, and realize that it is in an area with sustainable growth. So to choose wisely, do your research and love the neighborhood first. Is it close to public transit for easy commutes? Are there any parks and local attractions nearby? Are home values in the area rising? If you answer “yes” to one or more of these questions, it might be worth it to get your hands dirty for that bargain.
 
 ### **2. *What kinds of problems need to be fixed?***
 

@@ -66,7 +66,7 @@ There is no doubt that since the pandemic started, outdoors is the way to go. No
 
 Because outdoor activities are becoming more popular, home buyers will look for a home that's close to a park or hiking trail. The closer they can get, the better. 
 
-Also, it is more important than ever for homes to be located in a safe neighborhood. That way people can enjoy outdoor activities any time of day without having to worry about possible attacks or spreading.
+Also, buyers are paying more attention to outdoor space: yards, decks, and nearby parks and trails.
 
 ## **Easy to Clean/ Antimicrobial Countertops**
 

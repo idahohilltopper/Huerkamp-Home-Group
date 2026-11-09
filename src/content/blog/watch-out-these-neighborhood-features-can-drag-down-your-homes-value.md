@@ -7,20 +7,12 @@ updated: 2022-10-27
 author: "Huerkamp Home Group"
 categories: ["Homeowner", "Seller", "Buyer"]
 tags: []
-cover: { src: "/blog/watch-out-these-neighborhood-features-can-drag-down-your-homes-value/cover.webp", width: 800, height: 2593, thumb: "/blog/watch-out-these-neighborhood-features-can-drag-down-your-homes-value/cover-640.webp" }
 importedFrom: squarespace
 ---
 **While there are certain home improvements you can add to your home to boost its resale value, there are also many external factors that can devalue your greatest investment. This is why the real estate cliché saying “location, location, location” will never be debunked or even grow old. Many of the things that can dampen your home's value can actually be found in your neighborhood.**
 
 These factors are already outside the homeowner’s control and what appraisers refer to as [external obsolescence](http://sacramentoappraisalblog.com/tag/examples-of-external-obsolescence/). Understanding how these external factors can influence the long-term value of your home is paramount because decreasing property value can pose a challenge when it’s time to sell your home. In the worst-case scenario, you may have to sell it for less than what you purchased it for, causing you to lose money on the table.
 
-<figure class="post-figure"><img src="/blog/watch-out-these-neighborhood-features-can-drag-down-your-homes-value/1.webp" alt="" loading="lazy" decoding="async" width="800" height="2593" /></figure>
-
-### ***Bad Schools***
-
-Proximity to good quality schools is one of the most desirable factors for most home buyers. It is because neighborhoods near top-quality school districts almost always benefit when it comes to property values. However, the disastrous opposite of this is living in a bad school where there is a slim graduation rate.
-
-Neighborhoods near low-ranking schools are less attractive to many buyers and have lower property values. According to realtor.com, the median home price of areas with schools that received a 1 to 3 [GreatSchools.org](https://www.greatschools.org/) Summary Rating is only $155,000. Repeatedly, there will always be a better demand for homes in good school districts.
 
 ### ***Disruptive Neighbors***
 

@@ -46,7 +46,7 @@ According to appraisal experts, living near a bad neighbor can lower home values
 Just think of this: unmowed lawns, junk in the yard, and obvious exterior damage as discussed earlier. But apart from aesthetics, abandoned homes can attract rodents and other pests, leading to infestations that can spread to neighboring homes. They can become breeding grounds for rats, which can pose health risks to humans and pets due to the diseases they can carry.
 
   
-A neighborhood with vacant properties may also see an increase in crime rates, such as trespassing, vandalism, graffiti, theft, and even arson. When crime rates rise and the community's public safety is compromised, it could become a challenge for residents to sell their homes.
+Vacant, neglected properties nearby can also make it harder for owners on the street to sell their homes, since buyers notice boarded windows, overgrown yards and deferred upkeep.
 
 <figure class="post-figure"><img src="/blog/5-ways-your-neighbors-can-affect-your-homes-value/5.webp" alt="" loading="lazy" decoding="async" width="800" height="219" /></figure>
 

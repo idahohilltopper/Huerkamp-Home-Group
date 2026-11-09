@@ -757,7 +757,7 @@
  },
  {
   "from": "/blog/5-ways-to-look-for-a-great-school-district-when-buying-a-home",
-  "to": "/blog/2022/10/27/5-ways-to-look-for-a-great-school-district-when-buying-a-home"
+  "to": "/communities"
  },
  {
   "from": "/blog/7-reasons-youll-love-selling-your-home-in-the-spring",
@@ -1193,7 +1193,7 @@
  },
  {
   "from": "/blog/6-steps-to-choosing-a-great-school-district-when-buying-a-home",
-  "to": "/blog/2022/10/27/steps-to-choosing-a-great-school-district-when-buying-a-home"
+  "to": "/communities"
  },
  {
   "from": "/blog/home-appraisals-101-common-myths-buyers-and-sellers-should-stop-believing",
@@ -1918,5 +1918,13 @@
  {
   "from": "/sitemap.xml",
   "to": "/sitemap-index.xml"
+ },
+ {
+  "from": "/blog/2022/10/27/5-ways-to-look-for-a-great-school-district-when-buying-a-home",
+  "to": "/communities"
+ },
+ {
+  "from": "/blog/2022/10/27/steps-to-choosing-a-great-school-district-when-buying-a-home",
+  "to": "/communities"
  }
 ]

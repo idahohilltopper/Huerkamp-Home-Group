@@ -30,7 +30,7 @@ Pay attention to this major red flag while you're checking the listing online. A
 
 Second is to pay attention to your neighborhood and the nearby properties. Having plenty of options during your house-hunt is great, but what if there are too many homes for sale in the same street? When you see a lot of other “For Sale” homes in the neighborhood, get curious and ask your real estate agent if it should be a concern or it's just a coincidence. It could be a huge indication that there’s an issue with the location. 
 
-Take note and deep-dive into why these people are selling their homes. Are crime rates rising? Is it located near a busy and noisy highway? This is why it’s crucial to do some neighborhood sleuthing before buying a home. Local details such as crime statistics, school information, and other demographic data are easily accessible online and could be helpful when checking out your potential neighborhood.
+Take note and deep-dive into why these people are selling their homes. Is a road project or new construction planned nearby? Is it next to a busy, noisy highway? This is why it’s worth visiting the area at different times of day and checking the city's planning and road-construction pages before buying a home.
 
 ### **3. The house is being sold at a bargain price.**
 

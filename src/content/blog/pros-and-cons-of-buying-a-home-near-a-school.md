@@ -26,7 +26,7 @@ School drop-off and pick-up can get chaotic and dreadful. The line of cars moves
 
 <figure class="post-figure"><img src="/blog/pros-and-cons-of-buying-a-home-near-a-school/3.webp" alt="" loading="lazy" decoding="async" width="800" height="320" /></figure>
 
-Schools prioritize safety. Many schools have tight security measures around their campuses. Police and local law enforcement also have a more active presence near schools and surrounding neighborhoods. If you're a home buyer who is looking for a safe community, living near a school or within a school district can be beneficial for you. Of course, this might not apply to every single community, so don’t forget to check the local crime maps to verify information about neighborhood safety in general.
+Schools often come with sidewalks, crosswalks, lower speed limits and crossing guards nearby, which some buyers like for getting around on foot.
 
 ---
 
@@ -44,7 +44,7 @@ Schools also promote a sense of community, often providing social activities for
 
 <figure class="post-figure"><img src="/blog/pros-and-cons-of-buying-a-home-near-a-school/6.webp" alt="" loading="lazy" decoding="async" width="800" height="320" /></figure>
 
-Expect that homes near what is considered a good or excellent school district have a higher price tag when you buy. If the house is within walking distance of the school, it's even more desirable to parents and families and often has a higher resale value.
+Homes within walking distance of a school can draw more buyer interest, which can show up in the price when you buy and when you sell.
 
 ## **CONS**
 

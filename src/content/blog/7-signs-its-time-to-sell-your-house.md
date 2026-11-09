@@ -60,7 +60,7 @@ If the energy or expenses of keeping up with your home’s maintenance is starti
 
 <figure class="post-figure"><img src="/blog/7-signs-its-time-to-sell-your-house/6.webp" alt="" loading="lazy" decoding="async" width="800" height="276" /></figure>
 
-Seeing your beloved neighborhood change as time passes by can have its pros and cons. While changes are to be expected, it can be saddening if your neighborhood changes so much that it already affects your quality of life or displeases you, especially if you've lived in it for a long time. Issues like rising crime rates, unwanted construction, or increased traffic congestion can make you want to relocate. It can also be disheartening to see your closest neighbors move out one by one. These factors are good enough reasons to sell your home and find another neighborhood that will best suit your needs and lifestyle.
+Seeing your beloved neighborhood change as time passes by can have its pros and cons. While changes are to be expected, it can be saddening if your neighborhood changes so much that it already affects your quality of life or displeases you, especially if you've lived in it for a long time. Issues like unwanted construction, increased traffic congestion or more noise can make you want to relocate. It can also be disheartening to see your closest neighbors move out one by one. These factors are good enough reasons to sell your home and find another neighborhood that will best suit your needs and lifestyle.
 
 ---
 

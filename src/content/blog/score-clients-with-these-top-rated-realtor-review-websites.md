@@ -51,7 +51,7 @@ Trulia helps its users not only find their home but it also helps them find real
 
 **Why it's good for you:** Realtor.com has real estate articles popping out of google searches for when someone wants to know more about buying and selling property. And they almost always have a link on those articles leading to finding a realtor on their website. They also have rating categories for real estate agent’s attributes such as market expertise, communication, professionalism, negotiation skills, and responsiveness.
 
-**What to watch out for:** Some buyers may veer away from properties posted on this site because of the lack of information that could be featured on the site such as crime rates within the area. They also don’t feature photos of the property as much as other websites do.
+**What to watch out for:** Some buyers may veer away from properties posted on this site because the listings carry less information than other sites. They also don’t feature photos of the property as much as other websites do.
 
 ---
 

@@ -73,7 +73,7 @@ Besides, if you receive a lot of showing requests but they don't turn into offer
 
 ### **2. Location and neighborhood**
 
-Your home's location plays a huge role when it comes to attracting buyers and boosting showing activity. Factors such as good school districts, proximity to shops, restaurants, hospitals, parks, and public spaces, and easy access to commuter routes are usually considered by prospective buyers, depending on their priorities and preferences. 
+Your home's location plays a huge role when it comes to attracting buyers and boosting showing activity. Factors such as proximity to shops, restaurants, hospitals, parks, and public spaces, and easy access to commuter routes are usually considered by prospective buyers, depending on their priorities and preferences. 
 
 Homes in desirable neighborhoods usually create higher demand for showings, especially if they’re priced right. If your property happens to be located in a less desirable location or part of town, you can work with your trusted agent to improve showing activity by highlighting your home’s other strengths.
 

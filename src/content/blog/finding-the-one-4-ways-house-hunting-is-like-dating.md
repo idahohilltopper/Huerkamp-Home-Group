@@ -32,7 +32,7 @@ Likewise, carefully check the listing descriptions. They could offer hints and t
 
 Whether it's a person or a property, you need to do some hardcore background checks once you’ve found a potential match. Don't be deceived by their appearance alone. 
 
-Especially before buying a house, there are several ways you can do your homework. Explore the neighborhood at different times and days of the week. Visit nearby restaurants and shops, talk to potential neighbors, and learn about the quality of schools. It is advisable to check the latest crime rates, and look up the history of the house. If something feels off, talk with your realtor: they will be your guide to guarantee you won’t be investing in the wrong property.
+Especially before buying a house, there are several ways you can do your homework. Explore the neighborhood at different times and days of the week. Visit nearby restaurants and shops, check the commute at rush hour, and look up the history of the house. If something feels off, talk with your realtor: they will be your guide to guarantee you won’t be investing in the wrong property.
 
 ### **3. You know what you want, but be prepared to make a compromise.**
 

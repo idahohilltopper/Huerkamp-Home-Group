@@ -28,10 +28,9 @@ You may have restricted outdoor and social movements for now, but you can transl
 
 - Median price of homes sold in your area
 - Average days on the market before sale
-- Schools zones and school reports
+- Which school district serves the home
 - Transport links
 - Property taxes
-- Crime rates
 - Local neighborhood facilities, such as parks and gardens
 - Neighborhood groups and organizations
 - Common HOA fees, rules, etc.

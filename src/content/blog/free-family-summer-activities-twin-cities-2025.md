@@ -80,7 +80,7 @@ Full schedule → [Minneapolis Parks](https://www.minneapolisparks.org/activitie
 
 ## 🏡 Where You Live Matters
 
-Whether you’re looking for a home near splash pads, top schools, or the best summer hangouts—**we’re here to help you find it**.
+Whether you’re looking for a home near splash pads, parks, or the best summer hangouts—**we’re here to help you find it**.
 
 👉 **Thinking of moving this summer?**  
 Let’s talk about homes close to your favorite parks and playgrounds.

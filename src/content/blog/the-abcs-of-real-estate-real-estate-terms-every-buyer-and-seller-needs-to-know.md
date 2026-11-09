@@ -37,7 +37,7 @@ importedFrom: squarespace
 
 Bonus: **For-Sale-By-Owner,** more commonly known as FSBO (pronounced “fizbo”), is used to describe a homeowner who is selling their property without the help or representation of a real estate agent. FSBOs remain at an all-time low of 8 percent, according to the NAR 2017 Profile of Home Buyers and Sellers. At least 89 percent of home sellers continue to work with real estate agents to sell their homes.
 
-**G:** The **GreatSchools Rating** by[**GreatSchools.org**](https://www.greatschools.org/)provides essential information to parents so they can choose the right school for their family. Since proximity to good schools is a major factor especially for buyers with children and young families, the GreatSchools Rating is a helpful tool for parents in [evaluating the schools and school district](https://docs.google.com/document/d/1firSXTDr1pWPmaMC-Z-xAEGzmO8290ytGTb_AogLNlw/edit) they’re considering.
+**G:** **Good Faith Estimate** was the lender's early estimate of loan costs. It has been replaced by the **Loan Estimate**, which lenders must give you within three business days of your loan application, so you can compare offers line by line.
 
 **H:** [**Homeowners’ Association**](https://www.redfin.com/definition/homeowners-association) **(HOA)** is a nonprofit organization that manages a shared housing complex, including condos and other planned developments. The HOA provides funding for repairs, grounds maintenance, and security by collecting money from homeowners. It also creates and enforces rules for the properties.
 

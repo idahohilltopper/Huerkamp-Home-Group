@@ -24,7 +24,7 @@ Also, your expectations will be matched with the reality of what is currently av
 
 <figure class="post-figure"><img src="/blog/5-things-that-could-go-wrong-if-you-skip-hiring-a-real-estate-agent-to-buy-a-hom/3.webp" alt="" loading="lazy" decoding="async" width="800" height="326" /></figure>
 
-Without a realtor, you're going through this journey with no neighborhood specialist to rely on. Sure, you can and (actually need to) research vital information such as school districts, zoning codes, crime rates, local trends, current market values, etc. But local real estate agents will be able to tell you more about those things, and give you reputable data and other facts about the neighborhood you're considering. They probably even know the best coffee shops or restaurants in town, making them the best resource if you want to familiarize yourself in your potential neighborhood. 
+Without a realtor, you're going through this journey with no neighborhood specialist to rely on. Sure, you can and (actually need to) research vital information such as zoning codes, property taxes, local trends and current market values. But local real estate agents will be able to tell you more about those things, and give you reputable data on recent sales and the market where you're looking. They probably even know the best coffee shops or restaurants in town, making them the best resource if you want to familiarize yourself in your potential neighborhood. 
 
 Besides, doing some research on your own is a tedious task that is best to have help with, especially if you have no idea where to start.
 

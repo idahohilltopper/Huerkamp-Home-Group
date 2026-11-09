@@ -28,7 +28,7 @@ These advertised low rates are all over the internet, and online home valuation 
 
 **4. Not doing research on the neighborhood**
 
-You might have found the house of your dreams, but hey, it doesn’t exist in a bubble. It’s best to know about the status of the location of the house in terms of the ease of transport around the area, the crime level, presence of earthquake fault lines, proximity to schools, hospitals, and police stations, etc.
+You might have found the house of your dreams, but hey, it doesn’t exist in a bubble. It’s best to know about the status of the location of the house in terms of the ease of transport around the area, flood zones, proximity to schools, hospitals, parks and shops, etc.
 
 **5. Going house hunting without a pre-approved mortgage**
 
