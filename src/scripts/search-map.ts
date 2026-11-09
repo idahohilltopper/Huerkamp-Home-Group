@@ -3,7 +3,7 @@
 // home's page; pointing at a card in the list lights up its marker.
 import * as maplibregl from 'maplibre-gl';
 import type { Pin } from './home-search';
-import { pinCard } from './map-card';
+import { pinCard, hoverCard } from './map-card';
 import mapCssUrl from 'maplibre-gl/dist/maplibre-gl.css?url';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 maplibregl.setWorkerUrl(workerUrl);
@@ -58,15 +58,20 @@ export async function createMap(el: HTMLElement, style: string, brThumb: string,
     paint: { 'text-color': '#fff' } });
   map.addLayer({ id: 'homes-hot', type: 'circle', source: 'homes', filter: ['==', ['get', 'slug'], ''], paint: {
     'circle-radius': 11, 'circle-color': '#151213', 'circle-stroke-color': '#fff', 'circle-stroke-width': 2.5 } });
-  // Pointing at a dot shows its price in a small red tag, as the portals do (zoomed in, the tags are always shown).
-  const hoverTag = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 10, className: 'hs-hover' });
-  map.on('mousemove', 'homes', (e: any) => {
-    const f = e.features?.[0];
-    if (!f) return;
-    hoverTag.setLngLat(f.geometry.coordinates).setText(f.properties.label).addTo(map);
-  });
-  map.on('mouseleave', 'homes', () => hoverTag.remove());
-  map.on('click', () => hoverTag.remove());
+  // Pointing at a dot or a price tag shows a preview: photo, price, address, brokerage (src/scripts/map-card.ts).
+  // Built once per home, not on every mouse move.
+  const hoverTag = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 14, className: 'hs-hover', maxWidth: '240px' });
+  let hovered = '';
+  for (const layer of ['homes', 'homes-tags']) {
+    map.on('mousemove', layer, (e: any) => {
+      const f = e.features?.[0];
+      if (!f) return;
+      if (f.properties.slug !== hovered || !hoverTag.isOpen()) { hovered = f.properties.slug; hoverTag.setDOMContent(hoverCard(f.properties, brThumb)); }
+      hoverTag.setLngLat(f.geometry.coordinates).addTo(map);
+    });
+    map.on('mouseleave', layer, () => { hoverTag.remove(); hovered = ''; });
+  }
+  map.on('click', () => { hoverTag.remove(); hovered = ''; });
   for (const layer of ['homes', 'homes-tags']) {
     map.on('mouseenter', layer, () => { map.getCanvas().style.cursor = 'pointer'; });
     map.on('mouseleave', layer, () => { map.getCanvas().style.cursor = ''; });
@@ -80,6 +85,7 @@ export async function createMap(el: HTMLElement, style: string, brThumb: string,
       new maplibregl.Popup({ offset: 12, closeButton: false, maxWidth: '260px', className: 'hs-popup' }).setLngLat(f.geometry.coordinates).setDOMContent(box).addTo(map);
     });
   }
+  (window as any).__hsMap = { kind: 'main', map };
   // Only when the person moves the map (not when it moves itself to fit the results).
   map.on('moveend', (e: any) => { if (e.originalEvent) onMoved(); });
   return map;

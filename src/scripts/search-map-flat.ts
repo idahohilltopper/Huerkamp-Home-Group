@@ -5,7 +5,7 @@
 import L from 'leaflet';
 import leafletCss from 'leaflet/dist/leaflet.css?url';
 import type { Pin } from './home-search';
-import { pinCard } from './map-card';
+import { pinCard, hoverCard } from './map-card';
 
 const RED = '#d40000';
 const PLACE_BLUE = '#2f6fd6';
@@ -38,6 +38,7 @@ export async function createMap(el: HTMLElement, _style: string, brThumb: string
   map.__home = null;
   map.__hot = null;
   map.resize = () => map.invalidateSize();
+  (window as any).__hsMap = { kind: 'flat', map };
   (map as any).__brThumb = brThumb;
   // Only when the person moves the map (not when it moves itself to fit the results).
   let moving = false;
@@ -61,7 +62,7 @@ export function setPins(map: FlatMap, pins: Pin[], fit = true) {
   const brThumb = (map as any).__brThumb as string;
   for (const [lat, lng, price, slug, photo, addr, brokerage, own, sold] of pins) {
     const m = L.circleMarker([lat, lng], { radius: 6, color: '#fff', weight: 1.5, fillColor: RED, fillOpacity: 1 });
-    m.bindTooltip(tag(price), { direction: 'top', offset: [0, -6], className: 'hs-flat-tip' });
+    m.bindTooltip(() => hoverCard({ price, slug, photo: photo ?? '', addr, brokerage, own, sold: sold ?? '' }, brThumb), { direction: 'top', offset: [0, -8], className: 'hs-flat-peek', opacity: 1 });
     m.bindPopup(() => pinCard({ price, slug, photo: photo ?? '', addr, brokerage, own, sold: sold ?? '' }, brThumb), { maxWidth: 260, minWidth: 240, className: 'hs-flat-pop', closeButton: false });
     m.addTo(map.__pins!);
     map.__bySlug!.set(slug, m);

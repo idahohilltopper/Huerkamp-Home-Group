@@ -265,7 +265,17 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
   .hs-alert__search { font-weight: 600; }
   .lcards.is-loading { opacity: .45; transition: opacity .15s; }
   :global(.hs-hover) { pointer-events: none; }
-  :global(.hs-hover .maplibregl-popup-content) { padding: .3rem .55rem; border-radius: 6px; background: var(--crimson); color: #fff; font: 700 .85rem/1 var(--ui); box-shadow: 0 3px 10px rgba(0, 0, 0, .25); }
+  :global(.hs-hover .maplibregl-popup-content) { padding: 0; border-radius: 8px; overflow: hidden; box-shadow: 0 8px 24px rgba(0, 0, 0, .25); }
+  /* The hover preview (both maps): photo, price, address, brokerage */
+  :global(.hs-peek) { display: grid; gap: .15rem; width: 220px; padding-bottom: .6rem; font: 500 .8rem/1.3 var(--ui); color: var(--text); background: #fff; white-space: normal; }
+  :global(.hs-peek > :not(.hs-peek__photo)) { padding-inline: .65rem; }
+  :global(.hs-peek__photo) { display: grid; place-items: center; aspect-ratio: 3 / 2; margin-bottom: .3rem; background: var(--sand); color: var(--text-soft); font: 600 .72rem/1 var(--ui); overflow: hidden; }
+  :global(.hs-peek__photo img) { width: 100%; height: 100%; object-fit: cover; display: block; }
+  :global(.hs-peek strong) { font: 700 1rem/1.2 var(--ui); }
+  :global(.hs-peek__sold) { color: var(--crimson); font-weight: 700; }
+  :global(.hs-peek small) { display: flex; align-items: center; gap: .3rem; color: var(--text-soft); font-size: .7rem; }
+  :global(.hs-flat-peek) { padding: 0; border: 0; border-radius: 8px; overflow: hidden; box-shadow: 0 8px 24px rgba(0, 0, 0, .25); }
+  :global(.hs-flat-peek::before) { display: none; }
   :global(.hs-hover .maplibregl-popup-tip) { display: none; }
   :global(.hs-popup .maplibregl-popup-content) { padding: 0; border-radius: 8px; overflow: hidden; box-shadow: 0 8px 24px rgba(0, 0, 0, .22); }
   :global(.hs-mappop) { position: relative; }

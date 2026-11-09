@@ -204,6 +204,34 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     ok('Map without 3D graphics', !(await m.locator('.hs-mapfail').count()), `flat map with ${await m.locator('.leaflet-tile-loaded').count()} map tiles`);
     await b2.close();
   });
+  // Pointing at a home on the map shows a photo preview (src/scripts/map-card.ts hoverCard), on whichever map this
+  // browser gets (main or backup). Finds a pin on screen through the map object the page exposes for tests.
+  await step('Map hover preview', async () => {
+    await p.setViewportSize({ width: 1366, height: 900 });
+    await p.goto(BASE + '/home-search?place=lakeville&view=map', { waitUntil: 'domcontentloaded' });
+    await p.waitForFunction(() => !!window.__hsMap, null, { timeout: 25000 });
+    await p.waitForSelector('[data-results] .lcard', { timeout: 20000 });
+    await p.waitForTimeout(2500); // pins drawn and the map settled
+    const pt = await p.evaluate(() => {
+      const { kind, map } = window.__hsMap;
+      const box = map.getContainer().getBoundingClientRect();
+      if (kind === 'main') {
+        const f = map.queryRenderedFeatures({ layers: ['homes', 'homes-tags'].filter((l) => map.getLayer(l)) })[0];
+        if (!f) return null;
+        const q = map.project(f.geometry.coordinates);
+        return { x: box.left + q.x, y: box.top + q.y, kind };
+      }
+      const m = [...map.__bySlug.values()].find((x) => map.getBounds().contains(x.getLatLng()));
+      if (!m) return null;
+      const q = map.latLngToContainerPoint(m.getLatLng());
+      return { x: box.left + q.x, y: box.top + q.y, kind };
+    });
+    if (!pt) throw new Error('no home pin visible on the map');
+    await p.mouse.move(pt.x - 30, pt.y - 30); await p.mouse.move(pt.x, pt.y, { steps: 5 });
+    await p.waitForSelector('.hs-peek', { state: 'visible', timeout: 5000 });
+    const peek = await p.$eval('.hs-peek', (e) => ({ text: e.textContent.replace(/\s+/g, ' ').trim(), photo: !!e.querySelector('.hs-peek__photo img') || /coming soon/i.test(e.textContent) }));
+    ok('Map hover preview', peek.photo && /\$|Auction/.test(peek.text) && /courtesy of/i.test(peek.text), `${pt.kind} map: ${peek.text.slice(0, 90)}`);
+  });
   // What visitors' browsers hit in the last 7 days (netlify/functions/client-error.mjs).
   await step('Visitor errors (7 days)', async () => {
     const r = await (await fetch('https://www.huerkamphomes.com/api/client-error')).json();

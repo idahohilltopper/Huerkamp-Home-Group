@@ -38,3 +38,31 @@ export function pinCard(p: any, brThumb: string): HTMLElement {
   }
   return box;
 }
+
+/**
+ * The preview that appears when pointing at a home on the map (as on Zillow and Redfin): photo, price, address and
+ * the listing brokerage with the Broker Reciprocity logo on other brokerages' homes, the same fields as a listing card
+ * (Rule 12.3(f)). It can't be clicked; clicking the dot or tag opens the full card.
+ */
+export function hoverCard(p: any, brThumb: string): HTMLElement {
+  const box = document.createElement('div');
+  box.className = 'hs-peek';
+  const ph = document.createElement('span');
+  ph.className = 'hs-peek__photo';
+  if (p.photo) {
+    const img = Object.assign(document.createElement('img'), { src: `${p.photo}?class=small`, alt: '', width: 220, height: 146, decoding: 'async' });
+    img.onerror = () => { img.remove(); ph.textContent = 'Photo coming soon'; };
+    ph.append(img);
+  } else ph.textContent = 'Photo coming soon';
+  const price = document.createElement('strong');
+  price.textContent = p.price > 1 ? `$${Number(p.price).toLocaleString('en-US')}` : 'Auction';
+  const addr = document.createElement('span');
+  addr.className = 'hs-peek__addr';
+  addr.textContent = p.addr;
+  const by = document.createElement('small');
+  if (!p.own && brThumb) by.append(Object.assign(document.createElement('img'), { src: brThumb, alt: 'Broker Reciprocity listing', height: 12 }));
+  by.append(`Listing courtesy of ${p.brokerage || 'the listing brokerage'}`);
+  if (p.sold) { const when = document.createElement('span'); when.className = 'hs-peek__sold'; when.textContent = `Sold ${new Date(`${p.sold}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`; box.append(ph, price, when, addr, by); }
+  else box.append(ph, price, addr, by);
+  return box;
+}
