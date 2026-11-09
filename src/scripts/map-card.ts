@@ -1,10 +1,13 @@
+import { soldHref } from './sold-card';
 // The pop-up card for one home on the search map (both the MapLibre map, src/scripts/search-map.ts, and the
 // no-WebGL backup map, src/scripts/search-map-flat.ts). NorthstarMLS Rule 12.3(f): like a listing card, it shows the
 // photo, price, address and listing brokerage, with the Broker Reciprocity thumbnail logo on other brokerages' listings.
+// Tapping it opens the home: its page for homes for sale, its sold page for sold homes (p.slug is the MLS number then).
+const cardHref = (p: any) => (p.sold ? soldHref(String(p.slug)) : `/homes/${encodeURIComponent(p.slug)}`);
 export function pinCard(p: any, brThumb: string): HTMLElement {
-  const a = document.createElement(p.sold ? 'div' : 'a');
+  const a = document.createElement('a');
   a.className = 'hs-pop-card';
-  if (!p.sold) (a as HTMLAnchorElement).href = `/homes/${encodeURIComponent(p.slug)}`;
+  a.href = cardHref(p);
   const ph = document.createElement('span');
   ph.className = 'hs-pop-card__photo';
   if (p.photo) {
@@ -47,8 +50,8 @@ export function pinCard(p: any, brThumb: string): HTMLElement {
  */
 export const canHover = () => typeof matchMedia === 'function' && matchMedia('(hover: hover) and (pointer: fine)').matches;
 export function hoverCard(p: any, brThumb: string): HTMLElement {
-  const box = document.createElement(p.sold ? 'div' : 'a');
-  if (!p.sold) (box as HTMLAnchorElement).href = `/homes/${encodeURIComponent(p.slug)}`;
+  const box = document.createElement('a');
+  box.href = cardHref(p);
   box.className = 'hs-peek';
   const ph = document.createElement('span');
   ph.className = 'hs-peek__photo';

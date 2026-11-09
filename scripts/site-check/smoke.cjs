@@ -102,7 +102,12 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
   await step('Sold homes view', async () => {
     await p.goto(BASE + '/home-search?status=sold&place=lakeville', { waitUntil: 'domcontentloaded' });
     await p.waitForSelector('[data-results] .lcard', { timeout: 25000 });
-    ok('Sold homes view', true, `${await p.$$eval('[data-results] .lcard', (e) => e.length)} sold homes`);
+    const n = await p.$$eval('[data-results] .lcard', (e) => e.length);
+    // A sold home opens its own sold page (reported Nov 9, 2026: sold homes on the map couldn't be opened).
+    await p.click('[data-results] .lcard--sold a');
+    await p.waitForURL(/\/listings\/property\?mlsNumber=/, { timeout: 15000 });
+    await p.waitForSelector('h1:has-text("Sold:")', { timeout: 20000 });
+    ok('Sold homes view', true, `${n} sold homes; opened ${(await p.textContent('h1')).trim().slice(0, 60)}`);
   });
   await step('Instant home estimate', async () => {
     await p.goto(BASE + '/home-estimate?address=17000+Kenwood+Trail%2C+Lakeville&zip=55044', { waitUntil: 'domcontentloaded' });

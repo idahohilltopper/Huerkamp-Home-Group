@@ -22,7 +22,10 @@ import { SOLD_DISCLAIMER } from '../../lib/sold.mjs';
   const box = document.querySelector('[data-msg]');
   const back = id ? `/listings?searchId=${encodeURIComponent(id)}` : SEARCH_PATH;
   const esc = (s: unknown) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
-  const buttons = `<p><a class="btn" href="${back}">See my saved search</a> <a class="btn btn--ghost" href="${SEARCH_PATH}">Search all homes</a></p>`
+  // From an alert email (searchId): back to the saved search. From the site's own map or list: back to that search.
+  const fromSite = !id && document.referrer.startsWith(location.origin + '/home-search');
+  const buttons = (id ? `<p><a class="btn" href="${back}">See my saved search</a> <a class="btn btn--ghost" href="${SEARCH_PATH}">Search all homes</a></p>`
+    : `<p>${fromSite ? `<a class="btn" href="${esc(document.referrer)}">Back to the search</a> ` : ''}<a class="btn${fromSite ? ' btn--ghost' : ''}" href="/home-estimate">What's my home worth?</a> <a class="btn btn--ghost" href="${SEARCH_PATH}">Search homes for sale</a></p>`)
     + `<p>Questions about this home, or what yours might sell for? Call or text <a href="${phoneHref}">${phone}</a>.</p>`;
   const gone = () => say(box, `<h1>This home is no longer for sale</h1><p>MLS #${mls || '?'} has gone under contract, sold or left the market since your alert went out. Homes move fast, so here are the latest matches.</p>${buttons}`);
 

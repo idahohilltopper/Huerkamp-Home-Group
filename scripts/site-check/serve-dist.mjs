@@ -15,7 +15,8 @@ const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '
 
 http.createServer(async (req, res) => {
   const u = new URL(req.url, `http://localhost:${port}`);
-  if (u.pathname.startsWith('/api/') || u.pathname.startsWith('/listings/')) {
+  // /api/* and the /listings/* pages the build doesn't have go to the live site; /listings/property is a page in the build.
+  if (u.pathname.startsWith('/api/') || (u.pathname.startsWith('/listings/') && !fs.existsSync(path.join(root, decodeURIComponent(u.pathname) + '.html')))) {
     try {
       const headers = {};
       for (const h of ['x-idx-eula', 'x-account', 'content-type', 'accept']) if (req.headers[h]) headers[h] = req.headers[h];
