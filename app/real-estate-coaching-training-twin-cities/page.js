@@ -69,7 +69,7 @@ export default function CoachingTraining() {
 
       <section className="section">
         <h2>New to real estate?</h2>
-        <p className="sub">Start with our guide to <a href="/become-a-real-estate-agent-minnesota">becoming a real estate agent in Minnesota</a>, then <a href="/join-a-real-estate-team-twin-cities">see how to choose a team</a>.</p>
+        <p className="sub">Start with our guide to <a href="/become-a-real-estate-agent-minnesota">becoming a real estate agent in Minnesota</a>, then <a href="/join-a-real-estate-team-twin-cities">see how to choose a team</a>, or read <a href="/how-to-find-a-real-estate-mentor">how to find a real estate mentor</a>.</p>
         <div className="faq">
           {faqs.map(([q, a]) => (<details key={q}><summary>{q}</summary><p>{a}</p></details>))}
         </div>
