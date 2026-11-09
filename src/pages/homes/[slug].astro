@@ -20,6 +20,7 @@ import { origin } from '../../data/schema';
 import { site } from '../../data/site';
 import { developmentsData } from '../../data/developments';
 import NearbyPlaces from '../../components/NearbyPlaces.astro';
+import rates from '../../data/rates.json';
 
 export async function getStaticPaths() {
   const data = await listingsData;
@@ -72,23 +73,68 @@ const next = [
   exists(`zip/${l.zip}`) && { href: homesHref(`zip/${l.zip}`), label: `Homes for sale in ZIP ${l.zip}` },
 ].filter(Boolean) as { href: string; label: string }[];
 
-const facts: [string, string | null][] = [
-  ['Home type', typeLabel.charAt(0).toUpperCase() + typeLabel.slice(1, -1)],
-  ['Style', l.style || null],
-  ['Year built', l.yearBuilt && l.type !== 'land' ? String(l.yearBuilt) : null],
-  ['Bedrooms', l.beds ? String(l.beds) : null],
-  ['Bathrooms', l.baths ? String(l.baths) : null],
-  ['Finished sq ft', l.sqft ? l.sqft.toLocaleString('en-US') : null],
-  ['Lot', l.lotAcres ? `${l.lotAcres} acres` : null],
-  ['Garage', l.garage ? `${l.garage} stalls` : null],
-  ['Basement', l.basement || null],
-  ['Heating', l.heating || null],
-  ['Cooling', l.cooling || null],
-  ['Property taxes', l.taxes ? `${money(Math.round(l.taxes))} a year` : null],
-  ['HOA / association fee', l.hoa ? money(Math.round(l.hoa)) : null],
-  ['Listed', day(l.listed)],
-  ['MLS number', l.mls],
-];
+const typeName = typeLabel.charAt(0).toUpperCase() + typeLabel.slice(1, -1);
+const shortDay = (d: string | null) => (d ? new Date(`${d}T12:00:00`).toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' }) : null);
+const daysOn = l.listed ? Math.max(0, Math.floor((updated.getTime() - new Date(`${l.listed}T12:00:00-06:00`).getTime()) / 864e5)) : null;
+// "Facts & features", grouped the way buyers scan them. Every value is from the MLS listing.
+const groups: { h: string; rows: [string, string | null][] }[] = [
+  { h: 'Interior', rows: [
+    ['Bedrooms', l.beds ? String(l.beds) : null], ['Bathrooms', l.baths ? String(l.baths) : null],
+    ['Finished area', l.sqft ? `${l.sqft.toLocaleString('en-US')} sq ft` : null], ['Basement', l.basement || null],
+    ['Heating', l.heating || null], ['Cooling', l.cooling || null]] },
+  { h: 'Property', rows: [
+    ['Home type', typeName], ['Style', l.style || null], ['Year built', l.yearBuilt && l.type !== 'land' ? String(l.yearBuilt) : null],
+    ['New construction', l.newConstruction ? 'Yes' : null], ['Lot size', l.lotAcres ? `${l.lotAcres} acres` : null],
+    ['Garage', l.garage ? `${l.garage} stalls` : null], ['Waterfront', l.lakefront ? (lakes.length ? lakes.map((x) => x.name).join(', ') : 'Yes') : null]] },
+  { h: 'Community & HOA', rows: [
+    ['Subdivision', l.subdivision || null], ['City', `${l.city}, ${l.state ?? 'MN'} ${l.zip}`],
+    ['Association fee', l.hoa ? money(Math.round(l.hoa)) : 'None listed']] },
+  { h: 'Financial & listing details', rows: [
+    ['Price per square foot', ppsf ? `${money(ppsf)}/sq ft` : null], ['Annual tax amount', l.taxes ? money(Math.round(l.taxes)) : null],
+    ['Date on market', shortDay(l.listed)], ['Original list price', (l.priceCut ?? 0) >= 1000 && l.originalPrice ? money(l.originalPrice) : null],
+    ['Contingency', l.contingency || null], ['MLS number', l.mls]] },
+].map((g) => ({ ...g, rows: g.rows.filter(([, v]) => v) })).filter((g) => g.rows.length);
+
+// Fact tiles under the price, with simple line icons (our own drawings).
+const ICON: Record<string, string> = {
+  type: 'M3 11 12 4l9 7M5 10v10h14V10M10 20v-6h4v6',
+  built: 'M4 6h16v14H4zM4 10h16M8 3v5M16 3v5',
+  lot: 'M4 4h16v16H4zM4 9h3M4 14h3M9 4v3M14 4v3',
+  ppsf: 'M4 12 12 4h8v8l-8 8zM16 8h.01',
+  hoa: 'M3 20h18M5 20V9l7-5 7 5v11M9 20v-5h6v5',
+  garage: 'M3 10 12 4l9 6v10H3zM7 20v-6h10v6M7 17h10',
+  tax: 'M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6',
+};
+const tiles = [
+  ['type', typeName],
+  ['built', l.yearBuilt && l.type !== 'land' ? `Built in ${l.yearBuilt}` : null],
+  ['lot', l.lotAcres ? `${l.lotAcres} acre lot` : null],
+  ['ppsf', ppsf ? `${money(ppsf)}/sq ft` : null],
+  ['hoa', l.hoa ? `${money(Math.round(l.hoa))} HOA` : 'No HOA listed'],
+  ['garage', l.garage ? `${l.garage}-car garage` : null],
+  ['tax', l.taxes ? `${money(Math.round(l.taxes))}/yr taxes` : null],
+].filter(([, v]) => v) as [string, string][];
+
+// "What's special": short tags drawn from the listing's own fields.
+const special = [
+  ...lakes.map((x) => `On ${x.name}`), l.lakefront && !lakes.length && 'Lakefront',
+  l.newConstruction && 'New construction', /walk ?out/i.test(l.basement) && 'Walkout basement',
+  /finished/i.test(l.basement) && !/unfinished/i.test(l.basement) && 'Finished basement',
+  (l.garage ?? 0) >= 3 && `${l.garage}-car garage`, (l.lotAcres ?? 0) >= 1 && l.type !== 'land' && `${l.lotAcres} acres`,
+  l.type !== 'land' && /one stor|1 stor|rambler|one level|single level|ranch/i.test(l.style) && 'One-level living',
+  /central/i.test(l.cooling) && 'Central air', (l.priceCut ?? 0) >= 1000 && 'Price reduced', opensSoon() && 'Open house',
+].filter(Boolean) as string[];
+function opensSoon() { return (l.openHouses ?? []).length > 0; }
+
+// Estimated monthly payment for the pill under the price (the full calculator is below, outside the MLS block).
+const estimate = (() => {
+  if (l.price <= 1) return null;
+  const loan = l.price * 0.8, r = rates.latest.rate30 / 100 / 12;
+  return Math.round((loan * r) / (1 - (1 + r) ** -360) + (l.taxes ?? 0) / 12 + (l.hoa ?? 0));
+})();
+const status = l.contingency ? 'Pending offer' : 'For sale';
+const mapStyle = import.meta.env.PUBLIC_MAPTILER_KEY ? `https://api.maptiler.com/maps/streets-v2/style.json?key=${import.meta.env.PUBLIC_MAPTILER_KEY}` : 'https://tiles.openfreemap.org/styles/liberty';
+const times = ['9:00 am', '10:00 am', '11:00 am', '12:00 pm', '1:00 pm', '2:00 pm', '3:00 pm', '4:00 pm', '5:00 pm', '6:00 pm', '7:00 pm'];
 
 // Showing request: the next 10 days to choose from (the page is rebuilt every hour, so the list stays current).
 const showDays = Array.from({ length: 10 }, (_, i) => { const d = new Date(updated); d.setDate(d.getDate() + i + 1); return d.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric', timeZone: 'America/Chicago' }); });
@@ -118,93 +164,206 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() }, { name: community
 <Base breadcrumbs={crumbs} title={title} description={description} image={l.photos[0] ? photo(l.photos[0], 'large') : undefined} noindex={data.preview}>
   <link slot="head" rel="preconnect" href="https://cdn.repliers.io" />
   <script slot="head" type="application/ld+json" set:html={ld} />
-  <!-- The listing (MLS data only). NorthstarMLS Rule 12.3(g)-(h): the listing broker, the Broker Reciprocity logo and the
-       RMLS copyright follow the property information; no contact form or team branding inside it. -->
-  <section class="section home">
+  <!-- The photos (MLS data). Their license cover is the blur only; the I AGREE box sits on the listing details below. -->
+  <section class="section home" id="overview">
     <div class="wrap">
-      <div class="home__body" data-idx>
-        <div>
+      <div class="home__gallery" data-idx>
+        <div class="home__galwrap">
           <PhotoGallery photos={l.photos} alt={where} />
-          <h1 class="home__title">{l.addressHidden ? `Home for sale in ${l.city}` : l.street}<span>{l.city}, MN {l.zip}</span></h1>
-          <p class="home__price">{l.price > 1 ? money(l.price) : 'Auction'}</p>
-          {l.price > 1 && (l.priceCut ?? 0) >= 1000 && l.originalPrice && <p class="home__cut">Price cut {money(l.priceCut ?? 0)} · first listed at {money(l.originalPrice)}</p>}
-          {specs.length > 0 && <p class="home__specs">{specs.join(' · ')}</p>}
-          <p class="home__actions">
-            <a class="btn" href="#contact">Schedule a showing</a>
-            <button type="button" class="fav fav--big" data-fav={l.mls} data-fav-name={where} data-fav-street={l.addressHidden ? '' : l.street} data-fav-city={l.city} data-fav-zip={l.zip} data-fav-price={String(l.price)} aria-pressed="false" aria-label={`Save: ${where}`}>♡</button>
-          </p>
-          {opens.length > 0 && (
-            <div class="home__open">
-              <h2>Open {opens.length === 1 ? 'house' : 'houses'}</h2>
-              <ul>{opens.map((o) => <li>{formatOpenHouse(o, { long: true })}</li>)}</ul>
-              <p class="home__open-note">{OPEN_HOUSE_NOTE} Hosted by {l.brokerage || 'the listing brokerage'}.</p>
-            </div>
-          )}
-          {l.contingency && <p class="home__status">Contingency: {l.contingency}{CONTINGENCIES[l.contingency] ? ` (${CONTINGENCIES[l.contingency]})` : ''} <a href={EULA_PATH}>What this means</a></p>}
-          {l.description && (
-            <>
-              <h2>About this home</h2>
-              <div class="prose"><p>{l.description}</p></div>
-            </>
-          )}
-          <h2>Home facts</h2>
-          <dl class="home__facts">{facts.filter(([, v]) => v).map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
-          <p class="home__broker">{!isOwnBrokerage(l.brokerage) && BR_LOGO && <img src={BR_LOGO} alt="Broker Reciprocity" width={BR_LOGO_SIZE.w} height={BR_LOGO_SIZE.h} />}Listing courtesy of {l.brokerage || 'the listing brokerage'}{l.agent && ` (${l.agent})`}. MLS #{l.mls}.</p>
+          <span class:list={['home__badge', l.contingency && 'home__badge--pending']}>{status}</span>
         </div>
       </div>
-      <IdxDisclosure at={data.at} copyright size="2rem" />
-      {data.fixture && <p class="notice"><strong>Sample data for layout testing: not a real home.</strong></p>}
-    </div>
-  </section>
 
-  <!-- Our own information about the home, kept apart from the MLS data (Rule 12.3(b)), with its source. -->
-  <section class="section section--paper home home--ours" aria-labelledby="ours-title">
-    <div class="wrap home__grid">
-      <div>
-        <h2 id="ours-title">How it compares</h2>
-        <p class="home__answer">{answer} {compare}{ppsf ? ` That works out to ${money(ppsf)} per finished square foot.` : ''}</p>
-        <p class="home__source">Source: {site.name}, from the active listings in our communities on {updatedText} (Central). This is not an appraisal, competitive or comparative market analysis, CMA or home valuation.</p>
-        <h2>The location</h2>
-        <ul class="home__local">
-          <li><a href={`/communities/${community.slug}`}><strong>{community.name} community guide</strong><span>Schools, commutes, parks, home values and local stories.</span></a></li>
-          {dev && <li><a href={`/new-construction/${dev.path}`}><strong>{dev.name}, {community.name}</strong><span>{dev.listings.length} new-construction {dev.listings.length === 1 ? 'home' : 'homes'} for sale in this development, from {money(dev.min)}.</span></a></li>}
-          {hood && <li><a href={hoodHref(hood)}><strong>{hood.name}, {CITY_NAME[hood.city]}</strong><span>The neighborhood guide: homes, history, parks and market numbers.</span></a></li>}
-          {lakes.filter((x) => x.href).map((x) => <li><a href={x.href!}><strong>{x.name}</strong><span>Lake facts from the Minnesota DNR, access and every lakefront home for sale.</span></a></li>)}
-          {mk?.medianPrice?.r12[1] != null && <li><a href={`/market/${community.slug}`}><strong>{community.name} housing market, {monthLabel(latest)}</strong><span>Homes sold for a median {mMoney(mk.medianPrice.r12[1])} over 12 months ({signed(mk.medianPrice.r12[2])}), {count(mk.daysOnMarket?.r12[1])} days on market. Source: Minneapolis Area REALTORS®.</span></a></li>}
-        </ul>
-        {!l.addressHidden && <NearbyPlaces lat={l.lat} lng={l.lng} place={l.street} />}
-        <PaymentEstimate price={l.price} taxes={l.taxes} hoa={l.hoa} />
-        {!l.addressHidden && <p class="home__map"><a class="link-arrow" href={`https://www.google.com/maps/search/?api=1&query=${l.lat},${l.lng}`} rel="noopener">See it on the map</a></p>}
-      </div>
+      <nav class="home__tabs" aria-label="On this page" data-tabs>
+        <a href="#overview">Overview</a><a href="#facts">Facts &amp; features</a><a href="#value">Market value</a><a href="#payment">Payment calculator</a><a href="#neighborhood">Neighborhood</a>
+      </nav>
 
-      <aside class="home__ask" id="contact">
-        <h2>Schedule a showing</h2>
-        <p>Pick a day and time that works. A {site.name} agent will confirm, show you the home and tell you what we know about it and the area. Or call <a href={site.phoneHref}>{site.phone}</a>.</p>
-        <form class="form" data-lead="showing">
-          <input type="hidden" name="listing" value={`${where} (MLS #${l.mls}), ${money(l.price)}`} />
-          <input type="hidden" name="propStreet" value={l.addressHidden ? '' : l.street} />
-          <input type="hidden" name="propCity" value={l.city} />
-          <input type="hidden" name="propZip" value={l.zip} />
-          <input type="hidden" name="propMls" value={l.mls} />
-          <input type="hidden" name="propPrice" value={String(l.price)} />
-          <input type="hidden" name="propBeds" value={l.beds ? String(l.beds) : ''} />
-          <input type="hidden" name="propBaths" value={l.baths ? String(l.baths) : ''} />
-          <input type="hidden" name="propSqft" value={l.sqft ? String(l.sqft) : ''} />
-          <input type="hidden" name="community" value={community.name} />
-          <div class="field"><label for="ls-first">First name</label><input id="ls-first" name="firstName" autocomplete="given-name" required /></div>
-          <div class="field"><label for="ls-last">Last name</label><input id="ls-last" name="lastName" autocomplete="family-name" required /></div>
-          <div class="field"><label for="ls-email">Email</label><input id="ls-email" name="email" type="email" autocomplete="email" required /></div>
-          <div class="field"><label for="ls-phone">Phone</label><input id="ls-phone" name="phone" type="tel" autocomplete="tel" /></div>
-          <div class="form__row">
-            <div class="field"><label for="ls-day">Day</label><select id="ls-day" name="showingDay">{showDays.map((d) => <option>{d}</option>)}<option>I'm flexible</option></select></div>
-            <div class="field"><label for="ls-time">Time</label><select id="ls-time" name="showingTime"><option>Morning (9–12)</option><option selected>Afternoon (12–4)</option><option>Evening (4–7)</option><option>Any time</option></select></div>
+      <div class="home__layout">
+        <div class="home__main">
+          <!-- The listing (MLS data only). NorthstarMLS Rule 12.3(g)-(h): the listing broker, the Broker Reciprocity logo and
+               the RMLS copyright follow the property information; no contact form or team branding inside it. -->
+          <div class="home__body" data-idx>
+            <div>
+              <div class="home__head">
+                <div>
+                  <p class="home__price">{l.price > 1 ? money(l.price) : 'Auction'}</p>
+                  <h1 class="home__title">{l.addressHidden ? `Home for sale in ${l.city}` : `${l.street},`}<span>{l.city}, {l.state ?? 'MN'} {l.zip}</span></h1>
+                  {l.price > 1 && (l.priceCut ?? 0) >= 1000 && l.originalPrice && <p class="home__cut">↓ {money(l.priceCut ?? 0)} since it was listed at {money(l.originalPrice)}</p>}
+                </div>
+                <dl class="home__stats">
+                  {l.beds != null && l.type !== 'land' && <div><dd>{l.beds}</dd><dt>beds</dt></div>}
+                  {l.baths != null && l.type !== 'land' && <div><dd>{l.baths}</dd><dt>baths</dt></div>}
+                  {l.sqft ? <div><dd>{l.sqft.toLocaleString('en-US')}</dd><dt>sq ft</dt></div> : l.lotAcres ? <div><dd>{l.lotAcres}</dd><dt>acres</dt></div> : null}
+                </dl>
+              </div>
+              <p class="home__actions">
+                {estimate && <a class="home__pill" href="#payment"><span>Est.:</span> {money(estimate)}/mo</a>}
+                <button type="button" class="fav fav--big" data-fav={l.mls} data-fav-name={where} data-fav-street={l.addressHidden ? '' : l.street} data-fav-city={l.city} data-fav-zip={l.zip} data-fav-price={String(l.price)} aria-pressed="false" aria-label={`Save: ${where}`}>♡</button>
+              </p>
+              <ul class="home__tiles">
+                {tiles.map(([k, v]) => <li><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d={ICON[k]} /></svg>{v}</li>)}
+              </ul>
+              {opens.length > 0 && (
+                <div class="home__open">
+                  <h2>Open {opens.length === 1 ? 'house' : 'houses'}</h2>
+                  <ul>{opens.map((o) => <li>{formatOpenHouse(o, { long: true })}</li>)}</ul>
+                  <p class="home__open-note">{OPEN_HOUSE_NOTE} Hosted by {l.brokerage || 'the listing brokerage'}.</p>
+                </div>
+              )}
+              {l.contingency && <p class="home__status">Contingency: {l.contingency}{CONTINGENCIES[l.contingency] ? ` (${CONTINGENCIES[l.contingency]})` : ''} <a href={EULA_PATH}>What this means</a></p>}
+              {special.length > 0 && (
+                <>
+                  <h2>What's special</h2>
+                  <ul class="home__tags">{special.map((t) => <li>{t}</li>)}</ul>
+                </>
+              )}
+              {l.description && (
+                <div class="home__desc" data-more-box>
+                  {!special.length && <h2>About this home</h2>}
+                  <div class="home__desc-text" data-more-text><p>{l.description}</p></div>
+                  <button type="button" class="home__more" data-more hidden>Show more <span aria-hidden="true">⌄</span></button>
+                </div>
+              )}
+              <p class="home__meta">{daysOn != null && <span><strong>{daysOn.toLocaleString('en-US')} {daysOn === 1 ? 'day' : 'days'}</strong> on the market</span>}{l.listed && <span>Listed <strong>{shortDay(l.listed)}</strong></span>}<span>Listing data updated <strong>{updatedText}</strong></span></p>
+
+              <section class="home__ff" id="facts" data-ff aria-labelledby="facts-title">
+                <h2 id="facts-title">Facts &amp; features</h2>
+                {groups.map((g) => (
+                  <div class="home__group">
+                    <h3>{g.h}</h3>
+                    <ul>{g.rows.map(([k, v]) => <li><span>{k}:</span> {v}</li>)}</ul>
+                  </div>
+                ))}
+                {groups.length > 2 && <button type="button" class="home__more" data-ff-more><span data-ff-label>Show more</span> <span aria-hidden="true">⌄</span></button>}
+              </section>
+
+              {l.listed && l.price > 1 && (
+                <>
+                  <h2>Price history</h2>
+                  <table class="home__hist">
+                    <thead><tr><th>Date</th><th>Event</th><th>Price</th></tr></thead>
+                    <tbody>
+                      {(l.priceCut ?? 0) >= 1000 && l.originalPrice && <tr><td>Since listing</td><td>Price change</td><td>{money(l.price)}<small>−{money(l.priceCut ?? 0)}{ppsf ? ` · ${money(ppsf)}/sq ft` : ''}</small></td></tr>}
+                      <tr><td>{shortDay(l.listed)}</td><td>Listed for sale</td><td>{money(l.originalPrice && (l.priceCut ?? 0) >= 1000 ? l.originalPrice : l.price)}{l.sqft && l.type !== 'land' && <small>{money(Math.round((l.originalPrice && (l.priceCut ?? 0) >= 1000 ? l.originalPrice : l.price) / l.sqft))}/sq ft</small>}</td></tr>
+                    </tbody>
+                  </table>
+                </>
+              )}
+
+              <div class="home__broker">
+                {!isOwnBrokerage(l.brokerage) && BR_LOGO && <img src={BR_LOGO} alt="Broker Reciprocity" width={BR_LOGO_SIZE.w} height={BR_LOGO_SIZE.h} />}
+                <p><span>Listed by:</span> {l.brokerage || 'the listing brokerage'}{l.agent && ` (${l.agent})`}</p>
+                <p><span>Source:</span> NorthstarMLS, MLS#: {l.mls}</p>
+              </div>
+            </div>
           </div>
-          <div class="field"><label for="ls-tour">Tour</label><select id="ls-tour" name="tourType"><option>In person</option><option>Video tour</option></select></div>
-          <div class="field"><label for="ls-msg">Questions? (optional)</label><textarea id="ls-msg" name="message" rows="2"></textarea></div>
-          <button class="btn" type="submit">Request a showing</button>
-          <p class="form__status" role="status" aria-live="polite"></p>
-        </form>
-      </aside>
+          <IdxDisclosure at={data.at} copyright size="1.75rem" />
+          {data.fixture && <p class="notice"><strong>Sample data for layout testing: not a real home.</strong></p>}
+
+          <!-- Our own information about the home, kept apart from the MLS data (Rule 12.3(b)), with its sources. -->
+          <div class="home--ours">
+            <section id="value" aria-labelledby="value-title">
+              <h2 id="value-title">Market value</h2>
+              <p class="home__answer">{answer} {compare}{ppsf ? ` That works out to ${money(ppsf)} per finished square foot.` : ''}</p>
+              {mk?.medianPrice?.r12[1] != null && <p class="home__answer">Across {community.name}, homes sold for a median {mMoney(mk.medianPrice.r12[1])} in the 12 months through {monthLabel(latest)} ({signed(mk.medianPrice.r12[2])} from the year before), after {count(mk.daysOnMarket?.r12[1])} days on the market. <a href={`/market/${community.slug}`}>See the {community.name} market</a>.</p>}
+              <p class="home__source">Sources: {site.name}, from the active listings in our communities on {updatedText} (Central){mk ? '; Minneapolis Area REALTORS® Local Market Update (NorthstarMLS data)' : ''}. This is not an appraisal, competitive or comparative market analysis, CMA or home valuation.</p>
+            </section>
+
+            <section id="payment" aria-label="Payment calculator">
+              <PaymentEstimate price={l.price} taxes={l.taxes} hoa={l.hoa} />
+              <div class="home__afford">
+                <svg viewBox="0 0 64 64" width="64" height="64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#fbe9e9" /><path d="M18 40h28M20 40V26l12-9 12 9v14M28 40v-8h8v8" fill="none" stroke="#d40000" stroke-width="2.5" stroke-linejoin="round" /><circle cx="46" cy="44" r="8" fill="#d40000" /><path d="M46 40v8M43.5 42.2c0-1.3 5-1.3 5 0s-5 1.2-5 2.6 5 1.4 5 0" stroke="#fff" stroke-width="1.4" fill="none" /></svg>
+                <div>
+                  <h3>Curious what you can afford?</h3>
+                  <p>Get pre-approved by a local lender, or try our affordability calculator.</p>
+                  <p class="home__afford-btns"><a class="btn" href="/buy#lender">Get pre-approved</a><a class="btn btn--ghost" href="/calculators/affordability">Calculate now</a></p>
+                </div>
+              </div>
+            </section>
+
+            <section class="home__tour" id="tour" aria-labelledby="tour-title">
+              <h2 id="tour-title">Tour with a {site.name} agent</h2>
+              <p>Pick a day and time. An agent will confirm, show you the home and tell you what we know about it and the area. Or call <a href={site.phoneHref}>{site.phone}</a>.</p>
+              <form class="form" data-lead="showing" data-tour>
+                <input type="hidden" name="listing" value={`${where} (MLS #${l.mls}), ${money(l.price)}`} />
+                <input type="hidden" name="propStreet" value={l.addressHidden ? '' : l.street} />
+                <input type="hidden" name="propCity" value={l.city} />
+                <input type="hidden" name="propZip" value={l.zip} />
+                <input type="hidden" name="propMls" value={l.mls} />
+                <input type="hidden" name="propPrice" value={String(l.price)} />
+                <input type="hidden" name="propBeds" value={l.beds ? String(l.beds) : ''} />
+                <input type="hidden" name="propBaths" value={l.baths ? String(l.baths) : ''} />
+                <input type="hidden" name="propSqft" value={l.sqft ? String(l.sqft) : ''} />
+                <input type="hidden" name="community" value={community.name} />
+                <fieldset class="tour__days">
+                  <legend class="visually-hidden">Day</legend>
+                  <button type="button" class="tour__step" data-days-step="-1" aria-label="Earlier days">‹</button>
+                  <div class="tour__strip" data-days>
+                    {showDays.map((d, i) => { const [wd, md] = d.split(', '); return <label class="tour__day"><input type="radio" name="showingDay" value={d} checked={i === 0} /><span><b>{wd.slice(0, 3)}</b>{md}</span></label>; })}
+                    <label class="tour__day"><input type="radio" name="showingDay" value="I'm flexible" /><span><b>Any</b>I'm flexible</span></label>
+                  </div>
+                  <button type="button" class="tour__step" data-days-step="1" aria-label="Later days">›</button>
+                </fieldset>
+                <div class="form__row">
+                  <div class="field"><label for="ls-time">Time</label><select id="ls-time" name="showingTime">{times.map((t) => <option selected={t === '12:00 pm'}>{t}</option>)}<option>Any time</option></select></div>
+                  <div class="field"><label for="ls-tour">Tour</label><select id="ls-tour" name="tourType"><option>In person</option><option>Video tour</option></select></div>
+                </div>
+                <button type="button" class="btn tour__next" data-tour-next>Continue</button>
+                <div class="tour__who" data-tour-who>
+                  <div class="form__row">
+                    <div class="field"><label for="ls-first">First name</label><input id="ls-first" name="firstName" autocomplete="given-name" required /></div>
+                    <div class="field"><label for="ls-last">Last name</label><input id="ls-last" name="lastName" autocomplete="family-name" required /></div>
+                  </div>
+                  <div class="form__row">
+                    <div class="field"><label for="ls-email">Email</label><input id="ls-email" name="email" type="email" autocomplete="email" required /></div>
+                    <div class="field"><label for="ls-phone">Phone</label><input id="ls-phone" name="phone" type="tel" autocomplete="tel" /></div>
+                  </div>
+                  <div class="field"><label for="ls-msg">Questions? (optional)</label><textarea id="ls-msg" name="message" rows="2"></textarea></div>
+                  <button class="btn" type="submit">Request a tour</button>
+                </div>
+                <p class="form__status" role="status" aria-live="polite"></p>
+              </form>
+            </section>
+
+            <section id="neighborhood" aria-labelledby="hood-title">
+              <h2 id="hood-title">Neighborhood{hood ? `: ${hood.name}` : `: ${community.name}`}</h2>
+              {!l.addressHidden && (
+                <div class="home__mapbox">
+                  <div class="home__map" data-home-map data-lat={l.lat} data-lng={l.lng} data-style={mapStyle} role="img" aria-label={`Map of ${where}`}></div>
+                  <a class="home__mapbig" href={`https://www.google.com/maps/search/?api=1&query=${l.lat},${l.lng}`} target="_blank" rel="noopener">Open larger map ↗</a>
+                </div>
+              )}
+              {!l.addressHidden && (
+                <form class="home__travel" data-travel data-from={`${l.lat},${l.lng}`}>
+                  <h3>Travel times</h3>
+                  <p>See the drive to work, school or anywhere you go often.</p>
+                  <div class="home__travel-row">
+                    <label class="visually-hidden" for="travel-to">Add a destination</label>
+                    <input id="travel-to" name="to" placeholder="Add a destination (address or place)" autocomplete="street-address" />
+                    <button class="btn btn--ghost" type="submit">Get directions</button>
+                  </div>
+                </form>
+              )}
+              <ul class="home__local">
+                <li><a href={`/communities/${community.slug}`}><strong>{community.name} community guide</strong><span>Commutes, parks, taxes, home values and local stories.</span></a></li>
+                {dev && <li><a href={`/new-construction/${dev.path}`}><strong>{dev.name}, {community.name}</strong><span>{dev.listings.length} new-construction {dev.listings.length === 1 ? 'home' : 'homes'} for sale in this development, from {money(dev.min)}.</span></a></li>}
+                {hood && <li><a href={hoodHref(hood)}><strong>{hood.name}, {CITY_NAME[hood.city]}</strong><span>The neighborhood guide: homes, history, parks and market numbers.</span></a></li>}
+                {lakes.filter((x) => x.href).map((x) => <li><a href={x.href!}><strong>{x.name}</strong><span>Lake facts from the Minnesota DNR, access and every lakefront home for sale.</span></a></li>)}
+              </ul>
+              {!l.addressHidden && <NearbyPlaces lat={l.lat} lng={l.lng} place={l.street} />}
+            </section>
+          </div>
+        </div>
+
+        <!-- Our contact card, beside the listing and outside it; it stays on screen as the page scrolls. -->
+        <aside class="home__side" aria-label="Tour this home">
+          <div class="home__cta" data-cta>
+            <a class="btn home__cta-tour" href="#tour" data-cta-tour>Request a tour<small>as early as <span data-first-day>{showDays[0].replace(/^(\w+), /, '')}</span></small></a>
+            <a class="btn btn--ghost home__cta-ask" href="#tour" data-cta-ask>Contact agent</a>
+            <p class="home__cta-call">or call <a href={site.phoneHref}>{site.phone}</a></p>
+          </div>
+        </aside>
+      </div>
     </div>
   </section>
 
@@ -228,50 +387,238 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() }, { name: community
   const el = document.querySelector<HTMLElement>('[data-recent]');
   const save = () => { try { if (el) remember(JSON.parse(el.dataset.recent!)); } catch { /* bad data: skip */ } };
   if (document.documentElement.classList.contains('idx-ok')) save(); else window.addEventListener('idx-agreed', save, { once: true });
+
+  // The sticky tabs follow the page: the section on screen is underlined. They sit just under the site's menu bar.
+  const nav = document.querySelector<HTMLElement>('header.nav');
+  const setTop = () => document.documentElement.style.setProperty('--navh', `${nav && nav.offsetParent !== null ? nav.offsetHeight : 0}px`);
+  setTop(); addEventListener('resize', setTop);
+  const tabs = [...document.querySelectorAll<HTMLAnchorElement>('[data-tabs] a')];
+  const sections = tabs.map((a) => document.querySelector<HTMLElement>(a.hash)).filter(Boolean) as HTMLElement[];
+  const mark = () => {
+    const y = (nav?.offsetHeight ?? 0) + 90;
+    let on = sections[0];
+    for (const s of sections) if (s.getBoundingClientRect().top <= y) on = s;
+    tabs.forEach((a) => a.classList.toggle('is-on', a.hash === `#${on?.id}`));
+  };
+  addEventListener('scroll', mark, { passive: true }); mark();
+
+  // "Show more" on a long description, and on Facts & features.
+  const text = document.querySelector<HTMLElement>('[data-more-text]');
+  const more = document.querySelector<HTMLButtonElement>('[data-more]');
+  if (text && more && text.scrollHeight > text.clientHeight + 4) {
+    more.hidden = false;
+    more.addEventListener('click', () => { const open = text.classList.toggle('is-open'); more.firstChild!.textContent = open ? 'Show less ' : 'Show more '; });
+  } else text?.classList.add('is-open');
+  const ff = document.querySelector<HTMLElement>('[data-ff]');
+  ff?.querySelector('[data-ff-more]')?.addEventListener('click', () => {
+    const open = ff.classList.toggle('is-open');
+    ff.querySelector('[data-ff-label]')!.textContent = open ? 'Hide' : 'Show more';
+    if (!open) ff.scrollIntoView({ block: 'start' });
+  });
+
+  // Tour request: today's next 10 days (the page itself can be a few hours old), the day strip's arrows, Continue.
+  const form = document.querySelector<HTMLFormElement>('[data-tour]');
+  if (form) {
+    const strip = form.querySelector<HTMLElement>('[data-days]')!;
+    const days = [...strip.querySelectorAll<HTMLInputElement>('input[name=showingDay]')].slice(0, -1);
+    days.forEach((input, i) => {
+      const d = new Date(); d.setDate(d.getDate() + i + 1);
+      input.value = d.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+      const [b, txt] = [input.nextElementSibling!.querySelector('b')!, input.nextElementSibling!.lastChild!];
+      b.textContent = d.toLocaleDateString('en-US', { weekday: 'short' });
+      txt.textContent = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    });
+    const first = document.querySelector('[data-first-day]');
+    if (first && days[0]) first.textContent = days[0].value.replace(/^\w+, /, '');
+    form.querySelectorAll<HTMLButtonElement>('[data-days-step]').forEach((b) => b.addEventListener('click', () => strip.scrollBy({ left: Number(b.dataset.daysStep) * strip.clientWidth * 0.8, behavior: 'smooth' })));
+    const who = form.querySelector<HTMLElement>('[data-tour-who]')!;
+    const next = form.querySelector<HTMLButtonElement>('[data-tour-next]')!;
+    const step2 = (focus: string) => { form.classList.add('is-who'); form.querySelector<HTMLElement>(focus)?.focus({ preventScroll: true }); };
+    next.addEventListener('click', () => step2('[name=firstName]'));
+    who.addEventListener('focusin', () => form.classList.add('is-who'));
+    const go = (e: Event, focus: string) => {
+      e.preventDefault();
+      document.getElementById('tour')!.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (focus) step2(focus); else strip.querySelector<HTMLInputElement>('input:checked')?.focus({ preventScroll: true });
+    };
+    document.querySelector('[data-cta-tour]')?.addEventListener('click', (e) => go(e, ''));
+    document.querySelector('[data-cta-ask]')?.addEventListener('click', (e) => {
+      const msg = form.querySelector<HTMLTextAreaElement>('[name=message]')!;
+      if (!msg.value) msg.placeholder = 'What would you like to know about this home?';
+      go(e, '[name=message]');
+    });
+    // On phones the two buttons sit in a bar at the bottom of the screen; it steps aside while the tour form is showing.
+    const cta = document.querySelector<HTMLElement>('[data-cta]');
+    if (cta) new IntersectionObserver(([e]) => cta.classList.toggle('is-away', e.isIntersecting)).observe(document.getElementById('tour')!);
+  }
+
+  // Travel times: directions from this home in Google Maps.
+  document.querySelector<HTMLFormElement>('[data-travel]')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const f = e.currentTarget as HTMLFormElement;
+    const to = (f.elements.namedItem('to') as HTMLInputElement).value.trim();
+    if (!to) return (f.elements.namedItem('to') as HTMLInputElement).focus();
+    window.open(`https://www.google.com/maps/dir/?api=1&origin=${f.dataset.from}&destination=${encodeURIComponent(to)}&travelmode=driving`, '_blank', 'noopener');
+  });
+
+  // The home's map loads only when it's about to scroll onto the screen.
+  const mapEl = document.querySelector<HTMLElement>('[data-home-map]');
+  if (mapEl) {
+    const io = new IntersectionObserver((es) => {
+      if (!es.some((x) => x.isIntersecting)) return;
+      io.disconnect();
+      import('../../scripts/home-map').then(({ initHomeMap }) => initHomeMap(mapEl)).catch(() => mapEl.classList.add('is-failed'));
+    }, { rootMargin: '300px 0px' });
+    const start = () => io.observe(mapEl);
+    document.readyState === 'complete' ? start() : addEventListener('load', start, { once: true });
+  }
 </script>
 
 <style>
-  .home { padding-top: 1.5rem; }
-  .home__photos { display: flex; gap: .5rem; overflow-x: auto; scroll-snap-type: x mandatory; margin-bottom: 2rem; }
-  .home__photos img { flex: 0 0 min(100%, 56rem); aspect-ratio: 3 / 2; height: auto; object-fit: cover; scroll-snap-align: start; background: var(--sand); }
-  .home__nophoto { display: grid; place-items: center; aspect-ratio: 3 / 1; margin-bottom: 2rem; background: var(--sand); color: var(--text-soft); font: 600 .9rem/1 var(--ui); }
-  .home__grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
-  @media (max-width: 900px) { .home__grid { grid-template-columns: 1fr; } }
-  /* Listing text tops out at 2rem so the required MLS disclaimer (2rem, Rule 12.3(i)) is at least as large. */
-  .home__title { margin: .3rem 0 .5rem; font: 500 clamp(1.6rem, 3vw, 2rem)/1.1 var(--serif-display); }
-  .home__title span { display: block; margin-top: .3rem; font: 500 1.05rem/1.3 var(--ui); color: var(--text-soft); }
-  .home__cut { display: inline-block; margin: .35rem 0 0; padding: .3rem .6rem; border-radius: 4px; background: #e7f3ec; color: #1b6b3a; font: 700 .9rem/1.2 var(--ui); }
-  .home__price { margin: 0; font: 500 clamp(1.6rem, 3vw, 2rem)/1.2 var(--serif); color: var(--crimson); }
-  .home__status { font-weight: 600; }
-  .home__source { font-size: .9rem; color: var(--text-soft); }
-  .home--ours { padding-top: 3rem; }
-  .home__specs { margin: .35rem 0; font: 600 1rem/1.4 var(--ui); }
-  .home__actions { display: flex; gap: .75rem; align-items: center; margin: .75rem 0 0; }
-  .home__actions :global(.fav--big) { width: 3rem; height: 3rem; font-size: 1.6rem; border: 1px solid var(--line); box-shadow: none; }
+  .home { padding-top: 1rem; }
+  /* Photos: the license cover blurs them; the I AGREE box itself is on the listing details. */
+  .home__gallery :global(.idx-lock__box) { display: none; }
+  .home__galwrap { position: relative; }
+  .home__galwrap :global(.gal) { margin-bottom: 0; }
+  .home__badge { position: absolute; top: .8rem; left: .8rem; z-index: 2; display: inline-flex; align-items: center; gap: .4rem; padding: .35rem .7rem; border-radius: 4px; background: #fff; color: var(--ink); font: 700 .85rem/1 var(--ui); box-shadow: 0 2px 8px rgba(0,0,0,.18); pointer-events: none; }
+  .home__badge::before { content: ''; width: .6rem; height: .6rem; border-radius: 50%; background: var(--crimson); }
+  .home__badge--pending::before { background: #c77700; }
+
+  /* Tabs that stay at the top of the screen while scrolling. */
+  .home__tabs a:first-child { margin-left: auto; }
+  .home__tabs a:last-child { margin-right: auto; }
+  .home__tabs { position: sticky; top: var(--navh, 0px); z-index: 15; display: flex; gap: clamp(.75rem, 3vw, 2rem); margin: 0 calc(-1 * var(--gutter, 1rem)); padding: 0 1rem; overflow-x: auto; scrollbar-width: none; background: var(--cream, #fff); border-bottom: 1px solid var(--line); }
+  .home__tabs::-webkit-scrollbar { display: none; }
+  .home__tabs a { flex: none; padding: .95rem .2rem .8rem; border-bottom: 3px solid transparent; color: var(--text); font: 500 .95rem/1 var(--ui); text-decoration: none; white-space: nowrap; }
+  .home__tabs a:hover { color: var(--crimson); }
+  .home__tabs a.is-on { border-color: var(--crimson); color: var(--ink); font-weight: 700; }
+  #overview, #facts, #value, #payment, #tour, #neighborhood { scroll-margin-top: calc(var(--navh, 0px) + 4rem); }
+
+  /* Two columns: the listing on the left, the tour card on the right that rides down the page. */
+  .home__layout { display: grid; grid-template-columns: minmax(0, 1fr) 19rem; gap: clamp(1.5rem, 4vw, 3rem); margin-top: 1.5rem; }
+  .home__side { position: relative; }
+  .home__cta { position: sticky; top: calc(var(--navh, 0px) + 4.25rem); display: grid; gap: .75rem; padding: 1.1rem; border: 1px solid var(--line); border-radius: 10px; background: #fff; box-shadow: 0 4px 16px rgba(0,0,0,.06); }
+  .home__cta .btn { display: grid; gap: .15rem; padding: .85rem 1rem; border-radius: 6px; text-align: center; font-weight: 700; }
+  .home__cta-tour small { font: 400 .78rem/1.2 var(--ui); opacity: .9; }
+  .home__cta-ask { color: var(--crimson) !important; box-shadow: inset 0 0 0 1.5px var(--crimson) !important; background: #fff !important; }
+  .home__cta-ask:hover { background: #fdf2f2 !important; }
+  .home__cta-call { margin: 0; text-align: center; font-size: .88rem; color: var(--text-soft); }
+  @media (max-width: 900px) {
+    .home__layout { grid-template-columns: 1fr; }
+    .home__cta { position: fixed; top: auto; left: 0; right: 0; bottom: 0; z-index: 30; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); width: 100%; max-width: 100vw; box-sizing: border-box; gap: .6rem; padding: .6rem .75rem calc(.6rem + env(safe-area-inset-bottom, 0px)); border-radius: 0; border-width: 1px 0 0; box-shadow: 0 -4px 16px rgba(0,0,0,.08); transition: transform .2s; }
+    .home__cta.is-away { transform: translateY(110%); }
+    .home__cta-call { display: none; }
+    .home__cta .btn { padding: .7rem .5rem; }
+    .home { padding-bottom: 5rem; }
+  }
+
+  /* Price and address left, beds / baths / sq ft right. Listing text tops out at 1.75rem so the MLS disclaimer (Rule 12.3(i)), set at 1.75rem, is at least as large. */
+  .home__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: .75rem 2rem; }
+  .home__price { margin: 0; font: 700 clamp(1.6rem, 3vw, 1.75rem)/1.1 var(--ui); color: var(--ink); }
+  .home__title { margin: .35rem 0 0; font: 400 1.05rem/1.4 var(--ui); }
+  .home__title span { margin-left: .3rem; }
+  .home__cut { display: inline-block; margin: .5rem 0 0; padding: .25rem .55rem; border-radius: 4px; background: #e7f3ec; color: #1b6b3a; font: 700 .85rem/1.2 var(--ui); }
+  .home__stats { display: flex; gap: 1.5rem; margin: 0; }
+  .home__stats div { display: flex; flex-direction: column-reverse; }
+  .home__stats dd { margin: 0; font: 700 clamp(1.4rem, 2.6vw, 1.75rem)/1.1 var(--ui); }
+  .home__stats dt { font: 400 .9rem/1.2 var(--ui); color: var(--text-soft); }
+  .home__actions { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; margin: 1rem 0 0; }
+  .home__pill { display: inline-flex; gap: .35rem; align-items: center; padding: .5rem .9rem; border-radius: 999px; background: #f3efe9; color: var(--ink); font: 600 .95rem/1 var(--ui); text-decoration: none; }
+  .home__pill span { font-weight: 400; color: var(--text-soft); }
+  .home__pill:hover { background: #ebe4da; }
+  .home__actions :global(.fav--big) { width: 2.6rem; height: 2.6rem; font-size: 1.4rem; border: 1px solid var(--line); box-shadow: none; }
+  .home__tiles { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 10rem), 1fr)); gap: .6rem; margin: 1.25rem 0 0; padding: 0; }
+  .home__tiles li { display: flex; align-items: center; gap: .6rem; padding: .7rem .8rem; border-radius: 8px; background: #f6f3ef; font: 600 .92rem/1.25 var(--ui); }
+  .home__tiles svg { flex: none; fill: none; stroke: var(--ink); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+  .home h2 { margin: 2.25rem 0 .9rem; font: 700 1.35rem/1.2 var(--ui); }
   .home__open { margin-top: 1.5rem; padding: 1rem 1.25rem; border-left: 4px solid var(--crimson); background: var(--paper); }
   .home__open h2 { margin: 0 0 .4rem; }
   .home__open ul { margin: 0; padding-left: 1.1rem; font-weight: 700; }
   .home__open-note { margin: .5rem 0 0; font-size: .9rem; color: var(--text-soft); }
-  .home__broker { margin: 1.5rem 0 0; font: 600 1rem/1.5 var(--ui); }
-  .home__broker img { float: left; width: auto; height: 35px; margin: .1rem .8rem 0 0; }
-  .home__answer { font-size: 1.05rem; line-height: 1.65; }
-  .home h2 { margin: 2.25rem 0 .9rem; font: 500 1.6rem/1.2 var(--serif); }
-  .home--ours h2:first-child { margin-top: 0; }
-  .home__facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr)); gap: 1px; margin: 0; background: var(--line); border: 1px solid var(--line); }
-  .home__facts div { padding: .7rem .9rem; background: var(--paper); }
-  .home__facts dt { font: 700 .64rem/1.25 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--text-soft); }
-  .home__facts dd { margin: .2rem 0 0; font-weight: 600; }
+  .home__status { font-weight: 600; }
+  .home__tags { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 1rem; padding: 0; }
+  .home__tags li { padding: .35rem .7rem; border-radius: 4px; background: #f3efe9; font: 700 .8rem/1.2 var(--ui); text-transform: uppercase; letter-spacing: .03em; }
+  .home__desc-text p { margin: 0; line-height: 1.65; white-space: pre-line; }
+  .home__desc-text:not(.is-open) { display: -webkit-box; -webkit-line-clamp: 7; -webkit-box-orient: vertical; overflow: hidden; }
+  .home__more { display: inline-flex; gap: .3rem; margin-top: .6rem; padding: 0; border: 0; background: none; color: var(--crimson); font: 700 .95rem/1.4 var(--ui); cursor: pointer; }
+  .home__more[hidden] { display: none; }
+  .home__meta { display: flex; flex-wrap: wrap; gap: .4rem 1.5rem; margin: 1.25rem 0 0; padding-top: 1rem; border-top: 1px solid var(--line); font-size: .92rem; color: var(--text-soft); }
+  .home__meta strong { color: var(--ink); }
+
+  .home__ff { margin-top: 1rem; }
+  .home__group h3 { margin: 1.25rem 0 .5rem; padding: .6rem .8rem; background: #f6f3ef; font: 700 1rem/1.2 var(--ui); }
+  .home__group ul { columns: 2 16rem; margin: 0; padding: 0 .8rem 0 1.9rem; }
+  .home__group li { margin: 0 0 .35rem; break-inside: avoid; }
+  .home__group li span { color: var(--text-soft); }
+  .home__ff:not(.is-open) .home__group:nth-of-type(n+3) { display: none; }
+  .home__ff.is-open [data-ff-more] span[aria-hidden] { display: inline-block; transform: rotate(180deg); }
+
+  .home__hist { width: 100%; border-collapse: collapse; font-size: .95rem; }
+  .home__hist th { padding: .5rem .8rem; border-bottom: 1px solid var(--line); text-align: left; font: 700 .9rem/1.2 var(--ui); }
+  .home__hist td { padding: .7rem .8rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .home__hist small { display: block; color: var(--text-soft); }
+
+  .home__broker { margin: 1.75rem 0 0; font: 400 .95rem/1.5 var(--ui); }
+  .home__broker p { margin: 0; }
+  .home__broker p span { color: var(--text-soft); }
+  .home__broker img { float: left; width: auto; height: 35px; margin: .2rem .8rem 0 0; }
+
+  /* Our own sections. */
+  .home--ours { margin-top: 1rem; }
+  .home--ours > section { padding-top: .5rem; border-top: 1px solid var(--line); margin-top: 2rem; }
+  .home__answer { font-size: 1.02rem; line-height: 1.65; }
+  .home__source { font-size: .88rem; color: var(--text-soft); }
+  .home--ours :global(.pay) { margin-top: 1.25rem; border-radius: 10px; }
+  .home__afford { display: flex; gap: 1.25rem; align-items: flex-start; margin-top: 1rem; padding: 1.25rem; border: 1px solid var(--line); border-radius: 10px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,.04); }
+  .home__afford svg { flex: none; }
+  .home__afford h3 { margin: 0 0 .3rem; font: 700 1.15rem/1.2 var(--ui); }
+  .home__afford p { margin: 0; }
+  .home__afford-btns { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: .9rem !important; }
+  .home__afford-btns .btn { padding: .75rem 1.2rem; border-radius: 6px; }
+  .home__afford-btns .btn--ghost, .home__travel .btn--ghost { color: var(--crimson); box-shadow: inset 0 0 0 1.5px var(--crimson); }
+
+  .home__tour .tour__days { display: flex; align-items: center; gap: .4rem; margin: 1rem 0; padding: 0; border: 0; min-width: 0; }
+  .tour__strip { position: relative; display: flex; gap: .6rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; flex: 1; min-width: 0; padding: 2px; }
+  .tour__strip::-webkit-scrollbar { display: none; }
+  .tour__day { position: relative; flex: 0 0 calc((100% - 1.8rem) / 4); min-width: 6rem; scroll-snap-align: start; cursor: pointer; }
+  .tour__day input { position: absolute; opacity: 0; pointer-events: none; }
+  .tour__day span { display: grid; gap: .3rem; padding: 1rem .5rem; border: 1px solid #c9c1b6; border-radius: 6px; background: #fff; text-align: center; font: 400 1rem/1.2 var(--ui); }
+  .tour__day b { font: 700 .82rem/1 var(--ui); text-transform: uppercase; letter-spacing: .04em; }
+  .tour__day input:checked + span { border: 2px solid var(--crimson); padding: calc(1rem - 1px) calc(.5rem - 1px); background: #fdf2f2; }
+  .tour__day input:focus-visible + span { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .tour__step { flex: none; width: 2rem; height: 3rem; border: 0; background: none; color: var(--crimson); font-size: 2rem; line-height: 1; cursor: pointer; }
+  .tour__next { width: 100%; border-radius: 6px; }
+  .tour__who { display: none; }
+  [data-tour].is-who .tour__who { display: block; margin-top: 1rem; }
+  [data-tour].is-who .tour__next { display: none; }
+  .tour__who .btn { width: 100%; border-radius: 6px; }
+
+  .home__mapbox { position: relative; margin-top: .5rem; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #e8e4dc; }
+  .home__map { height: clamp(16rem, 40vw, 22rem); }
+  .home__map.is-failed::after { content: 'The map could not load. Use “Open larger map.”'; display: grid; place-items: center; height: 100%; color: var(--text-soft); }
+  .home__mapbig { position: absolute; left: .6rem; top: .6rem; z-index: 2; padding: .45rem .7rem; border-radius: 6px; background: #fff; color: var(--ink); font: 700 .85rem/1 var(--ui); text-decoration: none; box-shadow: 0 2px 8px rgba(0,0,0,.18); }
+  .home__map :global(.home-pin) { display: grid; place-items: center; width: 38px; height: 38px; border: 3px solid #fff; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: var(--crimson); box-shadow: 0 3px 10px rgba(0,0,0,.3); }
+  .home__map :global(.home-pin svg) { transform: rotate(45deg); }
+  .home__travel { margin: 1.25rem 0; padding: 1.1rem 1.25rem; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+  .home__travel h3 { margin: 0 0 .25rem; font: 700 1.1rem/1.2 var(--ui); }
+  .home__travel p { margin: 0 0 .75rem; color: var(--text-soft); font-size: .92rem; }
+  .home__travel-row { display: flex; flex-wrap: wrap; gap: .6rem; }
+  .home__travel-row input { flex: 1 1 14rem; min-width: 0; padding: .75rem .9rem; border: 1px solid #c9c1b6; border-radius: 6px; font: inherit; }
+  .home__travel .btn { padding: .75rem 1.1rem; border-radius: 6px; }
   .home__local { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; }
-  .home__local a { display: grid; gap: .2rem; padding: .9rem 1rem; border: 1px solid var(--line); background: var(--paper); color: var(--text); text-decoration: none; }
+  .home__local a { display: grid; gap: .2rem; padding: .9rem 1rem; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--text); text-decoration: none; }
   .home__local a:hover strong { color: var(--crimson); }
   .home__local span { font-size: .9rem; color: var(--text-soft); }
-  .home__map { margin-top: 1rem; }
-  .home__ask { position: sticky; top: 6rem; padding: 1.5rem; border: 1px solid var(--line); background: var(--paper); }
-  @media (max-width: 900px) { .home__ask { position: static; } }
-  .home__ask h2 { margin-top: 0; }
   .notice { margin-top: 2.5rem; font-size: .75rem; color: var(--text-soft); }
   .head { margin-bottom: 1.5rem; }
   .chips { list-style: none; margin: 1.75rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
   .chips a { display: inline-block; padding: .5rem .8rem; border: 1px solid var(--line); background: var(--paper); color: var(--text); font: 500 .88rem/1.2 var(--ui); text-decoration: none; }
   .chips a:hover { border-color: var(--crimson); color: var(--crimson); }
+</style>
+<style>
+  /* The payment calculator and "What's around" sections are components; give their headings the listing's look. */
+  .home--ours :global(h2) { margin: 1.75rem 0 .9rem; font: 700 1.35rem/1.2 var(--ui); }
+  .home--ours :global(.pay h2) { margin-top: 0; }
+  .home--ours :global(.pay__total strong) { font: 700 2rem/1 var(--ui); color: var(--ink); }
 </style>

@@ -87,6 +87,9 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     ok('Listing page', (await p.title()).length > 5, `${await p.title()} · ${photos} photo images`);
     const showing = p.locator('form[data-lead="showing"]');
     if (await showing.count()) {
+      // The tour form asks for the day and time first; "Continue" shows the name, email and phone fields.
+      const cont = showing.locator('[data-tour-next]');
+      if (await cont.count() && await cont.isVisible()) await cont.click();
       for (const [n, v] of [['firstName', 'Test'], ['lastName', 'Smoke'], ['email', 'smoke@example.com'], ['phone', '6125550100']]) await showing.locator(`[name=${n}]`).fill(v).catch(() => {});
       for (const s of await showing.locator('select[required]').all()) await s.selectOption({ index: 1 });
       // Wait up to 10 s for the send: a listing with many photos can keep a slow browser busy (Safari once took over 1.5 s).
