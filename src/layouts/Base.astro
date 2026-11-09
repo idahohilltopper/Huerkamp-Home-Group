@@ -112,6 +112,10 @@ const pageTitle = title.length > 60 && title.endsWith(brandEnd) ? title.slice(0,
       if(navigator.sendBeacon)navigator.sendBeacon('/api/client-error',new Blob([b],{type:'application/json'}));else fetch('/api/client-error',{method:'POST',body:b,keepalive:true});}catch(e){}}
     function reloadOnce(msg){try{var k='hhg-reloaded',t=+sessionStorage.getItem(k)||0;if(Date.now()-t>600000){sessionStorage.setItem(k,String(Date.now()));report('stale',msg,'',0);location.reload();return true}}catch(e){}return false}
     window.hhgReport=report;window.hhgReloadOnce=reloadOnce;
+    // A lead form sent before the page's scripts are ready (a slow phone, a listing with many photos) would fall back
+    // to the browser's own form handling: the page reloads, the request is lost and the details land in the address.
+    // Hold it instead; the form script sends it as soon as it's ready (window.hhgLeadReady).
+    document.addEventListener('submit',function(e){var f=e.target;if(!window.hhgLeadReady&&f&&f.matches&&f.matches('form[data-lead]')){e.preventDefault();e.stopImmediatePropagation();var q=window.hhgLeadQueue=window.hhgLeadQueue||[];if(q.indexOf(f)<0)q.push(f);}},true);
     addEventListener('error',function(e){if(e.target&&e.target!==window&&e.target.tagName==='SCRIPT'&&/\/_astro\//.test(e.target.src||'')){if(!reloadOnce('script failed: '+e.target.src))report('script',e.target.src,e.target.src,0);return}
       if(e.message)report('error',e.message,e.filename,e.lineno)},true);
     addEventListener('unhandledrejection',function(e){var r=e.reason,m=r&&(r.message||String(r));if(stale(m)&&reloadOnce(m))return;report('promise',m,r&&r.stack&&(String(r.stack).match(/https?:\/\/[^\s)]+/)||[''])[0],0)});
@@ -376,6 +380,10 @@ const pageTitle = title.length > 60 && title.endsWith(brandEnd) ? title.slice(0,
         }
       });
     });
+    // Forms are ready: send anything submitted while the page was still loading (the early guard in the page head).
+    (window as any).hhgLeadReady = true;
+    for (const f of ((window as any).hhgLeadQueue ?? []) as HTMLFormElement[]) f.requestSubmit ? f.requestSubmit() : f.dispatchEvent(new Event('submit', { cancelable: true }));
+    (window as any).hhgLeadQueue = [];
 
     // YouTube players: swap the thumbnail for the real player on click.
     document.addEventListener('click', (e) => {

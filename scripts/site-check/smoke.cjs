@@ -99,6 +99,31 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
       ok('Schedule a showing form', sent, `${(await showing.locator('.form__status').textContent()).trim()}${bad ? ` [fields refused: ${bad}]` : ''}${btn}`);
     } else ok('Schedule a showing form', false, 'form not found');
   });
+  // A lead form sent before the page's scripts have loaded (slow phone, listing with many photos) must still be sent,
+  // without the page reloading or the details landing in the address (found Nov 9, 2026). Scripts are held back 4 s.
+  await step('Form sent while the page is still loading', async () => {
+    const ec = await b.newContext();
+    await ec.addInitScript(() => { try { sessionStorage.setItem('idx-eula', '1'); } catch {} });
+    const sent = [];
+    await ec.route('**/api/lead', (r) => { sent.push(r.request().postDataJSON()); r.fulfill({ status: 200, contentType: 'application/json', body: '{"ok":true}' }); });
+    await ec.route('**/api/client-error', (r) => r.fulfill({ status: 202, body: '{}' }));
+    await ec.route('**/_astro/*.js', async (r) => { await new Promise((x) => setTimeout(x, 4000)); r.continue().catch(() => {}); });
+    const m = await ec.newPage();
+    try {
+      await m.goto(BASE + '/contact', { waitUntil: 'commit' });
+      const f = m.locator('form[data-lead="contact"]').first();
+      await f.locator('[name=email]').waitFor({ timeout: 20000 });
+      for (const [n, v] of [['firstName', 'Test'], ['lastName', 'Early'], ['email', 'smoke-early@example.com'], ['phone', '6125550100'], ['message', 'test']]) {
+        const el = f.locator(`[name=${n}]`); if (await el.count()) await el.fill(v);
+      }
+      for (const sel of await f.locator('select[required]').all()) await sel.selectOption({ index: 1 }).catch(() => {});
+      const url = m.url();
+      await f.locator('button[type=submit]').click({ noWaitAfter: true });
+      for (let t = 0; t < 30 && !sent.length; t++) await m.waitForTimeout(500);
+      const leaked = m.url() !== url || /early/.test(m.url());
+      ok('Form sent while the page is still loading', sent.length === 1 && !leaked, sent.length ? 'held until ready, then sent once' : `not sent${leaked ? '; the page reloaded with the details in its address' : ''}`);
+    } finally { await ec.close(); }
+  });
   await step('Sold homes view', async () => {
     await p.goto(BASE + '/home-search?status=sold&place=lakeville', { waitUntil: 'domcontentloaded' });
     await p.waitForSelector('[data-results] .lcard', { timeout: 25000 });
