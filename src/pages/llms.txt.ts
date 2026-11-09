@@ -33,7 +33,7 @@ export async function GET(context: APIContext) {
   const homeAreas = homes.mode === 'live' ? homes.collections.filter((k) => !k.facet && k.area.kind === 'community') : [];
   const homesSection = homeAreas.length ? `
 ## Homes for sale (NorthstarMLS, updated ${homes.at?.slice(0, 10)})
-Every active listing in our communities, with a page per home and pages by price, home type, bedrooms, new construction, lakefront and acreage. Each home page lists what is nearby (closest grocery store, coffee shop, pharmacy, park, transit stop, library and gym, from Overture Maps and Metro Transit data) with an everyday walkability score. Count, median list price:
+Every active listing in our communities, with a page per home and pages by price, home type, bedrooms, new construction, lakefront and acreage. Each home page lists what is nearby (closest grocery store, coffee shop, pharmacy, park, transit stop, library and gym, from Overture Maps and Metro Transit data) with an everyday walkability score; every community and Minneapolis/Saint Paul neighborhood page has its walkability, ranked at ${url('/walkability')}. Count, median list price:
 ${homeAreas.map((k) => { const s = stats(k.listings); return `- [${k.area.name}](${url(homesHref(k.path))}): ${s.count} for sale, median ${lMoney(s.median!)}`; }).join('\n')}
 ` : '';
   const text = `# ${site.name}

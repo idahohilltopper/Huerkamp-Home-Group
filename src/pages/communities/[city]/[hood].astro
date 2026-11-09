@@ -21,6 +21,8 @@ import { getPosts } from '../../../data/blog';
 import detailData from '../../../data/community-details.json';
 import { business, origin } from '../../../data/schema';
 import { site } from '../../../data/site';
+import AreaWalk from '../../../components/AreaWalk.astro';
+import { walkFor, walkRank, walkSentence } from '../../../data/walk';
 
 export function getStaticPaths() {
   return hoods.map((h) => ({ params: { city: h.city, hood: h.slug }, props: { h } }));
@@ -89,7 +91,9 @@ const summary = [
   ce?.built2000onPct != null && ce.built2000onPct >= 30 && `${pct(ce.built2000onPct)} of its homes were built in 2000 or later.`,
 ].filter(Boolean) as string[];
 
+const hw = walkFor('hood', hoodKey(h)), hwr = walkRank('hood', hoodKey(h));
 const faq = [
+  hw && hwr && { q: `Is ${h.name} walkable?`, a: `${walkSentence(h.name, hw, 'hood')} That ranks ${hwr.rank} of the ${hwr.of} ${CITY_NAME[h.city]} neighborhoods.` },
   mk && v('medianPrice') != null && { q: `What is the median home price in ${where}?`, a: `${money(v('medianPrice'))} over the 12 months through ${month} (${change(v('medianPrice', 'r12', 2))} from a year earlier), from the Minneapolis Area REALTORS® Local Market Update for ${h.name} (NorthstarMLS data).` },
   mk && v('daysOnMarket') != null && { q: `How fast do homes sell in ${h.name}?`, a: `Homes that sold in the 12 months through ${month} spent ${count(v('daysOnMarket'))} days on market, and sellers received ${v('pctOfList') ?? '—'}% of their original list price.` },
   ce && { q: `What kinds of homes are in ${h.name}?`, a: `By Census estimates, ${pct(ce.housing.singleFamily)} of homes are single-family detached, ${pct(ce.housing.townhomeDuplex)} are townhomes, duplexes or small buildings of 3-4 units, and ${pct((ce.housing.smallApartment ?? 0) + (ce.housing.largeApartment ?? 0))} are in apartment buildings of 5 or more units. ${pct(ce.ownerPct)} are owner-occupied.` },
@@ -237,6 +241,8 @@ const ld = JSON.stringify([
       </div>
     </section>
   )}
+
+  <AreaWalk name={h.name} slug={hoodKey(h)} kind="hood" cityName={CITY_NAME[h.city]} />
 
   {faq.length > 0 && (
     <section class="section" aria-labelledby="faq-title">

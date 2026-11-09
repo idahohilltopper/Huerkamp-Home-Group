@@ -1,0 +1,49 @@
+---
+// "How walkable is <area>?" on community and neighborhood pages, from src/data/walkability.json
+// (scripts/build-walkability.mjs): the average everyday walkability score over a quarter-mile grid, the share of the
+// area within about a 15-minute walk of a grocery store, a park and a transit stop, and the places inside it.
+// Places only (fair housing): nothing about who lives there.
+import { walkData, walkFor, walkRank, walkSentence } from '../data/walk';
+
+interface Props { name: string; slug: string; kind: 'community' | 'hood'; cityName?: string }
+const { name, slug, kind, cityName } = Astro.props;
+const w = walkFor(kind, slug);
+const r = walkRank(kind, slug);
+const of = kind === 'community' ? `${r?.of} communities we cover` : `${r?.of} ${cityName} neighborhoods`;
+const n = (v: number, one: string, many: string) => `${v.toLocaleString('en-US')} ${v === 1 ? one : many}`;
+---
+{w && (
+  <section class="section" aria-labelledby="walk-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Getting around on foot</p>
+        <h2 id="walk-title">How walkable is <em>{name}?</em></h2>
+        <p>{walkSentence(name, w, kind)} That ranks {r!.rank} of the {of}.</p>
+      </div>
+      <div class="stats stats--4">
+        <div class="stat"><span class="stat__label">Everyday walkability</span><strong>{w.score}<small>/100</small></strong><span class="stat__note">{w.label}</span></div>
+        <div class="stat"><span class="stat__label">Grocery store within a walk</span><strong>{w.walk.grocery}%</strong><span class="stat__note">of the {kind === 'community' ? 'city' : 'neighborhood'}</span></div>
+        <div class="stat"><span class="stat__label">Park within a walk</span><strong>{w.walk.park}%</strong><span class="stat__note">of the {kind === 'community' ? 'city' : 'neighborhood'}</span></div>
+        <div class="stat"><span class="stat__label">Bus or train stop within a walk</span><strong>{w.walk.transit}%</strong><span class="stat__note">of the {kind === 'community' ? 'city' : 'neighborhood'}</span></div>
+      </div>
+      <p class="walk__inside">Inside {name}: {[n(w.inside.grocery, 'grocery store', 'grocery stores'), n(w.inside.coffee, 'coffee shop', 'coffee shops'), n(w.inside.restaurant, 'restaurant', 'restaurants'), n(w.inside.park, 'park, trail or beach', 'parks, trails and beaches'), n(w.inside.library, 'library', 'libraries'), n(w.inside.transit, 'bus or train stop', 'bus and train stops')].join(', ')}.</p>
+      <p class="walk__more"><a class="link-arrow" href="/walkability">Most walkable Twin Cities communities and neighborhoods</a></p>
+      <p class="source">How it's measured: points every quarter mile across the {kind === 'community' ? 'city' : 'neighborhood'} boundary (parks and water included); a 15-minute walk is 0.6 miles in a straight line. Score: grocery 25, restaurants 15, parks 15, transit 15, coffee 10, pharmacy 10, library 5, gym 5. Places: {walkData.places.places}; transit: {walkData.places.transit}. Every home's page lists what's nearby that address.</p>
+    </div>
+  </section>
+)}
+
+<style>
+  .head { margin-bottom: 1.25rem; }
+  .head p { max-width: 52rem; }
+  .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+  @media (max-width: 760px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .stat { display: grid; gap: .35rem; align-content: start; padding: 1.25rem; background: var(--surface, #fff); border: 1px solid var(--line); }
+  .stat__label { font: 700 .72rem/1.3 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--eyebrow, var(--crimson)); }
+  .stat strong { font: 400 2.1rem/1.05 var(--serif-display); color: var(--text); font-variant-numeric: tabular-nums; }
+  .stat__note { font-size: .85rem; color: var(--text-soft); }
+  .source { margin-top: 1rem; font-size: .82rem; color: var(--text-soft); max-width: 60rem; }
+  .walk__inside { margin-top: 1rem; max-width: 52rem; }
+  .walk__more { margin-top: .5rem; }
+  .stat strong small { font-size: .55em; color: var(--text-soft); }
+</style>

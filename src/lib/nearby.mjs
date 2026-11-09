@@ -73,3 +73,21 @@ export function nearby(lat, lng) {
 
 export const nearbySources = places.sources;
 export const nearbyBuilt = places.built;
+
+/**
+ * Just the everyday walkability score at a spot, and which kinds of place are within a 15-minute walk: the same rule
+ * as nearby(), without the nearest-place search (fast enough for a grid over a whole city, scripts/build-walkability.mjs).
+ */
+export function walkAt(lat, lng) {
+  let score = 0;
+  const has = {};
+  for (const k of KINDS) {
+    const n = within(k.key, lat, lng, WALK_MI).length;
+    has[k.key] = n;
+    if (n) score += k.many ? (n >= 5 ? k.pts : Math.round((k.pts * 2) / 3)) : k.pts;
+  }
+  return { score, has };
+}
+
+/** Every place of one kind, for counting the ones inside an area. */
+export const placesOf = (key) => places.cats[key] ?? [];

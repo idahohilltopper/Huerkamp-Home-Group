@@ -1,0 +1,80 @@
+---
+// /walkability: the most walkable Twin Cities communities and Minneapolis/Saint Paul neighborhoods, ranked by everyday
+// walkability (src/data/walkability.json, scripts/build-walkability.mjs). Places only: grocery stores, restaurants,
+// coffee, parks, transit, pharmacies, libraries and gyms within about a 15-minute walk. Nothing about who lives anywhere.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { communities } from '../data/areas';
+import { hoods, hoodKey, hoodHref, CITY_NAME } from '../data/neighborhoods';
+import { walkData, type Walk } from '../data/walk';
+import { site } from '../data/site';
+
+type Row = { name: string; href: string; w: Walk };
+const comm: Row[] = communities.map((c) => ({ name: c.name, href: `/communities/${c.slug}`, w: walkData.communities[c.slug] })).filter((r) => r.w).sort((a, b) => b.w.score - a.w.score || b.w.walk.grocery - a.w.walk.grocery);
+const hoodRows = (city: string): Row[] => hoods.filter((h) => h.city === city).map((h) => ({ name: h.name, href: hoodHref(h), w: walkData.hoods[hoodKey(h)] })).filter((r) => r.w).sort((a, b) => b.w.score - a.w.score || b.w.walk.grocery - a.w.walk.grocery);
+const mpls = hoodRows('minneapolis'), stp = hoodRows('saint-paul');
+const suburbs = comm.filter((r) => !/\/(minneapolis|saint-paul)$/.test(r.href));
+const list = (rows: Row[], n: number) => rows.slice(0, n).map((r) => `${r.name} (${r.w.score})`).join(', ');
+const answer = `The most walkable suburbs we cover are ${list(suburbs, 5)}, scored out of 100 for everyday walkability: how many grocery stores, restaurants, coffee shops, parks, transit stops, pharmacies, libraries and gyms are within about a 15-minute walk, averaged every quarter mile across each city. In Minneapolis the most walkable neighborhoods are ${list(mpls, 5)}; in Saint Paul, ${list(stp, 3)}.`;
+const faq = [
+  { q: 'What is the most walkable suburb of Minneapolis and Saint Paul?', a: `By our everyday walkability score: ${list(suburbs, 5)}. Minneapolis itself scores ${walkData.communities.minneapolis?.score} and Saint Paul ${walkData.communities['saint-paul']?.score}.` },
+  { q: 'What are the most walkable neighborhoods in Minneapolis?', a: `${list(mpls, 8)}, out of 100.` },
+  { q: 'How is the walkability score calculated?', a: 'We put a point every quarter mile across each city or neighborhood boundary and count the everyday places within 0.6 miles in a straight line (about a 15-minute walk, or three-quarters of a mile on streets): grocery store 25 points, restaurants 15 (full points for five or more), parks, trails or beaches 15, a bus or train stop 15, coffee 10, pharmacy 10, library 5, gym 5. The area score is the average of its points, so large parks, lakes and industrial land count too.' },
+  { q: 'Where does the data come from?', a: `Places: ${walkData.places.places}. Transit stops: ${walkData.places.transit}. Businesses open and close, so we refresh the data every few months.` },
+];
+const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
+---
+<Base breadcrumbs={[{ name: 'Communities', href: '/communities' }, { name: 'Walkability', href: '/walkability' }]}
+  title={`Most Walkable Twin Cities Suburbs & Neighborhoods | ${site.name}`}
+  description={`The most walkable Minneapolis–Saint Paul suburbs and neighborhoods, ranked: ${list(suburbs, 3)} lead the suburbs. Grocery stores, parks and transit within a 15-minute walk.`.slice(0, 300)}>
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <PageHero eyebrow="Walkability" title="The most walkable Twin Cities communities and neighborhoods" lede={answer} />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="head"><p class="eyebrow">{comm.length} communities</p><h2>Communities, most walkable first</h2>
+        <p>Score out of 100, and the share of each city within about a 15-minute walk of a grocery store, a park, and a bus or train stop.</p></div>
+      <div class="table-scroll">
+        <table class="data">
+          <thead><tr><th scope="col" class="num">#</th><th scope="col">Community</th><th scope="col" class="num">Score</th><th scope="col">Rating</th><th scope="col" class="num">Grocery</th><th scope="col" class="num">Park</th><th scope="col" class="num">Transit</th></tr></thead>
+          <tbody>{comm.map((r, i) => <tr><td class="num">{i + 1}</td><th scope="row"><a href={r.href}>{r.name}</a></th><td class="num"><strong>{r.w.score}</strong></td><td>{r.w.label}</td><td class="num">{r.w.walk.grocery}%</td><td class="num">{r.w.walk.park}%</td><td class="num">{r.w.walk.transit}%</td></tr>)}</tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  {[['Minneapolis neighborhoods', mpls], ['Saint Paul neighborhoods', stp]].map(([t, rows]) => (
+    <section class="section section--paper">
+      <div class="wrap">
+        <div class="head"><p class="eyebrow">{(rows as Row[]).length} neighborhoods</p><h2>{t as string}, most walkable first</h2></div>
+        <div class="table-scroll">
+          <table class="data">
+            <thead><tr><th scope="col" class="num">#</th><th scope="col">Neighborhood</th><th scope="col" class="num">Score</th><th scope="col">Rating</th><th scope="col" class="num">Grocery</th><th scope="col" class="num">Park</th><th scope="col" class="num">Transit</th></tr></thead>
+            <tbody>{(rows as Row[]).map((r, i) => <tr><td class="num">{i + 1}</td><th scope="row"><a href={r.href}>{r.name}</a></th><td class="num"><strong>{r.w.score}</strong></td><td>{r.w.label}</td><td class="num">{r.w.walk.grocery}%</td><td class="num">{r.w.walk.park}%</td><td class="num">{r.w.walk.transit}%</td></tr>)}</tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <section class="section" aria-labelledby="faq-title">
+    <div class="wrap faq">
+      <div class="head"><p class="eyebrow">Quick answers</p><h2 id="faq-title">Walkability questions</h2></div>
+      {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+      <p class="source">Places only: this ranks how close everyday places are, not who lives anywhere. Every home's page on this site lists the grocery store, park, transit stop and more nearest that address. Updated {walkData.built}.</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .head { margin-bottom: 1.25rem; }
+  .head p { max-width: 52rem; }
+  .table-scroll { overflow-x: auto; }
+  table.data { width: 100%; border-collapse: collapse; font-size: .98rem; }
+  table.data th, table.data td { padding: .5rem .7rem; border-bottom: 1px solid var(--line); text-align: left; }
+  table.data .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .faq { display: grid; gap: .75rem; max-width: 52rem; }
+  .faq details { padding: 1rem 1.2rem; background: var(--paper); border: 1px solid var(--line); }
+  .faq summary { cursor: pointer; font: 600 1.15rem/1.3 var(--serif); }
+  .source { margin-top: 1rem; font-size: .88rem; color: var(--text-soft); }
+</style>

@@ -1,0 +1,5275 @@
+{
+ "built": "2026-11-09",
+ "places": {
+  "places": "Overture Maps Foundation places, release 2026-10-21.0 (overturemaps.org)",
+  "transit": "Metro Transit and MVTA GTFS schedule data (metrotransit.org, mvta.com)"
+ },
+ "method": {
+  "stepMi": 0.25,
+  "walkMi": 0.6,
+  "points": [
+   "grocery 25",
+   "restaurant 15",
+   "coffee 10",
+   "pharmacy 10",
+   "park 15",
+   "transit 15",
+   "library 5",
+   "gym 5"
+  ]
+ },
+ "communities": {
+  "belle-plaine": {
+   "score": 25,
+   "label": "Some errands on foot",
+   "points": 95,
+   "sqMi": 5.9,
+   "walk": {
+    "grocery": 13,
+    "park": 56,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 2,
+    "restaurant": 11,
+    "pharmacy": 2,
+    "park": 8,
+    "library": 1,
+    "gym": 4,
+    "transit": 0
+   }
+  },
+  "savage": {
+   "score": 33,
+   "label": "Some errands on foot",
+   "points": 265,
+   "sqMi": 16.6,
+   "walk": {
+    "grocery": 22,
+    "park": 73,
+    "transit": 29
+   },
+   "inside": {
+    "grocery": 4,
+    "coffee": 8,
+    "restaurant": 41,
+    "pharmacy": 3,
+    "park": 18,
+    "library": 1,
+    "gym": 7,
+    "transit": 11
+   }
+  },
+  "shakopee": {
+   "score": 28,
+   "label": "Some errands on foot",
+   "points": 492,
+   "sqMi": 30.8,
+   "walk": {
+    "grocery": 12,
+    "park": 36,
+    "transit": 51
+   },
+   "inside": {
+    "grocery": 4,
+    "coffee": 10,
+    "restaurant": 75,
+    "pharmacy": 7,
+    "park": 14,
+    "library": 2,
+    "gym": 8,
+    "transit": 57
+   }
+  },
+  "victoria": {
+   "score": 18,
+   "label": "Car-dependent",
+   "points": 182,
+   "sqMi": 11.4,
+   "walk": {
+    "grocery": 19,
+    "park": 60,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 1,
+    "restaurant": 7,
+    "pharmacy": 0,
+    "park": 7,
+    "library": 1,
+    "gym": 3,
+    "transit": 0
+   }
+  },
+  "waconia": {
+   "score": 45,
+   "label": "Some errands on foot",
+   "points": 91,
+   "sqMi": 5.7,
+   "walk": {
+    "grocery": 37,
+    "park": 77,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 13,
+    "restaurant": 26,
+    "pharmacy": 5,
+    "park": 9,
+    "library": 1,
+    "gym": 6,
+    "transit": 0
+   }
+  },
+  "woodbury": {
+   "score": 28,
+   "label": "Some errands on foot",
+   "points": 572,
+   "sqMi": 35.8,
+   "walk": {
+    "grocery": 19,
+    "park": 60,
+    "transit": 11
+   },
+   "inside": {
+    "grocery": 7,
+    "coffee": 24,
+    "restaurant": 103,
+    "pharmacy": 8,
+    "park": 39,
+    "library": 1,
+    "gym": 33,
+    "transit": 17
+   }
+  },
+  "norwood-young-america": {
+   "score": 28,
+   "label": "Some errands on foot",
+   "points": 35,
+   "sqMi": 2.2,
+   "walk": {
+    "grocery": 0,
+    "park": 54,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 1,
+    "restaurant": 5,
+    "pharmacy": 1,
+    "park": 3,
+    "library": 1,
+    "gym": 3,
+    "transit": 0
+   }
+  },
+  "anoka": {
+   "score": 62,
+   "label": "Walkable",
+   "points": 112,
+   "sqMi": 7,
+   "walk": {
+    "grocery": 50,
+    "park": 92,
+    "transit": 77
+   },
+   "inside": {
+    "grocery": 3,
+    "coffee": 6,
+    "restaurant": 33,
+    "pharmacy": 3,
+    "park": 16,
+    "library": 1,
+    "gym": 6,
+    "transit": 50
+   }
+  },
+  "centerville": {
+   "score": 23,
+   "label": "Car-dependent",
+   "points": 39,
+   "sqMi": 2.4,
+   "walk": {
+    "grocery": 5,
+    "park": 54,
+    "transit": 15
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 6,
+    "pharmacy": 0,
+    "park": 2,
+    "library": 0,
+    "gym": 2,
+    "transit": 0
+   }
+  },
+  "circle-pines": {
+   "score": 31,
+   "label": "Some errands on foot",
+   "points": 31,
+   "sqMi": 1.9,
+   "walk": {
+    "grocery": 3,
+    "park": 84,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 3,
+    "pharmacy": 0,
+    "park": 5,
+    "library": 1,
+    "gym": 1,
+    "transit": 0
+   }
+  },
+  "columbia-heights": {
+   "score": 72,
+   "label": "Very walkable",
+   "points": 55,
+   "sqMi": 3.4,
+   "walk": {
+    "grocery": 69,
+    "park": 100,
+    "transit": 98
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 5,
+    "restaurant": 35,
+    "pharmacy": 0,
+    "park": 14,
+    "library": 1,
+    "gym": 3,
+    "transit": 76
+   }
+  },
+  "east-bethel": {
+   "score": 5,
+   "label": "Car-dependent",
+   "points": 764,
+   "sqMi": 47.8,
+   "walk": {
+    "grocery": 3,
+    "park": 20,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 0,
+    "restaurant": 5,
+    "pharmacy": 0,
+    "park": 9,
+    "library": 0,
+    "gym": 3,
+    "transit": 0
+   }
+  },
+  "prior-lake": {
+   "score": 26,
+   "label": "Some errands on foot",
+   "points": 314,
+   "sqMi": 19.6,
+   "walk": {
+    "grocery": 11,
+    "park": 71,
+    "transit": 20
+   },
+   "inside": {
+    "grocery": 3,
+    "coffee": 6,
+    "restaurant": 28,
+    "pharmacy": 2,
+    "park": 23,
+    "library": 2,
+    "gym": 10,
+    "transit": 5
+   }
+  },
+  "burnsville": {
+   "score": 42,
+   "label": "Some errands on foot",
+   "points": 432,
+   "sqMi": 27,
+   "walk": {
+    "grocery": 28,
+    "park": 74,
+    "transit": 56
+   },
+   "inside": {
+    "grocery": 9,
+    "coffee": 14,
+    "restaurant": 102,
+    "pharmacy": 8,
+    "park": 42,
+    "library": 1,
+    "gym": 24,
+    "transit": 105
+   }
+  },
+  "coates": {
+   "score": 6,
+   "label": "Car-dependent",
+   "points": 24,
+   "sqMi": 1.5,
+   "walk": {
+    "grocery": 0,
+    "park": 0,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 1,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "farmington": {
+   "score": 17,
+   "label": "Car-dependent",
+   "points": 253,
+   "sqMi": 15.8,
+   "walk": {
+    "grocery": 6,
+    "park": 58,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 3,
+    "restaurant": 16,
+    "pharmacy": 1,
+    "park": 16,
+    "library": 1,
+    "gym": 4,
+    "transit": 0
+   }
+  },
+  "hampton": {
+   "score": 8,
+   "label": "Car-dependent",
+   "points": 20,
+   "sqMi": 1.3,
+   "walk": {
+    "grocery": 0,
+    "park": 0,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 2,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "mendota-heights": {
+   "score": 30,
+   "label": "Some errands on foot",
+   "points": 155,
+   "sqMi": 9.7,
+   "walk": {
+    "grocery": 13,
+    "park": 72,
+    "transit": 32
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 1,
+    "restaurant": 9,
+    "pharmacy": 2,
+    "park": 12,
+    "library": 1,
+    "gym": 1,
+    "transit": 8
+   }
+  },
+  "miesville": {
+   "score": 5,
+   "label": "Car-dependent",
+   "points": 31,
+   "sqMi": 1.9,
+   "walk": {
+    "grocery": 0,
+    "park": 0,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 2,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "vermillion": {
+   "score": 10,
+   "label": "Car-dependent",
+   "points": 16,
+   "sqMi": 1,
+   "walk": {
+    "grocery": 0,
+    "park": 0,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 2,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "columbus": {
+   "score": 1,
+   "label": "Car-dependent",
+   "points": 768,
+   "sqMi": 48,
+   "walk": {
+    "grocery": 0,
+    "park": 5,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 1,
+    "restaurant": 2,
+    "pharmacy": 0,
+    "park": 2,
+    "library": 0,
+    "gym": 1,
+    "transit": 0
+   }
+  },
+  "credit-river": {
+   "score": 2,
+   "label": "Car-dependent",
+   "points": 383,
+   "sqMi": 23.9,
+   "walk": {
+    "grocery": 0,
+    "park": 11,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 1,
+    "pharmacy": 0,
+    "park": 2,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "empire": {
+   "score": 3,
+   "label": "Car-dependent",
+   "points": 492,
+   "sqMi": 30.8,
+   "walk": {
+    "grocery": 0,
+    "park": 17,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 0,
+    "pharmacy": 0,
+    "park": 4,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "afton": {
+   "score": 3,
+   "label": "Car-dependent",
+   "points": 423,
+   "sqMi": 26.4,
+   "walk": {
+    "grocery": 0,
+    "park": 14,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 3,
+    "pharmacy": 0,
+    "park": 4,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "bayport": {
+   "score": 27,
+   "label": "Some errands on foot",
+   "points": 42,
+   "sqMi": 2.6,
+   "walk": {
+    "grocery": 0,
+    "park": 79,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 2,
+    "restaurant": 7,
+    "pharmacy": 0,
+    "park": 5,
+    "library": 1,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "forest-lake": {
+   "score": 9,
+   "label": "Car-dependent",
+   "points": 576,
+   "sqMi": 36,
+   "walk": {
+    "grocery": 6,
+    "park": 13,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 3,
+    "coffee": 6,
+    "restaurant": 37,
+    "pharmacy": 3,
+    "park": 8,
+    "library": 1,
+    "gym": 9,
+    "transit": 0
+   }
+  },
+  "grant": {
+   "score": 3,
+   "label": "Car-dependent",
+   "points": 420,
+   "sqMi": 26.3,
+   "walk": {
+    "grocery": 0,
+    "park": 7,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 3,
+    "pharmacy": 0,
+    "park": 1,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "hastings": {
+   "score": 31,
+   "label": "Some errands on foot",
+   "points": 176,
+   "sqMi": 11,
+   "walk": {
+    "grocery": 10,
+    "park": 85,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 5,
+    "restaurant": 43,
+    "pharmacy": 3,
+    "park": 25,
+    "library": 1,
+    "gym": 8,
+    "transit": 0
+   }
+  },
+  "hugo": {
+   "score": 6,
+   "label": "Car-dependent",
+   "points": 576,
+   "sqMi": 36,
+   "walk": {
+    "grocery": 2,
+    "park": 20,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 1,
+    "restaurant": 10,
+    "pharmacy": 1,
+    "park": 8,
+    "library": 0,
+    "gym": 2,
+    "transit": 0
+   }
+  },
+  "lakeland-shores": {
+   "score": 13,
+   "label": "Car-dependent",
+   "points": 12,
+   "sqMi": 0.8,
+   "walk": {
+    "grocery": 0,
+    "park": 33,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 0,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "oakdale": {
+   "score": 44,
+   "label": "Some errands on foot",
+   "points": 182,
+   "sqMi": 11.4,
+   "walk": {
+    "grocery": 34,
+    "park": 74,
+    "transit": 64
+   },
+   "inside": {
+    "grocery": 5,
+    "coffee": 6,
+    "restaurant": 32,
+    "pharmacy": 4,
+    "park": 16,
+    "library": 1,
+    "gym": 5,
+    "transit": 65
+   }
+  },
+  "stillwater": {
+   "score": 46,
+   "label": "Some errands on foot",
+   "points": 146,
+   "sqMi": 9.1,
+   "walk": {
+    "grocery": 29,
+    "park": 92,
+    "transit": 49
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 16,
+    "restaurant": 54,
+    "pharmacy": 3,
+    "park": 21,
+    "library": 1,
+    "gym": 8,
+    "transit": 39
+   }
+  },
+  "willernie": {
+   "score": 50,
+   "label": "Walkable",
+   "points": 11,
+   "sqMi": 0.7,
+   "walk": {
+    "grocery": 0,
+    "park": 100,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 1,
+    "restaurant": 5,
+    "pharmacy": 0,
+    "park": 1,
+    "library": 0,
+    "gym": 1,
+    "transit": 0
+   }
+  },
+  "gem-lake": {
+   "score": 26,
+   "label": "Some errands on foot",
+   "points": 17,
+   "sqMi": 1.1,
+   "walk": {
+    "grocery": 6,
+    "park": 65,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 1,
+    "restaurant": 2,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "maplewood": {
+   "score": 50,
+   "label": "Walkable",
+   "points": 289,
+   "sqMi": 18.1,
+   "walk": {
+    "grocery": 25,
+    "park": 87,
+    "transit": 83
+   },
+   "inside": {
+    "grocery": 6,
+    "coffee": 9,
+    "restaurant": 70,
+    "pharmacy": 5,
+    "park": 26,
+    "library": 2,
+    "gym": 16,
+    "transit": 137
+   }
+  },
+  "shoreview": {
+   "score": 38,
+   "label": "Some errands on foot",
+   "points": 197,
+   "sqMi": 12.3,
+   "walk": {
+    "grocery": 19,
+    "park": 81,
+    "transit": 64
+   },
+   "inside": {
+    "grocery": 4,
+    "coffee": 3,
+    "restaurant": 23,
+    "pharmacy": 1,
+    "park": 15,
+    "library": 1,
+    "gym": 6,
+    "transit": 63
+   }
+  },
+  "brooklyn-center": {
+   "score": 65,
+   "label": "Walkable",
+   "points": 136,
+   "sqMi": 8.5,
+   "walk": {
+    "grocery": 57,
+    "park": 98,
+    "transit": 96
+   },
+   "inside": {
+    "grocery": 6,
+    "coffee": 8,
+    "restaurant": 39,
+    "pharmacy": 3,
+    "park": 17,
+    "library": 1,
+    "gym": 4,
+    "transit": 105
+   }
+  },
+  "champlin": {
+   "score": 44,
+   "label": "Some errands on foot",
+   "points": 141,
+   "sqMi": 8.8,
+   "walk": {
+    "grocery": 21,
+    "park": 94,
+    "transit": 57
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 6,
+    "restaurant": 29,
+    "pharmacy": 1,
+    "park": 21,
+    "library": 1,
+    "gym": 4,
+    "transit": 51
+   }
+  },
+  "corcoran": {
+   "score": 1,
+   "label": "Car-dependent",
+   "points": 571,
+   "sqMi": 35.7,
+   "walk": {
+    "grocery": 0,
+    "park": 5,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 1,
+    "pharmacy": 0,
+    "park": 2,
+    "library": 0,
+    "gym": 1,
+    "transit": 0
+   }
+  },
+  "deephaven": {
+   "score": 18,
+   "label": "Car-dependent",
+   "points": 63,
+   "sqMi": 3.9,
+   "walk": {
+    "grocery": 0,
+    "park": 75,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 1,
+    "restaurant": 2,
+    "pharmacy": 0,
+    "park": 6,
+    "library": 0,
+    "gym": 3,
+    "transit": 0
+   }
+  },
+  "edina": {
+   "score": 48,
+   "label": "Some errands on foot",
+   "points": 245,
+   "sqMi": 15.3,
+   "walk": {
+    "grocery": 38,
+    "park": 77,
+    "transit": 59
+   },
+   "inside": {
+    "grocery": 8,
+    "coffee": 17,
+    "restaurant": 94,
+    "pharmacy": 5,
+    "park": 24,
+    "library": 2,
+    "gym": 32,
+    "transit": 105
+   }
+  },
+  "excelsior": {
+   "score": 49,
+   "label": "Some errands on foot",
+   "points": 14,
+   "sqMi": 0.9,
+   "walk": {
+    "grocery": 0,
+    "park": 93,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 4,
+    "restaurant": 18,
+    "pharmacy": 0,
+    "park": 2,
+    "library": 2,
+    "gym": 3,
+    "transit": 0
+   }
+  },
+  "golden-valley": {
+   "score": 53,
+   "label": "Walkable",
+   "points": 168,
+   "sqMi": 10.5,
+   "walk": {
+    "grocery": 21,
+    "park": 99,
+    "transit": 98
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 7,
+    "restaurant": 36,
+    "pharmacy": 2,
+    "park": 32,
+    "library": 1,
+    "gym": 8,
+    "transit": 130
+   }
+  },
+  "st-paul-park": {
+   "score": 21,
+   "label": "Car-dependent",
+   "points": 54,
+   "sqMi": 3.4,
+   "walk": {
+    "grocery": 15,
+    "park": 76,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 0,
+    "restaurant": 7,
+    "pharmacy": 0,
+    "park": 7,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "dundas": {
+   "score": 29,
+   "label": "Some errands on foot",
+   "points": 31,
+   "sqMi": 1.9,
+   "walk": {
+    "grocery": 10,
+    "park": 81,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 5,
+    "pharmacy": 0,
+    "park": 3,
+    "library": 0,
+    "gym": 2,
+    "transit": 0
+   }
+  },
+  "greenwood": {
+   "score": 19,
+   "label": "Car-dependent",
+   "points": 18,
+   "sqMi": 1.1,
+   "walk": {
+    "grocery": 0,
+    "park": 61,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 0,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 1,
+    "transit": 0
+   }
+  },
+  "le-sueur": {
+   "score": 25,
+   "label": "Some errands on foot",
+   "points": 82,
+   "sqMi": 5.1,
+   "walk": {
+    "grocery": 23,
+    "park": 52,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 1,
+    "restaurant": 7,
+    "pharmacy": 1,
+    "park": 6,
+    "library": 1,
+    "gym": 2,
+    "transit": 0
+   }
+  },
+  "hanover": {
+   "score": 12,
+   "label": "Car-dependent",
+   "points": 92,
+   "sqMi": 5.8,
+   "walk": {
+    "grocery": 0,
+    "park": 58,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 2,
+    "pharmacy": 0,
+    "park": 4,
+    "library": 0,
+    "gym": 1,
+    "transit": 0
+   }
+  },
+  "hopkins": {
+   "score": 76,
+   "label": "Very walkable",
+   "points": 63,
+   "sqMi": 3.9,
+   "walk": {
+    "grocery": 65,
+    "park": 98,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 5,
+    "restaurant": 34,
+    "pharmacy": 3,
+    "park": 10,
+    "library": 1,
+    "gym": 13,
+    "transit": 80
+   }
+  },
+  "independence": {
+   "score": 2,
+   "label": "Car-dependent",
+   "points": 558,
+   "sqMi": 34.9,
+   "walk": {
+    "grocery": 1,
+    "park": 1,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 1,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "long-lake": {
+   "score": 48,
+   "label": "Some errands on foot",
+   "points": 16,
+   "sqMi": 1,
+   "walk": {
+    "grocery": 25,
+    "park": 100,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 1,
+    "restaurant": 10,
+    "pharmacy": 0,
+    "park": 2,
+    "library": 1,
+    "gym": 6,
+    "transit": 0
+   }
+  },
+  "maple-grove": {
+   "score": 29,
+   "label": "Some errands on foot",
+   "points": 572,
+   "sqMi": 35.8,
+   "walk": {
+    "grocery": 21,
+    "park": 59,
+    "transit": 16
+   },
+   "inside": {
+    "grocery": 8,
+    "coffee": 20,
+    "restaurant": 103,
+    "pharmacy": 8,
+    "park": 29,
+    "library": 1,
+    "gym": 22,
+    "transit": 11
+   }
+  },
+  "minnetonka": {
+   "score": 42,
+   "label": "Some errands on foot",
+   "points": 449,
+   "sqMi": 28.1,
+   "walk": {
+    "grocery": 21,
+    "park": 83,
+    "transit": 50
+   },
+   "inside": {
+    "grocery": 7,
+    "coffee": 26,
+    "restaurant": 90,
+    "pharmacy": 5,
+    "park": 41,
+    "library": 3,
+    "gym": 31,
+    "transit": 106
+   }
+  },
+  "minnetonka-beach": {
+   "score": 17,
+   "label": "Car-dependent",
+   "points": 24,
+   "sqMi": 1.5,
+   "walk": {
+    "grocery": 8,
+    "park": 0,
+    "transit": 88
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 0,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 0,
+    "transit": 2
+   }
+  },
+  "mound": {
+   "score": 40,
+   "label": "Some errands on foot",
+   "points": 86,
+   "sqMi": 5.4,
+   "walk": {
+    "grocery": 19,
+    "park": 85,
+    "transit": 42
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 1,
+    "restaurant": 7,
+    "pharmacy": 1,
+    "park": 8,
+    "library": 1,
+    "gym": 3,
+    "transit": 10
+   }
+  },
+  "new-hope": {
+   "score": 62,
+   "label": "Walkable",
+   "points": 79,
+   "sqMi": 4.9,
+   "walk": {
+    "grocery": 37,
+    "park": 90,
+    "transit": 97
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 5,
+    "restaurant": 28,
+    "pharmacy": 2,
+    "park": 8,
+    "library": 0,
+    "gym": 7,
+    "transit": 74
+   }
+  },
+  "osseo": {
+   "score": 89,
+   "label": "Very walkable",
+   "points": 12,
+   "sqMi": 0.8,
+   "walk": {
+    "grocery": 100,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 2,
+    "restaurant": 8,
+    "pharmacy": 0,
+    "park": 2,
+    "library": 1,
+    "gym": 3,
+    "transit": 7
+   }
+  },
+  "richfield": {
+   "score": 78,
+   "label": "Very walkable",
+   "points": 112,
+   "sqMi": 7,
+   "walk": {
+    "grocery": 69,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 7,
+    "coffee": 9,
+    "restaurant": 50,
+    "pharmacy": 3,
+    "park": 21,
+    "library": 1,
+    "gym": 11,
+    "transit": 128
+   }
+  },
+  "medina": {
+   "score": 7,
+   "label": "Car-dependent",
+   "points": 428,
+   "sqMi": 26.8,
+   "walk": {
+    "grocery": 0,
+    "park": 27,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 4,
+    "restaurant": 6,
+    "pharmacy": 1,
+    "park": 10,
+    "library": 0,
+    "gym": 3,
+    "transit": 0
+   }
+  },
+  "robbinsdale": {
+   "score": 64,
+   "label": "Walkable",
+   "points": 45,
+   "sqMi": 2.8,
+   "walk": {
+    "grocery": 11,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 5,
+    "restaurant": 16,
+    "pharmacy": 5,
+    "park": 12,
+    "library": 1,
+    "gym": 4,
+    "transit": 40
+   }
+  },
+  "rockford": {
+   "score": 21,
+   "label": "Car-dependent",
+   "points": 44,
+   "sqMi": 2.8,
+   "walk": {
+    "grocery": 7,
+    "park": 55,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 8,
+    "pharmacy": 0,
+    "park": 2,
+    "library": 1,
+    "gym": 1,
+    "transit": 0
+   }
+  },
+  "rogers": {
+   "score": 11,
+   "label": "Car-dependent",
+   "points": 421,
+   "sqMi": 26.3,
+   "walk": {
+    "grocery": 5,
+    "park": 30,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 7,
+    "restaurant": 32,
+    "pharmacy": 3,
+    "park": 12,
+    "library": 1,
+    "gym": 7,
+    "transit": 0
+   }
+  },
+  "st-anthony": {
+   "score": 66,
+   "label": "Walkable",
+   "points": 40,
+   "sqMi": 2.5,
+   "walk": {
+    "grocery": 30,
+    "park": 98,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 3,
+    "restaurant": 16,
+    "pharmacy": 3,
+    "park": 5,
+    "library": 1,
+    "gym": 2,
+    "transit": 39
+   }
+  },
+  "nowthen": {
+   "score": 1,
+   "label": "Car-dependent",
+   "points": 576,
+   "sqMi": 36,
+   "walk": {
+    "grocery": 0,
+    "park": 3,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 3,
+    "pharmacy": 0,
+    "park": 1,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "st-louis-park": {
+   "score": 67,
+   "label": "Walkable",
+   "points": 172,
+   "sqMi": 10.8,
+   "walk": {
+    "grocery": 40,
+    "park": 98,
+    "transit": 98
+   },
+   "inside": {
+    "grocery": 7,
+    "coffee": 13,
+    "restaurant": 68,
+    "pharmacy": 4,
+    "park": 48,
+    "library": 2,
+    "gym": 30,
+    "transit": 162
+   }
+  },
+  "spring-park": {
+   "score": 47,
+   "label": "Some errands on foot",
+   "points": 10,
+   "sqMi": 0.6,
+   "walk": {
+    "grocery": 0,
+    "park": 60,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 7,
+    "pharmacy": 1,
+    "park": 0,
+    "library": 0,
+    "gym": 3,
+    "transit": 7
+   }
+  },
+  "tonka-bay": {
+   "score": 24,
+   "label": "Car-dependent",
+   "points": 34,
+   "sqMi": 2.1,
+   "walk": {
+    "grocery": 15,
+    "park": 91,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 0,
+    "restaurant": 4,
+    "pharmacy": 0,
+    "park": 3,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "woodland": {
+   "score": 6,
+   "label": "Car-dependent",
+   "points": 17,
+   "sqMi": 1.1,
+   "walk": {
+    "grocery": 0,
+    "park": 0,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 0,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "medicine-lake": {
+   "score": 34,
+   "label": "Some errands on foot",
+   "points": 8,
+   "sqMi": 0.5,
+   "walk": {
+    "grocery": 0,
+    "park": 100,
+    "transit": 88
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 0,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "brooklyn-park": {
+   "score": 51,
+   "label": "Walkable",
+   "points": 428,
+   "sqMi": 26.8,
+   "walk": {
+    "grocery": 34,
+    "park": 79,
+    "transit": 88
+   },
+   "inside": {
+    "grocery": 14,
+    "coffee": 14,
+    "restaurant": 66,
+    "pharmacy": 9,
+    "park": 37,
+    "library": 3,
+    "gym": 14,
+    "transit": 302
+   }
+  },
+  "crystal": {
+   "score": 64,
+   "label": "Walkable",
+   "points": 96,
+   "sqMi": 6,
+   "walk": {
+    "grocery": 56,
+    "park": 97,
+    "transit": 99
+   },
+   "inside": {
+    "grocery": 5,
+    "coffee": 1,
+    "restaurant": 36,
+    "pharmacy": 1,
+    "park": 16,
+    "library": 1,
+    "gym": 4,
+    "transit": 92
+   }
+  },
+  "dayton": {
+   "score": 5,
+   "label": "Car-dependent",
+   "points": 405,
+   "sqMi": 25.3,
+   "walk": {
+    "grocery": 0,
+    "park": 18,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 5,
+    "pharmacy": 0,
+    "park": 4,
+    "library": 0,
+    "gym": 2,
+    "transit": 0
+   }
+  },
+  "greenfield": {
+   "score": 4,
+   "label": "Car-dependent",
+   "points": 337,
+   "sqMi": 21.1,
+   "walk": {
+    "grocery": 5,
+    "park": 13,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 1,
+    "restaurant": 0,
+    "pharmacy": 0,
+    "park": 3,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "maple-plain": {
+   "score": 21,
+   "label": "Car-dependent",
+   "points": 18,
+   "sqMi": 1.1,
+   "walk": {
+    "grocery": 0,
+    "park": 0,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 1,
+    "restaurant": 4,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 1,
+    "gym": 2,
+    "transit": 0
+   }
+  },
+  "minneapolis": {
+   "score": 75,
+   "label": "Very walkable",
+   "points": 923,
+   "sqMi": 57.7,
+   "walk": {
+    "grocery": 59,
+    "park": 95,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 70,
+    "coffee": 213,
+    "restaurant": 924,
+    "pharmacy": 42,
+    "park": 167,
+    "library": 25,
+    "gym": 146,
+    "transit": 1270
+   }
+  },
+  "orono": {
+   "score": 12,
+   "label": "Car-dependent",
+   "points": 384,
+   "sqMi": 24,
+   "walk": {
+    "grocery": 8,
+    "park": 34,
+    "transit": 14
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 1,
+    "restaurant": 5,
+    "pharmacy": 0,
+    "park": 8,
+    "library": 0,
+    "gym": 1,
+    "transit": 6
+   }
+  },
+  "st-bonifacius": {
+   "score": 65,
+   "label": "Walkable",
+   "points": 17,
+   "sqMi": 1.1,
+   "walk": {
+    "grocery": 94,
+    "park": 94,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 1,
+    "restaurant": 3,
+    "pharmacy": 0,
+    "park": 2,
+    "library": 1,
+    "gym": 1,
+    "transit": 0
+   }
+  },
+  "shorewood": {
+   "score": 20,
+   "label": "Car-dependent",
+   "points": 130,
+   "sqMi": 8.1,
+   "walk": {
+    "grocery": 15,
+    "park": 58,
+    "transit": 2
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 2,
+    "restaurant": 4,
+    "pharmacy": 0,
+    "park": 5,
+    "library": 0,
+    "gym": 2,
+    "transit": 0
+   }
+  },
+  "wayzata": {
+   "score": 41,
+   "label": "Some errands on foot",
+   "points": 76,
+   "sqMi": 4.8,
+   "walk": {
+    "grocery": 22,
+    "park": 57,
+    "transit": 67
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 6,
+    "restaurant": 31,
+    "pharmacy": 2,
+    "park": 4,
+    "library": 1,
+    "gym": 2,
+    "transit": 16
+   }
+  },
+  "elko-new-market": {
+   "score": 15,
+   "label": "Car-dependent",
+   "points": 60,
+   "sqMi": 3.8,
+   "walk": {
+    "grocery": 0,
+    "park": 37,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 6,
+    "pharmacy": 1,
+    "park": 3,
+    "library": 1,
+    "gym": 1,
+    "transit": 0
+   }
+  },
+  "faribault": {
+   "score": 25,
+   "label": "Some errands on foot",
+   "points": 258,
+   "sqMi": 16.1,
+   "walk": {
+    "grocery": 25,
+    "park": 52,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 6,
+    "coffee": 8,
+    "restaurant": 34,
+    "pharmacy": 3,
+    "park": 18,
+    "library": 1,
+    "gym": 7,
+    "transit": 0
+   }
+  },
+  "andover": {
+   "score": 15,
+   "label": "Car-dependent",
+   "points": 559,
+   "sqMi": 34.9,
+   "walk": {
+    "grocery": 8,
+    "park": 50,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 4,
+    "coffee": 5,
+    "restaurant": 22,
+    "pharmacy": 5,
+    "park": 22,
+    "library": 0,
+    "gym": 10,
+    "transit": 0
+   }
+  },
+  "bethel": {
+   "score": 11,
+   "label": "Car-dependent",
+   "points": 17,
+   "sqMi": 1.1,
+   "walk": {
+    "grocery": 0,
+    "park": 12,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 2,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "blaine": {
+   "score": 32,
+   "label": "Some errands on foot",
+   "points": 540,
+   "sqMi": 33.8,
+   "walk": {
+    "grocery": 18,
+    "park": 80,
+    "transit": 17
+   },
+   "inside": {
+    "grocery": 9,
+    "coffee": 15,
+    "restaurant": 107,
+    "pharmacy": 7,
+    "park": 60,
+    "library": 2,
+    "gym": 20,
+    "transit": 22
+   }
+  },
+  "hilltop": {
+   "score": 81,
+   "label": "Very walkable",
+   "points": 11,
+   "sqMi": 0.7,
+   "walk": {
+    "grocery": 100,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 0,
+    "restaurant": 5,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 0,
+    "transit": 2
+   }
+  },
+  "ramsey": {
+   "score": 14,
+   "label": "Car-dependent",
+   "points": 469,
+   "sqMi": 29.3,
+   "walk": {
+    "grocery": 0,
+    "park": 55,
+    "transit": 4
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 2,
+    "restaurant": 26,
+    "pharmacy": 1,
+    "park": 23,
+    "library": 0,
+    "gym": 5,
+    "transit": 1
+   }
+  },
+  "bloomington": {
+   "score": 45,
+   "label": "Some errands on foot",
+   "points": 608,
+   "sqMi": 38,
+   "walk": {
+    "grocery": 30,
+    "park": 82,
+    "transit": 63
+   },
+   "inside": {
+    "grocery": 15,
+    "coffee": 28,
+    "restaurant": 190,
+    "pharmacy": 12,
+    "park": 55,
+    "library": 4,
+    "gym": 23,
+    "transit": 313
+   }
+  },
+  "eden-prairie": {
+   "score": 30,
+   "label": "Some errands on foot",
+   "points": 570,
+   "sqMi": 35.6,
+   "walk": {
+    "grocery": 18,
+    "park": 70,
+    "transit": 22
+   },
+   "inside": {
+    "grocery": 8,
+    "coffee": 18,
+    "restaurant": 104,
+    "pharmacy": 8,
+    "park": 34,
+    "library": 1,
+    "gym": 29,
+    "transit": 14
+   }
+  },
+  "loretto": {
+   "score": 15,
+   "label": "Car-dependent",
+   "points": 4,
+   "sqMi": 0.3,
+   "walk": {
+    "grocery": 0,
+    "park": 0,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 4,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 2,
+    "transit": 0
+   }
+  },
+  "minnetrista": {
+   "score": 5,
+   "label": "Car-dependent",
+   "points": 494,
+   "sqMi": 30.9,
+   "walk": {
+    "grocery": 3,
+    "park": 14,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 1,
+    "restaurant": 4,
+    "pharmacy": 0,
+    "park": 4,
+    "library": 0,
+    "gym": 3,
+    "transit": 0
+   }
+  },
+  "plymouth": {
+   "score": 43,
+   "label": "Some errands on foot",
+   "points": 568,
+   "sqMi": 35.5,
+   "walk": {
+    "grocery": 18,
+    "park": 82,
+    "transit": 80
+   },
+   "inside": {
+    "grocery": 9,
+    "coffee": 15,
+    "restaurant": 82,
+    "pharmacy": 9,
+    "park": 43,
+    "library": 1,
+    "gym": 20,
+    "transit": 244
+   }
+  },
+  "fridley": {
+   "score": 62,
+   "label": "Walkable",
+   "points": 169,
+   "sqMi": 10.6,
+   "walk": {
+    "grocery": 43,
+    "park": 98,
+    "transit": 98
+   },
+   "inside": {
+    "grocery": 6,
+    "coffee": 8,
+    "restaurant": 33,
+    "pharmacy": 6,
+    "park": 27,
+    "library": 2,
+    "gym": 8,
+    "transit": 83
+   }
+  },
+  "ham-lake": {
+   "score": 6,
+   "label": "Car-dependent",
+   "points": 576,
+   "sqMi": 36,
+   "walk": {
+    "grocery": 0,
+    "park": 19,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 2,
+    "restaurant": 12,
+    "pharmacy": 0,
+    "park": 6,
+    "library": 1,
+    "gym": 9,
+    "transit": 0
+   }
+  },
+  "lexington": {
+   "score": 73,
+   "label": "Very walkable",
+   "points": 11,
+   "sqMi": 0.7,
+   "walk": {
+    "grocery": 82,
+    "park": 100,
+    "transit": 27
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 1,
+    "restaurant": 9,
+    "pharmacy": 1,
+    "park": 1,
+    "library": 0,
+    "gym": 1,
+    "transit": 2
+   }
+  },
+  "oak-grove": {
+   "score": 5,
+   "label": "Car-dependent",
+   "points": 567,
+   "sqMi": 35.4,
+   "walk": {
+    "grocery": 4,
+    "park": 13,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 0,
+    "restaurant": 5,
+    "pharmacy": 0,
+    "park": 3,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "lino-lakes": {
+   "score": 12,
+   "label": "Car-dependent",
+   "points": 533,
+   "sqMi": 33.3,
+   "walk": {
+    "grocery": 7,
+    "park": 40,
+    "transit": 2
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 4,
+    "restaurant": 17,
+    "pharmacy": 1,
+    "park": 13,
+    "library": 0,
+    "gym": 7,
+    "transit": 1
+   }
+  },
+  "st-francis": {
+   "score": 7,
+   "label": "Car-dependent",
+   "points": 379,
+   "sqMi": 23.7,
+   "walk": {
+    "grocery": 8,
+    "park": 15,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 0,
+    "restaurant": 13,
+    "pharmacy": 1,
+    "park": 6,
+    "library": 1,
+    "gym": 3,
+    "transit": 0
+   }
+  },
+  "scandia": {
+   "score": 2,
+   "label": "Car-dependent",
+   "points": 639,
+   "sqMi": 39.9,
+   "walk": {
+    "grocery": 3,
+    "park": 6,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 0,
+    "restaurant": 4,
+    "pharmacy": 0,
+    "park": 4,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "coon-rapids": {
+   "score": 47,
+   "label": "Some errands on foot",
+   "points": 377,
+   "sqMi": 23.6,
+   "walk": {
+    "grocery": 27,
+    "park": 90,
+    "transit": 67
+   },
+   "inside": {
+    "grocery": 7,
+    "coffee": 11,
+    "restaurant": 80,
+    "pharmacy": 8,
+    "park": 41,
+    "library": 1,
+    "gym": 15,
+    "transit": 120
+   }
+  },
+  "west-st-paul": {
+   "score": 70,
+   "label": "Very walkable",
+   "points": 81,
+   "sqMi": 5.1,
+   "walk": {
+    "grocery": 70,
+    "park": 88,
+    "transit": 94
+   },
+   "inside": {
+    "grocery": 7,
+    "coffee": 7,
+    "restaurant": 55,
+    "pharmacy": 1,
+    "park": 13,
+    "library": 1,
+    "gym": 9,
+    "transit": 76
+   }
+  },
+  "white-bear-lake": {
+   "score": 49,
+   "label": "Some errands on foot",
+   "points": 137,
+   "sqMi": 8.6,
+   "walk": {
+    "grocery": 39,
+    "park": 86,
+    "transit": 38
+   },
+   "inside": {
+    "grocery": 6,
+    "coffee": 9,
+    "restaurant": 46,
+    "pharmacy": 5,
+    "park": 19,
+    "library": 1,
+    "gym": 12,
+    "transit": 21
+   }
+  },
+  "arden-hills": {
+   "score": 26,
+   "label": "Some errands on foot",
+   "points": 155,
+   "sqMi": 9.7,
+   "walk": {
+    "grocery": 4,
+    "park": 65,
+    "transit": 30
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 2,
+    "restaurant": 17,
+    "pharmacy": 1,
+    "park": 12,
+    "library": 2,
+    "gym": 7,
+    "transit": 8
+   }
+  },
+  "falcon-heights": {
+   "score": 62,
+   "label": "Walkable",
+   "points": 36,
+   "sqMi": 2.3,
+   "walk": {
+    "grocery": 31,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 2,
+    "restaurant": 28,
+    "pharmacy": 1,
+    "park": 3,
+    "library": 0,
+    "gym": 5,
+    "transit": 39
+   }
+  },
+  "lauderdale": {
+   "score": 59,
+   "label": "Walkable",
+   "points": 6,
+   "sqMi": 0.4,
+   "walk": {
+    "grocery": 67,
+    "park": 83,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 0,
+    "pharmacy": 0,
+    "park": 1,
+    "library": 0,
+    "gym": 0,
+    "transit": 9
+   }
+  },
+  "little-canada": {
+   "score": 51,
+   "label": "Walkable",
+   "points": 72,
+   "sqMi": 4.5,
+   "walk": {
+    "grocery": 29,
+    "park": 78,
+    "transit": 97
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 3,
+    "restaurant": 18,
+    "pharmacy": 1,
+    "park": 7,
+    "library": 1,
+    "gym": 8,
+    "transit": 46
+   }
+  },
+  "saint-paul": {
+   "score": 66,
+   "label": "Walkable",
+   "points": 910,
+   "sqMi": 56.9,
+   "walk": {
+    "grocery": 58,
+    "park": 78,
+    "transit": 92
+   },
+   "inside": {
+    "grocery": 66,
+    "coffee": 93,
+    "restaurant": 508,
+    "pharmacy": 28,
+    "park": 105,
+    "library": 27,
+    "gym": 82,
+    "transit": 852
+   }
+  },
+  "mounds-view": {
+   "score": 57,
+   "label": "Walkable",
+   "points": 71,
+   "sqMi": 4.4,
+   "walk": {
+    "grocery": 25,
+    "park": 89,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 3,
+    "restaurant": 8,
+    "pharmacy": 1,
+    "park": 8,
+    "library": 1,
+    "gym": 6,
+    "transit": 33
+   }
+  },
+  "new-brighton": {
+   "score": 53,
+   "label": "Walkable",
+   "points": 114,
+   "sqMi": 7.1,
+   "walk": {
+    "grocery": 13,
+    "park": 94,
+    "transit": 94
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 3,
+    "restaurant": 23,
+    "pharmacy": 3,
+    "park": 15,
+    "library": 1,
+    "gym": 6,
+    "transit": 55
+   }
+  },
+  "north-oaks": {
+   "score": 10,
+   "label": "Car-dependent",
+   "points": 136,
+   "sqMi": 8.5,
+   "walk": {
+    "grocery": 6,
+    "park": 29,
+    "transit": 7
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 1,
+    "restaurant": 4,
+    "pharmacy": 1,
+    "park": 1,
+    "library": 0,
+    "gym": 0,
+    "transit": 2
+   }
+  },
+  "north-st-paul": {
+   "score": 68,
+   "label": "Walkable",
+   "points": 48,
+   "sqMi": 3,
+   "walk": {
+    "grocery": 54,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 2,
+    "restaurant": 18,
+    "pharmacy": 0,
+    "park": 12,
+    "library": 1,
+    "gym": 2,
+    "transit": 45
+   }
+  },
+  "roseville": {
+   "score": 59,
+   "label": "Walkable",
+   "points": 220,
+   "sqMi": 13.8,
+   "walk": {
+    "grocery": 29,
+    "park": 89,
+    "transit": 96
+   },
+   "inside": {
+    "grocery": 4,
+    "coffee": 20,
+    "restaurant": 105,
+    "pharmacy": 8,
+    "park": 30,
+    "library": 1,
+    "gym": 14,
+    "transit": 153
+   }
+  },
+  "vadnais-heights": {
+   "score": 39,
+   "label": "Some errands on foot",
+   "points": 133,
+   "sqMi": 8.3,
+   "walk": {
+    "grocery": 25,
+    "park": 81,
+    "transit": 40
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 4,
+    "restaurant": 16,
+    "pharmacy": 1,
+    "park": 14,
+    "library": 0,
+    "gym": 2,
+    "transit": 14
+   }
+  },
+  "spring-lake-park": {
+   "score": 83,
+   "label": "Very walkable",
+   "points": 36,
+   "sqMi": 2.3,
+   "walk": {
+    "grocery": 92,
+    "park": 89,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 3,
+    "coffee": 3,
+    "restaurant": 21,
+    "pharmacy": 0,
+    "park": 4,
+    "library": 0,
+    "gym": 3,
+    "transit": 13
+   }
+  },
+  "birchwood-village": {
+   "score": 24,
+   "label": "Car-dependent",
+   "points": 6,
+   "sqMi": 0.4,
+   "walk": {
+    "grocery": 17,
+    "park": 100,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 0,
+    "pharmacy": 0,
+    "park": 2,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "dellwood": {
+   "score": 3,
+   "label": "Car-dependent",
+   "points": 48,
+   "sqMi": 3,
+   "walk": {
+    "grocery": 0,
+    "park": 21,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 0,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "lake-elmo": {
+   "score": 14,
+   "label": "Car-dependent",
+   "points": 388,
+   "sqMi": 24.3,
+   "walk": {
+    "grocery": 5,
+    "park": 32,
+    "transit": 23
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 3,
+    "restaurant": 9,
+    "pharmacy": 1,
+    "park": 10,
+    "library": 1,
+    "gym": 2,
+    "transit": 24
+   }
+  },
+  "cottage-grove": {
+   "score": 15,
+   "label": "Car-dependent",
+   "points": 597,
+   "sqMi": 37.3,
+   "walk": {
+    "grocery": 11,
+    "park": 42,
+    "transit": 3
+   },
+   "inside": {
+    "grocery": 4,
+    "coffee": 9,
+    "restaurant": 30,
+    "pharmacy": 4,
+    "park": 26,
+    "library": 1,
+    "gym": 7,
+    "transit": 1
+   }
+  },
+  "oak-park-heights": {
+   "score": 45,
+   "label": "Some errands on foot",
+   "points": 56,
+   "sqMi": 3.5,
+   "walk": {
+    "grocery": 34,
+    "park": 73,
+    "transit": 46
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 2,
+    "restaurant": 25,
+    "pharmacy": 2,
+    "park": 4,
+    "library": 0,
+    "gym": 2,
+    "transit": 6
+   }
+  },
+  "lakeland": {
+   "score": 18,
+   "label": "Car-dependent",
+   "points": 46,
+   "sqMi": 2.9,
+   "walk": {
+    "grocery": 0,
+    "park": 65,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 2,
+    "pharmacy": 0,
+    "park": 2,
+    "library": 1,
+    "gym": 1,
+    "transit": 0
+   }
+  },
+  "lake-st-croix-beach": {
+   "score": 17,
+   "label": "Car-dependent",
+   "points": 15,
+   "sqMi": 0.9,
+   "walk": {
+    "grocery": 0,
+    "park": 87,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 1,
+    "pharmacy": 0,
+    "park": 3,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "landfall": {
+   "score": 50,
+   "label": "Walkable",
+   "points": 7,
+   "sqMi": 0.4,
+   "walk": {
+    "grocery": 0,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 0,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 0,
+    "transit": 1
+   }
+  },
+  "marine-on-st-croix": {
+   "score": 11,
+   "label": "Car-dependent",
+   "points": 68,
+   "sqMi": 4.3,
+   "walk": {
+    "grocery": 18,
+    "park": 12,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 2,
+    "restaurant": 4,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 1,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "newport": {
+   "score": 27,
+   "label": "Some errands on foot",
+   "points": 62,
+   "sqMi": 3.9,
+   "walk": {
+    "grocery": 0,
+    "park": 69,
+    "transit": 31
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 7,
+    "pharmacy": 1,
+    "park": 5,
+    "library": 1,
+    "gym": 1,
+    "transit": 1
+   }
+  },
+  "pine-springs": {
+   "score": 11,
+   "label": "Car-dependent",
+   "points": 17,
+   "sqMi": 1.1,
+   "walk": {
+    "grocery": 0,
+    "park": 76,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 0,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "st-marys-point": {
+   "score": 21,
+   "label": "Car-dependent",
+   "points": 8,
+   "sqMi": 0.5,
+   "walk": {
+    "grocery": 0,
+    "park": 88,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 0,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "mahtomedi": {
+   "score": 26,
+   "label": "Some errands on foot",
+   "points": 95,
+   "sqMi": 5.9,
+   "walk": {
+    "grocery": 11,
+    "park": 66,
+    "transit": 12
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 0,
+    "restaurant": 5,
+    "pharmacy": 0,
+    "park": 7,
+    "library": 1,
+    "gym": 1,
+    "transit": 3
+   }
+  },
+  "chanhassen": {
+   "score": 22,
+   "label": "Car-dependent",
+   "points": 352,
+   "sqMi": 22,
+   "walk": {
+    "grocery": 10,
+    "park": 66,
+    "transit": 5
+   },
+   "inside": {
+    "grocery": 4,
+    "coffee": 7,
+    "restaurant": 40,
+    "pharmacy": 4,
+    "park": 27,
+    "library": 1,
+    "gym": 13,
+    "transit": 1
+   }
+  },
+  "northfield": {
+   "score": 40,
+   "label": "Some errands on foot",
+   "points": 139,
+   "sqMi": 8.7,
+   "walk": {
+    "grocery": 31,
+    "park": 87,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 4,
+    "coffee": 12,
+    "restaurant": 44,
+    "pharmacy": 3,
+    "park": 24,
+    "library": 5,
+    "gym": 12,
+    "transit": 0
+   }
+  },
+  "new-prague": {
+   "score": 35,
+   "label": "Some errands on foot",
+   "points": 63,
+   "sqMi": 3.9,
+   "walk": {
+    "grocery": 0,
+    "park": 81,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 8,
+    "restaurant": 14,
+    "pharmacy": 3,
+    "park": 6,
+    "library": 1,
+    "gym": 4,
+    "transit": 0
+   }
+  },
+  "apple-valley": {
+   "score": 48,
+   "label": "Some errands on foot",
+   "points": 279,
+   "sqMi": 17.4,
+   "walk": {
+    "grocery": 30,
+    "park": 95,
+    "transit": 72
+   },
+   "inside": {
+    "grocery": 7,
+    "coffee": 12,
+    "restaurant": 82,
+    "pharmacy": 8,
+    "park": 41,
+    "library": 1,
+    "gym": 26,
+    "transit": 72
+   }
+  },
+  "eagan": {
+   "score": 41,
+   "label": "Some errands on foot",
+   "points": 540,
+   "sqMi": 33.8,
+   "walk": {
+    "grocery": 17,
+    "park": 79,
+    "transit": 60
+   },
+   "inside": {
+    "grocery": 8,
+    "coffee": 21,
+    "restaurant": 117,
+    "pharmacy": 10,
+    "park": 51,
+    "library": 1,
+    "gym": 29,
+    "transit": 130
+   }
+  },
+  "lakeville": {
+   "score": 23,
+   "label": "Car-dependent",
+   "points": 622,
+   "sqMi": 38.9,
+   "walk": {
+    "grocery": 16,
+    "park": 56,
+    "transit": 8
+   },
+   "inside": {
+    "grocery": 7,
+    "coffee": 11,
+    "restaurant": 61,
+    "pharmacy": 6,
+    "park": 32,
+    "library": 1,
+    "gym": 20,
+    "transit": 2
+   }
+  },
+  "lilydale": {
+   "score": 29,
+   "label": "Some errands on foot",
+   "points": 11,
+   "sqMi": 0.7,
+   "walk": {
+    "grocery": 9,
+    "park": 100,
+    "transit": 18
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 3,
+    "pharmacy": 0,
+    "park": 2,
+    "library": 0,
+    "gym": 1,
+    "transit": 0
+   }
+  },
+  "mendota": {
+   "score": 10,
+   "label": "Car-dependent",
+   "points": 4,
+   "sqMi": 0.3,
+   "walk": {
+    "grocery": 0,
+    "park": 0,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 1,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "new-trier": {
+   "score": 10,
+   "label": "Car-dependent",
+   "points": 3,
+   "sqMi": 0.2,
+   "walk": {
+    "grocery": 0,
+    "park": 0,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 2,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "randolph": {
+   "score": 10,
+   "label": "Car-dependent",
+   "points": 16,
+   "sqMi": 1,
+   "walk": {
+    "grocery": 0,
+    "park": 0,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 1,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "rosemount": {
+   "score": 11,
+   "label": "Car-dependent",
+   "points": 560,
+   "sqMi": 35,
+   "walk": {
+    "grocery": 3,
+    "park": 29,
+    "transit": 14
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 6,
+    "restaurant": 25,
+    "pharmacy": 2,
+    "park": 22,
+    "library": 1,
+    "gym": 13,
+    "transit": 18
+   }
+  },
+  "south-st-paul": {
+   "score": 51,
+   "label": "Walkable",
+   "points": 96,
+   "sqMi": 6,
+   "walk": {
+    "grocery": 32,
+    "park": 82,
+    "transit": 99
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 2,
+    "restaurant": 20,
+    "pharmacy": 0,
+    "park": 10,
+    "library": 1,
+    "gym": 5,
+    "transit": 88
+   }
+  },
+  "sunfish-lake": {
+   "score": 21,
+   "label": "Car-dependent",
+   "points": 27,
+   "sqMi": 1.7,
+   "walk": {
+    "grocery": 11,
+    "park": 15,
+    "transit": 44
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 0,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 1,
+    "transit": 0
+   }
+  },
+  "inver-grove-heights": {
+   "score": 22,
+   "label": "Car-dependent",
+   "points": 487,
+   "sqMi": 30.4,
+   "walk": {
+    "grocery": 11,
+    "park": 36,
+    "transit": 39
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 6,
+    "restaurant": 43,
+    "pharmacy": 2,
+    "park": 15,
+    "library": 1,
+    "gym": 4,
+    "transit": 93
+   }
+  },
+  "owatonna": {
+   "score": 31,
+   "label": "Some errands on foot",
+   "points": 245,
+   "sqMi": 15.3,
+   "walk": {
+    "grocery": 28,
+    "park": 50,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 6,
+    "coffee": 10,
+    "restaurant": 48,
+    "pharmacy": 8,
+    "park": 14,
+    "library": 1,
+    "gym": 8,
+    "transit": 0
+   }
+  },
+  "jordan": {
+   "score": 32,
+   "label": "Some errands on foot",
+   "points": 54,
+   "sqMi": 3.4,
+   "walk": {
+    "grocery": 31,
+    "park": 67,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 3,
+    "restaurant": 10,
+    "pharmacy": 0,
+    "park": 3,
+    "library": 1,
+    "gym": 5,
+    "transit": 0
+   }
+  },
+  "carver": {
+   "score": 15,
+   "label": "Car-dependent",
+   "points": 77,
+   "sqMi": 4.8,
+   "walk": {
+    "grocery": 0,
+    "park": 62,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 1,
+    "restaurant": 3,
+    "pharmacy": 0,
+    "park": 5,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "chaska": {
+   "score": 24,
+   "label": "Car-dependent",
+   "points": 290,
+   "sqMi": 18.1,
+   "walk": {
+    "grocery": 20,
+    "park": 44,
+    "transit": 7
+   },
+   "inside": {
+    "grocery": 4,
+    "coffee": 6,
+    "restaurant": 37,
+    "pharmacy": 2,
+    "park": 12,
+    "library": 1,
+    "gym": 8,
+    "transit": 1
+   }
+  },
+  "cologne": {
+   "score": 23,
+   "label": "Car-dependent",
+   "points": 30,
+   "sqMi": 1.9,
+   "walk": {
+    "grocery": 0,
+    "park": 73,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 1,
+    "restaurant": 4,
+    "pharmacy": 0,
+    "park": 1,
+    "library": 0,
+    "gym": 1,
+    "transit": 0
+   }
+  },
+  "hamburg": {
+   "score": 25,
+   "label": "Some errands on foot",
+   "points": 3,
+   "sqMi": 0.2,
+   "walk": {
+    "grocery": 0,
+    "park": 100,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 1,
+    "pharmacy": 0,
+    "park": 1,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "mayer": {
+   "score": 35,
+   "label": "Some errands on foot",
+   "points": 25,
+   "sqMi": 1.6,
+   "walk": {
+    "grocery": 56,
+    "park": 76,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 0,
+    "restaurant": 4,
+    "pharmacy": 0,
+    "park": 2,
+    "library": 0,
+    "gym": 3,
+    "transit": 0
+   }
+  },
+  "new-germany": {
+   "score": 17,
+   "label": "Car-dependent",
+   "points": 15,
+   "sqMi": 0.9,
+   "walk": {
+    "grocery": 0,
+    "park": 67,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 3,
+    "pharmacy": 0,
+    "park": 2,
+    "library": 0,
+    "gym": 0,
+    "transit": 0
+   }
+  },
+  "watertown": {
+   "score": 39,
+   "label": "Some errands on foot",
+   "points": 41,
+   "sqMi": 2.6,
+   "walk": {
+    "grocery": 37,
+    "park": 76,
+    "transit": 0
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 1,
+    "restaurant": 7,
+    "pharmacy": 1,
+    "park": 4,
+    "library": 2,
+    "gym": 2,
+    "transit": 0
+   }
+  }
+ },
+ "hoods": {
+  "minneapolis/phillips-west": {
+   "score": 100,
+   "label": "Very walkable",
+   "points": 4,
+   "sqMi": 0.3,
+   "walk": {
+    "grocery": 100,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 3,
+    "coffee": 3,
+    "restaurant": 4,
+    "pharmacy": 1,
+    "park": 0,
+    "library": 0,
+    "gym": 1,
+    "transit": 12
+   }
+  },
+  "minneapolis/downtown-west": {
+   "score": 100,
+   "label": "Very walkable",
+   "points": 11,
+   "sqMi": 0.7,
+   "walk": {
+    "grocery": 100,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 3,
+    "coffee": 30,
+    "restaurant": 131,
+    "pharmacy": 3,
+    "park": 7,
+    "library": 2,
+    "gym": 20,
+    "transit": 105
+   }
+  },
+  "minneapolis/downtown-east": {
+   "score": 83,
+   "label": "Very walkable",
+   "points": 6,
+   "sqMi": 0.4,
+   "walk": {
+    "grocery": 50,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 4,
+    "restaurant": 21,
+    "pharmacy": 0,
+    "park": 3,
+    "library": 0,
+    "gym": 3,
+    "transit": 9
+   }
+  },
+  "minneapolis/ventura-village": {
+   "score": 100,
+   "label": "Very walkable",
+   "points": 9,
+   "sqMi": 0.6,
+   "walk": {
+    "grocery": 100,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 5,
+    "coffee": 2,
+    "restaurant": 8,
+    "pharmacy": 2,
+    "park": 1,
+    "library": 1,
+    "gym": 5,
+    "transit": 12
+   }
+  },
+  "minneapolis/sumner-glenwood": {
+   "score": 80,
+   "label": "Very walkable",
+   "points": 4,
+   "sqMi": 0.3,
+   "walk": {
+    "grocery": 50,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 2,
+    "pharmacy": 0,
+    "park": 1,
+    "library": 0,
+    "gym": 1,
+    "transit": 4
+   }
+  },
+  "minneapolis/shingle-creek": {
+   "score": 41,
+   "label": "Some errands on foot",
+   "points": 8,
+   "sqMi": 0.5,
+   "walk": {
+    "grocery": 25,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 0,
+    "pharmacy": 0,
+    "park": 1,
+    "library": 0,
+    "gym": 0,
+    "transit": 8
+   }
+  },
+  "minneapolis/lind-bohanon": {
+   "score": 47,
+   "label": "Some errands on foot",
+   "points": 12,
+   "sqMi": 0.8,
+   "walk": {
+    "grocery": 0,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 3,
+    "pharmacy": 0,
+    "park": 3,
+    "library": 0,
+    "gym": 0,
+    "transit": 15
+   }
+  },
+  "minneapolis/webber-camden": {
+   "score": 58,
+   "label": "Walkable",
+   "points": 16,
+   "sqMi": 1,
+   "walk": {
+    "grocery": 6,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 1,
+    "restaurant": 6,
+    "pharmacy": 0,
+    "park": 2,
+    "library": 2,
+    "gym": 1,
+    "transit": 14
+   }
+  },
+  "minneapolis/bottineau": {
+   "score": 69,
+   "label": "Walkable",
+   "points": 4,
+   "sqMi": 0.3,
+   "walk": {
+    "grocery": 25,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 1,
+    "restaurant": 7,
+    "pharmacy": 0,
+    "park": 3,
+    "library": 0,
+    "gym": 1,
+    "transit": 8
+   }
+  },
+  "minneapolis/victory": {
+   "score": 53,
+   "label": "Walkable",
+   "points": 10,
+   "sqMi": 0.6,
+   "walk": {
+    "grocery": 10,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 1,
+    "restaurant": 4,
+    "pharmacy": 0,
+    "park": 2,
+    "library": 0,
+    "gym": 0,
+    "transit": 7
+   }
+  },
+  "minneapolis/howe": {
+   "score": 81,
+   "label": "Very walkable",
+   "points": 16,
+   "sqMi": 1,
+   "walk": {
+    "grocery": 81,
+    "park": 88,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 2,
+    "restaurant": 8,
+    "pharmacy": 1,
+    "park": 3,
+    "library": 0,
+    "gym": 0,
+    "transit": 25
+   }
+  },
+  "minneapolis/hiawatha": {
+   "score": 77,
+   "label": "Very walkable",
+   "points": 20,
+   "sqMi": 1.3,
+   "walk": {
+    "grocery": 70,
+    "park": 95,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 2,
+    "restaurant": 8,
+    "pharmacy": 1,
+    "park": 4,
+    "library": 0,
+    "gym": 2,
+    "transit": 27
+   }
+  },
+  "minneapolis/windom": {
+   "score": 90,
+   "label": "Very walkable",
+   "points": 13,
+   "sqMi": 0.8,
+   "walk": {
+    "grocery": 92,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 1,
+    "restaurant": 10,
+    "pharmacy": 0,
+    "park": 1,
+    "library": 0,
+    "gym": 2,
+    "transit": 16
+   }
+  },
+  "minneapolis/ericsson": {
+   "score": 88,
+   "label": "Very walkable",
+   "points": 13,
+   "sqMi": 0.8,
+   "walk": {
+    "grocery": 85,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 3,
+    "restaurant": 7,
+    "pharmacy": 0,
+    "park": 3,
+    "library": 0,
+    "gym": 1,
+    "transit": 20
+   }
+  },
+  "minneapolis/field": {
+   "score": 75,
+   "label": "Very walkable",
+   "points": 5,
+   "sqMi": 0.3,
+   "walk": {
+    "grocery": 60,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 4,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 0,
+    "transit": 7
+   }
+  },
+  "minneapolis/page": {
+   "score": 79,
+   "label": "Very walkable",
+   "points": 5,
+   "sqMi": 0.3,
+   "walk": {
+    "grocery": 100,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 0,
+    "restaurant": 1,
+    "pharmacy": 0,
+    "park": 2,
+    "library": 0,
+    "gym": 1,
+    "transit": 2
+   }
+  },
+  "minneapolis/southeast-como": {
+   "score": 73,
+   "label": "Very walkable",
+   "points": 19,
+   "sqMi": 1.2,
+   "walk": {
+    "grocery": 63,
+    "park": 42,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 3,
+    "restaurant": 12,
+    "pharmacy": 1,
+    "park": 1,
+    "library": 0,
+    "gym": 0,
+    "transit": 28
+   }
+  },
+  "minneapolis/cedar-riverside": {
+   "score": 94,
+   "label": "Very walkable",
+   "points": 9,
+   "sqMi": 0.6,
+   "walk": {
+    "grocery": 78,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 4,
+    "restaurant": 22,
+    "pharmacy": 3,
+    "park": 6,
+    "library": 1,
+    "gym": 3,
+    "transit": 19
+   }
+  },
+  "minneapolis/prospect-park-east-river-road": {
+   "score": 78,
+   "label": "Very walkable",
+   "points": 23,
+   "sqMi": 1.4,
+   "walk": {
+    "grocery": 57,
+    "park": 96,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 2,
+    "restaurant": 16,
+    "pharmacy": 5,
+    "park": 3,
+    "library": 0,
+    "gym": 4,
+    "transit": 24
+   }
+  },
+  "minneapolis/university-of-minnesota": {
+   "score": 87,
+   "label": "Very walkable",
+   "points": 12,
+   "sqMi": 0.8,
+   "walk": {
+    "grocery": 50,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 10,
+    "restaurant": 14,
+    "pharmacy": 1,
+    "park": 1,
+    "library": 3,
+    "gym": 4,
+    "transit": 25
+   }
+  },
+  "minneapolis/jordan": {
+   "score": 79,
+   "label": "Very walkable",
+   "points": 14,
+   "sqMi": 0.9,
+   "walk": {
+    "grocery": 100,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 0,
+    "restaurant": 6,
+    "pharmacy": 0,
+    "park": 4,
+    "library": 1,
+    "gym": 1,
+    "transit": 28
+   }
+  },
+  "minneapolis/hawthorne": {
+   "score": 80,
+   "label": "Very walkable",
+   "points": 16,
+   "sqMi": 1,
+   "walk": {
+    "grocery": 81,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 1,
+    "restaurant": 11,
+    "pharmacy": 0,
+    "park": 2,
+    "library": 0,
+    "gym": 1,
+    "transit": 20
+   }
+  },
+  "minneapolis/willard-hay": {
+   "score": 72,
+   "label": "Very walkable",
+   "points": 16,
+   "sqMi": 1,
+   "walk": {
+    "grocery": 75,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 0,
+    "restaurant": 4,
+    "pharmacy": 0,
+    "park": 3,
+    "library": 0,
+    "gym": 2,
+    "transit": 24
+   }
+  },
+  "minneapolis/near-north": {
+   "score": 86,
+   "label": "Very walkable",
+   "points": 19,
+   "sqMi": 1.2,
+   "walk": {
+    "grocery": 89,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 1,
+    "restaurant": 8,
+    "pharmacy": 0,
+    "park": 3,
+    "library": 1,
+    "gym": 6,
+    "transit": 32
+   }
+  },
+  "minneapolis/harrison": {
+   "score": 64,
+   "label": "Walkable",
+   "points": 8,
+   "sqMi": 0.5,
+   "walk": {
+    "grocery": 13,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 1,
+    "restaurant": 4,
+    "pharmacy": 0,
+    "park": 2,
+    "library": 0,
+    "gym": 1,
+    "transit": 14
+   }
+  },
+  "minneapolis/loring-park": {
+   "score": 99,
+   "label": "Very walkable",
+   "points": 9,
+   "sqMi": 0.6,
+   "walk": {
+    "grocery": 100,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 8,
+    "restaurant": 19,
+    "pharmacy": 0,
+    "park": 2,
+    "library": 0,
+    "gym": 4,
+    "transit": 25
+   }
+  },
+  "minneapolis/stevens-square-loring-heights": {
+   "score": 100,
+   "label": "Very walkable",
+   "points": 3,
+   "sqMi": 0.2,
+   "walk": {
+    "grocery": 100,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 2,
+    "restaurant": 5,
+    "pharmacy": 0,
+    "park": 1,
+    "library": 0,
+    "gym": 0,
+    "transit": 5
+   }
+  },
+  "minneapolis/minnehaha": {
+   "score": 66,
+   "label": "Walkable",
+   "points": 10,
+   "sqMi": 0.6,
+   "walk": {
+    "grocery": 30,
+    "park": 90,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 1,
+    "restaurant": 2,
+    "pharmacy": 0,
+    "park": 1,
+    "library": 0,
+    "gym": 0,
+    "transit": 4
+   }
+  },
+  "minneapolis/diamond-lake": {
+   "score": 71,
+   "label": "Very walkable",
+   "points": 17,
+   "sqMi": 1.1,
+   "walk": {
+    "grocery": 94,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 0,
+    "restaurant": 4,
+    "pharmacy": 0,
+    "park": 3,
+    "library": 0,
+    "gym": 0,
+    "transit": 10
+   }
+  },
+  "minneapolis/cooper": {
+   "score": 75,
+   "label": "Very walkable",
+   "points": 11,
+   "sqMi": 0.7,
+   "walk": {
+    "grocery": 73,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 3,
+    "restaurant": 6,
+    "pharmacy": 0,
+    "park": 5,
+    "library": 0,
+    "gym": 0,
+    "transit": 1
+   }
+  },
+  "minneapolis/tangletown": {
+   "score": 83,
+   "label": "Very walkable",
+   "points": 12,
+   "sqMi": 0.8,
+   "walk": {
+    "grocery": 75,
+    "park": 92,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 3,
+    "restaurant": 11,
+    "pharmacy": 0,
+    "park": 1,
+    "library": 0,
+    "gym": 4,
+    "transit": 19
+   }
+  },
+  "minneapolis/north-loop": {
+   "score": 96,
+   "label": "Very walkable",
+   "points": 13,
+   "sqMi": 0.8,
+   "walk": {
+    "grocery": 92,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 11,
+    "restaurant": 50,
+    "pharmacy": 1,
+    "park": 4,
+    "library": 0,
+    "gym": 10,
+    "transit": 21
+   }
+  },
+  "minneapolis/hale": {
+   "score": 71,
+   "label": "Very walkable",
+   "points": 8,
+   "sqMi": 0.5,
+   "walk": {
+    "grocery": 75,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 3,
+    "pharmacy": 0,
+    "park": 2,
+    "library": 0,
+    "gym": 1,
+    "transit": 9
+   }
+  },
+  "minneapolis/keewaydin": {
+   "score": 68,
+   "label": "Walkable",
+   "points": 15,
+   "sqMi": 0.9,
+   "walk": {
+    "grocery": 33,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 1,
+    "restaurant": 4,
+    "pharmacy": 0,
+    "park": 6,
+    "library": 1,
+    "gym": 1,
+    "transit": 4
+   }
+  },
+  "minneapolis/fulton": {
+   "score": 75,
+   "label": "Very walkable",
+   "points": 16,
+   "sqMi": 1,
+   "walk": {
+    "grocery": 44,
+    "park": 94,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 1,
+    "restaurant": 14,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 4,
+    "transit": 18
+   }
+  },
+  "minneapolis/lynnhurst": {
+   "score": 66,
+   "label": "Walkable",
+   "points": 16,
+   "sqMi": 1,
+   "walk": {
+    "grocery": 25,
+    "park": 94,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 1,
+    "restaurant": 7,
+    "pharmacy": 0,
+    "park": 2,
+    "library": 1,
+    "gym": 1,
+    "transit": 9
+   }
+  },
+  "minneapolis/bancroft": {
+   "score": 65,
+   "label": "Walkable",
+   "points": 6,
+   "sqMi": 0.4,
+   "walk": {
+    "grocery": 0,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 2,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 0,
+    "transit": 9
+   }
+  },
+  "minneapolis/standish": {
+   "score": 85,
+   "label": "Very walkable",
+   "points": 11,
+   "sqMi": 0.7,
+   "walk": {
+    "grocery": 91,
+    "park": 91,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 5,
+    "restaurant": 11,
+    "pharmacy": 0,
+    "park": 1,
+    "library": 1,
+    "gym": 1,
+    "transit": 15
+   }
+  },
+  "minneapolis/seward": {
+   "score": 91,
+   "label": "Very walkable",
+   "points": 15,
+   "sqMi": 0.9,
+   "walk": {
+    "grocery": 87,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 5,
+    "restaurant": 19,
+    "pharmacy": 0,
+    "park": 3,
+    "library": 0,
+    "gym": 4,
+    "transit": 26
+   }
+  },
+  "minneapolis/longfellow": {
+   "score": 95,
+   "label": "Very walkable",
+   "points": 13,
+   "sqMi": 0.8,
+   "walk": {
+    "grocery": 100,
+    "park": 77,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 3,
+    "coffee": 4,
+    "restaurant": 21,
+    "pharmacy": 3,
+    "park": 1,
+    "library": 1,
+    "gym": 2,
+    "transit": 20
+   }
+  },
+  "minneapolis/lowry-hill-east": {
+   "score": 98,
+   "label": "Very walkable",
+   "points": 6,
+   "sqMi": 0.4,
+   "walk": {
+    "grocery": 100,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 4,
+    "coffee": 10,
+    "restaurant": 33,
+    "pharmacy": 2,
+    "park": 1,
+    "library": 0,
+    "gym": 6,
+    "transit": 10
+   }
+  },
+  "minneapolis/south-uptown": {
+   "score": 95,
+   "label": "Very walkable",
+   "points": 6,
+   "sqMi": 0.4,
+   "walk": {
+    "grocery": 100,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 7,
+    "restaurant": 15,
+    "pharmacy": 1,
+    "park": 2,
+    "library": 0,
+    "gym": 2,
+    "transit": 12
+   }
+  },
+  "minneapolis/east-phillips": {
+   "score": 99,
+   "label": "Very walkable",
+   "points": 7,
+   "sqMi": 0.4,
+   "walk": {
+    "grocery": 100,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 2,
+    "restaurant": 10,
+    "pharmacy": 0,
+    "park": 3,
+    "library": 0,
+    "gym": 2,
+    "transit": 11
+   }
+  },
+  "minneapolis/cleveland": {
+   "score": 74,
+   "label": "Very walkable",
+   "points": 6,
+   "sqMi": 0.4,
+   "walk": {
+    "grocery": 100,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 0,
+    "restaurant": 1,
+    "pharmacy": 0,
+    "park": 1,
+    "library": 0,
+    "gym": 0,
+    "transit": 2
+   }
+  },
+  "minneapolis/wenonah": {
+   "score": 43,
+   "label": "Some errands on foot",
+   "points": 10,
+   "sqMi": 0.6,
+   "walk": {
+    "grocery": 0,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 3,
+    "pharmacy": 0,
+    "park": 2,
+    "library": 0,
+    "gym": 0,
+    "transit": 10
+   }
+  },
+  "minneapolis/holland": {
+   "score": 89,
+   "label": "Very walkable",
+   "points": 7,
+   "sqMi": 0.4,
+   "walk": {
+    "grocery": 86,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 3,
+    "restaurant": 10,
+    "pharmacy": 2,
+    "park": 1,
+    "library": 1,
+    "gym": 1,
+    "transit": 9
+   }
+  },
+  "minneapolis/audubon-park": {
+   "score": 74,
+   "label": "Very walkable",
+   "points": 11,
+   "sqMi": 0.7,
+   "walk": {
+    "grocery": 27,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 2,
+    "restaurant": 6,
+    "pharmacy": 1,
+    "park": 2,
+    "library": 0,
+    "gym": 0,
+    "transit": 7
+   }
+  },
+  "minneapolis/regina": {
+   "score": 69,
+   "label": "Walkable",
+   "points": 4,
+   "sqMi": 0.3,
+   "walk": {
+    "grocery": 0,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 0,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 0,
+    "transit": 6
+   }
+  },
+  "minneapolis/northrop": {
+   "score": 74,
+   "label": "Very walkable",
+   "points": 10,
+   "sqMi": 0.6,
+   "walk": {
+    "grocery": 50,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 2,
+    "restaurant": 6,
+    "pharmacy": 1,
+    "park": 2,
+    "library": 0,
+    "gym": 0,
+    "transit": 17
+   }
+  },
+  "minneapolis/sheridan": {
+   "score": 82,
+   "label": "Very walkable",
+   "points": 6,
+   "sqMi": 0.4,
+   "walk": {
+    "grocery": 67,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 2,
+    "restaurant": 17,
+    "pharmacy": 0,
+    "park": 1,
+    "library": 1,
+    "gym": 0,
+    "transit": 9
+   }
+  },
+  "minneapolis/logan-park": {
+   "score": 92,
+   "label": "Very walkable",
+   "points": 5,
+   "sqMi": 0.3,
+   "walk": {
+    "grocery": 100,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 2,
+    "restaurant": 6,
+    "pharmacy": 0,
+    "park": 1,
+    "library": 0,
+    "gym": 2,
+    "transit": 3
+   }
+  },
+  "minneapolis/windom-park": {
+   "score": 95,
+   "label": "Very walkable",
+   "points": 9,
+   "sqMi": 0.6,
+   "walk": {
+    "grocery": 100,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 0,
+    "restaurant": 10,
+    "pharmacy": 0,
+    "park": 1,
+    "library": 0,
+    "gym": 1,
+    "transit": 16
+   }
+  },
+  "minneapolis/linden-hills": {
+   "score": 68,
+   "label": "Walkable",
+   "points": 20,
+   "sqMi": 1.3,
+   "walk": {
+    "grocery": 35,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 5,
+    "restaurant": 11,
+    "pharmacy": 0,
+    "park": 3,
+    "library": 1,
+    "gym": 2,
+    "transit": 12
+   }
+  },
+  "minneapolis/east-harriet": {
+   "score": 55,
+   "label": "Walkable",
+   "points": 17,
+   "sqMi": 1.1,
+   "walk": {
+    "grocery": 24,
+    "park": 100,
+    "transit": 94
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 1,
+    "restaurant": 4,
+    "pharmacy": 0,
+    "park": 3,
+    "library": 0,
+    "gym": 0,
+    "transit": 11
+   }
+  },
+  "minneapolis/king-field": {
+   "score": 74,
+   "label": "Very walkable",
+   "points": 15,
+   "sqMi": 0.9,
+   "walk": {
+    "grocery": 60,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 4,
+    "restaurant": 15,
+    "pharmacy": 0,
+    "park": 1,
+    "library": 0,
+    "gym": 0,
+    "transit": 26
+   }
+  },
+  "minneapolis/morris-park": {
+   "score": 35,
+   "label": "Some errands on foot",
+   "points": 8,
+   "sqMi": 0.5,
+   "walk": {
+    "grocery": 0,
+    "park": 38,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 1,
+    "restaurant": 1,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 0,
+    "transit": 6
+   }
+  },
+  "minneapolis/midtown-phillips": {
+   "score": 100,
+   "label": "Very walkable",
+   "points": 6,
+   "sqMi": 0.4,
+   "walk": {
+    "grocery": 100,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 1,
+    "restaurant": 15,
+    "pharmacy": 3,
+    "park": 2,
+    "library": 2,
+    "gym": 1,
+    "transit": 10
+   }
+  },
+  "minneapolis/bryn-mawr": {
+   "score": 46,
+   "label": "Some errands on foot",
+   "points": 22,
+   "sqMi": 1.4,
+   "walk": {
+    "grocery": 0,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 1,
+    "restaurant": 2,
+    "pharmacy": 0,
+    "park": 3,
+    "library": 0,
+    "gym": 1,
+    "transit": 14
+   }
+  },
+  "minneapolis/northeast-park": {
+   "score": 89,
+   "label": "Very walkable",
+   "points": 12,
+   "sqMi": 0.8,
+   "walk": {
+    "grocery": 83,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 3,
+    "coffee": 4,
+    "restaurant": 9,
+    "pharmacy": 1,
+    "park": 2,
+    "library": 0,
+    "gym": 3,
+    "transit": 11
+   }
+  },
+  "minneapolis/st-anthony-west": {
+   "score": 81,
+   "label": "Very walkable",
+   "points": 10,
+   "sqMi": 0.6,
+   "walk": {
+    "grocery": 60,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 3,
+    "pharmacy": 0,
+    "park": 3,
+    "library": 0,
+    "gym": 1,
+    "transit": 12
+   }
+  },
+  "minneapolis/st-anthony-east": {
+   "score": 85,
+   "label": "Very walkable",
+   "points": 3,
+   "sqMi": 0.2,
+   "walk": {
+    "grocery": 100,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 4,
+    "pharmacy": 0,
+    "park": 1,
+    "library": 0,
+    "gym": 0,
+    "transit": 6
+   }
+  },
+  "minneapolis/central": {
+   "score": 81,
+   "label": "Very walkable",
+   "points": 8,
+   "sqMi": 0.5,
+   "walk": {
+    "grocery": 100,
+    "park": 38,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 3,
+    "restaurant": 16,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 1,
+    "gym": 2,
+    "transit": 16
+   }
+  },
+  "minneapolis/powderhorn-park": {
+   "score": 90,
+   "label": "Very walkable",
+   "points": 12,
+   "sqMi": 0.8,
+   "walk": {
+    "grocery": 92,
+    "park": 92,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 2,
+    "restaurant": 16,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 1,
+    "transit": 15
+   }
+  },
+  "minneapolis/corcoran": {
+   "score": 95,
+   "label": "Very walkable",
+   "points": 7,
+   "sqMi": 0.4,
+   "walk": {
+    "grocery": 100,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 7,
+    "pharmacy": 1,
+    "park": 1,
+    "library": 0,
+    "gym": 1,
+    "transit": 11
+   }
+  },
+  "minneapolis/bryant": {
+   "score": 89,
+   "label": "Very walkable",
+   "points": 4,
+   "sqMi": 0.3,
+   "walk": {
+    "grocery": 75,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 0,
+    "pharmacy": 0,
+    "park": 2,
+    "library": 0,
+    "gym": 1,
+    "transit": 7
+   }
+  },
+  "minneapolis/kenny": {
+   "score": 67,
+   "label": "Walkable",
+   "points": 11,
+   "sqMi": 0.7,
+   "walk": {
+    "grocery": 36,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 0,
+    "pharmacy": 1,
+    "park": 1,
+    "library": 0,
+    "gym": 0,
+    "transit": 9
+   }
+  },
+  "minneapolis/armatage": {
+   "score": 64,
+   "label": "Walkable",
+   "points": 12,
+   "sqMi": 0.8,
+   "walk": {
+    "grocery": 42,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 7,
+    "pharmacy": 0,
+    "park": 1,
+    "library": 0,
+    "gym": 1,
+    "transit": 18
+   }
+  },
+  "minneapolis/beltrami": {
+   "score": 85,
+   "label": "Very walkable",
+   "points": 4,
+   "sqMi": 0.3,
+   "walk": {
+    "grocery": 100,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 1,
+    "restaurant": 6,
+    "pharmacy": 0,
+    "park": 1,
+    "library": 0,
+    "gym": 0,
+    "transit": 2
+   }
+  },
+  "minneapolis/cedar-isles-dean": {
+   "score": 82,
+   "label": "Very walkable",
+   "points": 13,
+   "sqMi": 0.8,
+   "walk": {
+    "grocery": 69,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 8,
+    "pharmacy": 1,
+    "park": 4,
+    "library": 0,
+    "gym": 1,
+    "transit": 17
+   }
+  },
+  "minneapolis/kenwood": {
+   "score": 49,
+   "label": "Some errands on foot",
+   "points": 10,
+   "sqMi": 0.6,
+   "walk": {
+    "grocery": 10,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 1,
+    "pharmacy": 0,
+    "park": 3,
+    "library": 0,
+    "gym": 0,
+    "transit": 15
+   }
+  },
+  "minneapolis/lowry-hill": {
+   "score": 82,
+   "label": "Very walkable",
+   "points": 10,
+   "sqMi": 0.6,
+   "walk": {
+    "grocery": 70,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 1,
+    "restaurant": 6,
+    "pharmacy": 0,
+    "park": 4,
+    "library": 0,
+    "gym": 1,
+    "transit": 12
+   }
+  },
+  "minneapolis/east-isles": {
+   "score": 100,
+   "label": "Very walkable",
+   "points": 4,
+   "sqMi": 0.3,
+   "walk": {
+    "grocery": 100,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 7,
+    "restaurant": 16,
+    "pharmacy": 1,
+    "park": 2,
+    "library": 1,
+    "gym": 2,
+    "transit": 5
+   }
+  },
+  "minneapolis/elliot-park": {
+   "score": 100,
+   "label": "Very walkable",
+   "points": 7,
+   "sqMi": 0.4,
+   "walk": {
+    "grocery": 100,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 3,
+    "restaurant": 5,
+    "pharmacy": 2,
+    "park": 2,
+    "library": 1,
+    "gym": 1,
+    "transit": 29
+   }
+  },
+  "minneapolis/nicollet-island-east-bank": {
+   "score": 93,
+   "label": "Very walkable",
+   "points": 4,
+   "sqMi": 0.3,
+   "walk": {
+    "grocery": 100,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 5,
+    "restaurant": 21,
+    "pharmacy": 0,
+    "park": 1,
+    "library": 0,
+    "gym": 3,
+    "transit": 18
+   }
+  },
+  "minneapolis/marcy-holmes": {
+   "score": 91,
+   "label": "Very walkable",
+   "points": 15,
+   "sqMi": 0.9,
+   "walk": {
+    "grocery": 93,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 8,
+    "restaurant": 29,
+    "pharmacy": 1,
+    "park": 6,
+    "library": 1,
+    "gym": 6,
+    "transit": 26
+   }
+  },
+  "minneapolis/folwell": {
+   "score": 69,
+   "label": "Walkable",
+   "points": 9,
+   "sqMi": 0.6,
+   "walk": {
+    "grocery": 89,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 0,
+    "restaurant": 2,
+    "pharmacy": 0,
+    "park": 1,
+    "library": 0,
+    "gym": 0,
+    "transit": 13
+   }
+  },
+  "minneapolis/mckinley": {
+   "score": 66,
+   "label": "Walkable",
+   "points": 10,
+   "sqMi": 0.6,
+   "walk": {
+    "grocery": 60,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 0,
+    "restaurant": 4,
+    "pharmacy": 0,
+    "park": 1,
+    "library": 0,
+    "gym": 1,
+    "transit": 8
+   }
+  },
+  "minneapolis/columbia-park": {
+   "score": 50,
+   "label": "Walkable",
+   "points": 23,
+   "sqMi": 1.4,
+   "walk": {
+    "grocery": 4,
+    "park": 91,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 1,
+    "pharmacy": 0,
+    "park": 5,
+    "library": 0,
+    "gym": 0,
+    "transit": 17
+   }
+  },
+  "minneapolis/waite-park": {
+   "score": 59,
+   "label": "Walkable",
+   "points": 16,
+   "sqMi": 1,
+   "walk": {
+    "grocery": 13,
+    "park": 94,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 1,
+    "restaurant": 0,
+    "pharmacy": 0,
+    "park": 2,
+    "library": 0,
+    "gym": 0,
+    "transit": 10
+   }
+  },
+  "minneapolis/marshall-terrace": {
+   "score": 48,
+   "label": "Some errands on foot",
+   "points": 13,
+   "sqMi": 0.8,
+   "walk": {
+    "grocery": 0,
+    "park": 92,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 0,
+    "restaurant": 9,
+    "pharmacy": 0,
+    "park": 1,
+    "library": 0,
+    "gym": 0,
+    "transit": 14
+   }
+  },
+  "minneapolis/whittier": {
+   "score": 100,
+   "label": "Very walkable",
+   "points": 14,
+   "sqMi": 0.9,
+   "walk": {
+    "grocery": 100,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 4,
+    "coffee": 8,
+    "restaurant": 47,
+    "pharmacy": 2,
+    "park": 1,
+    "library": 1,
+    "gym": 7,
+    "transit": 31
+   }
+  },
+  "minneapolis/lyndale": {
+   "score": 86,
+   "label": "Very walkable",
+   "points": 9,
+   "sqMi": 0.6,
+   "walk": {
+    "grocery": 100,
+    "park": 56,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 2,
+    "restaurant": 20,
+    "pharmacy": 0,
+    "park": 0,
+    "library": 0,
+    "gym": 2,
+    "transit": 22
+   }
+  },
+  "minneapolis/east-bde-maka-ska": {
+   "score": 83,
+   "label": "Very walkable",
+   "points": 6,
+   "sqMi": 0.4,
+   "walk": {
+    "grocery": 67,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 4,
+    "restaurant": 10,
+    "pharmacy": 0,
+    "park": 1,
+    "library": 0,
+    "gym": 0,
+    "transit": 5
+   }
+  },
+  "minneapolis/west-maka-ska": {
+   "score": 80,
+   "label": "Very walkable",
+   "points": 12,
+   "sqMi": 0.8,
+   "walk": {
+    "grocery": 75,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 1,
+    "restaurant": 5,
+    "pharmacy": 0,
+    "park": 1,
+    "library": 0,
+    "gym": 0,
+    "transit": 8
+   }
+  },
+  "saint-paul/hamline-midway": {
+   "score": 95,
+   "label": "Very walkable",
+   "points": 31,
+   "sqMi": 1.9,
+   "walk": {
+    "grocery": 90,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 3,
+    "coffee": 7,
+    "restaurant": 29,
+    "pharmacy": 2,
+    "park": 9,
+    "library": 3,
+    "gym": 6,
+    "transit": 27
+   }
+  },
+  "saint-paul/macalester-groveland": {
+   "score": 86,
+   "label": "Very walkable",
+   "points": 40,
+   "sqMi": 2.5,
+   "walk": {
+    "grocery": 80,
+    "park": 80,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 4,
+    "coffee": 11,
+    "restaurant": 27,
+    "pharmacy": 4,
+    "park": 2,
+    "library": 2,
+    "gym": 0,
+    "transit": 28
+   }
+  },
+  "saint-paul/highland-park": {
+   "score": 64,
+   "label": "Walkable",
+   "points": 97,
+   "sqMi": 6.1,
+   "walk": {
+    "grocery": 41,
+    "park": 89,
+    "transit": 95
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 6,
+    "restaurant": 36,
+    "pharmacy": 1,
+    "park": 8,
+    "library": 1,
+    "gym": 13,
+    "transit": 65
+   }
+  },
+  "saint-paul/daytons-bluff": {
+   "score": 66,
+   "label": "Walkable",
+   "points": 47,
+   "sqMi": 2.9,
+   "walk": {
+    "grocery": 72,
+    "park": 62,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 6,
+    "coffee": 4,
+    "restaurant": 27,
+    "pharmacy": 1,
+    "park": 5,
+    "library": 1,
+    "gym": 2,
+    "transit": 51
+   }
+  },
+  "saint-paul/st-anthony-park": {
+   "score": 87,
+   "label": "Very walkable",
+   "points": 37,
+   "sqMi": 2.3,
+   "walk": {
+    "grocery": 81,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 3,
+    "coffee": 8,
+    "restaurant": 24,
+    "pharmacy": 1,
+    "park": 4,
+    "library": 3,
+    "gym": 4,
+    "transit": 44
+   }
+  },
+  "saint-paul/como-park": {
+   "score": 63,
+   "label": "Walkable",
+   "points": 50,
+   "sqMi": 3.1,
+   "walk": {
+    "grocery": 48,
+    "park": 82,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 2,
+    "restaurant": 8,
+    "pharmacy": 1,
+    "park": 5,
+    "library": 0,
+    "gym": 1,
+    "transit": 48
+   }
+  },
+  "saint-paul/north-end": {
+   "score": 74,
+   "label": "Very walkable",
+   "points": 54,
+   "sqMi": 3.4,
+   "walk": {
+    "grocery": 80,
+    "park": 94,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 10,
+    "coffee": 1,
+    "restaurant": 25,
+    "pharmacy": 0,
+    "park": 8,
+    "library": 1,
+    "gym": 6,
+    "transit": 68
+   }
+  },
+  "saint-paul/west-side": {
+   "score": 54,
+   "label": "Walkable",
+   "points": 74,
+   "sqMi": 4.6,
+   "walk": {
+    "grocery": 30,
+    "park": 68,
+    "transit": 92
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 4,
+    "restaurant": 26,
+    "pharmacy": 1,
+    "park": 8,
+    "library": 1,
+    "gym": 8,
+    "transit": 68
+   }
+  },
+  "saint-paul/summit-hill": {
+   "score": 82,
+   "label": "Very walkable",
+   "points": 16,
+   "sqMi": 1,
+   "walk": {
+    "grocery": 44,
+    "park": 94,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 0,
+    "coffee": 6,
+    "restaurant": 20,
+    "pharmacy": 2,
+    "park": 1,
+    "library": 0,
+    "gym": 4,
+    "transit": 17
+   }
+  },
+  "saint-paul/summit-university": {
+   "score": 88,
+   "label": "Very walkable",
+   "points": 30,
+   "sqMi": 1.9,
+   "walk": {
+    "grocery": 63,
+    "park": 97,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 3,
+    "coffee": 5,
+    "restaurant": 37,
+    "pharmacy": 0,
+    "park": 8,
+    "library": 2,
+    "gym": 7,
+    "transit": 34
+   }
+  },
+  "saint-paul/frogtown": {
+   "score": 88,
+   "label": "Very walkable",
+   "points": 28,
+   "sqMi": 1.8,
+   "walk": {
+    "grocery": 89,
+    "park": 96,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 6,
+    "coffee": 2,
+    "restaurant": 30,
+    "pharmacy": 1,
+    "park": 2,
+    "library": 1,
+    "gym": 3,
+    "transit": 41
+   }
+  },
+  "saint-paul/west-seventh": {
+   "score": 76,
+   "label": "Very walkable",
+   "points": 48,
+   "sqMi": 3,
+   "walk": {
+    "grocery": 60,
+    "park": 94,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 5,
+    "restaurant": 44,
+    "pharmacy": 2,
+    "park": 7,
+    "library": 2,
+    "gym": 7,
+    "transit": 35
+   }
+  },
+  "saint-paul/downtown": {
+   "score": 94,
+   "label": "Very walkable",
+   "points": 16,
+   "sqMi": 1,
+   "walk": {
+    "grocery": 81,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 1,
+    "coffee": 15,
+    "restaurant": 70,
+    "pharmacy": 2,
+    "park": 14,
+    "library": 5,
+    "gym": 6,
+    "transit": 67
+   }
+  },
+  "saint-paul/payne-phalen": {
+   "score": 81,
+   "label": "Very walkable",
+   "points": 68,
+   "sqMi": 4.3,
+   "walk": {
+    "grocery": 88,
+    "park": 94,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 11,
+    "coffee": 3,
+    "restaurant": 34,
+    "pharmacy": 3,
+    "park": 8,
+    "library": 2,
+    "gym": 5,
+    "transit": 84
+   }
+  },
+  "saint-paul/greater-east-side": {
+   "score": 63,
+   "label": "Walkable",
+   "points": 64,
+   "sqMi": 4,
+   "walk": {
+    "grocery": 72,
+    "park": 58,
+    "transit": 98
+   },
+   "inside": {
+    "grocery": 8,
+    "coffee": 1,
+    "restaurant": 18,
+    "pharmacy": 2,
+    "park": 3,
+    "library": 1,
+    "gym": 2,
+    "transit": 52
+   }
+  },
+  "saint-paul/battle-creek-highwood": {
+   "score": 33,
+   "label": "Some errands on foot",
+   "points": 151,
+   "sqMi": 9.4,
+   "walk": {
+    "grocery": 24,
+    "park": 45,
+    "transit": 62
+   },
+   "inside": {
+    "grocery": 3,
+    "coffee": 3,
+    "restaurant": 20,
+    "pharmacy": 2,
+    "park": 5,
+    "library": 1,
+    "gym": 3,
+    "transit": 63
+   }
+  },
+  "saint-paul/union-park": {
+   "score": 82,
+   "label": "Very walkable",
+   "points": 48,
+   "sqMi": 3,
+   "walk": {
+    "grocery": 58,
+    "park": 100,
+    "transit": 100
+   },
+   "inside": {
+    "grocery": 2,
+    "coffee": 10,
+    "restaurant": 33,
+    "pharmacy": 3,
+    "park": 8,
+    "library": 1,
+    "gym": 5,
+    "transit": 56
+   }
+  }
+ }
+}
