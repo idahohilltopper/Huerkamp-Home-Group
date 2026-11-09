@@ -18,6 +18,8 @@ const results = [];
 const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'}  ${name}${info ? '  — ' + info : ''}`); };
 (async () => {
   const b = await engine.launch();
+  // Never send our own test visits to Meta's ad measurement (Meta Pixel): its hits are answered here and go nowhere.
+  { const nc = b.newContext.bind(b); b.newContext = async (o) => { const c = await nc(o); await c.route(/facebook\.com\/tr/, (r) => r.fulfill({ status: 200, body: '' })); return c; }; }
   const ctx = await b.newContext({ viewport: { width: 1366, height: 900 } });
   await ctx.addInitScript(() => { try { sessionStorage.setItem('idx-eula', '1'); } catch {} });
   const leads = [];
@@ -267,6 +269,21 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
   }
   // "Use my current location" on the home page: the search page must open right away (under 3 s, while the browser
   // finds the location) and then show homes near that spot (Lakeville here).
+  // Meta Pixel (live domain only): the page view and, after a sent home value request, the Lead event are sent
+  // (answered by the guard after launch, so they never reach Meta).
+  if (LOCAL) skip('Meta Pixel', 'runs only on huerkamphomes.com'); else await step('Meta Pixel', async () => {
+    const c4 = await b.newContext({ viewport: { width: 1366, height: 900 } });
+    await c4.route('**/api/client-error', (r) => r.fulfill({ status: 202, body: '{}' }));
+    const hits = [];
+    c4.on('request', (r) => { const u = r.url(); if (/facebook\.com\/tr/.test(u)) hits.push(new URL(u).searchParams.get('ev')); });
+    const m = await c4.newPage();
+    await m.goto(BASE + '/sell', { waitUntil: 'load' });
+    for (let t = 0; t < 20 && !hits.includes('PageView'); t++) await m.waitForTimeout(500);
+    await m.evaluate(() => window.dispatchEvent(new CustomEvent('lead-sent', { detail: { form: 'home-value', fields: {} } })));
+    for (let t = 0; t < 12 && !hits.includes('Lead'); t++) await m.waitForTimeout(500);
+    ok('Meta Pixel', hits.includes('PageView') && hits.includes('Lead'), `events sent: ${hits.join(', ') || 'none'}`);
+    await c4.close();
+  });
   await step('Use my current location', async () => {
     const c3 = await b.newContext({ viewport: { width: 1366, height: 900 }, geolocation: { latitude: 44.6497, longitude: -93.2427 }, permissions: ['geolocation'] });
     await c3.addInitScript(() => { try { sessionStorage.setItem('idx-eula', '1'); } catch {} });
@@ -296,6 +313,8 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
   // A browser with 3D graphics (WebGL) turned off gets the backup flat map (src/scripts/search-map-flat.ts), with pins.
   if (BROWSER !== 'chromium') skip('Map without 3D graphics', 'Chrome-only switch'); else await step('Map without 3D graphics', async () => {
     const b2 = await pw.chromium.launch({ args: ['--disable-webgl', '--disable-3d-apis'] });
+    // Never send our own test visits to Meta's ad measurement (Meta Pixel): its hits are answered here and go nowhere.
+    { const nc = b2.newContext.bind(b2); b2.newContext = async (o) => { const c = await nc(o); await c.route(/facebook\.com\/tr/, (r) => r.fulfill({ status: 200, body: '' })); return c; }; }
     const c2 = await b2.newContext({ viewport: { width: 1366, height: 900 } });
     await c2.addInitScript(() => { try { sessionStorage.setItem('idx-eula', '1'); } catch {} });
     await c2.route('**/api/client-error', (r) => r.fulfill({ status: 202, body: '{}' })); // don't count our own test as a visitor error

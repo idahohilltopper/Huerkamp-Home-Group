@@ -9,6 +9,7 @@ import { OWN } from '../data/search';
 import { site } from '../data/site';
 const rows: [string, string, string, string][] = [
   ['Google Analytics', '_ga, _ga_<ID> (cookies)', 'Counts visits and which pages are used, so we can improve the site. Up to 2 years.', 'Optional: switch it off above'],
+  ['Meta Pixel (Facebook and Instagram ads)', '_fbp (cookie)', 'Tells Meta that someone who saw our ads visited, created an account or asked for a home value, so we can measure and show our ads. Up to 90 days.', 'Optional: switch it off above'],
   ['Listing license agreement', 'idx_eula (session cookie) and idx-eula (browser session storage)', 'Remembers that you clicked I AGREE to the NorthstarMLS license agreement, until you close your browser.', 'Needed to show listings'],
   ['Your agent', 'hhg-agent (browser storage)', 'When you open one of our agents’ pages, remembers that agent for 30 days so your questions reach them.', 'Needed for that feature; dismiss the agent bar to clear it'],
   ['Your choice on this page', 'hhg-analytics, hhg-activity (browser storage)', 'Remembers whether you allow analytics and home-activity sharing.', 'Needed to remember your choice'],
@@ -24,7 +25,7 @@ const rows: [string, string, string, string][] = [
     <div class="wrap prose narrowish">
       <div class="choice" data-choice>
         <h2>Analytics</h2>
-        <p>Google Analytics helps us see which pages are useful. It doesn’t tell us who you are.</p>
+        <p>Google Analytics helps us see which pages are useful, and the Meta Pixel measures our Facebook and Instagram ads. This switch turns both off.</p>
         <p class="choice__now" data-now aria-live="polite">Analytics is on.</p>
         <p><button type="button" class="btn" data-off>Turn analytics off</button> <button type="button" class="btn btn--ghost" data-on>Turn analytics on</button></p>
         <p class="small">If your browser sends a Global Privacy Control signal, analytics stays off automatically. Your choice is saved in this browser only.</p>
@@ -69,7 +70,7 @@ const rows: [string, string, string, string][] = [
     now.textContent = off ? (gpc && get() !== 'denied' ? 'Analytics is off (your browser’s Global Privacy Control signal).' : 'Analytics is off.') : 'Analytics is on.';
   };
   // Remove Google Analytics cookies for this site (they are set on the top domain).
-  const clear = () => document.cookie.split(';').map((c) => c.split('=')[0].trim()).filter((n) => /^_ga/.test(n)).forEach((n) => {
+  const clear = () => document.cookie.split(';').map((c) => c.split('=')[0].trim()).filter((n) => /^(_ga|_fbp|_fbc)/.test(n)).forEach((n) => {
     for (const d of ['', location.hostname, '.' + location.hostname.replace(/^www\./, '')]) document.cookie = `${n}=; Max-Age=0; path=/${d ? `; domain=${d}` : ''}`;
   });
   document.querySelector('[data-off]')!.addEventListener('click', () => { try { localStorage.setItem(KEY, 'denied'); } catch {} clear(); show(); });

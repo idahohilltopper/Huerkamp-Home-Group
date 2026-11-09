@@ -161,6 +161,28 @@ const pageTitle = title.length > 60 && title.endsWith(brandEnd) ? title.slice(0,
       }, 1500));
     }
   </script>}
+  {site.metaPixel && <script is:inline define:vars={{ px: site.metaPixel }}>
+    // Meta Pixel (Facebook/Instagram ads): page views, plus CompleteRegistration (a buyer account) and Lead (a home value
+    // request) after the form has been sent. Same rules as Google Analytics above: live domains only, off when the
+    // visitor turned analytics off on /cookies or the browser sends Global Privacy Control, loaded after the page.
+    let pxOff = navigator.globalPrivacyControl === true;
+    try { pxOff = pxOff || localStorage.getItem('hhg-analytics') === 'denied'; } catch (e) {}
+    if (!pxOff && /(^|\.)huerkamphome(group|s)\.com$/.test(location.hostname)) {
+      const n = window.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
+      if (!window._fbq) window._fbq = n;
+      n.push = n; n.loaded = true; n.version = '2.0'; n.queue = [];
+      fbq('init', px);
+      fbq('track', 'PageView');
+      addEventListener('load', () => setTimeout(() => {
+        const s = document.createElement('script'); s.async = true; s.src = 'https://connect.facebook.net/en_US/fbevents.js'; document.head.append(s);
+      }, 1500));
+      addEventListener('lead-sent', (e) => {
+        const f = e.detail && e.detail.form;
+        if (f === 'register') fbq('track', 'CompleteRegistration', { content_name: 'Buyer Account Registration' });
+        if (f === 'home-value') fbq('track', 'Lead', { content_name: 'Seller Home Valuation Request' });
+      });
+    }
+  </script>}
   <slot name="head" />
 </head>
 <body data-privacy={site.privacyUrl} data-consent={consentText()} data-submit-notice={submitNotice}>

@@ -59,6 +59,7 @@ import { consentText, submitNotice } from '../lib/consent.mjs';
     button.disabled = false;
     if (a.needName) { newBox.hidden = false; status.textContent = ''; (form.elements.namedItem('firstName') as HTMLInputElement).focus(); return; }
     if (a.created) {
+      (window as any).fbq?.('track', 'CompleteRegistration', { content_name: 'Buyer Account Registration' }); // Meta Pixel (Base.astro)
       // A new account is a lead: tell Follow Up Boss, like the sign-up wall does.
       fetch('/api/lead', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ form: 'register', hp: '', elapsed: 99999, page: location.pathname, title: document.title,
         fields: { firstName: f.firstName, lastName: f.lastName ?? '', email: f.email, phone: f.phone ?? '', ...(f.smsConsent === 'yes' ? { smsConsent: 'yes' } : {}) } }) }).catch(() => {});

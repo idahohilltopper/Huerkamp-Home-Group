@@ -26,6 +26,8 @@ export const site = {
   facebookUrl: 'https://www.facebook.com/HuerkampHomeGroup/',
   // Google Analytics 4 (the team's own property). Loads only on the live domains, so test sites don't count.
   ga4: 'G-YY1H36L83S',
+  /** Meta (Facebook/Instagram) Pixel for ad measurement; same on/off rules as Google Analytics (src/layouts/Base.astro). */
+  metaPixel: '2726990550925323',
   // Track record shown on the home page (hero proof line, red strip, "The record" cards). Update these by hand.
   // Confirmed by Jason 2026-11-05: over $1 billion sold, 341 five-star Zillow reviews (shown as a 5.0★ rating like Google), 3,850 homes sold.
   proof: { soldVolume: '$1 billion+', soldVolumeShort: '$1B+', homesSold: '3,850+', zillowFiveStar: 341, zillowRating: 5.0, asOf: '2026-11' },
