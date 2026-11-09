@@ -69,7 +69,8 @@ export default function Terms() {
         <ul>
           <li>HHG guarantees $100,000 of income to a full-time agent who meets <strong>all</strong> of the following for a full 12 consecutive months:
             <ul>
-              <li>At least 100 contacts in a week, tracked through HHG&rsquo;s CRM system, Follow Up Boss, in at least 48 of the 52 weeks of the 12-month period.</li>
+              <li>At least 4 appointments set and at least 3 appointments met in a week, tracked through HHG&rsquo;s CRM system, Follow Up Boss, in at least 48 of the 52 weeks of the 12-month period. An appointment set is an agreed date and time with a qualified prospect to meet virtually or in person to discuss a real estate need. An appointment met is an appointment where the client actually shows and the meeting occurs.</li>
+              <li>A pace of at least 2 signed agreements every 3 weeks, averaged over the year and evaluated monthly on a rolling basis.</li>
               <li>Attendance at 48 weekly accountability meetings (WAM) during the 12 months.</li>
               <li>No more than 100 leads assigned to the agent in Follow Up Boss at any time.</li>
               <li>Attendance at 46 team meetings during the 12 months, in person.</li>
@@ -78,10 +79,11 @@ export default function Terms() {
           <li>If the agent meets every requirement and the agent&rsquo;s own commission income for the period, meaning the agent&rsquo;s share after the team split on closed transactions, is less than $100,000, HHG pays the difference as a lump sum or as otherwise agreed in writing. If the income is $100,000 or more, no payment is due.</li>
           <li>The 12-month period begins on the date the agent signs the program acknowledgment, which an agent may sign only during their first year on the team.</li>
           <li>&ldquo;Full-time&rdquo; means real estate is the agent&rsquo;s primary occupation and main source of working income, the agent holds no other full-time employment, and the agent is available to meet the weekly activity standards and attend required meetings. &ldquo;Good standing&rdquo; means the agent holds an active license with no restricting suspension or disciplinary action, follows team policies, brokerage rules, and applicable ethical and legal standards, is not under a written warning or corrective plan, and is current on any fees or amounts owed to the team or brokerage.</li>
-          <li>The agent must be licensed with HHG through Keller Williams Preferred Realty, be in good standing, and sign the program acknowledgment in writing. Referral-only, part-time, inside sales, and admin or support roles are not eligible unless agreed otherwise in writing.</li>
-          <li>If an agent falls below 90% of the weekly contact standard (fewer than 90 contacts) in more than 4 weeks during the 12 months, no payment is due.</li>
+          <li>The agent must be licensed with HHG through Keller Williams Preferred Realty, be in good standing, and sign the program acknowledgment in writing. Referral-only or sphere-only, part-time, limited-duty, inside sales, and admin or support roles are not eligible, and unless agreed in writing only producing field agents are eligible.</li>
+          <li>If an agent misses the weekly appointment standards (4 set and 3 met) in more than 4 weeks during the 12 months, no payment is due.</li>
+          <li>For reference only: based on an average agent commission of about $5,000 per closed transaction, $100,000 of agent income is about 20 closed units in 12 months. The weekly standards are designed to reasonably lead to that level of production. This is a benchmark, not a requirement and not a promise of results.</li>
           <li>If an agent does not meet every requirement, leaves the team before the 12 months are complete, is terminated for cause, or does not consistently log activity in Follow Up Boss, no payment is due.</li>
-          <li>Contacts and lead assignments count only when logged in Follow Up Boss, and HHG&rsquo;s records are the official record. Team meetings must be attended in person, and attendance is recorded by HHG.</li>
+          <li>Appointments set and met, signed agreements, properties under contract, closed units and commission, and lead assignments count only when logged in Follow Up Boss. If it is not logged in Follow Up Boss, it does not count for purposes of the guarantee. and HHG&rsquo;s records are the official record. Team meetings must be attended in person, and attendance is recorded by HHG.</li>
           <li>The guarantee is separate from the offers in Sections 3, 4 and 5, and the requirements for those offers still apply to them.</li>
         </ul>
 
