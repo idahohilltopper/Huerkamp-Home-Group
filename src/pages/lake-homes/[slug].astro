@@ -1,6 +1,7 @@
 ---
 // One lake: its lakefront homes for sale (map search around the lake, and live listings in its shoreline
 // communities), size and shoreline from the Minnesota DNR, the communities around it and the lakes nearby.
+import lakeShapes from '../../data/geo/lake-list.geojson?raw';
 import { loadLakeSales } from '../../lib/lake-sales.mjs';
 import { SOLD_DISCLAIMER } from '../../lib/sold.mjs';
 import SoldHomes from '../../components/SoldHomes.astro';
@@ -38,6 +39,13 @@ const miles = (a: number[], b: number[]) => {
   return 3958.8 * 2 * Math.asin(Math.sqrt(h));
 };
 const nearby = lakes.filter((x) => x !== l).map((x) => ({ x, d: miles(l.center, x.center) })).sort((a, b) => a.d - b.d).slice(0, 8);
+// The page map: this lake and its 15 nearest, built into the page (a few KB) instead of all 442 lakes (872 KB),
+// which kept phones busy for two seconds.
+const mapSlugs = new Set([l.slug, ...lakes.filter((x) => x !== l).map((x) => ({ x, d: miles(l.center, x.center) })).sort((a, b) => a.d - b.d).slice(0, 15).map((n) => n.x.slug)]);
+// Outline points about 15 m apart at most (finer detail doesn't show at this zoom), 4 decimals (about 10 m).
+const thinRing = (r: number[][]) => { const out: number[][] = []; for (const [x, y] of r) { const q = out.at(-1); if (!q || Math.abs(q[0] - x) > 0.00015 || Math.abs(q[1] - y) > 0.00012) out.push([Math.round(x * 1e4) / 1e4, Math.round(y * 1e4) / 1e4]); } if (out.length > 3) out.push(out[0]); return out.length > 3 ? out : r; };
+const round = (c: any): any => (typeof c[0][0] === 'number' ? thinRing(c) : c.map(round));
+const mapShapes = { type: 'FeatureCollection' as const, features: (JSON.parse(lakeShapes).features as any[]).filter((f) => mapSlugs.has(f.properties.slug)).map((f) => ({ ...f, geometry: { ...f.geometry, coordinates: round(f.geometry.coordinates) } })) };
 const url = `${origin}${lakeHref(l)}`;
 
 // Title as people search it ("Lake Minnetonka homes for sale"), with the count when the feed has homes on the lake; the
@@ -108,7 +116,7 @@ const ld = JSON.stringify([
           <li><span>Rank by size</span><strong>{rank} of {lakes.length}</strong></li>
         </ul>
       </div>
-      <AreaMap src={lakeGeoUrl} info={lakeInfo} mode="focus" focus={l.slug} label="Hover a lake" height="440px" />
+      <AreaMap geojson={mapShapes} info={lakeInfo} mode="focus" focus={l.slug} label="Hover a lake" height="440px" />
     </div>
   </section>
 

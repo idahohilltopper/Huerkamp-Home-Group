@@ -32,16 +32,21 @@ const style = key
 </div>
 
 <script>
-  // Load the map library only when a map comes within ~600px of the screen.
+  // Load the map library only when a map is about to scroll onto the screen, and only after the page has finished
+  // loading: starting the map takes phones a second or two of work, which used to delay everything above it.
   const maps = document.querySelectorAll<HTMLElement>('[data-map]');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      io.unobserve(entry.target);
-      import('../scripts/area-map').then(({ initMap }) => initMap(entry.target as HTMLElement));
-    });
-  }, { rootMargin: '600px 0px' });
-  maps.forEach((el) => io.observe(el));
+  const start = () => {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        io.unobserve(entry.target);
+        import('../scripts/area-map').then(({ initMap }) => initMap(entry.target as HTMLElement));
+      });
+    }, { rootMargin: '250px 0px' });
+    maps.forEach((el) => io.observe(el));
+  };
+  const idle = () => ('requestIdleCallback' in window ? requestIdleCallback(start, { timeout: 2000 }) : setTimeout(start, 200));
+  if (maps.length) document.readyState === 'complete' ? idle() : addEventListener('load', idle, { once: true });
 </script>
 
 <style>

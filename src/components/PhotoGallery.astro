@@ -5,6 +5,8 @@
 interface Props { photos: string[]; alt: string }
 const { photos, alt } = Astro.props;
 const src = (p: string, size: string) => `${p}?class=${size}`;
+// Repliers' sizes: small 400 px (~40 KB), medium 800 px (~140 KB), large 1600 px (~560 KB). Phones take medium.
+const srcset = (p: string) => `${src(p, 'small')} 400w, ${src(p, 'medium')} 800w, ${src(p, 'large')} 1600w`;
 ---
 {photos.length > 0 ? (
   <div class="gal" data-gal>
@@ -12,7 +14,7 @@ const src = (p: string, size: string) => `${p}?class=${size}`;
       <div class="gal__grid">
         {photos.slice(0, 5).map((p, i) => (
           <button type="button" class={`gal__tile${i ? '' : ' gal__tile--big'}`} data-open={i} aria-label={`Open photo ${i + 1} of ${photos.length} full screen`}>
-            <img src={src(p, i ? 'medium' : 'large')} alt={i ? '' : `Photo 1 of ${photos.length}: ${alt}`} width="1200" height="800" loading={i ? 'lazy' : 'eager'} decoding="async" />
+            <img src={src(p, i ? 'medium' : 'large')} srcset={srcset(p)} sizes={i ? '(max-width: 900px) 50vw, 400px' : '(max-width: 900px) 100vw, 800px'} alt={i ? '' : `Photo 1 of ${photos.length}: ${alt}`} width="1200" height="800" loading={i ? 'lazy' : 'eager'} decoding="async" />
           </button>
         ))}
         <button type="button" class="gal__all gal__all--grid" data-open="0">▦ See all {photos.length} photos</button>
@@ -22,7 +24,7 @@ const src = (p: string, size: string) => `${p}?class=${size}`;
       <ul class="gal__track" data-track tabindex="0" aria-label={`${photos.length} photos. Use the arrows to see more.`}>
         {photos.map((p, i) => (
           <li><button type="button" class="gal__open" data-open={i} aria-label={`Open photo ${i + 1} of ${photos.length} full screen`}>
-            <img src={src(p, i ? 'medium' : 'large')} alt={`Photo ${i + 1} of ${photos.length}: ${alt}`} width="1200" height="800" loading={i ? 'lazy' : 'eager'} fetchpriority={i ? undefined : 'high'} decoding="async" />
+            <img src={src(p, i ? 'medium' : 'large')} srcset={srcset(p)} sizes="(max-width: 900px) 100vw, 900px" alt={`Photo ${i + 1} of ${photos.length}: ${alt}`} width="1200" height="800" loading={i ? 'lazy' : 'eager'} fetchpriority={i ? undefined : 'high'} decoding="async" />
           </button></li>
         ))}
       </ul>
