@@ -101,6 +101,17 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
       const btn = sent ? '' : ` [button shows "${(await showing.locator('button[type=submit]').textContent()).trim()}"]`;
       ok('Schedule a showing form', sent, `${(await showing.locator('.form__status').textContent()).trim()}${bad ? ` [fields refused: ${bad}]` : ''}${btn}`);
     } else ok('Schedule a showing form', false, 'form not found');
+    // Nearby homes strip under Neighborhood: the arrow scrolls it sideways.
+    const strip = p.locator('.home__nearby').first();
+    if (await strip.count()) {
+      await strip.scrollIntoViewIfNeeded();
+      const list = strip.locator('[data-strip-list]');
+      const wide = await list.evaluate((e) => e.scrollWidth > e.clientWidth + 10);
+      await strip.locator('[data-strip-step="1"]').click();
+      await p.waitForTimeout(900);
+      const moved = await list.evaluate((e) => e.scrollLeft > 0);
+      ok('Listing page: nearby homes arrows', !wide || moved, `${await list.locator('li').count()} homes${wide ? (moved ? ', arrow scrolled' : ', arrow did not scroll') : ', all fit'}`);
+    } else ok('Listing page: nearby homes arrows', true, 'no nearby homes on this listing');
   });
   // A lead form sent before the page's scripts have loaded (slow phone, listing with many photos) must still be sent,
   // without the page reloading or the details landing in the address (found Nov 9, 2026). Scripts are held back 4 s.

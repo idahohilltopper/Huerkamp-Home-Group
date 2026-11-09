@@ -13,6 +13,9 @@ import { hasMarket, marketFor, latest, monthLabel, money as mMoney, count, signe
 import { CONTINGENCIES, EULA_PATH, isOwnBrokerage } from '../../data/mls';
 import { BR_LOGO, BR_LOGO_SIZE } from '../../data/mls-logos';
 import IdxDisclosure from '../../components/IdxDisclosure.astro';
+import { OWN } from '../../data/search';
+import { BR_THUMB } from '../../data/mls-logos';
+import { SOLD_DISCLAIMER } from '../../lib/sold.mjs';
 import PaymentEstimate from '../../components/PaymentEstimate.astro';
 import PhotoGallery from '../../components/PhotoGallery.astro';
 import { formatOpenHouse, OPEN_HOUSE_NOTE } from '../../lib/open-house.mjs';
@@ -56,6 +59,10 @@ const compare = peerStats
 
 // Similar homes: same community and type, closest in price; then anything in the community close in price.
 const near = (xs: Listing[]) => xs.filter((x) => x.slug !== l.slug).sort((a, b) => Math.abs(a.price - l.price) - Math.abs(b.price - l.price));
+// Nearby homes: the closest homes for sale (any type), and a box about a mile across for recent sales (/api/sold).
+const miles = (x: Listing) => { const dy = (x.lat - l.lat) * 69, dx = (x.lng - l.lng) * 69 * Math.cos((l.lat * Math.PI) / 180); return Math.hypot(dx, dy); };
+const nearby = l.addressHidden ? [] : data.listings.filter((x) => x.slug !== l.slug && !x.addressHidden && miles(x) <= 3).sort((a, b) => miles(a) - miles(b)).slice(0, 10);
+const soldBox = [l.lng - 0.013, l.lat - 0.009, l.lng + 0.013, l.lat + 0.009].map((n) => n.toFixed(5)).join(',');
 const similar = [...new Set([...near(peers), ...near(data.listings.filter((x) => x.community === l.community))])].slice(0, 6);
 
 // Pages a buyer would go to next, if they were built.
@@ -351,6 +358,19 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() }, { name: community
                 {lakes.filter((x) => x.href).map((x) => <li><a href={x.href!}><strong>{x.name}</strong><span>Lake facts from the Minnesota DNR, access and every lakefront home for sale.</span></a></li>)}
               </ul>
               {!l.addressHidden && <NearbyPlaces lat={l.lat} lng={l.lng} place={l.street} />}
+              {nearby.length > 0 && (
+                <div class="home__nearby" data-strip>
+                  <div class="home__strip-head"><h3>Nearby homes for sale</h3><span><button type="button" data-strip-step="-1" aria-label="Previous homes">‹</button><button type="button" data-strip-step="1" aria-label="More homes">›</button></span></div>
+                  <div data-idx><ul class="lcards" data-strip-list>{nearby.map((x) => <ListingCard l={x} />)}</ul></div>
+                </div>
+              )}
+              {OWN && !l.addressHidden && (
+                <div class="home__nearby" data-strip data-near-sold={`bbox=${soldBox}&months=6`} data-br-thumb={BR_THUMB ?? undefined} hidden>
+                  <div class="home__strip-head"><h3>Recently sold nearby</h3><span><button type="button" data-strip-step="-1" aria-label="Previous homes">‹</button><button type="button" data-strip-step="1" aria-label="More homes">›</button></span></div>
+                  <p class="home__source">Homes within about half a mile that sold in the last 6 months, from NorthstarMLS. {SOLD_DISCLAIMER}</p>
+                  <div data-idx><ul class="lcards" data-strip-list data-sold-list></ul></div>
+                </div>
+              )}
             </section>
           </div>
         </div>
@@ -460,6 +480,26 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() }, { name: community
     if (!to) return (f.elements.namedItem('to') as HTMLInputElement).focus();
     window.open(`https://www.google.com/maps/dir/?api=1&origin=${f.dataset.from}&destination=${encodeURIComponent(to)}&travelmode=driving`, '_blank', 'noopener');
   });
+
+  // Nearby homes: strips that scroll sideways with arrows; recent sales load once the visitor has agreed to the license.
+  for (const strip of document.querySelectorAll<HTMLElement>('[data-strip]')) {
+    const list = strip.querySelector<HTMLElement>('[data-strip-list]')!;
+    strip.querySelectorAll<HTMLButtonElement>('[data-strip-step]').forEach((b) => b.addEventListener('click', () => list.scrollBy({ left: Number(b.dataset.stripStep) * list.clientWidth * 0.85, behavior: 'smooth' })));
+  }
+  const soldBox = document.querySelector<HTMLElement>('[data-near-sold]');
+  if (soldBox) {
+    const load = async () => {
+      try {
+        const { soldCardHtml, soldHeaders } = await import('../../scripts/sold-card');
+        const r = await fetch(`/api/sold?${soldBox.dataset.nearSold}`, { headers: soldHeaders() });
+        const a = await r.json();
+        if (!a.ok || !a.results?.length) return;
+        soldBox.querySelector('[data-sold-list]')!.innerHTML = a.results.slice(0, 10).map((x: any) => soldCardHtml(x, soldBox.dataset.brThumb)).join('');
+        soldBox.hidden = false;
+      } catch { /* the strip stays hidden */ }
+    };
+    if (document.documentElement.classList.contains('idx-ok')) load(); else window.addEventListener('idx-agreed', load, { once: true });
+  }
 
   // The home's map loads only when it's about to scroll onto the screen.
   const mapEl = document.querySelector<HTMLElement>('[data-home-map]');
@@ -606,6 +646,15 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() }, { name: community
   .home__travel-row { display: flex; flex-wrap: wrap; gap: .6rem; }
   .home__travel-row input { flex: 1 1 14rem; min-width: 0; padding: .75rem .9rem; border: 1px solid #c9c1b6; border-radius: 6px; font: inherit; }
   .home__travel .btn { padding: .75rem 1.1rem; border-radius: 6px; }
+  .home__nearby { margin-top: 2rem; }
+  .home__strip-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: .75rem; }
+  .home__strip-head h3 { margin: 0; font: 700 1.2rem/1.2 var(--ui); }
+  .home__strip-head span { display: flex; gap: .4rem; }
+  .home__strip-head button { width: 2.2rem; height: 2.2rem; border: 1px solid var(--line); border-radius: 50%; background: #fff; color: var(--ink); font-size: 1.3rem; line-height: 1; cursor: pointer; }
+  .home__strip-head button:hover { border-color: var(--crimson); color: var(--crimson); }
+  .home__nearby :global(.lcards) { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: .25rem; }
+  .home__nearby :global(.lcards::-webkit-scrollbar) { display: none; }
+  .home__nearby :global(.lcards > li) { flex: 0 0 min(80%, 15.5rem); scroll-snap-align: start; }
   .home__local { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; }
   .home__local a { display: grid; gap: .2rem; padding: .9rem 1rem; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--text); text-decoration: none; }
   .home__local a:hover strong { color: var(--crimson); }
