@@ -27,5 +27,8 @@ for browser in ${BROWSERS:-chromium}; do
   SITE_BASE="http://localhost:$PORT" BROWSER=$browser timeout 900 node scripts/site-check/smoke.cjs 2>&1 | grep -v "UNDICI\|trace-warn\|EnvHttpProxyAgent" | tee .cache/preflight-smoke-$browser.log
   grep -q "^FAIL" .cache/preflight-smoke-$browser.log && fail=1
 done
+echo "== TCPA consent check on the local build"
+SITE_BASE="http://localhost:$PORT" timeout 900 node scripts/site-check/tcpa.cjs 2>&1 | grep -v "UNDICI\|trace-warn\|EnvHttpProxyAgent" | tee .cache/preflight-tcpa.log
+grep -q "^FAIL" .cache/preflight-tcpa.log && fail=1
 if [ $fail = 0 ]; then echo "PREFLIGHT PASSED: OK to push"; else echo "PREFLIGHT FAILED: fix before pushing"; fi
 exit $fail

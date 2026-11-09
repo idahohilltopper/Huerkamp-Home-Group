@@ -4,6 +4,7 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import { site } from '../data/site';
+import { consentText, submitNotice } from '../lib/consent.mjs';
 ---
 <Base title={`Sign in | ${site.name}`} description="Sign in to see your saved searches and saved homes." noindex>
   <PageHero eyebrow="Your account" title="Sign in" lede="See and change your saved searches and saved homes. No password: we email you a link." />
@@ -22,6 +23,9 @@ import { site } from '../data/site';
             <div class="field"><label for="ac-last">Last name</label><input id="ac-last" name="lastName" autocomplete="family-name" required /></div>
           </div>
           <div class="field"><label for="ac-phone">Phone</label><input id="ac-phone" name="phone" type="tel" autocomplete="tel" required pattern="[^0-9]*([0-9][^0-9]*){10,}" title="Please enter your phone number, including area code." /></div>
+          <!-- Call/text consent: the same unchecked, optional box and words as every lead form (src/lib/consent.mjs). -->
+          <label class="consent"><input type="checkbox" name="smsConsent" value="yes" /> <span set:html={consentText().replace('SMS Terms', '<a href="/sms-terms">SMS Terms</a>').replace('Privacy Policy', `<a href="${site.privacyUrl}">Privacy Policy</a>`)} /></label>
+          <p class="consent__privacy">{submitNotice}</p>
         </div>
         <button class="btn" type="submit">Email me a sign-in link</button>
         <p class="form__status" role="status" aria-live="polite"></p>
@@ -57,7 +61,7 @@ import { site } from '../data/site';
     if (a.created) {
       // A new account is a lead: tell Follow Up Boss, like the sign-up wall does.
       fetch('/api/lead', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ form: 'register', hp: '', elapsed: 99999, page: location.pathname, title: document.title,
-        fields: { firstName: f.firstName, lastName: f.lastName ?? '', email: f.email, phone: f.phone ?? '' } }) }).catch(() => {});
+        fields: { firstName: f.firstName, lastName: f.lastName ?? '', email: f.email, phone: f.phone ?? '', ...(f.smsConsent === 'yes' ? { smsConsent: 'yes' } : {}) } }) }).catch(() => {});
     }
     if (a.ok && a.sent) { form.innerHTML = `<p class="acct__sent"><strong>Check your email.</strong> We sent a sign-in link to ${f.email.replace(/[<>&"]/g, '')}. It can take a minute or two. Not there? Check your spam folder.</p>`; return; }
     status.textContent = a.error === 'email-not-set-up' ? 'Email sign-in isn’t switched on yet. Please call or text us and we’ll help.'

@@ -32,6 +32,10 @@ broken change reaches buyers right away. Jason (the owner) is not a developer: e
   there; avoid "safe" and "family-friendly"; no income, education, age, ancestry or household make-up.
 - NorthstarMLS rules for sold and listing data: `src/lib/sold.mjs`, `src/data/mls.ts`. Test lead forms only with
   `/api/lead` intercepted (the site check does this); never create test leads in Follow Up Boss.
+- TCPA (call/text consent): every form that asks for a phone number gets the unchecked, optional consent box with the
+  exact words in `src/lib/consent.mjs` (change them only with the attorney's sign-off, and bump CONSENT_VERSION).
+  Automated calls/texts only to people tagged "Call/text consent". `scripts/site-check/tcpa.cjs` checks all of this
+  (in preflight, monthly in GitHub Actions, and in the monthly TCPA routine).
 - Repliers `map` takes ONE ring; extra rings are read as holes (`src/lib/hull.mjs`).
 - Don't open pull requests unless asked. Commit messages end with the Co-Authored-By and Claude-Session lines.
 - More background: `docs/site-plan.md`.
