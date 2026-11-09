@@ -6,7 +6,7 @@ import { breadcrumbs, faqJsonLd } from '../seo';
 import Quiz from './Quiz';
 
 export const metadata = {
-  title: 'Is Real Estate Right for You? Free Career Quiz',
+  title: 'Free Real Estate Career Quiz',
   description: 'Take a free 2-minute quiz to see if a real estate career fits you, with next steps for Twin Cities agents. Your answers stay private until you choose to share.',
   alternates: { canonical: '/real-estate-career-quiz' },
 };

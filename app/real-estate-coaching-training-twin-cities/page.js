@@ -6,7 +6,7 @@ import JsonLd from '../JsonLd';
 import { breadcrumbs, faqJsonLd } from '../seo';
 
 export const metadata = {
-  title: 'Real Estate Coaching in the Twin Cities',
+  title: 'Real Estate Coaching, Twin Cities',
   description: 'See what real estate coaching and training looks like at Huerkamp Home Group: weekly coaching 46 weeks a year, accountability meetings, and proven systems.',
   alternates: { canonical: '/real-estate-coaching-training-twin-cities' },
 };
