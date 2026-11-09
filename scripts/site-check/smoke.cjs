@@ -272,7 +272,8 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
   // Meta Pixel (live domain only): the page view and, after a sent home value request, the Lead event are sent
   // (answered by the guard after launch, so they never reach Meta).
   if (LOCAL) skip('Meta Pixel', 'runs only on huerkamphomes.com'); else await step('Meta Pixel', async () => {
-    const c4 = await b.newContext({ viewport: { width: 1366, height: 900 } });
+    // Meta ignores browsers that call themselves HeadlessChrome, so this one presents as ordinary Chrome.
+    const c4 = await b.newContext({ viewport: { width: 1366, height: 900 }, userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36' });
     await c4.route('**/api/client-error', (r) => r.fulfill({ status: 202, body: '{}' }));
     const hits = [];
     c4.on('request', (r) => { const u = r.url(); if (/facebook\.com\/tr/.test(u)) hits.push(new URL(u).searchParams.get('ev')); });
