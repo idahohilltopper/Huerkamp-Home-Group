@@ -12,6 +12,8 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: claude/real-estate-website-build-9itecr   # the live site's branch (scheduled runs start from main)
       - uses: actions/setup-node@v4
         with:
           node-version: 22
