@@ -7,7 +7,6 @@ updated: 2022-10-27
 author: "Huerkamp Home Group"
 categories: ["Buyer"]
 tags: []
-cover: { src: "/blog/how-to-continue-your-home-buying-journey-while-staying-safe-at-home/cover.webp", width: 800, height: 3052, thumb: "/blog/how-to-continue-your-home-buying-journey-while-staying-safe-at-home/cover-640.webp" }
 importedFrom: squarespace
 ---
 **Before the coronavirus crisis, what were your home buying goals?**
@@ -18,7 +17,7 @@ Major changes have been imposed in the real estate industry, including new polic
 
 But there are some who are still looking to pursue their real estate plans this year or just want to continue their house-hunting journey even while staying home. If you’re one of them, here are three things you can do to keep your home search on track while giving your best to stop the spread of the virus.
 
-<figure class="post-figure"><img src="/blog/how-to-continue-your-home-buying-journey-while-staying-safe-at-home/1.webp" alt="" loading="lazy" decoding="async" width="800" height="3052" /></figure>
+
 
 ### **1. Do as much online research as possible.**
 

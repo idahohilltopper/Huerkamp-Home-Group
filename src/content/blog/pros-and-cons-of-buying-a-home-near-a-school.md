@@ -24,7 +24,7 @@ School drop-off and pick-up can get chaotic and dreadful. The line of cars moves
 
 ---
 
-<figure class="post-figure"><img src="/blog/pros-and-cons-of-buying-a-home-near-a-school/3.webp" alt="" loading="lazy" decoding="async" width="800" height="320" /></figure>
+**Pro: Sidewalks and slower traffic**
 
 Schools often come with sidewalks, crosswalks, lower speed limits and crossing guards nearby, which some buyers like for getting around on foot.
 
@@ -42,7 +42,7 @@ Schools also promote a sense of community, often providing social activities for
 
 ---
 
-<figure class="post-figure"><img src="/blog/pros-and-cons-of-buying-a-home-near-a-school/6.webp" alt="" loading="lazy" decoding="async" width="800" height="320" /></figure>
+**Pro: Buyer interest when you sell**
 
 Homes within walking distance of a school can draw more buyer interest, which can show up in the price when you buy and when you sell.
 
@@ -66,12 +66,12 @@ Similar to parking issues, living near a school can mean dealing with heavy traf
 
 ---
 
-<figure class="post-figure"><img src="/blog/pros-and-cons-of-buying-a-home-near-a-school/10.webp" alt="" loading="lazy" decoding="async" width="800" height="320" /></figure>
+**Con: More foot traffic**
 
-Last but not least, living near a school means you'll see a large volume of children all over the neighborhood, especially during after-school hours. The problem is that some kids might even loiter or trespass on your yard, sometimes unintentionally since they might not yet understand that they should keep off other people’s property.
+Last but not least, living near a school means more people walking by before and after school hours, and sometimes cutting across yards on the way.
 
 ---
 
 ### **Bottom line**
 
-As with any location, living near a school or within a school district has its pros and cons. Can you tolerate the noise levels and prioritize safety for your kids? Will you be okay even if there isn't enough parking space? Do your homework and weigh all of the pros and cons carefully before making your decision.
+As with any location, living near a school or within a school district has its pros and cons. Can you live with the noise and traffic at drop-off and pick-up times? Will you be okay even if there isn't enough parking space? Do your homework and weigh all of the pros and cons carefully before making your decision.
