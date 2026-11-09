@@ -89,11 +89,14 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     if (await showing.count()) {
       for (const [n, v] of [['firstName', 'Test'], ['lastName', 'Smoke'], ['email', 'smoke@example.com'], ['phone', '6125550100']]) await showing.locator(`[name=${n}]`).fill(v).catch(() => {});
       for (const s of await showing.locator('select[required]').all()) await s.selectOption({ index: 1 });
-      await showing.locator('button[type=submit]').click(); await p.waitForTimeout(1500);
+      // Wait up to 10 s for the send: a listing with many photos can keep a slow browser busy (Safari once took over 1.5 s).
+      await showing.locator('button[type=submit]').click();
+      for (let t = 0; t < 20 && !leads.some((l) => l.form === 'showing'); t++) await p.waitForTimeout(500);
       const sent = leads.some((l) => l.form === 'showing');
       // When it isn't sent, say which fields the browser refused (its own form check), so a Safari-only problem is clear.
       const bad = sent ? '' : await showing.evaluate((f) => [...f.querySelectorAll(':invalid')].map((e) => `${e.name || e.id}: ${e.validationMessage}`).join('; '));
-      ok('Schedule a showing form', sent, `${(await showing.locator('.form__status').textContent()).trim()}${bad ? ` [fields refused: ${bad}]` : ''}`);
+      const btn = sent ? '' : ` [button shows "${(await showing.locator('button[type=submit]').textContent()).trim()}"]`;
+      ok('Schedule a showing form', sent, `${(await showing.locator('.form__status').textContent()).trim()}${bad ? ` [fields refused: ${bad}]` : ''}${btn}`);
     } else ok('Schedule a showing form', false, 'form not found');
   });
   await step('Sold homes view', async () => {
