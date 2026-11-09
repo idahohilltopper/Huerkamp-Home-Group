@@ -124,6 +124,26 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
       ok('Form sent while the page is still loading', sent.length === 1 && !leaked, sent.length ? 'held until ready, then sent once' : `not sent${leaked ? '; the page reloaded with the details in its address' : ''}`);
     } finally { await ec.close(); }
   });
+  // "Remove boundary" (Jason, Nov 9, 2026): drops the town's outline and searches the map area instead.
+  await step('Map: remove boundary', async () => {
+    await p.setViewportSize({ width: 1366, height: 900 });
+    await p.goto(BASE + '/home-search?place=lakeville&view=map', { waitUntil: 'domcontentloaded' });
+    await p.waitForFunction(() => !!window.__hsMap, null, { timeout: 25000 });
+    await p.waitForSelector('[data-results] .lcard', { timeout: 20000 });
+    const btn = p.locator('[data-remove-boundary]');
+    await btn.waitFor({ state: 'visible', timeout: 10000 });
+    await btn.click();
+    await p.waitForFunction(() => !new URLSearchParams(location.search).get('place') && !!new URLSearchParams(location.search).get('bbox'), null, { timeout: 15000 });
+    await p.waitForSelector('[data-results] .lcard', { timeout: 20000 });
+    await p.waitForTimeout(1000);
+    const outline = await p.evaluate(() => {
+      const { kind, map } = window.__hsMap;
+      if (kind === 'main') return map.queryRenderedFeatures({ layers: ['place-line', 'place-fill'].filter((l) => map.getLayer(l)) }).length;
+      return map.__place ? 1 : 0;
+    });
+    const n = await p.$$eval('[data-results] .lcard', (e) => e.length);
+    ok('Map: remove boundary', outline === 0 && n > 0 && await btn.isHidden(), `outline ${outline ? 'still shown' : 'gone'}, ${n} homes in the map area`);
+  });
   await step('Sold homes view', async () => {
     await p.goto(BASE + '/home-search?status=sold&place=lakeville', { waitUntil: 'domcontentloaded' });
     await p.waitForSelector('[data-results] .lcard', { timeout: 25000 });

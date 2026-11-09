@@ -844,3 +844,9 @@ scripts/build-walkability.mjs -> src/data/walkability.json: a point every quarte
   football). Points: src/data/landmarks.ts (Overture Maps). Community pages already give drive minutes to MSP.
 - Fair housing fix the same day: src/lib/nearby.mjs drops places of worship and religious centers that the map data
   files under gyms, coffee or restaurants (a mosque had shown as a home's nearest gym). Bus stop names are kept.
+
+## One job per page: listings vs. town guides (2026-11-09)
+
+Each town had two pages chasing "<town> homes for sale". Now `/homes-for-sale/<town>` owns that search ("<Town>, MN
+Homes for Sale (N)"), and `/communities/<town>` is the "Living in <Town>, MN" guide whose hero button links to the
+listings. Details in docs/ai-optimization.md.

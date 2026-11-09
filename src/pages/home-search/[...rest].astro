@@ -109,7 +109,10 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
         <div class="hs-map__canvas" data-map></div>
         <p class="hs-map__count" data-mapcount hidden></p>
         <label class="hs-map__follow"><input type="checkbox" data-follow checked /> Search as I move the map</label>
-        <button class="hs-map__clear" type="button" data-clear-area hidden>Clear map area</button>
+        <div class="hs-map__btns">
+          <button class="hs-map__clear" type="button" data-remove-boundary hidden>Remove boundary</button>
+          <button class="hs-map__clear" type="button" data-clear-area hidden>Clear map area</button>
+        </div>
       </div>
       <div class="hs-panel">
         <div class="hs-head">
@@ -236,7 +239,8 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
   .hs-map__count { position: absolute; top: .9rem; left: .9rem; z-index: 2; margin: 0; padding: .45rem .8rem; border-radius: 999px; background: rgba(21, 18, 19, .82); color: #fff; font: 600 .85rem/1.2 var(--ui); pointer-events: none; }
   .hs-map__follow { position: absolute; left: 50%; bottom: 1.1rem; z-index: 2; transform: translateX(-50%); display: inline-flex; gap: .45rem; align-items: center; padding: .5rem .85rem; border-radius: 999px; background: #fff; box-shadow: 0 4px 14px rgba(0, 0, 0, .18); font: 600 .85rem/1 var(--ui); cursor: pointer; white-space: nowrap; }
   .hs-map__follow input { accent-color: var(--crimson); }
-  .hs-map__clear { position: absolute; top: .9rem; right: 3.4rem; z-index: 2; padding: .45rem .8rem; border: 1px solid var(--crimson); border-radius: 999px; background: #fff; color: var(--crimson); font: 600 .82rem/1 var(--ui); cursor: pointer; }
+  .hs-map__btns { position: absolute; top: .9rem; right: 3.4rem; z-index: 2; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .4rem; max-width: calc(100% - 4.4rem); }
+  .hs-map__clear { padding: .45rem .8rem; border: 1px solid var(--crimson); border-radius: 999px; background: #fff; color: var(--crimson); font: 600 .82rem/1 var(--ui); cursor: pointer; }
   .hs-panel { min-width: 0; padding: 1.1rem clamp(.9rem, 1.6vw, 1.4rem) 2.5rem; border-left: 1px solid var(--line); background: #fff; }
   .hs-head { display: flex; flex-wrap: wrap; gap: .75rem 1rem; justify-content: space-between; align-items: end; margin-bottom: 1rem; }
   .hs-head h1 { margin: 0 0 .25rem; font: 600 clamp(1.35rem, 2vw, 1.6rem)/1.15 var(--ui); letter-spacing: -.01em; }

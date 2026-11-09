@@ -251,15 +251,17 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
 ---
 <Base
   breadcrumbs={[{ name: 'Communities', href: '/communities' }, { name: c.name, href: `/communities/${c.slug}` }]}
-  title={`${c.name}, MN Homes for Sale & Real Estate | Huerkamp Home Group`}
-  description={zipList.length ? `${c.name}, MN homes for sale. ZIP code${zipList.length > 1 ? 's' : ''}: ${zipList.slice(0, 4).map((z: string) => (otherTown(z) ? `${z} ${otherTown(z)}` : z)).join(', ')}. Median sale price, property taxes, schools and commute times.` : `${c.name}, MN homes for sale: median sale price, days on market, property taxes, schools and commute times, from Huerkamp Home Group.`}>
+  // One job per page (Jason, Nov 9, 2026): this guide is for "living in <city>" searches; "<city> homes for sale" belongs
+  // to /homes-for-sale/<city>, which it links to prominently. Two pages chasing one search ranked neither well.
+  title={`Living in ${c.name}, MN: Home Prices, Taxes, Commute & Local Guide | Huerkamp Home Group`}
+  description={zipList.length ? `Living in ${c.name}, MN: median sale price, property taxes, commute times and what's nearby. ZIP code${zipList.length > 1 ? 's' : ''}: ${zipList.slice(0, 4).map((z: string) => (otherTown(z) ? `${z} ${otherTown(z)}` : z)).join(', ')}.` : `Living in ${c.name}, MN: median sale price, days on market, property taxes, commute times and what's nearby, from Huerkamp Home Group.`}>
   <script type="application/ld+json" set:html={faqLd} />
 
-  <PageHero eyebrow={`${c.name}, Minnesota`} title={`${c.name} Homes for Sale & Real Estate`}
+  <PageHero eyebrow={`${c.name}, Minnesota · community guide`} title={`Living in ${c.name}, MN`}
     lede={`${heroAnswer ? `${heroAnswer} ` : ''}Local facts and advice for buying or selling in ${c.name}, ${countyName}, from Huerkamp Home Group.`}>
     <p class="hero-meta">Updated {updated} · By {jason.name}, {jason.title}</p>
     <div class="hero-actions">
-      <a class="btn" href="#listings">Browse {c.name} homes</a>
+      {homes ? <a class="btn" href={homesHref(c.slug)}>See all {homes.listings.length} {c.name} homes for sale</a> : <a class="btn" href="#listings">Browse {c.name} homes</a>}
       <a class="btn btn--ghost" href="#contact">Talk to an expert</a>
     </div>
   </PageHero>

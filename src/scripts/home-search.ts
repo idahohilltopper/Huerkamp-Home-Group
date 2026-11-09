@@ -32,6 +32,7 @@ export function initSearch(root: HTMLElement) {
   const mapCount = root.querySelector<HTMLElement>('[data-mapcount]')!;
   const follow = root.querySelector<HTMLInputElement>('[data-follow]')!;
   const clearBtn = root.querySelector<HTMLButtonElement>('[data-clear-area]')!;
+  const boundaryBtn = root.querySelector<HTMLButtonElement>('[data-remove-boundary]');
   const toggle = root.querySelector<HTMLButtonElement>('[data-toggle]')!;
   const where = form.querySelector<HTMLInputElement>('[data-where]')!;
   const sortEl = document.querySelector<HTMLSelectElement>('#hs-sort')!;
@@ -173,6 +174,7 @@ export function initSearch(root: HTMLElement) {
       if (isSold()) { delete alertForm.dataset.alertQuery; } else { alertForm.dataset.alertQuery = JSON.stringify(q); alertForm.dataset.alertName = describe(keep).slice(0, 50); }
     }
     clearBtn.hidden = !p.get('bbox');
+    if (boundaryBtn) boundaryBtn.hidden = !p.get('place');
     const mine = ++seq;
     list.classList.add('is-loading');
     try {
@@ -366,6 +368,13 @@ export function initSearch(root: HTMLElement) {
   toggle.addEventListener('click', () => showMap(!root.classList.contains('is-map')));
   phone.addEventListener('change', () => { if (!phone.matches) openMap(); });
   clearBtn.addEventListener('click', () => { (form.elements.namedItem('bbox') as HTMLInputElement).value = ''; setPage(1); run(); });
+  // Remove boundary (as on Zillow): drop the town, neighborhood, ZIP or lake outline and search what's on the map now.
+  boundaryBtn?.addEventListener('click', () => {
+    (form.elements.namedItem('place') as HTMLInputElement).value = '';
+    where.value = '';
+    if (map && mapApi) (form.elements.namedItem('bbox') as HTMLInputElement).value = mapApi.boxOf(map);
+    setPage(1); run();
+  });
 
   // Pointing at a card lights up its home on the map.
   list.addEventListener('mouseover', (e) => {

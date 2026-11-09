@@ -31,3 +31,12 @@ Daily log of changes that help AI assistants (ChatGPT, Google AI Overviews, Perp
 - **Why it helps:** the description is the summary search engines and AI assistants quote; it is now complete and leads with the search phrase for all cities.
 - **Sources:** none needed; no new facts.
 - **Checked:** build passes (7,794 pages); check-launch reports the same 164 old /home-search/... addresses as before (unrelated).
+
+## 2026-11-09: one job per page (Jason's decision)
+
+Search Console showed each town's two pages splitting "<town> homes for sale" (e.g. "eagan mn homes for sale": the
+homes-for-sale page at #18, the community guide at #43). Now:
+- `/homes-for-sale/<town>` is the "<Town>, MN homes for sale" page (title "<Town>, MN Homes for Sale (N)").
+- `/communities/<town>` is the guide for "living in <town>" searches: title "Living in <Town>, MN: Home Prices,
+  Taxes, Commute & Local Guide", H1 "Living in <Town>, MN", and its main button links "See all N <Town> homes for sale".
+Don't retitle community pages back to "homes for sale"; strengthen the homes-for-sale pages for those searches.
