@@ -8,7 +8,7 @@ import { secretFrom, verify } from '../../src/lib/session.mjs';
 import { onLake, soldCard, soldDropReason, thumbnail, soldQuery, repliersParams, PAGE, MAX_PINS, SOLD_DISCLAIMER } from '../../src/lib/sold.mjs';
 
 const env = (k) => (globalThis.Netlify?.env?.get(k) ?? process.env[k] ?? '').trim();
-const VARY = 'query=mls|place|agent|months|min|max|beds|baths|bbox|page|pins|why,header=x-idx-eula|x-account';
+const VARY = 'query=mls|place|agent|months|min|max|beds|baths|bbox|poly|page|pins|why,header=x-idx-eula|x-account';
 const json = (status, body, cache = false) => new Response(JSON.stringify(body), {
   status,
   headers: {

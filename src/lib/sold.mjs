@@ -15,6 +15,7 @@ import { sellerChoices, homeType, findField } from './mls-feed.mjs';
 import { CDN, isLakefront } from './repliers.mjs';
 import shores from '../data/geo/lake-shores.json' with { type: 'json' };
 import { hull } from './hull.mjs';
+import { parsePoly } from './poly.mjs';
 import cities from '../data/ylopo-cities.json' with { type: 'json' };
 import team from '../data/team.json' with { type: 'json' };
 
@@ -121,9 +122,12 @@ export function soldQuery(sp, now = new Date()) {
   for (const k of ['beds', 'baths']) { const v = int(sp.get(k), 1, 10); if (v) q[k] = v; }
   const b = text(sp.get('bbox')).split(',').map(Number);
   if (b.length === 4 && b.every(Number.isFinite) && b[0] < b[2] && b[1] < b[3] && b[2] - b[0] < 3 && b[3] - b[1] < 3) q.bbox = b;
+  // A boundary drawn on the map (src/lib/poly.mjs): sent to Repliers as the map shape instead of the box.
+  const poly = parsePoly(sp.get('poly'));
+  if (poly) q.poly = poly;
   // No town, ZIP, map area, agent or single home: the Twin Cities area the site covers (the same box the search map opens
   // on), not every sale in the MLS, which reaches across Minnesota and zooms the map out to the whole state.
-  if (!q.city && !q.zip && !q.lake && !q.bbox && !q.agentName && !q.mls && !q.unsupported) q.bbox = TWIN_CITIES_BOX;
+  if (!q.city && !q.zip && !q.lake && !q.bbox && !q.poly && !q.agentName && !q.mls && !q.unsupported) q.bbox = TWIN_CITIES_BOX;
   const from = new Date(now); from.setMonth(from.getMonth() - q.months);
   q.since = from.toISOString().slice(0, 10);
   return q;
@@ -141,7 +145,7 @@ export function repliersParams(q, { pageSize = PAGE, page = q.page, fields = FIE
   if (q.beds) p.minBedrooms = q.beds;
   if (q.baths) p.minBaths = q.baths;
   const [w, s, e, n] = q.bbox ?? [];
-  const body = q.lake ? { map: lakeRings(q.lake) } : q.bbox ? { map: [[[w, n], [e, n], [e, s], [w, s], [w, n]]] } : undefined;
+  const body = q.lake ? { map: lakeRings(q.lake) } : q.poly ? { map: [[...q.poly, q.poly[0]]] } : q.bbox ? { map: [[[w, n], [e, n], [e, s], [w, s], [w, n]]] } : undefined;
   return { params: p, body };
 }
 

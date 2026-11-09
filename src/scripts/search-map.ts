@@ -151,4 +151,6 @@ export function showHome(map: any, home: { lat: number; lng: number; street: str
 export function fitBox(map: any, b: number[]) { map.fitBounds([[b[0], b[1]], [b[2], b[3]]], { padding: 0, duration: 800 }); }
 
 /** The visible map area as "west,south,east,north". */
+/** A point on the map's screen area (pixels from its top left) as [lng, lat]: the "Draw boundary" pencil. */
+export const toLngLat = (map: any, x: number, y: number): [number, number] => { const p = map.unproject([x, y]); return [p.lng, p.lat]; };
 export const boxOf = (map: any) => { const b = map.getBounds(); return [b.getWest(), b.getSouth(), b.getEast(), b.getNorth()].map((n: number) => n.toFixed(4)).join(','); };

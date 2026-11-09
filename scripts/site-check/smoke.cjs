@@ -144,6 +144,31 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     const n = await p.$$eval('[data-results] .lcard', (e) => e.length);
     ok('Map: remove boundary', outline === 0 && n > 0 && await btn.isHidden(), `outline ${outline ? 'still shown' : 'gone'}, ${n} homes in the map area`);
   });
+  // "Draw boundary" pencil (Jason, Nov 9, 2026): its label shows on hover; drawing a shape searches inside it.
+  await step('Map: draw boundary', async () => {
+    await p.setViewportSize({ width: 1366, height: 900 });
+    await p.goto(BASE + '/home-search?place=lakeville&view=map', { waitUntil: 'domcontentloaded' });
+    await p.waitForFunction(() => !!window.__hsMap, null, { timeout: 25000 });
+    await p.waitForSelector('[data-results] .lcard', { timeout: 20000 });
+    await p.waitForTimeout(1500);
+    const pencil = p.locator('[data-draw]');
+    await pencil.hover(); await p.waitForTimeout(300);
+    const tip = await p.locator('.hs-map__tip').evaluate((e) => ({ text: e.textContent.trim(), op: getComputedStyle(e).opacity }));
+    if (tip.text !== 'Draw boundary' || Number(tip.op) < 0.9) throw new Error(`the pencil's "Draw boundary" label didn't show on hover (${tip.text}, opacity ${tip.op})`);
+    await pencil.click();
+    const box = await p.locator('[data-sketch]').boundingBox();
+    if (!box) throw new Error('the drawing layer did not open');
+    const cx = box.x + box.width / 2, cy = box.y + box.height / 2, r = Math.min(box.width, box.height) / 4;
+    await p.mouse.move(cx - r, cy - r); await p.mouse.down();
+    for (const [x, y] of [[cx + r, cy - r], [cx + r, cy + r], [cx - r, cy + r], [cx - r, cy - r + 5]]) await p.mouse.move(x, y, { steps: 12 });
+    await p.mouse.up();
+    await p.waitForFunction(() => !!new URLSearchParams(location.search).get('poly') && !new URLSearchParams(location.search).get('place'), null, { timeout: 15000 });
+    await p.waitForTimeout(2000);
+    const outline = await p.evaluate(() => { const { kind, map } = window.__hsMap; return kind === 'main' ? map.queryRenderedFeatures({ layers: ['place-line'].filter((l) => map.getLayer(l)) }).length : map.__place ? 1 : 0; });
+    const n = await p.$$eval('[data-results] .lcard', (e) => e.length);
+    const remove = await p.locator('[data-remove-boundary]').isVisible();
+    ok('Map: draw boundary', outline > 0 && remove, `label on hover; shape drawn and outlined, ${n} homes listed; "Remove boundary" ${remove ? 'shown' : 'missing'}`);
+  });
   await step('Sold homes view', async () => {
     await p.goto(BASE + '/home-search?status=sold&place=lakeville', { waitUntil: 'domcontentloaded' });
     await p.waitForSelector('[data-results] .lcard', { timeout: 25000 });

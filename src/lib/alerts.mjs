@@ -6,6 +6,7 @@ import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import shores from '../data/geo/lake-shores.json' with { type: 'json' };
 import { hull } from './hull.mjs';
+import { parsePoly } from './poly.mjs';
 
 // Community and neighborhood outlines (bundled with the function through netlify.toml included_files).
 const geo = {};
@@ -63,7 +64,10 @@ export function toSavedSearch(q, { clientId, agentId, frequency = 'daily', name 
   const place = String(q.place ?? '').split(',')[0].trim();
   const bbox = String(q.bbox ?? '').split(',').map(Number);
   let map = null;
-  if (bbox.length === 4 && bbox.every(Number.isFinite) && bbox[0] < bbox[2] && bbox[1] < bbox[3]) map = box(bbox);
+  // A boundary the visitor drew (src/lib/poly.mjs) wins: it's exactly the area they want. One ring, closed.
+  const drawn = parsePoly(q.poly);
+  if (drawn) map = [[...drawn, drawn[0]]];
+  else if (bbox.length === 4 && bbox.every(Number.isFinite) && bbox[0] < bbox[2] && bbox[1] < bbox[3]) map = box(bbox);
   else if (place && !place.startsWith('zip:')) map = shapeOf(place);
   if (!map?.length) return { error: place.startsWith('zip:') ? 'To get alerts for a ZIP code, move the map to that area (or pick a city), then save.' : 'Pick a city, neighborhood or lake, or move the map to an area, then save.' };
   const body = {

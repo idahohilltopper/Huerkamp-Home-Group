@@ -2,6 +2,7 @@
 // asks /api/search, draws the cards, the page buttons and the map. On a computer the map loads at once; on a phone
 // only when the Map button is pressed. With "Search as I move the map" on, moving the map searches that area.
 // "Sold" switches the page to recently sold homes (/api/sold, NorthstarMLS sold content; src/lib/sold.mjs).
+import { parsePoly, polyParam, MAX_POINTS } from '../lib/poly.mjs';
 import { soldCardHtml, soldOn, soldHeaders, signInNote, type Sold } from './sold-card';
 import { formatOpenHouse } from '../lib/open-house.mjs';
 type Card = { mls: string; slug: string; street: string; city: string; zip: string; price: number; beds: number | null; baths: number | null;
@@ -11,7 +12,7 @@ type Answer = { ok: boolean; error?: string; total: number; page: number; pages:
 /** lat, lng, price, page slug (MLS number for a sold home), photo, address, brokerage, own brokerage, sold date (sold only). */
 export type Pin = [number, number, number, string, string | null, string, string, 0 | 1, string?];
 
-const KEYS = ['status', 'place', 'min', 'max', 'beds', 'baths', 'garage', 'months', 'type', 'lakefront', 'new', 'acres', 'team', 'open', 'sort', 'bbox', 'page'];
+const KEYS = ['status', 'place', 'min', 'max', 'beds', 'baths', 'garage', 'months', 'type', 'lakefront', 'new', 'acres', 'team', 'open', 'sort', 'bbox', 'poly', 'page'];
 // Filters the sold view can't use (the MLS sold data is searched by place, price, rooms, date and map area).
 const SALE_ONLY = ['type', 'garage', 'lakefront', 'new', 'acres', 'team', 'open', 'sort'];
 const esc = (s: unknown) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
@@ -114,6 +115,7 @@ export function initSearch(root: HTMLElement) {
     if (p.get('team')) bits.push('our team’s listings');
     if (p.get('open')) bits.push('open houses');
     if (p.get('bbox')) bits.push('in the map area');
+    if (p.get('poly')) bits.push('in the area you drew');
     return bits.filter(Boolean).join(' · ').replace(': · ', ': ');
   };
 
@@ -174,7 +176,7 @@ export function initSearch(root: HTMLElement) {
       if (isSold()) { delete alertForm.dataset.alertQuery; } else { alertForm.dataset.alertQuery = JSON.stringify(q); alertForm.dataset.alertName = describe(keep).slice(0, 50); }
     }
     clearBtn.hidden = !p.get('bbox');
-    if (boundaryBtn) boundaryBtn.hidden = !p.get('place');
+    if (boundaryBtn) boundaryBtn.hidden = !p.get('place') && !p.get('poly');
     const mine = ++seq;
     list.classList.add('is-loading');
     try {
@@ -261,6 +263,7 @@ export function initSearch(root: HTMLElement) {
     home = r as Home;
     const box = boxAround(home.lat, home.lng);
     (form.elements.namedItem('place') as HTMLInputElement).value = '';
+    (form.elements.namedItem('poly') as HTMLInputElement).value = '';
     (form.elements.namedItem('bbox') as HTMLInputElement).value = box.map((n) => n.toFixed(4)).join(',');
     where.value = home.address;
     showHomeCard();
@@ -282,6 +285,7 @@ export function initSearch(root: HTMLElement) {
     where.setCustomValidity('');
     (form.elements.namedItem('place') as HTMLInputElement).value = v;
     (form.elements.namedItem('bbox') as HTMLInputElement).value = '';
+    (form.elements.namedItem('poly') as HTMLInputElement).value = '';
     where.value = v ? label(v) : '';
     return true;
   };
@@ -371,6 +375,7 @@ export function initSearch(root: HTMLElement) {
   // Remove boundary (as on Zillow): drop the town, neighborhood, ZIP or lake outline and search what's on the map now.
   boundaryBtn?.addEventListener('click', () => {
     (form.elements.namedItem('place') as HTMLInputElement).value = '';
+    (form.elements.namedItem('poly') as HTMLInputElement).value = '';
     where.value = '';
     if (map && mapApi) (form.elements.namedItem('bbox') as HTMLInputElement).value = mapApi.boxOf(map);
     setPage(1); run();
@@ -384,10 +389,53 @@ export function initSearch(root: HTMLElement) {
   });
   list.addEventListener('mouseleave', () => { if (map && mapApi) mapApi.highlight(map, ''); });
 
+  // ---- "Draw boundary": press the pencil, then draw around an area (mouse or finger); the search becomes the homes
+  // inside that shape (poly in the address; src/lib/poly.mjs). Escape or Cancel stops; "Remove boundary" clears it. ----
+  const drawBtn = root.querySelector<HTMLButtonElement>('[data-draw]');
+  const sketch = root.querySelector<SVGSVGElement>('[data-sketch]');
+  const hint = root.querySelector<HTMLElement>('[data-drawhint]');
+  const line = sketch?.querySelector('polyline');
+  let drawing = false, pts: [number, number][] = [];
+  const stopDraw = () => { drawing = false; pts = []; sketch?.setAttribute('hidden', ''); if (hint) hint.hidden = true; line?.setAttribute('points', ''); drawBtn?.setAttribute('aria-pressed', 'false'); };
+  drawBtn?.addEventListener('click', () => {
+    if (!map || !mapApi || !sketch) return;
+    if (!sketch.hasAttribute('hidden')) return stopDraw();
+    sketch.removeAttribute('hidden'); if (hint) hint.hidden = false; drawBtn.setAttribute('aria-pressed', 'true');
+  });
+  root.querySelector('[data-drawcancel]')?.addEventListener('click', stopDraw);
+  addEventListener('keydown', (e) => { if (e.key === 'Escape' && sketch && !sketch.hasAttribute('hidden')) stopDraw(); });
+  sketch?.addEventListener('pointerdown', (e) => {
+    drawing = true; pts = []; sketch.setPointerCapture(e.pointerId);
+    const r = sketch.getBoundingClientRect(); pts.push([e.clientX - r.left, e.clientY - r.top]);
+    e.preventDefault();
+  });
+  sketch?.addEventListener('pointermove', (e) => {
+    if (!drawing) return;
+    const r = sketch.getBoundingClientRect(), p: [number, number] = [e.clientX - r.left, e.clientY - r.top], last = pts[pts.length - 1];
+    if (!last || Math.hypot(p[0] - last[0], p[1] - last[1]) >= 4) { pts.push(p); line?.setAttribute('points', pts.map((q) => q.join(',')).join(' ')); }
+  });
+  sketch?.addEventListener('pointerup', () => {
+    if (!drawing || !map || !mapApi) return;
+    const drawnPts = pts; stopDraw();
+    if (drawnPts.length < 3) return;
+    // At most 60 points, evenly spaced along what was drawn.
+    const step = Math.max(1, Math.ceil(drawnPts.length / MAX_POINTS));
+    const shape = drawnPts.filter((_, i) => i % step === 0).map(([x, y]) => mapApi.toLngLat(map, x, y));
+    if (shape.length < 3) return;
+    (form.elements.namedItem('poly') as HTMLInputElement).value = polyParam(shape);
+    (form.elements.namedItem('place') as HTMLInputElement).value = '';
+    (form.elements.namedItem('bbox') as HTMLInputElement).value = '';
+    where.value = '';
+    setPage(1); run();
+  });
+
   // ---- the searched town or neighborhood is outlined on the map (outlines load the first time a place is searched) ----
   let outlines: Promise<{ features: { properties: { key: string } }[] }> | null = null;
   async function showPlace() {
     if (!map || !mapApi) return;
+    // A boundary the visitor drew: outline exactly that shape.
+    const drawn = parsePoly(params().get('poly'));
+    if (drawn) return mapApi.setPlace(map, [{ type: 'Feature', properties: { key: 'drawn' }, geometry: { type: 'Polygon', coordinates: [[...drawn, drawn[0]]] } }]);
     const places = (params().get('place') ?? '').split(',').filter((p) => p && !p.startsWith('zip:') && !p.startsWith('lake:'));
     if (!places.length) return mapApi.setPlace(map, []);
     outlines ??= fetch('/geo/places.json').then((r) => r.json()).catch(() => ({ features: [] }));

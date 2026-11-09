@@ -108,4 +108,6 @@ export function showHome(map: FlatMap, home: { lat: number; lng: number; street:
 export function fitBox(map: FlatMap, b: number[]) { (map as any).__auto = true; map.fitBounds([[b[1], b[0]], [b[3], b[2]]]); }
 
 /** The visible map area as "west,south,east,north". */
+/** A point on the map's screen area (pixels from its top left) as [lng, lat]: the "Draw boundary" pencil. */
+export const toLngLat = (map: FlatMap, x: number, y: number): [number, number] => { const p = map.containerPointToLatLng([x, y]); return [p.lng, p.lat]; };
 export const boxOf = (map: FlatMap) => { const b = map.getBounds(); return [b.getWest(), b.getSouth(), b.getEast(), b.getNorth()].map((n) => n.toFixed(4)).join(','); };

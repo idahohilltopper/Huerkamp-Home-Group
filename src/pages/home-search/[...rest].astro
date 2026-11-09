@@ -100,6 +100,7 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
       </details>
       <a class="btn hs-save" href="#alerts">Save search</a>
       <input type="hidden" name="bbox" value="" />
+      <input type="hidden" name="poly" value="" />
       <input type="hidden" name="page" value="" />
       <noscript><button class="btn" type="submit">Search</button></noscript>
     </form>
@@ -109,6 +110,9 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
         <div class="hs-map__canvas" data-map></div>
         <p class="hs-map__count" data-mapcount hidden></p>
         <label class="hs-map__follow"><input type="checkbox" data-follow checked /> Search as I move the map</label>
+        <button class="hs-map__draw" type="button" data-draw aria-label="Draw boundary" title="Draw boundary"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" fill="currentColor"/></svg><span class="hs-map__tip">Draw boundary</span></button>
+        <svg class="hs-map__sketch" data-sketch hidden aria-hidden="true"><polyline fill="none" stroke="#d40000" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" points="" /></svg>
+        <p class="hs-map__drawhint" data-drawhint hidden>Draw around the area you want: press and drag. <button type="button" data-drawcancel>Cancel</button></p>
         <div class="hs-map__btns">
           <button class="hs-map__clear" type="button" data-remove-boundary hidden>Remove boundary</button>
           <button class="hs-map__clear" type="button" data-clear-area hidden>Clear map area</button>
@@ -239,6 +243,14 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
   .hs-map__count { position: absolute; top: .9rem; left: .9rem; z-index: 2; margin: 0; padding: .45rem .8rem; border-radius: 999px; background: rgba(21, 18, 19, .82); color: #fff; font: 600 .85rem/1.2 var(--ui); pointer-events: none; }
   .hs-map__follow { position: absolute; left: 50%; bottom: 1.1rem; z-index: 2; transform: translateX(-50%); display: inline-flex; gap: .45rem; align-items: center; padding: .5rem .85rem; border-radius: 999px; background: #fff; box-shadow: 0 4px 14px rgba(0, 0, 0, .18); font: 600 .85rem/1 var(--ui); cursor: pointer; white-space: nowrap; }
   .hs-map__follow input { accent-color: var(--crimson); }
+  /* "Draw boundary" pencil (under the zoom buttons) with its label on hover, and the drawing layer over the map. */
+  .hs-map__draw { position: absolute; top: 5.6rem; right: .6rem; z-index: 3; width: 34px; height: 34px; display: grid; place-items: center; border: 0; border-radius: 6px; background: #fff; color: #151213; box-shadow: 0 0 0 2px rgba(0,0,0,.12); cursor: pointer; }
+  .hs-map__draw:hover, .hs-map__draw[aria-pressed="true"] { color: var(--crimson); }
+  .hs-map__tip { position: absolute; right: calc(100% + .5rem); top: 50%; transform: translateY(-50%); padding: .3rem .55rem; border-radius: 4px; background: #151213; color: #fff; font: 600 .78rem/1.2 var(--ui); white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .12s; }
+  .hs-map__draw:hover .hs-map__tip, .hs-map__draw:focus-visible .hs-map__tip { opacity: 1; }
+  .hs-map__sketch { position: absolute; inset: 0; z-index: 4; width: 100%; height: 100%; cursor: crosshair; touch-action: none; }
+  .hs-map__drawhint { position: absolute; left: 50%; top: .9rem; z-index: 5; transform: translateX(-50%); margin: 0; padding: .5rem .85rem; border-radius: 999px; background: #151213; color: #fff; font: 600 .85rem/1.2 var(--ui); white-space: nowrap; }
+  .hs-map__drawhint button { margin-left: .4rem; border: 0; background: none; color: #fff; text-decoration: underline; font: inherit; cursor: pointer; }
   .hs-map__btns { position: absolute; top: .9rem; right: 3.4rem; z-index: 2; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .4rem; max-width: calc(100% - 4.4rem); }
   .hs-map__clear { padding: .45rem .8rem; border: 1px solid var(--crimson); border-radius: 999px; background: #fff; color: var(--crimson); font: 600 .82rem/1 var(--ui); cursor: pointer; }
   .hs-panel { min-width: 0; padding: 1.1rem clamp(.9rem, 1.6vw, 1.4rem) 2.5rem; border-left: 1px solid var(--line); background: #fff; }

@@ -3,6 +3,7 @@
 // communities to .cache/search-index.json; the Netlify Function bundles that file (netlify.toml, included_files) and
 // filters it here. One shared file, so the search page, the function and tests all use the same rules.
 // Listings refresh with every build (twice a day once BUILD_HOOK_URL is set; see netlify/functions/rebuild.mjs).
+import { parsePoly, polyParam, inPoly } from './poly.mjs';
 
 export const INDEX_FILE = '.cache/search-index.json';
 export const PAGE_SIZE = 24;
@@ -53,6 +54,7 @@ export function parseQuery(input) {
     beds: int('beds', 1, 10), baths: int('baths', 1, 10), garage: int('garage', 1, 6),
     lakefront: flag('lakefront'), newConstruction: flag('new'), acres: flag('acres'), team: flag('team'), open: flag('open'),
     bbox: bbox.length === 4 && bbox.every(Number.isFinite) && bbox[0] < bbox[2] && bbox[1] < bbox[3] ? bbox : null,
+    poly: parsePoly(get('poly')),
     page: int('page', 1, 500) ?? 1,
   };
 }
@@ -74,6 +76,7 @@ export function toSearch(q) {
   if (q.open) p.set('open', '1');
   if (q.sort && q.sort !== 'new') p.set('sort', q.sort);
   if (q.bbox) p.set('bbox', q.bbox.map((n) => n.toFixed(4)).join(','));
+  if (q.poly) p.set('poly', polyParam(q.poly));
   if (q.page && q.page > 1) p.set('page', String(q.page));
   return p.toString();
 }
@@ -95,7 +98,8 @@ export function search(index, q, { otherDetails = false } = {}) {
     (!q.beds || (l.beds ?? 0) >= q.beds) && (!q.baths || (l.baths ?? 0) >= q.baths) && (!q.garage || (l.garage ?? 0) >= q.garage) &&
     (!q.lakefront || l.lakefront) && (!q.newConstruction || l.newConstruction) && (!q.acres || (l.lotAcres ?? 0) >= 1) &&
     (!q.team || l.team) && (!q.open || l.openHouse) &&
-    (!q.bbox || (l.lng >= q.bbox[0] && l.lat >= q.bbox[1] && l.lng <= q.bbox[2] && l.lat <= q.bbox[3])));
+    (!q.bbox || (l.lng >= q.bbox[0] && l.lat >= q.bbox[1] && l.lng <= q.bbox[2] && l.lat <= q.bbox[3])) &&
+    (!q.poly || inPoly(l.lng, l.lat, q.poly)));
   const by = {
     new: (a, b) => String(b.listed ?? '').localeCompare(String(a.listed ?? '')) || b.price - a.price,
     'price-asc': (a, b) => a.price - b.price, 'price-desc': (a, b) => b.price - a.price,
