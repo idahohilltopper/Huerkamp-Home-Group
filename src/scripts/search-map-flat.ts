@@ -62,6 +62,8 @@ export function setPins(map: FlatMap, pins: Pin[], fit = true) {
   const brThumb = (map as any).__brThumb as string;
   for (const [lat, lng, price, slug, photo, addr, brokerage, own, sold] of pins) {
     const m = L.circleMarker([lat, lng], { radius: 6, color: '#fff', weight: 1.5, fillColor: RED, fillOpacity: 1 });
+    // Pointing at a dot makes it 50% bigger (6 to 9 pixels) and shows the preview; mouse devices only.
+    if (canHover()) { m.on('mouseover', () => m.setRadius(9)); m.on('mouseout', () => m.setRadius(6)); }
     if (canHover()) m.bindTooltip(() => hoverCard({ price, slug, photo: photo ?? '', addr, brokerage, own, sold: sold ?? '' }, brThumb), { direction: 'top', offset: [0, -8], className: 'hs-flat-peek', opacity: 1 });
     m.bindPopup(() => pinCard({ price, slug, photo: photo ?? '', addr, brokerage, own, sold: sold ?? '' }, brThumb), { maxWidth: 260, minWidth: 240, className: 'hs-flat-pop', closeButton: false });
     m.addTo(map.__pins!);

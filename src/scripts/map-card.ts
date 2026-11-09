@@ -39,6 +39,34 @@ export function pinCard(p: any, brThumb: string): HTMLElement {
     heart.setAttribute('aria-label', `Save: ${p.addr}`);
     box.append(heart);
   }
+  // Photo arrows (homes for sale): the build writes each home's first 12 photos to /homes/photos/<MLS #>.json; they're
+  // fetched on the first arrow press. Clicking the photo itself still opens the home. A home listed since the last
+  // build has no file yet, so its arrows quietly disappear.
+  const img = ph.querySelector('img');
+  if (mls && img && !p.sold) {
+    let photos: string[] = [String(p.photo)], at = 0, loaded = false;
+    const count = Object.assign(document.createElement('span'), { className: 'hs-mappop__count', hidden: true });
+    const go = async (step: number, e: Event) => {
+      e.preventDefault(); e.stopPropagation();
+      if (!loaded) {
+        loaded = true;
+        const list = await fetch(`/homes/photos/${encodeURIComponent(mls)}.json`).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+        if (Array.isArray(list) && list.length > 1) photos = list;
+        else { box.querySelectorAll('.hs-mappop__arrow').forEach((b) => b.remove()); return; }
+      }
+      at = (at + step + photos.length) % photos.length;
+      img.src = `${photos[at]}?class=small`;
+      count.hidden = false;
+      count.textContent = `${at + 1} / ${photos.length}`;
+    };
+    for (const [dir, label, step] of [['prev', 'Previous photo', -1], ['next', 'Next photo', 1]] as const) {
+      const b = Object.assign(document.createElement('button'), { type: 'button', className: `hs-mappop__arrow hs-mappop__${dir}`, textContent: dir === 'prev' ? '‹' : '›' });
+      b.setAttribute('aria-label', `${label}: ${p.addr}`);
+      b.addEventListener('click', (e) => go(step, e));
+      box.append(b);
+    }
+    box.append(count);
+  }
   return box;
 }
 

@@ -247,6 +247,13 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     }
     if (!pt) throw new Error('no home pin visible on the map');
     if (!seen) throw new Error(`no preview after pointing at a pin 3 times (${pt.kind} map)`);
+    // The home under the mouse is drawn 50% bigger (Jason, Nov 9, 2026).
+    const bigger = await p.evaluate(() => {
+      const { kind, map } = window.__hsMap;
+      if (kind === 'main') return ['homes-hover', 'homes-tags-hover'].some((l) => JSON.stringify(map.getFilter(l) ?? '').match(/"[a-z0-9-]{6,}"/));
+      return [...map.__bySlug.values()].some((m) => m.getRadius() > 6);
+    });
+    if (!bigger) throw new Error('the home under the mouse did not get bigger');
     const peek = await p.$eval('.hs-peek', (e) => ({ text: e.textContent.replace(/\s+/g, ' ').trim(), photo: !!e.querySelector('.hs-peek__photo img') || /coming soon/i.test(e.textContent) }));
     ok('Map hover preview', peek.photo && /\$|Auction/.test(peek.text) && /courtesy of/i.test(peek.text), `${pt.kind} map: ${peek.text.slice(0, 90)}`);
   });
@@ -286,10 +293,22 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
         card = await m.waitForSelector('.hs-pop-card', { state: 'visible', timeout: 4000 }).then(() => true, () => false);
       }
       if (!card) throw new Error(`tapping a home's dot didn't open its card (${kind} map; preview shown instead: ${await m.locator('.hs-peek:visible').count() > 0})`);
+      // Photo arrows: the next arrow shows the home's second photo (when the build wrote its photo list).
+      let photos = 'one photo';
+      const next = m.locator('.hs-mappop__next:visible').first();
+      if (await next.count()) {
+        const before = await m.locator('.hs-pop-card:visible .hs-pop-card__photo img').first().getAttribute('src');
+        const nb = await next.boundingBox(); await tap(nb.x + nb.width / 2, nb.y + nb.height / 2); await m.waitForTimeout(1200);
+        const after = await m.locator('.hs-pop-card:visible .hs-pop-card__photo img').first().getAttribute('src').catch(() => before);
+        if (!m.url().includes('/home-search')) throw new Error('the photo arrow opened a page instead of showing the next photo');
+        const gone = !(await m.locator('.hs-mappop__next:visible').count());
+        if (after === before && !gone) throw new Error('the photo arrow did not change the photo');
+        photos = after !== before ? `arrow showed ${(await m.textContent('.hs-mappop__count').catch(() => '')).trim() || 'the next photo'}` : 'no photo list for this home';
+      }
       const img = await m.locator('.hs-pop-card:visible .hs-pop-card__photo').first().boundingBox();
       await tap(img.x + img.width / 2, img.y + img.height / 2);
       await m.waitForURL(/\/homes\//, { timeout: 15000 });
-      ok('Phone map: tap a home, then its photo', true, `${kind} map: opened ${new URL(m.url()).pathname.slice(0, 70)}`);
+      ok('Phone map: tap a home, then its photo', true, `${kind} map, ${photos}: opened ${new URL(m.url()).pathname.slice(0, 70)}`);
     } finally { await mc.close(); }
   });
   // What visitors' browsers hit in the last 7 days (netlify/functions/client-error.mjs).

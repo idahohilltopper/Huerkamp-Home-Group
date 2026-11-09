@@ -56,6 +56,15 @@ export async function createMap(el: HTMLElement, style: string, brThumb: string,
     'text-field': ['get', 'label'], 'text-font': ['Noto Sans Bold'], 'text-size': 12.5, 'icon-image': 'tag', 'icon-text-fit': 'both',
     'icon-allow-overlap': true, 'text-allow-overlap': true, 'symbol-sort-key': ['get', 'price'] },
     paint: { 'text-color': '#fff' } });
+  // The home under the mouse, drawn again 50% bigger on top (dot or price tag).
+  const none = ['==', ['get', 'slug'], ''];
+  map.addLayer({ id: 'homes-hover', type: 'circle', source: 'homes', maxzoom: 12, filter: none, paint: {
+    'circle-radius': ['interpolate', ['linear'], ['zoom'], 8, 6, 12, 9.75], 'circle-color': RED,
+    'circle-stroke-color': '#fff', 'circle-stroke-width': 2 } });
+  map.addLayer({ id: 'homes-tags-hover', type: 'symbol', source: 'homes', minzoom: 12, filter: none, layout: {
+    'text-field': ['get', 'label'], 'text-font': ['Noto Sans Bold'], 'text-size': 18.75, 'icon-image': 'tag', 'icon-text-fit': 'both',
+    'icon-text-fit-padding': [2, 4, 2, 4], 'icon-allow-overlap': true, 'text-allow-overlap': true },
+    paint: { 'text-color': '#fff' } });
   map.addLayer({ id: 'homes-hot', type: 'circle', source: 'homes', filter: ['==', ['get', 'slug'], ''], paint: {
     'circle-radius': 11, 'circle-color': '#151213', 'circle-stroke-color': '#fff', 'circle-stroke-width': 2.5 } });
   // Pointing at a dot or a price tag shows a preview: photo, price, address, brokerage (src/scripts/map-card.ts).
@@ -66,12 +75,16 @@ export async function createMap(el: HTMLElement, style: string, brThumb: string,
     map.on('mousemove', layer, (e: any) => {
       const f = e.features?.[0];
       if (!f) return;
-      if (f.properties.slug !== hovered || !hoverTag.isOpen()) { hovered = f.properties.slug; hoverTag.setDOMContent(hoverCard(f.properties, brThumb)); }
+      if (f.properties.slug !== hovered || !hoverTag.isOpen()) {
+        hovered = f.properties.slug; hoverTag.setDOMContent(hoverCard(f.properties, brThumb));
+        for (const l of ['homes-hover', 'homes-tags-hover']) map.setFilter(l, ['==', ['get', 'slug'], hovered]);
+      }
       hoverTag.setLngLat(f.geometry.coordinates).addTo(map);
     });
-    map.on('mouseleave', layer, () => { hoverTag.remove(); hovered = ''; });
+    map.on('mouseleave', layer, () => { hoverTag.remove(); hovered = ''; unhover(); });
   }
-  map.on('click', () => { hoverTag.remove(); hovered = ''; });
+  const unhover = () => { for (const l of ['homes-hover', 'homes-tags-hover']) map.setFilter(l, none); };
+  map.on('click', () => { hoverTag.remove(); hovered = ''; unhover(); });
   for (const layer of ['homes', 'homes-tags']) {
     map.on('mouseenter', layer, () => { map.getCanvas().style.cursor = 'pointer'; });
     map.on('mouseleave', layer, () => { map.getCanvas().style.cursor = ''; });
