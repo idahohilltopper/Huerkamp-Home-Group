@@ -42,10 +42,13 @@ export function pinCard(p: any, brThumb: string): HTMLElement {
 /**
  * The preview that appears when pointing at a home on the map (as on Zillow and Redfin): photo, price, address and
  * the listing brokerage with the Broker Reciprocity logo on other brokerages' homes, the same fields as a listing card
- * (Rule 12.3(f)). It can't be clicked; clicking the dot or tag opens the full card.
+ * (Rule 12.3(f)). Only on devices with a mouse (canHover): on iPhones a tap set off the hover too, and Safari then showed
+ * this preview instead of the full card. If it is ever clicked anyway, it opens the home like the full card.
  */
+export const canHover = () => typeof matchMedia === 'function' && matchMedia('(hover: hover) and (pointer: fine)').matches;
 export function hoverCard(p: any, brThumb: string): HTMLElement {
-  const box = document.createElement('div');
+  const box = document.createElement(p.sold ? 'div' : 'a');
+  if (!p.sold) (box as HTMLAnchorElement).href = `/homes/${encodeURIComponent(p.slug)}`;
   box.className = 'hs-peek';
   const ph = document.createElement('span');
   ph.className = 'hs-peek__photo';

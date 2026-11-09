@@ -5,7 +5,7 @@
 import L from 'leaflet';
 import leafletCss from 'leaflet/dist/leaflet.css?url';
 import type { Pin } from './home-search';
-import { pinCard, hoverCard } from './map-card';
+import { pinCard, hoverCard, canHover } from './map-card';
 
 const RED = '#d40000';
 const PLACE_BLUE = '#2f6fd6';
@@ -62,7 +62,7 @@ export function setPins(map: FlatMap, pins: Pin[], fit = true) {
   const brThumb = (map as any).__brThumb as string;
   for (const [lat, lng, price, slug, photo, addr, brokerage, own, sold] of pins) {
     const m = L.circleMarker([lat, lng], { radius: 6, color: '#fff', weight: 1.5, fillColor: RED, fillOpacity: 1 });
-    m.bindTooltip(() => hoverCard({ price, slug, photo: photo ?? '', addr, brokerage, own, sold: sold ?? '' }, brThumb), { direction: 'top', offset: [0, -8], className: 'hs-flat-peek', opacity: 1 });
+    if (canHover()) m.bindTooltip(() => hoverCard({ price, slug, photo: photo ?? '', addr, brokerage, own, sold: sold ?? '' }, brThumb), { direction: 'top', offset: [0, -8], className: 'hs-flat-peek', opacity: 1 });
     m.bindPopup(() => pinCard({ price, slug, photo: photo ?? '', addr, brokerage, own, sold: sold ?? '' }, brThumb), { maxWidth: 260, minWidth: 240, className: 'hs-flat-pop', closeButton: false });
     m.addTo(map.__pins!);
     map.__bySlug!.set(slug, m);

@@ -3,7 +3,7 @@
 // home's page; pointing at a card in the list lights up its marker.
 import * as maplibregl from 'maplibre-gl';
 import type { Pin } from './home-search';
-import { pinCard, hoverCard } from './map-card';
+import { pinCard, hoverCard, canHover } from './map-card';
 import mapCssUrl from 'maplibre-gl/dist/maplibre-gl.css?url';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 maplibregl.setWorkerUrl(workerUrl);
@@ -62,7 +62,7 @@ export async function createMap(el: HTMLElement, style: string, brThumb: string,
   // Built once per home, not on every mouse move.
   const hoverTag = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 14, className: 'hs-hover', maxWidth: '240px' });
   let hovered = '';
-  for (const layer of ['homes', 'homes-tags']) {
+  if (canHover()) for (const layer of ['homes', 'homes-tags']) {
     map.on('mousemove', layer, (e: any) => {
       const f = e.features?.[0];
       if (!f) return;

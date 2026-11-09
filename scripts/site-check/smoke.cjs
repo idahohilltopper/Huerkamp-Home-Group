@@ -245,6 +245,48 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     const peek = await p.$eval('.hs-peek', (e) => ({ text: e.textContent.replace(/\s+/g, ' ').trim(), photo: !!e.querySelector('.hs-peek__photo img') || /coming soon/i.test(e.textContent) }));
     ok('Map hover preview', peek.photo && /\$|Auction/.test(peek.text) && /courtesy of/i.test(peek.text), `${pt.kind} map: ${peek.text.slice(0, 90)}`);
   });
+  // On a phone, tapping a home's dot opens the full card (not the mouse-only preview), and tapping its photo opens the
+  // home. Reported Nov 9, 2026: on an iPhone the tap showed the preview, which couldn't be tapped.
+  await step('Phone map: tap a home, then its photo', async () => {
+    const mc = await b.newContext(PHONE);
+    await mc.addInitScript(() => { try { sessionStorage.setItem('idx-eula', '1'); } catch {} });
+    await mc.route('**/api/client-error', (r) => r.fulfill({ status: 202, body: '{}' }));
+    const m = await mc.newPage();
+    m.on('pageerror', (e) => errors.push(`${m.url()} :: ${e.message.slice(0, 120)}`));
+    try {
+      await m.goto(BASE + '/home-search?place=lakeville&view=map', { waitUntil: 'domcontentloaded' });
+      await m.waitForFunction(() => !!window.__hsMap, null, { timeout: 25000 });
+      await m.waitForSelector('[data-results] .lcard', { state: 'attached', timeout: 20000 }); // the list is hidden in map view on phones
+      await m.waitForTimeout(2500);
+      const tap = (x, y) => (PHONE.hasTouch ? m.touchscreen.tap(x, y) : m.mouse.click(x, y));
+      let card = false, kind = '';
+      for (let t = 0; t < 3 && !card; t++) {
+        const pt = await m.evaluate(() => {
+          const { kind, map } = window.__hsMap;
+          const box = map.getContainer().getBoundingClientRect();
+          if (kind === 'main') {
+            const f = map.queryRenderedFeatures({ layers: ['homes', 'homes-tags'].filter((l) => map.getLayer(l)) })[0];
+            if (!f) return null;
+            const q = map.project(f.geometry.coordinates);
+            return { x: box.left + q.x, y: box.top + q.y, kind };
+          }
+          const mk = [...map.__bySlug.values()].find((x) => map.getBounds().contains(x.getLatLng()));
+          if (!mk) return null;
+          const q = map.latLngToContainerPoint(mk.getLatLng());
+          return { x: box.left + q.x, y: box.top + q.y, kind };
+        });
+        if (!pt) { await m.waitForTimeout(1500); continue; }
+        kind = pt.kind;
+        await tap(pt.x, pt.y);
+        card = await m.waitForSelector('.hs-pop-card', { state: 'visible', timeout: 4000 }).then(() => true, () => false);
+      }
+      if (!card) throw new Error(`tapping a home's dot didn't open its card (${kind} map; preview shown instead: ${await m.locator('.hs-peek:visible').count() > 0})`);
+      const img = await m.locator('.hs-pop-card:visible .hs-pop-card__photo').first().boundingBox();
+      await tap(img.x + img.width / 2, img.y + img.height / 2);
+      await m.waitForURL(/\/homes\//, { timeout: 15000 });
+      ok('Phone map: tap a home, then its photo', true, `${kind} map: opened ${new URL(m.url()).pathname.slice(0, 70)}`);
+    } finally { await mc.close(); }
+  });
   // What visitors' browsers hit in the last 7 days (netlify/functions/client-error.mjs).
   await step('Visitor errors (7 days)', async () => {
     const r = await (await fetch('https://www.huerkamphomes.com/api/client-error')).json();
