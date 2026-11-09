@@ -9,6 +9,7 @@ const pages = [
   ['/is-real-estate-a-good-career', 0.8],
   ['/part-time-real-estate-agent', 0.7],
   ['/real-estate-commission-splits', 0.7],
+  ['/how-to-find-a-real-estate-mentor', 0.6],
   ['/why-hhg', 0.8],
   ['/income-guarantee', 0.8],
   ['/agent-plus', 0.7],
