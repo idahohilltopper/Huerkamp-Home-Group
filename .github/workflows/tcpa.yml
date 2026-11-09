@@ -1,0 +1,33 @@
+# Monthly TCPA check (scripts/site-check/tcpa.cjs): every form that asks for a phone number offers call/text consent
+# correctly (unchecked, optional, exact wording, SMS Terms and Privacy links), the lead logic only treats a checked box
+# as consent, and the SMS Terms and Privacy pages say what they must. 2nd of each month, and on demand.
+# A failed run emails the repository owner. Lead sends are intercepted; nothing reaches Follow Up Boss.
+name: TCPA check
+on:
+  schedule:
+    - cron: '29 15 2 * *'   # 2nd of the month, 9:29 AM Central
+  workflow_dispatch:
+jobs:
+  tcpa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, webkit]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: claude/real-estate-website-build-9itecr   # the live site's branch (scheduled runs start from main)
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Playwright and the ${{ matrix.browser }} browser
+        run: |
+          mkdir -p /tmp/pw && cd /tmp/pw && npm init -y >/dev/null && npm install --no-audit --no-fund playwright@1.63.0
+          npx playwright install --with-deps ${{ matrix.browser }}
+      - name: TCPA check (${{ matrix.browser }})
+        env:
+          BROWSER: ${{ matrix.browser }}
+          NODE_PATH: /tmp/pw/node_modules
+        run: node scripts/site-check/tcpa.cjs
