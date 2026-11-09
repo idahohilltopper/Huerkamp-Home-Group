@@ -1,6 +1,6 @@
 ---
-title: "Relocating to Eagan MN from the Twin Cities: A Practical Guide"
-description: "Relocating to Eagan MN from Minneapolis or St. Paul? Compare commutes, housing, parks, and costs, then use our step-by-step checklist to confidently plan your move."
+title: "How Far Is Eagan from Minneapolis and St. Paul? Relocating to Eagan, MN"
+description: "Eagan is about 26 minutes from downtown Minneapolis and 18 minutes from downtown St. Paul by car in light traffic. Compare commutes, housing, parks and costs before you move."
 path: "relocating-to-eagan-mn-from-the-twin-cities-core"
 date: 2026-03-05
 author: "Huerkamp Home Group"
@@ -10,6 +10,8 @@ tags: []
 cover: { src: "/blog/relocating-to-eagan-mn-from-the-twin-cities-core/cover.webp", width: 1200, height: 670, thumb: "/blog/relocating-to-eagan-mn-from-the-twin-cities-core/cover-640.webp" }
 importedFrom: luxurypresence
 ---
+**Quick answer:** Eagan is about 12 miles from downtown Minneapolis and 9.5 miles from downtown St. Paul in a straight line. By car in light traffic, that's about 26 minutes to downtown Minneapolis, 18 minutes to downtown St. Paul and 15 minutes to MSP Airport (OpenStreetMap routing, measured from the middle of Eagan). Rush hour adds time. See [Eagan to downtown Minneapolis](/commute/downtown-minneapolis/eagan) and [Eagan to downtown St. Paul](/commute/downtown-saint-paul/eagan) for every route.
+
 Thinking about trading city living for more space while staying close to work, shopping, and the airport? If you live in Minneapolis or St. Paul, Eagan might give you the quieter blocks and yard you want without feeling far from your routine. In this guide, you’ll see what changes when you relocate to Eagan, from commute options and housing types to costs, parks, and a practical moving checklist. Let’s dive in.
 
 ## Why Eagan appeals

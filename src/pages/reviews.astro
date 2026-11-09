@@ -15,7 +15,7 @@ const groups = [
 const https = (u: string) => u.replace(/^http:/, 'https:');
 ---
 <Base
-  title="Reviews | Huerkamp Home Group"
+  title={`Huerkamp Home Group Reviews: ${google.rating.toFixed(1)} Stars, ${google.count} Google Reviews`}
   description={`Read ${complete.length} verbatim Google and Zillow reviews of Huerkamp Home Group. ${google.rating.toFixed(1)} stars across ${google.count} Google reviews from Twin Cities buyers and sellers.`}
   breadcrumbs={[{ name: 'Reviews', href: '/reviews' }]}>
   <PageHero eyebrow="Reviews" title="In our clients' words."
