@@ -137,7 +137,7 @@ export default function Quiz() {
       <ul className="steps-list">
         {notLicensed && <li><Link href="/become-a-real-estate-agent-minnesota">Read how to get your Minnesota real estate license</Link> so you know exactly what is involved.</li>}
         {a.coaching?.points >= 3 && <li>See our <Link href="/real-estate-coaching-training-twin-cities">weekly coaching and accountability</Link>, which looks like what you told us you want.</li>}
-        {(fullTime && a.runway?.points <= 2) && <li>Look at our <Link href="/income-guarantee">$150,000 income guarantee*</Link>. It is built for full-time agents who meet the requirements.</li>}
+        {(fullTime && a.runway?.points <= 2) && <li>Look at our <Link href="/income-guarantee">$100,000 income guarantee*</Link>. It is built for full-time agents who meet the requirements.</li>}
         <li>Compare teams with our <Link href="/join-a-real-estate-team-twin-cities">ten questions to ask any team</Link>.</li>
         <li>Or <Link href="/why-hhg">see everything the team provides</Link>.</li>
       </ul>

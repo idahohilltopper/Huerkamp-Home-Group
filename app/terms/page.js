@@ -19,7 +19,7 @@ export default function Terms() {
         <p className="updated">Last updated October 19, 2026</p>
 
         <h2>1. About these terms</h2>
-        <p>These terms apply to the offers advertised on joinhhg.com by Huerkamp Home Group of Keller Williams Preferred Realty (&ldquo;HHG,&rdquo; &ldquo;we,&rdquo; &ldquo;us&rdquo;). They cover four offers: the $150,000 income guarantee, the 401(k), the agent recruiting bonus, and the Agent+ buy-side bonus. Where an asterisk (*) appears next to an offer on this site, these terms apply to it.</p>
+        <p>These terms apply to the offers advertised on joinhhg.com by Huerkamp Home Group of Keller Williams Preferred Realty (&ldquo;HHG,&rdquo; &ldquo;we,&rdquo; &ldquo;us&rdquo;). They cover four offers: the $100,000 income guarantee, the 401(k), the agent recruiting bonus, and the Agent+ buy-side bonus. Where an asterisk (*) appears next to an offer on this site, these terms apply to it.</p>
         <p>Nothing on this site is an offer of employment, a contract, or a guarantee of income. Offers are described in general terms for informational purposes. If these terms conflict with a written agreement you sign with HHG, Keller Williams Preferred Realty, or Mutual of Omaha Mortgage, the written agreement controls.</p>
 
         <h2>2. General conditions for all offers</h2>
@@ -64,10 +64,10 @@ export default function Terms() {
           <li>HHG does not make loans, does not guarantee loan approval, and does not control the terms of the Agent+ program.</li>
         </ul>
 
-        <h2 id="income-guarantee">6. $150,000 income guarantee*</h2>
+        <h2 id="income-guarantee">6. $100,000 income guarantee*</h2>
         <p>The full program is described on the <a href="/income-guarantee">income guarantee page</a>. In summary:</p>
         <ul>
-          <li>HHG guarantees $150,000 of income to a full-time agent who meets <strong>all</strong> of the following for a full 12 consecutive months:
+          <li>HHG guarantees $100,000 of income to a full-time agent who meets <strong>all</strong> of the following for a full 12 consecutive months:
             <ul>
               <li>At least 100 contacts in a week, tracked through HHG&rsquo;s CRM system, Follow Up Boss, in at least 48 of the 52 weeks of the 12-month period.</li>
               <li>Attendance at 48 weekly accountability meetings (WAM) during the 12 months.</li>
@@ -75,7 +75,7 @@ export default function Terms() {
               <li>Attendance at 46 team meetings during the 12 months, in person.</li>
             </ul>
           </li>
-          <li>If the agent meets every requirement and the agent&rsquo;s own commission income for the period, meaning the agent&rsquo;s share after the team split on closed transactions, is less than $150,000, HHG pays the difference as a lump sum or as otherwise agreed in writing. If the income is $150,000 or more, no payment is due.</li>
+          <li>If the agent meets every requirement and the agent&rsquo;s own commission income for the period, meaning the agent&rsquo;s share after the team split on closed transactions, is less than $100,000, HHG pays the difference as a lump sum or as otherwise agreed in writing. If the income is $100,000 or more, no payment is due.</li>
           <li>The 12-month period begins on the date the agent signs the program acknowledgment, which an agent may sign only during their first year on the team.</li>
           <li>&ldquo;Full-time&rdquo; means real estate is the agent&rsquo;s primary occupation and main source of working income, the agent holds no other full-time employment, and the agent is available to meet the weekly activity standards and attend required meetings. &ldquo;Good standing&rdquo; means the agent holds an active license with no restricting suspension or disciplinary action, follows team policies, brokerage rules, and applicable ethical and legal standards, is not under a written warning or corrective plan, and is current on any fees or amounts owed to the team or brokerage.</li>
           <li>The agent must be licensed with HHG through Keller Williams Preferred Realty, be in good standing, and sign the program acknowledgment in writing. Referral-only, part-time, inside sales, and admin or support roles are not eligible unless agreed otherwise in writing.</li>

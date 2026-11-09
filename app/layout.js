@@ -21,7 +21,7 @@ export const metadata = {
     template: '%s | Huerkamp Home Group',
   },
   description:
-    'Join Huerkamp Home Group, the #1 Keller Williams team in the North Central region. Leads, weekly coaching, and a $150,000 income guarantee for agents.',
+    'Join Huerkamp Home Group, the #1 Keller Williams team in the North Central region. Leads, weekly coaching, and a $100,000 income guarantee for agents.',
   alternates: { canonical: './' },
 };
 
