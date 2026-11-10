@@ -1,0 +1,101 @@
+---
+// Current mortgage rates in Minnesota: /mortgage-rates-minnesota. Built for "current mortgage rates mn" (1,900 searches
+// a month, KD 14; Open SEO, Nov 2026), which brings buyers. Freddie Mac's weekly survey (src/data/rates.json, refreshed
+// by scripts/update-rates.py) is a national average; Freddie Mac publishes no state figure, and the page says so.
+// Payments use the Twin Cities median sale price (Minneapolis Area REALTORS®). No rate offers: a lender quotes rates.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import LineChart from '../components/LineChart.astro';
+import rates from '../data/rates.json';
+import { marketFor, REGION, latest, monthLabel } from '../data/market';
+import { origin } from '../data/schema';
+import { site } from '../data/site';
+
+type W = { date: string; rate30: number; rate15: number | null };
+const now = rates.latest as W;
+const monthly = rates.monthly as W[];
+const day = (d: string) => new Date(`${d}T12:00:00`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+// The same month a year earlier (last survey of that month).
+const ym = now.date.slice(0, 7), lastYear = `${Number(ym.slice(0, 4)) - 1}${ym.slice(4)}`;
+const yearAgo = monthly.find((w) => w.date.startsWith(lastYear));
+const prevMonth = [...monthly].reverse().find((w) => w.date.slice(0, 7) < ym);
+const diff = (a: number, b?: number | null) => (b == null ? null : Math.round((a - b) * 100) / 100);
+const signedPts = (d: number | null) => (d == null ? '' : d === 0 ? 'unchanged' : `${d > 0 ? 'up' : 'down'} ${Math.abs(d).toFixed(2)} points`);
+const median = marketFor(REGION)?.medianPrice?.r12[1] ?? null;
+const pay = (price: number, downPct: number, rate: number, years: number) => {
+  const loan = price * (1 - downPct / 100), r = rate / 100 / 12, n = years * 12;
+  return Math.round((loan * r) / (1 - (1 + r) ** -n));
+};
+const fmt = (n: number) => `$${Math.round(n).toLocaleString('en-US')}`;
+const downs = [3, 5, 10, 20];
+const five = monthly.filter((w) => w.date >= `${Number(ym.slice(0, 4)) - 5}${ym.slice(4)}`);
+const answer = `The average 30-year fixed mortgage rate was ${now.rate30}% and the 15-year ${now.rate15}% in Freddie Mac's survey for the week of ${day(now.date)}.${yearAgo ? ` A year earlier the 30-year averaged ${yearAgo.rate30}%.` : ''} These are national averages; Minnesota rates generally follow them, and your own rate depends on your credit, down payment, points and loan type.`;
+const faq = [
+  { q: 'What are mortgage rates in Minnesota right now?', a: answer },
+  ...(median ? [{ q: `What's the monthly payment on a typical Twin Cities home?`, a: `On ${fmt(median)}, the Twin Cities median sale price over the 12 months through ${monthLabel(latest)}, with 20% down at ${now.rate30}% for 30 years, principal and interest come to about ${fmt(pay(median, 20, now.rate30, 30))} a month; with 5% down, about ${fmt(pay(median, 5, now.rate30, 30))}. Property taxes, insurance and any mortgage insurance or HOA dues come on top.` }] : []),
+  { q: 'Does Freddie Mac publish Minnesota mortgage rates?', a: 'No. Freddie Mac\'s Primary Mortgage Market Survey is a weekly national average for conventional, conforming 30-year and 15-year fixed loans. Minnesota lenders\' rates tend to track it, but quotes vary by lender and by borrower.' },
+  { q: 'How do I get a mortgage rate quote?', a: `Ask a lender for a Loan Estimate, which shows the rate, points and closing costs side by side. Our mortgage partner, Ken Rife of Mutual of Omaha Mortgage, can pre-approve you; or call us at ${site.phone}.` },
+];
+const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', url: `${origin}/mortgage-rates-minnesota`, mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
+---
+<Base breadcrumbs={[{ name: 'Mortgage rates', href: '/mortgage-rates-minnesota' }]}
+  title={`Current Mortgage Rates in Minnesota: ${now.rate30}% 30-Year (${day(now.date).replace(/, \d{4}$/, '')}) | ${site.name}`} description={answer}>
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <PageHero eyebrow={`Mortgage rates · week of ${day(now.date)}`} title="Current mortgage rates in Minnesota" lede={answer} />
+  <section class="section">
+    <div class="wrap narrowish">
+      <ul class="mr-kpis">
+        <li><span>30-year fixed</span><strong>{now.rate30}%</strong><em>{prevMonth ? `${signedPts(diff(now.rate30, prevMonth.rate30))} from ${monthLabel(prevMonth.date.slice(0, 7))}` : ''}</em></li>
+        <li><span>15-year fixed</span><strong>{now.rate15}%</strong><em>{prevMonth?.rate15 != null && now.rate15 != null ? `${signedPts(diff(now.rate15, prevMonth.rate15))} from ${monthLabel(prevMonth.date.slice(0, 7))}` : ''}</em></li>
+        {yearAgo && <li><span>30-year, a year ago</span><strong>{yearAgo.rate30}%</strong><em>{monthLabel(yearAgo.date.slice(0, 7))}</em></li>}
+      </ul>
+      <p class="source">Freddie Mac Primary Mortgage Market Survey®, weekly national averages for conventional, conforming fixed-rate loans (<a href="https://www.freddiemac.com/pmms" rel="noopener">freddiemac.com/pmms</a>). Updated every Thursday.</p>
+
+      {median && <>
+        <h2>What a typical Twin Cities home costs a month</h2>
+        <p>Principal and interest on {fmt(median)}, the Twin Cities median sale price over the 12 months through {monthLabel(latest)} (Minneapolis Area REALTORS®), at this week's average rates:</p>
+        <div class="table-scroll">
+          <table class="data">
+            <thead><tr><th scope="col">Down payment</th><th scope="col" class="num">Loan</th><th scope="col" class="num">30-year at {now.rate30}%</th>{now.rate15 != null && <th scope="col" class="num">15-year at {now.rate15}%</th>}</tr></thead>
+            <tbody>{downs.map((d) => <tr><th scope="row">{d}% ({fmt(median * d / 100)})</th><td class="num">{fmt(median * (1 - d / 100))}</td><td class="num">{fmt(pay(median, d, now.rate30, 30))}/mo</td>{now.rate15 != null && <td class="num">{fmt(pay(median, d, now.rate15, 15))}/mo</td>}</tr>)}</tbody>
+          </table>
+        </div>
+        <p class="source">Principal and interest only. Property taxes, homeowners insurance, mortgage insurance (usually required with less than 20% down) and any HOA dues come on top. Estimates, not a loan offer.</p>
+      </>}
+
+      <h2>30-year rate, the last five years</h2>
+      <LineChart points={five.map((w) => ({ label: monthLabel(w.date.slice(0, 7), true), value: w.rate30, display: `${w.rate30}%` }))} title="Average 30-year fixed mortgage rate by month" valueName="30-year rate" caption="Freddie Mac PMMS, last survey of each month." />
+
+      <div class="mr-cta">
+        <div>
+          <h2>Get your own rate</h2>
+          <p>Your rate depends on your credit, down payment, points and loan type. Get pre-approved to see yours, then shop homes with a firm budget.</p>
+        </div>
+        <p class="mr-btns"><a class="btn" href="/buy#lender">Get pre-approved</a><a class="btn btn--ghost" href="/calculators/affordability">How much can I afford?</a><a class="btn btn--ghost" href="/home-search">Search homes</a></p>
+      </div>
+
+      <h2>Questions about Minnesota mortgage rates</h2>
+      <dl class="mr-faq">{faq.map((f) => <div><dt>{f.q}</dt><dd>{f.a}</dd></div>)}</dl>
+      <p class="source">First-time buyer? See <a href="/first-time-home-buyer-minnesota">Minnesota first-time home buyer programs</a>, including Minnesota Housing's loans and down payment help.</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .narrowish { max-width: 60rem; }
+  h2 { margin: 2.5rem 0 1rem; font: 500 1.6rem/1.2 var(--serif); }
+  .mr-kpis { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: 1px; margin: 0; padding: 0; background: var(--line); border: 1px solid var(--line); }
+  .mr-kpis li { display: grid; gap: .2rem; padding: 1rem 1.2rem; background: #fff; }
+  .mr-kpis span { font: 700 .75rem/1.2 var(--ui); letter-spacing: .08em; text-transform: uppercase; color: var(--text-soft); }
+  .mr-kpis strong { font: 500 2.2rem/1.1 var(--serif); color: var(--crimson); }
+  .mr-kpis em { font-style: normal; font-size: .88rem; color: var(--text-soft); }
+  .source { margin-top: .8rem; font-size: .9rem; color: var(--text-soft); }
+  .mr-cta { margin-top: 2.5rem; padding: 1.25rem 1.5rem; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+  .mr-cta h2 { margin-top: 0; }
+  .mr-btns { display: flex; flex-wrap: wrap; gap: .6rem; }
+  .mr-btns .btn { padding: .8rem 1.2rem; border-radius: 6px; }
+  .mr-btns .btn--ghost { color: var(--crimson); box-shadow: inset 0 0 0 1.5px var(--crimson); }
+  .mr-faq { margin: 0; display: grid; gap: 1.1rem; }
+  .mr-faq dt { font-weight: 700; }
+  .mr-faq dd { margin: .3rem 0 0; line-height: 1.6; }
+</style>

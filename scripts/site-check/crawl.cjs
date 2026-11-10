@@ -14,7 +14,7 @@ const add = (kind, what, info = '') => out.push(`${kind}  ${what}${info ? '  —
 const MAIN = ['/', '/home-search', '/home-search?view=map', '/buy', '/sell', '/team', '/reviews', '/contact', '/ramsey', '/lake-homes',
   '/new-construction', '/land-for-sale', '/hobby-farms-for-sale-mn', '/open-houses', '/market', '/data', '/calculators', '/calculators/affordability',
   '/calculators/seller-net-proceeds', '/calculators/mortgage-payoff', '/first-time-home-buyer-minnesota', '/cost-of-living-minnesota',
-  '/home-estimate', '/cash-offer', '/downsizing', '/videos', '/blog', '/guides', '/compare', '/communities', '/walkability', '/diners-drive-ins-and-dives-minnesota', '/luxury-homes-for-sale-mn', '/zip-codes', '/zip-codes/woodbury-mn', '/property-taxes', '/property-taxes/hennepin-county-mn'];
+  '/home-estimate', '/cash-offer', '/downsizing', '/videos', '/blog', '/guides', '/compare', '/communities', '/walkability', '/diners-drive-ins-and-dives-minnesota', '/luxury-homes-for-sale-mn', '/zip-codes', '/zip-codes/woodbury-mn', '/property-taxes', '/property-taxes/hennepin-county-mn', '/mortgage-rates-minnesota'];
 // One or two of each kind of page from the sitemap: city guides, homes-for-sale pages, lakes, neighborhoods, guides, posts.
 const KINDS = [/\/communities\/[^/]+$/, /\/homes-for-sale\/[^/]+$/, /\/homes-for-sale\/[^/]+\/[^/]+$/, /\/lake-homes\/[^/]+$/, /\/neighborhoods\//,
   /\/selling\//, /\/buying\//, /\/market\/[^/]+$/, /\/blog\/\d{4}\//, /\/videos\/[^/]+$/, /\/homes\/[^/]+$/, /\/new-construction\/[^/]+$/, /\/team\/[^/]+$/];
