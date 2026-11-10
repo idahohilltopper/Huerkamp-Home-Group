@@ -59,6 +59,7 @@ Facts (with sources on ${url('/')}):
 - [New construction by development](${url('/new-construction')}): ${devs.length ? `${devs.length} ` : ''}new-home developments with homes for sale now, one page per development (e.g. ${url('/new-construction')}/<city>/<development>), from NorthstarMLS
 - [Land and lots for sale](${url('/land-for-sale')}): land and lot listings by city and acreage, and what to check before buying land in Minnesota
 - [First-time home buyer programs in Minnesota](${url('/first-time-home-buyer-minnesota')}): Minnesota Housing's Start Up loan, income and price limits, and down payment and closing cost loans, from mnhousing.gov
+- [Down payment assistance in Minnesota](${url('/down-payment-assistance-minnesota')}): state, Saint Paul, Minneapolis, Hennepin County, Carver County, Dakota County and first-generation programs side by side, each linked to its own page
 - [Sell now or wait for spring?](${url('/when-to-sell')}): Twin Cities prices and sales by month, from the Minneapolis Area REALTORS® reports
 - [Market reports](${url('/market')}): monthly home prices, sales and inventory for the Twin Cities and each city
 - [Compare places](${url('/compare')}): ${pairs.length.toLocaleString('en-US')} side-by-side comparisons of nearby cities and neighboring Minneapolis/Saint Paul neighborhoods (e.g. ${url(compareHref(pairs.find((p) => p.path === 'apple-valley-vs-lakeville') ?? pairs[0]))}), and one page per city against every city within 15 miles (e.g. ${url('/compare/lakeville')})

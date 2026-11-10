@@ -1,0 +1,116 @@
+---
+// Down payment assistance in Minnesota and the Twin Cities: /down-payment-assistance-minnesota. Built for "minnesota down
+// payment assistance" (880 searches a month, KD 9), "down payment assistance minneapolis" (880, KD 16), "minnesota
+// housing start up program" (590) and the county searches (Open SEO, Nov 2026). Every program fact is from the program's
+// own page, opened Nov 10, 2026 (SOURCES). Amounts and funding change, and some funds run out mid-year: re-check them.
+// The state's Start Up details live on /first-time-home-buyer-minnesota; this page lists them in one row and links there.
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+
+const CHECKED = 'November 10, 2026';
+const P = [
+  { name: 'Minnesota Housing: Deferred Payment Loan, Deferred Payment Loan Plus, Monthly Payment Loan', who: 'State of Minnesota', where: 'Statewide', help: 'Up to $14,000 (Deferred Payment Loan), up to $18,000 (Plus) or up to $14,000 (Monthly Payment Loan)', terms: 'With a Start Up first mortgage; one of the three, not several. Deferred loans: no interest, no monthly payments, repaid when you sell, refinance or the mortgage ends.', status: 'Through participating lenders', url: 'https://www.mnhousing.gov/home/homeownership/buy-home-refinance', more: '/first-time-home-buyer-minnesota' },
+  { name: 'Saint Paul Downpayment Assistance Program', who: 'City of Saint Paul', where: 'Homes in Saint Paul', help: 'Up to $40,000; up to $10,000 more for first-generation buyers; up to $110,000 in all with the Inheritance Fund', terms: 'Household income at or below 80% of area median income (up to 100% for Inheritance Fund layers). A loan, for down payment, closing costs or inspection.', status: 'Check with the city', url: 'https://www.stpaul.gov/departments/planning-and-economic-development/housing' },
+  { name: 'Hennepin County Homebuyer Assistance Program', who: 'Hennepin County', where: 'Homes in Hennepin County', help: 'Up to $35,000 at or below 60% of area median income; up to $20,000 at 61% to 80%', terms: 'First-time buyers; forgivable, 0% interest, deferred loan over 10 or 15 years; at least $1,000 of your own money; homebuyer training required.', status: '2026 program guide; ask a lender if funds are open', url: 'https://www.hennepincounty.gov/-/media/hennepinus/business/work-with-hennepin-county/Coordinated-RFP/homebuyer-assistance-program-guide-2026.pdf' },
+  { name: 'Carver County CDA Down Payment Assistance', who: 'Carver County CDA', where: 'Homes in Carver County', help: 'Up to 25% of the price, up to $50,000 (standard); up to $50,000 (first-generation set-aside)', terms: 'Income up to $131,500 (FY 2026, any household size); 0% interest, forgiven over 20 years (standard) or 10 years (first-generation); Home Stretch class; CDA partner lender.', status: 'Standard funds exhausted; first-generation pre-applications open', url: 'https://www.carvercda.org/services/housing/homeownership-and-land-trust/mortgage-products-and-rehab-loan-programs/down-payment-closing-cost-assistance-program' },
+  { name: 'Minneapolis down payment assistance', who: 'City of Minneapolis', where: 'Homes in Minneapolis', help: '$10,000 at or below 80% of area median income; $20,000 below 60%', terms: 'First-time buyers; homebuyer class before using the funds; can\'t be combined with another city program.', status: 'Rules page updated April 22, 2025 (2024 income limits)', url: 'https://www.minneapolismn.gov/resident-services/property-housing/housing/owning/down-payment-assistance/rules/' },
+  { name: 'First-Generation Homebuyers Community Down Payment Assistance Fund', who: 'Minnesota Homeownership Center (state funds through Minnesota Housing)', where: 'Statewide', help: 'Up to 10% of the price, up to $32,000', terms: 'You and your parents or guardians never owned a home; combined income $118,900 or less; 0% interest, forgiven over 5 years; homebuyer workshop before your offer.', status: 'Accepting applications, first come, first served', url: 'https://firstgendpa.org/' },
+  { name: 'Dakota County CDA First Time Homebuyer Program', who: 'Dakota County CDA', where: 'Homes in Dakota County', help: 'Down payment assistance, with a first mortgage and Mortgage Credit Certificate, through trained lenders', terms: 'Amounts aren\'t published on the CDA site; ask a participating lender.', status: 'Through participating lenders', url: 'https://www.dakotacda.org/housing-resources/homeownership/first-time-homebuyer-program/participating-lender-network/' },
+];
+const answer = `Minnesota buyers can stack a first mortgage with down payment help from the state and, in some places, a city or county. Minnesota Housing lends up to $18,000 statewide; Saint Paul offers up to $40,000, Hennepin County up to $35,000, Carver County up to $50,000 for first-generation buyers and Minneapolis up to $20,000, mostly for buyers at or below 80% of area median income. Most is a 0% loan that's deferred or forgiven, not a grant.`;
+const faq = [
+  { q: 'What down payment assistance is available in Minnesota?', a: answer },
+  { q: 'Is there down payment assistance in Minneapolis?', a: 'Yes. The City of Minneapolis offers $10,000 to buyers at or below 80% of area median income and $20,000 below 60%, with a homebuyer class first. Homes in Minneapolis also qualify for Hennepin County\'s program (up to $35,000 at or below 60% of area median income) and Minnesota Housing\'s loans (up to $18,000).' },
+  { q: 'What is the Minnesota Housing Start Up program?', a: 'Start Up is Minnesota Housing\'s first mortgage for first-time buyers (no ownership in the last three years), with income and purchase price limits. With it you can add a Deferred Payment Loan of up to $14,000, a Deferred Payment Loan Plus of up to $18,000, or a Monthly Payment Loan of up to $14,000. Details and the current limits are on our first-time home buyer page.' },
+  { q: 'Is down payment assistance free money?', a: 'Mostly not: it\'s usually a 0% loan. Some are forgiven over time if you keep living in the home (Hennepin County, Carver County, the first-generation fund); others are repaid when you sell or refinance (Minnesota Housing\'s deferred loans).' },
+  { q: 'Can I combine programs?', a: 'Sometimes. Each program sets its own rules on what it can be paired with (Minneapolis, for example, doesn\'t allow two city programs on one purchase). A lender who works with these programs can tell you which combination fits.' },
+  { q: 'How do I apply?', a: 'Through a lender that works with the program, after a homebuyer education class (most programs require one). Get pre-approved first so you know your budget and which programs you qualify for.' },
+];
+const ld = JSON.stringify([
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+  { '@context': 'https://schema.org', '@type': 'Article', headline: 'Down payment assistance in Minnesota and the Twin Cities', dateModified: '2026-11-10', author: { '@type': 'Organization', name: site.name }, citation: P.map((p) => p.url) },
+]);
+---
+<Base breadcrumbs={[{ name: 'Buy', href: '/buy' }, { name: 'Down payment assistance', href: '/down-payment-assistance-minnesota' }]}
+  title={`Down Payment Assistance in Minnesota & Minneapolis (2026) | ${site.name}`} description={answer}>
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <section class="nhead">
+    <div class="wrap">
+      <p class="eyebrow">Buying your first home</p>
+      <h1>Down payment assistance in Minnesota and the Twin Cities</h1>
+      <p class="answer">{answer}</p>
+      <p class="lede">Every program below links to its own page; checked {CHECKED}. Some funds run out during the year, so confirm with a lender.</p>
+      <p class="hero-btns"><a class="btn" href="#ask">Find out what you qualify for</a> <a class="btn btn--ghost" href="/first-time-home-buyer-minnesota">First-time buyer guide</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="head"><h2>Programs, side by side</h2></div>
+      <div class="table-scroll">
+        <table class="data dpa">
+          <thead><tr><th scope="col">Program</th><th scope="col">Where</th><th scope="col">How much</th><th scope="col">Terms</th><th scope="col">Status</th></tr></thead>
+          <tbody>{P.map((p) => <tr><th scope="row"><a href={p.url} rel="noopener">{p.name}</a><span class="who">{p.who}</span>{p.more && <a class="more" href={p.more}>Limits and details</a>}</th><td>{p.where}</td><td>{p.help}</td><td>{p.terms}</td><td>{p.status}</td></tr>)}</tbody>
+        </table>
+      </div>
+      <p class="source">Area median income (AMI) limits come from HUD and change each spring; programs publish their own tables. Amounts, limits and funding change; this is general information, not a loan offer. Lenders make the loans and set rates, fees and approval.</p>
+    </div>
+  </section>
+
+  <section class="section section--dark" id="ask" aria-labelledby="ask-title">
+    <div class="wrap split">
+      <div class="prose">
+        <p class="eyebrow">Down payment help</p>
+        <h2 id="ask-title">Find out which programs <em>you qualify for.</em></h2>
+        <p>Tell us where you want to buy and roughly what you'd like to spend. We'll connect you with a lender who works with these programs and show you homes that fit the limits.</p>
+        <p>Call or text <a href={site.phoneHref}>{site.phone}</a>.</p>
+      </div>
+      <form class="form" data-lead="first-time-buyer">
+        <input type="hidden" name="topic" value="Down payment assistance" />
+        <div class="form__row">
+          <div class="field"><label for="dp-first">First name</label><input id="dp-first" name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for="dp-last">Last name</label><input id="dp-last" name="lastName" autocomplete="family-name" required /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="dp-email">Email</label><input id="dp-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="dp-phone">Phone</label><input id="dp-phone" name="phone" type="tel" autocomplete="tel" required pattern="[^0-9]*([0-9][^0-9]*){10,}" title="Please enter your phone number, including area code." /></div>
+        </div>
+        <div class="field"><label for="dp-msg">Where and roughly what price? (optional)</label><textarea id="dp-msg" name="message" rows="3"></textarea></div>
+        <button class="btn" type="submit">Send</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="faq-title">
+    <div class="wrap faq">
+      <div class="head"><p class="eyebrow">Quick answers</p><h2 id="faq-title">Down payment assistance questions</h2></div>
+      {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+      <p class="links"><a class="link-arrow" href="/first-time-home-buyer-minnesota">First-time buyer programs</a><a class="link-arrow" href="/mortgage-rates-minnesota">Mortgage rates</a><a class="link-arrow" href="/calculators/affordability">How much can I afford?</a><a class="link-arrow" href="/property-taxes/minnesota-homestead">Homestead after you buy</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nhead { padding: clamp(2.5rem, 6vw, 4.5rem) 0 clamp(2rem, 4vw, 3rem); background: var(--night); color: var(--on-dark); }
+  .nhead h1 { font: 500 clamp(2.2rem, 5vw, 3.6rem)/1.05 var(--serif-display); color: #fff; }
+  .nhead .eyebrow { color: var(--rose); }
+  .answer { max-width: 52rem; margin: .9rem 0 .4rem; color: #fff; font: 500 clamp(1.05rem, 2.2vw, 1.25rem)/1.5 var(--ui); }
+  .lede { color: var(--on-dark); max-width: 52rem; }
+  .hero-btns { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.25rem; }
+  .head { margin-bottom: 1.25rem; }
+  .dpa th[scope='row'] { min-width: 14rem; }
+  .dpa td { min-width: 10rem; vertical-align: top; font-size: .95rem; }
+  .dpa th[scope='row'] a { font-weight: 700; }
+  .who { display: block; margin-top: .25rem; color: var(--text-soft); font-size: .85rem; font-weight: 400; }
+  .more { display: inline-block; margin-top: .35rem; font-size: .85rem; font-weight: 400; }
+  .source { margin-top: .8rem; font-size: .9rem; color: var(--text-soft); }
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+  .split .prose a { color: #fff; font-weight: 700; }
+  .split :global(em) { font-style: italic; }
+  .faq { display: grid; gap: .75rem; max-width: 52rem; }
+  .faq details { padding: 1rem 1.2rem; background: var(--paper); border: 1px solid var(--line); }
+  .faq summary { cursor: pointer; font: 600 1.15rem/1.3 var(--serif); }
+  .links { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: 1rem; }
+</style>
