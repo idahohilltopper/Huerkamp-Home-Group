@@ -1,0 +1,94 @@
+---
+// How to homestead a home in Minnesota: /property-taxes/minnesota-homestead. Built for the homestead searches (Hennepin
+// County homestead, Minnesota homestead application, Minnesota homestead credit: 210 a month each; Dakota and Ramsey
+// 110; Open SEO, Nov 2026). Facts: Minnesota Department of Revenue "Homestead Classification" (updated July 26, 2021)
+// and "Homestead Market Value Exclusion" (updated Nov 24, 2025); deadlines and how to apply from each county's own
+// homestead page (src/data/counties.ts, checked Nov 10, 2026).
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import HomeValueBox from '../../components/HomeValueBox.astro';
+import { COUNTIES, countyHref } from '../../data/counties';
+import { marketFor, REGION, latest, monthLabel } from '../../data/market';
+import { origin } from '../../data/schema';
+import { site } from '../../data/site';
+
+const REV = 'https://www.revenue.state.mn.us/homestead-classification';
+const REV_X = 'https://www.revenue.state.mn.us/homestead';
+const fmt = (n: number) => `$${Math.round(n).toLocaleString('en-US')}`;
+// Homestead Market Value Exclusion: 40% of value up to $95,000 (max $38,000), less 9% of the value over $95,000; none at $517,200+.
+const exclusion = (v: number) => (v >= 517200 ? 0 : Math.max(0, v <= 95000 ? v * 0.4 : 38000 - 0.09 * (v - 95000)));
+const median = marketFor(REGION)?.medianPrice?.r12[1] ?? null;
+const examples = [...new Set([200000, 280000, ...(median ? [Math.round(median / 1000) * 1000] : []), 450000, 517200])].sort((a, b) => a - b);
+const answer = `To homestead a home in Minnesota, you must own it, live in it as your main home and be a Minnesota resident, then apply to your county assessor by December 31 to get the homestead rate on the next year's property taxes. You apply once; after that it carries over until you move or sell. Homestead lowers the taxable value of homes under $517,200 and is required for the state's Homestead Credit Refund.`;
+const faq = [
+  { q: 'What is the deadline to apply for homestead in Minnesota?', a: 'December 31. You must own the home, live in it and apply by December 31 to qualify for the next year\'s taxes (for example, by December 31, 2026 for taxes payable in 2027). Apply as soon as you move in after buying.' },
+  { q: 'Who qualifies for homestead in Minnesota?', a: 'You must own the property, live in it as your sole or primary residence and be a Minnesota resident. A married couple can have only one homestead in Minnesota. Some relatives of the owner can also qualify (a "relative homestead"), but relative homesteads don\'t qualify for the property tax refund.' },
+  { q: 'How do I apply for homestead?', a: 'Through the county assessor where the home is. Most Twin Cities counties take applications online; all take a paper application. You\'ll need the Social Security Number or Individual Taxpayer Identification Number of every owner who lives in the home and of each owner\'s spouse, even a spouse who doesn\'t live there.' },
+  { q: 'Do I have to reapply for homestead every year?', a: 'No. Once granted, homestead stays in place, though the assessor may ask you to confirm you still qualify. You must tell the assessor within 30 days if you move, sell, your marital status changes or your spouse\'s occupancy changes; missing that can bring a penalty.' },
+  { q: 'How much does homestead save?', a: `It depends on the home's value. The Homestead Market Value Exclusion takes 40% of the value off the taxable value of a home worth $95,000 or less (up to $38,000), then shrinks by 9% of every dollar above $95,000 and ends at $517,200. For a $280,000 home, $21,350 of the value isn't taxed${median ? `; on ${fmt(median)}, the Twin Cities median sale price, ${fmt(exclusion(median))}` : ''}. The tax saved is that amount times your local tax rates. Homestead is also required for the Homestead Credit Refund.` },
+  { q: 'What is the Minnesota homestead credit?', a: 'People often mean one of two things. The Homestead Market Value Exclusion lowers the taxable value of a homesteaded home automatically, with no separate application. The Homestead Credit Refund (Form M1PR) is a refund you file for each year, by August 15, based on your income or a big jump in your property tax; your home must be homesteaded to get it.' },
+];
+const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', url: `${origin}/property-taxes/minnesota-homestead`, mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
+---
+<Base breadcrumbs={[{ name: 'Property taxes', href: '/property-taxes' }, { name: 'Homestead', href: '/property-taxes/minnesota-homestead' }]}
+  title={`How to Homestead in Minnesota: Deadline & County Applications | ${site.name}`} description={answer}>
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <PageHero eyebrow="Property taxes" title="How to homestead your home in Minnesota" lede={answer} />
+  <section class="section">
+    <div class="wrap narrowish">
+      <div class="hs-box">
+        <h2>The short version</h2>
+        <ol>
+          <li><strong>Own it and live in it</strong> as your main home, as a Minnesota resident.</li>
+          <li><strong>Apply to your county assessor by December 31.</strong> That gets the homestead rate on next year's taxes.</li>
+          <li><strong>Have Social Security or ITIN numbers ready</strong> for every owner who lives there and each owner's spouse.</li>
+          <li><strong>Apply once.</strong> Tell the assessor within 30 days if you move or sell.</li>
+        </ol>
+      </div>
+
+      <h2>Apply in your county</h2>
+      <div class="table-scroll">
+        <table class="data">
+          <thead><tr><th scope="col">County</th><th scope="col">How to apply</th><th scope="col"><span class="visually-hidden">Link</span></th></tr></thead>
+          <tbody>{COUNTIES.map((k) => <tr><th scope="row"><a href={countyHref(k)}>{k.name}</a></th><td>{k.homesteadNote}</td><td><a href={k.homestead} rel="noopener" target="_blank">Homestead page ↗</a></td></tr>)}</tbody>
+        </table>
+      </div>
+      <p class="source">Each county's own homestead page, checked November 10, 2026. Every county above lists December 31 as the deadline. These are the counties' sites; we don't take applications.</p>
+
+      <h2>What homestead saves</h2>
+      <p>A homesteaded home gets the <strong>Homestead Market Value Exclusion</strong>: part of its value isn't taxed. It's 40% of the value for a home worth $95,000 or less (at most $38,000). Above $95,000 it shrinks by 9% of the value over $95,000, and it ends at $517,200. You don't apply for it separately.</p>
+      <div class="table-scroll">
+        <table class="data">
+          <thead><tr><th scope="col">Assessed value</th><th scope="col" class="num">Value not taxed</th><th scope="col" class="num">Taxable value</th></tr></thead>
+          <tbody>{examples.map((v) => <tr><th scope="row">{fmt(v)}{median && v === Math.round(median / 1000) * 1000 ? ' (Twin Cities median)' : ''}</th><td class="num">{fmt(exclusion(v))}</td><td class="num">{fmt(v - exclusion(v))}</td></tr>)}</tbody>
+        </table>
+      </div>
+      <p class="source">Formula and the $280,000 example: Minnesota Department of Revenue, <a href={REV_X} rel="noopener">Homestead Market Value Exclusion</a> (updated November 24, 2025).{median ? ` Twin Cities median sale price over the 12 months through ${monthLabel(latest)}: Minneapolis Area REALTORS®.` : ''} The tax saved is the excluded value times the local tax rates, so it differs by city.</p>
+      <p>Homestead also opens the door to the state's <a href="/property-taxes/minnesota-property-tax-refund">Homestead Credit Refund</a> (Form M1PR, due August 15), and to programs for veterans with a disability, owners who are blind or have a disability, and seniors who want to defer taxes.</p>
+
+      <h2>Relative homestead</h2>
+      <p>If a relative lives in a home you own, it may still qualify. Qualifying relatives are the parents, grandparents, siblings, children, grandchildren, aunts, uncles, nieces and nephews of the owner or the owner's spouse. Apply with the county assessor the same way. A relative homestead doesn't qualify for the property tax refund.</p>
+      <p class="source">Minnesota Department of Revenue, <a href={REV} rel="noopener">Homestead Classification</a>.</p>
+
+      <h2>Questions about homestead</h2>
+      <dl class="hs-faq">{faq.map((f) => <div><dt>{f.q}</dt><dd>{f.a}</dd></div>)}</dl>
+
+      <p>Just bought? Your county's page has the due dates and how to pay: {COUNTIES.map((k, i) => <>{i ? ', ' : ''}<a href={countyHref(k)}>{k.name}</a></>)}.</p>
+      <HomeValueBox city="Minnesota" />
+      <p class="small">We're real estate agents, not tax advisers. For your own situation, ask your county assessor or the Department of Revenue.</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .narrowish { max-width: 60rem; }
+  h2 { margin: 2.5rem 0 1rem; font: 500 1.6rem/1.2 var(--serif); }
+  .hs-box { padding: 1.25rem 1.5rem; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+  .hs-box h2 { margin-top: 0; }
+  .hs-box ol { margin: 0; padding-left: 1.3rem; display: grid; gap: .45rem; line-height: 1.55; }
+  .small, .source { font-size: .9rem; color: var(--text-soft); }
+  .source { margin-top: .8rem; }
+  .hs-faq { margin: 0; display: grid; gap: 1.1rem; }
+  .hs-faq dt { font-weight: 700; }
+  .hs-faq dd { margin: .3rem 0 0; line-height: 1.6; }
+</style>

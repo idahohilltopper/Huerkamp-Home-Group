@@ -42,6 +42,8 @@ const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage'
       <h2>Questions</h2>
       <dl class="pt-faq">{faq.map((f) => <div><dt>{f.q}</dt><dd>{f.a}</dd></div>)}</dl>
 
+      <p>The refund is for homesteaded homes. Not homesteaded yet? See <a href="/property-taxes/minnesota-homestead">how to homestead in Minnesota</a>.</p>
+
       <h2>Your county's property taxes</h2>
       <p>Due dates, how to pay and what homeowners pay in each city:</p>
       <ul class="chips">{COUNTIES.map((k) => <li><a href={countyHref(k)}>{k.name} County</a></li>)}</ul>

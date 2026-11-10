@@ -7,13 +7,13 @@ import { COUNTIES, countyHref } from '../../data/counties';
 import { site } from '../../data/site';
 
 type Row = { medianTax: number; medianValue: number; rate: number };
-const T = taxData as unknown as { counties: Record<string, Row>; stateMedianTax: number };
+const T = taxData as unknown as { counties: Record<string, Row>; stateMedianTax: number; stateRate: number };
 const fmt = (n: number) => `$${Math.round(n).toLocaleString('en-US')}`;
 const rows = COUNTIES.map((k) => ({ k, ...T.counties[k.fips] })).sort((a, b) => b.medianTax - a.medianTax);
-const lede = `Minnesota property taxes are due May 15 and October 15. Here is what homeowners pay in each Twin Cities county, and where to look up or pay your bill.`;
+const lede = `Minnesota homeowners pay a median ${fmt(T.stateMedianTax)} a year in property taxes, about ${T.stateRate.toFixed(2)}% of the median home value; in the Twin Cities counties it runs from ${Math.min(...rows.map((r) => r.rate)).toFixed(2)}% to ${Math.max(...rows.map((r) => r.rate)).toFixed(2)}%. Taxes are due May 15 and October 15. Here is each county's rate and where to look up or pay your bill.`;
 ---
-<Base breadcrumbs={[{ name: 'Property taxes', href: '/property-taxes' }]} title={`Twin Cities Property Taxes by County: Due Dates & Rates | ${site.name}`} description={lede}>
-  <PageHero eyebrow="Property taxes" title="Twin Cities property taxes by county" lede={lede} />
+<Base breadcrumbs={[{ name: 'Property taxes', href: '/property-taxes' }]} title={`Minnesota Property Tax Rates by County (Twin Cities) & Due Dates | ${site.name}`} description={lede}>
+  <PageHero eyebrow="Property taxes" title="Minnesota property tax rates by county" lede={lede} />
   <section class="section">
     <div class="wrap">
       <div class="table-scroll">
@@ -22,7 +22,7 @@ const lede = `Minnesota property taxes are due May 15 and October 15. Here is wh
           <tbody>{rows.map((r) => <tr><th scope="row"><a href={countyHref(r.k)}>{r.k.name} County</a></th><td class="num">{fmt(r.medianTax)}</td><td class="num">{fmt(r.medianValue)}</td><td class="num">{r.rate.toFixed(2)}%</td></tr>)}</tbody>
         </table>
       </div>
-      <p>Homeowners can get part of their property tax back: see the <a href="/property-taxes/minnesota-property-tax-refund">Minnesota property tax refund</a> (Form M1PR, due August 15).</p>
+      <p>Homeowners can get part of their property tax back: see the <a href="/property-taxes/minnesota-property-tax-refund">Minnesota property tax refund</a> (Form M1PR, due August 15). Just bought? <a href="/property-taxes/minnesota-homestead">Apply for homestead</a> by December 31 to lower next year's taxes.</p>
       <p class="source">Owner-occupied homes; US Census Bureau, American Community Survey 2020–2024 (5-year). Statewide median: {fmt(T.stateMedianTax)} a year. Due dates: Minnesota Department of Revenue.</p>
     </div>
   </section>
