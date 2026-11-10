@@ -1,0 +1,115 @@
+---
+// Property taxes for one county: /property-taxes/<county>-county-mn. Built for "<county> county property tax" (Hennepin
+// 27,100 searches a month, Ramsey and Washington 8,100, Dakota and Anoka 4,400; Open SEO, Nov 2026): mostly homeowners.
+// Facts: due dates from the Minnesota Department of Revenue (property tax statement instructions, payable 2027); the
+// refund rules from Revenue's 2025 property tax refund article; median taxes from the Census ACS 2020-2024
+// (src/data/property-tax.json); each county's own payment page (checked Nov 10, 2026). Homes and places only.
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import HomeValueBox from '../../components/HomeValueBox.astro';
+import { communities } from '../../data/areas';
+import detailData from '../../data/community-details.json';
+import taxData from '../../data/property-tax.json';
+import { COUNTIES, countyHref, type County } from '../../data/counties';
+import { origin } from '../../data/schema';
+import { site } from '../../data/site';
+
+export function getStaticPaths() {
+  return COUNTIES.map((k) => ({ params: { county: countyHref(k).split('/').pop() }, props: { k } }));
+}
+const { k } = Astro.props as { k: County };
+type Row = { medianTax: number; medianValue: number; rate: number };
+const T = taxData as unknown as { cities: Record<string, Row>; counties: Record<string, Row>; stateMedianTax: number; stateRate: number };
+const D = detailData.communities as Record<string, { primaryCounty?: { fips: string } }>;
+const fmt = (n: number) => `$${Math.round(n).toLocaleString('en-US')}`;
+// The ACS reports "$2,000,000 or more" as 2,000,001: leave those cities' rates out (they'd be wrong).
+const capped = (r: Row) => r.medianValue >= 2000001 || r.medianTax >= 10001;
+const cnty = T.counties[k.fips];
+const cities = communities.filter((c) => D[c.slug]?.primaryCounty?.fips === k.fips && T.cities[c.slug] && !capped(T.cities[c.slug]))
+  .map((c) => ({ c, ...T.cities[c.slug] })).sort((a, b) => b.medianTax - a.medianTax);
+const name = `${k.name} County`;
+const answer = `${name} property taxes are due in two halves, by May 15 and October 15 (November 15 for the second half on farmland). The median ${name} homeowner paid ${fmt(cnty.medianTax)} a year, about ${cnty.rate}% of the median home value of ${fmt(cnty.medianValue)}, against ${fmt(T.stateMedianTax)} statewide.`;
+const hi = cities[0], lo = cities.at(-1);
+const faq = [
+  { q: `When are ${name} property taxes due?`, a: `By May 15 for the first half and October 15 for the second half. A bill of $100 or less is due in full by May 15. On agricultural property the second half is due November 15. The county mails statements by March 31, and a due date that falls on a weekend or holiday moves to the next business day. Late payments add a penalty set by state law.` },
+  { q: `How do I look up or pay my ${name} property taxes?`, a: `On ${name}'s own website: ${k.payNote} You'll need the property ID number (PID) on your statement, or the address. Mortgage escrow accounts usually pay the bill for you; check your statement or lender.` },
+  { q: `How much are property taxes in ${name}?`, a: `The median homeowner in ${name} paid ${fmt(cnty.medianTax)} a year in real estate taxes, about ${cnty.rate}% of the median home value of ${fmt(cnty.medianValue)} (Census Bureau, 2020–2024 American Community Survey).${hi && lo && hi !== lo ? ` Among the cities in our guides, the median ranged from ${fmt(lo.medianTax)} in ${lo.c.name} to ${fmt(hi.medianTax)} in ${hi.c.name}.` : ''} Your own bill depends on your home's assessed value, the tax rates where it sits and whether it's homesteaded.` },
+  { q: 'Can I get a property tax refund in Minnesota?', a: `Possibly. Minnesota's Homestead Credit Refund has two parts. The regular refund depends on your household income and your property tax. The special refund is for homeowners whose net property tax went up more than 12% and at least $100 from one year to the next, if they owned and lived in the home on January 2 of both years; it has no income limit. File Form M1PR by August 15; you can file up to one year after the due date. Details: Minnesota Department of Revenue.` },
+  { q: 'What happens to property taxes when I buy or sell a home?', a: `They're usually split at closing: the seller pays for the part of the year they owned the home and the buyer pays the rest, settled on the closing statement. A new owner who lives in the home should apply for homestead with the county assessor, which can lower the tax.` },
+];
+const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', url: `${origin}${countyHref(k)}`, mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
+const title = [`${name}, MN Property Taxes: Due Dates, How to Pay & Rates`, `${name} Property Taxes: Due Dates, Pay & Rates`].find((t) => t.length <= 60)!;
+---
+<Base breadcrumbs={[{ name: 'Property taxes', href: '/property-taxes' }, { name, href: countyHref(k) }]}
+  title={`${title} | ${site.name}`} description={answer}>
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <PageHero eyebrow="Property taxes" title={`${name} property taxes`} lede={answer} />
+  <section class="section">
+    <div class="wrap narrowish">
+      <div class="pt-box">
+        <h2>Look up or pay your bill</h2>
+        <p>{k.payNote}</p>
+        <p class="pt-links">{k.links.map(([label, href]) => <a class="btn" href={href} rel="noopener" target="_blank">{label} ↗</a>)}</p>
+        <p class="small">These are {name}'s own pages. We don't take payments or see your account.</p>
+      </div>
+
+      <h2>Due dates</h2>
+      <table class="data">
+        <tbody>
+          <tr><th scope="row">First half</th><td>May 15</td></tr>
+          <tr><th scope="row">Second half</th><td>October 15 (November 15 for agricultural property)</td></tr>
+          <tr><th scope="row">Bills of $100 or less</th><td>In full by May 15</td></tr>
+          <tr><th scope="row">Statements mailed</th><td>By March 31</td></tr>
+        </tbody>
+      </table>
+      <p class="source">Minnesota Department of Revenue, property tax statement instructions (Minn. Stat. 276.04, 279.01). A due date on a weekend or holiday moves to the next business day.</p>
+
+      {cities.length > 0 && <>
+        <h2>What homeowners pay, city by city</h2>
+        <div class="table-scroll">
+          <table class="data">
+            <thead><tr><th scope="col">City</th><th scope="col" class="num">Median tax a year</th><th scope="col" class="num">Median home value</th><th scope="col" class="num">Tax as % of value</th></tr></thead>
+            <tbody>
+              <tr class="pt-total"><th scope="row">All of {name}</th><td class="num">{fmt(cnty.medianTax)}</td><td class="num">{fmt(cnty.medianValue)}</td><td class="num">{cnty.rate.toFixed(2)}%</td></tr>
+              {cities.map((r) => <tr><th scope="row"><a href={`/communities/${r.c.slug}`}>{r.c.name}</a></th><td class="num">{fmt(r.medianTax)}</td><td class="num">{fmt(r.medianValue)}</td><td class="num">{r.rate.toFixed(2)}%</td></tr>)}
+            </tbody>
+          </table>
+        </div>
+        <p class="source">US Census Bureau, American Community Survey 2020–2024 (5-year): median real estate taxes paid and median value, owner-occupied homes. Cities in our guides whose main county is {name}; cities where the Census caps the median value are left out.</p>
+      </>}
+
+      <h2>How a Minnesota property tax bill is figured</h2>
+      <div class="prose">
+        <p>The county assessor sets each home's estimated market value every January 2. The state's class rates turn that value into "tax capacity," and the county, city, school district and other local taxing districts each apply their own rate to it. A home you own and live in can be classified as a <strong>homestead</strong>, which lowers its taxable value; apply with the {name} assessor after you buy.</p>
+        <p>Your statement lists each taxing district's share and any special assessments. If you disagree with your home's value, the valuation notice that comes in the spring explains how to appeal.</p>
+        <p><strong>Refunds:</strong> the state's Homestead Credit Refund can return part of the tax, based on your income, or after a big one-year increase. File Form M1PR by August 15. See the <a href="https://www.revenue.state.mn.us/property-tax-refund" rel="noopener">Minnesota Department of Revenue</a>.</p>
+      </div>
+
+      <h2>Questions about {name} property taxes</h2>
+      <dl class="pt-faq">{faq.map((f) => <div><dt>{f.q}</dt><dd>{f.a}</dd></div>)}</dl>
+
+      <HomeValueBox city={name} />
+
+      <h2>Other counties</h2>
+      <ul class="chips">{COUNTIES.filter((x) => x !== k).map((x) => <li><a href={countyHref(x)}>{x.name} County</a></li>)}<li><a href="/property-taxes">All counties</a></li></ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .narrowish { max-width: 60rem; }
+  h2 { margin: 2.5rem 0 1rem; font: 500 1.6rem/1.2 var(--serif); }
+  .pt-box { padding: 1.25rem 1.5rem; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+  .pt-box h2 { margin-top: 0; }
+  .pt-links { display: flex; flex-wrap: wrap; gap: .6rem; }
+  .pt-links .btn { padding: .75rem 1.1rem; border-radius: 6px; }
+  .small, .source { font-size: .9rem; color: var(--text-soft); }
+  .source { margin-top: .8rem; }
+  .pt-total th, .pt-total td { font-weight: 700; }
+  .pt-faq { margin: 0; display: grid; gap: 1.1rem; }
+  .pt-faq dt { font-weight: 700; }
+  .pt-faq dd { margin: .3rem 0 0; line-height: 1.6; }
+  .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+  .chips a { display: inline-block; padding: .5rem .8rem; border: 1px solid var(--line); background: var(--paper); color: var(--text); font: 500 .88rem/1.2 var(--ui); text-decoration: none; }
+  .chips a:hover { border-color: var(--crimson); color: var(--crimson); }
+</style>

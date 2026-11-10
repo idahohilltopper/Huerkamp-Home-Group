@@ -1,0 +1,32 @@
+---
+// /property-taxes: the metro counties' property taxes side by side, each linking to its own page.
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import taxData from '../../data/property-tax.json';
+import { COUNTIES, countyHref } from '../../data/counties';
+import { site } from '../../data/site';
+
+type Row = { medianTax: number; medianValue: number; rate: number };
+const T = taxData as unknown as { counties: Record<string, Row>; stateMedianTax: number };
+const fmt = (n: number) => `$${Math.round(n).toLocaleString('en-US')}`;
+const rows = COUNTIES.map((k) => ({ k, ...T.counties[k.fips] })).sort((a, b) => b.medianTax - a.medianTax);
+const lede = `Minnesota property taxes are due May 15 and October 15. Here is what homeowners pay in each Twin Cities county, and where to look up or pay your bill.`;
+---
+<Base breadcrumbs={[{ name: 'Property taxes', href: '/property-taxes' }]} title={`Twin Cities Property Taxes by County: Due Dates & Rates | ${site.name}`} description={lede}>
+  <PageHero eyebrow="Property taxes" title="Twin Cities property taxes by county" lede={lede} />
+  <section class="section">
+    <div class="wrap">
+      <div class="table-scroll">
+        <table class="data">
+          <thead><tr><th scope="col">County</th><th scope="col" class="num">Median tax a year</th><th scope="col" class="num">Median home value</th><th scope="col" class="num">Tax as % of value</th></tr></thead>
+          <tbody>{rows.map((r) => <tr><th scope="row"><a href={countyHref(r.k)}>{r.k.name} County</a></th><td class="num">{fmt(r.medianTax)}</td><td class="num">{fmt(r.medianValue)}</td><td class="num">{r.rate.toFixed(2)}%</td></tr>)}</tbody>
+        </table>
+      </div>
+      <p class="source">Owner-occupied homes; US Census Bureau, American Community Survey 2020–2024 (5-year). Statewide median: {fmt(T.stateMedianTax)} a year. Due dates: Minnesota Department of Revenue.</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .source { margin-top: .8rem; font-size: .9rem; color: var(--text-soft); }
+</style>

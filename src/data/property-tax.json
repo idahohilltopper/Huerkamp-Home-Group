@@ -758,5 +758,63 @@
   }
  },
  "stateMedianValue": 329300,
- "stateRate": 1.02
+ "stateRate": 1.02,
+ "counties": {
+  "003": {
+   "medianTax": 3271,
+   "medianValue": 346500,
+   "rate": 0.94
+  },
+  "019": {
+   "medianTax": 4501,
+   "medianValue": 453600,
+   "rate": 0.99
+  },
+  "037": {
+   "medianTax": 3749,
+   "medianValue": 381000,
+   "rate": 0.98
+  },
+  "053": {
+   "medianTax": 4480,
+   "medianValue": 392900,
+   "rate": 1.14
+  },
+  "079": {
+   "medianTax": 3366,
+   "medianValue": 316500,
+   "rate": 1.06
+  },
+  "123": {
+   "medianTax": 3966,
+   "medianValue": 326600,
+   "rate": 1.21
+  },
+  "131": {
+   "medianTax": 3115,
+   "medianValue": 320200,
+   "rate": 0.97
+  },
+  "139": {
+   "medianTax": 4230,
+   "medianValue": 419400,
+   "rate": 1.01
+  },
+  "147": {
+   "medianTax": 2964,
+   "medianValue": 245400,
+   "rate": 1.21
+  },
+  "163": {
+   "medianTax": 4164,
+   "medianValue": 422000,
+   "rate": 0.99
+  },
+  "171": {
+   "medianTax": 3523,
+   "medianValue": 358900,
+   "rate": 0.98
+  }
+ },
+ "countiesSource": "US Census Bureau, ACS 2020-2024 5-year summary file tables B25103 (median real estate taxes paid) and B25077 (median value), owner-occupied homes; downloaded Nov 10, 2026."
 }

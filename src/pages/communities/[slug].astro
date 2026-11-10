@@ -19,6 +19,7 @@ import zipTowns from '../../data/zip-towns.json';
 import { nearestSpot, openSpots } from '../../data/ddd';
 import rates from '../../data/rates.json';
 import taxData from '../../data/property-tax.json';
+import { COUNTIES, countyHref } from '../../data/counties';
 import reviewData from '../../data/reviews.json';
 import team from '../../data/team.json';
 import { site } from '../../data/site';
@@ -77,6 +78,7 @@ const cmp = (city: number | null, other: number | null, label: string) => {
 const smallPlace = c.population2024 < 2500;
 const list = (items: string[]) => items.length < 2 ? items.join('') : `${items.slice(0, -1).join(', ')} and ${items.at(-1)}`;
 const countyName = `${d.primaryCounty.name} County`;
+const taxCounty = COUNTIES.find((k) => k.fips === d.primaryCounty.fips);
 const regionPhrase = c.region === 'Minneapolis & Saint Paul' ? "one of the Twin Cities' two core cities"
   : c.region === 'Southern Minnesota' ? 'a city in southern Minnesota' : `a ${c.region.toLowerCase()} city`;
 const distancePhrase = c.slug === 'minneapolis' ? `downtown Saint Paul is about ${d.driveMinutes.downtownSaintPaul} minutes away`
@@ -659,7 +661,7 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
         <p class="eyebrow">Planning a move</p>
         <h3>What should I verify before moving to {c.name}?</h3>
         <ul class="ticks">
-          <li>The property's current tax statement and homestead status from {countyName}.</li>
+          <li>The property's current tax statement and homestead status from {countyName}{taxCounty && <> (<a href={countyHref(taxCounty)}>{countyName} property taxes: due dates and how to pay</a>)</>}.</li>
           <li>Lender, insurance and utility quotes for the exact address, plus any association documents and special assessments.</li>
           <li>The seller's disclosures, including Minnesota's required radon and well disclosures.</li>
           <li>Whether the city requires a point-of-sale inspection or certificate (Minneapolis and Saint Paul, for example, require Truth-in-Sale-of-Housing reports).</li>
