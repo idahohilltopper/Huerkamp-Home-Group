@@ -8,6 +8,11 @@ SITE=https://www.huerkamphomes.com
 PUSHED=$(date -u +%s)
 echo "Waiting for the deploy of $(git log -1 --format='%h %s' | cut -c1-80) ..."
 HEAD_SHA=$(git rev-parse HEAD)
+# A push that changes only notes (docs/, CLAUDE.md) isn't built (netlify.toml "ignore"): nothing to check.
+live0=$(curl -s "$SITE/mls-status.json?t=$RANDOM" | grep -o '"commit": *"[0-9a-f]*"' | grep -o '[0-9a-f]\{40\}')
+if [ -n "$live0" ] && git cat-file -e "$live0" 2>/dev/null && git diff --quiet "$live0" HEAD -- . ':(exclude)docs' ':(exclude)CLAUDE.md'; then
+  echo "Only notes changed since the live build (${live0:0:7}); Netlify skips the build. AFTER-DEPLOY CHECK PASSED"; exit 0
+fi
 # /mls-status.json is written by every build. It names the commit Netlify built; wait until that commit includes the
 # one just pushed (a scheduled routine may push right before or after us). Builds from before that field existed
 # only have builtAt, so fall back to it.

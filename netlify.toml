@@ -5,6 +5,9 @@
   # about an hour; if YouTube can't be reached, the build goes on with the videos it has.
   command = "(timeout 60 python3 scripts/update-youtube.py || echo 'YouTube update skipped') && npm run build"
   publish = "dist"
+  # Skip the build (saves Netlify usage) when a push changes only notes: docs/ and CLAUDE.md. Exit 0 = skip. The
+  # scheduled listing rebuilds (build hooks) and "Trigger deploy" in Netlify always build; so does anything else.
+  ignore = "[ -z \"$INCOMING_HOOK_TITLE\" ] && [ -n \"$CACHED_COMMIT_REF\" ] && [ \"$CACHED_COMMIT_REF\" != \"$COMMIT_REF\" ] && git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- . ':(exclude)docs' ':(exclude)CLAUDE.md'"
 
 [build.environment]
   NODE_VERSION = "22"
