@@ -1,0 +1,203 @@
+---
+// Greater Minnesota homes for sale: /minnesota-homes-for-sale (every town) and /minnesota-homes-for-sale/<town> (Duluth,
+// Rochester, Mankato...; src/data/mn-cities.json). Built for "homes for sale <town> mn" (Duluth and Rochester 12,100
+// searches a month, Pine City 8,100, Austin, Mankato and Winona 6,600; KD 0; Open SEO, Nov 2026). Homes for sale come
+// from src/lib/mn-cities.mjs at each build; recently sold homes load live (SoldHomes, place "mn:<town>"). These towns are
+// outside our service area: the page says leads go to a trusted local agent (Jason, Nov 10, 2026).
+// Fair housing: listing facts and the county only; nothing about who lives in a town.
+import Base from '../../layouts/Base.astro';
+import ListingCard from '../../components/ListingCard.astro';
+import IdxDisclosure from '../../components/IdxDisclosure.astro';
+import SoldHomes from '../../components/SoldHomes.astro';
+import { loadMnCities, mnTowns, mnRegions } from '../../lib/mn-cities.mjs';
+import { median } from '../../data/listings';
+import { origin } from '../../data/schema';
+import { site } from '../../data/site';
+
+export async function getStaticPaths() {
+  const { mnTowns: list } = await import('../../lib/mn-cities.mjs');
+  const { mlsMode } = await import('../../lib/mls-feed.mjs');
+  if (mlsMode() === 'off' && !process.env.MLS_FIXTURE) return [];
+  return [{ params: { path: undefined }, props: { slug: null } }, ...list.map((t) => ({ params: { path: t.slug }, props: { slug: t.slug } }))];
+}
+const { slug } = Astro.props as { slug: string | null };
+type Town = (typeof mnTowns)[number];
+const data = await loadMnCities();
+const t: Town | undefined = slug ? mnTowns.find((x) => x.slug === slug) : undefined;
+const base = '/minnesota-homes-for-sale';
+const money = (n: number | null | undefined) => (n == null ? '—' : `$${Math.round(n).toLocaleString('en-US')}`);
+const day = data.at ? new Date(data.at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }) : '';
+const live = data.mode !== 'off';
+const homesOf = (s: string) => (data.towns[s] ?? []) as any[];
+const failed = (s: string) => (data.failed ?? []).includes(s);
+const TYPES: [string, string][] = [['single-family', 'Single-family homes'], ['townhome', 'Townhomes'], ['condo', 'Condos'], ['multi-family', 'Multi-family'], ['land', 'Land and lots'], ['manufactured', 'Manufactured homes']];
+const BANDS: [string, number, number][] = [['Under $200,000', 0, 200000], ['$200,000 to $300,000', 200000, 300000], ['$300,000 to $400,000', 300000, 400000], ['$400,000 to $600,000', 400000, 600000], ['$600,000 and up', 600000, Infinity]];
+
+// ----- one town -----
+const homes = t ? homesOf(t.slug) : [];
+const prices = homes.map((l) => l.price);
+const nearby = t ? mnTowns.filter((x) => x.region === t.region && x.slug !== t.slug) : [];
+const answer = !t || !live || failed(t.slug) ? '' : homes.length
+  ? `${homes.length.toLocaleString('en-US')} ${homes.length === 1 ? 'home is' : 'homes are'} for sale in ${t.name}, MN as of ${day}${homes.length > 1 ? `, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices))}` : ` at ${money(prices[0])}`}. ${t.name} is in ${t.county} County.`
+  : `No homes are listed for sale in ${t.name}, MN as of ${day}. ${t.name} is in ${t.county} County.`;
+const byType = TYPES.map(([k, label]) => ({ label, list: homes.filter((l) => l.type === k) })).filter((r) => r.list.length);
+const byPrice = BANDS.map(([label, lo, hi]) => ({ label, list: homes.filter((l) => l.price >= lo && l.price < hi) })).filter((r) => r.list.length);
+const beds3 = homes.filter((l) => l.type !== 'land' && (l.beds ?? 0) >= 3);
+const newest = [...homes].filter((l) => l.listed).sort((a, b) => (b.listed > a.listed ? 1 : -1)).slice(0, 1)[0];
+const shown = homes.length <= 60 ? homes : homes.filter((_, i) => i % Math.ceil(homes.length / 60) === 0).slice(0, 60);
+const faq = t ? [
+  ...(answer ? [{ q: `How many homes are for sale in ${t.name}, MN?`, a: answer }] : []),
+  ...(byType.length > 1 ? [{ q: `What kinds of homes are for sale in ${t.name}?`, a: `${byType.map((r) => `${r.list.length} ${r.label.toLowerCase()} (median ${money(median(r.list.map((l) => l.price)))})`).join(', ')}, as of ${day}.` }] : []),
+  ...(beds3.length ? [{ q: `How many 3-bedroom homes are for sale in ${t.name}?`, a: `${beds3.length} ${beds3.length === 1 ? 'home has' : 'homes have'} 3 or more bedrooms, with a median list price of ${money(median(beds3.map((l) => l.price)))}.` }] : []),
+  { q: `What county is ${t.name}, MN in?`, a: `${t.county} County. Property taxes, homestead and the property records are handled by the ${t.county} County assessor and treasurer.` },
+  { q: `Can Huerkamp Home Group help me buy or sell in ${t.name}?`, a: `We're a Twin Cities team, so for ${t.name} we connect you with a trusted local agent who works there every day, at no cost to you. Send us a note or call ${site.phone} and we'll make the introduction. Moving to or from the Twin Cities? We handle that end ourselves.` },
+] : [];
+
+// ----- hub -----
+const hubRows = Object.entries(mnRegions).map(([key, name]) => ({ name, towns: mnTowns.filter((x) => x.region === key).map((x) => ({ x, list: homesOf(x.slug) })) })).filter((g) => g.towns.length);
+const total = mnTowns.reduce((n, x) => n + homesOf(x.slug).length, 0);
+const hubAnswer = live && total ? `${total.toLocaleString('en-US')} homes are for sale across these ${mnTowns.length} Greater Minnesota towns as of ${day}, from NorthstarMLS. Pick a town for its homes, prices and recent sales.` : '';
+
+const title = t ? `${t.name}, MN Homes for Sale${homes.length ? ` (${homes.length})` : ''}: Prices & Recent Sales` : 'Homes for Sale in Greater Minnesota by Town';
+const description = (t ? answer : hubAnswer) || (t ? `Homes for sale in ${t.name}, MN (${t.county} County) from NorthstarMLS, by price and type, with recent sales.` : 'Homes for sale in Duluth, Rochester, Mankato, St. Cloud and other Greater Minnesota towns, from NorthstarMLS.');
+const crumbs = [{ name: 'Minnesota homes for sale', href: base }, ...(t ? [{ name: t.name, href: `${base}/${t.slug}` }] : [])];
+const ld = faq.length ? JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', url: `${origin}${base}/${t!.slug}`, mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }) : '';
+const id = 'mnr';
+const formTown = t ? t.name : 'Greater Minnesota';
+---
+<Base breadcrumbs={crumbs} title={`${title} | ${site.name}`} description={description.slice(0, 300)} noindex={data.mode !== 'live'}>
+  {ld && <script slot="head" type="application/ld+json" set:html={ld} />}
+
+  <section class="nhead">
+    <div class="wrap">
+      <p class="eyebrow">{t ? `${t.county} County · Minnesota` : 'Greater Minnesota'}</p>
+      <h1>{t ? `${t.name}, MN homes for sale` : 'Homes for sale in Greater Minnesota'}</h1>
+      {(t ? answer : hubAnswer) && <p class="answer">{t ? answer : hubAnswer}</p>}
+      {t && failed(t.slug) && <p class="answer">The {t.name} listings couldn't be loaded for this update; they'll be back with the next one, within a few hours.</p>}
+      <p class="lede">{day ? `Updated ${day} from NorthstarMLS. ` : ''}We're a Twin Cities team: for homes here, we'll connect you with a trusted local agent at no cost to you.</p>
+      <p class="hero-btns"><a class="btn" href="#ask">Get connected with a local agent</a> <a class="btn btn--ghost" href={site.phoneHref}>Call or text {site.phone}</a></p>
+    </div>
+  </section>
+
+  {t && live && homes.length > 0 && (
+    <section class="section section--paper">
+      <div class="wrap twocol">
+        {[{ h: 'By home type', col: 'Type', rows: byType }, { h: 'By price', col: 'List price', rows: byPrice }].map((tb) => (
+          <div>
+            <h2 class="h3">{tb.h}</h2>
+            <div class="table-scroll"><table class="data">
+              <thead><tr><th scope="col">{tb.col}</th><th scope="col" class="num">For sale</th><th scope="col" class="num">Median price</th></tr></thead>
+              <tbody>{tb.rows.map((r) => <tr><th scope="row">{r.label}</th><td class="num">{r.list.length}</td><td class="num">{money(median(r.list.map((l: any) => l.price)))}</td></tr>)}</tbody>
+            </table></div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {t && live && (
+    <section class="section" aria-labelledby="sale-title">
+      <div class="wrap">
+        <div class="head"><p class="eyebrow">For sale now</p><h2 id="sale-title">Homes for sale in {t.name}</h2>
+          {homes.length > shown.length && <p>{shown.length} of {homes.length} homes, across the price range, lowest first.</p>}</div>
+        <div data-idx>
+          {shown.length ? <ul class="lcards">{shown.map((l) => <ListingCard l={l} href={`/homes/listing?mls=${encodeURIComponent(l.mls)}`} />)}</ul>
+            : <p>None right now. <a href="#ask">Tell us what you're looking for</a> and we'll have a local agent watch for it.</p>}
+        </div>
+        {newest && <p class="source">Newest listing: {new Date(`${newest.listed}T12:00:00`).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}.</p>}
+      </div>
+    </section>
+  )}
+
+  {t && live && <SoldHomes place={`mn:${t.slug}`} name={t.name} />}
+  {live && <section class="section"><div class="wrap"><IdxDisclosure at={data.at} /></div></section>}
+
+  {!t && (
+    <section class="section" aria-labelledby="towns-title">
+      <div class="wrap">
+        <div class="head"><p class="eyebrow">By town</p><h2 id="towns-title">Greater Minnesota towns</h2>
+          <p>Looking in the Twin Cities? See <a href="/homes-for-sale">homes for sale by city</a> across the metro.</p></div>
+        {hubRows.map((g) => (
+          <>
+            <h3 class="grp">{g.name}</h3>
+            <div class="table-scroll"><table class="data">
+              <thead><tr><th scope="col">Town</th><th scope="col">County</th>{live && <><th scope="col" class="num">For sale</th><th scope="col" class="num">Median list price</th></>}</tr></thead>
+              <tbody>{g.towns.map((r) => <tr><th scope="row"><a href={`${base}/${r.x.slug}`}>{r.x.name}</a></th><td>{r.x.county}</td>{live && <><td class="num">{r.list.length}</td><td class="num">{money(median(r.list.map((l: any) => l.price)))}</td></>}</tr>)}</tbody>
+            </table></div>
+          </>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section class="section section--dark" id="ask" aria-labelledby="ask-title">
+    <div class="wrap split">
+      <div class="prose">
+        <p class="eyebrow">Buying or selling in {formTown}?</p>
+        <h2 id="ask-title">We'll connect you with <em>a trusted local agent.</em></h2>
+        <p>We're a Twin Cities real estate team. For {formTown}, we'll introduce you to an experienced agent who knows the area, at no cost to you. If you're moving between {formTown} and the Twin Cities, we'll handle the Twin Cities side ourselves.</p>
+        <p>Call or text <a href={site.phoneHref}>{site.phone}</a>.</p>
+      </div>
+      <form class="form" data-lead="mn-referral">
+        <input type="hidden" name="community" value={formTown} />
+        <div class="form__row">
+          <div class="field"><label for={`${id}-first`}>First name</label><input id={`${id}-first`} name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for={`${id}-last`}>Last name</label><input id={`${id}-last`} name="lastName" autocomplete="family-name" required /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for={`${id}-email`}>Email</label><input id={`${id}-email`} name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for={`${id}-phone`}>Phone</label><input id={`${id}-phone`} name="phone" type="tel" autocomplete="tel" required pattern="[^0-9]*([0-9][^0-9]*){10,}" title="Please enter your phone number, including area code." /></div>
+        </div>
+        <div class="field">
+          <label for={`${id}-goal`}>I'm looking to</label>
+          <select id={`${id}-goal`} name="goal"><option value="">Choose one</option><option>Buy a home</option><option>Sell my home</option><option>Buy and sell</option><option>Move to or from the Twin Cities</option></select>
+        </div>
+        <div class="field"><label for={`${id}-msg`}>Price range, timing, anything else (optional)</label><textarea id={`${id}-msg`} name="message" rows="3"></textarea></div>
+        <button class="btn" type="submit">Connect me</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  {faq.length > 0 && (
+    <section class="section" aria-labelledby="faq-title">
+      <div class="wrap faq">
+        <div class="head"><p class="eyebrow">Quick answers</p><h2 id="faq-title">Buying a home in {t!.name}</h2></div>
+        {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+      </div>
+    </section>
+  )}
+
+  {t && (
+    <section class="section section--paper">
+      <div class="wrap">
+        <h2 class="h3">{nearby.length ? `More towns: ${mnRegions[t.region as keyof typeof mnRegions]}` : 'More towns'}</h2>
+        <ul class="chips">{nearby.map((x) => <li><a href={`${base}/${x.slug}`}>{x.name}</a></li>)}<li><a href={base}>All Greater Minnesota towns</a></li><li><a href="/homes-for-sale">Twin Cities homes for sale</a></li></ul>
+      </div>
+    </section>
+  )}
+</Base>
+
+<style>
+  .nhead { padding: clamp(2.5rem, 6vw, 4.5rem) 0 clamp(2rem, 4vw, 3rem); background: var(--night); color: var(--on-dark); }
+  .nhead h1 { font: 500 clamp(2.2rem, 5vw, 3.6rem)/1.05 var(--serif-display); color: #fff; }
+  .nhead .eyebrow { color: var(--rose); }
+  .answer { max-width: 52rem; margin: .9rem 0 .4rem; color: #fff; font: 500 clamp(1.05rem, 2.2vw, 1.25rem)/1.5 var(--ui); }
+  .lede { color: var(--on-dark); max-width: 52rem; }
+  .hero-btns { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.25rem; }
+  .head { margin-bottom: 1.25rem; }
+  .twocol { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: 2rem; }
+  .h3 { margin: 0 0 .8rem; font: 500 1.35rem/1.2 var(--serif); }
+  .grp { margin: 2rem 0 .6rem; font: 700 .8rem/1.2 var(--ui); letter-spacing: .08em; text-transform: uppercase; color: var(--text-soft); }
+  .source { margin-top: .8rem; font-size: .9rem; color: var(--text-soft); }
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+  .split .prose a { color: #fff; font-weight: 700; }
+  .split :global(em) { font-style: italic; }
+  .faq { display: grid; gap: .75rem; max-width: 52rem; }
+  .faq details { padding: 1rem 1.2rem; background: var(--paper); border: 1px solid var(--line); }
+  .faq summary { cursor: pointer; font: 600 1.15rem/1.3 var(--serif); }
+  .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+  .chips a { display: inline-block; padding: .5rem .8rem; border: 1px solid var(--line); background: #fff; color: var(--text); font: 500 .88rem/1.2 var(--ui); text-decoration: none; }
+  .chips a:hover { border-color: var(--crimson); color: var(--crimson); }
+</style>

@@ -17,6 +17,7 @@ import shores from '../data/geo/lake-shores.json' with { type: 'json' };
 import { hull } from './hull.mjs';
 import { parsePoly } from './poly.mjs';
 import cities from '../data/ylopo-cities.json' with { type: 'json' };
+import mnTowns from '../data/mn-cities.json' with { type: 'json' };
 import team from '../data/team.json' with { type: 'json' };
 
 export const MAX_MONTHS = 36;
@@ -37,6 +38,8 @@ const ownBrokerage = (b) => /keller williams preferred/i.test(b ?? '');
 // Team members by page slug (/team/<slug>), for an agent's own recent sales (?agent=<slug>).
 const AGENT = Object.fromEntries(team.members.map((m) => [m.profileUrl.split('/').pop(), m.name]));
 const CITY = Object.fromEntries(Object.entries(cities.communities).filter(([, w]) => w.city).map(([slug, w]) => [slug, w.city]));
+// Greater Minnesota towns (/minnesota-homes-for-sale/<town>): place "mn:<slug>", searched by the MLS city name.
+const MN_TOWN = Object.fromEntries(mnTowns.cities.map((t) => [`mn:${t.slug}`, t.mlsCity]));
 
 /** Why soldCard() would leave this listing out (for the counts-only check at /api/sold?why=1), or null if shown. */
 export function soldDropReason(l, now = new Date()) {
@@ -110,6 +113,7 @@ export function soldQuery(sp, now = new Date()) {
   const place = text(sp.get('place')).toLowerCase();
   if (/^zip:\d{5}$/.test(place)) q.zip = place.slice(4);
   else if (CITY[place]) q.city = CITY[place];
+  else if (MN_TOWN[place]) q.city = MN_TOWN[place];
   else if (/^lake:[a-z0-9-]{2,60}$/.test(place) && shores[place.slice(5)]) q.lake = place.slice(5);
   else if (place) q.unsupported = place;
   const agent = text(sp.get('agent')).toLowerCase();

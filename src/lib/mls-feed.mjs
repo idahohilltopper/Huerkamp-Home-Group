@@ -132,7 +132,7 @@ export function compact(l, now = new Date()) {
 }
 
 // ---------- download ----------
-const FIELDS = 'boardId,mlsNumber,listPrice,listDate,updatedOn,timestamps,status,lastStatus,class,type,address,map,details,lot,images,office,agents,taxes,condominium,permissions,openHouse';
+export const FIELDS = 'boardId,mlsNumber,listPrice,listDate,updatedOn,timestamps,status,lastStatus,class,type,address,map,details,lot,images,office,agents,taxes,condominium,permissions,openHouse';
 // originalPrice (the first asking price) drives the "Price cut" badge. If Repliers ever refuses it, the download
 // falls back to FIELDS so the listings keep coming (stats.noOriginalPrice says so).
 const FIELDS_PLUS = `${FIELDS},originalPrice`;

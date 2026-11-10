@@ -10,7 +10,8 @@ import IdxDisclosure from './IdxDisclosure.astro';
 interface Props { place?: string; name: string; agent?: string; months?: number }
 const { place, name, agent, months } = Astro.props;
 const lake = place?.startsWith('lake:');
-const all = place ? `${ownSearchHref({ places: [place] })}${ownSearchHref({ places: [place] }).includes('?') ? '&' : '?'}status=sold&view=map` : null;
+// Greater Minnesota towns ("mn:<slug>") aren't in the map search, so they get no "see every sale" link.
+const all = place && !place.startsWith('mn:') ? `${ownSearchHref({ places: [place] })}${ownSearchHref({ places: [place] }).includes('?') ? '&' : '?'}status=sold&view=map` : null;
 // An agent's page: their own sales over 12 months. A community page: everything sold there in the last 6 months.
 const query = agent ? `agent=${encodeURIComponent(agent)}&months=12` : `place=${encodeURIComponent(place ?? '')}${months ? `&months=${months}` : ''}`;
 ---

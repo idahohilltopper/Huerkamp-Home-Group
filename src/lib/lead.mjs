@@ -58,6 +58,8 @@ export const FORMS = {
   'calc-payoff':       { type: 'General Inquiry', label: 'Mortgage payoff calculator', tags: ['Homeowner', 'Mortgage payoff calculator'] },
   'calc-rentbuy':      { type: 'General Inquiry', label: 'Rent vs. buy calculator', tags: ['Buyer lead', 'Rent vs. buy calculator'] },
   'youtube':           { type: 'General Inquiry', label: 'YouTube viewer form',    tags: ['YouTube'], source: 'YouTube - Living in Minneapolis' },
+  // Greater Minnesota towns outside the service area (/minnesota-homes-for-sale/<town>): referred to a local agent.
+  'mn-referral':       { type: 'Property Search', label: 'Greater Minnesota: refer to a local agent', tags: ['Referral out', 'Greater Minnesota'] },
 };
 
 // Field names → readable labels for the note on the lead. Contact details are sent separately.

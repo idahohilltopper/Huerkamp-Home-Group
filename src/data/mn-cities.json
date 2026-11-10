@@ -1,0 +1,390 @@
+{
+ "note": "Greater Minnesota towns with their own homes-for-sale page (/minnesota-homes-for-sale/<slug>). Not service-area communities: leads here are referred to a local agent (Jason, Nov 10, 2026). searches = monthly Google searches for \"homes for sale <town> mn\" (Open SEO, Nov 2026). mlsCity = the city as NorthstarMLS spells it.",
+ "regions": {
+  "north": "Duluth, the North Shore & the Iron Range",
+  "lakes": "Lakes Country",
+  "central": "St. Cloud & Central Minnesota",
+  "se": "Rochester & Southeast Minnesota",
+  "sc": "Mankato & South Central Minnesota",
+  "sw": "Southwest & West Central Minnesota",
+  "exurb": "Beyond the Twin Cities metro"
+ },
+ "cities": [
+  {
+   "slug": "duluth",
+   "name": "Duluth",
+   "mlsCity": "Duluth",
+   "county": "St. Louis",
+   "region": "north",
+   "searches": 12100
+  },
+  {
+   "slug": "rochester",
+   "name": "Rochester",
+   "mlsCity": "Rochester",
+   "county": "Olmsted",
+   "region": "se",
+   "searches": 12100
+  },
+  {
+   "slug": "pine-city",
+   "name": "Pine City",
+   "mlsCity": "Pine City",
+   "county": "Pine",
+   "region": "exurb",
+   "searches": 8100
+  },
+  {
+   "slug": "austin",
+   "name": "Austin",
+   "mlsCity": "Austin",
+   "county": "Mower",
+   "region": "se",
+   "searches": 6600
+  },
+  {
+   "slug": "mankato",
+   "name": "Mankato",
+   "mlsCity": "Mankato",
+   "county": "Blue Earth",
+   "region": "sc",
+   "searches": 6600
+  },
+  {
+   "slug": "winona",
+   "name": "Winona",
+   "mlsCity": "Winona",
+   "county": "Winona",
+   "region": "se",
+   "searches": 6600
+  },
+  {
+   "slug": "albert-lea",
+   "name": "Albert Lea",
+   "mlsCity": "Albert Lea",
+   "county": "Freeborn",
+   "region": "se",
+   "searches": 4400
+  },
+  {
+   "slug": "alexandria",
+   "name": "Alexandria",
+   "mlsCity": "Alexandria",
+   "county": "Douglas",
+   "region": "lakes",
+   "searches": 4400
+  },
+  {
+   "slug": "bemidji",
+   "name": "Bemidji",
+   "mlsCity": "Bemidji",
+   "county": "Beltrami",
+   "region": "lakes",
+   "searches": 4400
+  },
+  {
+   "slug": "new-ulm",
+   "name": "New Ulm",
+   "mlsCity": "New Ulm",
+   "county": "Brown",
+   "region": "sc",
+   "searches": 4400
+  },
+  {
+   "slug": "brainerd",
+   "name": "Brainerd",
+   "mlsCity": "Brainerd",
+   "county": "Crow Wing",
+   "region": "lakes",
+   "searches": 3600
+  },
+  {
+   "slug": "fergus-falls",
+   "name": "Fergus Falls",
+   "mlsCity": "Fergus Falls",
+   "county": "Otter Tail",
+   "region": "lakes",
+   "searches": 3600
+  },
+  {
+   "slug": "hutchinson",
+   "name": "Hutchinson",
+   "mlsCity": "Hutchinson",
+   "county": "McLeod",
+   "region": "sw",
+   "searches": 3600
+  },
+  {
+   "slug": "st-cloud",
+   "name": "St. Cloud",
+   "mlsCity": "Saint Cloud",
+   "county": "Stearns",
+   "region": "central",
+   "searches": 3600
+  },
+  {
+   "slug": "willmar",
+   "name": "Willmar",
+   "mlsCity": "Willmar",
+   "county": "Kandiyohi",
+   "region": "sw",
+   "searches": 3600
+  },
+  {
+   "slug": "buffalo",
+   "name": "Buffalo",
+   "mlsCity": "Buffalo",
+   "county": "Wright",
+   "region": "exurb",
+   "searches": 2900
+  },
+  {
+   "slug": "detroit-lakes",
+   "name": "Detroit Lakes",
+   "mlsCity": "Detroit Lakes",
+   "county": "Becker",
+   "region": "lakes",
+   "searches": 2900
+  },
+  {
+   "slug": "grand-rapids",
+   "name": "Grand Rapids",
+   "mlsCity": "Grand Rapids",
+   "county": "Itasca",
+   "region": "north",
+   "searches": 2900
+  },
+  {
+   "slug": "hibbing",
+   "name": "Hibbing",
+   "mlsCity": "Hibbing",
+   "county": "St. Louis",
+   "region": "north",
+   "searches": 2900
+  },
+  {
+   "slug": "moorhead",
+   "name": "Moorhead",
+   "mlsCity": "Moorhead",
+   "county": "Clay",
+   "region": "lakes",
+   "searches": 2900
+  },
+  {
+   "slug": "red-wing",
+   "name": "Red Wing",
+   "mlsCity": "Red Wing",
+   "county": "Goodhue",
+   "region": "se",
+   "searches": 2900
+  },
+  {
+   "slug": "big-lake",
+   "name": "Big Lake",
+   "mlsCity": "Big Lake",
+   "county": "Sherburne",
+   "region": "exurb",
+   "searches": 2400
+  },
+  {
+   "slug": "fairmont",
+   "name": "Fairmont",
+   "mlsCity": "Fairmont",
+   "county": "Martin",
+   "region": "sc",
+   "searches": 2400
+  },
+  {
+   "slug": "little-falls",
+   "name": "Little Falls",
+   "mlsCity": "Little Falls",
+   "county": "Morrison",
+   "region": "central",
+   "searches": 2400
+  },
+  {
+   "slug": "monticello",
+   "name": "Monticello",
+   "mlsCity": "Monticello",
+   "county": "Wright",
+   "region": "exurb",
+   "searches": 2400
+  },
+  {
+   "slug": "sartell",
+   "name": "Sartell",
+   "mlsCity": "Sartell",
+   "county": "Stearns",
+   "region": "central",
+   "searches": 2400
+  },
+  {
+   "slug": "sauk-rapids",
+   "name": "Sauk Rapids",
+   "mlsCity": "Sauk Rapids",
+   "county": "Benton",
+   "region": "central",
+   "searches": 2400
+  },
+  {
+   "slug": "cambridge",
+   "name": "Cambridge",
+   "mlsCity": "Cambridge",
+   "county": "Isanti",
+   "region": "exurb",
+   "searches": 1900
+  },
+  {
+   "slug": "kasson",
+   "name": "Kasson",
+   "mlsCity": "Kasson",
+   "county": "Dodge",
+   "region": "se",
+   "searches": 1900
+  },
+  {
+   "slug": "north-mankato",
+   "name": "North Mankato",
+   "mlsCity": "North Mankato",
+   "county": "Nicollet",
+   "region": "sc",
+   "searches": 1900
+  },
+  {
+   "slug": "park-rapids",
+   "name": "Park Rapids",
+   "mlsCity": "Park Rapids",
+   "county": "Hubbard",
+   "region": "lakes",
+   "searches": 1900
+  },
+  {
+   "slug": "princeton",
+   "name": "Princeton",
+   "mlsCity": "Princeton",
+   "county": "Mille Lacs",
+   "region": "exurb",
+   "searches": 1900
+  },
+  {
+   "slug": "st-peter",
+   "name": "St. Peter",
+   "mlsCity": "Saint Peter",
+   "county": "Nicollet",
+   "region": "sc",
+   "searches": 1900
+  },
+  {
+   "slug": "stewartville",
+   "name": "Stewartville",
+   "mlsCity": "Stewartville",
+   "county": "Olmsted",
+   "region": "se",
+   "searches": 1900
+  },
+  {
+   "slug": "byron",
+   "name": "Byron",
+   "mlsCity": "Byron",
+   "county": "Olmsted",
+   "region": "se",
+   "searches": 1600
+  },
+  {
+   "slug": "marshall",
+   "name": "Marshall",
+   "mlsCity": "Marshall",
+   "county": "Lyon",
+   "region": "sw",
+   "searches": 1600
+  },
+  {
+   "slug": "two-harbors",
+   "name": "Two Harbors",
+   "mlsCity": "Two Harbors",
+   "county": "Lake",
+   "region": "north",
+   "searches": 1600
+  },
+  {
+   "slug": "virginia",
+   "name": "Virginia",
+   "mlsCity": "Virginia",
+   "county": "St. Louis",
+   "region": "north",
+   "searches": 1600
+  },
+  {
+   "slug": "wabasha",
+   "name": "Wabasha",
+   "mlsCity": "Wabasha",
+   "county": "Wabasha",
+   "region": "se",
+   "searches": 1600
+  },
+  {
+   "slug": "worthington",
+   "name": "Worthington",
+   "mlsCity": "Worthington",
+   "county": "Nobles",
+   "region": "sw",
+   "searches": 1600
+  },
+  {
+   "slug": "baxter",
+   "name": "Baxter",
+   "mlsCity": "Baxter",
+   "county": "Crow Wing",
+   "region": "lakes",
+   "searches": 1000
+  },
+  {
+   "slug": "ely",
+   "name": "Ely",
+   "mlsCity": "Ely",
+   "county": "St. Louis",
+   "region": "north",
+   "searches": 1000
+  },
+  {
+   "slug": "grand-marais",
+   "name": "Grand Marais",
+   "mlsCity": "Grand Marais",
+   "county": "Cook",
+   "region": "north",
+   "searches": 1000
+  },
+  {
+   "slug": "nisswa",
+   "name": "Nisswa",
+   "mlsCity": "Nisswa",
+   "county": "Crow Wing",
+   "region": "lakes",
+   "searches": 1000
+  },
+  {
+   "slug": "walker",
+   "name": "Walker",
+   "mlsCity": "Walker",
+   "county": "Cass",
+   "region": "lakes",
+   "searches": 880
+  },
+  {
+   "slug": "crosslake",
+   "name": "Crosslake",
+   "mlsCity": "Crosslake",
+   "county": "Crow Wing",
+   "region": "lakes",
+   "searches": 720
+  },
+  {
+   "slug": "hinckley",
+   "name": "Hinckley",
+   "mlsCity": "Hinckley",
+   "county": "Pine",
+   "region": "exurb",
+   "searches": 480
+  }
+ ]
+}
