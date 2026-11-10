@@ -35,11 +35,14 @@ const BANDS: [string, number, number][] = [['Under $200,000', 0, 200000], ['$200
 
 // ----- one town -----
 const homes = t ? homesOf(t.slug) : [];
-const prices = homes.map((l) => l.price);
+// Houses, townhomes and condos (not land) for the price range and median: lots pull a lake town's median far down.
+const houses = homes.filter((l) => l.type !== 'land');
+const land = homes.length - houses.length;
+const prices = houses.map((l) => l.price);
 const nearby = t ? mnTowns.filter((x) => x.region === t.region && x.slug !== t.slug) : [];
-const answer = !t || !live || failed(t.slug) ? '' : homes.length
-  ? `${homes.length.toLocaleString('en-US')} ${homes.length === 1 ? 'home is' : 'homes are'} for sale in ${t.name}, MN as of ${day}${homes.length > 1 ? `, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices))}` : ` at ${money(prices[0])}`}. ${t.name} is in ${t.county} County.`
-  : `No homes are listed for sale in ${t.name}, MN as of ${day}. ${t.name} is in ${t.county} County.`;
+const answer = !t || !live || failed(t.slug) ? '' : houses.length
+  ? `${houses.length.toLocaleString('en-US')} ${houses.length === 1 ? 'home is' : 'homes are'} listed for sale in ${t.name}, MN in NorthstarMLS as of ${day}${houses.length > 1 ? `, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices))}` : ` at ${money(prices[0])}`}${land ? `, plus ${land} ${land === 1 ? 'lot or land listing' : 'lots and land listings'}` : ''}. ${t.name} is in ${t.county} County.`
+  : `No homes are listed for sale in ${t.name}, MN in NorthstarMLS as of ${day}${land ? ` (${land} ${land === 1 ? 'lot or land listing' : 'lots and land listings'})` : ''}. ${t.name} is in ${t.county} County.`;
 const byType = TYPES.map(([k, label]) => ({ label, list: homes.filter((l) => l.type === k) })).filter((r) => r.list.length);
 const byPrice = BANDS.map(([label, lo, hi]) => ({ label, list: homes.filter((l) => l.price >= lo && l.price < hi) })).filter((r) => r.list.length);
 const beds3 = homes.filter((l) => l.type !== 'land' && (l.beds ?? 0) >= 3);
@@ -55,10 +58,10 @@ const faq = t ? [
 
 // ----- hub -----
 const hubRows = Object.entries(mnRegions).map(([key, name]) => ({ name, towns: mnTowns.filter((x) => x.region === key).map((x) => ({ x, list: homesOf(x.slug) })) })).filter((g) => g.towns.length);
-const total = mnTowns.reduce((n, x) => n + homesOf(x.slug).length, 0);
-const hubAnswer = live && total ? `${total.toLocaleString('en-US')} homes are for sale across these ${mnTowns.length} Greater Minnesota towns as of ${day}, from NorthstarMLS. Pick a town for its homes, prices and recent sales.` : '';
+const total = mnTowns.reduce((n, x) => n + homesOf(x.slug).filter((l) => l.type !== 'land').length, 0);
+const hubAnswer = live && total ? `${total.toLocaleString('en-US')} homes (not counting land) are listed for sale across these ${mnTowns.length} Greater Minnesota towns in NorthstarMLS as of ${day}. Pick a town for its homes, prices and recent sales.` : '';
 
-const title = t ? `${t.name}, MN Homes for Sale${homes.length ? ` (${homes.length})` : ''}: Prices & Recent Sales` : 'Homes for Sale in Greater Minnesota by Town';
+const title = t ? `${t.name}, MN Homes for Sale${houses.length ? ` (${houses.length})` : ''}: Prices & Recent Sales` : 'Homes for Sale in Greater Minnesota by Town';
 const description = (t ? answer : hubAnswer) || (t ? `Homes for sale in ${t.name}, MN (${t.county} County) from NorthstarMLS, by price and type, with recent sales.` : 'Homes for sale in Duluth, Rochester, Mankato, St. Cloud and other Greater Minnesota towns, from NorthstarMLS.');
 const crumbs = [{ name: 'Minnesota homes for sale', href: base }, ...(t ? [{ name: t.name, href: `${base}/${t.slug}` }] : [])];
 const ld = faq.length ? JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', url: `${origin}${base}/${t!.slug}`, mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }) : '';
@@ -99,7 +102,8 @@ const formTown = t ? t.name : 'Greater Minnesota';
     <section class="section" aria-labelledby="sale-title">
       <div class="wrap">
         <div class="head"><p class="eyebrow">For sale now</p><h2 id="sale-title">Homes for sale in {t.name}</h2>
-          {homes.length > shown.length && <p>{shown.length} of {homes.length} homes, across the price range, lowest first.</p>}</div>
+          {homes.length > shown.length && <p>{shown.length} of {homes.length} listings, across the price range, lowest first.</p>}
+          <p class="source">Homes listed in NorthstarMLS. Some {t.name} homes may be listed only in another MLS; a local agent sees them all.</p></div>
         <div data-idx>
           {shown.length ? <ul class="lcards">{shown.map((l) => <ListingCard l={l} href={`/homes/listing?mls=${encodeURIComponent(l.mls)}`} />)}</ul>
             : <p>None right now. <a href="#ask">Tell us what you're looking for</a> and we'll have a local agent watch for it.</p>}
@@ -121,8 +125,8 @@ const formTown = t ? t.name : 'Greater Minnesota';
           <>
             <h3 class="grp">{g.name}</h3>
             <div class="table-scroll"><table class="data">
-              <thead><tr><th scope="col">Town</th><th scope="col">County</th>{live && <><th scope="col" class="num">For sale</th><th scope="col" class="num">Median list price</th></>}</tr></thead>
-              <tbody>{g.towns.map((r) => <tr><th scope="row"><a href={`${base}/${r.x.slug}`}>{r.x.name}</a></th><td>{r.x.county}</td>{live && <><td class="num">{r.list.length}</td><td class="num">{money(median(r.list.map((l: any) => l.price)))}</td></>}</tr>)}</tbody>
+              <thead><tr><th scope="col">Town</th><th scope="col">County</th>{live && <><th scope="col" class="num">Homes for sale</th><th scope="col" class="num">Median list price</th></>}</tr></thead>
+              <tbody>{g.towns.map((r) => { const h = r.list.filter((l: any) => l.type !== 'land'); return <tr><th scope="row"><a href={`${base}/${r.x.slug}`}>{r.x.name}</a></th><td>{r.x.county}</td>{live && <><td class="num">{h.length}</td><td class="num">{money(median(h.map((l: any) => l.price)))}</td></>}</tr>; })}</tbody>
             </table></div>
           </>
         ))}
