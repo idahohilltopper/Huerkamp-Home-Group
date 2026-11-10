@@ -13,6 +13,7 @@ import { listingsData, homesHref, median, money } from '../../data/listings';
 import { searchUrl } from '../../data/ylopo';
 import { origin } from '../../data/schema';
 import { site } from '../../data/site';
+import CityAlert from '../../components/CityAlert.astro';
 
 type Z = { zip: string; pctOfCityLand: number; medianHomeValue: number | null };
 const D = detailData.communities as Record<string, { zips?: Z[] }>;
@@ -105,6 +106,7 @@ const neighbors = communities.filter((x) => x.slug !== c.slug && rows.some((r) =
       </>}
     </div>
   </section>
+  <CityAlert name={c.name} place={c.slug} id="za" why={`Looking at ${c.name}${codes.length ? ` (${list(codes)})` : ''}? Tell us what you want and we'll email matching homes as soon as they hit the market.`} />
 </Base>
 
 <style>

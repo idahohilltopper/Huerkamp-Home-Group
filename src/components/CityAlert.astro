@@ -1,0 +1,41 @@
+---
+// "Get new <city> listings" sign-up plus a home value link, for pages that bring in visitors who aren't looking at homes
+// yet (ZIP code and commute pages). The same lead form as the homes-for-sale pages (data-lead="community-alert"):
+// Follow Up Boss gets the lead, and with the site's own MLS search on, Repliers emails matching new homes for the city.
+// Base.astro adds the call/text consent box and sends the form.
+import { OWN } from '../data/search';
+import { site } from '../data/site';
+interface Props { name: string; place: string; id: string; why?: string }
+const { name, place, id, why } = Astro.props;
+---
+<section class="section section--dark" id="alerts" aria-labelledby={`${id}-title`}>
+  <div class="wrap split">
+    <div class="prose">
+      <p class="eyebrow">New listings first</p>
+      <h2 id={`${id}-title`}>Get new {name} listings <em>the day they list.</em></h2>
+      <p>{why ?? `Thinking about ${name}? Tell us what you're looking for and we'll email matching homes as soon as they hit the market.`} A {site.name} agent can help you see them. There's no cost to buyers.</p>
+      <p class="alert__own">Own a home here? <a href="/home-estimate">See what it's worth</a>, an instant estimate from recent sales nearby.</p>
+      <p><a href={site.phoneHref}>{site.phone}</a></p>
+    </div>
+    <form class="form" data-lead="community-alert" data-alert-query={OWN ? JSON.stringify({ place }) : undefined} data-alert-name={`${name} homes for sale`}>
+      <input type="hidden" name="community" value={name} />
+      {OWN && <div class="field"><label for={`${id}-freq`}>Email me new homes</label><select id={`${id}-freq`} name="alertFrequency"><option value="instant">As soon as they’re listed</option><option value="daily" selected>Once a day</option><option value="weekly">Once a week</option></select></div>}
+      <div class="form__row">
+        <div class="field"><label for={`${id}-first`}>First name</label><input id={`${id}-first`} name="firstName" autocomplete="given-name" required /></div>
+        <div class="field"><label for={`${id}-last`}>Last name</label><input id={`${id}-last`} name="lastName" autocomplete="family-name" required /></div>
+      </div>
+      <div class="form__row">
+        <div class="field"><label for={`${id}-email`}>Email</label><input id={`${id}-email`} name="email" type="email" autocomplete="email" required /></div>
+        <div class="field"><label for={`${id}-phone`}>Phone</label><input id={`${id}-phone`} name="phone" type="tel" autocomplete="tel" required pattern="[^0-9]*([0-9][^0-9]*){10,}" title="Please enter your phone number, including area code." /></div>
+      </div>
+      <button class="btn" type="submit">Send me new listings</button>
+      <p class="form__status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+  .alert__own a { color: inherit; font-weight: 700; }
+</style>

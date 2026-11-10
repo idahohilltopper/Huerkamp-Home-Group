@@ -14,6 +14,7 @@ import { communitySearch } from '../../data/ylopo';
 import { listingsData, homesHref } from '../../data/listings';
 import { origin } from '../../data/schema';
 import { site } from '../../data/site';
+import CityAlert from '../../components/CityAlert.astro';
 
 type Props = { kind: 'hub' } | { kind: 'dest'; d: Dest } | { kind: 'city'; d: Dest; c: Community };
 export function getStaticPaths() {
@@ -205,6 +206,7 @@ const ld = faq.length ? JSON.stringify({ '@context': 'https://schema.org', '@typ
       </div>
     </section>
   )}
+  {c && d && <CityAlert name={c.name} place={c.slug} id="ca" why={`Weighing a ${c.name} move for the drive to ${d.short}? Tell us what you're looking for and we'll email matching ${c.name} homes as soon as they hit the market.`} />}
 </Base>
 
 <style>
