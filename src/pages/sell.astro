@@ -3,6 +3,13 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import Quotes from '../components/Quotes.astro';
 import { site } from '../data/site';
+import closings from '../data/team-closings.json';
+import { communities } from '../data/areas';
+
+// Our closings by city (src/data/team-closings.json), the cities with the most, for the "sold where you live" strip.
+const topCities = Object.entries(closings.cities as Record<string, { n: number; seller: number }>)
+  .filter(([, v]) => v.n >= 5).sort((a, b) => b[1].n - a[1].n).slice(0, 12)
+  .map(([s, v]) => ({ s, v, name: communities.find((c) => c.slug === s)?.name })).filter((x) => x.name);
 
 ---
 <Base
@@ -46,6 +53,17 @@ import { site } from '../data/site';
         <button class="btn" type="submit">Get my home value</button>
         <p class="form__status" role="status" aria-live="polite"></p>
       </form>
+    </div>
+  </section>
+
+  <section class="section section--paper" aria-labelledby="sold-here-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Sold where you live</p>
+        <h2 id="sold-here-title">{closings.total.n.toLocaleString('en-US')} homes sold in the last 3 years, <em>{closings.total.seller} for sellers.</em></h2>
+        <p>From the team's closing records, city by city. Pick yours:</p>
+      </div>
+      <ul class="sold-here">{topCities.map((c) => <li><a href={`/real-estate-agents/${c.s}-mn`}><strong>{c.name}</strong> <span>{c.v.n} sold</span></a></li>)}<li><a href="/real-estate-agents"><strong>Every city</strong> <span>see all</span></a></li></ul>
     </div>
   </section>
 
@@ -123,6 +141,10 @@ import { site } from '../data/site';
 </Base>
 
 <style>
+  .sold-here { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 11rem), 1fr)); gap: .6rem; }
+  .sold-here a { display: flex; justify-content: space-between; gap: .5rem; padding: .75rem 1rem; background: #fff; border: 1px solid var(--line); color: var(--text); text-decoration: none; }
+  .sold-here a:hover { border-color: var(--crimson); }
+  .sold-here span { color: var(--crimson); font-weight: 700; white-space: nowrap; }
   .why-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); }
   .why-grid .prose { max-width: none; }
   @media (max-width: 860px) { .why-grid { grid-template-columns: 1fr; } }
