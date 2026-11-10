@@ -30,6 +30,8 @@ const homesFor = (c: Community) => { const k = homes.collections.find((x) => x.p
 const pairOf = (a: Community, b: Community) => pairs.find((p) => p.kind === 'community' && ((p.a.key === a.slug && p.b.key === b.slug) || (p.a.key === b.slug && p.b.key === a.slug)));
 const ordinal = (n: number) => { const s = ['th', 'st', 'nd', 'rd'], r = n % 100; return n + (s[(r - 20) % 10] || s[r] || s[0]); };
 const priced = (list: Community[]) => list.filter((c) => sales(c) >= MIN_SALES && median(c));
+/** What people type: "to minneapolis", "to st paul" (not "downtown"). */
+const PLAIN: Record<string, string> = { downtownMinneapolis: 'Minneapolis', downtownSaintPaul: 'St. Paul' };
 const note = 'Drive times are light-traffic estimates from each city’s center (OpenStreetMap routing). Your trip depends on your address and the time of day; allow more at rush hour.';
 
 let title: string, h1: string, eyebrow: string, lede: string, description: string, crumbs: { name: string; href: string }[], index = true;
@@ -50,15 +52,18 @@ const shorter = c && d ? priced(list.filter((x) => x !== c && minutes(x, d.key)!
 const others = c ? [...DESTS.filter((x) => x !== d).map((x) => ({ name: x.name, min: minutes(c, x.key), href: commuteHref(x, c) })), ...EXTRA.map((x) => ({ name: x.name, min: minutes(c, x.key), href: null as string | null }))].filter((x) => x.min != null) : [];
 
 if (c && d) {
-  h1 = `Living in ${c.name} and commuting to ${d.short}`;
-  title = [`${c.name}, MN to ${d.name}: Commute and Home Prices`, `${c.name} to ${d.name}: Commute and Home Prices`, `${c.name} to ${d.name} Commute`].find((t) => t.length <= 60) ?? `${c.name} to ${d.name}`;
+  // Worded the way people search ("maple grove to minneapolis", "how far is stillwater from minneapolis"): the plain
+  // destination name and the drive time up front (Search Console, Nov 2026: these pages sat around position 10).
+  const to = PLAIN[d.key] ?? d.name;
+  h1 = `${c.name} to ${to}: about ${mins} minutes by car`;
+  title = [`${c.name}, MN to ${to}: ${mins}-Minute Drive & Home Prices`, `${c.name} to ${to}: ${mins}-Minute Drive & Home Prices`, `${c.name} to ${to}: ${mins}-Minute Drive`].find((t) => t.length <= 60) ?? `${c.name} to ${to}: ${mins}-Minute Drive`;
   eyebrow = `Commute · ${d.name}`;
   lede = `${c.name} is about ${mins} minutes from ${d.short} by car in light traffic, the ${ordinal(rank)} shortest drive of the ${list.length} cities in our guides.${price && sales(c) >= 10 ? ` Homes there sold for a median ${money(price)} over the 12 months through ${month}.` : ''}`;
   description = `${lede} Shorter drives at a similar price, drive times to other job centers, and ${c.name} homes for sale.`;
   crumbs = [{ name: 'Commute', href: '/commute' }, { name: d.name, href: commuteHref(d) }, { name: c.name, href: commuteHref(d, c) }];
   index = mins <= INDEX_MINUTES;
   faq = [
-    { q: `How long is the drive from ${c.name} to ${d.short}?`, a: `About ${mins} minutes in light traffic from the center of ${c.name}, roughly ${Math.round(miles(c, d))} miles in a straight line. Rush hour and your exact address can add time.` },
+    { q: `How far is ${c.name} from ${PLAIN[d.key] ?? d.short}?`, a: `About ${mins} minutes by car in light traffic from the center of ${c.name} to ${d.short}, roughly ${Math.round(miles(c, d))} miles in a straight line. Rush hour and your exact address can add time.` },
     ...(meanCommute(c) ? [{ q: `How long is the average commute in ${c.name}?`, a: `${meanCommute(c)} minutes each way, the average travel time to work for ${c.name} residents in the US Census Bureau’s American Community Survey (2020–2024), to all destinations.` }] : []),
     ...(shorter.length ? [{ q: `Which cities have a shorter drive to ${d.short} at a similar price?`, a: `${shorter.slice(0, 4).map((x) => `${x.name} (${minutes(x, d.key)} minutes, median ${money(median(x))})`).join(', ')}, among cities in our guides with at least ${MIN_SALES} sales over the 12 months through ${month}.` }] : []),
     ...(price && sales(c) >= 10 ? [{ q: `What do homes cost in ${c.name}?`, a: `The median sale price was ${money(price)} over the 12 months through ${month} (${count(sales(c))} sales), according to the Minneapolis Area REALTORS® Local Market Update.` }] : []),

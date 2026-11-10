@@ -1,0 +1,125 @@
+---
+// ZIP codes for one community: /zip-codes/<community>-mn (e.g. /zip-codes/woodbury-mn). Built for searches like
+// "woodbury mn zip code" (4,400 a month, Open SEO, Nov 2026), which the community guide only ranked for in passing.
+// One job: which ZIP codes cover the city, the post office name on each, what else shares it, and the homes for sale
+// in each ZIP now. Sources: Census 2020 ZCTA-to-place file (src/data/community-details.json), GeoNames post office
+// names (src/data/zip-towns.json), the live MLS feed (listings). Homes and places only (fair housing).
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { communities, type Community } from '../../data/areas';
+import detailData from '../../data/community-details.json';
+import zipTowns from '../../data/zip-towns.json';
+import { listingsData, homesHref, median, money } from '../../data/listings';
+import { searchUrl } from '../../data/ylopo';
+import { origin } from '../../data/schema';
+import { site } from '../../data/site';
+
+type Z = { zip: string; pctOfCityLand: number; medianHomeValue: number | null };
+const D = detailData.communities as Record<string, { zips?: Z[] }>;
+export function getStaticPaths() {
+  const all = detailData.communities as Record<string, { zips?: unknown[] }>;
+  return communities.filter((c) => (all[c.slug]?.zips ?? []).length).map((c) => ({ params: { slug: `${c.slug}-mn` }, props: { c } }));
+}
+const { c } = Astro.props as { c: Community };
+const zips = [...(D[c.slug].zips ?? [])].sort((a, b) => b.pctOfCityLand - a.pctOfCityLand);
+const town = (z: string): string | undefined => (zipTowns.towns as Record<string, string>)[z];
+const norm = (s: string) => s.toLowerCase().replace(/^st\.? /, 'saint ');
+const list = (xs: string[]) => (xs.length <= 2 ? xs.join(' and ') : `${xs.slice(0, -1).join(', ')} and ${xs.at(-1)}`);
+const data = await listingsData;
+const live = data.mode !== 'off';
+const exists = (p: string) => data.collections.some((k) => k.path === p);
+// Other communities in our guides that the same ZIP code also covers (at least 5% of their land).
+const shared = (z: string) => communities.filter((x) => x.slug !== c.slug && (D[x.slug]?.zips ?? []).some((y) => y.zip === z));
+const rows = zips.map((z) => {
+  const homes = live ? data.listings.filter((l) => l.zip === z.zip) : [];
+  return { ...z, town: town(z.zip), homes: homes.length, med: median(homes.map((l) => l.price)), href: exists(`zip/${z.zip}`) ? homesHref(`zip/${z.zip}`) : live ? null : searchUrl({ zips: [z.zip] }), also: shared(z.zip) };
+});
+const codes = zips.map((z) => z.zip).sort();
+const own = rows.filter((r) => r.town && norm(r.town) === norm(c.name)).map((r) => r.zip);
+const borrowed = rows.filter((r) => r.town && norm(r.town) !== norm(c.name));
+const main = rows[0];
+// Post office names that aren't the city's own, grouped: 'both use "Saint Paul"' / '55340 uses "Hamel"'.
+const cap = (t: string) => t.charAt(0).toUpperCase() + t.slice(1);
+const byTown = [...new Set(borrowed.map((r) => r.town!))].map((t) => ({ t, zs: borrowed.filter((r) => r.town === t).map((r) => r.zip) }));
+const q = (t: string) => '"' + t + '"';
+const usesName = byTown.map(({ t, zs }) => {
+  const who = zs.length === rows.length && rows.length > 1 ? (rows.length === 2 ? 'both use' : 'all use') : list(zs) + (zs.length === 1 ? ' uses' : ' use');
+  return who + ' the post office name ' + q(t);
+});
+const shown = byTown.length === 1 ? q(byTown[0].t) : 'those names';
+const intro = codes.length === 1 ? 'has one main ZIP code: ' + codes[0] : 'has ' + codes.length + ' main ZIP codes: ' + list(codes);
+const share = codes.length > 1 ? ' ' + main.zip + ' covers the largest share of the city, about ' + main.pctOfCityLand + '% of its land.' : '';
+const names = byTown.length > 2 ? ' They carry the post office names ' + list(byTown.map((b) => b.t)) + ', so mail and many listings show those names even for ' + c.name + ' addresses.'
+  : usesName.length ? ' ' + cap(usesName.join('; ')) + ', so mail and many listings show ' + shown + ' even for ' + c.name + ' addresses.' : '';
+const answer = c.name + ', Minnesota ' + intro + '.' + share + names;
+const title = [`${c.name}, MN ZIP Codes: ${list(codes)}`, `${c.name}, MN ZIP Codes: ${codes.slice(0, 3).join(', ')}${codes.length > 3 ? ' & More' : ''}`, `${c.name}, MN ZIP Codes`].find((t) => t.length <= 60)!;
+const forSale = rows.reduce((n, r) => n + r.homes, 0);
+const description = `${answer} ${live && forSale ? `Homes for sale in each ZIP now, ` : ''}and which other towns share them.`;
+const faq = [
+  { q: `What is the ZIP code for ${c.name}, MN?`, a: answer },
+  ...(borrowed.length ? [{ q: `Why does a ${c.name} address say ${list([...new Set(borrowed.map((r) => r.town!))])}?`, a: `ZIP codes follow post office routes, not city limits. ${list(borrowed.map((r) => r.zip))} ${borrowed.length === 1 ? 'is' : 'are'} named for the post office that delivers ${borrowed.length === 1 ? 'it' : 'them'}, so an address can read "${borrowed[0].town}, MN ${borrowed[0].zip}" and still be inside ${c.name}. The city on the county property record is the one that sets property taxes and city services.` }] : []),
+  ...rows.filter((r) => r.also.length).slice(0, 3).map((r) => ({ q: `What other cities use ZIP code ${r.zip}?`, a: `Besides ${c.name}, ZIP ${r.zip} also covers part of ${list(r.also.map((x) => x.name))}.` })),
+  ...(live && forSale ? [{ q: `How many homes are for sale in ${c.name} ZIP codes?`, a: `${rows.filter((r) => r.homes).map((r) => `${r.homes.toLocaleString('en-US')} in ${r.zip}${r.med ? ` (median list price ${money(r.med)})` : ''}`).join('; ')}, from NorthstarMLS. A ZIP code can reach beyond ${c.name}, so these counts include every home in the ZIP.` }] : []),
+];
+const url = `${origin}/zip-codes/${c.slug}-mn`;
+const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })), url });
+const neighbors = communities.filter((x) => x.slug !== c.slug && rows.some((r) => r.also.includes(x)));
+---
+<Base breadcrumbs={[{ name: 'ZIP codes', href: '/zip-codes' }, { name: c.name, href: `/zip-codes/${c.slug}-mn` }]}
+  title={`${title} | ${site.name}`} description={description}>
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <PageHero eyebrow="ZIP codes" title={`${c.name}, MN ZIP codes`} lede={answer} />
+  <section class="section">
+    <div class="wrap narrowish">
+      <div class="table-scroll">
+        <table class="data">
+          <thead><tr><th scope="col">ZIP code</th><th scope="col">Post office name</th><th scope="col" class="num">Share of {c.name}</th><th scope="col">Also covers</th>{live && <th scope="col" class="num">Homes for sale now</th>}</tr></thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr>
+                <th scope="row">{r.zip}</th>
+                <td>{r.town ?? ''}</td>
+                <td class="num">{r.pctOfCityLand}%</td>
+                <td class="also">{r.also.length ? r.also.map((x) => <a href={`/zip-codes/${x.slug}-mn`}>{x.name}</a>) : '—'}</td>
+                {live && <td class="num">{r.href ? <a href={r.href}>{r.homes.toLocaleString('en-US')}{r.med ? ` · median ${money(r.med)}` : ''}</a> : r.homes.toLocaleString('en-US')}</td>}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="source">Main ZIP code areas (Census ZCTAs) covering at least 5% of {c.name}'s land, US Census Bureau 2020 ZCTA-to-place relationship file. Post office names: <a href="https://www.geonames.org/">GeoNames</a> (CC BY 4.0).{live && <> Homes for sale: NorthstarMLS, updated {data.at ? new Date(data.at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }) : ''}.</>} ZIP code areas and city limits don't line up exactly; the city on the property record is the one that counts for taxes and services.</p>
+
+      <h2>More about {c.name}</h2>
+      <ul class="zip-links">
+        <li><a href={`/communities/${c.slug}`}><strong>Living in {c.name}</strong><span>Home prices, property taxes, commute times and what's nearby.</span></a></li>
+        {live && exists(c.slug) && <li><a href={homesHref(c.slug)}><strong>{c.name} homes for sale</strong><span>Every home for sale in the city, with photos and prices.</span></a></li>}
+        <li><a href={`/market/${c.slug}`}><strong>{c.name} housing market</strong><span>Median sale price, days on market and inventory each month.</span></a></li>
+      </ul>
+
+      <h2>Questions about {c.name} ZIP codes</h2>
+      <dl class="zip-faq">{faq.map((f) => <div><dt>{f.q}</dt><dd>{f.a}</dd></div>)}</dl>
+
+      {neighbors.length > 0 && <>
+        <h2>ZIP codes in nearby towns</h2>
+        <ul class="chips">{neighbors.map((x) => <li><a href={`/zip-codes/${x.slug}-mn`}>{x.name}</a></li>)}<li><a href="/zip-codes">Every town</a></li></ul>
+      </>}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .narrowish { max-width: 60rem; }
+  .source { margin-top: .9rem; font-size: .9rem; color: var(--text-soft); }
+  h2 { margin: 2.5rem 0 1rem; font: 500 1.6rem/1.2 var(--serif); }
+  .zip-links { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; }
+  .zip-links a { display: grid; gap: .2rem; padding: .9rem 1rem; border: 1px solid var(--line); background: var(--paper); color: var(--text); text-decoration: none; }
+  .zip-links a:hover strong { color: var(--crimson); }
+  .zip-links span { font-size: .9rem; color: var(--text-soft); }
+  .zip-faq { margin: 0; display: grid; gap: 1.1rem; }
+  .zip-faq dt { font-weight: 700; }
+  .zip-faq dd { margin: .3rem 0 0; line-height: 1.6; }
+  .also a + a::before { content: ', '; color: var(--text); }
+  .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+  .chips a { display: inline-block; padding: .5rem .8rem; border: 1px solid var(--line); background: var(--paper); color: var(--text); font: 500 .88rem/1.2 var(--ui); text-decoration: none; }
+  .chips a:hover { border-color: var(--crimson); color: var(--crimson); }
+</style>
