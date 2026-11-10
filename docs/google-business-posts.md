@@ -1,4 +1,4 @@
-# Google Business Profile posts: November–December 2026
+# Google Business Profile posts: November 2026–January 2027
 
 How to post: Google Business Profile → **Add update** → paste the text → **Add button: Learn more** → paste the link →
 add a photo (your own: a listing you sold, the team, or a local spot) → **Post**. One a week. Posts stay up; Google
@@ -80,6 +80,74 @@ Huerkamp Home Group · (612) 502-7653
 
 **Button:** Learn more
 **Link:** https://www.huerkamphomes.com/home-search?utm_source=google&utm_medium=organic&utm_campaign=gbp-post
+
+---
+
+## Week 5 (post by Dec. 1): Bought a home this year? Homestead by Dec. 31
+
+**Text:**
+
+Bought a home in 2026? Apply for homestead with your county by December 31, or you'll miss the homestead rate on your
+2027 property taxes. On a $395,000 home, homestead takes $11,000 off the taxable value, and it's required for the
+state's property tax refund. You apply once, online in most metro counties.
+
+Every metro county's application link, plus who qualifies, in one place.
+
+Sources: Minnesota Department of Revenue (homestead classification and market value exclusion); each county's
+homestead page.
+
+**Button:** Learn more
+**Link:** https://www.huerkamphomes.com/property-taxes/minnesota-homestead?utm_source=google&utm_medium=organic&utm_campaign=gbp-post
+
+---
+
+## Week 6: Our sales, city by city
+
+**Text:**
+
+How many homes has your agent sold where you live? Huerkamp Home Group closed 1,248 home sales in the last three
+years: 493 for sellers and 724 for buyers, including 46 in Burnsville, 59 in Lakeville and 36 in Apple Valley.
+RealTrends ranks us #1 in Burnsville and #3 in Minnesota (2025 sales).
+
+See the numbers for your city.
+
+Sources: Huerkamp Home Group closing records (November 2023 to November 2026); RealTrends Verified, 2025.
+
+**Button:** Learn more
+**Link:** https://www.huerkamphomes.com/real-estate-agents?utm_source=google&utm_medium=organic&utm_campaign=gbp-post
+
+---
+
+## Week 7: Down payment help for first-time buyers
+
+**Text:**
+
+Buying your first home in 2027? Down payment help in the Twin Cities is bigger than most buyers think: up to $18,000
+statewide from Minnesota Housing, up to $40,000 in Saint Paul and up to $35,000 in Hennepin County, mostly as 0% loans
+that are deferred or forgiven. Programs have income limits, and some funds run out during the year.
+
+Every program side by side, with links to apply.
+
+Sources: Minnesota Housing; City of Saint Paul; Hennepin County 2026 Homebuyer Assistance Program guide.
+
+**Button:** Learn more
+**Link:** https://www.huerkamphomes.com/down-payment-assistance-minnesota?utm_source=google&utm_medium=organic&utm_campaign=gbp-post
+
+---
+
+## Week 8: What would your payment be?
+
+**Text:**
+
+What would your monthly payment be on a Twin Cities home? Our Minnesota mortgage calculator uses this week's average
+rates and the actual property tax rate of the city you're buying in, plus what Minnesota's mortgage registry tax adds
+at closing. Try a few cities and down payments.
+
+Sources: Freddie Mac Primary Mortgage Market Survey (updated weekly); US Census Bureau property tax data; Minnesota
+Department of Revenue.
+
+**Button:** Learn more
+**Link:** https://www.huerkamphomes.com/calculators/mortgage?utm_source=google&utm_medium=organic&utm_campaign=gbp-post
 
 ---
 
