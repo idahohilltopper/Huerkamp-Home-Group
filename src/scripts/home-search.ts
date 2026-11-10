@@ -438,8 +438,12 @@ export function initSearch(root: HTMLElement) {
     if (drawn) return mapApi.setPlace(map, [{ type: 'Feature', properties: { key: 'drawn' }, geometry: { type: 'Polygon', coordinates: [[...drawn, drawn[0]]] } }]);
     const places = (params().get('place') ?? '').split(',').filter((p) => p && !p.startsWith('zip:') && !p.startsWith('lake:'));
     if (!places.length) return mapApi.setPlace(map, []);
+    const wanted = params().get('place') ?? '';
     outlines ??= fetch('/geo/places.json').then((r) => r.json()).catch(() => ({ features: [] }));
     const all = await outlines;
+    // The outlines file can arrive after the visitor removed the boundary or picked another place: draw only if the
+    // search still names the same places (a late answer once redrew a removed outline).
+    if ((params().get('place') ?? '') !== wanted || params().get('poly')) return;
     mapApi.setPlace(map, all.features.filter((f) => places.includes(f.properties.key)));
   }
 
