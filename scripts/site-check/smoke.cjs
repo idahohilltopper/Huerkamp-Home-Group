@@ -116,6 +116,21 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
       ok('Listing page: nearby homes arrows', !wide || moved, `${await list.locator('li').count()} homes${wide ? (moved ? ', arrow scrolled' : ', arrow did not scroll') : ', all fit'}`);
     } else ok('Listing page: nearby homes arrows', true, 'no nearby homes on this listing');
   });
+  // Share a home (Nov 10, 2026): the Share button opens the "Share this home" box with the home's link (desktop).
+  await step('Listing page: share', async () => {
+    await p.goto(BASE + '/homes-for-sale/minneapolis', { waitUntil: 'domcontentloaded' });
+    const href = await p.getAttribute('a[href^="/homes/"]:not([href^="/homes/listing"])', 'href').catch(() => null);
+    if (!href) return ok('Listing page: share', true, 'no listing pages to try');
+    await p.goto(BASE + href, { waitUntil: 'domcontentloaded' });
+    await p.locator('.home__actions [data-share]').first().click();
+    await p.waitForSelector('dialog.share-dlg[open]', { timeout: 5000 });
+    const link = await p.inputValue('dialog.share-dlg input');
+    await p.click('dialog.share-dlg [data-m="copy"]');
+    await p.waitForTimeout(400);
+    const status = (await p.textContent('dialog.share-dlg .share-dlg__status'))?.trim();
+    await p.keyboard.press('Escape');
+    ok('Listing page: share', link.includes('/homes/') && link.includes('utm_source=share') && status === 'Link copied.', `${link.replace(/^https?:\/\/[^/]+/, '').slice(0, 70)} · ${status || 'no status'}`);
+  });
   // A lead form sent before the page's scripts have loaded (slow phone, listing with many photos) must still be sent,
   // without the page reloading or the details landing in the address (found Nov 9, 2026). Scripts are held back 4 s.
   await step('Form sent while the page is still loading', async () => {

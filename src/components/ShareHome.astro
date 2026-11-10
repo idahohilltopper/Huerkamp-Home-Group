@@ -1,0 +1,102 @@
+---
+// "Share" for a home, like Zillow's: on phones the phone's own share sheet (Messages, WhatsApp, email…); elsewhere a
+// "Share this home" box with Copy link, Email, Text, Facebook, X and Pinterest. The link's preview (photo, price,
+// address) comes from the listing page's Open Graph tags (src/layouts/Base.astro). Each share is sent to Google
+// Analytics as a "share" event (method + MLS number). Pass url/title/image, or set them later on the button
+// (data-share-url etc.) for pages filled in the browser (/homes/listing).
+interface Props { url?: string; title?: string; image?: string; mls?: string; big?: boolean }
+const { url = '', title = '', image = '', mls = '', big = false } = Astro.props;
+---
+<button type="button" class:list={['share-btn', { 'share-btn--big': big }]} data-share data-share-url={url} data-share-title={title} data-share-image={image} data-share-mls={mls} aria-haspopup="dialog">
+  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+  <span>Share</span>
+</button>
+
+<script>
+  // One dialog for the page, built on first use.
+  type Share = { url: string; title: string; image: string; mls: string };
+  let dlg: HTMLDialogElement | null = null;
+  let cur: Share = { url: '', title: '', image: '', mls: '' };
+  const track = (method: string) => { try { (window as any).gtag?.('event', 'share', { method, content_type: 'home', item_id: cur.mls || cur.url }); } catch {} };
+  const withSrc = (u: string, method: string) => { try { const x = new URL(u, location.href); x.searchParams.set('utm_source', 'share'); x.searchParams.set('utm_medium', method); return x.href; } catch { return u; } };
+  function build() {
+    dlg = document.createElement('dialog');
+    dlg.className = 'share-dlg';
+    dlg.setAttribute('aria-labelledby', 'share-dlg-title');
+    dlg.innerHTML = `
+      <form method="dialog" class="share-dlg__head"><h2 id="share-dlg-title">Share this home</h2><button class="share-dlg__x" aria-label="Close">×</button></form>
+      <p class="share-dlg__what"></p>
+      <div class="share-dlg__copy"><input readonly aria-label="Link to this home" /><button type="button" data-m="copy" class="btn">Copy link</button></div>
+      <ul class="share-dlg__list">
+        <li><a data-m="email" href="#">Email</a></li>
+        <li><a data-m="text" href="#">Text message</a></li>
+        <li><a data-m="facebook" href="#" target="_blank" rel="noopener">Facebook</a></li>
+        <li><a data-m="x" href="#" target="_blank" rel="noopener">X</a></li>
+        <li><a data-m="pinterest" href="#" target="_blank" rel="noopener">Pinterest</a></li>
+      </ul>
+      <p class="share-dlg__status" role="status" aria-live="polite"></p>`;
+    document.body.append(dlg);
+    dlg.addEventListener('click', (e) => {
+      if (e.target === dlg) return dlg!.close(); // a click on the backdrop
+      const el = (e.target as HTMLElement).closest<HTMLElement>('[data-m]');
+      if (!el) return;
+      const m = el.dataset.m!;
+      track(m);
+      if (m === 'copy') {
+        const input = dlg!.querySelector('input')!;
+        const done = () => { dlg!.querySelector('.share-dlg__status')!.textContent = 'Link copied.'; };
+        navigator.clipboard?.writeText(input.value).then(done, () => { input.select(); document.execCommand('copy'); done(); });
+      }
+    });
+  }
+  function open(s: Share) {
+    if (!dlg) build();
+    cur = s;
+    const text = `Take a look at this home: ${s.title}`;
+    const link = (m: string) => withSrc(s.url, m);
+    const enc = encodeURIComponent;
+    dlg!.querySelector('.share-dlg__what')!.textContent = s.title;
+    dlg!.querySelector('input')!.value = link('copy');
+    dlg!.querySelector('.share-dlg__status')!.textContent = '';
+    const set = (m: string, href: string) => { dlg!.querySelector<HTMLAnchorElement>(`[data-m="${m}"]`)!.href = href; };
+    set('email', `mailto:?subject=${enc(s.title)}&body=${enc(`${text}\n\n${link('email')}`)}`);
+    set('text', `sms:?&body=${enc(`${text} ${link('text')}`)}`);
+    set('facebook', `https://www.facebook.com/sharer/sharer.php?u=${enc(link('facebook'))}`);
+    set('x', `https://twitter.com/intent/tweet?url=${enc(link('x'))}&text=${enc(text)}`);
+    set('pinterest', `https://pinterest.com/pin/create/button/?url=${enc(link('pinterest'))}${s.image ? `&media=${enc(s.image)}` : ''}&description=${enc(s.title)}`);
+    dlg!.querySelector<HTMLLIElement>('[data-m="text"]')!.closest('li')!.hidden = !matchMedia('(pointer: coarse)').matches;
+    dlg!.showModal();
+  }
+  document.addEventListener('click', async (e) => {
+    const b = (e.target as HTMLElement).closest<HTMLElement>('[data-share]');
+    if (!b) return;
+    const d = b.dataset;
+    const s: Share = { url: d.shareUrl || location.href.split('#')[0], title: d.shareTitle || document.title, image: d.shareImage || '', mls: d.shareMls || '' };
+    // Phones and tablets: the device's own share sheet, as on Zillow's app.
+    if (navigator.share && matchMedia('(pointer: coarse)').matches) {
+      try { cur = s; await navigator.share({ title: s.title, text: `Take a look at this home: ${s.title}`, url: withSrc(s.url, 'native') }); track('native'); return; }
+      catch (err: any) { if (err?.name === 'AbortError') return; } // cancelled: do nothing; anything else falls back to the box
+    }
+    open(s);
+  });
+</script>
+
+<style is:global>
+  .share-btn { display: inline-flex; gap: .4rem; align-items: center; padding: .55rem .95rem; border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--text); font: 600 .95rem/1 var(--ui); cursor: pointer; }
+  .share-btn:hover { border-color: var(--crimson); color: var(--crimson); }
+  .share-btn--big { height: 2.6rem; }
+  .share-dlg { width: min(28rem, calc(100vw - 2rem)); padding: 1.25rem 1.4rem 1.4rem; border: 0; border-radius: 12px; box-shadow: 0 20px 60px rgba(0, 0, 0, .3); }
+  .share-dlg::backdrop { background: rgba(21, 18, 19, .55); }
+  .share-dlg__head { display: flex; justify-content: space-between; align-items: center; margin: 0; }
+  .share-dlg__head h2 { margin: 0; font: 500 1.5rem/1.2 var(--serif); }
+  .share-dlg__x { border: 0; background: none; font: 400 2rem/1 var(--ui); cursor: pointer; color: var(--text-soft); }
+  .share-dlg__what { margin: .4rem 0 1rem; color: var(--text-soft); font-size: .95rem; }
+  .share-dlg__copy { display: flex; gap: .5rem; }
+  .share-dlg__copy input { flex: 1; min-width: 0; padding: .6rem .7rem; border: 1px solid var(--line); border-radius: 6px; font: 400 .9rem/1.2 var(--ui); }
+  .share-dlg__copy .btn { padding: .6rem 1rem; border-radius: 6px; white-space: nowrap; }
+  .share-dlg__list { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr)); gap: .5rem; }
+  .share-dlg__list li[hidden] { display: none; }
+  .share-dlg__list a { display: block; padding: .7rem .8rem; border: 1px solid var(--line); border-radius: 8px; color: var(--text); text-decoration: none; font: 600 .95rem/1.2 var(--ui); text-align: center; }
+  .share-dlg__list a:hover { border-color: var(--crimson); color: var(--crimson); }
+  .share-dlg__status { min-height: 1.2em; margin: .8rem 0 0; color: var(--crimson); font-weight: 600; font-size: .9rem; }
+</style>

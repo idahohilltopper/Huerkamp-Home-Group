@@ -4,6 +4,7 @@
 import Base from '../../layouts/Base.astro';
 import { mls } from '../../data/mls';
 import { site } from '../../data/site';
+import ShareHome from '../../components/ShareHome.astro';
 ---
 <Base title="Home for sale | Huerkamp Home Group" description="A home for sale in the Twin Cities, from NorthstarMLS." noindex>
   <section class="section lst" aria-live="polite">
@@ -21,6 +22,7 @@ import { site } from '../../data/site';
             <p class="eyebrow lst__type"></p>
             <h1 class="lst__title"></h1>
             <p class="lst__price"></p>
+            <p class="lst__share"><ShareHome /></p>
             <p class="lst__specs"></p>
             <p class="lst__broker"></p>
             <div class="lst__desc prose"></div>
@@ -84,6 +86,8 @@ import { site } from '../../data/site';
       count.hidden = false; paint();
     }
     $('.lst__mls').textContent = l.mls;
+    const sb = document.querySelector<HTMLElement>('[data-share]');
+    if (sb) Object.assign(sb.dataset, { shareTitle: `${where}${l.price != null ? ` · $${l.price.toLocaleString('en-US')}` : ''}`, shareImage: l.photos[0] ?? '', shareMls: l.mls });
     $('.lst__updated').textContent = `Updated ${new Date(d.updated).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' })}.`;
     document.querySelector<HTMLInputElement>('input[name="listing"]')!.value = `${where} (MLS #${l.mls}) ${location.href}`;
     $('.lst__status').hidden = true;
@@ -110,6 +114,7 @@ import { site } from '../../data/site';
   @media (max-width: 900px) { .lst__grid { grid-template-columns: 1fr; } }
   .lst__title { font: 500 clamp(1.8rem, 4vw, 2.8rem)/1.1 var(--serif-display); }
   .lst__price { font: 500 2rem/1.2 var(--serif); margin-top: .5rem; }
+  .lst__share { margin: .6rem 0; }
   .lst__specs { font: 600 1rem/1.4 var(--ui); }
   .lst__broker { font-size: .85rem; color: var(--text-soft); }
   .lst__desc :global(p) { margin-top: 1.5rem; white-space: pre-line; }

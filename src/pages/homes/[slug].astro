@@ -20,6 +20,7 @@ import PaymentEstimate from '../../components/PaymentEstimate.astro';
 import PhotoGallery from '../../components/PhotoGallery.astro';
 import { formatOpenHouse, OPEN_HOUSE_NOTE } from '../../lib/open-house.mjs';
 import { origin } from '../../data/schema';
+import ShareHome from '../../components/ShareHome.astro';
 import { site } from '../../data/site';
 import { developmentsData } from '../../data/developments';
 import NearbyPlaces from '../../components/NearbyPlaces.astro';
@@ -206,6 +207,7 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() }, { name: community
               <p class="home__actions">
                 {estimate && <a class="home__pill" href="#payment"><span>Est.:</span> {money(estimate)}/mo</a>}
                 <button type="button" class="fav fav--big" data-fav={l.mls} data-fav-name={where} data-fav-street={l.addressHidden ? '' : l.street} data-fav-city={l.city} data-fav-zip={l.zip} data-fav-price={String(l.price)} aria-pressed="false" aria-label={`Save: ${where}`}>♡</button>
+                <ShareHome big url={`${origin}/homes/${l.slug}`} title={`${where}${l.price > 1 ? ` · ${money(l.price)}` : ''}`} image={l.photos[0] ? photo(l.photos[0], 'large') : ''} mls={l.mls} />
               </p>
               <ul class="home__tiles">
                 {tiles.map(([k, v]) => <li><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d={ICON[k]} /></svg>{v}</li>)}
