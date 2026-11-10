@@ -49,3 +49,8 @@ Don't retitle community pages back to "homes for sale"; strengthen the homes-for
   - Commute, comparison and market pages: the guide link is now worded as the guide ("Living in <City>: prices, taxes and commute" / "<City> community guide"); the market page's "homes for sale" link goes to the homes-for-sale page.
 - **Why it helps:** each page now has one job, so "<City> homes for sale" signals point to the homes-for-sale page and the fact searches point to the guide.
 - **Sources:** none needed; no new facts.
+
+## 2026-11-10 — city priority: Rosemount (checked, no site change); next city: waconia
+- **Checked:** /communities/rosemount has sourced data for every lead answer: 12-month median sale price and sales count and days on market (NorthstarMLS, September 2026), property tax ($3,932 median, Census ACS), ZIP 55068, school districts, commute. FAQ and FAQPage markup come from the same list, so they match.
+- **Point-of-sale rule:** the guide says "we haven't confirmed a city inspection requirement for Rosemount". A search of the city's website (ci.rosemount.mn.us) found no time-of-sale inspection program, but not finding one isn't proof, so the wording was left as is. Found: the city's utility policy asks sellers to book a final water-meter reading for closing day (24 hours' notice). Worth adding with Jason's OK once confirmed with Rosemount Community Development (651-322-2020).
+- **Changed:** nothing on the site (nothing safe and verified to add). No deploy.
