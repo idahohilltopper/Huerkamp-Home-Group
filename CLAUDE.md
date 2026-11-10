@@ -15,7 +15,7 @@ broken change reaches buyers right away. Jason (the owner) is not a developer: e
 4. Small text-only changes (docs, data JSON) can skip step 1, never step 3.
 5. **Every push is a Netlify production deploy and counts against the Netlify plan's monthly usage.** On Nov 9, 2026
    the account ran out and Netlify paused the whole site (every page answered 503 "usage_exceeded"). Batch changes into
-   as few pushes as possible. A push that changes only `docs/` or `CLAUDE.md` is not built (netlify.toml `ignore`). The site also rebuilds itself 4 times a day
+   as few pushes as possible. A push that changes only `docs/`, `CLAUDE.md` or the Repliers email templates (`email-templates/`) is not built (netlify.toml `ignore`). The site also rebuilds itself 4 times a day
    (`netlify/functions/rebuild.mjs`).
 
 ## Checks that run on their own

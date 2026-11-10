@@ -94,7 +94,9 @@ for (const name of ['new-listing-alert', 'price-change-alert', 'sold-listing-ale
   const def = readFileSync(`email-templates/repliers-defaults/${name}.html`, 'utf8');
   // Left out on purpose (Rule 12.3(f)): beds, baths, square feet and neighbourhood on listing summaries.
   // Written in directly instead: our logo, team name and office address (the address is required in every email).
-  const rule = new Set(['{{loop_var.bedrooms}}', '{{loop_var.bathrooms}}', '{{loop_var.sqft}}', '{{loop_var.neighbourhood}}', '{{iflogo}}', '{{{logo}}}', '{{business_name}}', '{{business_address}}']);
+  // The send time ({{datetime}}) is left out: Repliers fills it in UTC (an email sent 7:02 AM Central said 1:02 PM),
+  // and every mail app already shows when it arrived.
+  const rule = new Set(['{{loop_var.bedrooms}}', '{{loop_var.bathrooms}}', '{{loop_var.sqft}}', '{{loop_var.neighbourhood}}', '{{iflogo}}', '{{{logo}}}', '{{business_name}}', '{{business_address}}', '{{datetime}}']);
   const missing = [...tags(def)].filter((t) => !tags(html).has(t) && !rule.has(t));
   if (missing.length) throw new Error(`${name}: Repliers tags missing: ${missing.join(' ')}`);
   writeFileSync(`email-templates/preview/${name}.html`, render(html, SAMPLE(name.startsWith('sold'))));
