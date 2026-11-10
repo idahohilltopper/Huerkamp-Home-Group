@@ -1,0 +1,154 @@
+---
+// Minneapolis suburbs compared: /minneapolis-suburbs. Built for "minneapolis suburbs" (880 searches a month, KD 0), "best
+// suburbs of minneapolis" (480) and "twin cities suburbs" (210) (Open SEO, Nov 2026). Every suburb within MAX minutes of
+// downtown Minneapolis, side by side on numbers only: drive time (src/data/commute.ts), 12-month median sale price
+// (Minneapolis Area REALTORS®), property tax rate (Census, src/data/calculators.ts) and everyday walkability
+// (src/data/walkability.json). Fair housing: homes and places only; no schools, safety or who lives anywhere.
+import Base from '../layouts/Base.astro';
+import { communities } from '../data/areas';
+import { minutes, median, sales, MIN_SALES } from '../data/commute';
+import { calcCities } from '../data/calculators';
+import { latest, monthLabel } from '../data/market';
+import walk from '../data/walkability.json';
+import { site } from '../data/site';
+
+const MAX = 40;
+const W = (walk as any).communities as Record<string, { score: number }>;
+const tax = Object.fromEntries(calcCities.map((c) => [c.slug, c.rate]));
+const rows = communities
+  .filter((c) => !['minneapolis', 'saint-paul'].includes(c.slug))
+  .map((c) => ({ c, min: minutes(c, 'downtownMinneapolis'), med: sales(c) >= MIN_SALES ? median(c) : null, tax: tax[c.slug] ?? null, walk: W[c.slug]?.score ?? null }))
+  .filter((r) => r.min != null && r.min <= MAX)
+  .sort((a, b) => a.min! - b.min!);
+const money = (n: number | null) => (n == null ? '—' : `$${Math.round(n).toLocaleString('en-US')}`);
+const priced = rows.filter((r) => r.med != null);
+const lo = priced.reduce((a, b) => (b.med! < a.med! ? b : a), priced[0]);
+const hi = priced.reduce((a, b) => (b.med! > a.med! ? b : a), priced[0]);
+const top = (list: typeof rows, by: (r: (typeof rows)[number]) => number, n = 5) => [...list].sort((a, b) => by(a) - by(b)).slice(0, n);
+const under400 = top(priced.filter((r) => r.med! < 400000), (r) => r.min!);
+const lowTax = top(rows.filter((r) => r.tax != null), (r) => r.tax!);
+const walkable = top(rows.filter((r) => r.walk != null), (r) => -r.walk!);
+const closest = top(rows, (r) => r.min!);
+const names = (l: typeof rows, f: (r: (typeof rows)[number]) => string) => l.map((r) => `${r.c.name} (${f(r)})`).join(', ');
+const through = monthLabel(latest);
+const answer = `${rows.length} suburbs are within a ${MAX}-minute drive of downtown Minneapolis. Their median sale prices run from ${money(lo.med)} in ${lo.c.name} to ${money(hi.med)} in ${hi.c.name} (12 months through ${through}). Which is best depends on your budget and commute: the closest under $400,000 are ${under400.slice(0, 3).map((r) => `${r.c.name} (${r.min} min)`).join(', ')}.`;
+const faq = [
+  { q: 'What are the best suburbs of Minneapolis?', a: `It depends on what matters to you. Shortest drive: ${names(closest, (r) => `${r.min} min`)}. Shortest drive with a median price under $400,000: ${names(under400, (r) => `${r.min} min, ${money(r.med)}`)}. Lowest property tax rates: ${names(lowTax, (r) => `${r.tax}%`)}. Most errands on foot: ${names(walkable, (r) => `${r.walk}/100`)}.` },
+  { q: 'What is the most affordable suburb near Minneapolis?', a: `By median sale price over the 12 months through ${through}, ${lo.c.name} (${money(lo.med)}, ${lo.min} minutes to downtown Minneapolis) among suburbs within ${MAX} minutes. Prices vary a lot within each city, so search by your own budget.` },
+  { q: 'Which Minneapolis suburbs have the shortest commute?', a: `${names(closest, (r) => `${r.min} min`)}, by light-traffic drive time from each city's center to downtown Minneapolis. Rush hour adds time; see the commute page for each city.` },
+  { q: 'How do Minneapolis suburbs compare on property taxes?', a: `The typical effective rate (median tax ÷ median home value, Census) runs from about ${Math.min(...rows.filter((r) => r.tax != null).map((r) => r.tax!))}% to ${Math.max(...rows.filter((r) => r.tax != null).map((r) => r.tax!))}% of value a year among these suburbs. Your bill depends on your home's value, the local levies and homestead.` },
+];
+const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
+---
+<Base breadcrumbs={[{ name: 'Communities', href: '/communities' }, { name: 'Minneapolis suburbs', href: '/minneapolis-suburbs' }]}
+  title={`Minneapolis Suburbs Compared: Prices, Commute & Taxes (2026) | ${site.name}`} description={answer}>
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <section class="nhead">
+    <div class="wrap">
+      <p class="eyebrow">Minneapolis suburbs</p>
+      <h1>Minneapolis suburbs, compared</h1>
+      <p class="answer">{answer}</p>
+      <p class="lede">Numbers only: drive time, home prices, property taxes and how many errands you can do on foot. Sort the table by what matters to you.</p>
+      <p class="hero-btns"><a class="btn" href="#ask">Help me pick a suburb</a> <a class="btn btn--ghost" href="/home-search">Search homes</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="picks">
+        <div><h2 class="h3">Shortest drive under $400,000</h2><ol>{under400.map((r) => <li><a href={`/communities/${r.c.slug}`}>{r.c.name}</a> <span>{r.min} min · {money(r.med)}</span></li>)}</ol></div>
+        <div><h2 class="h3">Lowest property tax rate</h2><ol>{lowTax.map((r) => <li><a href={`/communities/${r.c.slug}`}>{r.c.name}</a> <span>{r.tax}%</span></li>)}</ol></div>
+        <div><h2 class="h3">Most errands on foot</h2><ol>{walkable.map((r) => <li><a href={`/communities/${r.c.slug}`}>{r.c.name}</a> <span>{r.walk}/100</span></li>)}</ol></div>
+      </div>
+
+      <div class="head" style="margin-top:2.5rem"><h2>All {rows.length} suburbs within {MAX} minutes of downtown Minneapolis</h2>
+        <p><label for="sub-sort">Sort by </label><select id="sub-sort"><option value="min">Drive time</option><option value="med">Median price</option><option value="tax">Property tax rate</option><option value="walk">Walkability</option><option value="name">Name</option></select></p></div>
+      <div class="table-scroll">
+        <table class="data" id="sub-table">
+          <thead><tr><th scope="col">Suburb</th><th scope="col" class="num">Drive to downtown</th><th scope="col" class="num">Median sale price</th><th scope="col" class="num">Property tax rate</th><th scope="col" class="num">Walkability</th></tr></thead>
+          <tbody>{rows.map((r) => (
+            <tr data-name={r.c.name} data-min={r.min} data-med={r.med ?? ''} data-tax={r.tax ?? ''} data-walk={r.walk ?? ''}>
+              <th scope="row"><a href={`/communities/${r.c.slug}`}>{r.c.name}</a></th>
+              <td class="num"><a href={`/commute/downtown-minneapolis/${r.c.slug}`}>{r.min} min</a></td>
+              <td class="num">{r.med ? <a href={`/market/${r.c.slug}`}>{money(r.med)}</a> : '—'}</td>
+              <td class="num">{r.tax != null ? `${r.tax.toFixed(2)}%` : '—'}</td>
+              <td class="num">{r.walk ?? '—'}</td>
+            </tr>))}</tbody>
+        </table>
+      </div>
+      <p class="source">Drive time: light-traffic estimate from each city's center (OpenStreetMap routing). Median sale price: Minneapolis Area REALTORS®, 12 months through {through}, shown where at least {MIN_SALES} homes sold. Property tax rate: median real estate taxes ÷ median home value, US Census Bureau ACS 2020–2024. Walkability: our everyday-errands score (<a href="/walkability">how it works</a>). Also see <a href="/compare/minneapolis-vs-saint-paul">Minneapolis vs. Saint Paul</a> and the <a href="/cost-of-living-minnesota">cost of living</a>.</p>
+    </div>
+  </section>
+
+  <section class="section section--dark" id="ask" aria-labelledby="ask-title">
+    <div class="wrap split">
+      <div class="prose">
+        <p class="eyebrow">Moving to the Twin Cities?</p>
+        <h2 id="ask-title">Tell us your budget and commute. <em>We'll narrow it down.</em></h2>
+        <p>Where you work, what you want to spend and what you need in a home. We'll suggest a few suburbs that fit, send you homes there, and show you around when you're ready.</p>
+        <p>Call or text <a href={site.phoneHref}>{site.phone}</a>.</p>
+      </div>
+      <form class="form" data-lead="compare">
+        <input type="hidden" name="topic" value="Minneapolis suburbs" />
+        <div class="form__row">
+          <div class="field"><label for="ms-first">First name</label><input id="ms-first" name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for="ms-last">Last name</label><input id="ms-last" name="lastName" autocomplete="family-name" required /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="ms-email">Email</label><input id="ms-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="ms-phone">Phone</label><input id="ms-phone" name="phone" type="tel" autocomplete="tel" required pattern="[^0-9]*([0-9][^0-9]*){10,}" title="Please enter your phone number, including area code." /></div>
+        </div>
+        <div class="field"><label for="ms-msg">Where you'll work, budget, must-haves (optional)</label><textarea id="ms-msg" name="message" rows="3"></textarea></div>
+        <button class="btn" type="submit">Send</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap faq">
+      <div class="head"><p class="eyebrow">Quick answers</p><h2>Minneapolis suburbs questions</h2></div>
+      {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+      <p class="links"><a class="link-arrow" href="/communities">Every community guide</a><a class="link-arrow" href="/commute/downtown-minneapolis">Commute times</a><a class="link-arrow" href="/calculators/mortgage">Mortgage calculator</a><a class="link-arrow" href="/real-estate-agents">Our sales by city</a></p>
+    </div>
+  </section>
+
+  <script>
+    const sel = document.getElementById('sub-sort') as HTMLSelectElement | null;
+    const body = document.querySelector('#sub-table tbody');
+    sel?.addEventListener('change', () => {
+      const k = sel.value, rowsEl = [...(body?.querySelectorAll('tr') ?? [])] as HTMLTableRowElement[];
+      const v = (r: HTMLTableRowElement) => r.dataset[k] ?? '';
+      rowsEl.sort((a, b) => {
+        if (k === 'name') return v(a).localeCompare(v(b));
+        const x = v(a) === '' ? Infinity : Number(v(a)), y = v(b) === '' ? Infinity : Number(v(b));
+        return k === 'walk' ? (y === Infinity ? -1 : x === Infinity ? 1 : y - x) : x - y;
+      });
+      rowsEl.forEach((r) => body?.appendChild(r));
+    });
+  </script>
+</Base>
+
+<style>
+  .nhead { padding: clamp(2.5rem, 6vw, 4.5rem) 0 clamp(2rem, 4vw, 3rem); background: var(--night); color: var(--on-dark); }
+  .nhead h1 { font: 500 clamp(2.2rem, 5vw, 3.6rem)/1.05 var(--serif-display); color: #fff; }
+  .nhead .eyebrow { color: var(--rose); }
+  .answer { max-width: 52rem; margin: .9rem 0 .4rem; color: #fff; font: 500 clamp(1.05rem, 2.2vw, 1.25rem)/1.5 var(--ui); }
+  .lede { color: var(--on-dark); max-width: 52rem; }
+  .hero-btns { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.25rem; }
+  .head { margin-bottom: 1.25rem; }
+  .h3 { margin: 0 0 .7rem; font: 500 1.3rem/1.2 var(--serif); }
+  .picks { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); gap: 1.25rem; }
+  .picks > div { padding: 1.1rem 1.25rem; background: var(--paper); border: 1px solid var(--line); }
+  .picks ol { margin: 0; padding-left: 1.2rem; display: grid; gap: .35rem; }
+  .picks span { color: var(--text-soft); font-size: .9rem; }
+  .source { margin-top: .8rem; font-size: .9rem; color: var(--text-soft); }
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+  .split .prose a { color: #fff; font-weight: 700; }
+  .split :global(em) { font-style: italic; }
+  .faq { display: grid; gap: .75rem; max-width: 52rem; }
+  .faq details { padding: 1rem 1.2rem; background: var(--paper); border: 1px solid var(--line); }
+  .faq summary { cursor: pointer; font: 600 1.15rem/1.3 var(--serif); }
+  .links { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: 1rem; }
+</style>
