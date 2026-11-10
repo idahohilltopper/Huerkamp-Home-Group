@@ -146,7 +146,7 @@ const pageTitle = title.length > 60 && title.endsWith(brandEnd) ? title.slice(0,
   <script type="application/ld+json" set:html={siteLd} />
   {crumbLd && <script type="application/ld+json" set:html={crumbLd} />}
   <script is:inline>try{if(/(?:^|; )idx_eula=1(?:;|$)/.test(document.cookie)||sessionStorage.getItem('idx-eula')==='1')document.documentElement.classList.add('idx-ok')}catch(e){}</script>
-  {site.ga4 && <script is:inline define:vars={{ id: site.ga4 }}>
+  {site.ga4 && <script is:inline define:vars={{ id: site.ga4, also: site.ga4Also ?? '' }}>
     // Google Analytics 4, live domains only, and not when the visitor turned analytics off on /cookies or the browser
     // sends a Global Privacy Control signal. The library loads after the page has, so it never slows it down.
     let off = navigator.globalPrivacyControl === true;
@@ -156,6 +156,7 @@ const pageTitle = title.length > 60 && title.endsWith(brandEnd) ? title.slice(0,
       window.gtag = function () { dataLayer.push(arguments); };
       gtag('js', new Date());
       gtag('config', id);
+      if (also) gtag('config', also); // events (generate_lead) go to both properties
       addEventListener('load', () => setTimeout(() => {
         const s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id; document.head.append(s);
       }, 1500));
