@@ -126,6 +126,8 @@ if (mkFaq?.daysOnMarket?.r12[1] != null) lead.push({ q: `How long do homes take 
   a: `Homes that sold in ${c.name} over the 12 months through ${monthLabel(marketMonth)} spent a median of ${fmt(mkFaq.daysOnMarket.r12[1])} days on the market (NorthstarMLS, via the Minneapolis Area REALTORS® Local Market Update).` });
 if (taxRow && !capped(taxRow.medianValue)) lead.push({ q: `What are property taxes in ${c.name}, MN?`,
   a: `Owners of ${c.name} homes paid a median of $${fmt(taxRow.medianTax)} a year in real estate taxes, about ${taxRow.rate}% of a median home value of $${fmt(taxRow.medianValue)} (Census Bureau, 2020–2024 American Community Survey). Your own bill depends on the home's assessed value, the tax rates where it sits and homestead status; ${countyName} sends each property's statement.` });
+// "What county is Eagan MN in?" (880 searches a month for Eagan and for Maple Grove; Open SEO, Nov 2026).
+lead.push({ q: `What county is ${c.name}, MN in?`, a: `${c.name} is in ${countyName}, Minnesota (the county that covers most of the city). ${countyName} keeps the property records and sends the property tax statements${taxCounty ? '; due dates and how to pay are on our ' + countyName + ' property taxes page' : ''}.` });
 const cw = walkFor('community', c.slug), cwr = walkRank('community', c.slug);
 const faqs = [
   ...lead,

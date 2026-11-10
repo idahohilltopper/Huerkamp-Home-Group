@@ -107,6 +107,20 @@ export function loadLakeSales() {
           catch (e) { failed.add(job.slug); firstError ||= String(e?.message ?? e); }
         }
       }));
+      // A second, slower pass for the lakes Repliers turned away (429 Too Many Requests: 12 of 443 on Nov 8, 2026):
+      // after a pause, one request at a time, so those lake pages don't go a week without their snapshot.
+      if (failed.size && failed.size <= jobs.length / 4) {
+        await wait(30000);
+        const again = jobs.filter((j) => failed.has(j.slug));
+        const okNow = new Set(), stillBad = new Set();
+        for (const job of again) {
+          try { for (const l of await soldIn(key, job.map, w.before[0])) raw.set(l.mlsNumber, l); okNow.add(job.slug); }
+          catch { stillBad.add(job.slug); }
+        }
+        // A lake with several shoreline parts counts as recovered only when every part came back.
+        for (const slug of okNow) if (!stillBad.has(slug)) failed.delete(slug);
+        console.log(`Lake sales: second pass recovered ${again.length - [...again].filter((j) => failed.has(j.slug)).length} of ${again.length} requests`);
+      }
       if (failed.size > jobs.length / 4) throw new Error(`${failed.size} of ${jobs.length} lake requests failed, first: ${firstError}`);
       const prices = {};
       let kept = 0;

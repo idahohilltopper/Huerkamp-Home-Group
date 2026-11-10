@@ -22,6 +22,7 @@ const lede = `Minnesota property taxes are due May 15 and October 15. Here is wh
           <tbody>{rows.map((r) => <tr><th scope="row"><a href={countyHref(r.k)}>{r.k.name} County</a></th><td class="num">{fmt(r.medianTax)}</td><td class="num">{fmt(r.medianValue)}</td><td class="num">{r.rate.toFixed(2)}%</td></tr>)}</tbody>
         </table>
       </div>
+      <p>Homeowners can get part of their property tax back: see the <a href="/property-taxes/minnesota-property-tax-refund">Minnesota property tax refund</a> (Form M1PR, due August 15).</p>
       <p class="source">Owner-occupied homes; US Census Bureau, American Community Survey 2020–2024 (5-year). Statewide median: {fmt(T.stateMedianTax)} a year. Due dates: Minnesota Department of Revenue.</p>
     </div>
   </section>

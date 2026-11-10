@@ -1,0 +1,63 @@
+---
+// "Minnesota property tax refund" (2,900 searches a month, KD 9; Open SEO, Nov 2026). Only what the Minnesota Department
+// of Revenue publishes: its property tax refund article for homeowners (revised 9/25). Income limits and maximums change
+// every year and sources disagreed in Nov 2026, so this page sends readers to Revenue for those numbers.
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import HomeValueBox from '../../components/HomeValueBox.astro';
+import { COUNTIES, countyHref } from '../../data/counties';
+import { origin } from '../../data/schema';
+import { site } from '../../data/site';
+
+const REV = 'https://www.revenue.state.mn.us/property-tax-refund';
+const answer = 'Minnesota homeowners can get part of their property tax back through the Homestead Credit Refund. There are two parts: a regular refund based on your household income and property tax, and a special refund when your home\'s property tax jumped more than 12% (and at least $100) in a year, with no income limit. File Form M1PR by August 15; you have up to a year after that to file.';
+const faq = [
+  { q: 'Who qualifies for the Minnesota property tax refund?', a: 'Homeowners who meet the income limits qualify for the regular refund (a Social Security Number or an Individual Taxpayer Identification Number is required). The special refund usually applies if you owned and lived in your home on January 2 of each year, and its property tax went up by more than 12% and by at least $100. The special refund has no income limit. Renters have a separate renter\'s credit.' },
+  { q: 'When is the Minnesota property tax refund due?', a: 'File by August 15. You have up to one year after the due date to file.' },
+  { q: 'How do I file for the Minnesota property tax refund?', a: 'File electronically for free on the Minnesota Department of Revenue\'s website (search "homeowner"), or file paper Form M1PR, Homestead Credit Refund. Revenue can mail forms: 651-296-3781 or 1-800-652-9094.' },
+  { q: 'How much is the Minnesota property tax refund?', a: 'It depends on your household income and your property tax for the year. The income limits and the largest refund change each year; the Minnesota Department of Revenue publishes the current figures with the M1PR instructions.' },
+];
+const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', url: `${origin}/property-taxes/minnesota-property-tax-refund`, mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
+---
+<Base breadcrumbs={[{ name: 'Property taxes', href: '/property-taxes' }, { name: 'Property tax refund', href: '/property-taxes/minnesota-property-tax-refund' }]}
+  title={`Minnesota Property Tax Refund (M1PR): Who Qualifies & When to File | ${site.name}`} description={answer}>
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <PageHero eyebrow="Property taxes" title="Minnesota property tax refund for homeowners" lede={answer} />
+  <section class="section">
+    <div class="wrap narrowish prose">
+      <h2>The two refunds</h2>
+      <p><strong>Regular refund.</strong> Based on your household income and your property tax. You must meet the income limits, which the Department of Revenue sets each year.</p>
+      <p><strong>Special refund.</strong> Homeowners usually qualify if all of these are true: you owned and lived in the home on January 2 of each year, its property tax increased by more than 12%, and the increase was at least $100. There's no income limit. You may qualify for one refund or both.</p>
+
+      <h2>How to file</h2>
+      <ul>
+        <li><strong>Deadline:</strong> August 15. You can file up to one year after the due date.</li>
+        <li><strong>Online:</strong> free electronic filing on the Department of Revenue's website.</li>
+        <li><strong>Paper:</strong> Form M1PR, Homestead Credit Refund.</li>
+        <li><strong>Questions or forms by mail:</strong> 651-296-3781 or 1-800-652-9094.</li>
+      </ul>
+      <p><a class="btn" href={REV} rel="noopener" target="_blank">Minnesota Department of Revenue: property tax refund ↗</a></p>
+      <p class="source">Source: Minnesota Department of Revenue, "Minnesota Property Tax Refund: Get relief for your property tax!" (revised September 2025). Income limits and refund amounts change every year; check Revenue's site for the current figures.</p>
+
+      <h2>Questions</h2>
+      <dl class="pt-faq">{faq.map((f) => <div><dt>{f.q}</dt><dd>{f.a}</dd></div>)}</dl>
+
+      <h2>Your county's property taxes</h2>
+      <p>Due dates, how to pay and what homeowners pay in each city:</p>
+      <ul class="chips">{COUNTIES.map((k) => <li><a href={countyHref(k)}>{k.name} County</a></li>)}</ul>
+
+      <HomeValueBox city="Minnesota" />
+      <p class="small">We're real estate agents, not tax advisers. For your own situation, ask the Department of Revenue or a tax professional.</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .narrowish { max-width: 52rem; }
+  .source, .small { font-size: .9rem; color: var(--text-soft); }
+  .pt-faq { margin: 0; display: grid; gap: 1.1rem; }
+  .pt-faq dt { font-weight: 700; }
+  .pt-faq dd { margin: .3rem 0 0; line-height: 1.6; }
+  .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+  .chips a { display: inline-block; padding: .5rem .8rem; border: 1px solid var(--line); background: var(--paper); color: var(--text); font: 500 .88rem/1.2 var(--ui); text-decoration: none; }
+</style>
