@@ -195,6 +195,16 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     await p.waitForSelector('h1:has-text("Sold:")', { timeout: 20000 });
     ok('Sold homes view', true, `${n} sold homes; opened ${(await p.textContent('h1')).trim().slice(0, 60)}`);
   });
+  // City market pages: the "What's your <city> home worth?" box opens the estimate with the address filled in.
+  await step('Market page: home value box', async () => {
+    await p.goto(BASE + '/market/plymouth', { waitUntil: 'domcontentloaded' });
+    await p.fill('[data-hvbox] [name=address]', '3400 Plymouth Blvd');
+    await p.fill('[data-hvbox] [name=zip]', '55447');
+    await p.click('[data-hvbox] button[type=submit]');
+    await p.waitForURL(/home-estimate/, { timeout: 15000, waitUntil: 'domcontentloaded' });
+    await p.waitForFunction(() => document.querySelector('#es-address')?.value === '3400 Plymouth Blvd', null, { timeout: 10000 });
+    ok('Market page: home value box', true, `opened ${new URL(p.url()).pathname} with the address filled in`);
+  });
   await step('Instant home estimate', async () => {
     await p.goto(BASE + '/home-estimate?address=17000+Kenwood+Trail%2C+Lakeville&zip=55044', { waitUntil: 'domcontentloaded' });
     const f = p.locator('[data-estimate-form]');

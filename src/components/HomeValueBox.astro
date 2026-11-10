@@ -1,0 +1,29 @@
+---
+// "What's your <city> home worth?": an address box that opens the instant estimate (/home-estimate?address=&zip=, which
+// fills these in and asks the rest). On the city market pages, which Google shows for "what is my home worth <city>".
+// Plain GET form: no lead is sent from here; the estimate page's own form is the lead.
+interface Props { city: string; median?: string | null }
+const { city, median } = Astro.props;
+const id = city.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+---
+<form class="hvbox" action="/home-estimate" method="get" data-hvbox>
+  <div class="hvbox__text">
+    <strong>What's your {city} home worth?</strong>
+    <span>{median ? `${city} homes sold for a median ${median} over the past year. ` : ''}Get an instant estimate for yours from recent sales nearby, free.</span>
+  </div>
+  <label class="visually-hidden" for={`hv-${id}`}>Your street address</label>
+  <input id={`hv-${id}`} name="address" placeholder={`Your street address in ${city}`} autocomplete="street-address" required />
+  <label class="visually-hidden" for={`hvz-${id}`}>ZIP code</label>
+  <input id={`hvz-${id}`} name="zip" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" placeholder="ZIP" autocomplete="postal-code" class="hvbox__zip" />
+  <button class="btn" type="submit">Get my estimate</button>
+</form>
+
+<style>
+  .hvbox { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr) 6.5rem auto; gap: .6rem 1rem; align-items: center; margin-top: 1.75rem; padding: 1.1rem 1.25rem; border-radius: 10px; background: #fff; color: var(--ink); box-shadow: 0 6px 22px rgba(0,0,0,.12); }
+  .hvbox__text { display: grid; gap: .2rem; }
+  .hvbox__text strong { font: 700 1.1rem/1.25 var(--ui); }
+  .hvbox__text span { font-size: .9rem; color: var(--text-soft); }
+  .hvbox input { min-width: 0; padding: .8rem .9rem; border: 1px solid #c9c1b6; border-radius: 6px; font: inherit; }
+  .hvbox .btn { padding: .85rem 1.2rem; border-radius: 6px; white-space: nowrap; }
+  @media (max-width: 900px) { .hvbox { grid-template-columns: 1fr 6.5rem; } .hvbox__text, .hvbox .btn { grid-column: 1 / -1; } }
+</style>

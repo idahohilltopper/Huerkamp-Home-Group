@@ -7,6 +7,7 @@
 // Every number comes from that month's Minneapolis Area REALTORS® Local Market Update (NorthstarMLS data).
 import Base from '../../layouts/Base.astro';
 import LineChart from '../../components/LineChart.astro';
+import HomeValueBox from '../../components/HomeValueBox.astro';
 import { communities, regions, type Community } from '../../data/areas';
 import { hoods, hoodKey, hoodHref, CITY_NAME, type Hood } from '../../data/neighborhoods';
 import { business, origin } from '../../data/schema';
@@ -109,6 +110,7 @@ const crumbs = [{ name: 'Market reports', href: '/market' },
         <li><span>Days on market</span><strong>{count(v('daysOnMarket'))}</strong><em>{label}</em></li>
         <li><span>Months of supply</span><strong>{v('monthsSupply') ?? '—'}</strong><em>end of {label}</em></li>
       </ul>
+      {place?.c && <HomeValueBox city={place.c.name} />}
     </div>
   </section>
 
