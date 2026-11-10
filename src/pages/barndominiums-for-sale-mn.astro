@@ -1,0 +1,66 @@
+---
+// Barndominiums for sale in Minnesota (/barndominiums-for-sale-mn): every listing that calls itself a barndominium,
+// shouse or post-frame/pole-barn home, from the live MLS feed (Twin Cities communities) and the Greater Minnesota towns
+// (src/lib/mn-cities.mjs), plus where they're allowed. "barndominium for sale mn" 720 searches a month, KD 0 (Open SEO,
+// Nov 2026). Rules: Minnesota Department of Labor and Industry fact sheet "Barndominiums/shouses and the 2020 Minnesota
+// Residential Code" (fetched Nov 10, 2026). Rebuilt with every build.
+import FeedTopicPage from '../components/FeedTopicPage.astro';
+import { listingsData, median, money } from '../data/listings';
+import { communities } from '../data/areas';
+import { loadMnCities, mnTowns } from '../lib/mn-cities.mjs';
+import { site } from '../data/site';
+
+const DLI = 'https://www.dli.mn.gov/sites/default/files/pdf/fs-barndominiums.pdf';
+const RE = /\bbarndo(minium)?s?\b|\bshouses?\b|\bpost[- ]frame (home|house|construction|build)|\bpole[- ]barn (home|house)\b/i;
+const data = await listingsData;
+const mn = await loadMnCities();
+const metro = data.mode === 'off' ? [] : data.listings.filter((l) => l.type !== 'land' && l.price > 1000 && RE.test(`${l.description} ${l.style}`));
+const towns = Object.values(mn.towns).flat().filter((l: any) => l.type !== 'land' && l.price > 1000 && RE.test(`${l.description} ${l.style}`)) as any[];
+const seen = new Set(metro.map((l) => l.mls));
+const homes = [...metro, ...towns.filter((l) => !seen.has(l.mls))];
+const day = data.at ? new Date(data.at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }) : '';
+const placeOf = (l: any) => (l.mnTown ? mnTowns.find((t) => t.slug === l.mnTown)?.name : communities.find((c) => c.slug === l.community)?.name) ?? l.city;
+const prices = homes.map((l) => l.price);
+const row = (label: string, list: typeof homes) => ({ label, n: list.length, med: median(list.map((l) => l.price)) });
+const byPlace = [...new Set(homes.map(placeOf))].map((p) => row(p, homes.filter((l) => placeOf(l) === p))).sort((a, b) => b.n - a.n);
+const BANDS: [string, number, number][] = [['Under $400,000', 0, 400000], ['$400,000 to $600,000', 400000, 600000], ['$600,000 to $900,000', 600000, 900000], ['$900,000 and up', 900000, Infinity]];
+const byPrice = BANDS.map(([label, lo, hi]) => row(label, homes.filter((l) => l.price >= lo && l.price < hi))).filter((r) => r.n);
+const acres = homes.filter((l) => (l.lotAcres ?? 0) >= 5).length;
+const answer = homes.length
+  ? `${homes.length} barndominiums and post-frame homes are for sale in Minnesota in NorthstarMLS as of ${day}, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices)!)}.${acres ? ` ${acres} sit on 5 acres or more.` : ''} Barndominiums are legal in Minnesota: they're built to the same state residential code as any house, and local zoning decides where they can go and whether metal siding is allowed.`
+  : '';
+const shown = [...homes].sort((a, b) => a.price - b.price).slice(0, 48);
+const faq = [
+  ...(answer ? [{ q: 'How many barndominiums are for sale in Minnesota?', a: answer }] : []),
+  { q: 'Are barndominiums legal in Minnesota?', a: 'Yes. The Minnesota Department of Labor and Industry treats barndominiums and shouses as single-family dwellings, so they must meet the Minnesota Residential Code like any house, everywhere in the state. They need a building permit, and a licensed residential building contractor must build them. Where one can go is up to local zoning, which can also limit metal exterior finishes.' },
+  { q: 'Do I need an engineer to build a barndominium in Minnesota?', a: 'Usually, yes. Most barndominiums are post-frame buildings, which the residential code doesn\'t cover with its standard rules for light-frame houses, so a structural engineer must certify the design. Footings must be frost-protected (42 inches deep in southern counties, 60 inches in northern ones), and the home must meet the energy code and have a radon control system.' },
+  { q: 'Can a barndominium have an attached shop or garage?', a: 'Yes, that\'s what most of them are. The wall between the living area and the shop or garage needs at least half-inch gypsum board (metal siding alone usually doesn\'t count), no door from the shop straight into a bedroom, solid or fire-rated doors, and no windows between the shop and the house.' },
+  { q: 'Where can I build a barndominium near the Twin Cities?', a: 'Wherever local zoning allows a single-family home and its exterior materials. Some cities limit metal siding on homes or set design standards, and the rules differ from city to city and township to township. Check the city, township or county zoning office for the specific parcel before you buy land.' },
+];
+---
+<FeedTopicPage path="/barndominiums-for-sale-mn" crumb="Barndominiums" at={data.at} noindex={data.preview || !homes.length}
+  title={`Barndominiums for Sale in MN${homes.length ? ` (${homes.length})` : ''}: Listings & Where They're Allowed | ${site.name}`}
+  description={answer || 'Barndominiums and post-frame homes for sale in Minnesota, and the state rules for building one.'}
+  eyebrow="Barndominiums" h1="Barndominiums for sale in Minnesota" answer={answer}
+  lede={`Every listing in NorthstarMLS that calls itself a barndominium, shouse or post-frame home, in the Twin Cities and <a href="/minnesota-homes-for-sale">Greater Minnesota towns</a>. Looking for land to build on? See <a href="/land-for-sale">land for sale</a> and <a href="/hobby-farms-for-sale-mn">hobby farms</a>.`}
+  tables={[{ h: 'By city', col: 'City', rows: byPlace }, { h: 'By price', col: 'List price', rows: byPrice }]}
+  note={`Listings whose description or style says barndominium, shouse, post-frame or pole-barn home; read each listing for details. Updated ${day}.`}
+  shown={shown} shownH="Barndominiums for sale, lowest price first"
+  ask={{ eyebrow: 'Barndominium or land to build one', h2: 'Looking for a barndominium <em>or the land for one?</em>', p: 'Tell us the area, budget and acreage. We\'ll watch for barndominiums and buildable land, including ones that come up before they hit the websites, and check the zoning with you before you write an offer.', interest: 'Barndominium', msg: 'Area, budget, acres, shop size (optional)' }}
+  faq={faq} faqH="Barndominiums in Minnesota"
+  links={[['Tiny homes for sale', '/tiny-homes-for-sale-mn'], ['Land for sale', '/land-for-sale'], ['Hobby farms', '/hobby-farms-for-sale-mn'], ['Greater Minnesota homes for sale', '/minnesota-homes-for-sale']]}>
+  <section class="section">
+    <div class="wrap prose">
+      <h2>Building a barndominium in Minnesota: the rules</h2>
+      <ul>
+        <li><strong>Same code as any house.</strong> Barndominiums and shouses are single-family dwellings and must meet the 2020 Minnesota Residential Code everywhere in Minnesota, whether or not a city enforces codes locally.</li>
+        <li><strong>Permit and licensed builder.</strong> A building permit is required, and so is a Minnesota residential building contractor license.</li>
+        <li><strong>An engineer signs off.</strong> Post-frame construction isn't covered by the code's standard light-frame rules, so a structural engineer must certify the design.</li>
+        <li><strong>Frost footings, energy code, radon.</strong> Footings must be frost-protected (42 inches in southern counties, 60 in northern ones), the home must meet the residential energy code, and slab-on-grade living areas need a radon control system.</li>
+        <li><strong>Shop next to the house.</strong> The common wall needs at least half-inch gypsum board, no shop door can open into a bedroom, doors must be solid or fire-rated, and windows between the shop and the house aren't allowed.</li>
+        <li><strong>Zoning is local.</strong> Setbacks, where a home can go and whether metal siding is allowed are set by the city, township or county. Local zoning can limit metal exterior finishes, so check before you buy land.</li>
+      </ul>
+      <p class="source">Source: Minnesota Department of Labor and Industry, <a href={DLI} rel="noopener">Barndominiums/shouses and the 2020 Minnesota Residential Code</a>. We're real estate agents, not builders or code officials: confirm the rules for a specific parcel with its building and zoning office.</p>
+    </div>
+  </section>
+</FeedTopicPage>

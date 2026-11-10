@@ -53,11 +53,13 @@ const id = P.path.replace(/\W+/g, '').slice(0, 6);
     </section>
   )}
 
+  <slot />
+
   {P.shown.length > 0 && (
     <section class="section section--paper">
       <div class="wrap">
         <div class="head"><p class="eyebrow">For sale now</p><h2>{P.shownH}</h2></div>
-        <div data-idx><ul class="lcards">{P.shown.map((l, i) => <ListingCard l={l} eager={i < 3} />)}</ul></div>
+        <div data-idx><ul class="lcards">{P.shown.map((l, i) => <ListingCard l={l} eager={i < 3} href={(l as any).mnTown ? `/homes/listing?mls=${encodeURIComponent(l.mls)}` : undefined} />)}</ul></div>
         <IdxDisclosure at={P.at} />
       </div>
     </section>

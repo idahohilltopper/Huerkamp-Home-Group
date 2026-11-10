@@ -1,0 +1,73 @@
+---
+// Tiny homes for sale in Minnesota (/tiny-homes-for-sale-mn): houses of 600 square feet or less, or listings that call
+// themselves a tiny home, from the live MLS feed (Twin Cities communities) and the Greater Minnesota towns
+// (src/lib/mn-cities.mjs), plus where tiny homes and backyard cottages (ADUs) are allowed. "tiny homes for sale mn"
+// 1,000 searches a month, KD 0 (Open SEO, Nov 2026). Sources, fetched Nov 10, 2026: Minnesota Department of Labor and
+// Industry 2020 Residential Code fact sheet (Appendix Q); Minn. Stat. 462.3593; City of Duluth "Tiny houses and
+// accessory dwelling units"; City of Saint Paul ADU page; City of Burnsville ADU page; City of Minneapolis staff report.
+import FeedTopicPage from '../components/FeedTopicPage.astro';
+import { listingsData, median, money } from '../data/listings';
+import { communities } from '../data/areas';
+import { loadMnCities, mnTowns } from '../lib/mn-cities.mjs';
+import { site } from '../data/site';
+
+const MAX_SQFT = 600;
+const isTiny = (l: any) => ['single-family', 'manufactured'].includes(l.type) && l.price > 1000
+  && ((l.sqft >= 100 && l.sqft <= MAX_SQFT) || /\btiny (home|house)\b/i.test(l.description ?? ''));
+const data = await listingsData;
+const mn = await loadMnCities();
+const metro = data.mode === 'off' ? [] : data.listings.filter(isTiny);
+const seen = new Set(metro.map((l) => l.mls));
+const homes = [...metro, ...(Object.values(mn.towns).flat() as any[]).filter((l) => isTiny(l) && !seen.has(l.mls))];
+const day = data.at ? new Date(data.at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }) : '';
+const placeOf = (l: any) => (l.mnTown ? mnTowns.find((t) => t.slug === l.mnTown)?.name : communities.find((c) => c.slug === l.community)?.name) ?? l.city;
+const prices = homes.map((l) => l.price);
+const row = (label: string, list: typeof homes) => ({ label, n: list.length, med: median(list.map((l) => l.price)) });
+const byPlace = [...new Set(homes.map(placeOf))].map((p) => row(p, homes.filter((l) => placeOf(l) === p))).sort((a, b) => b.n - a.n);
+const bySize = [['Under 400 sq ft', 0, 400], ['400 to 500 sq ft', 400, 500], ['500 to 600 sq ft', 500, 601]].map(([label, lo, hi]) => row(label as string, homes.filter((l) => (l.sqft ?? 0) >= (lo as number) && (l.sqft ?? 0) < (hi as number)))).filter((r) => r.n);
+const answer = homes.length
+  ? `${homes.length} tiny homes (600 square feet or less, or listed as a tiny home) are for sale in Minnesota in NorthstarMLS as of ${day}, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices)!)}. A tiny house on a foundation can be a legal home anywhere a city allows a one-family house; a tiny house on wheels is usually zoned like an RV.`
+  : '';
+const shown = [...homes].sort((a, b) => a.price - b.price).slice(0, 48);
+const SP = 'https://www.stpaul.gov/departments/safety-inspections/building-and-construction/construction-permits-and-inspections/building-permits-inspections/accessory-dwelling-units';
+const DUL = 'https://duluthmn.gov/planning-development/land-use-zoning-applications/applications-checklists/tiny-houses-and-accessory-dwelling-units/';
+const BV = 'https://www.burnsvillemn.gov/2190';
+// "Minneapolis has allowed accessory dwelling units citywide since 2014" (City of Minneapolis staff report, triplex and lot combinations ordinance).
+const MPLS = 'https://lims.minneapolismn.gov/Download/FileV2/21330/Triplex-and-Lot-Combinations-Ordinance-Staff-Report.pdf';
+const MPLS_APPLY = 'https://www.minneapolismn.gov/business-services/planning-zoning/applications-handouts/land-use-applications/accessory-dwelling-unit/';
+const DLI = 'https://www.dli.mn.gov/sites/default/files/pdf/fs-2020-residential-code.pdf';
+const STAT = 'https://www.revisor.mn.gov/statutes/cite/462.3593';
+const faq = [
+  ...(answer ? [{ q: 'How many tiny homes are for sale in Minnesota?', a: answer }] : []),
+  { q: 'Are tiny houses legal in Minnesota?', a: 'Yes, if they\'re built as permanent homes. Minnesota\'s residential code, in effect since March 31, 2020, adopts Appendix Q of the International Residential Code, which gives allowances for houses of 400 square feet or less. Where a tiny house can go is set by city or county zoning: Duluth, for example, allows a tiny house on a foundation in every district that allows one-family homes.' },
+  { q: 'Can I live in a tiny house on wheels in Minnesota?', a: 'Usually not as a permanent home in a city. Duluth\'s zoning treats a self-propelled or towable tiny house as a recreational vehicle, not a permanent dwelling, and doesn\'t allow one as an accessory dwelling unit. Other cities set their own rules, so ask the city or county before buying one to live in.' },
+  { q: 'Can I put a tiny house in my backyard in the Twin Cities?', a: 'Where the city allows accessory dwelling units (ADUs), on a permanent foundation. Minneapolis has allowed ADUs citywide since 2014, next to a one- or two-family home. Saint Paul has allowed them citywide since 2018, up to 800 square feet or 75% of the main home, whichever is greater. Burnsville allows one per lot of at least 10,000 square feet, between 300 square feet and half the size of the main home, with the owner living on the property. Each city has its own size, height and setback rules.' },
+  { q: 'What is a temporary family health care dwelling?', a: 'A Minnesota law from 2016 lets a family place a small mobile unit, no more than 300 square feet, on a caregiver\'s property for a relative who needs help with daily activities, with a city permit for 6 months, renewable once. Cities can opt out, and some have, so check with the city first.' },
+];
+---
+<FeedTopicPage path="/tiny-homes-for-sale-mn" crumb="Tiny homes" at={data.at} noindex={data.preview || !homes.length}
+  title={`Tiny Homes for Sale in MN${homes.length ? ` (${homes.length})` : ''}: Listings & Where They're Allowed | ${site.name}`}
+  description={answer || 'Tiny homes for sale in Minnesota, and where tiny houses and backyard cottages are allowed in the Twin Cities.'}
+  eyebrow="Tiny homes" h1="Tiny homes for sale in Minnesota" answer={answer}
+  lede={`Houses of ${MAX_SQFT} square feet or less, and listings that call themselves a tiny home, in NorthstarMLS, in the Twin Cities and <a href="/minnesota-homes-for-sale">Greater Minnesota towns</a>. Also see <a href="/barndominiums-for-sale-mn">barndominiums</a> and <a href="/land-for-sale">land for sale</a>.`}
+  tables={[{ h: 'By city', col: 'City', rows: byPlace }, { h: 'By size', col: 'Size', rows: bySize }]}
+  note={`Single-family and manufactured homes with ${MAX_SQFT} finished square feet or less in the listing, or described as a tiny home or house. Updated ${day}.`}
+  shown={shown} shownH="Tiny homes for sale, lowest price first"
+  ask={{ eyebrow: 'Small home, big plans', h2: 'Looking for a tiny home <em>or a lot for one?</em>', p: 'Tell us the area and budget. We\'ll watch for small homes and buildable lots, including ones that come up before they hit the websites, and check what the city allows before you write an offer.', interest: 'Tiny home', msg: 'Area, budget, on a foundation or on wheels (optional)' }}
+  faq={faq} faqH="Tiny homes in Minnesota"
+  links={[['Barndominiums for sale', '/barndominiums-for-sale-mn'], ['Land for sale', '/land-for-sale'], ['Condos for sale', '/condos-for-sale-mn'], ['Greater Minnesota homes for sale', '/minnesota-homes-for-sale']]}>
+  <section class="section">
+    <div class="wrap prose">
+      <h2>Where tiny homes are allowed in the Twin Cities</h2>
+      <ul>
+        <li><strong>On a foundation, it's a house.</strong> Minnesota's residential code (Minnesota Rules chapter 1309, effective March 31, 2020) adopts Appendix Q, with allowances for houses of 400 square feet or less. Zoning decides where one can go; Duluth, for example, allows one wherever a one-family home is allowed. <a href={DLI} rel="noopener">DLI fact sheet</a></li>
+        <li><strong>On wheels, it's usually an RV.</strong> Duluth treats a self-propelled or towable tiny house as a recreational vehicle, not a permanent dwelling, and won't allow one as a backyard unit. <a href={DUL} rel="noopener">City of Duluth</a></li>
+        <li><strong>Minneapolis:</strong> accessory dwelling units allowed citywide since 2014, next to a one- or two-family home. <a href={MPLS} rel="noopener">City of Minneapolis staff report</a>; <a href={MPLS_APPLY} rel="noopener">how to apply</a></li>
+        <li><strong>Saint Paul:</strong> ADUs allowed citywide since 2018; up to two per one-family home, each up to 800 square feet or 75% of the main home (whichever is greater); the owner no longer has to live on the property (since 2022). <a href={SP} rel="noopener">City of Saint Paul</a></li>
+        <li><strong>Burnsville:</strong> one ADU on a lot of at least 10,000 square feet, 300 square feet up to half the main home, on a permanent foundation with no wheels, and the owner lives on the property at least 185 days a year. <a href={BV} rel="noopener">City of Burnsville</a></li>
+        <li><strong>For a relative who needs care:</strong> state law allows a temporary family health care dwelling of up to 300 square feet for 6 months, renewable once, unless the city opted out. <a href={STAT} rel="noopener">Minn. Stat. 462.3593</a></li>
+      </ul>
+      <p class="source">Rules change and every city is different. We're real estate agents, not zoning officials: ask the city's planning or zoning office about a specific property before you buy.</p>
+    </div>
+  </section>
+</FeedTopicPage>
