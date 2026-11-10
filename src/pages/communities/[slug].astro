@@ -27,6 +27,7 @@ import { communitySearch, searchUrl, ylopoPlace } from '../../data/ylopo';
 import PostCard from '../../components/PostCard.astro';
 import HomesStrip from '../../components/HomesStrip.astro';
 import SoldHomes from '../../components/SoldHomes.astro';
+import teamClosings from '../../data/team-closings.json';
 import { pairsFor, other, compareHref } from '../../data/compare';
 import { DESTS, commuteHref } from '../../data/commute';
 import { listingsData, homesHref } from '../../data/listings';
@@ -327,6 +328,7 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
 
   <!-- 2b. Recently sold (NorthstarMLS sold content; only with the site's own feed) -->
   {searchable && <SoldHomes place={c.slug} name={c.name} />}
+  {((teamClosings.cities as Record<string, { n: number }>)[c.slug]?.n ?? 0) >= 5 && <section class="section"><div class="wrap"><p><a class="link-arrow" href={`/real-estate-agents/${c.slug}-mn`}>Our record in {c.name}: {(teamClosings.cities as Record<string, { n: number }>)[c.slug].n} homes sold for buyers and sellers in the last 3 years</a></p></div></section>}
 
   <!-- 3. Listing alerts -->
   <section class="section section--dark" id="alerts" aria-labelledby="alerts-title">

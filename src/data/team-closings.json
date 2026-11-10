@@ -1,0 +1,1017 @@
+{
+ "source": "Huerkamp Home Group closing records (the team's transaction spreadsheet, closed sheets 2023-2026), provided by Jason Huerkamp on Nov 10, 2026. Buyer and seller sides closed by the team; referrals to other agents are left out. Only these aggregates are kept: no addresses, clients or commissions.",
+ "since": "2023-11-10",
+ "through": "2026-11-09",
+ "total": {
+  "n": 1248,
+  "buyer": 724,
+  "seller": 493,
+  "median": 330000,
+  "years": {
+   "2023": 31,
+   "2024": 329,
+   "2025": 455,
+   "2026": 433
+  }
+ },
+ "cities": {
+  "andover": {
+   "n": 8,
+   "buyer": 5,
+   "seller": 3,
+   "median": 435000,
+   "years": {
+    "2024": 4,
+    "2025": 3,
+    "2026": 1
+   }
+  },
+  "anoka": {
+   "n": 2,
+   "buyer": 2,
+   "seller": 0,
+   "median": 335000,
+   "years": {
+    "2025": 1,
+    "2026": 1
+   }
+  },
+  "apple-valley": {
+   "n": 36,
+   "buyer": 17,
+   "seller": 19,
+   "median": 358000,
+   "years": {
+    "2024": 9,
+    "2025": 15,
+    "2026": 12
+   }
+  },
+  "belle-plaine": {
+   "n": 6,
+   "buyer": 3,
+   "seller": 3,
+   "median": 327450,
+   "years": {
+    "2024": 1,
+    "2025": 4,
+    "2026": 1
+   }
+  },
+  "blaine": {
+   "n": 13,
+   "buyer": 7,
+   "seller": 5,
+   "median": 331000,
+   "years": {
+    "2023": 1,
+    "2024": 3,
+    "2025": 4,
+    "2026": 5
+   }
+  },
+  "bloomington": {
+   "n": 39,
+   "buyer": 17,
+   "seller": 18,
+   "median": 334500,
+   "years": {
+    "2023": 4,
+    "2024": 5,
+    "2025": 17,
+    "2026": 13
+   }
+  },
+  "brooklyn-center": {
+   "n": 3,
+   "buyer": 2,
+   "seller": 1,
+   "median": 280000,
+   "years": {
+    "2026": 3
+   }
+  },
+  "brooklyn-park": {
+   "n": 18,
+   "buyer": 12,
+   "seller": 5,
+   "median": 284000,
+   "years": {
+    "2023": 1,
+    "2024": 5,
+    "2025": 4,
+    "2026": 8
+   }
+  },
+  "burnsville": {
+   "n": 46,
+   "buyer": 23,
+   "seller": 22,
+   "median": 337000,
+   "years": {
+    "2023": 1,
+    "2024": 13,
+    "2025": 17,
+    "2026": 15
+   }
+  },
+  "centerville": {
+   "n": 1,
+   "buyer": 1,
+   "seller": 0,
+   "median": 308000,
+   "years": {
+    "2024": 1
+   }
+  },
+  "champlin": {
+   "n": 8,
+   "buyer": 6,
+   "seller": 1,
+   "median": 340000,
+   "years": {
+    "2023": 1,
+    "2025": 3,
+    "2026": 4
+   }
+  },
+  "chanhassen": {
+   "n": 6,
+   "buyer": 5,
+   "seller": 1,
+   "median": 346500,
+   "years": {
+    "2024": 1,
+    "2025": 4,
+    "2026": 1
+   }
+  },
+  "chaska": {
+   "n": 5,
+   "buyer": 3,
+   "seller": 2,
+   "median": 500000,
+   "years": {
+    "2024": 1,
+    "2026": 4
+   }
+  },
+  "circle-pines": {
+   "n": 1,
+   "buyer": 1,
+   "seller": 0,
+   "median": 355000,
+   "years": {
+    "2025": 1
+   }
+  },
+  "columbia-heights": {
+   "n": 8,
+   "buyer": 3,
+   "seller": 5,
+   "median": 297500,
+   "years": {
+    "2024": 3,
+    "2025": 2,
+    "2026": 3
+   }
+  },
+  "coon-rapids": {
+   "n": 9,
+   "buyer": 6,
+   "seller": 3,
+   "median": 350000,
+   "years": {
+    "2024": 3,
+    "2025": 3,
+    "2026": 3
+   }
+  },
+  "cottage-grove": {
+   "n": 16,
+   "buyer": 10,
+   "seller": 6,
+   "median": 403495,
+   "years": {
+    "2024": 4,
+    "2025": 6,
+    "2026": 6
+   }
+  },
+  "credit-river": {
+   "n": 1,
+   "buyer": 1,
+   "seller": 0,
+   "median": 350000,
+   "years": {
+    "2025": 1
+   }
+  },
+  "crystal": {
+   "n": 8,
+   "buyer": 6,
+   "seller": 1,
+   "median": 345500,
+   "years": {
+    "2023": 1,
+    "2024": 4,
+    "2025": 1,
+    "2026": 2
+   }
+  },
+  "dayton": {
+   "n": 3,
+   "buyer": 1,
+   "seller": 2,
+   "median": 424000,
+   "years": {
+    "2024": 1,
+    "2026": 2
+   }
+  },
+  "deephaven": {
+   "n": 1,
+   "buyer": 0,
+   "seller": 1,
+   "median": 575000,
+   "years": {
+    "2025": 1
+   }
+  },
+  "dundas": {
+   "n": 2,
+   "buyer": 1,
+   "seller": 1,
+   "median": 468000,
+   "years": {
+    "2025": 1,
+    "2026": 1
+   }
+  },
+  "eagan": {
+   "n": 37,
+   "buyer": 21,
+   "seller": 16,
+   "median": 290000,
+   "years": {
+    "2024": 7,
+    "2025": 17,
+    "2026": 13
+   }
+  },
+  "east-bethel": {
+   "n": 1,
+   "buyer": 0,
+   "seller": 1,
+   "median": 305000,
+   "years": {
+    "2026": 1
+   }
+  },
+  "eden-prairie": {
+   "n": 18,
+   "buyer": 12,
+   "seller": 5,
+   "median": 310000,
+   "years": {
+    "2023": 1,
+    "2024": 7,
+    "2025": 5,
+    "2026": 5
+   }
+  },
+  "edina": {
+   "n": 14,
+   "buyer": 10,
+   "seller": 4,
+   "median": 324250,
+   "years": {
+    "2024": 5,
+    "2025": 5,
+    "2026": 4
+   }
+  },
+  "elko-new-market": {
+   "n": 15,
+   "buyer": 7,
+   "seller": 8,
+   "median": 415000,
+   "years": {
+    "2024": 6,
+    "2025": 7,
+    "2026": 2
+   }
+  },
+  "excelsior": {
+   "n": 1,
+   "buyer": 1,
+   "seller": 0,
+   "median": 415000,
+   "years": {
+    "2025": 1
+   }
+  },
+  "falcon-heights": {
+   "n": 1,
+   "buyer": 1,
+   "seller": 0,
+   "median": 500000,
+   "years": {
+    "2026": 1
+   }
+  },
+  "faribault": {
+   "n": 17,
+   "buyer": 12,
+   "seller": 4,
+   "median": 270000,
+   "years": {
+    "2023": 1,
+    "2024": 4,
+    "2025": 5,
+    "2026": 7
+   }
+  },
+  "farmington": {
+   "n": 30,
+   "buyer": 14,
+   "seller": 16,
+   "median": 412500,
+   "years": {
+    "2024": 9,
+    "2025": 9,
+    "2026": 12
+   }
+  },
+  "forest-lake": {
+   "n": 3,
+   "buyer": 2,
+   "seller": 1,
+   "median": 295000,
+   "years": {
+    "2026": 3
+   }
+  },
+  "fridley": {
+   "n": 9,
+   "buyer": 5,
+   "seller": 4,
+   "median": 297000,
+   "years": {
+    "2024": 2,
+    "2025": 1,
+    "2026": 6
+   }
+  },
+  "golden-valley": {
+   "n": 4,
+   "buyer": 3,
+   "seller": 1,
+   "median": 422500,
+   "years": {
+    "2024": 2,
+    "2025": 1,
+    "2026": 1
+   }
+  },
+  "grant": {
+   "n": 1,
+   "buyer": 1,
+   "seller": 0,
+   "median": 600000,
+   "years": {
+    "2025": 1
+   }
+  },
+  "greenfield": {
+   "n": 2,
+   "buyer": 2,
+   "seller": 0,
+   "median": 406576,
+   "years": {
+    "2025": 1,
+    "2026": 1
+   }
+  },
+  "ham-lake": {
+   "n": 2,
+   "buyer": 1,
+   "seller": 1,
+   "median": 580000,
+   "years": {
+    "2025": 1,
+    "2026": 1
+   }
+  },
+  "hampton": {
+   "n": 1,
+   "buyer": 1,
+   "seller": 0,
+   "median": 420000,
+   "years": {
+    "2026": 1
+   }
+  },
+  "hastings": {
+   "n": 12,
+   "buyer": 5,
+   "seller": 7,
+   "median": 273000,
+   "years": {
+    "2024": 3,
+    "2025": 7,
+    "2026": 2
+   }
+  },
+  "hopkins": {
+   "n": 6,
+   "buyer": 3,
+   "seller": 2,
+   "median": 112000,
+   "years": {
+    "2023": 1,
+    "2024": 2,
+    "2026": 3
+   }
+  },
+  "hugo": {
+   "n": 3,
+   "buyer": 2,
+   "seller": 1,
+   "median": 283300,
+   "years": {
+    "2024": 1,
+    "2025": 1,
+    "2026": 1
+   }
+  },
+  "inver-grove-heights": {
+   "n": 35,
+   "buyer": 12,
+   "seller": 22,
+   "median": 258000,
+   "years": {
+    "2023": 1,
+    "2024": 11,
+    "2025": 12,
+    "2026": 11
+   }
+  },
+  "jordan": {
+   "n": 4,
+   "buyer": 2,
+   "seller": 2,
+   "median": 397450,
+   "years": {
+    "2024": 4
+   }
+  },
+  "lake-elmo": {
+   "n": 2,
+   "buyer": 2,
+   "seller": 0,
+   "median": 522495,
+   "years": {
+    "2024": 2
+   }
+  },
+  "lakeville": {
+   "n": 59,
+   "buyer": 28,
+   "seller": 30,
+   "median": 425000,
+   "years": {
+    "2023": 1,
+    "2024": 20,
+    "2025": 17,
+    "2026": 21
+   }
+  },
+  "le-sueur": {
+   "n": 7,
+   "buyer": 7,
+   "seller": 0,
+   "median": 170000,
+   "years": {
+    "2024": 3,
+    "2025": 1,
+    "2026": 3
+   }
+  },
+  "lino-lakes": {
+   "n": 3,
+   "buyer": 2,
+   "seller": 1,
+   "median": 569570,
+   "years": {
+    "2024": 1,
+    "2026": 2
+   }
+  },
+  "little-canada": {
+   "n": 3,
+   "buyer": 2,
+   "seller": 1,
+   "median": 360000,
+   "years": {
+    "2024": 1,
+    "2026": 2
+   }
+  },
+  "long-lake": {
+   "n": 1,
+   "buyer": 1,
+   "seller": 0,
+   "median": 695000,
+   "years": {
+    "2025": 1
+   }
+  },
+  "maple-grove": {
+   "n": 13,
+   "buyer": 5,
+   "seller": 8,
+   "median": 397000,
+   "years": {
+    "2024": 5,
+    "2025": 5,
+    "2026": 3
+   }
+  },
+  "maple-plain": {
+   "n": 1,
+   "buyer": 1,
+   "seller": 0,
+   "median": 477500,
+   "years": {
+    "2026": 1
+   }
+  },
+  "maplewood": {
+   "n": 7,
+   "buyer": 4,
+   "seller": 3,
+   "median": 300000,
+   "years": {
+    "2024": 1,
+    "2025": 3,
+    "2026": 3
+   }
+  },
+  "medina": {
+   "n": 1,
+   "buyer": 1,
+   "seller": 0,
+   "median": 315000,
+   "years": {
+    "2025": 1
+   }
+  },
+  "minneapolis": {
+   "n": 146,
+   "buyer": 89,
+   "seller": 50,
+   "median": 292500,
+   "years": {
+    "2023": 7,
+    "2024": 39,
+    "2025": 52,
+    "2026": 48
+   }
+  },
+  "minnetonka": {
+   "n": 6,
+   "buyer": 5,
+   "seller": 1,
+   "median": 372500,
+   "years": {
+    "2024": 1,
+    "2026": 5
+   }
+  },
+  "minnetrista": {
+   "n": 4,
+   "buyer": 1,
+   "seller": 3,
+   "median": 512500,
+   "years": {
+    "2024": 1,
+    "2025": 1,
+    "2026": 2
+   }
+  },
+  "mound": {
+   "n": 5,
+   "buyer": 4,
+   "seller": 1,
+   "median": 290000,
+   "years": {
+    "2025": 1,
+    "2026": 4
+   }
+  },
+  "mounds-view": {
+   "n": 3,
+   "buyer": 2,
+   "seller": 1,
+   "median": 315000,
+   "years": {
+    "2024": 2,
+    "2026": 1
+   }
+  },
+  "new-brighton": {
+   "n": 5,
+   "buyer": 4,
+   "seller": 1,
+   "median": 175000,
+   "years": {
+    "2025": 4,
+    "2026": 1
+   }
+  },
+  "new-hope": {
+   "n": 3,
+   "buyer": 3,
+   "seller": 0,
+   "median": 350000,
+   "years": {
+    "2024": 1,
+    "2025": 1,
+    "2026": 1
+   }
+  },
+  "new-prague": {
+   "n": 6,
+   "buyer": 5,
+   "seller": 1,
+   "median": 330650,
+   "years": {
+    "2024": 1,
+    "2025": 1,
+    "2026": 4
+   }
+  },
+  "new-trier": {
+   "n": 1,
+   "buyer": 1,
+   "seller": 0,
+   "median": 180000,
+   "years": {
+    "2025": 1
+   }
+  },
+  "newport": {
+   "n": 1,
+   "buyer": 0,
+   "seller": 1,
+   "median": 270000,
+   "years": {
+    "2024": 1
+   }
+  },
+  "north-st-paul": {
+   "n": 2,
+   "buyer": 1,
+   "seller": 1,
+   "median": 307450,
+   "years": {
+    "2025": 2
+   }
+  },
+  "northfield": {
+   "n": 14,
+   "buyer": 8,
+   "seller": 6,
+   "median": 365500,
+   "years": {
+    "2024": 3,
+    "2025": 6,
+    "2026": 5
+   }
+  },
+  "norwood-young-america": {
+   "n": 2,
+   "buyer": 2,
+   "seller": 0,
+   "median": 279750,
+   "years": {
+    "2024": 1,
+    "2026": 1
+   }
+  },
+  "oakdale": {
+   "n": 7,
+   "buyer": 4,
+   "seller": 3,
+   "median": 340000,
+   "years": {
+    "2024": 1,
+    "2025": 3,
+    "2026": 3
+   }
+  },
+  "orono": {
+   "n": 1,
+   "buyer": 1,
+   "seller": 0,
+   "median": 1600000,
+   "years": {
+    "2024": 1
+   }
+  },
+  "owatonna": {
+   "n": 17,
+   "buyer": 14,
+   "seller": 3,
+   "median": 257000,
+   "years": {
+    "2025": 4,
+    "2026": 13
+   }
+  },
+  "plymouth": {
+   "n": 20,
+   "buyer": 8,
+   "seller": 11,
+   "median": 309500,
+   "years": {
+    "2023": 1,
+    "2024": 6,
+    "2025": 10,
+    "2026": 3
+   }
+  },
+  "prior-lake": {
+   "n": 21,
+   "buyer": 11,
+   "seller": 10,
+   "median": 415000,
+   "years": {
+    "2024": 1,
+    "2025": 7,
+    "2026": 13
+   }
+  },
+  "ramsey": {
+   "n": 5,
+   "buyer": 4,
+   "seller": 1,
+   "median": 384900,
+   "years": {
+    "2025": 2,
+    "2026": 3
+   }
+  },
+  "randolph": {
+   "n": 3,
+   "buyer": 2,
+   "seller": 1,
+   "median": 113000,
+   "years": {
+    "2026": 3
+   }
+  },
+  "richfield": {
+   "n": 11,
+   "buyer": 5,
+   "seller": 5,
+   "median": 390765,
+   "years": {
+    "2023": 1,
+    "2024": 2,
+    "2025": 3,
+    "2026": 5
+   }
+  },
+  "robbinsdale": {
+   "n": 1,
+   "buyer": 0,
+   "seller": 1,
+   "median": 359900,
+   "years": {
+    "2024": 1
+   }
+  },
+  "rogers": {
+   "n": 3,
+   "buyer": 3,
+   "seller": 0,
+   "median": 400000,
+   "years": {
+    "2024": 1,
+    "2025": 2
+   }
+  },
+  "rosemount": {
+   "n": 21,
+   "buyer": 13,
+   "seller": 8,
+   "median": 422000,
+   "years": {
+    "2024": 7,
+    "2025": 11,
+    "2026": 3
+   }
+  },
+  "roseville": {
+   "n": 6,
+   "buyer": 6,
+   "seller": 0,
+   "median": 383250,
+   "years": {
+    "2024": 1,
+    "2025": 3,
+    "2026": 2
+   }
+  },
+  "saint-paul": {
+   "n": 105,
+   "buyer": 61,
+   "seller": 40,
+   "median": 257500,
+   "years": {
+    "2023": 4,
+    "2024": 23,
+    "2025": 40,
+    "2026": 38
+   }
+  },
+  "savage": {
+   "n": 24,
+   "buyer": 15,
+   "seller": 9,
+   "median": 452500,
+   "years": {
+    "2024": 8,
+    "2025": 7,
+    "2026": 9
+   }
+  },
+  "shakopee": {
+   "n": 23,
+   "buyer": 14,
+   "seller": 8,
+   "median": 385000,
+   "years": {
+    "2023": 1,
+    "2024": 7,
+    "2025": 8,
+    "2026": 7
+   }
+  },
+  "shoreview": {
+   "n": 4,
+   "buyer": 2,
+   "seller": 1,
+   "median": 262900,
+   "years": {
+    "2023": 1,
+    "2024": 1,
+    "2025": 1,
+    "2026": 1
+   }
+  },
+  "south-st-paul": {
+   "n": 4,
+   "buyer": 3,
+   "seller": 1,
+   "median": 290000,
+   "years": {
+    "2024": 1,
+    "2025": 3
+   }
+  },
+  "spring-lake-park": {
+   "n": 2,
+   "buyer": 0,
+   "seller": 2,
+   "median": 305000,
+   "years": {
+    "2024": 1,
+    "2026": 1
+   }
+  },
+  "st-bonifacius": {
+   "n": 1,
+   "buyer": 0,
+   "seller": 1,
+   "median": 205000,
+   "years": {
+    "2026": 1
+   }
+  },
+  "st-francis": {
+   "n": 2,
+   "buyer": 1,
+   "seller": 1,
+   "median": 321025,
+   "years": {
+    "2024": 1,
+    "2026": 1
+   }
+  },
+  "st-louis-park": {
+   "n": 8,
+   "buyer": 4,
+   "seller": 3,
+   "median": 324750,
+   "years": {
+    "2023": 1,
+    "2024": 3,
+    "2025": 2,
+    "2026": 2
+   }
+  },
+  "st-paul-park": {
+   "n": 2,
+   "buyer": 1,
+   "seller": 1,
+   "median": 243500,
+   "years": {
+    "2024": 1,
+    "2026": 1
+   }
+  },
+  "stillwater": {
+   "n": 4,
+   "buyer": 3,
+   "seller": 1,
+   "median": 417100,
+   "years": {
+    "2024": 2,
+    "2025": 2
+   }
+  },
+  "vadnais-heights": {
+   "n": 4,
+   "buyer": 3,
+   "seller": 1,
+   "median": 329250,
+   "years": {
+    "2024": 1,
+    "2025": 3
+   }
+  },
+  "vermillion": {
+   "n": 1,
+   "buyer": 0,
+   "seller": 1,
+   "median": 486000,
+   "years": {
+    "2026": 1
+   }
+  },
+  "victoria": {
+   "n": 1,
+   "buyer": 0,
+   "seller": 1,
+   "median": 1250000,
+   "years": {
+    "2026": 1
+   }
+  },
+  "waconia": {
+   "n": 7,
+   "buyer": 5,
+   "seller": 2,
+   "median": 369990,
+   "years": {
+    "2025": 5,
+    "2026": 2
+   }
+  },
+  "west-st-paul": {
+   "n": 9,
+   "buyer": 3,
+   "seller": 6,
+   "median": 247000,
+   "years": {
+    "2025": 6,
+    "2026": 3
+   }
+  },
+  "white-bear-lake": {
+   "n": 5,
+   "buyer": 3,
+   "seller": 2,
+   "median": 375000,
+   "years": {
+    "2024": 2,
+    "2025": 2,
+    "2026": 1
+   }
+  },
+  "woodbury": {
+   "n": 29,
+   "buyer": 17,
+   "seller": 12,
+   "median": 405000,
+   "years": {
+    "2024": 9,
+    "2025": 16,
+    "2026": 4
+   }
+  }
+ }
+}
