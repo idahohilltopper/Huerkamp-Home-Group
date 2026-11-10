@@ -1,0 +1,129 @@
+---
+// Minnesota mortgage calculator: /calculators/mortgage. Built for "minnesota mortgage calculator" (3,600 searches a month,
+// KD 35; Open SEO, Nov 2026). What national calculators don't have: each Twin Cities city's own effective property tax rate
+// (Census), Minnesota's mortgage registry tax at closing, and this week's Freddie Mac rates. Defaults all have a public
+// source (src/data/calculators.ts); insurance, mortgage insurance and HOA dues start blank for the person's own numbers.
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CalcLead from '../../components/CalcLead.astro';
+import { MN, calcCities, taxSource, stateTaxRate, rate, rateSource, fmtDate } from '../../data/calculators';
+import { marketFor, REGION, latest, monthLabel } from '../../data/market';
+import { site } from '../../data/site';
+
+const median = marketFor(REGION)?.medianPrice?.r12[1] ?? 395000;
+const price0 = Math.round(median / 5000) * 5000;
+const data = { cities: calcCities.map(({ slug, name, rate, erf }) => ({ slug, name, rate, erf })), mtax: MN.mortgageTax, erf: MN.erf, stateRate: stateTaxRate };
+const mpls = calcCities.find((c) => c.slug === 'minneapolis');
+const faq = [
+  { q: 'How much is the monthly payment on a house in Minnesota?', a: `On ${'$' + price0.toLocaleString('en-US')} (about the Twin Cities median sale price over the 12 months through ${monthLabel(latest)}), with 20% down at ${rate.rate30}% for 30 years, principal and interest are about $${Math.round((price0 * 0.8) * (rate.rate30 / 1200) / (1 - Math.pow(1 + rate.rate30 / 1200, -360))).toLocaleString('en-US')} a month. Property taxes add about ${stateTaxRate}% of the home's value a year statewide, more or less depending on the city, plus homeowners insurance and any HOA dues or mortgage insurance.` },
+  { q: 'What property tax rate should I use for a Minnesota mortgage?', a: `The rate where the home is. Across Minnesota, homeowners pay a median of about ${stateTaxRate}% of their home's value a year${mpls ? `; in Minneapolis it's about ${mpls.rate}%` : ''}. Pick the city in the calculator to use its rate (US Census Bureau, American Community Survey). Homesteading the home lowers its taxable value if it's worth less than $517,200.` },
+  { q: 'What is the Minnesota mortgage registry tax?', a: `A state tax of ${(MN.mortgageTax * 100).toFixed(2)}% of the loan amount, paid once at closing when the mortgage is recorded, plus ${(MN.erf * 100).toFixed(2)}% in Hennepin and Ramsey counties (Minnesota Department of Revenue). On a $300,000 loan that's $${Math.round(300000 * MN.mortgageTax).toLocaleString('en-US')}.` },
+  { q: 'Do I need mortgage insurance in Minnesota?', a: 'Usually, on a conventional loan with less than 20% down; FHA loans have their own mortgage insurance. The cost depends on your credit, down payment and loan, so enter your lender\'s quote. Down payment help can lower it: see down payment assistance in Minnesota.' },
+];
+const ld = JSON.stringify([
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+  { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Minnesota mortgage calculator', applicationCategory: 'FinanceApplication', operatingSystem: 'Any', url: 'https://www.huerkamphomes.com/calculators/mortgage' },
+]);
+---
+<Base breadcrumbs={[{ name: 'Calculators', href: '/calculators' }, { name: 'Mortgage', href: '/calculators/mortgage' }]}
+  title={`Minnesota Mortgage Calculator: Payment With Real Property Taxes | ${site.name}`}
+  description={`Minnesota mortgage calculator with this week's rates (${rate.rate30}% 30-year), each Twin Cities city's real property tax rate and the Minnesota mortgage registry tax at closing.`}>
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <PageHero eyebrow="Calculator" title="Minnesota mortgage calculator"
+    lede="Your monthly payment with this week's average rates and the property tax rate of the city you're buying in, plus what Minnesota's mortgage registry tax adds at closing." />
+
+  <section class="section">
+    <div class="wrap mcalc" id="calc-mort">
+      <form onsubmit="return false" aria-label="Mortgage inputs">
+        <fieldset>
+          <legend>The home</legend>
+          <div class="two">
+            <div class="field"><label for="m-price">Home price ($)</label><input id="m-price" inputmode="decimal" value={price0.toLocaleString('en-US')} /></div>
+            <div class="field"><label for="m-city">City</label>
+              <select id="m-city">{calcCities.map((c) => <option value={c.slug} selected={c.slug === 'minneapolis'}>{c.name}</option>)}</select></div>
+          </div>
+          <small id="m-citynote"></small>
+        </fieldset>
+        <fieldset>
+          <legend>Loan</legend>
+          <div class="two">
+            <div class="field"><label for="m-down">Down payment (%)</label><input id="m-down" inputmode="decimal" value="20" /></div>
+            <div class="field"><label for="m-term">Loan term</label><select id="m-term"><option value="30">30-year fixed</option><option value="15">15-year fixed</option></select></div>
+          </div>
+          <div class="two">
+            <div class="field"><label for="m-rate">Interest rate, 30-year (%)</label><input id="m-rate" inputmode="decimal" value={rate.rate30.toFixed(2)} /></div>
+            <div class="field"><label for="m-rate15">Interest rate, 15-year (%)</label><input id="m-rate15" inputmode="decimal" value={(rate.rate15 ?? rate.rate30).toFixed(2)} /></div>
+          </div>
+          <small>National averages from Freddie Mac's survey for the week of {fmtDate(rate.date)}. <a href="/mortgage-rates-minnesota">This week's rates</a></small>
+          <div class="field" style="margin-top:.85rem"><label for="m-pmi">Mortgage insurance if under 20% down (% of loan per year)</label><input id="m-pmi" inputmode="decimal" placeholder="ask your lender" /></div>
+        </fieldset>
+        <fieldset>
+          <legend>Other monthly costs</legend>
+          <div class="two">
+            <div class="field"><label for="m-ins">Homeowners insurance ($/year)</label><input id="m-ins" inputmode="decimal" placeholder="your quote" /></div>
+            <div class="field"><label for="m-hoa">HOA dues ($/month)</label><input id="m-hoa" inputmode="decimal" placeholder="0" /></div>
+          </div>
+        </fieldset>
+      </form>
+
+      <aside class="mcalc__out" aria-live="polite">
+        <p class="eyebrow">Monthly payment</p>
+        <p class="mcalc__big" id="m-total">$0</p>
+        <table><tbody id="m-rows"></tbody></table>
+        <p class="mcalc__note">An estimate for planning, not a loan offer. A lender's Loan Estimate is the real number.</p>
+        <p><a class="btn" href="#numbers">Get my real numbers</a></p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="wrap prose">
+      <h2>What's in a Minnesota mortgage payment</h2>
+      <ul>
+        <li><strong>Principal and interest:</strong> the loan payment at the rate you enter. Defaults: <a href={rateSource.url} rel="noopener">{rateSource.name}</a>, week of {fmtDate(rate.date)}: {rate.rate30}% (30-year), {rate.rate15}% (15-year).</li>
+        <li><strong>Property taxes:</strong> the city's typical effective rate (statewide about {stateTaxRate}%). Source: {taxSource} See <a href="/property-taxes">property taxes by county</a>, and <a href="/property-taxes/minnesota-homestead">homestead</a> once you buy.</li>
+        <li><strong>Homeowners insurance, HOA dues and mortgage insurance:</strong> your own quotes.</li>
+        <li><strong>At closing, Minnesota's mortgage registry tax:</strong> {(MN.mortgageTax * 100).toFixed(2)}% of the loan, plus {(MN.erf * 100).toFixed(2)}% in Hennepin and Ramsey counties (<a href={MN.mortgageTaxUrl} rel="noopener">Minnesota Department of Revenue</a>).</li>
+      </ul>
+      <h2>Common questions</h2>
+      {faq.map((f) => <><h3>{f.q}</h3><p>{f.a}</p></>)}
+      <p>More: <a href="/calculators/affordability">How much house can I afford?</a> · <a href="/down-payment-assistance-minnesota">Down payment assistance</a> · <a href="/first-time-home-buyer-minnesota">First-time buyer programs</a> · <a href="/calculators">All calculators</a></p>
+    </div>
+  </section>
+
+  <CalcLead form="calc-buyer" title="Get your real numbers" button="Help me get pre-approved"
+    text="We'll connect you with a trusted local lender for a free pre-approval and show you homes at your payment in the cities you're considering." />
+
+  <script type="application/json" id="mort-data" set:html={JSON.stringify(data)} />
+  <script>
+    const D = JSON.parse(document.getElementById('mort-data')!.textContent!);
+    const $ = (id: string) => document.getElementById(id) as HTMLInputElement;
+    const num = (id: string) => { const v = Number(($(id).value || '').replace(/[^0-9.\-]/g, '')); return Number.isFinite(v) ? v : 0; };
+    const usd = (v: number) => '$' + Math.round(Math.max(0, v)).toLocaleString('en-US');
+    const factor = (ratePct: number, years: number) => { const r = ratePct / 1200, n = years * 12; return r ? r / (1 - Math.pow(1 + r, -n)) : 1 / n; };
+    function calc() {
+      const c = D.cities.find((x: any) => x.slug === $('m-city').value) ?? { rate: D.stateRate, erf: false, name: '' };
+      document.getElementById('m-citynote')!.textContent = `Typical property tax rate in ${c.name}: about ${c.rate}% of value per year.`;
+      const price = num('m-price'), downPct = Math.min(100, Math.max(0, num('m-down'))), down = price * downPct / 100, loan = price - down;
+      const years = Number($('m-term').value), r = years === 15 ? num('m-rate15') : num('m-rate');
+      const pi = loan * factor(r, years), tax = price * c.rate / 1200, ins = num('m-ins') / 12, hoa = num('m-hoa');
+      const pmi = downPct < 20 ? loan * num('m-pmi') / 1200 : 0;
+      const total = pi + tax + ins + hoa + pmi;
+      const interest = pi * years * 12 - loan;
+      const reg = loan * (D.mtax + (c.erf ? D.erf : 0));
+      $('m-total').textContent = usd(total);
+      const row = (l: string, v: number) => `<tr><td>${l}</td><td>${usd(v)}</td></tr>`;
+      document.getElementById('m-rows')!.innerHTML =
+        row(`Principal and interest (${years}-yr at ${r}%)`, pi) + row('Property taxes', tax) +
+        row(ins ? 'Homeowners insurance' : 'Homeowners insurance (add your quote)', ins) +
+        (hoa ? row('HOA dues', hoa) : '') + (downPct < 20 ? row(num('m-pmi') ? 'Mortgage insurance' : 'Mortgage insurance (add your quote)', pmi) : '') +
+        `<tr class="total"><td>Monthly payment</td><td>${usd(total)}</td></tr>` +
+        row('Down payment', down) + row('Loan amount', loan) + row(`Total interest over ${years} years`, interest) + row('MN mortgage registry tax at closing', reg);
+      const sum = document.querySelector<HTMLInputElement>('[data-calc-summary]');
+      if (sum) sum.value = `Mortgage: ${usd(price)} in ${c.name}, ${downPct}% down, ${years}-yr at ${r}%: about ${usd(total)}/mo (P&I ${usd(pi)}, taxes ${usd(tax)}).`;
+    }
+    document.getElementById('calc-mort')!.addEventListener('input', calc);
+    document.getElementById('calc-mort')!.addEventListener('change', calc);
+    calc();
+  </script>
+</Base>

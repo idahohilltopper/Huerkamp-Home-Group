@@ -236,6 +236,13 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     const t = (await p.innerText('main')).match(/\$[\d,]{4,}/g) ?? [];
     ok('Net proceeds calculator', t.length > 2, `${t.length} dollar figures shown`);
   });
+  await step('Mortgage calculator', async () => {
+    await p.goto(BASE + '/calculators/mortgage', { waitUntil: 'domcontentloaded' }); await p.waitForTimeout(1500);
+    const before = (await p.textContent('#m-total'))?.trim();
+    await p.fill('#m-down', '5'); await p.waitForTimeout(300);
+    const after = (await p.textContent('#m-total'))?.trim();
+    ok('Mortgage calculator', /^\$[\d,]{3,}$/.test(before ?? '') && before !== '$0' && after !== before, `20% down: ${before}/mo; 5% down: ${after}/mo`);
+  });
   await step('Mobile menu', async () => {
     const pc = await b.newContext(PHONE); const m = await pc.newPage();
     await m.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
