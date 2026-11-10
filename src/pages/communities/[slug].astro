@@ -27,7 +27,6 @@ import { communitySearch, searchUrl, ylopoPlace } from '../../data/ylopo';
 import PostCard from '../../components/PostCard.astro';
 import HomesStrip from '../../components/HomesStrip.astro';
 import SoldHomes from '../../components/SoldHomes.astro';
-import { loadTeamSales } from '../../lib/team-sales.mjs';
 import { pairsFor, other, compareHref } from '../../data/compare';
 import { DESTS, commuteHref } from '../../data/commute';
 import { listingsData, homesHref } from '../../data/listings';
@@ -253,10 +252,6 @@ const moreWays = !homes ? [] : [
   { href: '/when-to-sell', label: 'Sell now or wait for spring?' },
 ];
 const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 1000 : 400000;
-// Our own sales here (src/pages/real-estate-agents): link when the city has that page (3+ team sales in 3 years).
-const teamSales = await loadTeamSales();
-const nrm = (x: string) => x.toLowerCase().replace(/\bst\.?\s/g, 'saint ').replace(/[^a-z]+/g, ' ').trim();
-const ourSales = teamSales.sales.filter((x: any) => nrm(x.city) === nrm(c.name) || nrm(x.city) === nrm((c as any).censusName ?? '')).length;
 ---
 <Base
   breadcrumbs={[{ name: 'Communities', href: '/communities' }, { name: c.name, href: `/communities/${c.slug}` }]}
@@ -332,7 +327,6 @@ const ourSales = teamSales.sales.filter((x: any) => nrm(x.city) === nrm(c.name) 
 
   <!-- 2b. Recently sold (NorthstarMLS sold content; only with the site's own feed) -->
   {searchable && <SoldHomes place={c.slug} name={c.name} />}
-  {ourSales >= 3 && !teamSales.failed.length && <section class="section"><div class="wrap"><p class="our-sales"><a class="link-arrow" href={`/real-estate-agents/${c.slug}-mn`}>Our record in {c.name}: {ourSales} homes listed and sold in the last 3 years, and the agents who sold them</a></p></div></section>}
 
   <!-- 3. Listing alerts -->
   <section class="section section--dark" id="alerts" aria-labelledby="alerts-title">

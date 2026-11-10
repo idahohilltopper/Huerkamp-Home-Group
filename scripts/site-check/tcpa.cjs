@@ -21,7 +21,7 @@ const ok = (name, pass, info = '') => lines.push(`${pass ? 'PASS' : 'FAIL'}  ${n
 const root = path.resolve(__dirname, '../..');
 
 const PAGES = ['/', '/contact', '/sell', '/buy', '/cash-offer', '/expired-listing', '/home-estimate', '/invest', '/ramsey', '/account',
-  '/home-search', '/lake-homes', '/new-construction', '/land-for-sale', '/hobby-farms-for-sale-mn', '/zip-codes/woodbury-mn', '/commute/downtown-minneapolis/maple-grove', '/duplexes-for-sale-mn', '/townhomes-for-sale-mn', '/condos-for-sale-mn', '/minnesota-homes-for-sale/duluth', '/real-estate-agents/burnsville-mn',
+  '/home-search', '/lake-homes', '/new-construction', '/land-for-sale', '/hobby-farms-for-sale-mn', '/zip-codes/woodbury-mn', '/commute/downtown-minneapolis/maple-grove', '/duplexes-for-sale-mn', '/townhomes-for-sale-mn', '/condos-for-sale-mn', '/minnesota-homes-for-sale/duluth',
   '/first-time-home-buyer-minnesota', '/selling/cost-to-sell-a-house-in-minnesota', '/buying/veterans-and-military-home-buyers-minnesota',
   '/downsizing', '/calculators/affordability', '/calculators/mortgage-payoff', '/lake-homes/brainerd', '/youtube-form'];
 const KINDS = [/\/communities\/[^/]+$/, /\/communities\/[^/]+\/[^/]+$/, /\/homes-for-sale\/[^/]+$/, /\/lake-homes\/[^/]+$/, /\/team\/[^/]+$/,
