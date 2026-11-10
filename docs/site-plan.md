@@ -850,3 +850,10 @@ scripts/build-walkability.mjs -> src/data/walkability.json: a point every quarte
 Each town had two pages chasing "<town> homes for sale". Now `/homes-for-sale/<town>` owns that search ("<Town>, MN
 Homes for Sale (N)"), and `/communities/<town>` is the "Living in <Town>, MN" guide whose hero button links to the
 listings. Details in docs/ai-optimization.md.
+
+## Team closing records (2026-11-10)
+
+- `src/data/team-closings.json`: per-city totals from the team's transaction spreadsheet (Jason, Nov 10, 2026), used
+  by /real-estate-agents, the home page record card and the Sell page strip. Only aggregates are kept: no addresses,
+  clients, commissions or agent names. Refresh from a new export every few months.
+- Jason's decision (2026-11-10): **no per-agent sales counts on agent pages** (or anywhere else on the site).
