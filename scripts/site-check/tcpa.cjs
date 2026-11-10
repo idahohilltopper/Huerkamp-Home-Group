@@ -49,8 +49,9 @@ const MUST = ['Huerkamp Home Group', 'Keller Williams Preferred Realty', 'automa
   const urls = [...sm.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].replace(/^https?:\/\/[^/]+/, ''));
   const pages = [...new Set([...PAGES, ...KINDS.flatMap((re) => urls.filter((u) => re.test(u)).slice(0, 2))])];
   const b = await pw[BROWSER].launch();
-  // Never send our own test visits to Meta's ad measurement (Meta Pixel): its hits are answered here and go nowhere.
-  { const nc = b.newContext.bind(b); b.newContext = async (o) => { const c = await nc(o); await c.route(/facebook\.com\/tr/, (r) => r.fulfill({ status: 200, body: '' })); return c; }; }
+  // Never send our own test visits to Meta Pixel or Google Analytics: their hits are answered here and go nowhere
+  // (until Nov 10, 2026 every check run showed up in Google Analytics as ~60 visitors).
+  { const nc = b.newContext.bind(b); b.newContext = async (o) => { const c = await nc(o); await c.route(/facebook\.com\/tr|google-analytics\.com\/g\/collect|analytics\.google\.com\/g\/collect/, (r) => r.fulfill({ status: 200, body: "" })); return c; }; }
   const ctx = await b.newContext({ viewport: { width: 1366, height: 900 } });
   await ctx.addInitScript(() => { try { sessionStorage.setItem('idx-eula', '1'); } catch {} });
   const leads = [];

@@ -578,7 +578,7 @@ Information and Technical Agreement (section 6 and Appendix D). Everything lives
 
 ## Google Analytics (2026-10-28)
 
-- GA4 property **G-YY1H36L83S** (`site.ga4` in src/data/site.ts). The tag runs only on huerkamphomegroup.com and
+- GA4 property **G-YY1H36L83S** (`site.ga4` in src/data/site.ts), a stream of the property "JHMN - Jason Huerkamp in Burnsville MN - GA4" (340994799) under jason@hhgus.com, connected to Open SEO (Nov 10, 2026). The site checks answer GA and Meta Pixel hits themselves, so test runs aren't counted as visitors. The tag runs only on huerkamphomegroup.com and
   huerkamphomes.com (not Netlify previews or local tests), and its library loads 1.5 seconds after the page so speed
   scores hold.
 - Every website form sends a `generate_lead` event (form name and page). Mark it as a key event in GA4 (Admin → Events)

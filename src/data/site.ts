@@ -25,10 +25,8 @@ export const site = {
   youtubeUrl: 'https://www.youtube.com/@livinginminneapolis',
   facebookUrl: 'https://www.facebook.com/HuerkampHomeGroup/',
   // Google Analytics 4 (the team's own property). Loads only on the live domains, so test sites don't count.
+  // GA4 property "JHMN - Jason Huerkamp in Burnsville MN - GA4" (340994799), under jason@hhgus.com; Open SEO reads it.
   ga4: 'G-YY1H36L83S',
-  // A second GA4 property the site also reports to: "JHMN - Jason Huerkamp in Burnsville MN" (property 340994799), under
-  // jr@teamtwincities.com, the Google login Open SEO uses. G-YY1H36L83S isn't visible to that login (Nov 10, 2026).
-  ga4Also: 'G-C4MGQLK11M',
   /** Meta (Facebook/Instagram) Pixel for ad measurement; same on/off rules as Google Analytics (src/layouts/Base.astro). */
   metaPixel: '2726990550925323',
   // Track record shown on the home page (hero proof line, red strip, "The record" cards). Update these by hand.

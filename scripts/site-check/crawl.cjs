@@ -26,8 +26,9 @@ const KINDS = [/\/communities\/[^/]+$/, /\/homes-for-sale\/[^/]+$/, /\/homes-for
   const pages = [...new Set([...MAIN, ...sample])];
 
   const b = await pw[BROWSER].launch();
-  // Never send our own test visits to Meta's ad measurement (Meta Pixel): its hits are answered here and go nowhere.
-  { const nc = b.newContext.bind(b); b.newContext = async (o) => { const c = await nc(o); await c.route(/facebook\.com\/tr/, (r) => r.fulfill({ status: 200, body: '' })); return c; }; }
+  // Never send our own test visits to Meta Pixel or Google Analytics: their hits are answered here and go nowhere
+  // (until Nov 10, 2026 every check run showed up in Google Analytics as ~60 visitors).
+  { const nc = b.newContext.bind(b); b.newContext = async (o) => { const c = await nc(o); await c.route(/facebook\.com\/tr|google-analytics\.com\/g\/collect|analytics\.google\.com\/g\/collect/, (r) => r.fulfill({ status: 200, body: "" })); return c; }; }
   const ctx = await b.newContext({ viewport: { width: 1366, height: 900 } });
   await ctx.addInitScript(() => { try { sessionStorage.setItem('idx-eula', '1'); } catch {} });
   for (const pat of ['**/api/lead', '**/api/alerts/**', '**/api/client-error', '**/api/account/**']) await ctx.route(pat, (r) => r.fulfill({ status: 200, contentType: 'application/json', body: '{"ok":true}' }));

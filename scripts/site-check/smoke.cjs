@@ -18,8 +18,9 @@ const results = [];
 const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'}  ${name}${info ? '  — ' + info : ''}`); };
 (async () => {
   const b = await engine.launch();
-  // Never send our own test visits to Meta's ad measurement (Meta Pixel): its hits are answered here and go nowhere.
-  { const nc = b.newContext.bind(b); b.newContext = async (o) => { const c = await nc(o); await c.route(/facebook\.com\/tr/, (r) => r.fulfill({ status: 200, body: '' })); return c; }; }
+  // Never send our own test visits to Meta Pixel or Google Analytics: their hits are answered here and go nowhere
+  // (until Nov 10, 2026 every check run showed up in Google Analytics as ~60 visitors).
+  { const nc = b.newContext.bind(b); b.newContext = async (o) => { const c = await nc(o); await c.route(/facebook\.com\/tr|google-analytics\.com\/g\/collect|analytics\.google\.com\/g\/collect/, (r) => r.fulfill({ status: 200, body: "" })); return c; }; }
   const ctx = await b.newContext({ viewport: { width: 1366, height: 900 } });
   await ctx.addInitScript(() => { try { sessionStorage.setItem('idx-eula', '1'); } catch {} });
   const leads = [];
@@ -324,8 +325,9 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
   // A browser with 3D graphics (WebGL) turned off gets the backup flat map (src/scripts/search-map-flat.ts), with pins.
   if (BROWSER !== 'chromium') skip('Map without 3D graphics', 'Chrome-only switch'); else await step('Map without 3D graphics', async () => {
     const b2 = await pw.chromium.launch({ args: ['--disable-webgl', '--disable-3d-apis'] });
-    // Never send our own test visits to Meta's ad measurement (Meta Pixel): its hits are answered here and go nowhere.
-    { const nc = b2.newContext.bind(b2); b2.newContext = async (o) => { const c = await nc(o); await c.route(/facebook\.com\/tr/, (r) => r.fulfill({ status: 200, body: '' })); return c; }; }
+    // Never send our own test visits to Meta Pixel or Google Analytics: their hits are answered here and go nowhere
+  // (until Nov 10, 2026 every check run showed up in Google Analytics as ~60 visitors).
+    { const nc = b2.newContext.bind(b2); b2.newContext = async (o) => { const c = await nc(o); await c.route(/facebook\.com\/tr|google-analytics\.com\/g\/collect|analytics\.google\.com\/g\/collect/, (r) => r.fulfill({ status: 200, body: "" })); return c; }; }
     const c2 = await b2.newContext({ viewport: { width: 1366, height: 900 } });
     await c2.addInitScript(() => { try { sessionStorage.setItem('idx-eula', '1'); } catch {} });
     await c2.route('**/api/client-error', (r) => r.fulfill({ status: 202, body: '{}' })); // don't count our own test as a visitor error
