@@ -1,7 +1,8 @@
 ---
-// "Minnesota property tax refund" (2,900 searches a month, KD 9; Open SEO, Nov 2026). Only what the Minnesota Department
-// of Revenue publishes: its property tax refund article for homeowners (revised 9/25). Income limits and maximums change
-// every year and sources disagreed in Nov 2026, so this page sends readers to Revenue for those numbers.
+// "Minnesota homeowners tax refund" (9,900 searches a month, KD 1), "Minnesota property tax refund" and "Minnesota real
+// estate refund" (2,900 each; Open SEO, Nov 2026). Only what the Minnesota Department of Revenue publishes: the 2025 Form
+// M1PR instructions (income limit, deadlines, special refund maximum), its Homeowner's Homestead Credit Refund page
+// (updated June 23, 2026: the 2025 increase) and the draft 2026 instructions (Oct 14, 2026). Update INCOME each year.
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import HomeValueBox from '../../components/HomeValueBox.astro';
@@ -9,35 +10,40 @@ import { COUNTIES, countyHref } from '../../data/counties';
 import { origin } from '../../data/schema';
 import { site } from '../../data/site';
 
-const REV = 'https://www.revenue.state.mn.us/property-tax-refund';
-const answer = 'Minnesota homeowners can get part of their property tax back through the Homestead Credit Refund. There are two parts: a regular refund based on your household income and property tax, and a special refund when your home\'s property tax jumped more than 12% (and at least $100) in a year, with no income limit. File Form M1PR by August 15; you have up to a year after that to file.';
+const REV = 'https://www.revenue.state.mn.us/homeowners-homestead-credit-refund';
+// 2025 refund (filed in 2026): final Form M1PR instructions. 2026 refund (filed in 2027): Revenue's draft instructions.
+const INCOME = '$142,490', INCOME_NEXT = '$147,110';
+const answer = `Minnesota homeowners can get part of their property tax back with the Homestead Credit Refund (Form M1PR). The regular refund is for household incomes under ${INCOME} (2025 refund) and depends on your income and property tax. The special refund, up to $1,000 with no income limit, is for homes whose property tax rose more than 12% and at least $100 in a year. File by mid-August; you have one more year after that.`;
 const faq = [
-  { q: 'Who qualifies for the Minnesota property tax refund?', a: 'Homeowners who meet the income limits qualify for the regular refund (a Social Security Number or an Individual Taxpayer Identification Number is required). The special refund usually applies if you owned and lived in your home on January 2 of each year, and its property tax went up by more than 12% and by at least $100. The special refund has no income limit. Renters have a separate renter\'s credit.' },
-  { q: 'When is the Minnesota property tax refund due?', a: 'File by August 15. You have up to one year after the due date to file.' },
+  { q: 'What is the income limit for the Minnesota homeowners property tax refund?', a: `For the 2025 refund (filed in 2026), total household income must be less than ${INCOME}. Revenue's draft instructions for the 2026 refund (filed in 2027) raise it to ${INCOME_NEXT}. The special refund has no income limit.` },
+  { q: 'Who qualifies for the Minnesota property tax refund?', a: 'For the regular refund you must have owned and lived in your home on January 2 of the year after the tax year, have it classified as your homestead, have no delinquent property taxes on it, and meet the income limit (a Social Security Number or an Individual Taxpayer Identification Number is required). The special refund usually applies if you owned and lived in your home on January 2 of each year, and its property tax went up by more than 12% and by at least $100. The special refund has no income limit. Renters have a separate renter\'s credit.' },
+  { q: 'When is the Minnesota property tax refund due?', a: 'Mid-August. For the 2025 refund, file electronically, postmark or drop off by August 17, 2026; the final deadline to claim it is August 16, 2027. Use the property tax statement your county mails in March or April, not the notice of proposed taxes.' },
   { q: 'How do I file for the Minnesota property tax refund?', a: 'File electronically for free on the Minnesota Department of Revenue\'s website (search "homeowner"), or file paper Form M1PR, Homestead Credit Refund. Revenue can mail forms: 651-296-3781 or 1-800-652-9094.' },
-  { q: 'How much is the Minnesota property tax refund?', a: 'It depends on your household income and your property tax for the year. The income limits and the largest refund change each year; the Minnesota Department of Revenue publishes the current figures with the M1PR instructions.' },
+  { q: 'How much is the Minnesota property tax refund?', a: 'The regular refund depends on your household income and your property tax; the refund table in the M1PR instructions gives the amount. A 2026 law change raised the 2025 refund for homeowners by nearly 15%; claims filed before July 15, 2026 are adjusted automatically. The special refund is 60% of the tax increase above 12%, up to $1,000.' },
+  { q: 'I just bought my home. Can I get the refund?', a: 'Once the home is homesteaded. If you bought in 2025 and the home isn\'t classified as homestead on your statement, apply for homestead with your county assessor by December 31, 2026 and include the signed approval with your Form M1PR.' },
 ];
 const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', url: `${origin}/property-taxes/minnesota-property-tax-refund`, mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
 ---
 <Base breadcrumbs={[{ name: 'Property taxes', href: '/property-taxes' }, { name: 'Property tax refund', href: '/property-taxes/minnesota-property-tax-refund' }]}
-  title={`Minnesota Property Tax Refund (M1PR): Who Qualifies & When to File | ${site.name}`} description={answer}>
+  title={`Minnesota Homeowners Property Tax Refund (M1PR): Income Limit & Deadline | ${site.name}`} description={answer}>
   <script slot="head" type="application/ld+json" set:html={ld} />
-  <PageHero eyebrow="Property taxes" title="Minnesota property tax refund for homeowners" lede={answer} />
+  <PageHero eyebrow="Property taxes" title="Minnesota homeowners property tax refund" lede={answer} />
   <section class="section">
     <div class="wrap narrowish prose">
       <h2>The two refunds</h2>
-      <p><strong>Regular refund.</strong> Based on your household income and your property tax. You must meet the income limits, which the Department of Revenue sets each year.</p>
-      <p><strong>Special refund.</strong> Homeowners usually qualify if all of these are true: you owned and lived in the home on January 2 of each year, its property tax increased by more than 12%, and the increase was at least $100. There's no income limit. You may qualify for one refund or both.</p>
+      <p><strong>Regular refund.</strong> Based on your household income and your property tax. For the 2025 refund, household income must be under {INCOME}; you must have owned and lived in the home on January 2, 2026, it must be classified as your <a href="/property-taxes/minnesota-homestead">homestead</a>, and it can't have delinquent property taxes. A 2026 law change raised the 2025 refund by nearly 15%.</p>
+      <p><strong>Special refund.</strong> Homeowners usually qualify if all of these are true: you owned and lived in the home on January 2 of each year, its property tax increased by more than 12%, and the increase was at least $100. There's no income limit, and the refund is up to $1,000 (60% of the increase above 12%). You may qualify for one refund or both.</p>
 
       <h2>How to file</h2>
       <ul>
-        <li><strong>Deadline:</strong> August 15. You can file up to one year after the due date.</li>
+        <li><strong>Deadline:</strong> mid-August. The 2025 refund was due August 17, 2026; the last day to claim it is August 16, 2027.</li>
+        <li><strong>You'll need:</strong> the property tax statement your county mailed in March or April (not the notice of proposed taxes) and your household income.</li>
         <li><strong>Online:</strong> free electronic filing on the Department of Revenue's website.</li>
         <li><strong>Paper:</strong> Form M1PR, Homestead Credit Refund.</li>
         <li><strong>Questions or forms by mail:</strong> 651-296-3781 or 1-800-652-9094.</li>
       </ul>
       <p><a class="btn" href={REV} rel="noopener" target="_blank">Minnesota Department of Revenue: property tax refund ↗</a></p>
-      <p class="source">Source: Minnesota Department of Revenue, "Minnesota Property Tax Refund: Get relief for your property tax!" (revised September 2025). Income limits and refund amounts change every year; check Revenue's site for the current figures.</p>
+      <p class="source">Sources: Minnesota Department of Revenue, 2025 Form M1PR instructions; Homeowner's Homestead Credit Refund (updated June 23, 2026); draft 2026 M1PR instructions (October 2026). Income limits change every year; check Revenue's site for the current figures.</p>
 
       <h2>Questions</h2>
       <dl class="pt-faq">{faq.map((f) => <div><dt>{f.q}</dt><dd>{f.a}</dd></div>)}</dl>

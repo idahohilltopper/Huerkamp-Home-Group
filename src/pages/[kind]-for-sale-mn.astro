@@ -1,0 +1,59 @@
+---
+// Townhomes and condos for sale across our communities: /townhomes-for-sale-mn and /condos-for-sale-mn. Every townhome or
+// condo listing from the live MLS feed, by city (linking to each city's /homes-for-sale/<city>/townhomes|condos page) and
+// by price. Rebuilt with every build. Open SEO, Nov 2026: "townhomes for sale mn" 390/mo and "condos for sale mn" 390/mo,
+// KD 0; city searches ("condos for sale minneapolis" 2,400, "townhomes for sale in plymouth mn" 1,000) go to the city pages.
+import FeedTopicPage from '../components/FeedTopicPage.astro';
+import { listingsData, homesHref, median, money } from '../data/listings';
+import { communities } from '../data/areas';
+import { site } from '../data/site';
+
+export function getStaticPaths() {
+  return [{ params: { kind: 'townhomes' } }, { params: { kind: 'condos' } }];
+}
+const { kind } = Astro.params as { kind: 'townhomes' | 'condos' };
+const T = kind === 'townhomes'
+  ? { type: 'townhome', Plural: 'Townhomes', plural: 'townhomes', one: 'townhome', interest: 'Townhome' }
+  : { type: 'condo', Plural: 'Condos', plural: 'condos', one: 'condo', interest: 'Condo' };
+const data = await listingsData;
+const homes = data.mode === 'off' ? [] : data.listings.filter((l) => l.type === T.type && l.price > 1000);
+const day = data.at ? new Date(data.at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }) : '';
+const name = (slug: string) => communities.find((c) => c.slug === slug)?.name ?? slug;
+const page = (p: string) => (data.collections.some((k) => k.path === p) ? homesHref(p) : null);
+const prices = homes.map((l) => l.price);
+const row = (label: string, list: typeof homes, href?: string | null) => ({ label, n: list.length, med: median(list.map((l) => l.price)), href });
+const byCity = [...new Set(homes.map((l) => l.community))].map((s) => row(name(s), homes.filter((l) => l.community === s), page(`${s}/${kind}`))).sort((a, b) => b.n - a.n);
+const BANDS: [string, number, number][] = [['Under $200,000', 0, 200000], ['$200,000 to $300,000', 200000, 300000], ['$300,000 to $400,000', 300000, 400000], ['$400,000 to $600,000', 400000, 600000], ['$600,000 and up', 600000, Infinity]];
+const byPrice = BANDS.map(([label, lo, hi]) => row(label, homes.filter((l) => l.price >= lo && l.price < hi))).filter((r) => r.n);
+const fees = homes.map((l) => l.hoa).filter((h): h is number => !!h && h > 0 && h < 5000);
+const feeMed = median(fees);
+const oneLevel = homes.filter((l) => /one stor|1 stor|rambler|one level|single level|ranch/i.test(l.style)).length;
+const top = byCity.slice(0, 3).map((r) => `${r.label} (${r.n})`);
+const answer = homes.length
+  ? `${homes.length.toLocaleString('en-US')} ${T.plural} are for sale in our Minnesota communities as of ${day}, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices)!)}.${top.length ? ` The most are in ${top.join(', ')}.` : ''}${feeMed ? ` The median association fee listed is ${money(feeMed)} a month.` : ''}`
+  : '';
+const shown = [...homes].sort((a, b) => a.price - b.price).filter((_, i, a) => a.length <= 48 || i % Math.ceil(a.length / 48) === 0).slice(0, 48);
+const faq = kind === 'townhomes' ? [
+  ...(answer ? [{ q: 'How many townhomes are for sale in the Twin Cities right now?', a: answer }] : []),
+  { q: 'What does a townhome association fee cover?', a: 'It depends on the association. Fees often cover lawn care, snow removal, trash, exterior insurance and saving for roofs and siding; some include water. Ask for the association\'s budget, reserve study, rules and recent meeting minutes before you buy, and check for any planned special assessments.' },
+  { q: 'Are there one-level townhomes for sale?', a: `${oneLevel ? `Yes: ${oneLevel} of the townhomes listed now are described as one level, one story or rambler style. ` : ''}Many newer townhome communities have main-floor living with the bedroom and laundry on the main level. Tell us what you need and we'll watch for them.` },
+  { q: 'Townhome or single-family home: which costs less?', a: 'A townhome usually has a lower price than a detached home nearby, but add the monthly association fee to the payment. Our affordability calculator includes association dues.' },
+] : [
+  ...(answer ? [{ q: 'How many condos are for sale in the Twin Cities right now?', a: answer }] : []),
+  { q: 'What should I check before buying a condo?', a: 'The association\'s budget and reserves, the monthly fee and what it covers, any special assessments, the rules on rentals and pets, and the minutes of recent board meetings. Your lender will also look at the building: some loans, including FHA and VA loans, need the project to be approved.' },
+  { q: 'Can I get an FHA or VA loan on a condo?', a: 'Often, if the condo project is on the FHA or VA approved list, or qualifies for a single-unit approval. Ask your lender early; a project that isn\'t approved may need a conventional loan with a larger down payment.' },
+  { q: 'Are condo fees included in my mortgage payment?', a: 'No. Association fees are paid to the association each month, on top of principal, interest, taxes and insurance. Lenders count them when they figure how much you can borrow, so include them when you set a budget.' },
+];
+const otherKind = kind === 'townhomes' ? ['Condos for sale', '/condos-for-sale-mn'] : ['Townhomes for sale', '/townhomes-for-sale-mn'];
+---
+<FeedTopicPage path={`/${kind}-for-sale-mn`} crumb={T.Plural} at={data.at} noindex={data.preview || !homes.length}
+  title={`${T.Plural} for Sale in MN${homes.length ? ` (${homes.length.toLocaleString('en-US')})` : ''}: Twin Cities ${T.Plural} by City | ${site.name}`}
+  description={answer || `${T.Plural} for sale around the Twin Cities, by city and price, from NorthstarMLS.`}
+  eyebrow={T.Plural} h1={`${T.Plural} for sale in Minnesota`} answer={answer}
+  lede={`Every ${T.one} for sale in our communities around the Twin Cities, from NorthstarMLS. Pick a city to see its ${T.plural}, or <a href="/calculators/affordability">see what you can afford</a> with association dues included.`}
+  tables={[{ h: 'By city', col: 'City', rows: byCity }, { h: 'By price', col: 'List price', rows: byPrice }]}
+  note={`Association fees as listed in the MLS; check each listing. Updated ${day}.`}
+  shown={shown} shownH={`${T.Plural} across the price range`}
+  ask={{ eyebrow: `Looking for a ${T.one}?`, h2: `Tell us what you need <em>in a ${T.one}.</em>`, p: `Area, budget, one level or not, the fee you're comfortable with. We'll watch for it, including homes that come up before they hit the websites, and read the association papers with you before you write an offer.`, interest: T.interest, msg: 'Area, budget, bedrooms, one level, fee limit (optional)' }}
+  faq={faq} faqH={`Buying a ${T.one} in Minnesota`}
+  links={[[otherKind[0], otherKind[1]], ['First-time buyer programs', '/first-time-home-buyer-minnesota'], ['Mortgage rates', '/mortgage-rates-minnesota'], ['Homes for sale by city', '/homes-for-sale']]} />
