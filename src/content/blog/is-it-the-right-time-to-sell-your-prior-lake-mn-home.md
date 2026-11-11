@@ -121,3 +121,7 @@ If you are thinking about selling in Prior Lake, the market is still giving prep
 ### What is the best way to price a home in Prior Lake, MN?
 
 - The best approach is a personalized valuation based on recent comparable sales, current competing listings, your home’s condition, and your expected net proceeds rather than relying only on broad citywide averages.
+
+## What month is best to sell in Minnesota?
+
+- See [the best time to sell a house in the Twin Cities, month by month](/when-to-sell), from Minneapolis Area REALTORS® monthly data, and [what your Prior Lake home is worth](/sell#value).

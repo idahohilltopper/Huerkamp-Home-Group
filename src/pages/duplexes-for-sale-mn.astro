@@ -28,8 +28,17 @@ const answer = homes.length
   : '';
 const order = KINDS.map(([k]) => k);
 const shown = [...homes].sort((a, b) => (order.indexOf(kindOf(a)) + 9) % 9 - (order.indexOf(kindOf(b)) + 9) % 9 || a.price - b.price).slice(0, 48);
+// Minneapolis and Saint Paul get their own question: "moving into a duplex in minneapolis" is the site's biggest
+// Search Console query on this topic (Oct-Nov 2026).
+const cityQ = (slug: string, city: string) => {
+  const list = homes.filter((l) => l.community === slug);
+  if (!list.length) return [];
+  const href = page(`${slug}/multi-family-homes`);
+  return [{ q: `How many duplexes are for sale in ${city}?`, a: `${list.length} multi-family ${list.length === 1 ? 'home is' : 'homes are'} for sale in ${city} as of ${day}, with a median list price of ${money(median(list.map((l) => l.price))!)}.${href ? ` See them all at huerkamphomes.com${href}.` : ''} If you plan to live in one unit, an owner-occupied loan (FHA, VA or conventional) can apply to a two- to four-unit home.` }];
+};
 const faq = [
   ...(answer ? [{ q: 'How many duplexes are for sale in Minnesota right now?', a: answer }] : []),
+  ...cityQ('minneapolis', 'Minneapolis'), ...cityQ('saint-paul', 'Saint Paul'),
   { q: 'Can I live in one unit and rent out the other?', a: 'Yes, and it is a common way to buy a first home. Loans for owner-occupied homes, including FHA and VA loans, can be used on two- to four-unit homes you live in, often with a smaller down payment than an investor loan. Your lender will tell you how much of the expected rent it can count toward your income.' },
   { q: 'Do I need a rental license to rent out a unit?', a: 'In many Twin Cities cities, yes. Minneapolis, for example, requires a rental license for rental units, and other cities have their own licensing or inspection rules. Check with the city before you buy so you know the cost, the inspection and any limits.' },
   { q: 'What should I check before buying a duplex?', a: 'The current leases and rents, separate or shared utility meters, the age of each unit’s furnace and water heater, the rental license and its last inspection, parking, and the roof and foundation. Ask for the rent roll and the last 12 months of operating costs, and run the numbers with our investment calculators.' },

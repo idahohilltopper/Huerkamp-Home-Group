@@ -150,3 +150,8 @@ If you want help comparing duplex options in Saint Paul or understanding how a s
 ### Can owner occupancy help with Saint Paul duplex property taxes?
 
 - Minnesota Revenue says homestead classification may apply when the owner physically occupies the property as a principal residence, and that may affect classification rate, taxable market value, refunds, or other programs.
+
+## See what's for sale now
+
+- [Duplexes and multi-family homes for sale in Minnesota](/duplexes-for-sale-mn), by city and size, updated with every MLS refresh, including Minneapolis and Saint Paul.
+- [Investment property](/invest) and our [first-time buyer programs](/first-time-home-buyer-minnesota) for owner-occupied loans.

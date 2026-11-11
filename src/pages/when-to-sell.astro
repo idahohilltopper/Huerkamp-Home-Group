@@ -59,7 +59,7 @@ const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage'
 const src = (market as any).source;
 ---
 <Base breadcrumbs={[{ name: 'Sell', href: '/sell' }, { name: 'When to sell', href: '/when-to-sell' }]}
-  title="Sell Now or Wait for Spring? Twin Cities Data by Month"
+  title="Best Time to Sell a House in MN: Twin Cities Data by Month"
   description={ready ? `Twin Cities homes closing in spring sold for ${pctMore}% more than winter closings, and faster. Best month: ${topPrice}. ${table.length} months of Minneapolis Area REALTORS® data, month by month.` : 'When to sell a home in the Twin Cities, from monthly Minneapolis Area REALTORS® data.'}>
   <script slot="head" type="application/ld+json" set:html={ld} />
   <PageHero eyebrow="Selling" title="Should you sell now or wait until spring?" lede={answer} />
