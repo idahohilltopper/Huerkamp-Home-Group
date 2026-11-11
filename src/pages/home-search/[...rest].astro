@@ -172,6 +172,8 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
 
 <script>
   import { initSearch } from '../../scripts/home-search';
+  import { initSaveSearch } from '../../scripts/save-search';
+  initSaveSearch();
   const root = document.querySelector<HTMLElement>('[data-hs]');
   if (root) initSearch(root);
 </script>
@@ -283,6 +285,16 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
   .hs-alert { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
   @media (max-width: 900px) { .hs-alert { grid-template-columns: 1fr; } }
   .hs-alert__search { font-weight: 600; }
+  /* "Save this search" popup and nudge (src/scripts/save-search.ts). */
+  :global(.ss-dlg) { width: min(40rem, calc(100vw - 2rem)); max-height: calc(100dvh - 2rem); padding: 1.5rem; border: 0; border-radius: 10px; box-shadow: 0 20px 60px rgba(0, 0, 0, .35); background: var(--night); color: var(--on-dark); }
+  :global(.ss-dlg::backdrop) { background: rgba(21, 18, 19, .55); }
+  :global(.ss-dlg .prose h2) { margin-top: 0; }
+  :global(.ss-dlg__x) { position: absolute; top: .4rem; right: .6rem; border: 0; background: none; color: inherit; font: 400 2rem/1 var(--ui); cursor: pointer; }
+  :global(.ss-nudge) { position: fixed; z-index: 40; right: 1rem; bottom: 1rem; max-width: 22rem; display: grid; grid-template-columns: 1fr auto; gap: .6rem; align-items: center; padding: .9rem 1rem; border-radius: 10px; background: #fff; box-shadow: 0 10px 30px rgba(0, 0, 0, .2); font: 400 .92rem/1.4 var(--ui); }
+  :global(.ss-nudge p) { grid-column: 1 / -1; margin: 0; padding-right: 1.2rem; }
+  :global(.ss-nudge .btn) { justify-self: start; padding: .55rem 1rem; }
+  :global(.ss-nudge__x) { position: absolute; top: .2rem; right: .4rem; border: 0; background: none; font: 400 1.5rem/1 var(--ui); cursor: pointer; color: var(--text-soft); }
+  @media (max-width: 700px) { :global(.ss-nudge) { left: .75rem; right: .75rem; bottom: calc(.75rem + env(safe-area-inset-bottom, 0px)); max-width: none; } }
   .lcards.is-loading { opacity: .45; transition: opacity .15s; }
   :global(.hs-hover) { pointer-events: none; }
   :global(.hs-hover .maplibregl-popup-content) { padding: 0; border-radius: 8px; overflow: hidden; box-shadow: 0 8px 24px rgba(0, 0, 0, .25); }

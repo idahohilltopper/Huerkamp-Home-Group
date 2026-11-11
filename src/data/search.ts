@@ -10,7 +10,7 @@ import ylopoHoods from './ylopo-neighborhoods.json';
 
 const fixture = !!process.env.MLS_FIXTURE && process.env.NETLIFY !== 'true';
 /** Home pages a visitor can open before the sign-up form (src/components/RegisterWall.astro) asks who they are. */
-export const FREE_VIEWS = 7;
+export const FREE_VIEWS = 3; // was 7 until Nov 11, 2026: almost nobody opened 8 homes, so almost nobody was asked
 
 export const OWN: boolean = (mlsMode() !== 'off' || fixture) && (!!(process.env.REPLIERS_API_KEY ?? '').trim() || fixture);
 
