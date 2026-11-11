@@ -67,7 +67,7 @@ export default function GoodCareer() {
         <p className="eyebrow dark">Is it for you?</p>
         <h2>Signs it may be a good fit</h2>
         <div className="card" style={{ textAlign: 'left', maxWidth: 720, margin: '1rem auto' }}><ul className="plain">{fit.map((x) => <li key={x}>{x}</li>)}</ul></div>
-        <p className="sub">Not sure? Take the <a href="/real-estate-career-quiz">free 2-minute career quiz</a>. If you are ready to start, read how to <a href="/become-a-real-estate-agent-minnesota">get your Minnesota license</a>.</p>
+        <p className="sub">Not sure? Take the <a href="/real-estate-career-quiz">free 2-minute career quiz</a>. If you are ready to start, read how to <a href="/become-a-real-estate-agent-minnesota">get your Minnesota license</a>, or see <a href="/how-do-real-estate-agents-get-paid">how agents get paid</a>.</p>
       </section>
 
       <section className="section alt">
