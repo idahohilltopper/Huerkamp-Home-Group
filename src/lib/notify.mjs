@@ -57,14 +57,14 @@ const LABELS = { address: 'Property address', zip: 'ZIP', homeType: 'Kind of hom
   calc: 'Calculator results', goal: 'Goal', interest: 'Interested in', showingDay: 'Preferred day', showingTime: 'Preferred time', tourType: 'Tour type' };
 
 /** The team's copy of a website lead. `delivered` says whether Follow Up Boss accepted it. */
-export function leadEmail(label, fields = {}, page = '', delivered = true) {
+export function leadEmail(label, fields = {}, page = '', delivered = true, note = '') {
   const name = [fields.firstName, fields.lastName].filter(Boolean).join(' ') || 'Someone';
-  const subject = `${delivered ? '' : 'ACTION NEEDED: '}New website lead: ${label} from ${name}`;
+  const subject = `${note ? 'CHECK: ' : delivered ? '' : 'ACTION NEEDED: '}New website lead: ${label} from ${name}`;
   const rows = [['Name', name], ['Email', fields.email], ['Phone', fields.phone],
     ...Object.entries(fields).filter(([k, v]) => !['firstName', 'lastName', 'email', 'phone', 'smsConsent', 'website_url'].includes(k) && String(v ?? '').trim())
       .map(([k, v]) => [LABELS[k] ?? k, v]),
     ['Page', page ? `${SITE.url}${page}` : '']].filter(([, v]) => String(v ?? '').trim());
-  const status = delivered ? 'This lead was also sent to Follow Up Boss.' : 'Follow Up Boss did NOT accept this lead (refused it, or a Lead Flow rule told it to ignore it). Please add it by hand and follow up.';
+  const status = note || (delivered ? 'This lead was also sent to Follow Up Boss.' : 'Follow Up Boss did NOT accept this lead (refused it, or a Lead Flow rule told it to ignore it). Please add it by hand and follow up.');
   const text = `${label}\n\n${rows.map(([k, v]) => `${k}: ${v}`).join('\n')}\n\n${status}`;
   const html = htmlWrap(`<p><strong>${esc(label)}</strong></p><table style="border-collapse:collapse">${rows.map(([k, v]) => `<tr><td style="padding:3px 12px 3px 0;color:#5e5856">${esc(k)}</td><td style="padding:3px 0">${esc(v)}</td></tr>`).join('')}</table>`
     + `<p style="${delivered ? '' : 'color:#d40000;font-weight:bold'}">${esc(status)}</p>`);

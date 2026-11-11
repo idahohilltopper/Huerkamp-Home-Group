@@ -376,6 +376,10 @@ const pageTitle = title.length > 60 && title.endsWith(brandEnd) ? title.slice(0,
     }
 
     // Forms: send to Follow Up Boss through /api/lead (netlify/functions/lead.mjs).
+    // The bot filter (src/lib/lead.mjs) drops a form sent under 2.5 s after the visitor arrived. Count from when the page
+    // started loading (performance.now()), not from when this script ran: on a slow phone a person can fill in a form while
+    // the page is still loading, and a form held until the scripts are ready (hhgLeadQueue) used to go out at ~0 s and be
+    // dropped silently as a bot (found Nov 11, 2026).
     const loadedAt = Date.now();
     document.querySelectorAll<HTMLFormElement>('form[data-lead]').forEach((form) => {
       form.dataset.privacy = document.body.dataset.privacy;
@@ -405,7 +409,7 @@ const pageTitle = title.length > 60 && title.endsWith(brandEnd) ? title.slice(0,
           const res = await fetch('/api/lead', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ form: form.dataset.lead, fields, hp, elapsed: Date.now() - loadedAt, page: location.pathname, title: document.title, eid, ads: !(window as any).hhgAdsOff }),
+            body: JSON.stringify({ form: form.dataset.lead, fields, hp, elapsed: Math.max(Date.now() - loadedAt, Math.round(performance.now())), page: location.pathname, title: document.title, eid, ads: !(window as any).hhgAdsOff }),
           });
           if (!res.ok) throw new Error(String(res.status));
           form.reset();

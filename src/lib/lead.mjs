@@ -100,14 +100,16 @@ function property(f, url) {
  */
 export function buildEvent(input, meta = {}) {
   const { form, fields = {}, page = '', title = '', hp = '', elapsed = 0 } = input ?? {};
-  // Honeypot filled in, or submitted faster than a person could type: a bot.
-  if (clean(hp) || Number(elapsed) < 2500) return { spam: true };
+  // Honeypot filled in, or submitted faster than a person could type: a bot. `reason` lets the function keep a record
+  // (and email the team when only the timing tripped it, in case it was a real person on a slow phone).
+  if (clean(hp)) return { spam: true, reason: 'hidden field filled' };
+  if (Number(elapsed) < 2500) return { spam: true, reason: `sent ${Math.round(Number(elapsed) || 0)} ms after the page opened` };
   // Spam content: a link in a name, link markup anywhere, or a message stuffed with links. Real people don't.
   const LINK = /(https?:\/\/|www\.|\.(ru|cn|xyz|top|click|link)\b)/i;
-  if (['firstName', 'lastName'].some((k) => LINK.test(String(fields[k] ?? '')))) return { spam: true };
+  if (['firstName', 'lastName'].some((k) => LINK.test(String(fields[k] ?? '')))) return { spam: true, reason: 'link in name' };
   const all = Object.values(fields).map((v) => String(v ?? '')).join(' ');
-  if (/<a\s+href|\[url=|\[link=/i.test(all)) return { spam: true };
-  if ((all.match(/https?:\/\//gi) ?? []).length >= 3) return { spam: true };
+  if (/<a\s+href|\[url=|\[link=/i.test(all)) return { spam: true, reason: 'link markup' };
+  if ((all.match(/https?:\/\//gi) ?? []).length >= 3) return { spam: true, reason: '3+ links' };
 
   const cfg = FORMS[form];
   if (!cfg) return { error: 'Unknown form' };

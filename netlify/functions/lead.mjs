@@ -22,14 +22,14 @@ const ALLOWED = /^https:\/\/((www\.)?huerkamphomegroup\.com|(www\.)?huerkamphome
 
 // A copy of every lead to the team inbox (LEAD_NOTIFY_EMAIL, default leads@hhgus.com), as a backup to Follow Up Boss's
 // own alerts. Only when RESEND_API_KEY is set (src/lib/mail.mjs); never blocks or fails the lead.
-async function copyToTeam(input, delivered, mail) {
+async function copyToTeam(input, delivered, mail, note = '') {
   if (!mailReady() && mail === sendMail) return;
   if (FORMS[input?.form]?.hot) return; // hot-buyer signals and browsing activity go to Follow Up Boss (and Lead Claimer) only
   const to = (process.env.LEAD_NOTIFY_EMAIL ?? '').trim() || 'leads@hhgus.com';
   const f = Object.fromEntries(Object.entries(input?.fields ?? {}).map(([k, v]) => [k, String(v ?? '').slice(0, 1000)]));
   const label = FORMS[input?.form]?.label ?? 'Website form';
   try {
-    const r = await mail({ to, ...leadEmail(label, f, String(input?.page ?? '').slice(0, 200), delivered) });
+    const r = await mail({ to, ...leadEmail(label, f, String(input?.page ?? '').slice(0, 200), delivered, note) });
     if (!r.ok) console.error('Lead copy email', r.error);
   } catch (e) { console.error('Lead copy email', e?.message); }
 }
@@ -51,7 +51,20 @@ export default async (req, ctx, mail = sendMail, fetcher = fetch, homeValueEmail
     ip: req.headers.get('x-nf-client-connection-ip') ?? req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? null,
     userAgent: req.headers.get('user-agent') ?? '',
   });
-  if (built.spam) return json(200, { ok: true });          // quietly ignore bots
+  if (built.spam) {
+    // Bots get a quiet "ok". Every drop is kept (Netlify Blobs store "spam-drops", 7 days of detail is enough to recover a
+    // real person), and a drop caused only by timing is also emailed to the team, marked as possibly real (Nov 11, 2026).
+    const f = input?.fields ?? {};
+    const drop = { at: new Date().toISOString(), reason: built.reason, form: String(input?.form ?? '').slice(0, 40), page: String(input?.page ?? '').slice(0, 200),
+      name: `${f.firstName ?? ''} ${f.lastName ?? ''}`.trim().slice(0, 80), email: String(f.email ?? '').slice(0, 120), phone: String(f.phone ?? '').slice(0, 40) };
+    console.error('Lead filtered as spam:', drop.reason, drop.form, drop.page);
+    try { await getStore('spam-drops').setJSON(`${drop.at.slice(0, 10)}/${drop.at}-${crypto.randomUUID()}`, drop); } catch (e) { console.error('spam-drops', e?.message); }
+    if (/^sent \d+ ms/.test(built.reason ?? '') && !FORMS[input?.form]?.hot && f.email) {
+      const job = copyToTeam({ ...input, form: input.form }, false, mail, `Filtered as possible spam (${built.reason}). If this is a real person, add them to Follow Up Boss.`);
+      if (ctx?.waitUntil) ctx.waitUntil(job); else await job;
+    }
+    return json(200, { ok: true });
+  }
   if (built.error) return json(400, { ok: false, error: built.error });
 
   // Proof of call/text consent, kept by the website itself (Netlify Blobs store "consent-records") so it
