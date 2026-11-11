@@ -24,7 +24,7 @@ const ALLOWED = /^https:\/\/((www\.)?huerkamphomegroup\.com|(www\.)?huerkamphome
 // own alerts. Only when RESEND_API_KEY is set (src/lib/mail.mjs); never blocks or fails the lead.
 async function copyToTeam(input, delivered, mail) {
   if (!mailReady() && mail === sendMail) return;
-  if (FORMS[input?.form]?.hot && delivered) return; // hot-buyer signals go to Follow Up Boss (and Lead Claimer) only
+  if (FORMS[input?.form]?.hot) return; // hot-buyer signals and browsing activity go to Follow Up Boss (and Lead Claimer) only
   const to = (process.env.LEAD_NOTIFY_EMAIL ?? '').trim() || 'leads@hhgus.com';
   const f = Object.fromEntries(Object.entries(input?.fields ?? {}).map(([k, v]) => [k, String(v ?? '').slice(0, 1000)]));
   const label = FORMS[input?.form]?.label ?? 'Website form';
@@ -81,8 +81,12 @@ export default async (req, ctx, mail = sendMail, fetcher = fetch, homeValueEmail
     body: JSON.stringify(built.event),
   });
 
-  // 200/201 = created or updated; 204 = Follow Up Boss chose to ignore it (e.g. lead flow archived it).
-  await copyToTeam(input, res.ok, mail);
+  // 200/201 = created or updated; 204 = Follow Up Boss took the request but ignored the lead (a lead flow rule for this
+  // source, e.g. "Do not create", or an archived person). The visitor still sees "thank you", but the team copy says
+  // ACTION NEEDED so a dropped lead is never silent (Nov 11, 2026: Jason saw no leads since the source name changed).
+  const ignored = res.status === 204;
+  if (ignored && !FORMS[input?.form]?.hot) console.error('Follow Up Boss ignored the lead (204): check Admin > Lead Flow for source', built.event.source, input?.form);
+  await copyToTeam(input, res.ok && !ignored, mail);
   // Home value requests: email the homeowner their estimate. Finishes after the answer (waitUntil) so the page isn't kept waiting.
   if (input.form === 'home-value') {
     const job = homeValueEmail(input.fields ?? {}).then((r) => { if (!r?.sent) console.error('Home value email not sent', r?.why ?? ''); }).catch((e) => console.error('Home value email', e?.message));
