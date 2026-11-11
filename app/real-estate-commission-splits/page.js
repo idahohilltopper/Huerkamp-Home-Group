@@ -53,7 +53,7 @@ export default function Splits() {
         <p className="eyebrow dark">Before you join</p>
         <h2>Questions to ask any brokerage or team</h2>
         <div className="card" style={{ textAlign: 'left', maxWidth: 720, margin: '1rem auto' }}><ul className="plain">{ask.map((x) => <li key={x}>{x}</li>)}</ul></div>
-        <p className="sub">Compare on total value, not the split alone. See <a href="/value">what the team provides</a> and <a href="/join-a-real-estate-team-twin-cities">how to choose a team</a>.</p>
+        <p className="sub">Compare on total value, not the split alone. See <a href="/value">what the team provides</a>, <a href="/how-do-real-estate-agents-get-paid">how agents get paid</a> and <a href="/join-a-real-estate-team-twin-cities">how to choose a team</a>.</p>
       </section>
 
       <section className="section">
