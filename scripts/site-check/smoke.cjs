@@ -131,6 +131,34 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     await p.keyboard.press('Escape');
     ok('Listing page: share', link.includes('/homes/') && link.includes('utm_source=share') && status === 'Link copied.', `${link.replace(/^https?:\/\/[^/]+/, '').slice(0, 70)} · ${status || 'no status'}`);
   });
+  // Activity feed for Follow Up Boss (Nov 11, 2026, like Ylopo's): a known visitor's home views (once per home per day)
+  // and map searches (after 8 s without changes) are sent by email only. /api/lead is intercepted, nothing reaches FUB.
+  await step('Known visitor: views and searches reach Follow Up Boss', async () => {
+    const ec = await b.newContext();
+    await ec.addInitScript(() => { try { sessionStorage.setItem('idx-eula', '1'); localStorage.setItem('hhg-fav-me', JSON.stringify({ firstName: 'Test', lastName: 'Activity', email: 'smoke-activity@example.com', phone: '' })); } catch {} });
+    const sent = [];
+    await ec.route('**/api/lead', (r) => { sent.push(r.request().postDataJSON()); r.fulfill({ status: 200, contentType: 'application/json', body: '{"ok":true}' }); });
+    await ec.route('**/api/client-error', (r) => r.fulfill({ status: 202, body: '{}' }));
+    await ec.route(/google-analytics\.com|googletagmanager\.com\/.*collect|facebook\.com\/tr/, (r) => r.fulfill({ status: 204, body: '' }));
+    const m = await ec.newPage();
+    try {
+      await m.goto(BASE + '/homes-for-sale/minneapolis', { waitUntil: 'domcontentloaded' });
+      const href = await m.getAttribute('a[href^="/homes/"]:not([href^="/homes/listing"])', 'href').catch(() => null);
+      if (!href) return ok('Known visitor: views and searches reach Follow Up Boss', true, 'no listing pages to try');
+      for (let i = 0; i < 2; i++) { await m.goto(BASE + href, { waitUntil: 'load' }); await m.waitForTimeout(1500); }
+      const views = sent.filter((l) => l.form === 'activity-view');
+      await m.locator('.home__actions [data-share]').first().click();
+      await m.click('dialog.share-dlg [data-m="copy"]');
+      for (let t = 0; t < 10 && !sent.some((l) => l.form === 'hot-share'); t++) await m.waitForTimeout(300);
+      const shared = sent.some((l) => l.form === 'hot-share' && l.fields?.shareMethod === 'copy');
+      await m.goto(BASE + '/home-search?place=lakeville&min=300000', { waitUntil: 'load' });
+      for (let t = 0; t < 30 && !sent.some((l) => l.form === 'activity-search'); t++) await m.waitForTimeout(500);
+      const search = sent.find((l) => l.form === 'activity-search');
+      const good = views.length === 1 && views[0].fields?.email === 'smoke-activity@example.com' && !!views[0].fields?.propMls && !views[0].fields?.firstName
+        && shared && !!search && /lakeville/i.test(search.fields?.searchUrl ?? '');
+      ok('Known visitor: views and searches reach Follow Up Boss', good, `${views.length} view event(s) for 2 visits (MLS ${views[0]?.fields?.propMls ?? '?'}); share ${shared ? 'sent' : 'not sent'}; search: ${search ? search.fields.search : 'not sent'}`);
+    } finally { await ec.close(); }
+  });
   // A lead form sent before the page's scripts have loaded (slow phone, listing with many photos) must still be sent,
   // without the page reloading or the details landing in the address (found Nov 9, 2026). Scripts are held back 4 s.
   await step('Form sent while the page is still loading', async () => {

@@ -724,6 +724,15 @@ No copy to the team inbox. Lead Claimer reads them from Follow Up Boss: notify t
 to everyone when it sits in a pond (pond names from Jason). Visitors can turn it off on /cookies (hhg-activity), and a
 Global Privacy Control signal turns it off; the privacy policy describes it.
 
+**Activity feed (2026-11-11, Jason: "do with the new site what Ylopo does, and carry it into Follow Up Boss"):** the same
+known visitors also send everyday browsing, like Ylopo: `activity-view` (Viewed Property with the home; once per home per
+day) and `activity-search` (Property Search with the search summary and link, once the map search's filters sit still
+8 s; once per search per day). Email only, tag "Website" only, no team copy. Sharing a home is a hot signal,
+`hot-share` ("Hot buyer", "Hot: shared a home"; once per home per day). At most 40 sends a day and 4 a minute per browser
+(/api/lead allows 10 a minute per visitor, so a real form still gets through). Smoke step "Known visitor: views and
+searches reach Follow Up Boss". Privacy and cookie pages describe it. Jason doesn't want AI texting or calling: Fello
+does that.
+
 ## Brainerd lake homes (built 2026-11-07)
 
 - **Pages:** /lake-homes/brainerd (hub), /lake-homes/brainerd/<chain> (Gull Lake Chain, Pelican Lake, Whitefish Chain) and one page per lake on each chain (8 Gull chain lakes, 13 Whitefish Chain basins). Linked from /lake-homes and the Homes menu.

@@ -49,6 +49,13 @@ export const FORMS = {
   // the person's name, phone, tags about consent or assigned agent in Follow Up Boss; no copy to the team inbox.
   'hot-return':        { type: 'Visited Website',  label: 'Hot buyer: back on the website after a week or more away', tags: ['Hot buyer', 'Hot: came back'], hot: true },
   'hot-repeat':        { type: 'Viewed Property',  label: 'Hot buyer: viewed the same home on 3 different days', tags: ['Hot buyer', 'Hot: repeat views'], hot: true },
+  // Everyday browsing by known visitors (src/scripts/hot.ts), like Ylopo's activity feed: each home viewed (once per home
+  // per day) and each search run on the map search (once per search per day), so the agent sees what the person is
+  // looking at on their Follow Up Boss timeline. Same email-only rules as the hot signals; no tags beyond "Website".
+  'activity-view':     { type: 'Viewed Property',  label: 'Viewed a home on the website', tags: [], hot: true },
+  'activity-search':   { type: 'Property Search',  label: 'Searched for homes on the website', tags: [], hot: true },
+  // Sharing a home (Share button, src/components/ShareHome.astro) is a buying signal, as in Ylopo: once per home per day.
+  'hot-share':         { type: 'Viewed Property',  label: 'Hot buyer: shared a home', tags: ['Hot buyer', 'Hot: shared a home'], hot: true },
   'register':          { type: 'Registration',     label: 'Signed up to keep viewing homes', tags: ['Buyer lead', 'Website registration'] },
   'calc-seller':       { type: 'Seller Inquiry',  label: 'Net proceeds calculator', tags: ['Seller lead', 'Net proceeds calculator'] },
   'first-time-buyer':  { type: 'General Inquiry', label: 'First-time buyer guide form', tags: ['Buyer lead', 'First-time buyer'] },
@@ -66,7 +73,7 @@ export const FORMS = {
 const LABELS = {
   address: 'Property address', zip: 'ZIP code', condition: 'Condition', homeType: 'Kind of home', beds: 'Bedrooms', baths: 'Bathrooms', sqft: 'Finished sq ft', timeline: 'Selling timeline', topic: 'Topic', goal: 'Goal',
   notes: 'Notes', message: 'Message', lake: 'Lake', priceRange: 'Price range', maxPrice: 'Price range',
-  community: 'Community', ramseyReferral: 'Referred by Ramsey', interest: 'Interested in', moveFrom: 'Moving from', agent: 'Wants to work with', listing: 'Listing', guide: 'Guide', nextHome: 'Next home', helping: 'Asking for', calc: 'Calculator results', situation: 'Situation', savedSearch: 'Saved search', awayDays: 'Days since last visit', viewDays: 'Different days viewed this home', showingDay: 'Preferred day', showingTime: 'Preferred time', tourType: 'Tour type', saleDate: 'Sheriff’s sale or deadline',
+  community: 'Community', ramseyReferral: 'Referred by Ramsey', interest: 'Interested in', moveFrom: 'Moving from', agent: 'Wants to work with', listing: 'Listing', guide: 'Guide', nextHome: 'Next home', helping: 'Asking for', calc: 'Calculator results', situation: 'Situation', savedSearch: 'Saved search', awayDays: 'Days since last visit', search: 'Search', searchUrl: 'Search link', shareMethod: 'Shared by', viewDays: 'Different days viewed this home', showingDay: 'Preferred day', showingTime: 'Preferred time', tourType: 'Tour type', saleDate: 'Sheriff’s sale or deadline',
 };
 const CONTACT = new Set(['firstName', 'lastName', 'email', 'phone']);
 

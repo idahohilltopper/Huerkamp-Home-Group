@@ -169,6 +169,8 @@ export function initSearch(root: HTMLElement) {
     const keep = new URLSearchParams(p); keep.delete('page');
     if (saved) saved.value = `${location.origin}${location.pathname}${keep.size ? `?${keep}` : ''}`;
     if (summaryEl) summaryEl.textContent = `Your search: ${describe(p)}`;
+    // For the known-visitor activity feed in Follow Up Boss (src/scripts/hot.ts).
+    window.dispatchEvent(new CustomEvent('home-searched', { detail: { summary: describe(p), url: `${location.origin}${location.pathname}${keep.size ? `?${keep}` : ''}` } }));
     // The alert form saves this search at Repliers too (src/layouts/Base.astro; homes for sale only).
     const alertForm = document.querySelector<HTMLFormElement>('form[data-lead="community-alert"]');
     if (alertForm) {

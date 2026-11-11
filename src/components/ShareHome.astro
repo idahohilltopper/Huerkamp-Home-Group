@@ -17,7 +17,11 @@ const { url = '', title = '', image = '', mls = '', big = false } = Astro.props;
   type Share = { url: string; title: string; image: string; mls: string };
   let dlg: HTMLDialogElement | null = null;
   let cur: Share = { url: '', title: '', image: '', mls: '' };
-  const track = (method: string) => { try { (window as any).gtag?.('event', 'share', { method, content_type: 'home', item_id: cur.mls || cur.url }); } catch {} };
+  const track = (method: string) => {
+    try { (window as any).gtag?.('event', 'share', { method, content_type: 'home', item_id: cur.mls || cur.url }); } catch {}
+    // For Follow Up Boss when the visitor is known (src/scripts/hot.ts: "Hot: shared a home").
+    window.dispatchEvent(new CustomEvent('home-shared', { detail: { mls: cur.mls, title: cur.title, method } }));
+  };
   const withSrc = (u: string, method: string) => { try { const x = new URL(u, location.href); x.searchParams.set('utm_source', 'share'); x.searchParams.set('utm_medium', method); return x.href; } catch { return u; } };
   function build() {
     dlg = document.createElement('dialog');

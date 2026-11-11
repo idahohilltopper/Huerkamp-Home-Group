@@ -1,4 +1,4 @@
-// Hot-buyer signals for known visitors: sent to Follow Up Boss through /api/lead (forms "hot-return" and "hot-repeat"
+// Hot-buyer signals and everyday activity (homes viewed, searches) for known visitors: sent to Follow Up Boss through /api/lead (forms "hot-return" and "hot-repeat"
 // in src/lib/lead.mjs, by email only), where they land on the person's record under their assigned agent, tagged
 // "Hot buyer"; Lead Claimer picks them up from Follow Up Boss. Saving a home (heart) is the third signal and is already
 // sent by src/scripts/favorites.ts.
@@ -9,7 +9,7 @@
 import { me } from './session';
 
 export const AWAY_DAYS = 7, VIEW_DAYS = 3;
-const LAST = 'hhg-last-visit', DAYS = 'hhg-view-days', ME = 'hhg-fav-me';
+const LAST = 'hhg-last-visit', DAYS = 'hhg-view-days', ME = 'hhg-fav-me', ACT = 'hhg-activity-sent';
 const DAY = 86_400_000;
 const get = (k: string) => { try { return localStorage.getItem(k); } catch { return null; } };
 const put = (k: string, v: string) => { try { localStorage.setItem(k, v); } catch { /* private window */ } };
@@ -20,7 +20,7 @@ type Home = { mls: string; street?: string; city?: string; zip?: string; price?:
 /** Off when the visitor turned it off on /cookies (hhg-activity) or their browser sends Global Privacy Control. */
 export const sharingOff = () => get('hhg-activity') === 'off' || (navigator as any).globalPrivacyControl === true;
 
-function send(form: 'hot-return' | 'hot-repeat', fields: Record<string, string>) {
+function send(form: 'hot-return' | 'hot-repeat' | 'hot-share' | 'activity-view' | 'activity-search', fields: Record<string, string>) {
   const who = me();
   if (!who?.email || sharingOff()) return;
   fetch('/api/lead', { method: 'POST', headers: { 'content-type': 'application/json' }, keepalive: true,
@@ -33,6 +33,21 @@ export function cameBack(now = Date.now()): number | null {
   // Count a visit once per hour at most, so moving between pages doesn't keep resetting it.
   if (!last || now - last > 3_600_000) put(LAST, String(now));
   return last && now - last >= AWAY_DAYS * DAY ? Math.floor((now - last) / DAY) : null;
+}
+
+/** Everyday activity (a home viewed, a search run): true the first time `key` is seen today, with at most 40 sends a
+ * day from this browser so a long browsing session can't flood the timeline. Exported for tests. */
+// /api/lead takes 10 posts a minute per visitor (netlify/functions/lead.mjs), so activity uses at most 4 of them a minute
+// and a real form sent right after fast browsing still gets through. A view skipped for that reason isn't remembered,
+// so the next look at the home sends it.
+export function firstToday(key: string, day = today(), now = Date.now()): boolean {
+  let s: { day?: string; keys?: string[]; t?: number[] } = {};
+  try { s = JSON.parse(get(ACT) ?? '{}') ?? {}; } catch { /* start over */ }
+  const keys = s.day === day ? s.keys ?? [] : [];
+  const recent = (s.t ?? []).filter((x) => now - x < 60_000);
+  if (keys.includes(key) || keys.length >= 40 || recent.length >= 4) return false;
+  put(ACT, JSON.stringify({ day, keys: [...keys, key], t: [...recent, now] }));
+  return true;
 }
 
 /** Record today's view of a home; true the first time it reaches VIEW_DAYS different days. Exported for tests. */
@@ -52,8 +67,23 @@ export function repeatView(mls: string, day = today()): number | null {
 function viewed(h: Home) {
   if (!h.mls) return;
   const n = repeatView(h.mls);
-  if (n && me()?.email) send('hot-repeat', { viewDays: String(n), listing: `${[h.street, h.city].filter(Boolean).join(', ')} (MLS #${h.mls})`,
-    propStreet: h.street ?? '', propCity: h.city ?? '', propZip: h.zip ?? '', propMls: h.mls, propPrice: String(h.price ?? '') });
+  if (!me()?.email) return;
+  const home = { listing: `${[h.street, h.city].filter(Boolean).join(', ')} (MLS #${h.mls})`,
+    propStreet: h.street ?? '', propCity: h.city ?? '', propZip: h.zip ?? '', propMls: h.mls, propPrice: String(h.price ?? '') };
+  if (n) send('hot-repeat', { viewDays: String(n), ...home });
+  else if (firstToday(`v:${h.mls}`)) send('activity-view', home);
+}
+
+// A search on the map search page (src/scripts/home-search.ts announces each one). Sent once the filters have stayed
+// put for 8 seconds, so dragging the map or clicking through filters counts as one search.
+let searchTimer: ReturnType<typeof setTimeout> | undefined;
+function searched(d: { summary?: string; url?: string }) {
+  clearTimeout(searchTimer);
+  if (!d.url || !me()?.email) return;
+  searchTimer = setTimeout(() => {
+    const key = `s:${d.url!.replace(/^https?:\/\/[^/]+/, '')}`;
+    if (firstToday(key)) send('activity-search', { search: d.summary ?? '', searchUrl: d.url! });
+  }, 8000);
 }
 
 export function initHot() {
@@ -68,4 +98,10 @@ export function initHot() {
   const b = document.querySelector<HTMLElement>('.fav--big[data-fav]');
   if (b) viewed({ mls: b.dataset.fav!, street: b.dataset.favStreet, city: b.dataset.favCity, zip: b.dataset.favZip, price: b.dataset.favPrice });
   window.addEventListener('home-viewed', (e: Event) => viewed((e as CustomEvent).detail ?? {}));
+  // The Share button announces each share (src/components/ShareHome.astro): the home's MLS number, title and how.
+  window.addEventListener('home-shared', (e: Event) => {
+    const d = (e as CustomEvent).detail ?? {};
+    if (d.mls && me()?.email && firstToday(`sh:${d.mls}`)) send('hot-share', { listing: `${d.title ?? ''} (MLS #${d.mls})`, propMls: d.mls, shareMethod: d.method ?? '' });
+  });
+  window.addEventListener('home-searched', (e: Event) => searched((e as CustomEvent).detail ?? {}));
 }
