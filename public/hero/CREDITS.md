@@ -16,3 +16,5 @@
   photos (1600 px, the largest the MLS keeps). Jason chose it Nov 11, 2026 from a set of mockups.
 - To do (Jason): confirm with the listing photographer that the team may use it as the website's main image, ask for
   the full-size original (replace these files with it), and ask the sellers once it has closed.
+- Nov 11, 2026: enlarged 2x (3200 px) with the EDSR super-resolution model (OpenCV dnn_superres), lightly sharpened, and the
+  house number blurred; sizes 640-2560 px. Replace with the photographer's full-size original when Jason has it.
