@@ -17,7 +17,10 @@ async function unsave(me: Me, mls: string) {
 /** Tell Follow Up Boss about a heart from someone already known (the first one goes through the pop-up's form). */
 function tellAgent(me: Me, b: HTMLElement) {
   const d = b.dataset;
-  fetch('/api/lead', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ form: 'favorite', hp: '', elapsed: 99999, page: location.pathname, title: document.title,
+  // Facebook/Instagram (the Meta Pixel in Base.astro, and the server's copy with the same id): a saved home.
+  const eid = (crypto as any).randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  window.dispatchEvent(new CustomEvent('home-saved', { detail: { mls: d.fav, eid } }));
+  fetch('/api/lead', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ form: 'favorite', hp: '', elapsed: 99999, page: location.pathname, title: document.title, eid, ads: !(window as any).hhgAdsOff,
     fields: { firstName: me.firstName, lastName: me.lastName, email: me.email, phone: me.phone ?? '', listing: `${d.favName ?? ''} (MLS #${d.fav})`, propStreet: d.favStreet ?? '', propCity: d.favCity ?? '', propZip: d.favZip ?? '', propMls: d.fav ?? '', propPrice: d.favPrice ?? '' } }) }).catch(() => {});
 }
 

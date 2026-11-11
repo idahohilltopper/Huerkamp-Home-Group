@@ -162,24 +162,52 @@ const pageTitle = title.length > 60 && title.endsWith(brandEnd) ? title.slice(0,
     }
   </script>}
   {site.metaPixel && <script is:inline define:vars={{ px: site.metaPixel }}>
-    // Meta Pixel (Facebook/Instagram ads): page views, plus CompleteRegistration (a buyer account) and Lead (a home value
-    // request) after the form has been sent. Same rules as Google Analytics above: live domains only, off when the
-    // visitor turned analytics off on /cookies or the browser sends Global Privacy Control, loaded after the page.
+    // Meta Pixel (Facebook/Instagram ads and retargeting, like Ylopo's): page views; ViewContent for each home viewed (its
+    // MLS number as the catalog id, so ads can show people the homes they looked at; /feeds/meta-home-listings.csv);
+    // Search on the map search; AddToWishlist for a heart; CompleteRegistration for a sign-up; Lead for every other form
+    // (with the same event id the server's Conversions API copy uses, src/lib/meta.mjs). A visitor we know (they sent a
+    // form) is matched by their email and name, which the pixel hashes in the browser. Same rules as Google Analytics
+    // above: live domains only, off when the visitor turned analytics off on /cookies or the browser sends Global
+    // Privacy Control (then the server copy is off too: window.hhgAdsOff), loaded after the page.
     let pxOff = navigator.globalPrivacyControl === true;
     try { pxOff = pxOff || localStorage.getItem('hhg-analytics') === 'denied'; } catch (e) {}
+    window.hhgAdsOff = pxOff;
     if (!pxOff && /(^|\.)huerkamphome(group|s)\.com$/.test(location.hostname)) {
       const n = window.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
       if (!window._fbq) window._fbq = n;
       n.push = n; n.loaded = true; n.version = '2.0'; n.queue = [];
-      fbq('init', px);
+      let who = null;
+      try { who = JSON.parse(localStorage.getItem('hhg-fav-me') || 'null'); } catch (e) {}
+      const match = (w) => (w && w.email ? Object.fromEntries(Object.entries({ em: w.email, fn: w.firstName, ln: w.lastName, ph: (w.phone || '').replace(/\D/g, '') || undefined, st: 'mn', country: 'us' }).filter(([, v]) => v)) : {});
+      fbq('init', px, match(who));
       fbq('track', 'PageView');
+      const home = (h) => {
+        if (!h || !h.mls) return;
+        const price = Number(String(h.price || '').replace(/[^0-9.]/g, '')) || undefined;
+        fbq('track', 'ViewContent', Object.fromEntries(Object.entries({ content_ids: [String(h.mls)], content_type: 'home_listing', city: h.city, region: 'Minnesota', country: 'United States', postal_code: h.zip, value: price, currency: price ? 'USD' : undefined }).filter(([, v]) => v !== undefined && v !== '')));
+      };
+      addEventListener('DOMContentLoaded', () => {
+        const b = document.querySelector('.fav--big[data-fav]');
+        if (b) home({ mls: b.dataset.fav, city: b.dataset.favCity, zip: b.dataset.favZip, price: b.dataset.favPrice });
+      });
+      addEventListener('home-viewed', (e) => home(e.detail));
+      addEventListener('home-saved', (e) => { const d = e.detail || {}; if (d.mls) fbq('track', 'AddToWishlist', { content_ids: [String(d.mls)], content_type: 'home_listing' }, d.eid ? { eventID: d.eid } : undefined); });
+      let searchTimer, lastSearch = '';
+      addEventListener('home-searched', (e) => {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(() => { const s = e.detail && e.detail.summary; if (s && s !== lastSearch) { lastSearch = s; fbq('track', 'Search', { search_string: s }); } }, 5000);
+      });
       addEventListener('load', () => setTimeout(() => {
         const s = document.createElement('script'); s.async = true; s.src = 'https://connect.facebook.net/en_US/fbevents.js'; document.head.append(s);
       }, 1500));
       addEventListener('lead-sent', (e) => {
-        const f = e.detail && e.detail.form;
-        if (f === 'register') fbq('track', 'CompleteRegistration', { content_name: 'Buyer Account Registration' });
-        if (f === 'home-value') fbq('track', 'Lead', { content_name: 'Seller Home Valuation Request' });
+        const d = e.detail || {}, f = d.form, fl = d.fields || {};
+        if (!f) return;
+        if (fl.email && !(who && who.email)) { who = fl; fbq('init', px, match(fl)); } // now we know who this is
+        const ev = f === 'register' ? 'CompleteRegistration' : f === 'favorite' ? 'AddToWishlist' : f === 'showing' ? 'Schedule' : 'Lead';
+        const params = { content_name: f === 'register' ? 'Buyer Account Registration' : f === 'home-value' ? 'Seller Home Valuation Request' : f };
+        if (fl.propMls) Object.assign(params, { content_ids: [String(fl.propMls)], content_type: 'home_listing' });
+        fbq('track', ev, params, d.eid ? { eventID: d.eid } : undefined);
       });
     }
   </script>}
@@ -371,17 +399,19 @@ const pageTitle = title.length > 60 && title.endsWith(brandEnd) ? title.slice(0,
         if (agentNow && !fields.agentSlug) fields.agentSlug = agentNow;
         if (button) { button.disabled = true; button.dataset.label = button.textContent ?? ''; button.textContent = 'Sending…'; }
         if (status) status.textContent = '';
+        // One id for this lead, shared by the browser's Meta Pixel event and the server's copy so Facebook counts it once.
+        const eid = (crypto as any).randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`;
         try {
           const res = await fetch('/api/lead', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ form: form.dataset.lead, fields, hp, elapsed: Date.now() - loadedAt, page: location.pathname, title: document.title }),
+            body: JSON.stringify({ form: form.dataset.lead, fields, hp, elapsed: Date.now() - loadedAt, page: location.pathname, title: document.title, eid, ads: !(window as any).hhgAdsOff }),
           });
           if (!res.ok) throw new Error(String(res.status));
           form.reset();
           if (status) status.textContent = "Thank you! We got your message and an agent will reach out shortly.";
           // Other scripts can follow up on a sent lead (favorites: src/scripts/favorites.ts).
-          window.dispatchEvent(new CustomEvent('lead-sent', { detail: { form: form.dataset.lead, fields, el: form } }));
+          window.dispatchEvent(new CustomEvent('lead-sent', { detail: { form: form.dataset.lead, fields, el: form, eid } }));
           // New-listing alert forms (with the site's own MLS search on) also save the search at Repliers, which then
           // emails matching new homes (netlify/functions/alerts.mjs).
           if (form.dataset.alertQuery) {

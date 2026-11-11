@@ -25,3 +25,7 @@
   Content-Disposition: attachment
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-cache
+
+# Facebook catalog feed (src/pages/feeds/meta-home-listings.csv.ts): for Meta only, not for Google.
+/feeds/*
+  X-Robots-Tag: noindex

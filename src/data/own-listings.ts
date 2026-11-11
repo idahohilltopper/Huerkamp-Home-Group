@@ -5,9 +5,12 @@ import { listingsData, type Listing } from './listings';
 import team from './team.json';
 import { buildIndex, search, INDEX_FILE } from '../lib/search-index.mjs';
 import type { OwnQuery } from './search';
+// The MLS files most of the team's listings under this agent name rather than an agent's own (found Nov 11, 2026: the
+// "our team's listings" filter showed 0 homes).
+export const TEAM_AGENT_NAME = 'The Huerkamp Home Group';
 
 const homes = await listingsData;
-export const ownIndex = buildIndex(homes.listings, { at: homes.at, mode: homes.mode, teamNames: team.members.map((m) => m.name) });
+export const ownIndex = buildIndex(homes.listings, { at: homes.at, mode: homes.mode, teamNames: [...team.members.map((m) => m.name), TEAM_AGENT_NAME] });
 
 if (homes.mode !== 'off') {
   mkdirSync('.cache', { recursive: true });

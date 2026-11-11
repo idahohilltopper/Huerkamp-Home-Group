@@ -337,13 +337,22 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     const c4 = await b.newContext({ viewport: { width: 1366, height: 900 }, userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36' });
     await c4.route('**/api/client-error', (r) => r.fulfill({ status: 202, body: '{}' }));
     const hits = [];
-    c4.on('request', (r) => { const u = r.url(); if (/facebook\.com\/tr/.test(u)) hits.push(new URL(u).searchParams.get('ev')); });
+    const ids = [];
+    c4.on('request', (r) => { const u = r.url(); if (/facebook\.com\/tr/.test(u)) { const q = new URL(u).searchParams; hits.push(q.get('ev')); if (q.get('ev') === 'ViewContent' && q.get('cd[content_ids]')) ids.push(q.get('cd[content_ids]')); } });
     const m = await c4.newPage();
     await m.goto(BASE + '/sell', { waitUntil: 'load' });
     for (let t = 0; t < 20 && !hits.includes('PageView'); t++) await m.waitForTimeout(500);
     await m.evaluate(() => window.dispatchEvent(new CustomEvent('lead-sent', { detail: { form: 'home-value', fields: {} } })));
     for (let t = 0; t < 12 && !hits.includes('Lead'); t++) await m.waitForTimeout(500);
-    ok('Meta Pixel', hits.includes('PageView') && hits.includes('Lead'), `events sent: ${hits.join(', ') || 'none'}`);
+    // Retargeting (Nov 11, 2026): a home page sends ViewContent with the home's MLS number as the catalog id.
+    await m.goto(BASE + '/homes-for-sale/minneapolis', { waitUntil: 'domcontentloaded' });
+    const href = await m.getAttribute('a[href^="/homes/"]:not([href^="/homes/listing"])', 'href').catch(() => null);
+    if (href) await m.goto(BASE + href, { waitUntil: 'load' });
+    for (let t = 0; href && t < 20 && !ids.length; t++) await m.waitForTimeout(500);
+    const feed = await m.request.get(BASE + '/feeds/meta-home-listings.csv');
+    const csv = feed.ok() ? await feed.text() : '';
+    ok('Meta Pixel', hits.includes('PageView') && hits.includes('Lead') && (!href || ids.length > 0) && csv.startsWith('home_listing_id,') && feed.headers()['x-robots-tag'] === 'noindex',
+      `events sent: ${hits.join(', ') || 'none'}; home viewed: ${ids.join(', ') || 'none'}; catalog feed: ${csv ? `${csv.trim().split('\n').length - 1} team listings` : `HTTP ${feed.status()}`}`);
     await c4.close();
   });
   await step('Use my current location', async () => {

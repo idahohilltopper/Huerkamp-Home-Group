@@ -733,6 +733,26 @@ day) and `activity-search` (Property Search with the search summary and link, on
 searches reach Follow Up Boss". Privacy and cookie pages describe it. Jason doesn't want AI texting or calling: Fello
 does that.
 
+## Facebook/Instagram retargeting (2026-11-11, Jason: "one of the biggest things")
+
+- **Meta Pixel** (src/layouts/Base.astro): PageView; ViewContent on every home (content_ids = MLS number,
+  content_type home_listing, city, ZIP, price) so ads can show people the homes they looked at; Search on the map search
+  (5 s after the filters settle); AddToWishlist for a heart; CompleteRegistration for a sign-up; Schedule for a showing
+  request; Lead for every other form. Known visitors are matched by email/name/phone (advanced matching; the pixel
+  hashes them in the browser).
+- **Conversions API** (src/lib/meta.mjs, called from netlify/functions/lead.mjs after Follow Up Boss accepts the lead):
+  the same lead from the server with hashed email/phone/name, IP, browser, _fbp/_fbc cookies and the browser's event id
+  (Facebook counts it once). Needs **META_CAPI_TOKEN** in Netlify (Events Manager > pixel 2726990550925323 > Settings >
+  Conversions API > Generate access token). Off for visitors who turned analytics off or send Global Privacy Control.
+  Activity and hot signals never go to Meta.
+- **Catalog feed** /feeds/meta-home-listings.csv (Meta "Home listings" catalog: Commerce Manager > Catalogs > Home
+  listings > Data feed, scheduled daily). The team's own listings only; adding other brokerages' listings needs
+  NorthstarMLS's written OK. Noindexed in public/_headers.
+- **Team listings fix:** the MLS files most team listings under the agent name "The Huerkamp Home Group"
+  (TEAM_AGENT_NAME in src/data/own-listings.ts); before Nov 11 the "our team's listings" filter found 0 homes.
+- **Ads rules:** Facebook ads for homes run under Meta's Housing special ad category (no age, gender or ZIP targeting,
+  no lookalike audiences); retargeting site visitors and customer lists is still allowed there.
+
 ## Brainerd lake homes (built 2026-11-07)
 
 - **Pages:** /lake-homes/brainerd (hub), /lake-homes/brainerd/<chain> (Gull Lake Chain, Pelican Lake, Whitefish Chain) and one page per lake on each chain (8 Gull chain lakes, 13 Whitefish Chain basins). Linked from /lake-homes and the Homes menu.

@@ -9,6 +9,7 @@ import { buildEvent, FORMS } from '../../src/lib/lead.mjs';
 import { leadEmail } from '../../src/lib/notify.mjs';
 import { sendMail, mailReady } from '../../src/lib/mail.mjs';
 import { estimateLeadEmail } from './estimate.mjs';
+import { capiEvent, sendCapi } from '../../src/lib/meta.mjs';
 
 const FUB_URL = 'https://api.followupboss.com/v1/events';
 
@@ -86,6 +87,11 @@ export default async (req, ctx, mail = sendMail, fetcher = fetch, homeValueEmail
   if (input.form === 'home-value') {
     const job = homeValueEmail(input.fields ?? {}).then((r) => { if (!r?.sent) console.error('Home value email not sent', r?.why ?? ''); }).catch((e) => console.error('Home value email', e?.message));
     if (ctx?.waitUntil) ctx.waitUntil(job); else await job;
+  }
+  // Facebook/Instagram: the same lead from the server (Conversions API), for retargeting and ad optimization.
+  if (res.ok) {
+    const capi = capiEvent(input, FORMS[input?.form], { ip: req.headers.get('x-nf-client-connection-ip') ?? null, userAgent: req.headers.get('user-agent') ?? '', cookies: req.headers.get('cookie') });
+    if (capi) { const job = sendCapi(capi); if (ctx?.waitUntil) ctx.waitUntil(job); else await job; }
   }
   if (res.ok) return json(200, { ok: true });
   console.error('Follow Up Boss error', res.status, (await res.text()).slice(0, 500));
