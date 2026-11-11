@@ -73,7 +73,7 @@ export const FORMS = {
 const LABELS = {
   address: 'Property address', zip: 'ZIP code', condition: 'Condition', homeType: 'Kind of home', beds: 'Bedrooms', baths: 'Bathrooms', sqft: 'Finished sq ft', timeline: 'Selling timeline', topic: 'Topic', goal: 'Goal',
   notes: 'Notes', message: 'Message', lake: 'Lake', priceRange: 'Price range', maxPrice: 'Price range',
-  community: 'Community', ramseyReferral: 'Referred by Ramsey', interest: 'Interested in', moveFrom: 'Moving from', agent: 'Wants to work with', listing: 'Listing', guide: 'Guide', nextHome: 'Next home', helping: 'Asking for', calc: 'Calculator results', situation: 'Situation', savedSearch: 'Saved search', awayDays: 'Days since last visit', search: 'Search', searchUrl: 'Search link', shareMethod: 'Shared by', viewDays: 'Different days viewed this home', showingDay: 'Preferred day', showingTime: 'Preferred time', tourType: 'Tour type', saleDate: 'Sheriff’s sale or deadline',
+  community: 'Community', ramseyReferral: 'Referred by Ramsey', interest: 'Interested in', moveFrom: 'Moving from', agent: 'Wants to work with', listing: 'Listing', guide: 'Guide', nextHome: 'Next home', helping: 'Asking for', calc: 'Calculator results', situation: 'Situation', savedSearch: 'Saved search', awayDays: 'Days since last visit', privacyAgree: 'Agreed to the Privacy Policy and SMS Terms', search: 'Search', searchUrl: 'Search link', shareMethod: 'Shared by', viewDays: 'Different days viewed this home', showingDay: 'Preferred day', showingTime: 'Preferred time', tourType: 'Tour type', saleDate: 'Sheriff’s sale or deadline',
 };
 const CONTACT = new Set(['firstName', 'lastName', 'email', 'phone']);
 

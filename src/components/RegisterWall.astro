@@ -25,6 +25,9 @@ const { mls, name, street, city, zip, price } = Astro.props;
     </div>
     <div class="field"><label for="rg-email">Email</label><input id="rg-email" name="email" type="email" autocomplete="email" required /></div>
     <div class="field"><label for="rg-phone">Phone</label><input id="rg-phone" name="phone" type="tel" autocomplete="tel" required pattern="[^0-9]*([0-9][^0-9]*){10,}" title="Please enter your phone number, including area code." /></div>
+    <!-- Required (Jason, Nov 11, 2026): agreeing to the Privacy Policy. The call/text consent box that Base.astro adds
+         stays optional: the TCPA doesn't allow making it a condition of signing up. -->
+    <label class="agree"><input type="checkbox" name="privacyAgree" value="yes" required /> <span>I agree to the <a href="/privacy">Privacy Policy</a> and <a href="/sms-terms">SMS Terms</a>.</span></label>
     <button class="btn" type="submit">See this home</button>
     <p class="form__status" role="status" aria-live="polite"></p>
     <p class="regwall__alt">Rather talk to a person? Call or text <a href={site.phoneHref}>{site.phone}</a>.</p>

@@ -19,13 +19,15 @@ import { consentText, submitNotice } from '../lib/consent.mjs';
         <div data-new hidden>
           <p class="acct__new">Welcome! Tell us your name and phone number to create your free account.</p>
           <div class="form__row">
-            <div class="field"><label for="ac-first">First name</label><input id="ac-first" name="firstName" autocomplete="given-name" /></div>
+            <div class="field"><label for="ac-first">First name</label><input id="ac-first" name="firstName" autocomplete="given-name" required /></div>
             <div class="field"><label for="ac-last">Last name</label><input id="ac-last" name="lastName" autocomplete="family-name" required /></div>
           </div>
           <div class="field"><label for="ac-phone">Phone</label><input id="ac-phone" name="phone" type="tel" autocomplete="tel" required pattern="[^0-9]*([0-9][^0-9]*){10,}" title="Please enter your phone number, including area code." /></div>
           <!-- Call/text consent: the same unchecked, optional box and words as every lead form (src/lib/consent.mjs). -->
           <label class="consent"><input type="checkbox" name="smsConsent" value="yes" /> <span set:html={consentText().replace('SMS Terms', '<a href="/sms-terms">SMS Terms</a>').replace('Privacy Policy', `<a href="${site.privacyUrl}">Privacy Policy</a>`)} /></label>
           <p class="consent__privacy">{submitNotice}</p>
+          <!-- Required (Jason, Nov 11, 2026); the call/text box above stays optional (TCPA). -->
+          <label class="agree"><input type="checkbox" name="privacyAgree" value="yes" required /> <span>I agree to the <a href="/privacy">Privacy Policy</a> and <a href="/sms-terms">SMS Terms</a>.</span></label>
         </div>
         <button class="btn" type="submit">Email me a sign-in link</button>
         <p class="form__status" role="status" aria-live="polite"></p>
@@ -53,6 +55,7 @@ import { consentText, submitNotice } from '../lib/consent.mjs';
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(f.email ?? '')) { status.textContent = 'Please enter your email address.'; return; }
     if (!newBox.hidden && (!f.firstName?.trim() || !f.lastName?.trim())) { status.textContent = 'Please enter your first and last name.'; return; }
     if (!newBox.hidden && (f.phone ?? '').replace(/\D/g, '').length < 10) { status.textContent = 'Please enter your phone number, including area code.'; return; }
+    if (!newBox.hidden && f.privacyAgree !== 'yes') { status.textContent = 'Please check the box to agree to the Privacy Policy and SMS Terms.'; return; }
     button.disabled = true; status.textContent = 'Sending…';
     const r = await fetch('/api/account/start', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(f) }).catch(() => null);
     const a = r ? await r.json().catch(() => ({})) : {};
@@ -62,7 +65,7 @@ import { consentText, submitNotice } from '../lib/consent.mjs';
       (window as any).fbq?.('track', 'CompleteRegistration', { content_name: 'Buyer Account Registration' }); // Meta Pixel (Base.astro)
       // A new account is a lead: tell Follow Up Boss, like the sign-up wall does.
       fetch('/api/lead', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ form: 'register', hp: '', elapsed: 99999, page: location.pathname, title: document.title,
-        fields: { firstName: f.firstName, lastName: f.lastName ?? '', email: f.email, phone: f.phone ?? '', ...(f.smsConsent === 'yes' ? { smsConsent: 'yes' } : {}) } }) }).catch(() => {});
+        fields: { firstName: f.firstName, lastName: f.lastName ?? '', email: f.email, phone: f.phone ?? '', privacyAgree: 'yes', ...(f.smsConsent === 'yes' ? { smsConsent: 'yes' } : {}) } }) }).catch(() => {});
     }
     if (a.ok && a.sent) { form.innerHTML = `<p class="acct__sent"><strong>Check your email.</strong> We sent a sign-in link to ${f.email.replace(/[<>&"]/g, '')}. It can take a minute or two. Not there? Check your spam folder.</p>`; return; }
     status.textContent = a.error === 'email-not-set-up' ? 'Email sign-in isn’t switched on yet. Please call or text us and we’ll help.'

@@ -131,6 +131,19 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     await p.keyboard.press('Escape');
     ok('Listing page: share', link.includes('/homes/') && link.includes('utm_source=share') && status === 'Link copied.', `${link.replace(/^https?:\/\/[^/]+/, '').slice(0, 70)} · ${status || 'no status'}`);
   });
+  // Sign-up popup (Jason, Nov 11, 2026): name, email, phone and the Privacy Policy box are required; the call/text
+  // consent box is optional and unchecked (TCPA). Checked in the page itself; nothing is sent.
+  await step('Sign-up form: required fields', async () => {
+    await p.goto(BASE + '/homes-for-sale/minneapolis', { waitUntil: 'domcontentloaded' });
+    const href = await p.getAttribute('a[href^="/homes/"]:not([href^="/homes/listing"])', 'href').catch(() => null);
+    if (!href) return ok('Sign-up form: required fields', true, 'no listing pages to try');
+    await p.goto(BASE + href, { waitUntil: 'load' });
+    const s = await p.$eval('form[data-lead="register"]', (f) => ({
+      req: ['firstName', 'lastName', 'email', 'phone', 'privacyAgree'].filter((n) => !f.querySelector(`[name=${n}]`)?.required),
+      sms: f.querySelector('[name=smsConsent]') ? (f.querySelector('[name=smsConsent]').required || f.querySelector('[name=smsConsent]').checked ? 'required or pre-checked' : 'optional') : 'missing',
+    })).catch((e) => ({ req: ['form missing'], sms: e.message }));
+    ok('Sign-up form: required fields', !s.req.length && s.sms === 'optional', `${s.req.length ? `not required: ${s.req.join(', ')}` : 'name, email, phone, privacy box required'}; call/text box ${s.sms}`);
+  });
   // NorthstarMLS Rule 12.3(i): the disclaimer is at least as large as the largest listing text on the page (price, stats).
   await step('MLS disclaimer size', async () => {
     await p.goto(BASE + '/homes-for-sale/minneapolis', { waitUntil: 'domcontentloaded' });
