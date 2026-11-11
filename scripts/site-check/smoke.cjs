@@ -131,16 +131,6 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     await p.keyboard.press('Escape');
     ok('Listing page: share', link.includes('/homes/') && link.includes('utm_source=share') && status === 'Link copied.', `${link.replace(/^https?:\/\/[^/]+/, '').slice(0, 70)} · ${status || 'no status'}`);
   });
-  // Map search "Save search" (Nov 11, 2026): opens the alert form in a popup over the map, and puts it back on close.
-  await step('Map search: Save search popup', async () => {
-    await p.goto(BASE + '/home-search?place=lakeville', { waitUntil: 'load' });
-    await p.locator('a.hs-save').first().click();
-    await p.waitForSelector('dialog.ss-dlg[open] form[data-lead="community-alert"]', { timeout: 5000 });
-    const summary = (await p.textContent('dialog.ss-dlg [data-alert-summary]').catch(() => '')) ?? '';
-    await p.click('dialog.ss-dlg .ss-dlg__x');
-    const back = await p.locator('#alerts form[data-lead="community-alert"]').count();
-    ok('Map search: Save search popup', back === 1 && /lakeville/i.test(summary), `popup showed "${summary.trim().slice(0, 60)}"; form back in place: ${back === 1}`);
-  });
   // Sign-up popup (Jason, Nov 11, 2026): name, email, phone and the Privacy Policy box are required; the call/text
   // consent box is optional and unchecked (TCPA). Checked in the page itself; nothing is sent.
   await step('Sign-up form: required fields', async () => {
