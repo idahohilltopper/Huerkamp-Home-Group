@@ -87,13 +87,16 @@ export default function Terms() {
           <li>The guarantee is separate from the offers in Sections 3, 4 and 5, and the requirements for those offers still apply to them.</li>
         </ul>
 
-        <h2>7. Earnings and results</h2>
+        <h2>7. Independent contractor status and compensation</h2>
+        <p>Agents join HHG as independent contractors who are licensed with HHG through Keller Williams Preferred Realty. They are not employees of HHG. Compensation is commission only. There is no salary, hourly wage, draw, or base pay, and HHG does not guarantee any level of earnings except under the written terms of a specific program, such as the income guarantee in Section 6, for agents who meet all of its requirements. Agents are responsible for their own business expenses, licensing and association fees, and taxes, and are not eligible for employee benefits except as stated in the terms of a specific program. The terms of an agent&rsquo;s separate written agreements with HHG and Keller Williams Preferred Realty control the relationship.</p>
+
+        <h2>8. Earnings and results</h2>
         <p>Except for the income guarantee in Section 6, which applies only to agents who meet all of its requirements, numbers on this site, including volume, units, ranking, and the values shown for team benefits, reflect HHG&rsquo;s own information at the time they were published and may change. They are not a promise of what any agent will earn or receive.</p>
 
-        <h2>8. Third-party names and links</h2>
+        <h2>9. Third-party names and links</h2>
         <p>This site mentions and links to third-party companies and products. HHG is not responsible for their content or terms. All trademarks belong to their owners.</p>
 
-        <h2>9. Questions</h2>
+        <h2>10. Questions</h2>
         <p>To ask about these terms or about joining the team, use the <a href="/apply">Join</a> form on this site and a member of our recruiting team will respond.</p>
       </article>
       <SiteFooter />
