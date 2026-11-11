@@ -7,6 +7,7 @@ author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
 communities: ["savage", "burnsville"]
 tags: []
+cover: { src: "/blog/highway-13-rebuild-savage-burnsville-schedule/cover.webp", width: 1200, height: 675, thumb: "/blog/highway-13-rebuild-savage-burnsville-schedule/cover-640.webp", alt: "Minnesota Highway 13", credit: "Photo: Gabriel Vanslette, CC BY 3.0, via Wikimedia Commons", creditUrl: "https://commons.wikimedia.org/wiki/File:Minnesota_State_Highway_13_and_Interstate_35E_-_panoramio_(1).jpg" }
 ---
 Highway 13 between Savage and Burnsville is about to become a multi-year construction zone. MnDOT plans to [reconstruct Hwy 13 and its intersections "between Quentin Ave. in Savage and Nicollet Ave. in Burnsville"](https://www.dot.state.mn.us/metro/projects/hwy13savageburnsville/index.html), starting with a new interchange at Nicollet Avenue in spring 2027. If you live, work or are thinking about buying near that stretch, here's what MnDOT has published about what changes, and when.
 

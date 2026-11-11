@@ -50,3 +50,12 @@ cover: { src: "/blog/lakeville-market-update-2026/cover.webp", width: 1200, heig
 - A post with `communities: ["burnsville"]` at the top shows under "Local stories" on that community's page. The post also links back to the guide, and Google is told which city the post is about.
 - New posts get tagged automatically: `python3 scripts/tag-post-communities.py`. It reads the town from the title, or else the description. To tag a post by hand, add the line yourself; the script never changes a tag that's already there.
 - A community page's "Updated" date, and the date in the sitemap, is the newest real change to that guide: a local story, a video about the town, or its census data. It is never just the day the site was rebuilt.
+
+## Cover photos from Wikimedia Commons (Nov 11, 2026)
+
+- Posts without a photo show a plain red card. To add one: `python3 scripts/commons-cover.py search "Lake Minnetonka"` lists
+  freely licensed photos (public domain, CC0, CC BY, CC BY-SA only); `python3 scripts/commons-cover.py use <post-slug> "File:Name.jpg"`
+  saves `public/blog/<slug>/cover.webp` and prints the credit. Add the `cover:` line, run `scripts/make-blog-thumbs.py`, then add
+  `alt`, `credit` and `creditUrl` to the cover line. The credit shows under the photo, as the license requires.
+- Never use a private home whose address or signs can be read, or a photo with people in it; landmarks, lakes, skylines and
+  historic houses are safest.

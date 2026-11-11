@@ -8,6 +8,7 @@ author: "Huerkamp Home Group"
 categories: ["Buyer"]
 tags: []
 importedFrom: squarespace
+cover: { src: "/blog/the-5-biggest-red-flags-to-spot-when-purchasing-a-new-house/cover.webp", width: 1200, height: 966, thumb: "/blog/the-5-biggest-red-flags-to-spot-when-purchasing-a-new-house/cover-640.webp", alt: "The historic Case-Lang House in Minneapolis", credit: "Photo: McGhiever, CC BY 4.0, via Wikimedia Commons", creditUrl: "https://commons.wikimedia.org/wiki/File:Case-Lang_House.jpg" }
 ---
 **Whether it's your first time buying a home or have had experience in purchasing properties, it’s very important to be reminded of what can be a problem after the sale has been made. After all, we want to minimize costs and get the best deals. How can this be done? Home inspections are crucial in the process of house hunting. Sure, the house is charming and homey, but there might be some cracks and rotting that are signs of major damage. Here are five of the biggest red flags to spot:** 
 

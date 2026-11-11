@@ -1,12 +1,13 @@
 ---
 // NorthstarMLS Broker Reciprocity disclosures, shown with every display of listing data (src/data/mls.ts has the
 // rules and wording). The Rule 12.3(i) disclaimer is set at least as large as the largest listing text on the page:
-// pass `size` when the page's listing text is larger than the card prices.
+// pass `size` when the page's listing text is larger than the card prices (1.2rem). Kept compact (Jason, Nov 11, 2026):
+// plain text font, small print at .8rem.
 import { mls, EULA_PATH } from '../data/mls';
 import { BR_LOGO, BR_LOGO_SIZE } from '../data/mls-logos';
 import { OPEN_HOUSE_NOTE } from '../lib/open-house.mjs';
 interface Props { at?: string | null; size?: string; copyright?: boolean }
-const { at, size = '1.45rem', copyright = false } = Astro.props;
+const { at, size = '1.2rem', copyright = false } = Astro.props;
 const updated = at ? new Date(at).toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/Chicago' }) : '';
 ---
 <div class="idx-disc">
@@ -17,9 +18,9 @@ const updated = at ? new Date(at).toLocaleString('en-US', { month: 'long', day: 
 </div>
 
 <style>
-  .idx-disc { display: grid; gap: .6rem; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--line); color: var(--text); }
-  .idx-disc__copy { margin: 0; font: 600 1rem/1.4 var(--ui); }
-  .idx-disc__big { margin: 0; font-family: var(--serif); font-weight: 500; line-height: 1.3; }
-  .idx-disc__src, .idx-disc__more { margin: 0; font-size: 1rem; line-height: 1.5; }
-  .idx-disc__src img { float: left; width: auto; height: 35px; margin: .2rem .8rem .3rem 0; }
+  .idx-disc { display: grid; gap: .4rem; margin-top: 1.25rem; padding-top: .75rem; border-top: 1px solid var(--line); color: var(--text-soft); }
+  .idx-disc__copy { margin: 0; font: 600 .8rem/1.4 var(--ui); }
+  .idx-disc__big { margin: 0; font-family: var(--ui); font-weight: 400; line-height: 1.35; color: var(--text); }
+  .idx-disc__src, .idx-disc__more { margin: 0; font-size: .8rem; line-height: 1.45; }
+  .idx-disc__src img { float: left; width: auto; height: 24px; margin: .15rem .6rem .2rem 0; }
 </style>

@@ -8,6 +8,7 @@ author: "Huerkamp Home Group"
 categories: ["Homeowner", "Seller", "Buyer"]
 tags: []
 importedFrom: squarespace
+cover: { src: "/blog/watch-out-these-neighborhood-features-can-drag-down-your-homes-value/cover.webp", width: 1200, height: 800, thumb: "/blog/watch-out-these-neighborhood-features-can-drag-down-your-homes-value/cover-640.webp", alt: "Minnehaha Falls in Minneapolis in October", credit: "Photo: Thomson200, CC0, via Wikimedia Commons", creditUrl: "https://commons.wikimedia.org/wiki/File:Minnehaha_Park_(Minneapolis),_Oct_2017_1.jpg" }
 ---
 **While there are certain home improvements you can add to your home to boost its resale value, there are also many external factors that can devalue your greatest investment. This is why the real estate cliché saying “location, location, location” will never be debunked or even grow old. Many of the things that can dampen your home's value can actually be found in your neighborhood.**
 

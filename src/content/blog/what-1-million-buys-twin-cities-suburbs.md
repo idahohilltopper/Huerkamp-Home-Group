@@ -7,6 +7,7 @@ author: "Huerkamp Home Group"
 categories: ["Buyer"]
 communities: []
 tags: []
+cover: { src: "/blog/what-1-million-buys-twin-cities-suburbs/cover.webp", width: 1200, height: 900, thumb: "/blog/what-1-million-buys-twin-cities-suburbs/cover-640.webp", alt: "50th and France in Edina, Minnesota", credit: "Photo: edkohler, CC BY 2.0, via Wikimedia Commons", creditUrl: "https://commons.wikimedia.org/wiki/File:50th_%26_France,_Edina_MN_2009.jpg" }
 ---
 **Quick answer:** at each community's price per square foot over the past year, $1 million buys about **2,000 square feet in Wayzata**, about **3,400 in Edina**, about **3,900 in Minneapolis** and about **5,600 in Burnsville**. Across the 16-county Twin Cities region, it's about 4,600 square feet. Lake Minnetonka towns are the most expensive per square foot by a wide margin.
 

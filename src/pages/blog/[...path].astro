@@ -89,6 +89,7 @@ const ld = JSON.stringify({
       : showCover && (
         <div class="post__media wrap">
           <img src={cover.src} alt={cover.alt || title} width={cover.width} height={cover.height} fetchpriority="high" decoding="async" />
+          {cover.credit && <p class="post__credit">{cover.creditUrl ? <a href={cover.creditUrl} rel="noopener nofollow">{cover.credit}</a> : cover.credit}</p>}
         </div>
       )}
 
@@ -187,6 +188,8 @@ const ld = JSON.stringify({
   .guides__link span { color: var(--text-soft); font-size: .95rem; }
   .guides__link:hover strong { color: var(--crimson); }
   .author { display: grid; grid-template-columns: 6rem 1fr; gap: 1.25rem; align-items: center; padding: 1.5rem; background: var(--sand); }
+  .post__credit { margin: .35rem 0 0; font-size: .75rem; color: var(--text-soft); text-align: right; }
+  .post__credit a { color: inherit; }
   .author :global(img) { width: 6rem; height: 6rem; object-fit: cover; border-radius: 50%; }
   .author img[src$='hhg-mark.webp'] { object-fit: contain; border-radius: 0; }
   .author p { font-size: .95rem; color: var(--text-soft); }

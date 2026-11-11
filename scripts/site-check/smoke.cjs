@@ -131,6 +131,18 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     await p.keyboard.press('Escape');
     ok('Listing page: share', link.includes('/homes/') && link.includes('utm_source=share') && status === 'Link copied.', `${link.replace(/^https?:\/\/[^/]+/, '').slice(0, 70)} · ${status || 'no status'}`);
   });
+  // NorthstarMLS Rule 12.3(i): the disclaimer is at least as large as the largest listing text on the page (price, stats).
+  await step('MLS disclaimer size', async () => {
+    await p.goto(BASE + '/homes-for-sale/minneapolis', { waitUntil: 'domcontentloaded' });
+    const href = await p.getAttribute('a[href^="/homes/"]:not([href^="/homes/listing"])', 'href').catch(() => null);
+    if (!href) return ok('MLS disclaimer size', true, 'no listing pages to try');
+    await p.goto(BASE + href, { waitUntil: 'domcontentloaded' });
+    const s = await p.evaluate(() => {
+      const px = (sel) => Math.max(0, ...[...document.querySelectorAll(sel)].map((e) => parseFloat(getComputedStyle(e).fontSize)));
+      return { disc: px('.idx-disc__big'), listing: px('.home__price, .home__stats dd, .home__title, .lcard__price') };
+    });
+    ok('MLS disclaimer size', s.disc > 0 && s.disc >= s.listing, `disclaimer ${s.disc}px, largest listing text ${s.listing}px`);
+  });
   // Activity feed for Follow Up Boss (Nov 11, 2026, like Ylopo's): a known visitor's home views (once per home per day)
   // and map searches (after 8 s without changes) are sent by email only. /api/lead is intercepted, nothing reaches FUB.
   await step('Known visitor: views and searches reach Follow Up Boss', async () => {

@@ -7,6 +7,7 @@ author: "Huerkamp Home Group"
 categories: ["Buyer"]
 communities: []
 tags: []
+cover: { src: "/blog/most-expensive-lakes-twin-cities-lakefront-prices/cover.webp", width: 1200, height: 900, thumb: "/blog/most-expensive-lakes-twin-cities-lakefront-prices/cover-640.webp", alt: "Lake Minnetonka from Excelsior", credit: "Photo: Thomson200, CC0, via Wikimedia Commons", creditUrl: "https://commons.wikimedia.org/wiki/File:Lake_Minnetonka,_Excelsior,_Aug_2023_1.jpg" }
 ---
 **Quick answer:** of the 20 Twin Cities lakes with the most lakefront home sales from November 2025 through October 2026, **Turtle Lake** in Shoreview had the highest median sale price, **$2,575,000** (7 sales), followed by **Lake Minnetonka** at **$1,800,000** (145 sales) and **Lake Riley** at **$1,725,000** (6 sales). Lake Minnetonka is by far the busiest: it accounted for 145 of the 347 sales on these 20 lakes.
 

@@ -7,6 +7,7 @@ author: "Huerkamp Home Group"
 categories: ["Seller"]
 communities: []
 tags: []
+cover: { src: "/blog/best-time-to-sell-a-house-in-minnesota/cover.webp", width: 1200, height: 800, thumb: "/blog/best-time-to-sell-a-house-in-minnesota/cover-640.webp", alt: "Downtown Minneapolis and the Stone Arch Bridge at night", credit: "Photo: Tony Webster from Portland, Oregon, United States, CC BY 2.0, via Wikimedia Commons", creditUrl: "https://commons.wikimedia.org/wiki/File:Minneapolis_Skyline_and_Stone_Arch_(15188008214).jpg" }
 ---
 **Quick answer:** in the Twin Cities, homes that closed in **June** sold for the highest median price and close to full asking price, and summer sales went the fastest. To close in that window, most sellers list in **late March through May**. Winter is slower and prices run lower, but it has the fewest competing homes for sale. The pattern held in both years of Minneapolis Area REALTORS® data below.
 

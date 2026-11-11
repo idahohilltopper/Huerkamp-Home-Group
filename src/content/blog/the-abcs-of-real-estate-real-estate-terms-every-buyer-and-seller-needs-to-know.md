@@ -8,6 +8,7 @@ author: "Huerkamp Home Group"
 categories: ["Buyer", "Seller"]
 tags: []
 importedFrom: squarespace
+cover: { src: "/blog/the-abcs-of-real-estate-real-estate-terms-every-buyer-and-seller-needs-to-know/cover.webp", width: 1200, height: 925, thumb: "/blog/the-abcs-of-real-estate-real-estate-terms-every-buyer-and-seller-needs-to-know/cover-640.webp", alt: "The historic Keyes House in Minneapolis", credit: "Photo: McGhiever, CC BY 4.0, via Wikimedia Commons", creditUrl: "https://commons.wikimedia.org/wiki/File:Keyes_House.jpg" }
 ---
 **Whether you are a first-time home buyer or a third-time home seller, the real estate transaction can be confusing and stressful enough even without the many terms and acronyms used during the process. But don't be overwhelmed — we've compiled a mini-glossary of the important terms you should know and familiarize yourself with to help you better understand what’s going on with the home sale.**
 

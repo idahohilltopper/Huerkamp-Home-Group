@@ -266,7 +266,7 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() }, { name: community
               </div>
             </div>
           </div>
-          <IdxDisclosure at={data.at} copyright size="1.75rem" />
+          <IdxDisclosure at={data.at} copyright size="1.35rem" />
           {data.fixture && <p class="notice"><strong>Sample data for layout testing: not a real home.</strong></p>}
 
           <!-- Our own information about the home, kept apart from the MLS data (Rule 12.3(b)), with its sources. -->
@@ -554,15 +554,15 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() }, { name: community
     .home { padding-bottom: 5rem; }
   }
 
-  /* Price and address left, beds / baths / sq ft right. Listing text tops out at 1.75rem so the MLS disclaimer (Rule 12.3(i)), set at 1.75rem, is at least as large. */
+  /* Price and address left, beds / baths / sq ft right. Listing text tops out at 1.35rem so the MLS disclaimer (Rule 12.3(i)), set at 1.35rem, is at least as large. */
   .home__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: .75rem 2rem; }
-  .home__price { margin: 0; font: 700 clamp(1.6rem, 3vw, 1.75rem)/1.1 var(--ui); color: var(--ink); }
+  .home__price { margin: 0; font: 700 clamp(1.25rem, 2.4vw, 1.35rem)/1.1 var(--ui); color: var(--ink); }
   .home__title { margin: .35rem 0 0; font: 400 1.05rem/1.4 var(--ui); }
   .home__title span { margin-left: .3rem; }
   .home__cut { display: inline-block; margin: .5rem 0 0; padding: .25rem .55rem; border-radius: 4px; background: #e7f3ec; color: #1b6b3a; font: 700 .85rem/1.2 var(--ui); }
   .home__stats { display: flex; gap: 1.5rem; margin: 0; }
   .home__stats div { display: flex; flex-direction: column-reverse; }
-  .home__stats dd { margin: 0; font: 700 clamp(1.4rem, 2.6vw, 1.75rem)/1.1 var(--ui); }
+  .home__stats dd { margin: 0; font: 700 clamp(1.15rem, 2.2vw, 1.35rem)/1.1 var(--ui); }
   .home__stats dt { font: 400 .9rem/1.2 var(--ui); color: var(--text-soft); }
   .home__actions { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; margin: 1rem 0 0; }
   .home__pill { display: inline-flex; gap: .35rem; align-items: center; padding: .5rem .9rem; border-radius: 999px; background: #f3efe9; color: var(--ink); font: 600 .95rem/1 var(--ui); text-decoration: none; }
@@ -601,10 +601,10 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() }, { name: community
   .home__hist td { padding: .7rem .8rem; border-bottom: 1px solid var(--line); vertical-align: top; }
   .home__hist small { display: block; color: var(--text-soft); }
 
-  .home__broker { margin: 1.75rem 0 0; font: 400 .95rem/1.5 var(--ui); }
+  .home__broker { margin: 1.25rem 0 0; font: 400 .85rem/1.45 var(--ui); }
   .home__broker p { margin: 0; }
   .home__broker p span { color: var(--text-soft); }
-  .home__broker img { float: left; width: auto; height: 35px; margin: .2rem .8rem 0 0; }
+  .home__broker img { float: left; width: auto; height: 24px; margin: .15rem .6rem 0 0; }
 
   /* Our own sections. */
   .home--ours { margin-top: 1rem; }

@@ -8,6 +8,7 @@ author: "Huerkamp Home Group"
 categories: ["Buyer"]
 tags: []
 importedFrom: squarespace
+cover: { src: "/blog/how-to-find-your-right-home/cover.webp", width: 1200, height: 801, thumb: "/blog/how-to-find-your-right-home/cover-640.webp", alt: "The historic Boeckmann House in Saint Paul", credit: "Photo: Bmzuckerman, CC BY 4.0, via Wikimedia Commons", creditUrl: "https://commons.wikimedia.org/wiki/File:David_Adler_-_Saint_Paul,_MN_-_Boeckmann_House_(4).jpg" }
 ---
 **For first-time homebuyers, acquiring your dream home may not be as simple as saying that you want a “two-story house with a garage in a quiet neighborhood.” Clearly, there's so much more to a home than that. You should not be restricted to the price either since it is only part of the bigger process.** 
 

@@ -7,6 +7,7 @@ author: "Huerkamp Home Group"
 categories: ["Neighborhoods"]
 communities: ["prior-lake"]
 tags: []
+cover: { src: "/blog/campbell-shores-prior-lake-new-homes-campbell-lake/cover.webp", width: 1200, height: 799, thumb: "/blog/campbell-shores-prior-lake-new-homes-campbell-lake/cover-640.webp", alt: "Prior Lake, Minnesota, in winter", credit: "Photo: Jeanqueq, CC BY-SA 4.0, via Wikimedia Commons", creditUrl: "https://commons.wikimedia.org/wiki/File:Priorlakebridge.jpg" }
 ---
 A new neighborhood is coming to the east side of Prior Lake. On Oct. 13, the Prior Lake City Council gave [final approval to Campbell Shores](https://plnewscompass.org/12414/city/campbell-shores-gets-final-pud-plat-approval-from-prior-lake-city-council/), a 62-lot single-family development near the intersection of 170th Street and Marschall Road, according to the Prior Lake News Compass. Utility work and home construction are expected to begin this fall, with model homes expected to open for viewing in spring 2027.
 

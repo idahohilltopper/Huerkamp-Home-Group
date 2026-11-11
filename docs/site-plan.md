@@ -560,8 +560,8 @@ Information and Technical Agreement (section 6 and Appendix D). Everything lives
   required DMCA paragraphs and the contingency definitions. Every listing block (`data-idx`) is covered until the
   visitor clicks **I AGREE**, once per visit (a session cookie shared by all tabs, cleared when the browser closes; not longer, because the EULA covers "the current viewing session"); /api/search answers only after that.
 - **Disclosures** (`src/components/IdxDisclosure.astro`) under every listing display: the Rule 12.3(i) disclaimer, at
-  least as large as the largest listing text (card prices 1.45rem; listing pages cap their title and price at 2rem and
-  set the disclaimer at 2rem); the data-source explanation with the Broker Reciprocity logo; the "only listings in our
+  least as large as the largest listing text (card prices 1.2rem; home pages cap price and stats at 1.35rem and set the
+  disclaimer at 1.35rem, in the plain text font; made compact Nov 11, 2026 at Jason's request; smoke step "MLS disclaimer size"); the data-source explanation with the Broker Reciprocity logo; the "only listings in our
   communities" note; last-updated time; link to the EULA. Listing pages add the RMLS copyright notice and the listing
   broker and MLS number right after the property information, keep the contact form and our own analysis ("How it
   compares", with its source and the not-an-appraisal disclaimer) in a separate section below.

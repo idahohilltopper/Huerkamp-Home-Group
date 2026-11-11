@@ -8,6 +8,7 @@ author: "Huerkamp Home Group"
 categories: ["Buyer"]
 tags: []
 importedFrom: squarespace
+cover: { src: "/blog/how-to-continue-your-home-buying-journey-while-staying-safe-at-home/cover.webp", width: 1200, height: 800, thumb: "/blog/how-to-continue-your-home-buying-journey-while-staying-safe-at-home/cover-640.webp", alt: "Downtown Saint Paul and the Mississippi River", credit: "Photo: Quintin Soloviev, CC BY 4.0, via Wikimedia Commons", creditUrl: "https://commons.wikimedia.org/wiki/File:Saint_Paul,_Minnesota.jpg" }
 ---
 **Before the coronavirus crisis, what were your home buying goals?**
 
