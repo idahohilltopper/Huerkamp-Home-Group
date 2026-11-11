@@ -18,8 +18,12 @@ const jobPosting = {
   description:
     '<p>Huerkamp Home Group, a Keller Williams Preferred Realty team in Burnsville, MN, is looking for real estate agents across the Twin Cities. We talk with licensed agents, agents in the licensing process, and people curious about the career.</p>' +
     '<p>What you get: team-provided leads, weekly coaching 46 weeks a year, a Client Care Manager, a showing partner, weekly accountability meetings, and a $100,000 income guarantee for full-time agents who meet the requirements (terms and conditions apply).</p>' +
+    '<p><strong>Independent contractor, commission only.</strong> This is an independent contractor position, not an employee position. Pay is commission only. There is no salary, hourly wage, draw, or base pay, and earnings vary and are not guaranteed except under the written terms of a specific program. Agents are responsible for their own business expenses and taxes. Terms and conditions apply: ' + SITE + '/terms</p>' +
     '<p>Apply for free at ' + SITE + '/apply. It is confidential and there is no obligation.</p>',
   datePosted: '2026-11-08',
+  // Renew before this date. An expired posting drops out of Google job results.
+  validThrough: '2027-02-08T23:59:59-06:00',
+  employmentType: 'CONTRACTOR',
   industry: 'Real Estate',
   occupationalCategory: '41-9022.00',
   directApply: true,
@@ -75,6 +79,12 @@ export default function AgentJobs() {
           {get.map(([t, d]) => (<div className="card" key={t}><h3>{t}</h3><p>{d}</p></div>))}
         </div>
         <p className="fine-print">*Terms and conditions apply. <a href="/terms">Read the terms.</a></p>
+      </section>
+
+      <section className="section">
+        <p className="eyebrow dark">How you are paid</p>
+        <h2>Independent contractor, commission only</h2>
+        <p className="sub">Agents join Huerkamp Home Group as independent contractors licensed through Keller Williams Preferred Realty, not as employees. Pay is commission only. There is no salary, hourly wage, draw, or base pay, and earnings vary and are not guaranteed except under the written terms of a specific program. Agents pay their own business expenses and taxes. <a href="/terms">Terms and conditions apply.</a></p>
       </section>
 
       <section className="section">
