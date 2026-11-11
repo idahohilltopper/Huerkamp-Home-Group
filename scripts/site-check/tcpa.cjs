@@ -117,7 +117,8 @@ const MUST = ['Huerkamp Home Group', 'Keller Williams Preferred Realty', 'automa
     'any other reasonable way', '10 business days', 'do not share mobile numbers', 'Carriers are not liable'];
   ok('SMS Terms page', smsNeeds.every((n) => sms.includes(n)), smsNeeds.filter((n) => !sms.includes(n)).map((n) => `missing "${n}"`).join(', '));
   const priv = await text('/privacy');
-  const privNeeds = ['do not share mobile phone numbers or text-message consent with third parties', 'reply STOP', '10 business days'];
+  // Jason's policy of Nov 11, 2026 says it in his words ("Phone numbers and text-message consent information are not shared with third parties").
+  const privNeeds = ['not shared with third parties or affiliates for their marketing purposes', 'Reply STOP', '10 business days'];
   ok('Privacy Policy', privNeeds.every((n) => priv.includes(n)), privNeeds.filter((n) => !priv.includes(n)).map((n) => `missing "${n}"`).join(', '));
 
   console.log(`TCPA check: ${BASE} in ${BROWSER} (${new Date().toISOString()})`);

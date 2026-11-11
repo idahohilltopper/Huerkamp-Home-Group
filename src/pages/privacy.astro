@@ -1,58 +1,83 @@
 ---
-// The website's privacy policy. Describes what this site actually does (src/lib/lead.mjs, netlify/functions/*).
-// Ylopo (home search until the MLS switch, then ads and lead follow-up) has its own policy at /privacy/ylopo.
-// Wording to be reviewed by the team's attorney before launch.
-import { OWN } from '../data/search';
+// The website's privacy policy: Jason's text of Nov 11, 2026, word for word, with three additions he was told about:
+// the 10-business-day / any-reasonable-way opt-out sentence in section 5 (FCC rules; checked by scripts/site-check/tcpa.cjs),
+// the Manage cookies link in section 6, and the phone number in section 13.
+// Ylopo's own policy stays at /privacy/ylopo.
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import { site } from '../data/site';
-const updated = 'October 27, 2026';
+const updated = 'November 11, 2026';
+const EMAIL = 'jason@hhgus.com';
 ---
 <Base breadcrumbs={[{ name: 'Privacy policy', href: '/privacy' }]} title={`Privacy Policy | ${site.name}`}
-  description={`What ${site.name} collects on huerkamphomes.com, how we use it, how calls and texts work, and how to reach us about your information.`}>
-  <PageHero eyebrow="Privacy" title="Privacy policy" lede={`Last updated ${updated}. This policy covers huerkamphomes.com.`} />
+  description={`What ${site.name} (H2 Corp) collects on huerkamphomes.com, how we use and share it, advertising, text messages, and your choices.`}>
+  <PageHero eyebrow="Privacy" title="Privacy policy" lede={`Huerkamp Home Group (H2 Corp) · huerkamphomes.com. Last updated: ${updated}.`} />
   <section class="section">
     <div class="wrap prose legal">
-      <p>{site.name} is a real estate team with {site.brokerage} at {site.street}, {site.cityStateZip}. This policy explains what we collect on this website and what we do with it. {OWN ? <>Home listings on this site come from NorthstarMLS through our listing data provider, Repliers; listing photos load from Repliers’ servers.</> : <>Our home search at <a href={site.searchUrl}>search.huerkamphomegroup.com</a> is run by our search provider, Ylopo, and has its own privacy policy, which you can read <a href="/privacy/ylopo">here</a>.</>}</p>
+      <p>This policy explains what information we collect when you use huerkamphomes.com, how we use it, who we share it with, and the choices you have. In this policy, "we," "us" and "our" mean H2 Corp, doing business as Huerkamp Home Group.</p>
 
-      <h2>What we collect</h2>
+      <h2>1. Information we collect</h2>
+      <p><strong>Information you give us.</strong> When you search for homes, request a showing, ask a question, sign up for alerts, request a home valuation, take a quiz, or contact us, we collect what you enter: your name, email address, phone number, the property or area you are interested in, your price range, and any message you write.</p>
+      <p><strong>Information collected automatically.</strong> When you use our website we collect technical and activity information, such as the pages and listings you view, homes you save, searches you run, the date and time, your device and browser type, and your approximate location from your IP address. We collect this using cookies and similar technologies (see section 6).</p>
+      <p><strong>Information from others.</strong> If you reach us through a listing portal or another real estate website, that service may send us the contact details and inquiry you submitted.</p>
+
+      <h2>2. How we use your information</h2>
       <ul>
-        <li><strong>What you send us on a form:</strong> name, email, phone number, and anything you write or choose (for example the home you asked about, your timeline or price range), with the page you sent it from.</li>
-        <li><strong>Your call/text choice:</strong> whether you checked the consent box, the exact wording you agreed to, the time, the page, and your IP address and browser, so we can prove what you agreed to and honor it.</li>
-        <li><strong>Basic visit information:</strong> pages viewed and how you arrived, through analytics and advertising tools (Google Analytics, Google Ads and the Meta Pixel for Facebook and Instagram ads) that use cookies. The Meta Pixel also tells Meta which homes you view, search for or save and when you send us a form, so our Facebook and Instagram ads can show you homes you were interested in. Once you've told us who you are, it and our server include your email, name and phone, scrambled (hashed) first, so Meta can match you. Meta's own use of that information is covered by Meta's privacy policy. You can turn analytics off on our <a href="/cookies">Manage cookies</a> page. Our hosting provider also keeps standard server logs.</li>
-        {OWN && <li><strong>Home activity, once you've told us who you are:</strong> after you send a form, save a home or sign in, your browser remembers which homes you open and when you last visited. We're told which homes you look at (once per home per day), the home searches you run on our map search, when you come back after a week or more, when you view the same home on three different days, and when you save a home, so your agent can follow up with homes that fit. You can turn this off on our <a href="/cookies">Manage cookies</a> page, and a Global Privacy Control signal turns it off too.</li>}
-        <li><strong>Which agent you're working with:</strong> if you open one of our agents' pages, your browser remembers that agent for 30 days so your inquiry goes to them. You can clear it with the × on the agent bar.</li>
+        <li>To respond to your requests, schedule showings and provide real estate services.</li>
+        <li>To send you listings, saved-search alerts, market updates and follow-ups you asked for, by email, phone, or text message where you have agreed to receive them.</li>
+        <li>To understand how our website is used and to improve it.</li>
+        <li>To show you advertising for our services (see section 4).</li>
+        <li>To keep our systems secure, prevent fraud, and meet legal obligations.</li>
       </ul>
 
-      <h2>How we use it</h2>
+      <h2>3. Who we share information with</h2>
+      <p>We do not sell your personal information for money.</p>
+      <p>We share information only with:</p>
       <ul>
-        <li>To answer your inquiry and help you buy or sell a home: by email, by a personal phone call, and, only if you checked the consent box, by calls and texts that may be sent with automated technology or an artificial or prerecorded voice.</li>
-        <li>To send listings, market updates and follow-ups you asked for or that relate to your inquiry. You can unsubscribe from any email.</li>
-        <li>To understand which pages and ads are useful, and to keep the site secure and free of spam.</li>
+        <li>Service providers who help us run our business under agreements that limit how they use it: our customer relationship management and website providers (for example Follow Up Boss), email and text-messaging providers, analytics providers, and our internal tools that help our agents respond to you quickly.</li>
+        <li>Our agents and team members who work with you.</li>
+        <li>Advertising platforms, as described in section 4.</li>
+        <li>Others when required by law, or to protect our rights or the safety of others, or in connection with a sale or reorganization of our business.</li>
       </ul>
+      <p><strong>Text message information.</strong> Phone numbers and text-message consent information are not shared with third parties or affiliates for their marketing purposes.</p>
 
-      <h2>Who we share it with</h2>
+      <h2>4. Advertising and audiences</h2>
+      <p>We may advertise our services on platforms such as Facebook and Instagram (Meta) and Google. To do this we may:</p>
       <ul>
-        <li><strong>Service providers that run our business for us:</strong> Follow Up Boss (our client database), Ylopo ({OWN ? 'online ads and lead follow-up' : 'home search and marketing'}; <a href="/privacy/ylopo">Ylopo’s privacy policy</a>), {OWN && 'Repliers (MLS listing data and photos),'} Fello (home-value tools for sellers), Netlify (website hosting) and Google (analytics and advertising). They may use your information only to provide their service to us.</li>
-        <li><strong>Our brokerage and agents:</strong> {site.brokerage} and the {site.name} agent helping you.</li>
-        <li><strong>When required by law,</strong> or to protect our rights or someone's safety.</li>
+        <li>Use advertising pixels and similar tools on our website that tell those platforms when you visit, so we can measure and show relevant ads.</li>
+        <li>Upload a list of contact details (email addresses and phone numbers) of people who have contacted us to an advertising platform so we can show ads to them or to similar audiences. Before upload, these details are converted into an encoded, one-way form (a "hash") that the platform matches against its own users. The platform may use this to show our ads and, as its policies allow, to operate its service. Contact details of people who have asked not to be contacted or have unsubscribed are not included.</li>
       </ul>
-      <p><strong>We do not sell your personal information. We do not share mobile phone numbers or text-message consent with third parties or affiliates for their marketing or promotional purposes.</strong></p>
+      <p>Real estate ads are limited by law and by platform rules. They do not target or exclude people based on protected characteristics.</p>
+      <p><strong>Your choices.</strong> To be removed from our advertising lists, email us at <a href={`mailto:${EMAIL}`}>{EMAIL}</a>. You can also manage ad settings in your Facebook, Instagram and Google accounts, and turn off personalized ads there.</p>
 
-      <h2>Calls and texts</h2>
-      <p>We call or text using automated technology, or an artificial or prerecorded voice, only if you checked the consent box, and you can take that consent back at any time: reply STOP to a text, tell an agent, email <a href={`mailto:${site.email}`}>{site.email}</a>, call <a href={site.phoneHref}>{site.phone}</a>, or any other reasonable way. We honor it as soon as possible and within 10 business days. Details are in our <a href="/sms-terms">SMS terms</a>.</p>
+      <h2>5. Text messages</h2>
+      <p>If you agree to receive text messages from us, you will receive messages about your inquiry, listings and follow-ups. Message frequency varies. Message and data rates may apply. Reply STOP to stop receiving texts at any time, or HELP for help. Agreeing to texts is not required to use our website or to buy or sell a home with us.</p>
+      <p>You can also take back your consent to calls and texts in any other reasonable way, such as telling your agent or emailing <a href={`mailto:${EMAIL}`}>{EMAIL}</a>. We honor it as soon as possible and within 10 business days. Details are in our <a href="/sms-terms">SMS terms</a>.</p>
 
-      <h2>How long we keep it</h2>
-      <p>We keep inquiries and client records while we're working with you and afterward as our brokerage and the law require. We keep records of call/text consent and opt-outs for at least five years.</p>
+      <h2>6. Cookies and similar technologies</h2>
+      <p>We and our providers use cookies, pixels and similar tools to keep the site working, remember your preferences and searches, measure traffic and advertising, and recognize you when you return. You can control cookies in your browser settings. If you block them, some features may not work. Some browsers and devices also offer a "Do Not Track" or global privacy control setting; where we are able to detect it, we treat it as an opt-out of advertising uses described in section 4.</p>
+      <p>You can also turn off analytics, advertising and home-activity sharing on our <a href="/cookies">Manage cookies</a> page.</p>
 
-      <h2>Your choices</h2>
-      <p>You can ask us what information we have about you, ask us to correct or delete it (unless the law requires us to keep it), or ask us to stop contacting you. Email <a href={`mailto:${site.email}`}>{site.email}</a> or call <a href={site.phoneHref}>{site.phone}</a>. You can also block or delete cookies in your browser.</p>
+      <h2>7. How long we keep information</h2>
+      <p>We keep your information for as long as needed to provide our services, meet legal and record-keeping obligations, and resolve disputes. We delete or de-identify it when it is no longer needed.</p>
 
-      <h2>Children</h2>
-      <p>This website is for adults and isn't meant for children under 13. We don't knowingly collect their information.</p>
+      <h2>8. Security</h2>
+      <p>We use reasonable technical and organizational measures to protect your information, including access controls and encryption in transit. No method of transmission or storage is completely secure, so we cannot guarantee absolute security.</p>
 
-      <h2>Changes</h2>
-      <p>If we change this policy, we'll update the date at the top. The consent wording you agreed to stays on record with your inquiry.</p>
+      <h2>9. Your choices and rights</h2>
+      <p>You can ask us to: tell you what personal information we hold about you; correct it; delete it; stop using it for advertising; or stop contacting you. Depending on where you live, you may have additional rights under your state's privacy law. To make a request, email <a href={`mailto:${EMAIL}`}>{EMAIL}</a>. We may need to verify your identity before we act, and we will respond within the time the law requires.</p>
+
+      <h2>10. Children</h2>
+      <p>Our website is for adults and is not directed to children under 13. We do not knowingly collect information from children under 13.</p>
+
+      <h2>11. Links to other sites</h2>
+      <p>Our website may link to other sites, such as listing and mortgage sites. We are not responsible for their privacy practices.</p>
+
+      <h2>12. Changes to this policy</h2>
+      <p>We may update this policy from time to time. The date at the top shows when it was last changed. If we make a significant change, we will post a notice on this page.</p>
+
+      <h2>13. Contact us</h2>
+      <p>H2 Corp, doing business as Huerkamp Home Group<br />Email: <a href={`mailto:${EMAIL}`}>{EMAIL}</a><br />Phone: <a href={site.phoneHref}>{site.phone}</a><br />14300 Nicollet Court, Suite 208, Burnsville MN 55306</p>
     </div>
   </section>
 </Base>
