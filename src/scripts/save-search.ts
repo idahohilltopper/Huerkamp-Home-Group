@@ -20,6 +20,9 @@ export function initSaveSearch() {
   document.body.append(dlg);
   const parts = () => [...home.children] as HTMLElement[];
   let moved: HTMLElement[] = [];
+  // The nudge box exists only for visitors who haven't signed up (made below); hiding it is safe either way.
+  let box: HTMLElement | null = null;
+  const hideNudge = () => { if (box) box.hidden = true; };
   const open = () => {
     if (dlg.open) return;
     moved = parts();
@@ -39,15 +42,14 @@ export function initSaveSearch() {
 
   // The nudge.
   if (isRegistered() || seen()) return;
-  const box = document.createElement('div');
+  box = document.createElement('div');
   box.className = 'ss-nudge';
   box.setAttribute('role', 'status');
   box.innerHTML = '<p><strong>Get new homes like these by email.</strong> We’ll watch this search for you, free.</p>'
     + '<button type="button" class="btn ss-nudge__go">Save this search</button><button type="button" class="ss-nudge__x" aria-label="No thanks">×</button>';
   box.hidden = true;
   document.body.append(box);
-  function hideNudge() { box.hidden = true; }
-  const show = () => { if (isRegistered() || seen() || dlg.open) return; box.hidden = false; mark(); };
+  const show = () => { if (!box || isRegistered() || seen() || dlg.open) return; box.hidden = false; mark(); };
   box.querySelector('.ss-nudge__go')!.addEventListener('click', open);
   box.querySelector('.ss-nudge__x')!.addEventListener('click', hideNudge);
   const timer = setTimeout(show, 40_000);

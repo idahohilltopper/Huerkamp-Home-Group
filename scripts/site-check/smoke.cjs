@@ -133,7 +133,10 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
   });
   // Map search "Save search" (Nov 11, 2026): opens the alert form in a popup over the map, and puts it back on close.
   await step('Map search: Save search popup', async () => {
+    // As a visitor who already signed up (no nudge on the page): the popup must work and throw no errors (Nov 11, 2026).
     await p.goto(BASE + '/home-search?place=lakeville', { waitUntil: 'load' });
+    await p.evaluate(() => { try { localStorage.setItem('hhg-registered', '1'); } catch {} });
+    await p.reload({ waitUntil: 'load' });
     await p.locator('a.hs-save').first().click();
     await p.waitForSelector('dialog.ss-dlg[open] form[data-lead="community-alert"]', { timeout: 5000 });
     const summary = (await p.textContent('dialog.ss-dlg [data-alert-summary]').catch(() => '')) ?? '';
