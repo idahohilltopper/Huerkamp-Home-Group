@@ -51,6 +51,10 @@ export default async (req, ctx, mail = sendMail, fetcher = fetch, homeValueEmail
     ip: req.headers.get('x-nf-client-connection-ip') ?? req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? null,
     userAgent: req.headers.get('user-agent') ?? '',
   });
+  // Site-check traffic never reaches Follow Up Boss. The checks fill forms with @example.com/.org addresses (reserved, no
+  // real person has one) and intercept the sends, but a send made as a page closes can slip past the interception
+  // (Nov 11, 2026: "smoke@example.com" reached Follow Up Boss as a Viewed Property and was offered by Lead Claimer).
+  if (/@example\.(com|org|net)$/i.test(String(input?.fields?.email ?? '').trim())) return json(200, { ok: true, test: true });
   if (built.spam) {
     // Bots get a quiet "ok". Every drop is kept (Netlify Blobs store "spam-drops", 7 days of detail is enough to recover a
     // real person), and a drop caused only by timing is also emailed to the team, marked as possibly real (Nov 11, 2026).
