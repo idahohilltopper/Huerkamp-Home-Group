@@ -59,7 +59,10 @@ const compare = peerStats
   : '';
 
 // Similar homes: same community and type, closest in price; then anything in the community close in price.
-const near = (xs: Listing[]) => xs.filter((x) => x.slug !== l.slug).sort((a, b) => Math.abs(a.price - l.price) - Math.abs(b.price - l.price));
+// Never the same street address (builders list a lot twice: bare land and with the house to be built), and land only
+// next to land (audit, Nov 12, 2026: a $254,900 lot showed as a "similar home" to a $969,900 house on the same lot).
+const sameSpot = (x: Listing) => !l.addressHidden && !x.addressHidden && !!x.street && x.street === l.street && x.city === l.city;
+const near = (xs: Listing[]) => xs.filter((x) => x.slug !== l.slug && !sameSpot(x) && (x.type === 'land') === (l.type === 'land')).sort((a, b) => Math.abs(a.price - l.price) - Math.abs(b.price - l.price));
 // Nearby homes: the closest homes for sale (any type), and a box about a mile across for recent sales (/api/sold).
 const miles = (x: Listing) => { const dy = (x.lat - l.lat) * 69, dx = (x.lng - l.lng) * 69 * Math.cos((l.lat * Math.PI) / 180); return Math.hypot(dx, dy); };
 const nearby = l.addressHidden ? [] : data.listings.filter((x) => x.slug !== l.slug && !x.addressHidden && miles(x) <= 3).sort((a, b) => miles(a) - miles(b)).slice(0, 10);
@@ -252,7 +255,7 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() }, { name: community
                   <table class="home__hist">
                     <thead><tr><th>Date</th><th>Event</th><th>Price</th></tr></thead>
                     <tbody>
-                      {(l.priceCut ?? 0) >= 1000 && l.originalPrice && <tr><td>Since listing</td><td>Price change</td><td>{money(l.price)}<small>−{money(l.priceCut ?? 0)}{ppsf ? ` · ${money(ppsf)}/sq ft` : ''}</small></td></tr>}
+                      {(l.priceCut ?? 0) >= 1000 && l.originalPrice && <tr><td>Since listing</td><td>Price change</td><td>{money(l.price)}{' '}<small>−{money(l.priceCut ?? 0)}{ppsf ? ` · ${money(ppsf)}/sq ft` : ''}</small></td></tr>}
                       <tr><td>{shortDay(l.listed)}</td><td>Listed for sale</td><td>{money(l.originalPrice && (l.priceCut ?? 0) >= 1000 ? l.originalPrice : l.price)}{l.sqft && l.type !== 'land' && <small>{money(Math.round((l.originalPrice && (l.priceCut ?? 0) >= 1000 ? l.originalPrice : l.price) / l.sqft))}/sq ft</small>}</td></tr>
                     </tbody>
                   </table>

@@ -76,7 +76,7 @@ for code in selected:
     lat, lon = float(a['INTPTLAT']), float(a['INTPTLON'])
     region = region_for(census_name, lat, lon)
     name = DISPLAY.get(census_name, census_name.removeprefix('Village of '))
-    pop24, pop20 = int(p['POPESTIMATE2024']), int(p['ESTIMATESBASE2020'])
+    pop24, pop20 = int(p['POPESTIMATE2024']), int(p['POPESTIMATE2020'])  # the same July 1 2020 figure the chart shows (was the April base: text and chart disagreed)
     communities.append({
         'slug': slugify(name), 'name': name, 'censusName': census_name, 'region': region,
         'counties': [county_names[r['COUNTY']] for r in parts],

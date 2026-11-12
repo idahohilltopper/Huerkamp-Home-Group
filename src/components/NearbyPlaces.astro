@@ -39,18 +39,18 @@ const summary = n && (() => {
             {r.key === 'restaurant'
               ? <>Closest {fmtMi(r.mi)} away</>
               : <><strong>{r.name}</strong>{r.detail && <> ({r.detail.includes(',') ? 'routes' : 'route'} {r.detail})</>}, {fmtMi(r.mi)}</>}
-            <small>{walkWord(r)}</small>
+            {' '}<small>{walkWord(r)}</small>
           </span>
         </li>
       ))}
       {n.rail && n.rail.name !== n.rows.find((r) => r.key === 'transit')?.name && <li><span class="nearby__kind">Light rail or rapid bus</span><span class="nearby__what"><strong>{n.rail.name}</strong> ({n.rail.routes}), {fmtMi(n.rail.mi)}</span></li>}
-      {ddd && <li><span class="nearby__kind">Diners, Drive-Ins and Dives</span><span class="nearby__what"><strong>{ddd.s.name}</strong>, {fmtMi(ddd.mi)}<small>The closest restaurant featured on Food Network's show that's still open (we're not affiliated with the show). <a href={DDD_PATH}>See every Twin Cities spot</a></small></span></li>}
+      {ddd && <li><span class="nearby__kind">Diners, Drive-Ins and Dives</span><span class="nearby__what"><strong>{ddd.s.name}</strong>, {fmtMi(ddd.mi)}{' '}<small>The closest restaurant featured on Food Network's show that's still open (we're not affiliated with the show). <a href={DDD_PATH}>See every Twin Cities spot</a></small></span></li>}
     </ul>
     {around && (
       <>
         <h3 class="nearby__sub">Getting around</h3>
         <ul class="nearby__list">
-          <li><span class="nearby__kind">{airport.name}</span><span class="nearby__what"><strong>{fmtMi(airMi)}</strong> to {airport.what}<small><a href="/commute/msp-airport">Drive times to the airport from every community</a></small></span></li>
+          <li><span class="nearby__kind">{airport.name}</span><span class="nearby__what"><strong>{fmtMi(airMi)}</strong> to {airport.what}{' '}<small><a href="/commute/msp-airport">Drive times to the airport from every community</a></small></span></li>
           <li><span class="nearby__kind">Sports venues</span><span class="nearby__what"><ul class="nearby__venues">{venueMi.map(({ v, mi }) => <li><strong>{v.name}</strong> ({v.what}), {fmtMi(mi)}</li>)}</ul></span></li>
         </ul>
       </>

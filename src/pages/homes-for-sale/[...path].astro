@@ -52,7 +52,7 @@ const facetLower = c?.facet ? c.facet.label.charAt(0).toLowerCase() + c.facet.la
 const attachedKind = c?.facet?.slug === 'townhomes' ? 'townhome' : c?.facet?.slug === 'condos' ? 'condo' : null;
 const answer = c
   ? `${st.count.toLocaleString('en-US')} ${attachedKind ? `${attachedKind}${st.count === 1 ? ' is' : 's are'}` : st.count === 1 ? 'home is' : 'homes are'} for sale in ${place}${c.facet && !attachedKind ? ` (${facetLower})` : ''} as of ${updatedDay}${st.count > 1 ? `, from ${money(st.min)} to ${money(st.max)}, with a median list price of ${money(st.median!)}` : ` at ${money(st.min)}`}.`
-  : `${st.count.toLocaleString('en-US')} homes are for sale across our ${hubGroups.reduce((n, g) => n + g.list.length, 0)} Twin Cities communities as of ${updatedDay}.`;
+  : `${st.count.toLocaleString('en-US')} homes are for sale across ${hubGroups.reduce((n, g) => n + g.list.length, 0)} Twin Cities communities as of ${updatedDay}.`;
 const sfHomes = attachedKind && area ? data.collections.find((k) => k.path === `${area.path}/single-family-homes`) : undefined;
 const sfMedian = sfHomes && sfHomes.listings.length >= 3 ? median(sfHomes.listings.map((l) => l.price)) : null;
 const hoaMedian = attachedKind ? median((c?.listings ?? []).map((l) => l.hoa ?? NaN).filter((x) => x > 0)) : null;

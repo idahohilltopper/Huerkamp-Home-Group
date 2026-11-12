@@ -220,7 +220,11 @@ export function loadFeed() {
         c.lakes = c.lakefront ? findArea(shores, c.lng, c.lat) : [];
         listings.push(c);
       }
-      const status = { env, downloaded: raw.length, kept: listings.length, dropped, seconds: Math.round((Date.now() - started) / 1000), ...stats };
+      // Two raw open-house records as the MLS sent them (dates and times only), to check the time zone handling in
+      // src/lib/open-house.mjs against the MLS (Nov 12, 2026: times had shown 6 hours late).
+      const ohRaw = raw.map((l) => l.openHouse).filter((o) => o && Object.keys(o).length).slice(0, 2)
+        .map((o) => Object.values(o).slice(0, 1).map((x) => ({ date: x?.date, startTime: x?.startTime, endTime: x?.endTime, TZ: x?.TZ ?? x?.tz ?? null, type: x?.type ?? null })));
+      const status = { env, openHouseSample: ohRaw.flat(), downloaded: raw.length, kept: listings.length, dropped, seconds: Math.round((Date.now() - started) / 1000), ...stats };
       console.log(`MLS feed: ${raw.length} listings downloaded, ${listings.length} in our communities (${JSON.stringify(status)})`);
       const out = { mode, at: now.toISOString(), listings, status };
       mkdirSync(new URL('.cache/', root), { recursive: true });

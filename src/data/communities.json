@@ -15,8 +15,8 @@
         "Hennepin"
       ],
       "population2024": 428579,
-      "population2020": 429983,
-      "growthPct": -0.3,
+      "population2020": 430738,
+      "growthPct": -0.5,
       "populationByYear": {
         "2020": 430738,
         "2021": 427853,
@@ -43,8 +43,8 @@
         "Ramsey"
       ],
       "population2024": 307465,
-      "population2020": 311483,
-      "growthPct": -1.3,
+      "population2020": 311127,
+      "growthPct": -1.2,
       "populationByYear": {
         "2020": 311127,
         "2021": 307666,
@@ -71,8 +71,8 @@
         "Hennepin"
       ],
       "population2024": 88344,
-      "population2020": 89978,
-      "growthPct": -1.8,
+      "population2020": 89853,
+      "growthPct": -1.7,
       "populationByYear": {
         "2020": 89853,
         "2021": 89457,
@@ -99,8 +99,8 @@
         "Hennepin"
       ],
       "population2024": 82893,
-      "population2020": 86460,
-      "growthPct": -4.1,
+      "population2020": 86216,
+      "growthPct": -3.9,
       "populationByYear": {
         "2020": 86216,
         "2021": 84505,
@@ -127,8 +127,8 @@
         "Washington"
       ],
       "population2024": 80596,
-      "population2020": 75105,
-      "growthPct": 7.3,
+      "population2020": 75480,
+      "growthPct": 6.8,
       "populationByYear": {
         "2020": 75480,
         "2021": 77109,
@@ -155,7 +155,7 @@
         "Hennepin"
       ],
       "population2024": 78551,
-      "population2020": 81020,
+      "population2020": 80960,
       "growthPct": -3.0,
       "populationByYear": {
         "2020": 80960,
@@ -183,8 +183,8 @@
         "Dakota"
       ],
       "population2024": 77971,
-      "population2020": 69495,
-      "growthPct": 12.2,
+      "population2020": 70030,
+      "growthPct": 11.3,
       "populationByYear": {
         "2020": 70030,
         "2021": 72732,
@@ -212,8 +212,8 @@
         "Ramsey"
       ],
       "population2024": 75172,
-      "population2020": 70216,
-      "growthPct": 7.1,
+      "population2020": 70469,
+      "growthPct": 6.7,
       "populationByYear": {
         "2020": 70469,
         "2021": 71033,
@@ -240,7 +240,7 @@
         "Hennepin"
       ],
       "population2024": 72739,
-      "population2020": 70268,
+      "population2020": 70302,
       "growthPct": 3.5,
       "populationByYear": {
         "2020": 70302,
@@ -268,8 +268,8 @@
         "Dakota"
       ],
       "population2024": 67240,
-      "population2020": 68862,
-      "growthPct": -2.4,
+      "population2020": 68745,
+      "growthPct": -2.2,
       "populationByYear": {
         "2020": 68745,
         "2021": 68729,
@@ -296,8 +296,8 @@
         "Dakota"
       ],
       "population2024": 64864,
-      "population2020": 64324,
-      "growthPct": 0.8,
+      "population2020": 64519,
+      "growthPct": 0.5,
       "populationByYear": {
         "2020": 64519,
         "2021": 64036,
@@ -324,7 +324,7 @@
         "Anoka"
       ],
       "population2024": 63807,
-      "population2020": 63636,
+      "population2020": 63601,
       "growthPct": 0.3,
       "populationByYear": {
         "2020": 63601,
@@ -352,7 +352,7 @@
         "Hennepin"
       ],
       "population2024": 62905,
-      "population2020": 64198,
+      "population2020": 64180,
       "growthPct": -2.0,
       "populationByYear": {
         "2020": 64180,
@@ -380,8 +380,8 @@
         "Dakota"
       ],
       "population2024": 55272,
-      "population2020": 56367,
-      "growthPct": -1.9,
+      "population2020": 56273,
+      "growthPct": -1.8,
       "populationByYear": {
         "2020": 56273,
         "2021": 55873,
@@ -408,8 +408,8 @@
         "Hennepin"
       ],
       "population2024": 53564,
-      "population2020": 53480,
-      "growthPct": 0.2,
+      "population2020": 53368,
+      "growthPct": 0.4,
       "populationByYear": {
         "2020": 53368,
         "2021": 53341,
@@ -436,8 +436,8 @@
         "Hennepin"
       ],
       "population2024": 52651,
-      "population2020": 53812,
-      "growthPct": -2.2,
+      "population2020": 54107,
+      "growthPct": -2.7,
       "populationByYear": {
         "2020": 54107,
         "2021": 53237,
@@ -464,8 +464,8 @@
         "Hennepin"
       ],
       "population2024": 49899,
-      "population2020": 50010,
-      "growthPct": -0.2,
+      "population2020": 50031,
+      "growthPct": -0.3,
       "populationByYear": {
         "2020": 50031,
         "2021": 49264,
@@ -492,8 +492,8 @@
         "Scott"
       ],
       "population2024": 48401,
-      "population2020": 43710,
-      "growthPct": 10.7,
+      "population2020": 44073,
+      "growthPct": 9.8,
       "populationByYear": {
         "2020": 44073,
         "2021": 44723,
@@ -520,8 +520,8 @@
         "Washington"
       ],
       "population2024": 42760,
-      "population2020": 38835,
-      "growthPct": 10.1,
+      "population2020": 38990,
+      "growthPct": 9.7,
       "populationByYear": {
         "2020": 38990,
         "2021": 39966,
@@ -548,8 +548,8 @@
         "Ramsey"
       ],
       "population2024": 40142,
-      "population2020": 42086,
-      "growthPct": -4.6,
+      "population2020": 42026,
+      "growthPct": -4.5,
       "populationByYear": {
         "2020": 42026,
         "2021": 40994,
@@ -576,8 +576,8 @@
         "Hennepin"
       ],
       "population2024": 36491,
-      "population2020": 37002,
-      "growthPct": -1.4,
+      "population2020": 36925,
+      "growthPct": -1.2,
       "populationByYear": {
         "2020": 36925,
         "2021": 36538,
@@ -604,8 +604,8 @@
         "Dakota"
       ],
       "population2024": 36226,
-      "population2020": 35813,
-      "growthPct": 1.2,
+      "population2020": 35826,
+      "growthPct": 1.1,
       "populationByYear": {
         "2020": 35826,
         "2021": 35629,
@@ -632,8 +632,8 @@
         "Ramsey"
       ],
       "population2024": 35637,
-      "population2020": 36270,
-      "growthPct": -1.7,
+      "population2020": 36225,
+      "growthPct": -1.6,
       "populationByYear": {
         "2020": 36225,
         "2021": 35943,
@@ -660,8 +660,8 @@
         "Anoka"
       ],
       "population2024": 33426,
-      "population2020": 32598,
-      "growthPct": 2.5,
+      "population2020": 32661,
+      "growthPct": 2.3,
       "populationByYear": {
         "2020": 32661,
         "2021": 32968,
@@ -688,8 +688,8 @@
         "Scott"
       ],
       "population2024": 32896,
-      "population2020": 32453,
-      "growthPct": 1.4,
+      "population2020": 32578,
+      "growthPct": 1.0,
       "populationByYear": {
         "2020": 32578,
         "2021": 33023,
@@ -716,8 +716,8 @@
         "Hennepin"
       ],
       "population2024": 31755,
-      "population2020": 33782,
-      "growthPct": -6.0,
+      "population2020": 33660,
+      "growthPct": -5.7,
       "populationByYear": {
         "2020": 33660,
         "2021": 32920,
@@ -744,7 +744,7 @@
         "Anoka"
       ],
       "population2024": 30679,
-      "population2020": 29580,
+      "population2020": 29579,
       "growthPct": 3.7,
       "populationByYear": {
         "2020": 29579,
@@ -772,8 +772,8 @@
         "Dakota"
       ],
       "population2024": 30581,
-      "population2020": 25648,
-      "growthPct": 19.2,
+      "population2020": 25785,
+      "growthPct": 18.6,
       "populationByYear": {
         "2020": 25785,
         "2021": 26644,
@@ -800,8 +800,8 @@
         "Washington"
       ],
       "population2024": 30441,
-      "population2020": 28298,
-      "growthPct": 7.6,
+      "population2020": 28270,
+      "growthPct": 7.7,
       "populationByYear": {
         "2020": 28270,
         "2021": 28032,
@@ -828,8 +828,8 @@
         "Carver"
       ],
       "population2024": 30167,
-      "population2020": 27807,
-      "growthPct": 8.5,
+      "population2020": 27875,
+      "growthPct": 8.2,
       "populationByYear": {
         "2020": 27875,
         "2021": 28094,
@@ -856,8 +856,8 @@
         "Anoka"
       ],
       "population2024": 28999,
-      "population2020": 27636,
-      "growthPct": 4.9,
+      "population2020": 27813,
+      "growthPct": 4.3,
       "populationByYear": {
         "2020": 27813,
         "2021": 28213,
@@ -884,8 +884,8 @@
         "Scott"
       ],
       "population2024": 28018,
-      "population2020": 27613,
-      "growthPct": 1.5,
+      "population2020": 27628,
+      "growthPct": 1.4,
       "populationByYear": {
         "2020": 27628,
         "2021": 28141,
@@ -912,8 +912,8 @@
         "Ramsey"
       ],
       "population2024": 26939,
-      "population2020": 26931,
-      "growthPct": 0.0,
+      "population2020": 26920,
+      "growthPct": 0.1,
       "populationByYear": {
         "2020": 26920,
         "2021": 26688,
@@ -940,7 +940,7 @@
         "Steele"
       ],
       "population2024": 26626,
-      "population2020": 26424,
+      "population2020": 26412,
       "growthPct": 0.8,
       "populationByYear": {
         "2020": 26412,
@@ -969,8 +969,8 @@
         "Hennepin"
       ],
       "population2024": 25746,
-      "population2020": 25950,
-      "growthPct": -0.8,
+      "population2020": 25982,
+      "growthPct": -0.9,
       "populationByYear": {
         "2020": 25982,
         "2021": 26079,
@@ -997,8 +997,8 @@
         "Rice"
       ],
       "population2024": 24983,
-      "population2020": 24463,
-      "growthPct": 2.1,
+      "population2020": 24454,
+      "growthPct": 2.2,
       "populationByYear": {
         "2020": 24454,
         "2021": 24454,
@@ -1025,8 +1025,8 @@
         "Dakota"
       ],
       "population2024": 24464,
-      "population2020": 23676,
-      "growthPct": 3.3,
+      "population2020": 23656,
+      "growthPct": 3.4,
       "populationByYear": {
         "2020": 23656,
         "2021": 23709,
@@ -1054,8 +1054,8 @@
         "Washington"
       ],
       "population2024": 23479,
-      "population2020": 24876,
-      "growthPct": -5.6,
+      "population2020": 24790,
+      "growthPct": -5.3,
       "populationByYear": {
         "2020": 24790,
         "2021": 24170,
@@ -1082,8 +1082,8 @@
         "Hennepin"
       ],
       "population2024": 23045,
-      "population2020": 23913,
-      "growthPct": -3.6,
+      "population2020": 23855,
+      "growthPct": -3.4,
       "populationByYear": {
         "2020": 23855,
         "2021": 23454,
@@ -1110,8 +1110,8 @@
         "Anoka"
       ],
       "population2024": 22774,
-      "population2020": 21410,
-      "growthPct": 6.4,
+      "population2020": 21475,
+      "growthPct": 6.0,
       "populationByYear": {
         "2020": 21475,
         "2021": 21885,
@@ -1139,8 +1139,8 @@
         "Washington"
       ],
       "population2024": 22502,
-      "population2020": 22159,
-      "growthPct": 1.5,
+      "population2020": 22156,
+      "growthPct": 1.6,
       "populationByYear": {
         "2020": 22156,
         "2021": 22032,
@@ -1167,8 +1167,8 @@
         "Ramsey"
       ],
       "population2024": 22374,
-      "population2020": 23457,
-      "growthPct": -4.6,
+      "population2020": 23467,
+      "growthPct": -4.7,
       "populationByYear": {
         "2020": 23467,
         "2021": 22926,
@@ -1195,8 +1195,8 @@
         "Anoka"
       ],
       "population2024": 22358,
-      "population2020": 21963,
-      "growthPct": 1.8,
+      "population2020": 21944,
+      "growthPct": 1.9,
       "populationByYear": {
         "2020": 21944,
         "2021": 21874,
@@ -1223,8 +1223,8 @@
         "Hennepin"
       ],
       "population2024": 22082,
-      "population2020": 23328,
-      "growthPct": -5.3,
+      "population2020": 23246,
+      "growthPct": -5.0,
       "populationByYear": {
         "2020": 23246,
         "2021": 22744,
@@ -1251,8 +1251,8 @@
         "Dakota"
       ],
       "population2024": 21920,
-      "population2020": 20600,
-      "growthPct": 6.4,
+      "population2020": 20558,
+      "growthPct": 6.6,
       "populationByYear": {
         "2020": 20558,
         "2021": 20873,
@@ -1280,7 +1280,7 @@
         "Dakota"
       ],
       "population2024": 21316,
-      "population2020": 20815,
+      "population2020": 20820,
       "growthPct": 2.4,
       "populationByYear": {
         "2020": 20820,
@@ -1308,8 +1308,8 @@
         "Hennepin"
       ],
       "population2024": 21263,
-      "population2020": 22556,
-      "growthPct": -5.7,
+      "population2020": 22478,
+      "growthPct": -5.4,
       "populationByYear": {
         "2020": 22478,
         "2021": 21995,
@@ -1336,8 +1336,8 @@
         "Hennepin"
       ],
       "population2024": 20745,
-      "population2020": 21981,
-      "growthPct": -5.6,
+      "population2020": 21906,
+      "growthPct": -5.3,
       "populationByYear": {
         "2020": 21906,
         "2021": 21460,
@@ -1364,8 +1364,8 @@
         "Washington"
       ],
       "population2024": 20700,
-      "population2020": 20612,
-      "growthPct": 0.4,
+      "population2020": 20702,
+      "growthPct": -0.0,
       "populationByYear": {
         "2020": 20702,
         "2021": 20646,
@@ -1392,8 +1392,8 @@
         "Dakota"
       ],
       "population2024": 20590,
-      "population2020": 20757,
-      "growthPct": -0.8,
+      "population2020": 20714,
+      "growthPct": -0.6,
       "populationByYear": {
         "2020": 20714,
         "2021": 20550,
@@ -1420,8 +1420,8 @@
         "Hennepin"
       ],
       "population2024": 19462,
-      "population2020": 19079,
-      "growthPct": 2.0,
+      "population2020": 19009,
+      "growthPct": 2.4,
       "populationByYear": {
         "2020": 19009,
         "2021": 18588,
@@ -1448,8 +1448,8 @@
         "Washington"
       ],
       "population2024": 19386,
-      "population2020": 19383,
-      "growthPct": 0.0,
+      "population2020": 19404,
+      "growthPct": -0.1,
       "populationByYear": {
         "2020": 19404,
         "2021": 19437,
@@ -1476,7 +1476,7 @@
         "Anoka"
       ],
       "population2024": 18068,
-      "population2020": 17915,
+      "population2020": 17902,
       "growthPct": 0.9,
       "populationByYear": {
         "2020": 17902,
@@ -1504,8 +1504,8 @@
         "Anoka"
       ],
       "population2024": 16905,
-      "population2020": 16471,
-      "growthPct": 2.6,
+      "population2020": 16505,
+      "growthPct": 2.4,
       "populationByYear": {
         "2020": 16505,
         "2021": 16645,
@@ -1532,8 +1532,8 @@
         "Washington"
       ],
       "population2024": 16765,
-      "population2020": 15757,
-      "growthPct": 6.4,
+      "population2020": 15808,
+      "growthPct": 6.1,
       "populationByYear": {
         "2020": 15808,
         "2021": 16129,
@@ -1560,8 +1560,8 @@
         "Hennepin"
       ],
       "population2024": 14493,
-      "population2020": 13298,
-      "growthPct": 9.0,
+      "population2020": 13324,
+      "growthPct": 8.8,
       "populationByYear": {
         "2020": 13324,
         "2021": 13383,
@@ -1588,8 +1588,8 @@
         "Washington"
       ],
       "population2024": 14161,
-      "population2020": 11334,
-      "growthPct": 24.9,
+      "population2020": 11351,
+      "growthPct": 24.8,
       "populationByYear": {
         "2020": 11351,
         "2021": 12900,
@@ -1616,8 +1616,8 @@
         "Hennepin"
       ],
       "population2024": 13993,
-      "population2020": 14639,
-      "growthPct": -4.4,
+      "population2020": 14583,
+      "growthPct": -4.0,
       "populationByYear": {
         "2020": 14583,
         "2021": 14267,
@@ -1644,7 +1644,7 @@
         "Carver"
       ],
       "population2024": 13831,
-      "population2020": 13031,
+      "population2020": 13041,
       "growthPct": 6.1,
       "populationByYear": {
         "2020": 13041,
@@ -1672,8 +1672,8 @@
         "Ramsey"
       ],
       "population2024": 13108,
-      "population2020": 12921,
-      "growthPct": 1.4,
+      "population2020": 12962,
+      "growthPct": 1.1,
       "populationByYear": {
         "2020": 12962,
         "2021": 12635,
@@ -1700,8 +1700,8 @@
         "Ramsey"
       ],
       "population2024": 12841,
-      "population2020": 13254,
-      "growthPct": -3.1,
+      "population2020": 13285,
+      "growthPct": -3.3,
       "populationByYear": {
         "2020": 13285,
         "2021": 12954,
@@ -1728,8 +1728,8 @@
         "Ramsey"
       ],
       "population2024": 12644,
-      "population2020": 12365,
-      "growthPct": 2.3,
+      "population2020": 12343,
+      "growthPct": 2.4,
       "populationByYear": {
         "2020": 12343,
         "2021": 12604,
@@ -1756,8 +1756,8 @@
         "Anoka"
       ],
       "population2024": 12288,
-      "population2020": 11784,
-      "growthPct": 4.3,
+      "population2020": 11794,
+      "growthPct": 4.2,
       "populationByYear": {
         "2020": 11794,
         "2021": 12048,
@@ -1784,8 +1784,8 @@
         "Carver"
       ],
       "population2024": 11937,
-      "population2020": 10561,
-      "growthPct": 13.0,
+      "population2020": 10671,
+      "growthPct": 11.9,
       "populationByYear": {
         "2020": 10671,
         "2021": 11065,
@@ -1812,8 +1812,8 @@
         "Dakota"
       ],
       "population2024": 11542,
-      "population2020": 11738,
-      "growthPct": -1.7,
+      "population2020": 11756,
+      "growthPct": -1.8,
       "populationByYear": {
         "2020": 11756,
         "2021": 11676,
@@ -1841,8 +1841,8 @@
         "Wright"
       ],
       "population2024": 10744,
-      "population2020": 7264,
-      "growthPct": 47.9,
+      "population2020": 7434,
+      "growthPct": 44.5,
       "populationByYear": {
         "2020": 7434,
         "2021": 8211,
@@ -1869,8 +1869,8 @@
         "Ramsey"
       ],
       "population2024": 10590,
-      "population2020": 10835,
-      "growthPct": -2.3,
+      "population2020": 10794,
+      "growthPct": -1.9,
       "populationByYear": {
         "2020": 10794,
         "2021": 10526,
@@ -1898,8 +1898,8 @@
         "Ramsey"
       ],
       "population2024": 9993,
-      "population2020": 9264,
-      "growthPct": 7.9,
+      "population2020": 9230,
+      "growthPct": 8.3,
       "populationByYear": {
         "2020": 9230,
         "2021": 9018,
@@ -1926,8 +1926,8 @@
         "Ramsey"
       ],
       "population2024": 9490,
-      "population2020": 9935,
-      "growthPct": -4.5,
+      "population2020": 9906,
+      "growthPct": -4.2,
       "populationByYear": {
         "2020": 9906,
         "2021": 9703,
@@ -1954,8 +1954,8 @@
         "Anoka"
       ],
       "population2024": 9327,
-      "population2020": 8926,
-      "growthPct": 4.5,
+      "population2020": 8950,
+      "growthPct": 4.2,
       "populationByYear": {
         "2020": 8950,
         "2021": 9061,
@@ -1982,8 +1982,8 @@
         "Hennepin"
       ],
       "population2024": 9091,
-      "population2020": 8259,
-      "growthPct": 10.1,
+      "population2020": 8325,
+      "growthPct": 9.2,
       "populationByYear": {
         "2020": 8325,
         "2021": 8536,
@@ -2010,8 +2010,8 @@
         "Hennepin"
       ],
       "population2024": 9031,
-      "population2020": 9397,
-      "growthPct": -3.9,
+      "population2020": 9369,
+      "growthPct": -3.6,
       "populationByYear": {
         "2020": 9369,
         "2021": 9173,
@@ -2039,8 +2039,8 @@
         "Isanti"
       ],
       "population2024": 8523,
-      "population2020": 8140,
-      "growthPct": 4.7,
+      "population2020": 8174,
+      "growthPct": 4.3,
       "populationByYear": {
         "2020": 8174,
         "2021": 8344,
@@ -2067,8 +2067,8 @@
         "Hennepin"
       ],
       "population2024": 8378,
-      "population2020": 6185,
-      "growthPct": 35.5,
+      "population2020": 6265,
+      "growthPct": 33.7,
       "populationByYear": {
         "2020": 6265,
         "2021": 6751,
@@ -2096,8 +2096,8 @@
         "Le Sueur"
       ],
       "population2024": 8235,
-      "population2020": 8168,
-      "growthPct": 0.8,
+      "population2020": 8155,
+      "growthPct": 1.0,
       "populationByYear": {
         "2020": 8155,
         "2021": 8276,
@@ -2124,7 +2124,7 @@
         "Hennepin"
       ],
       "population2024": 8228,
-      "population2020": 8304,
+      "population2020": 8302,
       "growthPct": -0.9,
       "populationByYear": {
         "2020": 8302,
@@ -2152,7 +2152,7 @@
         "Washington"
       ],
       "population2024": 8199,
-      "population2020": 8145,
+      "population2020": 8143,
       "growthPct": 0.7,
       "populationByYear": {
         "2020": 8143,
@@ -2181,7 +2181,7 @@
         "Carver"
       ],
       "population2024": 7557,
-      "population2020": 7779,
+      "population2020": 7783,
       "growthPct": -2.9,
       "populationByYear": {
         "2020": 7783,
@@ -2209,8 +2209,8 @@
         "Scott"
       ],
       "population2024": 7444,
-      "population2020": 7382,
-      "growthPct": 0.8,
+      "population2020": 7368,
+      "growthPct": 1.0,
       "populationByYear": {
         "2020": 7368,
         "2021": 7426,
@@ -2237,8 +2237,8 @@
         "Hennepin"
       ],
       "population2024": 7209,
-      "population2020": 6846,
-      "growthPct": 5.3,
+      "population2020": 6851,
+      "growthPct": 5.2,
       "populationByYear": {
         "2020": 6851,
         "2021": 6809,
@@ -2266,8 +2266,8 @@
         "Ramsey"
       ],
       "population2024": 7083,
-      "population2020": 7189,
-      "growthPct": -1.5,
+      "population2020": 7184,
+      "growthPct": -1.4,
       "populationByYear": {
         "2020": 7184,
         "2021": 7165,
@@ -2294,8 +2294,8 @@
         "Scott"
       ],
       "population2024": 6831,
-      "population2020": 6664,
-      "growthPct": 2.5,
+      "population2020": 6668,
+      "growthPct": 2.4,
       "populationByYear": {
         "2020": 6668,
         "2021": 6792,
@@ -2322,8 +2322,8 @@
         "Carver"
       ],
       "population2024": 6810,
-      "population2020": 5339,
-      "growthPct": 27.6,
+      "population2020": 5437,
+      "growthPct": 25.3,
       "populationByYear": {
         "2020": 5437,
         "2021": 5919,
@@ -2350,8 +2350,8 @@
         "Scott"
       ],
       "population2024": 5589,
-      "population2020": 5507,
-      "growthPct": 1.5,
+      "population2020": 5498,
+      "growthPct": 1.7,
       "populationByYear": {
         "2020": 5498,
         "2021": 5573,
@@ -2378,8 +2378,8 @@
         "Washington"
       ],
       "population2024": 5415,
-      "population2020": 3796,
-      "growthPct": 42.7,
+      "population2020": 3940,
+      "growthPct": 37.4,
       "populationByYear": {
         "2020": 3940,
         "2021": 4328,
@@ -2406,8 +2406,8 @@
         "Washington"
       ],
       "population2024": 5381,
-      "population2020": 5544,
-      "growthPct": -2.9,
+      "population2020": 5545,
+      "growthPct": -3.0,
       "populationByYear": {
         "2020": 5545,
         "2021": 5498,
@@ -2434,8 +2434,8 @@
         "Ramsey"
       ],
       "population2024": 5232,
-      "population2020": 5272,
-      "growthPct": -0.8,
+      "population2020": 5271,
+      "growthPct": -0.7,
       "populationByYear": {
         "2020": 5271,
         "2021": 5169,
@@ -2462,8 +2462,8 @@
         "Scott"
       ],
       "population2024": 5193,
-      "population2020": 4834,
-      "growthPct": 7.4,
+      "population2020": 4822,
+      "growthPct": 7.7,
       "populationByYear": {
         "2020": 4822,
         "2021": 4906,
@@ -2490,8 +2490,8 @@
         "Ramsey"
       ],
       "population2024": 5002,
-      "population2020": 5361,
-      "growthPct": -6.7,
+      "population2020": 5375,
+      "growthPct": -6.9,
       "populationByYear": {
         "2020": 5375,
         "2021": 5241,
@@ -2518,8 +2518,8 @@
         "Anoka"
       ],
       "population2024": 4944,
-      "population2020": 5028,
-      "growthPct": -1.7,
+      "population2020": 5025,
+      "growthPct": -1.6,
       "populationByYear": {
         "2020": 5025,
         "2021": 5010,
@@ -2547,8 +2547,8 @@
         "Hennepin"
       ],
       "population2024": 4796,
-      "population2020": 4496,
-      "growthPct": 6.7,
+      "population2020": 4500,
+      "growthPct": 6.6,
       "populationByYear": {
         "2020": 4500,
         "2021": 4597,
@@ -2575,8 +2575,8 @@
         "Carver"
       ],
       "population2024": 4774,
-      "population2020": 4664,
-      "growthPct": 2.4,
+      "population2020": 4685,
+      "growthPct": 1.9,
       "populationByYear": {
         "2020": 4685,
         "2021": 4819,
@@ -2603,8 +2603,8 @@
         "Washington"
       ],
       "population2024": 4674,
-      "population2020": 4847,
-      "growthPct": -3.6,
+      "population2020": 4843,
+      "growthPct": -3.5,
       "populationByYear": {
         "2020": 4843,
         "2021": 4823,
@@ -2631,7 +2631,7 @@
         "Anoka"
       ],
       "population2024": 4565,
-      "population2020": 4534,
+      "population2020": 4532,
       "growthPct": 0.7,
       "populationByYear": {
         "2020": 4532,
@@ -2659,8 +2659,8 @@
         "Hennepin"
       ],
       "population2024": 4308,
-      "population2020": 4432,
-      "growthPct": -2.8,
+      "population2020": 4420,
+      "growthPct": -2.5,
       "populationByYear": {
         "2020": 4420,
         "2021": 4367,
@@ -2687,8 +2687,8 @@
         "Anoka"
       ],
       "population2024": 4307,
-      "population2020": 4155,
-      "growthPct": 3.7,
+      "population2020": 4174,
+      "growthPct": 3.2,
       "populationByYear": {
         "2020": 4174,
         "2021": 4230,
@@ -2716,8 +2716,8 @@
         "Sibley"
       ],
       "population2024": 4230,
-      "population2020": 4209,
-      "growthPct": 0.5,
+      "population2020": 4201,
+      "growthPct": 0.7,
       "populationByYear": {
         "2020": 4201,
         "2021": 4208,
@@ -2745,8 +2745,8 @@
         "Hennepin"
       ],
       "population2024": 4229,
-      "population2020": 3549,
-      "growthPct": 19.2,
+      "population2020": 3556,
+      "growthPct": 18.9,
       "populationByYear": {
         "2020": 3556,
         "2021": 3599,
@@ -2773,8 +2773,8 @@
         "Anoka"
       ],
       "population2024": 3956,
-      "population2020": 3898,
-      "growthPct": 1.5,
+      "population2020": 3904,
+      "growthPct": 1.3,
       "populationByYear": {
         "2020": 3904,
         "2021": 3951,
@@ -2801,7 +2801,7 @@
         "Washington"
       ],
       "population2024": 3951,
-      "population2020": 3988,
+      "population2020": 3987,
       "growthPct": -0.9,
       "populationByYear": {
         "2020": 3987,
@@ -2829,7 +2829,7 @@
         "Washington"
       ],
       "population2024": 3942,
-      "population2020": 3962,
+      "population2020": 3961,
       "growthPct": -0.5,
       "populationByYear": {
         "2020": 3961,
@@ -2857,8 +2857,8 @@
         "Washington"
       ],
       "population2024": 3785,
-      "population2020": 4017,
-      "growthPct": -5.8,
+      "population2020": 4030,
+      "growthPct": -6.1,
       "populationByYear": {
         "2020": 4030,
         "2021": 4061,
@@ -2885,8 +2885,8 @@
         "Carver"
       ],
       "population2024": 3774,
-      "population2020": 3863,
-      "growthPct": -2.3,
+      "population2020": 3868,
+      "growthPct": -2.4,
       "populationByYear": {
         "2020": 3868,
         "2021": 3908,
@@ -2913,8 +2913,8 @@
         "Hennepin"
       ],
       "population2024": 3762,
-      "population2020": 3885,
-      "growthPct": -3.2,
+      "population2020": 3877,
+      "growthPct": -3.0,
       "populationByYear": {
         "2020": 3877,
         "2021": 3820,
@@ -2941,8 +2941,8 @@
         "Hennepin"
       ],
       "population2024": 3710,
-      "population2020": 3754,
-      "growthPct": -1.2,
+      "population2020": 3749,
+      "growthPct": -1.0,
       "populationByYear": {
         "2020": 3749,
         "2021": 3700,
@@ -2969,8 +2969,8 @@
         "Dakota"
       ],
       "population2024": 3068,
-      "population2020": 3138,
-      "growthPct": -2.2,
+      "population2020": 3132,
+      "growthPct": -2.0,
       "populationByYear": {
         "2020": 3132,
         "2021": 3116,
@@ -2997,7 +2997,7 @@
         "Anoka"
       ],
       "population2024": 3062,
-      "population2020": 2257,
+      "population2020": 2256,
       "growthPct": 35.7,
       "populationByYear": {
         "2020": 2256,
@@ -3025,8 +3025,8 @@
         "Washington"
       ],
       "population2024": 2949,
-      "population2020": 2950,
-      "growthPct": -0.0,
+      "population2020": 2953,
+      "growthPct": -0.1,
       "populationByYear": {
         "2020": 2953,
         "2021": 2949,
@@ -3053,8 +3053,8 @@
         "Hennepin"
       ],
       "population2024": 2908,
-      "population2020": 2904,
-      "growthPct": 0.1,
+      "population2020": 2908,
+      "growthPct": 0.0,
       "populationByYear": {
         "2020": 2908,
         "2021": 2887,
@@ -3081,8 +3081,8 @@
         "Carver"
       ],
       "population2024": 2534,
-      "population2020": 2453,
-      "growthPct": 3.3,
+      "population2020": 2468,
+      "growthPct": 2.7,
       "populationByYear": {
         "2020": 2468,
         "2021": 2552,
@@ -3109,8 +3109,8 @@
         "Hennepin"
       ],
       "population2024": 2526,
-      "population2020": 2683,
-      "growthPct": -5.9,
+      "population2020": 2674,
+      "growthPct": -5.5,
       "populationByYear": {
         "2020": 2674,
         "2021": 2617,
@@ -3137,8 +3137,8 @@
         "Ramsey"
       ],
       "population2024": 2341,
-      "population2020": 2270,
-      "growthPct": 3.1,
+      "population2020": 2262,
+      "growthPct": 3.5,
       "populationByYear": {
         "2020": 2262,
         "2021": 2209,
@@ -3165,8 +3165,8 @@
         "Hennepin"
       ],
       "population2024": 2296,
-      "population2020": 2360,
-      "growthPct": -2.7,
+      "population2020": 2356,
+      "growthPct": -2.5,
       "populationByYear": {
         "2020": 2356,
         "2021": 2325,
@@ -3193,8 +3193,8 @@
         "Hennepin"
       ],
       "population2024": 2169,
-      "population2020": 2305,
-      "growthPct": -5.9,
+      "population2020": 2297,
+      "growthPct": -5.6,
       "populationByYear": {
         "2020": 2297,
         "2021": 2246,
@@ -3221,8 +3221,8 @@
         "Carver"
       ],
       "population2024": 2097,
-      "population2020": 2047,
-      "growthPct": 2.4,
+      "population2020": 2060,
+      "growthPct": 1.8,
       "populationByYear": {
         "2020": 2060,
         "2021": 2078,
@@ -3249,8 +3249,8 @@
         "Hennepin"
       ],
       "population2024": 1937,
-      "population2020": 1746,
-      "growthPct": 10.9,
+      "population2020": 1740,
+      "growthPct": 11.3,
       "populationByYear": {
         "2020": 1740,
         "2021": 1705,
@@ -3305,7 +3305,7 @@
         "Washington"
       ],
       "population2024": 1664,
-      "population2020": 1714,
+      "population2020": 1713,
       "growthPct": -2.9,
       "populationByYear": {
         "2020": 1713,
@@ -3333,8 +3333,8 @@
         "Hennepin"
       ],
       "population2024": 1648,
-      "population2020": 1742,
-      "growthPct": -5.4,
+      "population2020": 1738,
+      "growthPct": -5.2,
       "populationByYear": {
         "2020": 1738,
         "2021": 1707,
@@ -3361,8 +3361,8 @@
         "Hennepin"
       ],
       "population2024": 1641,
-      "population2020": 1736,
-      "growthPct": -5.5,
+      "population2020": 1730,
+      "growthPct": -5.1,
       "populationByYear": {
         "2020": 1730,
         "2021": 1693,
@@ -3389,8 +3389,8 @@
         "Hennepin"
       ],
       "population2024": 1540,
-      "population2020": 1439,
-      "growthPct": 7.0,
+      "population2020": 1434,
+      "growthPct": 7.4,
       "populationByYear": {
         "2020": 1434,
         "2021": 1594,
@@ -3417,8 +3417,8 @@
         "Hennepin"
       ],
       "population2024": 1343,
-      "population2020": 338,
-      "growthPct": 297.3,
+      "population2020": 337,
+      "growthPct": 298.5,
       "populationByYear": {
         "2020": 337,
         "2021": 330,
@@ -3445,7 +3445,7 @@
         "Washington"
       ],
       "population2024": 1147,
-      "population2020": 1171,
+      "population2020": 1170,
       "growthPct": -2.0,
       "populationByYear": {
         "2020": 1170,
@@ -3473,8 +3473,8 @@
         "Washington"
       ],
       "population2024": 1005,
-      "population2020": 1042,
-      "growthPct": -3.6,
+      "population2020": 1041,
+      "growthPct": -3.5,
       "populationByYear": {
         "2020": 1041,
         "2021": 1033,
@@ -3501,8 +3501,8 @@
         "Anoka"
       ],
       "population2024": 956,
-      "population2020": 955,
-      "growthPct": 0.1,
+      "population2020": 954,
+      "growthPct": 0.2,
       "populationByYear": {
         "2020": 954,
         "2021": 957,
@@ -3529,8 +3529,8 @@
         "Washington"
       ],
       "population2024": 843,
-      "population2020": 846,
-      "growthPct": -0.4,
+      "population2020": 845,
+      "growthPct": -0.2,
       "populationByYear": {
         "2020": 845,
         "2021": 847,
@@ -3557,8 +3557,8 @@
         "Washington"
       ],
       "population2024": 838,
-      "population2020": 861,
-      "growthPct": -2.7,
+      "population2020": 860,
+      "growthPct": -2.6,
       "populationByYear": {
         "2020": 860,
         "2021": 856,
@@ -3585,8 +3585,8 @@
         "Dakota"
       ],
       "population2024": 779,
-      "population2020": 807,
-      "growthPct": -3.5,
+      "population2020": 805,
+      "growthPct": -3.2,
       "populationByYear": {
         "2020": 805,
         "2021": 798,
@@ -3613,8 +3613,8 @@
         "Dakota"
       ],
       "population2024": 714,
-      "population2020": 742,
-      "growthPct": -3.8,
+      "population2020": 741,
+      "growthPct": -3.6,
       "populationByYear": {
         "2020": 741,
         "2021": 733,
@@ -3669,8 +3669,8 @@
         "Washington"
       ],
       "population2024": 658,
-      "population2020": 664,
-      "growthPct": -0.9,
+      "population2020": 663,
+      "growthPct": -0.8,
       "populationByYear": {
         "2020": 663,
         "2021": 656,
@@ -3697,8 +3697,8 @@
         "Hennepin"
       ],
       "population2024": 610,
-      "population2020": 644,
-      "growthPct": -5.3,
+      "population2020": 642,
+      "growthPct": -5.0,
       "populationByYear": {
         "2020": 642,
         "2021": 633,
@@ -3725,8 +3725,8 @@
         "Carver"
       ],
       "population2024": 548,
-      "population2020": 566,
-      "growthPct": -3.2,
+      "population2020": 568,
+      "growthPct": -3.5,
       "populationByYear": {
         "2020": 568,
         "2021": 570,
@@ -3753,8 +3753,8 @@
         "Hennepin"
       ],
       "population2024": 537,
-      "population2020": 545,
-      "growthPct": -1.5,
+      "population2020": 546,
+      "growthPct": -1.6,
       "populationByYear": {
         "2020": 546,
         "2021": 539,
@@ -3781,8 +3781,8 @@
         "Dakota"
       ],
       "population2024": 522,
-      "population2020": 523,
-      "growthPct": -0.2,
+      "population2020": 525,
+      "growthPct": -0.6,
       "populationByYear": {
         "2020": 525,
         "2021": 524,
@@ -3809,8 +3809,8 @@
         "Ramsey"
       ],
       "population2024": 515,
-      "population2020": 525,
-      "growthPct": -1.9,
+      "population2020": 533,
+      "growthPct": -3.4,
       "populationByYear": {
         "2020": 533,
         "2021": 530,
@@ -3837,8 +3837,8 @@
         "Washington"
       ],
       "population2024": 512,
-      "population2020": 520,
-      "growthPct": -1.5,
+      "population2020": 519,
+      "growthPct": -1.3,
       "populationByYear": {
         "2020": 519,
         "2021": 520,
@@ -3893,8 +3893,8 @@
         "Dakota"
       ],
       "population2024": 458,
-      "population2020": 465,
-      "growthPct": -1.5,
+      "population2020": 464,
+      "growthPct": -1.3,
       "populationByYear": {
         "2020": 464,
         "2021": 463,
@@ -3949,8 +3949,8 @@
         "Dakota"
       ],
       "population2024": 429,
-      "population2020": 446,
-      "growthPct": -3.8,
+      "population2020": 445,
+      "growthPct": -3.6,
       "populationByYear": {
         "2020": 445,
         "2021": 442,
@@ -4005,8 +4005,8 @@
         "Hennepin"
       ],
       "population2024": 377,
-      "population2020": 381,
-      "growthPct": -1.0,
+      "population2020": 382,
+      "growthPct": -1.3,
       "populationByYear": {
         "2020": 382,
         "2021": 386,
