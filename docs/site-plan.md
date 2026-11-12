@@ -70,7 +70,7 @@ _Status: Step 3 — home page approved 2026-09-26; Buy, Sell, Invest, Ramsey ELP
 **Step 2 approved.** Jason's answers:
 - Skyline photo: source a free-license stock photo (Unsplash candidates: `HkIS3OvACYM` aerial daytime, `yLUM5exvsMA` night, `xEvtxQrmh-s` fog). Confirm the free Unsplash License (not Unsplash+) before using.
 - Team: pull the full roster (names, titles, photos, bios) from huerkamphomegroup.com/team-page.
-- Reviews: use real, verbatim reviews from Google and Zillow (Huerkamp Home Group). Never paraphrase or invent reviews.
+- Reviews: use real, verbatim reviews from Google and Zillow (Huerkamp Home Group). Never paraphrase or invent reviews. The one allowed edit: a misspelled team name is corrected in square brackets, e.g. "[Huerkamp]" (Jason, Nov 12, 2026), so the change shows.
 
 **Team found so far via search (incomplete, since the team is 26–38 people):**
 
