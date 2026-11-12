@@ -1,6 +1,6 @@
 ---
-title: "What Is A Comparative Market Analysis And How Can It Help You Sell Your Home?"
-description: "When you're trying to sell your home, you have to be extra mindful about how you price it. Whether done intentionally or not, overpricing your home is a…"
+title: "What Is a CMA? How a Comparative Market Analysis Prices Your Home"
+description: "A comparative market analysis (CMA) prices your home from recent nearby sales. What goes into one, how agents use it, and why it keeps you from overpricing when you sell."
 path: "2022/10/27/what-is-a-comparative-market-analysis-and-how-can-it-help-you-sell-your-home"
 date: 2018-08-02
 updated: 2022-10-27

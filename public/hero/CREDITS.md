@@ -15,6 +15,8 @@
 - What: an aerial from the team's own listing MLS 7109462 (photo 23 of the listing): Minneapolis neighborhoods out to
   the downtown skyline. Jason chose it Nov 12, 2026 from mockups (it replaced the Lakeville twilight photo, MLS 7115021,
   used Nov 11 only).
+- Processing (Nov 12, 2026, at Jason's request): enlarged 2x (EDSR), haze removed (dark-channel dehaze on the land only,
+  sky kept smooth), light local contrast and sharpening. Source script in the session notes, not in the repo.
 - Made from the MLS copy (1600 px): enlarged 2x with the EDSR super-resolution model (OpenCV dnn_superres), lightly
   sharpened, the top of the sky trimmed; sizes 640-2560 px.
 - To do (Jason): confirm with the listing photographer that the team may use it as the website's main image, and ask

@@ -473,9 +473,9 @@ const ld = JSON.stringify({
   .valuespot__form input { min-width: 0; padding: .9rem 1rem; border: 0; border-radius: 6px; background: #fff; color: #1b1819; font: 500 1rem/1.2 var(--ui); }
   /* Richer color on the skyline photo (Jason, Nov 2026): bluer sky, warmer brick, greener trees. */
   /* A light color lift only: the twilight photo is already rich, and a strong filter brings out its grain (Nov 11, 2026). */
-  .hero__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 66% 30%; filter: saturate(1.08) contrast(1.03); }
+  .hero__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 66% 30%; }
   /* A light, even wash: the photo reads about as bright on the left as on the right; the text gets its contrast from its own shadow. */
-  .hero__shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(21,18,19,.28) 0%, rgba(21,18,19,.12) 45%, rgba(21,18,19,.05) 75%); }
+  .hero__shade { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(21,18,19,.35) 0%, rgba(21,18,19,0) 40%), linear-gradient(90deg, rgba(21,18,19,.45) 0%, rgba(21,18,19,.22) 45%, rgba(21,18,19,.04) 75%); }
   .hero__inner { position: relative; z-index: 3; width: 100%; padding-block: clamp(2.5rem, 5vw, 3.5rem); }
   .hero__copy { display: grid; gap: 1.15rem; justify-items: start; max-width: 44rem; text-shadow: 0 1px 3px rgba(0, 0, 0, .55), 0 2px 22px rgba(0, 0, 0, .55); }
   /* Brand line: white at twice the usual eyebrow size (Jason, Nov 2026); a dark shadow keeps it readable on the photo. */

@@ -1,6 +1,6 @@
 ---
-title: "Burnsville Center Food Hall Opening: Delays and What's Open"
-description: "Burnsville Center food hall opening remains delayed as nearby restaurants welcome diners. Explore Ate Ate Ate's timeline and what's already open."
+title: "Burnsville Center Food Hall & Enson Market: Opening Date Status"
+description: "Ate Ate Ate and Enson Market, the Asian supermarket at Burnsville Center: every opening date promised since 2023, where things stood in the latest reporting, and what's already open at the mall."
 path: "burnsville-center-is-coming-back-its-most-hyped-tenant-still-isnt-open"
 date: 2026-09-17
 author: "Huerkamp Home Group"
