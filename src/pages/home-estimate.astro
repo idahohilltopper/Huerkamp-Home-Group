@@ -1,7 +1,11 @@
 ---
-// "What's my home worth?" Instant estimate: the visitor describes their home and leaves their contact details (a
-// "Home value request" lead in Follow Up Boss, like /sell#value), then sees a price range from recent sales nearby
-// (netlify/functions/estimate.mjs, src/lib/estimate.mjs). It's an ESTIMATE, never an appraisal, CMA or home
+// "What's my home worth?" Instant estimate, in two steps (Nov 12, 2026, after the site audit: "instant" has to mean
+// instant, and paid ads land here):
+//  1. The visitor describes their home and sees the price range right away (netlify/functions/estimate.mjs,
+//     src/lib/estimate.mjs). No contact details needed.
+//  2. Name, email and phone (all required, like every home value form) unlock the full report: the recent sales behind
+//     the number, an emailed copy and an agent's exact value. That's the "Home value request" lead in Follow Up Boss,
+//     carrying the home's details from step 1. It's an ESTIMATE, never an appraisal, CMA or home
 // valuation; the sales shown follow the NorthstarMLS sold rules (src/lib/sold.mjs) and appear only after I AGREE.
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
@@ -14,7 +18,7 @@ import { SOLD_DISCLAIMER } from '../lib/sold.mjs';
   <PageHero eyebrow="Sell" title="What's my home worth?" lede="Get an instant price range from homes like yours that sold nearby. Then one of our agents can fine-tune it for your home's updates and condition, free." />
   <section class="section">
     <div class="wrap est">
-      <form class="form est__form" data-lead="home-value" data-estimate-form>
+      <form class="form est__form" data-estimate-form>
         <h2>Tell us about your home</h2>
         <div class="field"><label for="es-address">Street address</label><input id="es-address" name="address" autocomplete="street-address" required /></div>
         <div class="form__row">
@@ -26,27 +30,35 @@ import { SOLD_DISCLAIMER } from '../lib/sold.mjs';
           <div class="field"><label for="es-baths">Bathrooms</label><select id="es-baths" name="baths">{[1, 1.5, 2, 2.5, 3, 3.5, 4].map((n) => <option selected={n === 2}>{n === 4 ? '4+' : n}</option>)}</select></div>
           <div class="field"><label for="es-sqft">Finished sq ft (optional)</label><input id="es-sqft" name="sqft" inputmode="numeric" placeholder="e.g. 1,850" /></div>
         </div>
-        <h3>Where should we send it?</h3>
-        <div class="form__row">
-          <div class="field"><label for="es-first">First name</label><input id="es-first" name="firstName" autocomplete="given-name" required /></div>
-          <div class="field"><label for="es-last">Last name</label><input id="es-last" name="lastName" autocomplete="family-name" required /></div>
-        </div>
-        <div class="form__row">
-          <div class="field"><label for="es-email">Email</label><input id="es-email" name="email" type="email" autocomplete="email" required /></div>
-          <div class="field"><label for="es-phone">Phone</label><input id="es-phone" name="phone" type="tel" autocomplete="tel" required pattern="[^0-9]*([0-9][^0-9]*){10,}" title="Please enter your phone number, including area code." /></div>
-        </div>
-        <div class="field">
-          <label for="es-timeline">When might you sell?</label>
-          <select id="es-timeline" name="timeline"><option value="">Choose one</option><option>Within 3 months</option><option>3 to 6 months</option><option>6 to 12 months</option><option>Just curious</option></select>
-        </div>
         <button class="btn" type="submit">See my home's estimate</button>
-        <p class="form__status" role="status" aria-live="polite"></p>
+        <p class="est__free">Free, no sign-up needed to see your range.</p>
       </form>
 
       <div class="est__result" data-est-result data-br-thumb={BR_THUMB ?? undefined} hidden>
         <div data-idx>
           <div data-est-out><p>Working out your estimate…</p></div>
+          <div class="est__comps" data-est-comps hidden></div>
         </div>
+        <form class="form est__lead" data-lead="home-value" data-est-lead hidden>
+          <h3>Get the full report, free</h3>
+          <p>See the recent sales behind this number, get a copy by email, and have one of our agents send you an exact value for your home's updates and condition. No obligation.</p>
+          <input type="hidden" name="address" /><input type="hidden" name="zip" /><input type="hidden" name="homeType" />
+          <input type="hidden" name="beds" /><input type="hidden" name="baths" /><input type="hidden" name="sqft" />
+          <div class="form__row">
+            <div class="field"><label for="es-first">First name</label><input id="es-first" name="firstName" autocomplete="given-name" required /></div>
+            <div class="field"><label for="es-last">Last name</label><input id="es-last" name="lastName" autocomplete="family-name" required /></div>
+          </div>
+          <div class="form__row">
+            <div class="field"><label for="es-email">Email</label><input id="es-email" name="email" type="email" autocomplete="email" required /></div>
+            <div class="field"><label for="es-phone">Phone</label><input id="es-phone" name="phone" type="tel" autocomplete="tel" required pattern="[^0-9]*([0-9][^0-9]*){10,}" title="Please enter your phone number, including area code." /></div>
+          </div>
+          <div class="field">
+            <label for="es-timeline">When might you sell?</label>
+            <select id="es-timeline" name="timeline"><option value="">Choose one</option><option>Within 3 months</option><option>3 to 6 months</option><option>6 to 12 months</option><option>Just curious</option></select>
+          </div>
+          <button class="btn" type="submit">Send me the full report</button>
+          <p class="form__status" role="status" aria-live="polite"></p>
+        </form>
         <p class="est__note">{SOLD_DISCLAIMER} This is an automated estimate from recent sales nearby. It can't see your home's condition, updates or lot, so the real value can be higher or lower. For a value you can plan around, one of our agents will compare your home with the right sales and walk through it with you, free and with no obligation.</p>
         <p><a class="btn" href={site.phoneHref}>Call or text {site.phone}</a> <a class="btn btn--ghost" href="/calculators/seller-net-proceeds">What would I walk away with?</a></p>
         <IdxDisclosure />
@@ -56,7 +68,7 @@ import { SOLD_DISCLAIMER } from '../lib/sold.mjs';
 </Base>
 
 <script>
-  // After the lead is sent (src/layouts/Base.astro fires 'lead-sent'), ask for the estimate and show it.
+  // Step 1 (the home's details) shows the range right away; step 2 (the lead form) unlocks the sales behind it.
   const form = document.querySelector<HTMLFormElement>('[data-estimate-form]')!;
   // Arrived from the home page spotlight (/home-estimate?address=&zip=): fill those in and start at the next box.
   const q = new URLSearchParams(location.search);
@@ -77,32 +89,56 @@ import { SOLD_DISCLAIMER } from '../lib/sold.mjs';
     return `<li class="est-comp">${c.photo ? `<img class="est-comp__photo" src="${esc(c.photo)}?class=small" alt="${esc(addr)}" width="240" height="160" loading="lazy" />` : '<span class="est-comp__photo est-comp__none">No photo</span>'}`
       + `<strong>${money(c.soldPrice)}</strong><span>Sold ${esc(soldOn(c.soldDate))}</span><span>${esc(addr)}</span><small>${by}</small></li>`;
   };
+  const lead = document.querySelector<HTMLFormElement>('[data-est-lead]')!;
+  const compsBox = box.querySelector<HTMLElement>('[data-est-comps]')!;
+  let last: { f: Record<string, string>; a: any } | null = null;
   async function show(f: Record<string, string>) {
     box.hidden = false;
+    out.innerHTML = '<p>Working out your estimate…</p>';
+    compsBox.hidden = true; compsBox.innerHTML = '';
     box.scrollIntoView({ behavior: 'smooth', block: 'start' });
     const r = await fetch('/api/estimate', { method: 'POST', headers: { 'content-type': 'application/json', 'x-idx-eula': 'agreed' },
       body: JSON.stringify({ zip: f.zip, type: f.homeType, beds: f.beds, baths: f.baths, sqft: f.sqft }) }).catch(() => null);
     const a = r ? await r.json().catch(() => ({})) : {};
-    const mailed = f.email ? `<p class="est__mailed">We're also emailing this to ${esc(f.email)}.</p>` : '';
+    last = { f, a };
+    // The lead form carries the home's details, so the agent (and the emailed copy) know which home it is.
+    for (const k of ['address', 'zip', 'homeType', 'beds', 'baths', 'sqft']) { const el = lead.elements.namedItem(k) as HTMLInputElement | null; if (el) el.value = f[k] ?? ''; }
+    lead.hidden = false;
+    const h = lead.querySelector('h3')!, intro = lead.querySelector('h3 + p')!;
     if (!a.ok) {
       out.innerHTML = a.error === 'not-enough-sales'
-        ? `<h2>We'll prepare your value by hand</h2><p>There haven't been enough recent sales of homes like yours in ${esc(f.zip)} for an instant estimate. We got your details, and one of our agents will send you a value based on the best comparable sales.</p>${mailed}`
-        : `<h2>We got your request</h2><p>The instant estimate isn't available right now, but one of our agents will send you a value for your home shortly.</p>${mailed}`;
+        ? `<h2>Your home needs a closer look</h2><p>There haven't been enough recent sales of homes like yours in ${esc(f.zip)} for an instant estimate. Leave your details and one of our agents will send you a value based on the best comparable sales, free.</p>`
+        : `<h2>The instant estimate isn't available right now</h2><p>Leave your details and one of our agents will send you a value for your home shortly, free.</p>`;
+      h.textContent = 'Get your home\'s value from an agent';
+      intro.textContent = 'We\'ll compare your home with the right recent sales and send you a value. No obligation.';
       return;
     }
     out.innerHTML = `<p class="eyebrow">Instant estimate for ${esc(f.address)}</p>`
       + `<p class="est__range">${money(a.low)} – ${money(a.high)}</p>`
       + `<p class="est__mid">Middle of the range: <strong>${money(a.mid)}</strong></p>`
-      + `<p>Based on ${a.n} similar homes that sold in ZIP ${esc(a.zip)} in the last ${a.months} months, using their ${esc(a.method)}${a.method === 'price per square foot' ? ` and your ${Number(String(f.sqft).replace(/\D/g, '')).toLocaleString('en-US')} square feet` : ''}.</p>`
-      + mailed
-      + `<h3>Recent sales we used</h3><ul class="est-comps">${(a.comps ?? []).map(comp).join('')}</ul>`;
+      + `<p>Based on ${a.n} similar homes that sold in ZIP ${esc(a.zip)} in the last ${a.months} months, using their ${esc(a.method)}${a.method === 'price per square foot' ? ` and your ${Number(String(f.sqft).replace(/\D/g, '')).toLocaleString('en-US')} square feet` : ''}.</p>`;
+    h.textContent = `See the ${a.n} sales behind this number`;
   }
+  function unlock(fields: Record<string, string>) {
+    lead.hidden = true;
+    const mailed = fields.email ? `We're emailing your report to ${esc(fields.email)}, and an agent will be in touch with an exact value.` : '';
+    const a = last?.a;
+    compsBox.innerHTML = a?.ok
+      ? `<p class="est__mailed">${mailed}</p><h3>Recent sales we used</h3><ul class="est-comps">${(a.comps ?? []).map(comp).join('')}</ul>`
+      : `<p class="est__mailed">Thank you! ${mailed}</p>`;
+    compsBox.hidden = false;
+    compsBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const f = Object.fromEntries(new FormData(form)) as Record<string, string>;
+    // Sold data shows only after I AGREE (the license gate covers the result until then).
+    if (document.documentElement.classList.contains('idx-ok')) show(f);
+    else { box.hidden = false; box.scrollIntoView({ behavior: 'smooth', block: 'start' }); window.addEventListener('idx-agreed', () => show(f), { once: true }); }
+  });
   window.addEventListener('lead-sent', (e: Event) => {
     const { el, fields } = (e as CustomEvent).detail ?? {};
-    if (el !== form) return;
-    // Sold data shows only after I AGREE (the license gate covers the result until then).
-    if (document.documentElement.classList.contains('idx-ok')) show(fields);
-    else { box.hidden = false; window.addEventListener('idx-agreed', () => show(fields), { once: true }); }
+    if (el === lead) unlock(fields ?? {});
   });
 </script>
 
@@ -115,6 +151,9 @@ import { SOLD_DISCLAIMER } from '../lib/sold.mjs';
   .est__result :global(.est__range) { margin: .25rem 0; font: 600 clamp(2rem, 6vw, 3rem)/1.1 var(--serif); color: var(--crimson); }
   .est__result :global(.est__mid) { margin: 0 0 1rem; font-size: 1.1rem; }
   .est__note { font-size: .95rem; color: var(--text-soft); }
+  .est__free { margin: .5rem 0 0; font-size: .95rem; color: var(--text-soft); }
+  .est__lead { margin: 1.5rem 0; padding: 1.25rem; border: 2px solid var(--crimson); background: #fff; }
+  .est__lead h3 { margin: 0 0 .35rem; font-size: 1.3rem; }
   .est__result :global(.est-comps) { list-style: none; margin: 1rem 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr)); gap: 1rem; }
   .est__result :global(.est-comp) { display: grid; gap: .2rem; font-size: .92rem; }
   .est__result :global(.est-comp__photo) { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 6px; background: var(--sand); display: grid; place-items: center; color: var(--text-soft); }

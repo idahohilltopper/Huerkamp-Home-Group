@@ -38,7 +38,7 @@ const topCities = Object.entries(closings.cities as Record<string, { n: number; 
         </div>
         <div class="form__row">
           <div class="field"><label for="val-email">Email</label><input id="val-email" name="email" type="email" autocomplete="email" required /></div>
-          <div class="field"><label for="val-phone">Phone</label><input id="val-phone" name="phone" type="tel" autocomplete="tel" /></div>
+          <div class="field"><label for="val-phone">Phone</label><input id="val-phone" name="phone" type="tel" autocomplete="tel" required pattern="[^0-9]*([0-9][^0-9]*){10,}" title="Please enter your phone number, including area code." /></div>
         </div>
         <div class="field">
           <label for="val-timeline">When might you sell?</label>

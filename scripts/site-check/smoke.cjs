@@ -298,12 +298,22 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
   });
   await step('Instant home estimate', async () => {
     await p.goto(BASE + '/home-estimate?address=17000+Kenwood+Trail%2C+Lakeville&zip=55044', { waitUntil: 'domcontentloaded' });
+    // Step 1: the home's details show the range with no contact details (Nov 12, 2026).
     const f = p.locator('[data-estimate-form]');
-    for (const [n, v] of [['firstName', 'Test'], ['lastName', 'Smoke'], ['email', 'smoke@example.com'], ['phone', '6125550100'], ['sqft', '2000']]) await f.locator(`[name=${n}]`).fill(v);
+    await f.locator('[name=sqft]').fill('2000');
     await f.locator('[name=beds]').selectOption({ index: 3 }).catch(() => {});
     await f.locator('button[type=submit]').click();
     await p.waitForSelector('.est__range', { timeout: 30000 });
-    ok('Instant home estimate', true, (await p.textContent('.est__range')).trim());
+    const range = (await p.textContent('.est__range')).trim();
+    // Step 2: name, email and phone unlock the sales behind the number (the lead is intercepted, never sent).
+    const lead = p.locator('[data-est-lead]');
+    await lead.waitFor({ state: 'visible', timeout: 10000 });
+    for (const [n, v] of [['firstName', 'Test'], ['lastName', 'Smoke'], ['email', 'smoke@example.com'], ['phone', '6125550100']]) await lead.locator(`[name=${n}]`).fill(v);
+    if ((await lead.locator('[name=address]').inputValue()) !== '17000 Kenwood Trail, Lakeville') throw new Error('the lead form did not carry the address');
+    await lead.locator('button[type=submit]').click();
+    await p.waitForSelector('[data-est-comps]:not([hidden]) .est__mailed', { timeout: 15000 });
+    const comps = await p.locator('.est-comp').count();
+    ok('Instant home estimate', comps > 0, `${range}; full report showed ${comps} sales`);
   });
   for (const [path, form] of [['/contact', 'contact'], ['/cash-offer', 'cash-offer'], ['/expired-listing', 'expired'], ['/sell', null],
     // Lead forms added 2026-11-07/08: lake report, new construction (hub and a builder page), land, hobby farms, first-time buyer.
