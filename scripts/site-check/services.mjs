@@ -57,7 +57,7 @@ await check('Lead form endpoint', async () => {
 await check('Visitor errors (last hour)', async () => {
   const a = await (await get(`${SITE}/api/client-error?hours=1`)).r.json();
   // Not errors: the backup map doing its job, a page reloading itself after a deploy, browser-extension noise.
-  const real = (a.errors ?? []).filter((g) => !['map-flat', 'stale'].includes(g.kind) && !/MetaMask|ethereum|web3/i.test(g.msg));
+  const real = (a.errors ?? []).filter((g) => !['map-flat', 'stale'].includes(g.kind) && !/MetaMask|ethereum|web3|_AutofillCallbackHandler/i.test(g.msg));
   const n = real.reduce((s, g) => s + g.count, 0);
   ok('Visitor errors (last hour)', n <= 10, `${n} in the last hour${real.length ? `: ${real.slice(0, 3).map((g) => `${g.count}× "${g.msg.slice(0, 60)}" on ${g.page}`).join(' | ')}` : ''}`);
 });
