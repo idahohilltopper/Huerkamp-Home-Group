@@ -12,6 +12,7 @@ import { communities } from '../../data/areas';
 import team from '../../data/team.json';
 import { site } from '../../data/site';
 import { listingsData, homesHref } from '../../data/listings';
+import CityAlert from '../../components/CityAlert.astro';
 
 export async function getStaticPaths() {
   const posts = await getPosts();
@@ -96,6 +97,12 @@ const ld = JSON.stringify({
     <div class="post__body wrap">
       <Content />
     </div>
+
+    {/* New-listing sign-up after every post (Jason, Nov 11, 2026: more sign-ups from the blog's search traffic): the post's
+        town when it has one, else the whole Twin Cities (a Follow Up Boss lead only, no saved search). */}
+    {places[0]
+      ? <CityAlert name={places[0].name} place={places[0].slug} id="pa" why={`Reading about ${places[0].name}? Tell us what you're looking for and we'll email matching ${places[0].name} homes as soon as they hit the market.`} />
+      : <CityAlert name="Twin Cities" place="" id="pa" why="Thinking about a move? Tell us the area and price range you have in mind and we'll email matching homes as soon as they hit the market." />}
 
     <aside class="wrap post__aside" aria-label="About the author and next steps">
       {places.length > 0 && (

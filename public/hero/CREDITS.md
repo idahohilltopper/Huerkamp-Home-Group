@@ -8,13 +8,14 @@
 - Requirement: visible credit to the photographer with a link to the license and source (done in the site footer).
 - Changes: power lines removed and resized. The unaltered 3840-pixel rendering from Wikimedia is kept at `photos/minneapolis-skyline-3840-original.jpg`; `scripts/remove-power-lines.py` removes the wires to make `minneapolis-skyline-3840.jpg`, and scripts/make-hero.py makes the site sizes.
 
-# Home page photo (since Nov 11, 2026)
+# Home page photo (since Nov 12, 2026)
 
-- File: `home-twilight-*`, used on the home page (src/pages/index.astro); the skyline above is still used elsewhere
-  (src/components/Skyline.astro).
-- What: the team's own listing at 18004 Jacquard Path, Lakeville (MLS 7115021), at twilight, from the listing's MLS
-  photos (1600 px, the largest the MLS keeps). Jason chose it Nov 11, 2026 from a set of mockups.
-- To do (Jason): confirm with the listing photographer that the team may use it as the website's main image, ask for
-  the full-size original (replace these files with it), and ask the sellers once it has closed.
-- Nov 11, 2026: enlarged 2x (3200 px) with the EDSR super-resolution model (OpenCV dnn_superres), lightly sharpened, and the
-  house number blurred; sizes 640-2560 px. Replace with the photographer's full-size original when Jason has it.
+- File: `home-skyline-aerial-*`, used on the home page (src/pages/index.astro); the skyline photo above is still used
+  elsewhere (src/components/Skyline.astro).
+- What: an aerial from the team's own listing MLS 7109462 (photo 23 of the listing): Minneapolis neighborhoods out to
+  the downtown skyline. Jason chose it Nov 12, 2026 from mockups (it replaced the Lakeville twilight photo, MLS 7115021,
+  used Nov 11 only).
+- Made from the MLS copy (1600 px): enlarged 2x with the EDSR super-resolution model (OpenCV dnn_superres), lightly
+  sharpened, the top of the sky trimmed; sizes 640-2560 px.
+- To do (Jason): confirm with the listing photographer that the team may use it as the website's main image, and ask
+  for the full-size original (replace these files with it).

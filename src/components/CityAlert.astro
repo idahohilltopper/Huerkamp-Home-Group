@@ -2,7 +2,8 @@
 // "Get new <city> listings" sign-up plus a home value link, for pages that bring in visitors who aren't looking at homes
 // yet (ZIP code and commute pages). The same lead form as the homes-for-sale pages (data-lead="community-alert"):
 // Follow Up Boss gets the lead, and with the site's own MLS search on, Repliers emails matching new homes for the city.
-// Base.astro adds the call/text consent box and sends the form.
+// Base.astro adds the call/text consent box and sends the form. With no `place` (blog posts about no one town) it asks
+// for the area instead, and only Follow Up Boss gets the request (no saved search).
 import { OWN } from '../data/search';
 import { site } from '../data/site';
 interface Props { name: string; place: string; id: string; why?: string }
@@ -17,9 +18,10 @@ const { name, place, id, why } = Astro.props;
       <p class="alert__own">Own a home here? <a href="/home-estimate">See what it's worth</a>, an instant estimate from recent sales nearby.</p>
       <p><a href={site.phoneHref}>{site.phone}</a></p>
     </div>
-    <form class="form" data-lead="community-alert" data-alert-query={OWN ? JSON.stringify({ place }) : undefined} data-alert-name={`${name} homes for sale`}>
+    <form class="form" data-lead="community-alert" data-alert-query={OWN && place ? JSON.stringify({ place }) : undefined} data-alert-name={`${name} homes for sale`}>
       <input type="hidden" name="community" value={name} />
-      {OWN && <div class="field"><label for={`${id}-freq`}>Email me new homes</label><select id={`${id}-freq`} name="alertFrequency"><option value="instant">As soon as they’re listed</option><option value="daily" selected>Once a day</option><option value="weekly">Once a week</option></select></div>}
+      {!place && <div class="field"><label for={`${id}-msg`}>Area and price range (optional)</label><input id={`${id}-msg`} name="message" /></div>}
+      {OWN && place && <div class="field"><label for={`${id}-freq`}>Email me new homes</label><select id={`${id}-freq`} name="alertFrequency"><option value="instant">As soon as they’re listed</option><option value="daily" selected>Once a day</option><option value="weekly">Once a week</option></select></div>}
       <div class="form__row">
         <div class="field"><label for={`${id}-first`}>First name</label><input id={`${id}-first`} name="firstName" autocomplete="given-name" required /></div>
         <div class="field"><label for={`${id}-last`}>Last name</label><input id={`${id}-last`} name="lastName" autocomplete="family-name" required /></div>

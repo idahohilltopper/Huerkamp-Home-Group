@@ -144,6 +144,15 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     const back = await p.locator('#alerts form[data-lead="community-alert"]').count();
     ok('Map search: Save search popup', back === 1 && /lakeville/i.test(summary), `popup showed "${summary.trim().slice(0, 60)}"; form back in place: ${back === 1}`);
   });
+  // Blog posts end with a new-listing sign-up (Nov 11, 2026): the story's town, or the whole Twin Cities.
+  await step('Blog post: listing sign-up', async () => {
+    await p.goto(BASE + '/blog/campbell-shores-prior-lake-new-homes-campbell-lake', { waitUntil: 'domcontentloaded' });
+    const town = await p.$eval('form[data-lead="community-alert"]', (f) => ({ q: f.dataset.alertQuery ?? '', consent: !!f.querySelector('[name=smsConsent]') })).catch(() => null);
+    await p.goto(BASE + '/blog/best-time-to-sell-a-house-in-minnesota', { waitUntil: 'domcontentloaded' });
+    const general = await p.$eval('form[data-lead="community-alert"]', (f) => ({ q: f.dataset.alertQuery ?? '', area: !!f.querySelector('[name=message]') })).catch(() => null);
+    ok('Blog post: listing sign-up', !!town && /prior-lake/.test(town.q) && town.consent && !!general && !general.q && general.area,
+      `local story: ${town ? `saved search ${town.q}` : 'no form'}; general post: ${general ? (general.area ? 'asks for the area' : 'form without area') : 'no form'}`);
+  });
   // Sign-up popup (Jason, Nov 11, 2026): name, email, phone and the Privacy Policy box are required; the call/text
   // consent box is optional and unchecked (TCPA). Checked in the page itself; nothing is sent.
   await step('Sign-up form: required fields', async () => {
