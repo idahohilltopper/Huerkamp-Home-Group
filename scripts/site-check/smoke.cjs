@@ -397,14 +397,16 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     const ids = [];
     c4.on('request', (r) => { const u = r.url(); if (/facebook\.com\/tr/.test(u)) { const q = new URL(u).searchParams; hits.push(q.get('ev')); if (q.get('ev') === 'ViewContent' && q.get('cd[content_ids]')) ids.push(q.get('cd[content_ids]')); } });
     const m = await c4.newPage();
-    await m.goto(BASE + '/sell', { waitUntil: 'load' });
+    // 'domcontentloaded', not 'load': 'load' also waits for Meta's own script, which sometimes answers the test machine
+    // slowly (two 30 s timeouts on Nov 12, 2026); the loops below wait for the events themselves.
+    await m.goto(BASE + '/sell', { waitUntil: 'domcontentloaded' });
     for (let t = 0; t < 20 && !hits.includes('PageView'); t++) await m.waitForTimeout(500);
     await m.evaluate(() => window.dispatchEvent(new CustomEvent('lead-sent', { detail: { form: 'home-value', fields: {} } })));
     for (let t = 0; t < 12 && !hits.includes('Lead'); t++) await m.waitForTimeout(500);
     // Retargeting (Nov 11, 2026): a home page sends ViewContent with the home's MLS number as the catalog id.
     await m.goto(BASE + '/homes-for-sale/minneapolis', { waitUntil: 'domcontentloaded' });
     const href = await m.getAttribute('a[href^="/homes/"]:not([href^="/homes/listing"])', 'href').catch(() => null);
-    if (href) await m.goto(BASE + href, { waitUntil: 'load' });
+    if (href) await m.goto(BASE + href, { waitUntil: 'domcontentloaded' });
     for (let t = 0; href && t < 20 && !ids.length; t++) await m.waitForTimeout(500);
     const feed = await m.request.get(BASE + '/feeds/meta-home-listings.csv');
     const csv = feed.ok() ? await feed.text() : '';
