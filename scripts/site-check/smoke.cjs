@@ -331,6 +331,29 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
       ok(`Form ${path}`, leads.length > before, (await f.locator('.form__status').textContent().catch(() => '')).trim().slice(0, 60));
     });
   }
+  // Open house sign-in (Jlopo, Nov 13, 2026): a tablet page for a team listing, no site menus, the lead goes to the host,
+  // and the page forgets the visitor before the next one signs in.
+  await step('Open house sign-in', async () => {
+    const list = await (await p.request.get(BASE + '/feeds/team-listings.json')).json();
+    const home = list.homes?.[0];
+    if (!home) throw new Error('no team listings in /feeds/team-listings.json');
+    const host = list.agents?.[0]?.slug;
+    await p.goto(BASE + new URL(home.signIn).pathname + `?host=${host}`, { waitUntil: 'domcontentloaded' });
+    if (await p.locator('header.nav').isVisible().catch(() => false)) throw new Error('the site menu shows on the tablet page');
+    const f = p.locator('form[data-lead="open-house"]');
+    for (const [n, v] of [['firstName', 'Test'], ['lastName', 'Smoke'], ['email', 'smoke@example.com'], ['phone', '6125550100']]) await f.locator(`[name=${n}]`).fill(v);
+    await f.locator('[name=hasAgent]').selectOption('No');
+    if (await f.locator('[name=smsConsent]').isChecked()) throw new Error('call/text box is pre-checked');
+    await p.waitForTimeout(2600); // a person takes longer than the spam filter's 2.5 s
+    const before = leads.length;
+    await f.locator('button[type=submit]').click();
+    await p.waitForSelector('[data-oh-thanks]:not([hidden])', { timeout: 10000 });
+    const lead = leads[before];
+    await p.waitForTimeout(600);
+    const kept = await p.evaluate(() => Object.keys(localStorage).filter((k) => k.startsWith('hhg-') && k !== 'hhg-analytics'));
+    ok('Open house sign-in', !!lead && lead.form === 'open-house' && lead.fields.host === host && lead.fields.propMls === home.mls && kept.length === 0,
+      `${home.street}: lead ${lead ? `${lead.form}, host ${lead.fields.host}, MLS ${lead.fields.propMls}` : 'not sent'}; remembered after: ${kept.join(', ') || 'nothing'}`);
+  });
   await step('Net proceeds calculator', async () => {
     await p.goto(BASE + '/calculators/seller-net-proceeds', { waitUntil: 'domcontentloaded' }); await p.waitForTimeout(1500);
     const t = (await p.innerText('main')).match(/\$[\d,]{4,}/g) ?? [];

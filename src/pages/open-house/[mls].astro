@@ -1,0 +1,106 @@
+---
+// Open house sign-in for a tablet at one of the team's listings (Jlopo, Nov 13, 2026). The hosting agent opens it from
+// Lead Tracker's Jlopo tab (which adds ?host=<their page slug>), sets the tablet on the counter, and each visitor signs
+// in: name, email and phone (required, like every sign-up), whether they have an agent, whether they have a home to
+// sell. Each sign-in is an "Open house sign-in" lead in Follow Up Boss (src/lib/lead.mjs 'open-house'), assigned to the
+// host and tagged with the address. Same call/text consent box as every form (src/lib/consent.mjs), unchecked.
+// Shared device (Base kiosk mode): no site menus, no Google Analytics or Meta Pixel, and after each sign-in the page
+// forgets the visitor and resets for the next one. Only the team's own listings (src/data/team-listings.ts); noindex.
+import Base from '../../layouts/Base.astro';
+import { openHouseListings } from '../../data/team-listings';
+import { site } from '../../data/site';
+import type { Listing } from '../../data/listings';
+
+export async function getStaticPaths() {
+  return (await openHouseListings()).map((l) => ({ params: { mls: l.mls }, props: { l } }));
+}
+const { l } = Astro.props as { l: Listing };
+const money = (n: number) => `$${n.toLocaleString('en-US')}`;
+const facts = [l.beds && `${l.beds} bed`, l.baths && `${l.baths} bath`, l.sqft && `${l.sqft.toLocaleString('en-US')} sq ft`].filter(Boolean).join(' · ');
+const photo = l.photos[0] ? `${l.photos[0]}?class=large` : null;
+---
+<Base kiosk noindex title={`Open house sign-in: ${l.street}, ${l.city} | ${site.name}`} description={`Welcome to ${l.street}. Please sign in.`}>
+  <main class="oh">
+    <div class="oh__home">
+      {photo ? <img class="oh__photo" src={photo} alt={`${l.street}, ${l.city}`} width="1200" height="800" fetchpriority="high" /> : <div class="oh__photo" aria-hidden="true"></div>}
+      <div class="oh__about">
+        <img class="oh__logo" src="/brand/hhg-logo.webp" alt={site.name} width="220" height="64" />
+        <p class="oh__eyebrow">Welcome to the open house</p>
+        <h1>{l.street}<span>{l.city}, MN {l.zip}</span></h1>
+        <p class="oh__facts">{money(l.price)}{facts && ` · ${facts}`}</p>
+        <p class="oh__broker">Listed by {site.name} · {l.brokerage}</p>
+      </div>
+    </div>
+    <form class="form oh__form" data-lead="open-house" data-oh-form>
+      <h2>Please sign in</h2>
+      <input type="hidden" name="propStreet" value={l.street} /><input type="hidden" name="propCity" value={l.city} />
+      <input type="hidden" name="propZip" value={l.zip} /><input type="hidden" name="propMls" value={l.mls} />
+      <input type="hidden" name="propPrice" value={l.price} />
+      <input type="hidden" name="host" value="" data-oh-host />
+      <div class="form__row">
+        <div class="field"><label for="oh-first">First name</label><input id="oh-first" name="firstName" autocomplete="off" required /></div>
+        <div class="field"><label for="oh-last">Last name</label><input id="oh-last" name="lastName" autocomplete="off" required /></div>
+      </div>
+      <div class="form__row">
+        <div class="field"><label for="oh-email">Email</label><input id="oh-email" name="email" type="email" autocomplete="off" required /></div>
+        <div class="field"><label for="oh-phone">Phone</label><input id="oh-phone" name="phone" type="tel" autocomplete="off" required pattern="[^0-9]*([0-9][^0-9]*){10,}" title="Please enter your phone number, including area code." /></div>
+      </div>
+      <div class="form__row">
+        <div class="field"><label for="oh-agent">Are you working with a real estate agent?</label>
+          <select id="oh-agent" name="hasAgent" required><option value="">Choose one</option><option>No</option><option>Yes</option></select></div>
+        <div class="field"><label for="oh-sell">Do you have a home to sell?</label>
+          <select id="oh-sell" name="alsoSelling"><option value="">Choose one</option><option>No</option><option>Yes</option><option>Maybe</option></select></div>
+      </div>
+      <div class="field"><label for="oh-notes">Anything you'd like us to know? (optional)</label><input id="oh-notes" name="notes" autocomplete="off" /></div>
+      <button class="btn" type="submit">Sign in</button>
+      <p class="form__status" role="status" aria-live="polite"></p>
+    </form>
+    <div class="oh__thanks" data-oh-thanks hidden>
+      <p class="oh__eyebrow">Thank you!</p>
+      <h2>Enjoy the home.</h2>
+      <p>Ask us anything while you look around.</p>
+    </div>
+  </main>
+</Base>
+
+<script>
+  // The hosting agent comes from the link Lead Tracker made (?host=<slug>): the lead is assigned to them.
+  const host = (new URLSearchParams(location.search).get('host') ?? '').replace(/[^a-z0-9-]/gi, '').slice(0, 60);
+  document.querySelector<HTMLInputElement>('[data-oh-host]')!.value = host;
+  const form = document.querySelector<HTMLFormElement>('[data-oh-form]')!;
+  const thanks = document.querySelector<HTMLElement>('[data-oh-thanks]')!;
+  // Forget this visitor (other scripts remember people who send a form) so the next person starts fresh; keep only
+  // the license agreement click and any analytics opt-out.
+  const forget = () => {
+    for (const store of [localStorage, sessionStorage]) {
+      try { Object.keys(store).filter((k) => k.startsWith('hhg-') && k !== 'hhg-analytics').forEach((k) => store.removeItem(k)); } catch { /* private mode */ }
+    }
+  };
+  forget();
+  window.addEventListener('lead-sent', (e: Event) => {
+    if ((e as CustomEvent).detail?.el !== form) return;
+    form.hidden = true; thanks.hidden = false;
+    setTimeout(forget, 300); // after the other 'lead-sent' listeners have stored what they store
+    // Ready for the next visitor: a fresh page, so nothing about this person stays in memory either.
+    setTimeout(() => location.reload(), 6000);
+  });
+</script>
+
+<style>
+  .oh { display: grid; gap: 1.5rem; max-width: 72rem; margin: 0 auto; padding: 1.25rem; }
+  @media (min-width: 900px) { .oh { grid-template-columns: 1fr 1fr; align-items: start; padding: 2rem; } }
+  .oh__photo { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 8px; background: var(--sand); display: block; }
+  .oh__about { padding: 1rem 0 0; }
+  .oh__logo { width: 180px; height: auto; margin-bottom: .75rem; }
+  .oh__eyebrow { margin: 0; text-transform: uppercase; letter-spacing: .12em; font-size: .9rem; color: var(--crimson); }
+  .oh h1 { margin: .25rem 0; font: 500 clamp(1.8rem, 4vw, 2.6rem)/1.1 var(--serif); }
+  .oh h1 span { display: block; font-size: .55em; color: var(--text-soft); }
+  .oh__facts { font-size: 1.15rem; margin: .25rem 0; }
+  .oh__broker { font-size: .9rem; color: var(--text-soft); }
+  .oh__form { padding: 1.5rem; border: 1px solid var(--line); background: #fff; border-radius: 8px; }
+  .oh__form h2, .oh__thanks h2 { margin: 0 0 .75rem; }
+  .oh__form input, .oh__form select { font-size: 1.1rem; min-height: 3rem; }
+  .oh__form .btn { width: 100%; font-size: 1.2rem; padding: 1rem; }
+  .oh__thanks { padding: 2.5rem 1.5rem; text-align: center; border: 1px solid var(--line); background: #fff; border-radius: 8px; }
+  .oh__thanks h2 { font: 500 2.2rem/1.1 var(--serif); }
+</style>

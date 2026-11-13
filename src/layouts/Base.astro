@@ -33,8 +33,11 @@ interface Props {
   noindex?: boolean;
   /** Blog posts: publish/update dates for social and search previews. */
   article?: { published: Date; modified?: Date };
+  /** A shared tablet (the open house sign-in): no site menus, no Google Analytics or Meta Pixel (one device, many
+   *  people, so nothing can be tied to one person), and the page forgets each visitor after they sign in. */
+  kiosk?: boolean;
 }
-const { title: fullTitle, description: fullDescription, image = '/brand/og-default.jpg', breadcrumbs = [], noindex = false, article } = Astro.props;
+const { title: fullTitle, description: fullDescription, image = '/brand/og-default.jpg', breadcrumbs = [], noindex = false, article, kiosk = false } = Astro.props;
 // Google shows about 60–70 characters of a title and 155–160 of a description. A long title drops the
 // " | Huerkamp Home Group" ending (the brand is still in the site name Google shows); a long description is cut at a word.
 const title = fullTitle.length > 70 ? fullTitle.replace(/ \| Huerkamp Home Group( Blog)?$/, '') : fullTitle;
@@ -146,10 +149,11 @@ const pageTitle = title.length > 60 && title.endsWith(brandEnd) ? title.slice(0,
   <script type="application/ld+json" set:html={siteLd} />
   {crumbLd && <script type="application/ld+json" set:html={crumbLd} />}
   <script is:inline>try{if(/(?:^|; )idx_eula=1(?:;|$)/.test(document.cookie)||sessionStorage.getItem('idx-eula')==='1')document.documentElement.classList.add('idx-ok')}catch(e){}</script>
-  {site.ga4 && <script is:inline define:vars={{ id: site.ga4 }}>
+  {kiosk && <script is:inline>window.hhgKiosk = true; document.documentElement.classList.add('is-embed', 'is-kiosk');</script>}
+  {site.ga4 && <script is:inline define:vars={{ id: site.ga4, kiosk }}>
     // Google Analytics 4, live domains only, and not when the visitor turned analytics off on /cookies or the browser
     // sends a Global Privacy Control signal. The library loads after the page has, so it never slows it down.
-    let off = navigator.globalPrivacyControl === true;
+    let off = navigator.globalPrivacyControl === true || kiosk;
     try { off = off || localStorage.getItem('hhg-analytics') === 'denied'; } catch (e) {}
     if (!off && /(^|\.)huerkamphome(group|s)\.com$/.test(location.hostname)) {
       window.dataLayer = window.dataLayer || [];
@@ -161,7 +165,7 @@ const pageTitle = title.length > 60 && title.endsWith(brandEnd) ? title.slice(0,
       }, 1500));
     }
   </script>}
-  {site.metaPixel && <script is:inline define:vars={{ px: site.metaPixel }}>
+  {site.metaPixel && <script is:inline define:vars={{ px: site.metaPixel, kiosk }}>
     // Meta Pixel (Facebook/Instagram ads and retargeting, like Ylopo's): page views; ViewContent for each home viewed (its
     // MLS number as the catalog id, so ads can show people the homes they looked at; /feeds/meta-home-listings.csv);
     // Search on the map search; AddToWishlist for a heart; CompleteRegistration for a sign-up; Lead for every other form
@@ -169,7 +173,7 @@ const pageTitle = title.length > 60 && title.endsWith(brandEnd) ? title.slice(0,
     // form) is matched by their email and name, which the pixel hashes in the browser. Same rules as Google Analytics
     // above: live domains only, off when the visitor turned analytics off on /cookies or the browser sends Global
     // Privacy Control (then the server copy is off too: window.hhgAdsOff), loaded after the page.
-    let pxOff = navigator.globalPrivacyControl === true;
+    let pxOff = navigator.globalPrivacyControl === true || kiosk;
     try { pxOff = pxOff || localStorage.getItem('hhg-analytics') === 'denied'; } catch (e) {}
     window.hhgAdsOff = pxOff;
     if (!pxOff && /(^|\.)huerkamphome(group|s)\.com$/.test(location.hostname)) {

@@ -886,3 +886,16 @@ listings. Details in docs/ai-optimization.md.
   by /real-estate-agents, the home page record card and the Sell page strip. Only aggregates are kept: no addresses,
   clients, commissions or agent names. Refresh from a new export every few months.
 - Jason's decision (2026-11-10): **no per-agent sales counts on agent pages** (or anywhere else on the site).
+
+## Open house sign-in (Jlopo, 2026-11-13)
+
+- **What:** a tablet sign-in page for each of the team's own listings, `/open-house/<mls>` (src/pages/open-house/[mls].astro).
+  The host sets it up in Lead Tracker (Jlopo → Open house sign-in), which reads `/feeds/team-listings.json` (team
+  listings plus agents and their page slugs) and gives a link and QR code with `?host=<slug>`.
+- **Lead:** form `open-house` in src/lib/lead.mjs: Follow Up Boss event "Visited Open House", assigned to the host, tags
+  "Open house", "Open house: <address>", "Open house host: <name>", "Buyer lead" (or "Has an agent" when they say they
+  have one) and "Seller lead" for "Yes"/"Maybe" to having a home to sell. Name, email and phone required; the usual
+  unchecked call/text box.
+- **Shared tablet (Base `kiosk`):** no site menus, no Google Analytics or Meta Pixel, and after each sign-in the page
+  clears what the site remembers about a visitor (the `hhg-` keys) and reloads for the next one. noindex.
+- **Team listings only** (src/data/team-listings.ts, the same test as the Meta catalog feed). Site check step "Open house sign-in".

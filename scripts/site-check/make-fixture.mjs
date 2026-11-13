@@ -31,7 +31,7 @@ for (const f of comm) {
       beds: type === 'land' ? null : 1 + Math.floor(rnd() * 5), baths: type === 'land' ? null : 1 + Math.floor(rnd() * 3),
       sqft: type === 'land' ? null : 800 + Math.floor(rnd() * 3600), type, style: '', yearBuilt: type === 'land' ? null : 1900 + Math.floor(rnd() * 126),
       newConstruction: rnd() < 0.15, lotAcres: Math.round(rnd() * 600) / 100, garage: type === 'land' ? null : Math.floor(rnd() * 4),
-      description: 'Sample listing for local testing.', photos: [], listed: '2026-10-01', updated: '2026-10-27', brokerage: pick(BROKERS), agent: 'Sample Agent',
+      description: 'Sample listing for local testing.', photos: [], listed: '2026-10-01', updated: '2026-10-27', ...(n % 12 === 0 && pick(BROKERS) ? { brokerage: 'Keller Williams Preferred Rlty', agent: 'The Huerkamp Home Group' } : { brokerage: pick(BROKERS), agent: 'Sample Agent' }), // every 12th: a team listing (open house pages)
       lat, lng, lakefront: false, taxes: Math.round(price * 0.012), hoa: type === 'townhome' || type === 'condo' ? 250 : null,
       heating: '', cooling: '', basement: '', community: f.properties.slug, hood: null, lakes: [], openHouses: [],
     });

@@ -4,11 +4,8 @@
 // The team's OWN listings only (Keller Williams Preferred Realty, listed by a team member, the same test as the map
 // search's "our team's listings"): advertising another brokerage's listing on Facebook needs NorthstarMLS's written OK
 // first. Rebuilt with every build; kept out of Google by public/_headers (X-Robots-Tag).
-import { listingsData } from '../../data/listings';
-import team from '../../data/team.json';
+import { teamListings } from '../../data/team-listings';
 
-const NAMES = new Set([...team.members.map((m) => m.name), 'The Huerkamp Home Group'].map((n) => n.toLowerCase().trim())); // the MLS files most team listings under the team's name
-const ours = (l: { brokerage: string; agent: string }) => /keller williams preferred/i.test(l.brokerage ?? '') && NAMES.has(String(l.agent ?? '').toLowerCase().trim());
 const TYPE: Record<string, string> = { 'single-family': 'house', townhome: 'townhouse', condo: 'apartment', 'multi-family': 'other', land: 'land', manufactured: 'manufactured' };
 const COLS = ['home_listing_id', 'name', 'availability', 'address.addr1', 'address.city', 'address.region', 'address.postal_code', 'address.country',
   'latitude', 'longitude', 'neighborhood[0]', 'price', 'image[0].url', 'image[1].url', 'image[2].url', 'url', 'num_beds', 'num_baths', 'area_size', 'area_unit',
@@ -16,8 +13,7 @@ const COLS = ['home_listing_id', 'name', 'availability', 'address.addr1', 'addre
 const cell = (v: unknown) => { const s = String(v ?? '').replace(/\s+/g, ' ').trim(); return /[",]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; };
 
 export async function GET() {
-  const data = await listingsData;
-  const homes = data.mode === 'off' || data.preview ? [] : data.listings.filter((l) => ours(l) && l.price > 1000 && !l.addressHidden && l.photos.length);
+  const homes = await teamListings();
   const rows = homes.map((l) => [
     l.mls, `${l.street}, ${l.city}`, 'for_sale', l.street, l.city, l.state === 'WI' ? 'Wisconsin' : 'Minnesota', l.zip, 'United States',
     l.lat, l.lng, l.hood ?? l.city, `${l.price} USD`, ...[0, 1, 2].map((i) => (l.photos[i] ? `${l.photos[i]}?class=large` : '')),

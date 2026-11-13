@@ -67,13 +67,16 @@ export const FORMS = {
   'youtube':           { type: 'General Inquiry', label: 'YouTube viewer form',    tags: ['YouTube'], source: 'YouTube - Living in Minneapolis' },
   // Greater Minnesota towns outside the service area (/minnesota-homes-for-sale/<town>): referred to a local agent.
   'mn-referral':       { type: 'Property Search', label: 'Greater Minnesota: refer to a local agent', tags: ['Referral out', 'Greater Minnesota'] },
+  // Open house sign-in on a tablet (/open-house/<mls>, set up from Lead Tracker's Jlopo tab, Nov 13, 2026). Assigned to
+  // the hosting agent (?host=<slug>), tagged with the home's address.
+  'open-house':        { type: 'Visited Open House', label: 'Open house sign-in', tags: ['Open house'], openHouse: true },
 };
 
 // Field names → readable labels for the note on the lead. Contact details are sent separately.
 const LABELS = {
   address: 'Property address', zip: 'ZIP code', condition: 'Condition', homeType: 'Kind of home', beds: 'Bedrooms', baths: 'Bathrooms', sqft: 'Finished sq ft', timeline: 'Selling timeline', topic: 'Topic', goal: 'Goal',
   notes: 'Notes', message: 'Message', lake: 'Lake', priceRange: 'Price range', maxPrice: 'Price range',
-  community: 'Community', ramseyReferral: 'Referred by Ramsey', interest: 'Interested in', moveFrom: 'Moving from', agent: 'Wants to work with', listing: 'Listing', guide: 'Guide', nextHome: 'Next home', helping: 'Asking for', calc: 'Calculator results', situation: 'Situation', savedSearch: 'Saved search', awayDays: 'Days since last visit', privacyAgree: 'Agreed to the Privacy Policy and SMS Terms', search: 'Search', searchUrl: 'Search link', shareMethod: 'Shared by', viewDays: 'Different days viewed this home', showingDay: 'Preferred day', showingTime: 'Preferred time', tourType: 'Tour type', saleDate: 'Sheriff’s sale or deadline',
+  community: 'Community', ramseyReferral: 'Referred by Ramsey', interest: 'Interested in', moveFrom: 'Moving from', agent: 'Wants to work with', listing: 'Listing', guide: 'Guide', nextHome: 'Next home', helping: 'Asking for', calc: 'Calculator results', situation: 'Situation', savedSearch: 'Saved search', awayDays: 'Days since last visit', privacyAgree: 'Agreed to the Privacy Policy and SMS Terms', search: 'Search', searchUrl: 'Search link', shareMethod: 'Shared by', viewDays: 'Different days viewed this home', showingDay: 'Preferred day', showingTime: 'Preferred time', tourType: 'Tour type', saleDate: 'Sheriff’s sale or deadline', hasAgent: 'Working with an agent', alsoSelling: 'Has a home to sell',
 };
 const CONTACT = new Set(['firstName', 'lastName', 'email', 'phone']);
 
@@ -140,6 +143,15 @@ export function buildEvent(input, meta = {}) {
   if (consented) { tags.add('Call/text consent'); tags.add('SMS consent'); }
   else if (f.phone) tags.add('No call/text consent');
   if (f.lake) tags.add(f.lake);
+  // Open house: the host gets the lead (unless it came through an agent's site), and the agent sees what to ask about.
+  const host = cfg.openHouse ? AGENTS[String(f.host ?? '').toLowerCase()] : null;
+  if (cfg.openHouse) {
+    if (f.propStreet) tags.add(`Open house: ${f.propStreet}`);
+    if (host) tags.add(`Open house host: ${host.name}`);
+    if (/^yes/i.test(f.hasAgent ?? '')) tags.add('Has an agent');
+    else tags.add('Buyer lead');
+    if (/^(yes|maybe)/i.test(f.alsoSelling ?? '')) tags.add('Seller lead');
+  }
   // Test submissions are labeled so the team can find and delete them.
   if (/^test\b/i.test(f.firstName ?? '') || /@example\.(com|org)$/i.test(f.email)) tags.add('TEST – website');
 
@@ -149,7 +161,8 @@ export function buildEvent(input, meta = {}) {
     .map(([k, v]) => `${LABELS[k]}: ${v}`)
     .concat(consented ? [`Call/text consent: checked the box on ${at} for ${f.phone} (wording version ${CONSENT_VERSION}${meta.ip ? `, IP ${meta.ip}` : ''}): "${consentText()}"`] : [])
     .concat(!consented && f.phone ? ['No call/text consent: did not check the box. Personal replies only; no automated calls or texts.'] : [])
-    .concat(agentSite ? [`Came through ${agentSite.name}'s agent site: assigned to ${agentSite.fubName}, team lead`] : []);
+    .concat(agentSite ? [`Came through ${agentSite.name}'s agent site: assigned to ${agentSite.fubName}, team lead`] : [])
+    .concat(host ? [`Open house hosted by ${host.name}${agentSite ? '' : `: assigned to ${host.fubName}`}`] : []);
   const pageUrl = page ? `https://www.huerkamphomes.com${clean(page, 300)}` : undefined;
   const message = [`${cfg.label}${title ? ` on "${clean(title, 200)}"` : ''}`, ...details].join('\n');
 
@@ -165,7 +178,7 @@ export function buildEvent(input, meta = {}) {
       emails: [{ value: f.email }],
       ...(f.phone && { phones: [{ value: f.phone }] }),
       tags: [...tags],
-      ...(agentSite && { assignedTo: agentSite.fubName }),
+      ...((agentSite || host) && { assignedTo: (agentSite ?? host).fubName }),
     },
     ...(property(f, pageUrl) && { property: property(f, pageUrl) }),
   };
