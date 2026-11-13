@@ -2,9 +2,9 @@
  "source": "Freddie Mac Primary Mortgage Market Survey (PMMS), weekly national averages",
  "url": "https://www.freddiemac.com/pmms",
  "latest": {
-  "date": "2026-11-05",
-  "rate30": 7.18,
-  "rate15": 6.57
+  "date": "2026-11-12",
+  "rate30": 7.11,
+  "rate15": 6.45
  },
  "monthly": [
   {
@@ -1618,9 +1618,9 @@
    "rate15": 6.6
   },
   {
-   "date": "2026-11-05",
-   "rate30": 7.18,
-   "rate15": 6.57
+   "date": "2026-11-12",
+   "rate30": 7.11,
+   "rate15": 6.45
   }
  ]
 }
