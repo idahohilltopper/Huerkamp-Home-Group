@@ -1,0 +1,43 @@
+---
+// The agent block on a printable flyer (src/pages/flyers/...). The team's contact details by default; the agent who
+// made the flyer from Lead Tracker's Jlopo tab (?agent=<their page slug>) is swapped in by the browser, so one built
+// page serves every agent. Also the brokerage line and the Equal Housing Opportunity logo.
+import team from '../data/team.json';
+import { site } from '../data/site';
+
+const agents = Object.fromEntries(team.members.filter((m) => /realtor|broker/i.test(m.title ?? ''))
+  .map((m) => [m.profileUrl.split('/').pop(), { name: m.name, phone: m.phone ?? '', email: m.email ?? '', photo: m.photo.replace(/\.(png|jpg)$/, '-320.webp') }]));
+---
+<div class="fa" data-flyer-agent data-agents={JSON.stringify(agents)}>
+  <img class="fa__photo" src="/brand/hhg-mark.webp" alt="" width="72" height="72" data-fa-photo />
+  <div>
+    <p class="fa__name" data-fa-name>{site.name}</p>
+    <p class="fa__line"><span data-fa-phone>{site.phone}</span><span data-fa-email></span></p>
+    <p class="fa__line">huerkamphomes.com · {site.brokerage}</p>
+  </div>
+  <svg class="fa__eho" viewBox="0 0 32 32" width="34" height="34" role="img" aria-label="Equal Housing Opportunity"><path d="M16 3 2 13.5h3.5V29h21V13.5H30z" fill="none" stroke="currentColor" stroke-width="2.6" /><path d="M10.5 16.5h11M10.5 22h11" stroke="currentColor" stroke-width="3" /></svg>
+</div>
+
+<script>
+  const box = document.querySelector<HTMLElement>('[data-flyer-agent]');
+  const slug = new URLSearchParams(location.search).get('agent') ?? '';
+  const a = box ? (JSON.parse(box.dataset.agents ?? '{}') as Record<string, { name: string; phone: string; email: string; photo: string }>)[slug] : null;
+  if (box && a) {
+    box.querySelector<HTMLElement>('[data-fa-name]')!.textContent = `${a.name}, Huerkamp Home Group`;
+    if (a.phone) box.querySelector<HTMLElement>('[data-fa-phone]')!.textContent = a.phone;
+    if (a.email) box.querySelector<HTMLElement>('[data-fa-email]')!.textContent = ` · ${a.email}`;
+    const img = box.querySelector<HTMLImageElement>('[data-fa-photo]')!;
+    img.src = a.photo; img.alt = a.name; img.classList.add('fa__photo--person');
+  }
+</script>
+
+<style>
+  .fa { display: flex; align-items: center; gap: 14px; padding-top: 12px; border-top: 2px solid var(--crimson); }
+  .fa__photo { width: 72px; height: 72px; object-fit: contain; flex: none; }
+  .fa__photo--person { object-fit: cover; border-radius: 50%; }
+  .fa > div { flex: 1; }
+  .fa p { margin: 0; }
+  .fa__name { font: 600 18px/1.2 var(--serif); }
+  .fa__line { font-size: 12.5px; color: #444; }
+  .fa__eho { flex: none; color: #333; }
+</style>

@@ -1,0 +1,92 @@
+---
+// Printable one-page market update for a city (or the whole Twin Cities region), Jlopo (Nov 13, 2026). The newest
+// Minneapolis Area REALTORS® Local Market Update numbers (src/data/market.ts, the same as /market/<city>), each with
+// the change from a year earlier, a QR code to the full market page, and the agent who printed it (?agent=<slug>).
+// Every figure names its source. noindex, no site menus.
+import QRCode from 'qrcode';
+import Base from '../../../layouts/Base.astro';
+import FlyerAgent from '../../../components/FlyerAgent.astro';
+import { communities } from '../../../data/areas';
+import { site } from '../../../data/site';
+import { source, latest, REGION, marketFor, hasMarket, monthLabel, money, count, signed, SMALL_SAMPLE, type Metric } from '../../../data/market';
+
+export function getStaticPaths() {
+  return [{ params: { slug: REGION }, props: { name: 'the Twin Cities' } },
+    ...communities.filter((c) => hasMarket(c.slug)).map((c) => ({ params: { slug: c.slug }, props: { name: c.name } }))];
+}
+const { slug } = Astro.params as { slug: string };
+const { name } = Astro.props as { name: string };
+const m = marketFor(slug)!;
+const page = `https://www.huerkamphomes.com${slug === REGION ? '/market' : `/market/${slug}`}`;
+const qr = await QRCode.toString(page, { type: 'svg', margin: 0, errorCorrectionLevel: 'M' });
+const month = monthLabel(latest);
+const sales = m.closedSales?.r12[1] ?? 0;
+// The 12-month figures are steadier than one month's in a small city; the region and bigger cities show the month.
+const span: 'month' | 'r12' = (m.closedSales?.month[1] ?? 0) >= SMALL_SAMPLE ? 'month' : 'r12';
+const spanLabel = span === 'month' ? month : `the 12 months through ${month}`;
+const pct = (n: number | null | undefined) => (n == null ? '—' : `${n.toFixed(1)}%`);
+const days = (n: number | null | undefined) => (n == null ? '—' : `${Math.round(n)} days`);
+const rows: [string, Metric | undefined, (n: number | null | undefined) => string][] = [
+  ['Median sale price', m.medianPrice, money], ['Homes sold', m.closedSales, count], ['New listings', m.newListings, count],
+  ['Days on market', m.daysOnMarket, days], ['Sale price vs. list price', m.pctOfList, pct],
+  ['Homes for sale', m.inventory, count], ['Months of supply', m.monthsSupply, (n) => (n == null ? '—' : n.toFixed(1))],
+];
+const shown = rows.filter(([, v]) => v?.[span]?.[1] != null);
+---
+<Base kiosk noindex title={`Market update flyer: ${name} | ${site.name}`} description={`Printable ${month} housing market update for ${name}.`}>
+  <p class="fl__bar"><button type="button" class="btn" onclick="print()">Print or save as PDF</button> Letter size. In the print window, turn off "Headers and footers".</p>
+  <article class="fl">
+    <header class="fl__head">
+      <img src="/brand/hhg-logo.webp" alt={site.name} width="190" height="55" />
+      <p class="fl__tag">Market update</p>
+    </header>
+    <div>
+      <p class="fl__eyebrow">{month}</p>
+      <h1>The {name === 'the Twin Cities' ? 'Twin Cities' : name} housing market</h1>
+      <p class="fl__lede">{span === 'month' ? `What homes did in ${month}, compared with ${monthLabel(`${Number(latest.slice(0, 4)) - 1}${latest.slice(4)}`)}.` : `${name} had ${count(sales)} sales over the past 12 months, so these are 12-month figures, which are steadier than a single month's. Each is compared with the 12 months before.`}</p>
+    </div>
+    <table class="fl__table">
+      <thead><tr><th></th><th>{span === 'month' ? month : 'Past 12 months'}</th><th>A year earlier</th><th>Change</th></tr></thead>
+      <tbody>
+        {shown.map(([label, v, f]) => <tr><th>{label}</th><td>{f(v![span][1])}</td><td>{f(v![span][0])}</td><td>{signed(v![span][2])}</td></tr>)}
+      </tbody>
+    </table>
+    <div class="fl__main">
+      <div class="fl__what">
+        <h2>Thinking about selling?</h2>
+        <p>These are area-wide numbers. What your home would sell for depends on its size, updates and street. We'll put together a free, no-obligation value for your home, based on the sales that matter for it.</p>
+      </div>
+      <div class="fl__qr"><Fragment set:html={qr} /><p>Scan for the full {name === 'the Twin Cities' ? 'Twin Cities' : name} report</p></div>
+    </div>
+    <FlyerAgent />
+    <p class="fl__fine">Source: {source.name}, {spanLabel}. Data from {source.data}; report produced by {source.producer}. {source.note} Not a home valuation or appraisal.</p>
+  </article>
+</Base>
+
+<style>
+  .fl__bar { max-width: 8.5in; margin: 1rem auto; padding: 0 1rem; display: flex; gap: 1rem; align-items: center; font-size: .9rem; color: var(--text-soft); }
+  .fl { width: 8.5in; min-height: 11in; margin: 0 auto 2rem; padding: .5in; background: #fff; color: #151213; box-shadow: 0 2px 18px rgba(0,0,0,.12); display: flex; flex-direction: column; gap: 18px; }
+  .fl__head { display: flex; justify-content: space-between; align-items: center; }
+  .fl__tag { margin: 0; padding: 6px 14px; background: var(--crimson); color: #fff; font: 700 13px/1 var(--ui); letter-spacing: .14em; text-transform: uppercase; }
+  .fl__eyebrow { margin: 0; text-transform: uppercase; letter-spacing: .14em; font-size: 13px; color: var(--crimson); }
+  .fl h1 { margin: 4px 0 6px; font: 500 34px/1.1 var(--serif); }
+  .fl__lede { margin: 0; font-size: 14px; color: #444; }
+  .fl__table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  .fl__table th, .fl__table td { padding: 10px 8px; border-bottom: 1px solid #e3ddd3; text-align: right; }
+  .fl__table th:first-child { text-align: left; font-weight: 600; }
+  .fl__table thead th { font: 600 11px/1.2 var(--ui); text-transform: uppercase; letter-spacing: .08em; color: #666; }
+  .fl__table td:nth-child(2) { font-weight: 700; }
+  .fl__main { display: grid; grid-template-columns: 1fr 1.45in; gap: 20px; align-items: center; flex: 1; }
+  .fl__what h2 { margin: 0 0 6px; font: 500 22px/1.2 var(--serif); }
+  .fl__what p { margin: 0; font-size: 13.5px; line-height: 1.5; }
+  .fl__qr { text-align: center; }
+  .fl__qr :global(svg) { width: 1.35in; height: 1.35in; }
+  .fl__qr p { margin: 4px 0 0; font-size: 10.5px; color: #555; }
+  .fl__fine { margin: 0; font-size: 9px; color: #777; }
+  @media print {
+    @page { size: letter; margin: 0; }
+    html, body { background: #fff !important; }
+    .fl__bar { display: none !important; }
+    .fl { box-shadow: none; margin: 0; }
+  }
+</style>

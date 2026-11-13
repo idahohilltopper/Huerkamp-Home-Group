@@ -899,3 +899,13 @@ listings. Details in docs/ai-optimization.md.
 - **Shared tablet (Base `kiosk`):** no site menus, no Google Analytics or Meta Pixel, and after each sign-in the page
   clears what the site remembers about a visitor (the `hhg-` keys) and reloads for the next one. noindex.
 - **Team listings only** (src/data/team-listings.ts, the same test as the Meta catalog feed). Site check step "Open house sign-in".
+
+## Printable flyers (Jlopo, 2026-11-13)
+
+- `/flyers/listing/<mls>`: one letter-size page for each team listing (photos, price, facts, ~700 characters of the
+  description, a QR code to the home's page, MLS number and "Listing courtesy of"). Team listings only.
+- `/flyers/market/<city>` (and `/flyers/market/twin-cities`): the newest Minneapolis Area REALTORS® Local Market Update
+  numbers, each against a year earlier, with the source line; small cities show 12-month figures. QR code to /market/<city>.
+- Both: `?agent=<slug>` puts that agent's name, photo, phone and email on it (src/components/FlyerAgent.astro), Base
+  `kiosk` (no menus, no analytics), noindex, a "Print or save as PDF" button; each fits one printed page.
+- Lead Tracker's Jlopo → Flyers lists them from `/feeds/team-listings.json` (homes[].flyer, markets[]).

@@ -1,0 +1,83 @@
+---
+// Printable one-page flyer for one of the team's own listings (Jlopo, Nov 13, 2026): photos, price, the facts, a short
+// description, a QR code to the home's page, and the agent who printed it (?agent=<slug>, from Lead Tracker). Letter
+// size; the browser's Print (or Save as PDF) makes the flyer. Team listings only (src/data/team-listings.ts): other
+// brokerages' listings can't be advertised this way. noindex, no site menus.
+import QRCode from 'qrcode';
+import Base from '../../../layouts/Base.astro';
+import FlyerAgent from '../../../components/FlyerAgent.astro';
+import { openHouseListings } from '../../../data/team-listings';
+import { site } from '../../../data/site';
+import type { Listing } from '../../../data/listings';
+
+export async function getStaticPaths() {
+  return (await openHouseListings()).map((l) => ({ params: { mls: l.mls }, props: { l } }));
+}
+const { l } = Astro.props as { l: Listing };
+const url = `https://www.huerkamphomes.com/homes/${l.slug}`;
+const qr = await QRCode.toString(url, { type: 'svg', margin: 0, errorCorrectionLevel: 'M' });
+const money = (n: number) => `$${n.toLocaleString('en-US')}`;
+const facts = [
+  l.beds != null && ['Bedrooms', String(l.beds)], l.baths != null && ['Bathrooms', String(l.baths)],
+  l.sqft && ['Finished sq ft', l.sqft.toLocaleString('en-US')], l.lotAcres && ['Lot', `${l.lotAcres} acres`],
+  l.yearBuilt && l.type !== 'land' && ['Built', String(l.yearBuilt)], l.garage && ['Garage', `${l.garage} stalls`],
+].filter(Boolean) as [string, string][];
+// About 700 characters of the description, ending at a sentence.
+const desc = (() => { const d = (l.description ?? '').replace(/\s+/g, ' ').trim(); if (d.length <= 700) return d; const cut = d.slice(0, 700); return cut.slice(0, Math.max(cut.lastIndexOf('. ') + 1, 500)) || cut; })();
+const big = l.photos[0] ? `${l.photos[0]}?class=large` : null;
+const small = l.photos.slice(1, 4).map((p) => `${p}?class=medium`);
+---
+<Base kiosk noindex title={`Flyer: ${l.street}, ${l.city} | ${site.name}`} description={`Printable flyer for ${l.street}, ${l.city}.`}>
+  <p class="fl__bar"><button type="button" class="btn" onclick="print()">Print or save as PDF</button> Letter size. In the print window, turn off "Headers and footers".</p>
+  <article class="fl">
+    <header class="fl__head">
+      <img src="/brand/hhg-logo.webp" alt={site.name} width="190" height="55" />
+      <p class="fl__tag">For sale</p>
+    </header>
+    {big ? <img class="fl__big" src={big} alt={`${l.street}, ${l.city}`} width="1200" height="800" /> : <div class="fl__big" aria-hidden="true"></div>}
+    {small.length > 0 && <div class="fl__row">{small.map((s) => <img src={s} alt="" width="400" height="267" />)}</div>}
+    <div class="fl__main">
+      <div>
+        <p class="fl__price">{money(l.price)}</p>
+        <h1>{l.street}<span>{l.city}, MN {l.zip}</span></h1>
+        <dl class="fl__facts">{facts.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
+        {desc && <p class="fl__desc">{desc}</p>}
+      </div>
+      <div class="fl__qr">
+        <Fragment set:html={qr} />
+        <p>Scan for every photo and detail</p>
+      </div>
+    </div>
+    <FlyerAgent />
+    <p class="fl__fine">MLS {l.mls} · Listing courtesy of {l.brokerage}. Information deemed reliable but not guaranteed; verify independently. Price and availability subject to change.</p>
+  </article>
+</Base>
+
+<style>
+  .fl__bar { max-width: 8.5in; margin: 1rem auto; padding: 0 1rem; display: flex; gap: 1rem; align-items: center; font-size: .9rem; color: var(--text-soft); }
+  .fl { width: 8.5in; min-height: 11in; margin: 0 auto 2rem; padding: .45in; background: #fff; color: #151213; box-shadow: 0 2px 18px rgba(0,0,0,.12); display: flex; flex-direction: column; gap: 12px; }
+  .fl__head { display: flex; justify-content: space-between; align-items: center; }
+  .fl__tag { margin: 0; padding: 6px 14px; background: var(--crimson); color: #fff; font: 700 13px/1 var(--ui); letter-spacing: .14em; text-transform: uppercase; }
+  .fl__big { width: 100%; height: 3.9in; object-fit: cover; background: var(--sand); display: block; }
+  .fl__row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .fl__row img { width: 100%; height: 1.3in; object-fit: cover; display: block; }
+  .fl__main { display: grid; grid-template-columns: 1fr 1.45in; gap: 18px; flex: 1; }
+  .fl__price { margin: 0; font: 700 30px/1 var(--serif); color: var(--crimson); }
+  .fl h1 { margin: 4px 0 8px; font: 500 26px/1.1 var(--serif); }
+  .fl h1 span { display: block; font-size: 16px; color: #555; }
+  .fl__facts { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 0 0 8px; }
+  .fl__facts div { display: flex; flex-direction: column; }
+  .fl__facts dt { font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em; color: #666; }
+  .fl__facts dd { margin: 0; font: 600 16px/1.2 var(--ui); }
+  .fl__desc { margin: 0; font-size: 12.5px; line-height: 1.45; }
+  .fl__qr { text-align: center; }
+  .fl__qr :global(svg) { width: 1.35in; height: 1.35in; }
+  .fl__qr p { margin: 4px 0 0; font-size: 10.5px; color: #555; }
+  .fl__fine { margin: 0; font-size: 9px; color: #777; }
+  @media print {
+    @page { size: letter; margin: 0; }
+    html, body { background: #fff !important; }
+    .fl__bar { display: none !important; }
+    .fl { box-shadow: none; margin: 0; }
+  }
+</style>

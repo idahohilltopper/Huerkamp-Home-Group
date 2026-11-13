@@ -16,7 +16,8 @@
     "@netlify/blobs": "^8.2.0",
     "astro": "^7.3.5",
     "leaflet": "^1.9.4",
-    "maplibre-gl": "^6.11.2"
+    "maplibre-gl": "^6.11.2",
+    "qrcode": "^1.5.4"
   },
   "devDependencies": {
     "@types/leaflet": "^1.9.12",
