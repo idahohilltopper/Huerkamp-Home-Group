@@ -909,3 +909,11 @@ listings. Details in docs/ai-optimization.md.
 - Both: `?agent=<slug>` puts that agent's name, photo, phone and email on it (src/components/FlyerAgent.astro), Base
   `kiosk` (no menus, no analytics), noindex, a "Print or save as PDF" button; each fits one printed page.
 - Lead Tracker's Jlopo → Flyers lists them from `/feeds/team-listings.json` (homes[].flyer, markets[]).
+
+## Buyer presentation (Jlopo, 2026-11-13)
+
+- `/presentations/buyer?agent=<slug>&for=<buyer's name>`: seven landscape slides (cover, the team's record with
+  sources, four steps, what we do, the Twin Cities market this month, three verbatim buyer reviews from Google, next
+  steps with a QR code to the map search and the agent block). One slide per printed page (letter, landscape).
+- Same figures and sources as the home page's "Numbers you can check"; reviews filtered to complete 5-star Google
+  reviews that mention buying. Base `kiosk`, noindex. Lead Tracker: Jlopo → Flyers and presentations.

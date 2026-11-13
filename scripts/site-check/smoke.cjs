@@ -354,6 +354,17 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     ok('Open house sign-in', !!lead && lead.form === 'open-house' && lead.fields.host === host && lead.fields.propMls === home.mls && kept.length === 0,
       `${home.street}: lead ${lead ? `${lead.form}, host ${lead.fields.host}, MLS ${lead.fields.propMls}` : 'not sent'}; remembered after: ${kept.join(', ') || 'nothing'}`);
   });
+  // Buyer presentation (Jlopo, Nov 13, 2026): seven slides, the agent and buyer filled in from the link, real reviews.
+  await step('Buyer presentation', async () => {
+    const list = await (await p.request.get(BASE + '/feeds/team-listings.json')).json();
+    const agent = list.agents?.[0];
+    await p.goto(BASE + `/presentations/buyer?agent=${agent.slug}&for=Sam%20Test`, { waitUntil: 'domcontentloaded' });
+    await p.waitForFunction(() => document.querySelector('[data-pres-for]')?.textContent?.includes('Sam Test'), null, { timeout: 10000 });
+    const slides = await p.locator('.slide').count();
+    const quotes = await p.locator('.quotes blockquote').count();
+    const by = (await p.textContent('[data-pres-by]')) ?? '';
+    ok('Buyer presentation', slides === 7 && quotes >= 1 && by.includes(agent.name), `${slides} slides, ${quotes} reviews, cover: ${by.slice(0, 60)}`);
+  });
   await step('Net proceeds calculator', async () => {
     await p.goto(BASE + '/calculators/seller-net-proceeds', { waitUntil: 'domcontentloaded' }); await p.waitForTimeout(1500);
     const t = (await p.innerText('main')).match(/\$[\d,]{4,}/g) ?? [];

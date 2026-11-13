@@ -1,0 +1,180 @@
+---
+// Buyer consultation deck (Jlopo, Nov 13, 2026; Ylopo's "buyer presentation"). Seven landscape slides an agent shows
+// on a laptop or tablet, or prints / saves as a PDF (one slide per letter page). The agent who opens it from Lead
+// Tracker (?agent=<slug>) and, optionally, the buyer's name (?for=<name>) are filled in by the browser.
+// Every figure names its source (the same ones as the home page); reviews are verbatim, complete 5-star Google reviews
+// that mention buying; the market slide is the newest Minneapolis Area REALTORS® report. Fair housing: nothing about
+// who lives where. noindex, no site menus.
+import QRCode from 'qrcode';
+import Base from '../../layouts/Base.astro';
+import FlyerAgent from '../../components/FlyerAgent.astro';
+import { site } from '../../data/site';
+import reviewData from '../../data/reviews.json';
+import closings from '../../data/team-closings.json';
+import { source, latest, REGION, marketFor, monthLabel, money, count, signed } from '../../data/market';
+
+const rt = site.rankings.realtrends, ap = site.rankings.agentPronto;
+const google = reviewData.summary.google;
+const record = [
+  { value: `#${rt.state}`, label: 'Real estate team in Minnesota', note: `${rt.source}, ${rt.year} sales (${rt.sides} transactions, ${rt.volume})` },
+  { value: `#${ap.rank}`, label: "Buyer's team in Minnesota", note: `${ap.source} Top 25 Buyer's Agents and Teams, ${ap.quarters}` },
+  { value: `${google.rating.toFixed(1)}★`, label: `${google.count} Google reviews`, note: `Google Business Profile, ${monthLabel(google.asOf.slice(0, 7))}` },
+  { value: String(closings.total.buyer), label: 'Homes bought with our buyers', note: `Team closing records, ${monthLabel(closings.since.slice(0, 7), true)} – ${monthLabel(closings.through.slice(0, 7), true)}` },
+  { value: site.proof.soldVolumeShort, label: 'In real estate sold', note: 'Huerkamp Home Group sales records' },
+  { value: '2002', label: 'Helping Twin Cities buyers since', note: 'Huerkamp Home Group' },
+];
+// Three verbatim reviews from buyers: complete, 5 stars, short enough for a slide, mentioning buying.
+const buyerReviews = reviewData.reviews
+  .filter((r: any) => r.textComplete && r.rating === 5 && r.text.length >= 140 && r.text.length <= 340 && /\b(buy|bought|buying|first home|first-time|purchase)/i.test(r.text))
+  .slice(0, 3);
+const m = marketFor(REGION)!;
+const month = monthLabel(latest);
+const market = [
+  ['Median sale price', money(m.medianPrice?.month[1]), signed(m.medianPrice?.month[2])],
+  ['Days on market', `${Math.round(m.daysOnMarket?.month[1] ?? 0)} days`, signed(m.daysOnMarket?.month[2])],
+  ['Sale price vs. list price', `${(m.pctOfList?.month[1] ?? 0).toFixed(1)}%`, signed(m.pctOfList?.month[2])],
+  ['Homes for sale', count(m.inventory?.month[1]), signed(m.inventory?.month[2])],
+  ['Months of supply', (m.monthsSupply?.month[1] ?? 0).toFixed(1), signed(m.monthsSupply?.month[2])],
+];
+const qr = await QRCode.toString('https://www.huerkamphomes.com/home-search', { type: 'svg', margin: 0, errorCorrectionLevel: 'M' });
+---
+<Base kiosk noindex title={`Your home buying plan | ${site.name}`} description="Buyer consultation with Huerkamp Home Group.">
+  <p class="pr__bar"><button type="button" class="btn" onclick="print()">Print or save as PDF</button> Landscape, one slide per page. In the print window, turn off "Headers and footers".</p>
+  <div class="pr">
+    <section class="slide slide--cover">
+      <img src="/brand/hhg-logo-reverse.webp" alt={site.name} width="260" height="75" />
+      <div>
+        <p class="eyebrow">Buyer consultation</p>
+        <h1>Your home buying plan</h1>
+        <p class="pr__for" data-pres-for></p>
+      </div>
+      <p class="pr__by" data-pres-by>{site.name} · {site.brokerage}</p>
+    </section>
+
+    <section class="slide">
+      <p class="eyebrow">Who you're working with</p>
+      <h2>A team buyers trust</h2>
+      <div class="stats">
+        {record.map((r) => <div class="stat"><p class="stat__v">{r.value}</p><p class="stat__l">{r.label}</p><p class="stat__n">{r.note}</p></div>)}
+      </div>
+    </section>
+
+    <section class="slide">
+      <p class="eyebrow">How it works</p>
+      <h2>Four steps to your keys</h2>
+      <ol class="steps">
+        <li><h3>Get pre-approved</h3><p>Know your budget before you tour. A pre-approval letter also shows sellers your offer is serious.</p></li>
+        <li><h3>Tour homes</h3><p>We set up showings, point out what to look for, and send new listings the moment they hit the market.</p></li>
+        <li><h3>Make an offer</h3><p>We look at recent sales to price your offer, then negotiate terms, inspections and closing dates for you.</p></li>
+        <li><h3>Close</h3><p>We coordinate the inspection, appraisal and paperwork with your lender and title company through closing day.</p></li>
+      </ol>
+      <p class="pr__note">Before we tour, we'll go over our written buyer agreement together: what we'll do for you and how we're paid.</p>
+    </section>
+
+    <section class="slide">
+      <p class="eyebrow">What we do for you</p>
+      <h2>Your agent, start to finish</h2>
+      <ul class="does">
+        <li><b>New listings first.</b> Saved searches on huerkamphomes.com email you new matches and price drops, instantly or daily.</li>
+        <li><b>Every home, one search.</b> All Twin Cities listings on one map, with sold prices nearby so you know what homes are really worth.</li>
+        <li><b>Showings that fit your schedule.</b> And a second look at any home you're serious about.</li>
+        <li><b>Offers priced to compete.</b> We price from recent sales and negotiate repairs, credits and dates.</li>
+        <li><b>A clear path to closing.</b> Inspection, appraisal, lender and title: we keep every deadline on track.</li>
+        <li><b>After you move in.</b> Questions about contractors, taxes or your home's value: call us anytime.</li>
+      </ul>
+    </section>
+
+    <section class="slide">
+      <p class="eyebrow">The market right now · {month}</p>
+      <h2>Twin Cities homes at a glance</h2>
+      <table class="mkt">
+        <thead><tr><th></th><th>{month}</th><th>vs. a year earlier</th></tr></thead>
+        <tbody>{market.map(([l, v, c]) => <tr><th>{l}</th><td>{v}</td><td>{c}</td></tr>)}</tbody>
+      </table>
+      <p class="pr__src">Source: {source.name}, {m.name}, {month}. Data from {source.data}. Each city is different: ask us for the numbers where you're looking.</p>
+    </section>
+
+    <section class="slide">
+      <p class="eyebrow">In their words</p>
+      <h2>What our buyers say</h2>
+      <div class="quotes">
+        {buyerReviews.map((r: any) => <blockquote><p>“{r.text}”</p><cite>{r.reviewer} · {r.source === 'google' ? 'Google' : r.source} review</cite></blockquote>)}
+      </div>
+      <p class="pr__src">{google.rating.toFixed(1)}★ across {google.count} Google reviews ({monthLabel(google.asOf.slice(0, 7))}). Reviews shown word for word.</p>
+    </section>
+
+    <section class="slide slide--next">
+      <p class="eyebrow">Next steps</p>
+      <h2>Let's find your home</h2>
+      <div class="next">
+        <ol>
+          <li>Talk with a lender and get pre-approved.</li>
+          <li>Sign our buyer agreement so we can start touring.</li>
+          <li>Set up your saved search: we'll send new homes the day they list.</li>
+          <li>Pick your first showings.</li>
+        </ol>
+        <div class="next__qr"><Fragment set:html={qr} /><p>Start searching at huerkamphomes.com</p></div>
+      </div>
+      <FlyerAgent />
+    </section>
+  </div>
+</Base>
+
+<script>
+  // The buyer's name (?for=) and the agent (?agent=, the same list FlyerAgent uses) on the cover.
+  const q = new URLSearchParams(location.search);
+  const forName = (q.get('for') ?? '').replace(/[^\p{L}\p{M}' .&-]/gu, '').trim().slice(0, 60);
+  if (forName) document.querySelector<HTMLElement>('[data-pres-for]')!.textContent = `Prepared for ${forName}`;
+  const agents = JSON.parse(document.querySelector<HTMLElement>('[data-flyer-agent]')?.dataset.agents ?? '{}') as Record<string, { name: string; phone: string }>;
+  const a = agents[q.get('agent') ?? ''];
+  if (a) document.querySelector<HTMLElement>('[data-pres-by]')!.textContent = `${a.name}${a.phone ? ` · ${a.phone}` : ''} · Huerkamp Home Group · Keller Williams Preferred Realty`;
+</script>
+
+<style>
+  .pr__bar { max-width: 11in; margin: 1rem auto; padding: 0 1rem; display: flex; gap: 1rem; align-items: center; font-size: .9rem; color: var(--text-soft); }
+  .pr { display: grid; gap: 1.5rem; justify-content: center; padding-bottom: 2rem; }
+  .slide { width: 11in; height: 8.5in; padding: .6in .7in; background: #fff; color: #151213; box-shadow: 0 2px 18px rgba(0,0,0,.12); display: flex; flex-direction: column; overflow: hidden; }
+  .eyebrow { margin: 0; text-transform: uppercase; letter-spacing: .14em; font-size: 14px; color: var(--crimson); }
+  .slide h2 { margin: 6px 0 28px; font: 500 44px/1.1 var(--serif); }
+  .slide--cover { background: #151213; color: #fff; justify-content: space-between; }
+  .slide--cover h1 { margin: 8px 0 12px; font: 500 72px/1.05 var(--serif); }
+  .pr__for { font: italic 500 28px/1.2 var(--serif); margin: 0; min-height: 1em; }
+  .pr__by { margin: 0; font-size: 16px; color: #ddd; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px 40px; flex: 1; align-content: center; }
+  .stat__v { margin: 0; font: 600 72px/1 var(--serif); color: var(--crimson); }
+  .stat__l { margin: 10px 0 4px; font: 600 22px/1.25 var(--ui); }
+  .stat__n { margin: 0; font-size: 14px; color: #666; }
+  .steps { list-style: none; counter-reset: s; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; padding: 0; margin: 0; flex: 1; align-content: center; }
+  .steps li { counter-increment: s; border-top: 3px solid var(--crimson); padding-top: 14px; }
+  .steps li::before { content: counter(s); font: 600 56px/1 var(--serif); color: var(--crimson); }
+  .steps h3 { margin: 10px 0 8px; font: 600 23px/1.2 var(--ui); }
+  .steps p { margin: 0; font-size: 17.5px; line-height: 1.5; }
+  .pr__note { margin: 0; padding: 14px 18px; background: #f7f4ef; font-size: 16px; }
+  .does { display: grid; grid-template-columns: 1fr 1fr; gap: 34px 48px; padding: 0; margin: 0; list-style: none; flex: 1; align-content: center; }
+  .does li { font-size: 20px; line-height: 1.45; padding-left: 18px; border-left: 3px solid var(--crimson); }
+  .mkt { width: 100%; border-collapse: collapse; font-size: 24px; margin-bottom: auto; }
+  .mkt th, .mkt td { padding: 18px 10px; border-bottom: 1px solid #e3ddd3; text-align: right; }
+  .mkt th:first-child { text-align: left; font-weight: 600; }
+  .mkt thead th { font: 600 12px/1.2 var(--ui); text-transform: uppercase; letter-spacing: .08em; color: #666; }
+  .mkt td:nth-child(2) { font-weight: 700; }
+  .pr__src { margin: 14px 0 0; font-size: 11.5px; color: #777; }
+  .quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; flex: 1; align-content: center; }
+  .quotes blockquote { margin: 0; }
+  .quotes p { margin: 0 0 14px; font: italic 500 23px/1.45 var(--serif); }
+  .quotes cite { font: normal 15px/1.3 var(--ui); color: #555; }
+  .next { display: grid; grid-template-columns: 1fr 1.6in; gap: 30px; align-items: start; margin-bottom: auto; }
+  .next ol { margin: 0; padding-left: 1.4em; font-size: 21px; line-height: 1.7; }
+  .next__qr { text-align: center; }
+  .next__qr :global(svg) { width: 1.5in; height: 1.5in; }
+  .next__qr p { margin: 6px 0 0; font-size: 12px; color: #555; }
+  @media print {
+    @page { size: letter landscape; margin: 0; }
+    html, body { background: #fff !important; }
+    .pr__bar { display: none !important; }
+    .pr { display: block; padding: 0; }
+    .slide { box-shadow: none; break-after: page; page-break-after: always; }
+    .slide:last-child { break-after: auto; page-break-after: auto; }
+    .slide--cover { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+  @media (max-width: 11.5in) { .pr { zoom: .5; } }
+</style>
