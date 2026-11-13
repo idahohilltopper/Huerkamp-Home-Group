@@ -902,8 +902,8 @@ listings. Details in docs/ai-optimization.md.
 
 ## Printable flyers (Jlopo, 2026-11-13)
 
-- `/flyers/listing/<mls>`: one letter-size page for each team listing (photos, price, facts, ~700 characters of the
-  description, a QR code to the home's page, MLS number and "Listing courtesy of"). Team listings only.
+- `/flyers/listing/<mls>`: one letter-size page for each team listing (photos, price, facts, ~520 characters of the
+  description (~520 characters), a QR code to the home's page, MLS number and "Listing courtesy of"). Team listings only.
 - `/flyers/market/<city>` (and `/flyers/market/twin-cities`): the newest Minneapolis Area REALTORS® Local Market Update
   numbers, each against a year earlier, with the source line; small cities show 12-month figures. QR code to /market/<city>.
 - Both: `?agent=<slug>` puts that agent's name, photo, phone and email on it (src/components/FlyerAgent.astro), Base
