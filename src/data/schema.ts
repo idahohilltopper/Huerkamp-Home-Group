@@ -26,7 +26,12 @@ export const business = {
   founder: [{ '@type': 'Person', name: 'Jason Huerkamp' }, { '@type': 'Person', name: 'Brooke Huerkamp' }],
   parentOrganization: { '@type': 'Organization', name: site.brokerage },
   award: [site.rankings.realtrends.text, site.rankings.agentPronto.text],
-  sameAs: [site.facebookUrl, site.youtubeUrl, reviewData.summary.google.url],
+  // What the team is known for, in plain words (AI assistants use this to decide whom to name for a question).
+  knowsAbout: ['Twin Cities real estate', 'Buying a home in Minnesota', 'Selling a home in Minnesota', 'Minnesota lake homes',
+    'New construction homes in the Twin Cities', 'Minnesota point-of-sale and time-of-sale inspections', 'Twin Cities housing market data'],
+  // The team's own profiles elsewhere, so search engines and AI tools know they're the same business. Add Zillow,
+  // Realtor.com, LinkedIn and Instagram profile links here once Jason confirms them (never guessed).
+  sameAs: [site.facebookUrl, site.youtubeUrl, reviewData.summary.google.url, site.rankings.realtrends.url],
 };
 
 export const website = {

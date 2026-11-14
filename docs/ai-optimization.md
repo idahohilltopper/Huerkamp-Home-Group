@@ -64,3 +64,18 @@ Don't retitle community pages back to "homes for sale"; strengthen the homes-for
 - **Checked:** /communities/inver-grove-heights has sourced data for every lead answer: 12-month median sale price ($398,950), sales count (392) and days on market (56), all NorthstarMLS via the Minneapolis Area REALTORS® Local Market Update, September 2026; property tax ($3,464 median on a $363,400 median value, Census ACS). FAQ and FAQPage markup come from the same list; the shared templates (Living-in title, homes-for-sale title and description, link wording) were set up on Nov 9.
 - **Point-of-sale rule:** Inver Grove Heights is not in src/data/sale-rules.ts. The city's code library has a "Compliance Inspection Program" (section 8-5-9-2) with a "Property Transfer/Sale Requirements" part, but the page couldn't be opened here (403), so what it requires (and for which property types, possibly rentals only) is unconfirmed. The city's "Inspection Requirements" handout covers construction inspections only. Worth confirming with Permits & Inspections (651-450-2550) before adding a rule; the guide's "we haven't confirmed" wording stays.
 - **Changed:** nothing on the site. No deploy (log-only commit, not built by Netlify).
+
+## 2026-11-14 — where AI answers come from (OpenSEO AI visibility, baseline run of Nov 6)
+- **Baseline:** 10 tracked questions × ChatGPT, Gemini, Google AI Overviews, Perplexity = 39 answers. Huerkamp Home
+  Group named in 5, huerkamphomes.com cited in 4 (Ramsey ELP question, "best real estate team in the Twin Cities",
+  Burnsville prices). The weekly check re-runs it.
+- **What the "best realtor in <city>" answers cite:** agent directories, not agents' own sites: Zillow (18 answers),
+  Realtor.com (15), Redfin (8), EffectiveAgents (7), HomeLight (7), FastExpert (5), RealTrends (4), Agent Pronto (3),
+  Homeia (3), US News (3), Experience.com (3). For "should I sell now or wait" and "inspections to sell in
+  Minneapolis": Homes.com, minneapolismn.gov, local agents' blogs. Our /when-to-sell and /selling-in-minnesota pages
+  answer both directly; they launched after the baseline.
+- **So the next gains are off the site (Jason):** complete team and agent profiles on Zillow, Realtor.com, Redfin,
+  FastExpert, Homeia and Experience.com with the same name, Burnsville address and phone, linking to
+  www.huerkamphomes.com; redirect huerkamphomegroup.com (the old site still outranks the new one for "huerkamp home
+  group"). Once the profile links are confirmed, add them to `sameAs` in src/data/schema.ts (never guessed).
+- **Changed:** schema.ts business data now lists the RealTrends team profile in sameAs and a knowsAbout list.
