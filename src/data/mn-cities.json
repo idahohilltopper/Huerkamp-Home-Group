@@ -179,6 +179,14 @@
    "searches": 2900
   },
   {
+   "slug": "elk-river",
+   "name": "Elk River",
+   "mlsCity": "Elk River",
+   "county": "Sherburne",
+   "region": "exurb",
+   "searches": 2900
+  },
+  {
    "slug": "big-lake",
    "name": "Big Lake",
    "mlsCity": "Big Lake",
@@ -224,6 +232,22 @@
    "mlsCity": "Sauk Rapids",
    "county": "Benton",
    "region": "central",
+   "searches": 2400
+  },
+  {
+   "slug": "waseca",
+   "name": "Waseca",
+   "mlsCity": "Waseca",
+   "county": "Waseca",
+   "region": "sc",
+   "searches": 2400
+  },
+  {
+   "slug": "lake-city",
+   "name": "Lake City",
+   "mlsCity": "Lake City",
+   "county": "Wabasha",
+   "region": "se",
    "searches": 2400
   },
   {
@@ -283,6 +307,30 @@
    "searches": 1900
   },
   {
+   "slug": "la-crescent",
+   "name": "La Crescent",
+   "mlsCity": "La Crescent",
+   "county": "Houston",
+   "region": "se",
+   "searches": 1900
+  },
+  {
+   "slug": "montevideo",
+   "name": "Montevideo",
+   "mlsCity": "Montevideo",
+   "county": "Chippewa",
+   "region": "sw",
+   "searches": 1900
+  },
+  {
+   "slug": "north-branch",
+   "name": "North Branch",
+   "mlsCity": "North Branch",
+   "county": "Chisago",
+   "region": "exurb",
+   "searches": 1900
+  },
+  {
    "slug": "byron",
    "name": "Byron",
    "mlsCity": "Byron",
@@ -331,6 +379,102 @@
    "searches": 1600
   },
   {
+   "slug": "st-michael",
+   "name": "St. Michael",
+   "mlsCity": "Saint Michael",
+   "county": "Wright",
+   "region": "exurb",
+   "searches": 1600
+  },
+  {
+   "slug": "cold-spring",
+   "name": "Cold Spring",
+   "mlsCity": "Cold Spring",
+   "county": "Stearns",
+   "region": "central",
+   "searches": 1600
+  },
+  {
+   "slug": "litchfield",
+   "name": "Litchfield",
+   "mlsCity": "Litchfield",
+   "county": "Meeker",
+   "region": "sw",
+   "searches": 1600
+  },
+  {
+   "slug": "cannon-falls",
+   "name": "Cannon Falls",
+   "mlsCity": "Cannon Falls",
+   "county": "Goodhue",
+   "region": "se",
+   "searches": 1300
+  },
+  {
+   "slug": "delano",
+   "name": "Delano",
+   "mlsCity": "Delano",
+   "county": "Wright",
+   "region": "exurb",
+   "searches": 1300
+  },
+  {
+   "slug": "esko",
+   "name": "Esko",
+   "mlsCity": "Esko",
+   "county": "Carlton",
+   "region": "north",
+   "searches": 1300
+  },
+  {
+   "slug": "glencoe",
+   "name": "Glencoe",
+   "mlsCity": "Glencoe",
+   "county": "McLeod",
+   "region": "sw",
+   "searches": 1300
+  },
+  {
+   "slug": "zumbrota",
+   "name": "Zumbrota",
+   "mlsCity": "Zumbrota",
+   "county": "Goodhue",
+   "region": "se",
+   "searches": 1300
+  },
+  {
+   "slug": "sauk-centre",
+   "name": "Sauk Centre",
+   "mlsCity": "Sauk Centre",
+   "county": "Stearns",
+   "region": "central",
+   "searches": 1300
+  },
+  {
+   "slug": "st-joseph",
+   "name": "St. Joseph",
+   "mlsCity": "Saint Joseph",
+   "county": "Stearns",
+   "region": "central",
+   "searches": 1300
+  },
+  {
+   "slug": "isanti",
+   "name": "Isanti",
+   "mlsCity": "Isanti",
+   "county": "Isanti",
+   "region": "exurb",
+   "searches": 1300
+  },
+  {
+   "slug": "mora",
+   "name": "Mora",
+   "mlsCity": "Mora",
+   "county": "Kanabec",
+   "region": "central",
+   "searches": 1300
+  },
+  {
    "slug": "baxter",
    "name": "Baxter",
    "mlsCity": "Baxter",
@@ -363,6 +507,62 @@
    "searches": 1000
   },
   {
+   "slug": "plainview",
+   "name": "Plainview",
+   "mlsCity": "Plainview",
+   "county": "Wabasha",
+   "region": "se",
+   "searches": 1000
+  },
+  {
+   "slug": "pine-island",
+   "name": "Pine Island",
+   "mlsCity": "Pine Island",
+   "county": "Goodhue",
+   "region": "se",
+   "searches": 1000
+  },
+  {
+   "slug": "wadena",
+   "name": "Wadena",
+   "mlsCity": "Wadena",
+   "county": "Wadena",
+   "region": "lakes",
+   "searches": 1000
+  },
+  {
+   "slug": "thief-river-falls",
+   "name": "Thief River Falls",
+   "mlsCity": "Thief River Falls",
+   "county": "Pennington",
+   "region": "lakes",
+   "searches": 1000
+  },
+  {
+   "slug": "redwood-falls",
+   "name": "Redwood Falls",
+   "mlsCity": "Redwood Falls",
+   "county": "Redwood",
+   "region": "sw",
+   "searches": 1000
+  },
+  {
+   "slug": "international-falls",
+   "name": "International Falls",
+   "mlsCity": "International Falls",
+   "county": "Koochiching",
+   "region": "north",
+   "searches": 1000
+  },
+  {
+   "slug": "aitkin",
+   "name": "Aitkin",
+   "mlsCity": "Aitkin",
+   "county": "Aitkin",
+   "region": "lakes",
+   "searches": 1000
+  },
+  {
    "slug": "walker",
    "name": "Walker",
    "mlsCity": "Walker",
@@ -371,11 +571,59 @@
    "searches": 880
   },
   {
+   "slug": "gaylord",
+   "name": "Gaylord",
+   "mlsCity": "Gaylord",
+   "county": "Sibley",
+   "region": "sc",
+   "searches": 880
+  },
+  {
+   "slug": "blooming-prairie",
+   "name": "Blooming Prairie",
+   "mlsCity": "Blooming Prairie",
+   "county": "Steele",
+   "region": "se",
+   "searches": 880
+  },
+  {
+   "slug": "morris",
+   "name": "Morris",
+   "mlsCity": "Morris",
+   "county": "Stevens",
+   "region": "sw",
+   "searches": 880
+  },
+  {
    "slug": "crosslake",
    "name": "Crosslake",
    "mlsCity": "Crosslake",
    "county": "Crow Wing",
    "region": "lakes",
+   "searches": 720
+  },
+  {
+   "slug": "le-center",
+   "name": "Le Center",
+   "mlsCity": "Le Center",
+   "county": "Le Sueur",
+   "region": "sc",
+   "searches": 720
+  },
+  {
+   "slug": "lonsdale",
+   "name": "Lonsdale",
+   "mlsCity": "Lonsdale",
+   "county": "Rice",
+   "region": "exurb",
+   "searches": 720
+  },
+  {
+   "slug": "janesville",
+   "name": "Janesville",
+   "mlsCity": "Janesville",
+   "county": "Waseca",
+   "region": "sc",
    "searches": 720
   },
   {
