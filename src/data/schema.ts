@@ -23,15 +23,15 @@ export const business = {
     { '@type': 'AdministrativeArea', name: 'Twin Cities metropolitan area' },
   ],
   foundingDate: '2002',
-  founder: [{ '@type': 'Person', name: 'Jason Huerkamp' }, { '@type': 'Person', name: 'Brooke Huerkamp' }],
+  founder: [{ '@type': 'Person', name: 'Jason Huerkamp', sameAs: [site.profiles.jasonFastExpert] }, { '@type': 'Person', name: 'Brooke Huerkamp' }],
   parentOrganization: { '@type': 'Organization', name: site.brokerage },
   award: [site.rankings.realtrends.text, site.rankings.agentPronto.text],
   // What the team is known for, in plain words (AI assistants use this to decide whom to name for a question).
   knowsAbout: ['Twin Cities real estate', 'Buying a home in Minnesota', 'Selling a home in Minnesota', 'Minnesota lake homes',
     'New construction homes in the Twin Cities', 'Minnesota point-of-sale and time-of-sale inspections', 'Twin Cities housing market data'],
-  // The team's own profiles elsewhere, so search engines and AI tools know they're the same business. Add Zillow,
-  // Realtor.com, LinkedIn and Instagram profile links here once Jason confirms them (never guessed).
-  sameAs: [site.facebookUrl, site.youtubeUrl, reviewData.summary.google.url, site.rankings.realtrends.url],
+  // The team's own profiles elsewhere (site.profiles, from Jason), so search engines and AI tools know they're the same business.
+  sameAs: [site.facebookUrl, site.youtubeUrl, reviewData.summary.google.url, site.rankings.realtrends.url,
+    site.profiles.zillow, site.profiles.realtor, site.profiles.redfin, site.profiles.instagram, site.profiles.linkedin],
 };
 
 export const website = {

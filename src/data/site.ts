@@ -24,6 +24,16 @@ export const site = {
   youtubeEmail: 'team@hhgus.com',
   youtubeUrl: 'https://www.youtube.com/@livinginminneapolis',
   facebookUrl: 'https://www.facebook.com/HuerkampHomeGroup/',
+  // The team's profiles on other sites (from Jason, Nov 14, 2026). Listed in the business data (src/data/schema.ts
+  // sameAs) so search engines and AI assistants know they're all the same business.
+  profiles: {
+    zillow: 'https://www.zillow.com/profile/HuerkampHomeGroup',
+    realtor: 'https://www.realtor.com/realestateteam/56d6acd3b5cc660100bd9a84',
+    redfin: 'https://www.redfin.com/real-estate-agents/huerkamp-home-group',
+    instagram: 'https://www.instagram.com/twincities/',
+    linkedin: 'https://www.linkedin.com/company/79720158/',
+    jasonFastExpert: 'https://www.fastexpert.com/agents/jason-huerkamp-25724/',
+  },
   // Google Analytics 4 (the team's own property). Loads only on the live domains, so test sites don't count.
   // GA4 property "JHMN - Jason Huerkamp in Burnsville MN - GA4" (340994799), under jason@hhgus.com; Open SEO reads it.
   ga4: 'G-YY1H36L83S',
