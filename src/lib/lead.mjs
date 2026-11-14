@@ -88,6 +88,17 @@ const CONTACT = new Set(['firstName', 'lastName', 'email', 'phone']);
 const clean = (v, max = 2000) => String(v ?? '').replace(/\s+/g, ' ').trim().slice(0, max);
 const isEmail = (s) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
 
+// Random-letter names from form bots ("Xagmon Nwfuhthd", "Bidxi Wvdqlf", "Qkyile Sycpbxar": Follow Up Boss, Nov 15, 2026).
+// Letter pairs that almost never occur in real names in any language seen in Minnesota (English, Scandinavian, German,
+// Polish, Somali, Hmong, Vietnamese, Igbo, Spanish...). Two or more across first + last name = a bot. Kept strict on
+// purpose: a real person caught here is still kept in the spam-drops store and emailed to the team as possibly real.
+const ODD_PAIRS = new Set('bx cp cx dx fd fq fx fz gq gx hz jq jx kq kx lx pb pq px qc qd qf qg qh qj qk ql qm qn qp qq qs qt qw qx qy qz vb vd vf vj vk vm vp vq vt vw vx wv wq wx xd xg xj xk xm xn xr xz zq zx'.split(' '));
+export function randomName(first, last) {
+  const pairs = (s) => { const w = String(s ?? '').toLowerCase().normalize('NFD').replace(/[^a-z]/g, ''); return [...w.slice(1)].map((c, i) => w[i] + c); };
+  const odd = [...pairs(first), ...pairs(last)].filter((p) => ODD_PAIRS.has(p)).length;
+  return odd >= 2;
+}
+
 // The home a listing-page lead asked about (Follow Up Boss shows it on the lead), or a seller's address.
 const n = (v) => { const x = Number(String(v ?? '').replace(/[^0-9.]/g, '')); return Number.isFinite(x) && x > 0 ? x : undefined; };
 function property(f, url) {
@@ -118,6 +129,7 @@ export function buildEvent(input, meta = {}) {
   const all = Object.values(fields).map((v) => String(v ?? '')).join(' ');
   if (/<a\s+href|\[url=|\[link=/i.test(all)) return { spam: true, reason: 'link markup' };
   if ((all.match(/https?:\/\//gi) ?? []).length >= 3) return { spam: true, reason: '3+ links' };
+  if (randomName(fields.firstName, fields.lastName)) return { spam: true, reason: 'random-letter name' };
 
   const cfg = FORMS[form];
   if (!cfg) return { error: 'Unknown form' };

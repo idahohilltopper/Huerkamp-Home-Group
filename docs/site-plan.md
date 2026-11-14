@@ -696,6 +696,7 @@ Netlify domains at launch: **www.huerkamphomes.com = primary domain**; huerkamph
 - **Recently viewed:** home pages opened after I AGREE are kept on the device (12, newest first) and listed on My account (photo, address, MLS #, listing brokerage with BR logo; no price).
 - **Sign-ups require first name, last name, email and phone** (sign-up wall, account sign-up, first heart, every saved-search/new-listing alert form).
 - **Spam protection:** forms only from the site's own pages (origin check); hidden trap field; under 2.5 seconds is a bot; links in a name, link markup or 3+ links in a message are dropped quietly (src/lib/lead.mjs); Netlify rate limits per visitor: /api/lead, /api/account and /api/estimate 10 a minute, /api/alerts 30. Next step if spam ever gets through: Cloudflare Turnstile (free, invisible), which needs a site key and secret from Cloudflare.
+- **Nov 15, 2026: random-letter bot leads** ("Xagmon Nwfuhthd", "Bidxi Wvdqlf") reached Follow Up Boss. Fixes: a post with no Origin header is now refused (browsers always send one; scripts posting straight to /api/lead usually don't); names with 2+ letter pairs that real names in any language don't use (src/lib/lead.mjs `randomName`, tested against English, Scandinavian, Polish, Somali, Hmong, Vietnamese and Igbo names) are dropped to spam-drops and emailed to the team as possibly real; the account sign-up now has the hidden trap field and real timing (it sent a fixed 99999 ms before). If bots still get through, Turnstile is the next step.
 
 ## One page per agent (2026-11-04)
 

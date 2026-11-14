@@ -29,6 +29,8 @@ import { consentText, submitNotice } from '../lib/consent.mjs';
           <!-- Required (Jason, Nov 11, 2026); the call/text box above stays optional (TCPA). -->
           <label class="agree"><input type="checkbox" name="privacyAgree" value="yes" required /> <span>I agree to the <a href="/privacy">Privacy Policy</a> and <a href="/sms-terms">SMS Terms</a>.</span></label>
         </div>
+        <!-- Hidden from people; bots fill it in (same trap as the other lead forms, Base.astro). -->
+        <div class="visually-hidden" aria-hidden="true"><label>Leave empty<input name="website_url" tabindex="-1" autocomplete="off" /></label></div>
         <button class="btn" type="submit">Email me a sign-in link</button>
         <p class="form__status" role="status" aria-live="polite"></p>
       </form>
@@ -49,9 +51,10 @@ import { consentText, submitNotice } from '../lib/consent.mjs';
     box.querySelector('[data-who]')!.textContent = me()?.email ?? '';
     box.querySelector('[data-signout]')!.addEventListener('click', () => { signOut(); location.reload(); });
   }
-    form.addEventListener('submit', async (e) => {
+    const loadedAt = Date.now();
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const f = Object.fromEntries(new FormData(form)) as Record<string, string>;
+    const { website_url: hp = '', ...f } = Object.fromEntries(new FormData(form)) as Record<string, string>;
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(f.email ?? '')) { status.textContent = 'Please enter your email address.'; return; }
     if (!newBox.hidden && (!f.firstName?.trim() || !f.lastName?.trim())) { status.textContent = 'Please enter your first and last name.'; return; }
     if (!newBox.hidden && (f.phone ?? '').replace(/\D/g, '').length < 10) { status.textContent = 'Please enter your phone number, including area code.'; return; }
@@ -64,7 +67,7 @@ import { consentText, submitNotice } from '../lib/consent.mjs';
     if (a.created) {
       (window as any).fbq?.('track', 'CompleteRegistration', { content_name: 'Buyer Account Registration' }); // Meta Pixel (Base.astro)
       // A new account is a lead: tell Follow Up Boss, like the sign-up wall does.
-      fetch('/api/lead', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ form: 'register', hp: '', elapsed: 99999, page: location.pathname, title: document.title,
+      fetch('/api/lead', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ form: 'register', hp, elapsed: Math.max(Date.now() - loadedAt, Math.round(performance.now())), page: location.pathname, title: document.title,
         fields: { firstName: f.firstName, lastName: f.lastName ?? '', email: f.email, phone: f.phone ?? '', privacyAgree: 'yes', ...(f.smsConsent === 'yes' ? { smsConsent: 'yes' } : {}) } }) }).catch(() => {});
     }
     if (a.ok && a.sent) { form.innerHTML = `<p class="acct__sent"><strong>Check your email.</strong> We sent a sign-in link to ${f.email.replace(/[<>&"]/g, '')}. It can take a minute or two. Not there? Check your spam folder.</p>`; return; }

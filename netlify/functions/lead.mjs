@@ -37,7 +37,9 @@ async function copyToTeam(input, delivered, mail, note = '') {
 export default async (req, ctx, mail = sendMail, fetcher = fetch, homeValueEmail = estimateLeadEmail) => {
   if (req.method !== 'POST') return json(405, { ok: false, error: 'POST only' });
   const origin = req.headers.get('origin');
-  if (origin && !ALLOWED.test(origin)) return json(403, { ok: false, error: 'Forbidden' });
+  // Browsers always send Origin on a POST, so a post without one is a script talking to the endpoint directly (Nov 15,
+  // 2026: random-letter bot leads reached Follow Up Boss). Turned away like a foreign site.
+  if (!origin || !ALLOWED.test(origin)) return json(403, { ok: false, error: 'Forbidden' });
 
   let input;
   try {
@@ -63,7 +65,7 @@ export default async (req, ctx, mail = sendMail, fetcher = fetch, homeValueEmail
       name: `${f.firstName ?? ''} ${f.lastName ?? ''}`.trim().slice(0, 80), email: String(f.email ?? '').slice(0, 120), phone: String(f.phone ?? '').slice(0, 40) };
     console.error('Lead filtered as spam:', drop.reason, drop.form, drop.page);
     try { await getStore('spam-drops').setJSON(`${drop.at.slice(0, 10)}/${drop.at}-${crypto.randomUUID()}`, drop); } catch (e) { console.error('spam-drops', e?.message); }
-    if (/^sent \d+ ms/.test(built.reason ?? '') && !FORMS[input?.form]?.hot && f.email) {
+    if (/^sent \d+ ms|^random-letter/.test(built.reason ?? '') && !FORMS[input?.form]?.hot && f.email) {
       const job = copyToTeam({ ...input, form: input.form }, false, mail, `Filtered as possible spam (${built.reason}). If this is a real person, add them to Follow Up Boss.`);
       if (ctx?.waitUntil) ctx.waitUntil(job); else await job;
     }
