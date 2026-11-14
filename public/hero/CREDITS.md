@@ -8,17 +8,14 @@
 - Requirement: visible credit to the photographer with a link to the license and source (done in the site footer).
 - Changes: power lines removed and resized. The unaltered 3840-pixel rendering from Wikimedia is kept at `photos/minneapolis-skyline-3840-original.jpg`; `scripts/remove-power-lines.py` removes the wires to make `minneapolis-skyline-3840.jpg`, and scripts/make-hero.py makes the site sizes.
 
-# Home page photo (since Nov 12, 2026)
+# Home page photo (since Nov 14, 2026)
 
-- File: `home-skyline-aerial-*`, used on the home page (src/pages/index.astro); the skyline photo above is still used
+- File: `home-sunset-*`, used on the home page (src/pages/index.astro); the skyline photo above is still used
   elsewhere (src/components/Skyline.astro).
-- What: an aerial from the team's own listing MLS 7109462 (photo 23 of the listing): Minneapolis neighborhoods out to
-  the downtown skyline. Jason chose it Nov 12, 2026 from mockups (it replaced the Lakeville twilight photo, MLS 7115021,
-  used Nov 11 only).
-- Processing (Nov 12, 2026, at Jason's request): enlarged 2x (EDSR), haze removed (dark-channel dehaze on the land only,
-  sky kept smooth), light local contrast and sharpening; then (same day, Jason: "bright and vivid") brighter levels,
-  more color in the trees, a clearer blue sky and a touch of warmth. Source scripts in the session notes, not in the repo.
-- Made from the MLS copy (1600 px): enlarged 2x with the EDSR super-resolution model (OpenCV dnn_superres), lightly
-  sharpened, the top of the sky trimmed; sizes 640-2560 px.
-- To do (Jason): confirm with the listing photographer that the team may use it as the website's main image, and ask
-  for the full-size original (replace these files with it).
+- Title: Minneapolis Sunset (view of downtown Minneapolis during sunset from Tower Hill Park, June 1, 2018)
+- Photographer: BpA9543 (Wikimedia Commons)
+- License: CC BY-SA 4.0, https://creativecommons.org/licenses/by-sa/4.0/
+- Source: https://commons.wikimedia.org/wiki/File:Minneapolis_Sunset.jpg
+- Requirement: visible credit with links to the license and source (done in the site footer). Changes: resized only.
+- Jason chose it Nov 14, 2026 from three mockups ("go with 1"). It replaced the aerial from the team's listing
+  MLS 7109462 (Nov 12-14), which was a 1600-pixel MLS photo and looked soft full-width.
