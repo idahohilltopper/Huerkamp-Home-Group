@@ -917,3 +917,12 @@ listings. Details in docs/ai-optimization.md.
   steps with a QR code to the map search and the agent block). One slide per printed page (letter, landscape).
 - Same figures and sources as the home page's "Numbers you can check"; reviews filtered to complete 5-star Google
   reviews that mention buying. Base `kiosk`, noindex. Lead Tracker: Jlopo → Flyers and presentations.
+
+## Seller signals (Jlopo "likely sellers", 2026-11-14)
+
+- Known visitors only (hhg-fav-me), same switch-off rules as the activity feed (/cookies, GPC), src/scripts/hot.ts:
+  a sold-price search on the map search is sent as form `activity-sold` (instead of `activity-search`), and reading a
+  selling page (/sell, /home-estimate, /when-to-sell, /market…, the net proceeds calculator, /selling/…, /cash-offer,
+  /downsizing, /expired-listing, /for-sale-by-owner) as `activity-seller`, once per page per day.
+- Lead Tracker's Jlopo → Likely sellers ranks leads by these plus every Seller Inquiry. Anonymous visitors are never
+  identified. /cookies says so. Site check step "Known visitor: seller signals".

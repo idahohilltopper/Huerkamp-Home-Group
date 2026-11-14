@@ -14,7 +14,7 @@ const rows: [string, string, string, string][] = [
   ['Your agent', 'hhg-agent (browser storage)', 'When you open one of our agents’ pages, remembers that agent for 30 days so your questions reach them.', 'Needed for that feature; dismiss the agent bar to clear it'],
   ['Your choice on this page', 'hhg-analytics, hhg-activity (browser storage)', 'Remembers whether you allow analytics and home-activity sharing.', 'Needed to remember your choice'],
   ['Who you are, once you tell us', 'hhg-fav-me (browser storage)', 'After you send a form, save a home or sign in, remembers your name and email so forms come filled in and saving homes takes one click. Until you clear your browser storage or sign out.', 'Needed for those features'],
-  ['Homes you view and your last visit', 'hhg-view-days, hhg-last-visit, hhg-activity-sent (browser storage)', 'Which homes you opened and on which days, and when you last visited. If we know who you are, your agent sees the homes you look at (once per home per day) and the searches you run, and is told when you come back after a week or more or view the same home on three different days.', 'Optional: switch it off above'],
+  ['Homes you view and your last visit', 'hhg-view-days, hhg-last-visit, hhg-activity-sent (browser storage)', 'Which homes you opened and on which days, and when you last visited. If we know who you are, your agent sees the homes you look at (once per home per day), the searches you run and the selling pages you read (once per page per day), and is told when you come back after a week or more or view the same home on three different days.', 'Optional: switch it off above'],
 ];
 ---
 <Base breadcrumbs={[{ name: 'Manage cookies', href: '/cookies' }]} noindex
@@ -33,7 +33,7 @@ const rows: [string, string, string, string][] = [
 
       {OWN && <div class="choice" data-activity>
         <h2>Home activity for your agent</h2>
-        <p>If you’ve sent us a form, saved a home or signed in, your agent sees the homes you look at and the searches you run, and we let them know when you come back after a week or more or look at the same home on three different days, so they can follow up with homes that fit.</p>
+        <p>If you’ve sent us a form, saved a home or signed in, your agent sees the homes you look at, the searches you run (including sold-price searches) and when you read our selling pages, such as home values and market reports, and we let them know when you come back after a week or more or look at the same home on three different days, so they can follow up with homes that fit.</p>
         <p class="choice__now" data-act-now aria-live="polite">Sharing is on.</p>
         <p><button type="button" class="btn" data-act-off>Turn sharing off</button> <button type="button" class="btn btn--ghost" data-act-on>Turn sharing on</button></p>
         <p class="small">Your browser’s Global Privacy Control signal turns this off too. Saving a home always tells your agent, because that’s what saving does.</p>

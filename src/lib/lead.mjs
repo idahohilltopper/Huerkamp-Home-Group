@@ -56,6 +56,11 @@ export const FORMS = {
   'activity-search':   { type: 'Property Search',  label: 'Searched for homes on the website', tags: [], hot: true },
   // Sharing a home (Share button, src/components/ShareHome.astro) is a buying signal, as in Ylopo: once per home per day.
   'hot-share':         { type: 'Viewed Property',  label: 'Hot buyer: shared a home', tags: ['Hot buyer', 'Hot: shared a home'], hot: true },
+  // Seller signals (Jlopo "likely sellers", Nov 14, 2026): a known visitor looking up sold prices on the map search, or
+  // reading the selling pages (/sell, /home-estimate, market reports, when to sell, the net proceeds calculator...).
+  // Once per page (or search) per day, same email-only rules. Lead Tracker ranks people by these.
+  'activity-sold':     { type: 'Property Search',  label: 'Looked up sold homes on the website', tags: [], hot: true },
+  'activity-seller':   { type: 'Viewed Page',      label: 'Looked at selling on the website', tags: [], hot: true },
   'register':          { type: 'Registration',     label: 'Signed up to keep viewing homes', tags: ['Buyer lead', 'Website registration'] },
   'calc-seller':       { type: 'Seller Inquiry',  label: 'Net proceeds calculator', tags: ['Seller lead', 'Net proceeds calculator'] },
   'first-time-buyer':  { type: 'General Inquiry', label: 'First-time buyer guide form', tags: ['Buyer lead', 'First-time buyer'] },

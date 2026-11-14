@@ -20,7 +20,7 @@ type Home = { mls: string; street?: string; city?: string; zip?: string; price?:
 /** Off when the visitor turned it off on /cookies (hhg-activity) or their browser sends Global Privacy Control. */
 export const sharingOff = () => get('hhg-activity') === 'off' || (navigator as any).globalPrivacyControl === true;
 
-function send(form: 'hot-return' | 'hot-repeat' | 'hot-share' | 'activity-view' | 'activity-search', fields: Record<string, string>) {
+function send(form: 'hot-return' | 'hot-repeat' | 'hot-share' | 'activity-view' | 'activity-search' | 'activity-sold' | 'activity-seller', fields: Record<string, string>) {
   const who = me();
   if (!who?.email || sharingOff()) return;
   fetch('/api/lead', { method: 'POST', headers: { 'content-type': 'application/json' }, keepalive: true,
@@ -82,9 +82,14 @@ function searched(d: { summary?: string; url?: string }) {
   if (!d.url || !me()?.email) return;
   searchTimer = setTimeout(() => {
     const key = `s:${d.url!.replace(/^https?:\/\/[^/]+/, '')}`;
-    if (firstToday(key)) send('activity-search', { search: d.summary ?? '', searchUrl: d.url! });
+    // Sold-price searches are a seller signal (people checking what homes near theirs went for).
+    const sold = /[?&]status=sold\b/.test(d.url!);
+    if (firstToday(key)) send(sold ? 'activity-sold' : 'activity-search', { search: d.summary ?? '', searchUrl: d.url! });
   }, 8000);
 }
+
+/** Pages that suggest someone is thinking about selling (a seller signal when a known visitor reads them). Exported for tests. */
+export const SELLER_PAGE = /^\/(sell|home-estimate|when-to-sell|market(\/|$)|calculators\/seller-net-proceeds|selling(\/|$)|cash-offer|downsizing|expired-listing|for-sale-by-owner)/;
 
 export function initHot() {
   // Any lead form with a name and email makes the visitor known here too (forms, hearts and alerts come pre-filled).
@@ -104,4 +109,6 @@ export function initHot() {
     if (d.mls && me()?.email && firstToday(`sh:${d.mls}`)) send('hot-share', { listing: `${d.title ?? ''} (MLS #${d.mls})`, propMls: d.mls, shareMethod: d.method ?? '' });
   });
   window.addEventListener('home-searched', (e: Event) => searched((e as CustomEvent).detail ?? {}));
+  // Reading the selling pages: once per page per day.
+  if (SELLER_PAGE.test(location.pathname) && me()?.email && firstToday(`sell:${location.pathname}`)) send('activity-seller', {});
 }

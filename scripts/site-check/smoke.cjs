@@ -206,6 +206,25 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
       ok('Known visitor: views and searches reach Follow Up Boss', good, `${views.length} view event(s) for 2 visits (MLS ${views[0]?.fields?.propMls ?? '?'}); share ${shared ? 'sent' : 'not sent'}; search: ${search ? search.fields.search : 'not sent'}`);
     } finally { await ec.close(); }
   });
+  // Seller signals (Nov 14, 2026): a known visitor reading a selling page (once a day) and searching sold homes.
+  await step('Known visitor: seller signals', async () => {
+    const ec = await b.newContext();
+    await ec.addInitScript(() => { try { sessionStorage.setItem('idx-eula', '1'); localStorage.setItem('hhg-fav-me', JSON.stringify({ firstName: 'Test', lastName: 'Seller', email: 'smoke-seller@example.com', phone: '' })); } catch {} });
+    const sent = [];
+    await ec.route('**/api/lead', (r) => { sent.push(r.request().postDataJSON()); r.fulfill({ status: 200, contentType: 'application/json', body: '{"ok":true}' }); });
+    await ec.route('**/api/client-error', (r) => r.fulfill({ status: 202, body: '{}' }));
+    await ec.route(/google-analytics\.com|googletagmanager\.com\/.*collect|facebook\.com\/tr/, (r) => r.fulfill({ status: 204, body: '' }));
+    const m = await ec.newPage();
+    try {
+      for (let i = 0; i < 2; i++) { await m.goto(BASE + '/when-to-sell', { waitUntil: 'load' }); await m.waitForTimeout(1200); }
+      const pages = sent.filter((l) => l.form === 'activity-seller');
+      await m.goto(BASE + '/home-search?status=sold&place=lakeville', { waitUntil: 'load' });
+      for (let t = 0; t < 30 && !sent.some((l) => l.form === 'activity-sold'); t++) await m.waitForTimeout(500);
+      const sold = sent.find((l) => l.form === 'activity-sold');
+      ok('Known visitor: seller signals', pages.length === 1 && pages[0].page === '/when-to-sell' && !!sold && !sent.some((l) => l.form === 'activity-search'),
+        `selling page sent ${pages.length}× for 2 visits; sold search ${sold ? 'sent' : 'not sent'}`);
+    } finally { await ec.close(); }
+  });
   // A lead form sent before the page's scripts have loaded (slow phone, listing with many photos) must still be sent,
   // without the page reloading or the details landing in the address (found Nov 9, 2026). Scripts are held back 4 s.
   await step('Form sent while the page is still loading', async () => {
