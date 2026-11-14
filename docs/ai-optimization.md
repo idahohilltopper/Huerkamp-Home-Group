@@ -79,3 +79,14 @@ Don't retitle community pages back to "homes for sale"; strengthen the homes-for
   www.huerkamphomes.com; redirect huerkamphomegroup.com (the old site still outranks the new one for "huerkamp home
   group"). Once the profile links are confirmed, add them to `sameAs` in src/data/schema.ts (never guessed).
 - **Changed:** schema.ts business data now lists the RealTrends team profile in sameAs and a knowsAbout list.
+
+## 2026-11-14 — OpenSEO check-up (site audit, speed, links, keywords)
+- **Site audit (50 pages):** no broken links, missing titles, duplicates or redirect problems. Only 30 titles a few
+  characters over 60 (mostly the 2022 imported posts): cosmetic.
+- **Speed (Lighthouse):** desktop 100, mobile 90-95; Google's SEO score 100 on every tested page.
+- **Links pointing at us:** huerkamphomes.com 58 referring sites (mostly low-value); the OLD huerkamphomegroup.com 86,
+  including ActiveRain, Prior Lake Chamber, FastExpert, Expertise.com, Experience.com, findmyminnesotahouse.com. A 301
+  redirect of the old domain carries those to the new site; Jason can also change the link on the profiles he controls.
+- **Keyword volumes (US, monthly):** home for sale mn 18,100; land for sale mn 6,600 (KD 2); homes for sale lakeville mn
+  5,400; minnesota lake homes for sale 4,400 (KD 2); first time home buyer minnesota 1,600. Our pages for each already
+  carry those words in the title; ranking now depends on authority (links, the old-domain redirect), not wording.
