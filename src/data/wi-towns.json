@@ -1,0 +1,32 @@
+{
+ "note": "Western Wisconsin towns on the Twin Cities side of the St. Croix, with their own homes-for-sale page (/wisconsin-homes-for-sale/<slug>). The team serves western Wisconsin (docs/site-plan.md), so leads stay with the team. searches = monthly Google searches for \"homes for sale <town> wi\" (Open SEO, Nov 15, 2026; Hudson not in that report). mlsCity = the city as NorthstarMLS spells it. Left out on purpose: towns whose name is also a Minnesota city (Hammond, Spring Valley, Clear Lake), so a city search can't mix the two states.",
+ "regions": {
+  "stcroix": "St. Croix County",
+  "pierce": "Pierce County",
+  "polk": "Polk County"
+ },
+ "cities": [
+  { "slug": "hudson", "name": "Hudson", "mlsCity": "Hudson", "county": "St. Croix", "region": "stcroix", "searches": null },
+  { "slug": "river-falls", "name": "River Falls", "mlsCity": "River Falls", "county": "Pierce and St. Croix", "region": "pierce", "searches": 3600 },
+  { "slug": "new-richmond", "name": "New Richmond", "mlsCity": "New Richmond", "county": "St. Croix", "region": "stcroix", "searches": 2400 },
+  { "slug": "prescott", "name": "Prescott", "mlsCity": "Prescott", "county": "Pierce", "region": "pierce", "searches": 1600 },
+  { "slug": "amery", "name": "Amery", "mlsCity": "Amery", "county": "Polk", "region": "polk", "searches": 1000 },
+  { "slug": "somerset", "name": "Somerset", "mlsCity": "Somerset", "county": "St. Croix", "region": "stcroix", "searches": 1000 },
+  { "slug": "baldwin", "name": "Baldwin", "mlsCity": "Baldwin", "county": "St. Croix", "region": "stcroix", "searches": 1000 },
+  { "slug": "osceola", "name": "Osceola", "mlsCity": "Osceola", "county": "Polk", "region": "polk", "searches": 1000 },
+  { "slug": "ellsworth", "name": "Ellsworth", "mlsCity": "Ellsworth", "county": "Pierce", "region": "pierce", "searches": 880 },
+  { "slug": "st-croix-falls", "name": "St. Croix Falls", "mlsCity": "Saint Croix Falls", "county": "Polk", "region": "polk", "searches": 880 },
+  { "slug": "balsam-lake", "name": "Balsam Lake", "mlsCity": "Balsam Lake", "county": "Polk", "region": "polk", "searches": 720 },
+  { "slug": "roberts", "name": "Roberts", "mlsCity": "Roberts", "county": "St. Croix", "region": "stcroix", "searches": 720 },
+  { "slug": "luck", "name": "Luck", "mlsCity": "Luck", "county": "Polk", "region": "polk", "searches": 590 },
+  { "slug": "turtle-lake", "name": "Turtle Lake", "mlsCity": "Turtle Lake", "county": "Barron and Polk", "region": "polk", "searches": 480 },
+  { "slug": "glenwood-city", "name": "Glenwood City", "mlsCity": "Glenwood City", "county": "St. Croix", "region": "stcroix", "searches": 390 },
+  { "slug": "frederic", "name": "Frederic", "mlsCity": "Frederic", "county": "Polk", "region": "polk", "searches": 390 },
+  { "slug": "woodville", "name": "Woodville", "mlsCity": "Woodville", "county": "St. Croix", "region": "stcroix", "searches": 320 },
+  { "slug": "dresser", "name": "Dresser", "mlsCity": "Dresser", "county": "Polk", "region": "polk", "searches": 260 },
+  { "slug": "star-prairie", "name": "Star Prairie", "mlsCity": "Star Prairie", "county": "St. Croix", "region": "stcroix", "searches": 260 },
+  { "slug": "milltown", "name": "Milltown", "mlsCity": "Milltown", "county": "Polk", "region": "polk", "searches": 170 },
+  { "slug": "north-hudson", "name": "North Hudson", "mlsCity": "North Hudson", "county": "St. Croix", "region": "stcroix", "searches": 140 },
+  { "slug": "centuria", "name": "Centuria", "mlsCity": "Centuria", "county": "Polk", "region": "polk", "searches": 110 }
+ ]
+}
