@@ -1,0 +1,177 @@
+---
+// Cabins for sale in Minnesota (/cabins-for-sale-mn). Open SEO, Nov 15, 2026: "cabins for sale mn" 4,400 searches a month
+// (KD 0), "lakefront cabins for sale in mn" 1,000, "cabins for sale in northern mn" 390, "cabins for sale on lake
+// vermilion mn" 390, "mn lake cabins for sale under $100,000" 140, "mn cabins for sale under $200,000" 110. The Minnesota
+// Real Estate Team ranks for it; we had no page.
+// Listings: every home (not land) in the Greater Minnesota towns (src/lib/mn-cities.mjs) and the up-north lake chains
+// (src/lib/north-lakes.mjs, Minnesota only) whose MLS listing calls it a cabin, a log home or a cottage. These areas are
+// outside our service area except the Brainerd lakes, which the team sells itself: other leads go to a trusted local agent, like the town pages. Fair housing: listing facts only.
+import Base from '../layouts/Base.astro';
+import ListingCard from '../components/ListingCard.astro';
+import IdxDisclosure from '../components/IdxDisclosure.astro';
+import { loadMnCities, mnTowns } from '../lib/mn-cities.mjs';
+import { loadNorthLakes, north } from '../lib/north-lakes.mjs';
+import { median } from '../data/listings';
+import { site } from '../data/site';
+
+const CABIN = /\b(cabins?|log (home|house|sided|siding|construction)|lake cottage|cottage)\b/i;
+const towns = await loadMnCities();
+const lakes = await loadNorthLakes();
+const live = towns.mode !== 'off';
+const groupInfo = new Map(north.regions.filter((r: any) => r.state === 'MN').flatMap((r: any) => r.groups.map((g: any) => [g.slug, { name: g.name, href: `/lake-homes/${r.slug}/${g.slug}` }])));
+const seen = new Set<string>();
+const homes: any[] = [];
+for (const t of mnTowns) for (const l of (towns.towns[t.slug] ?? []) as any[]) {
+  if (l.type === 'land' || seen.has(l.mls) || !CABIN.test(`${l.style} ${l.description}`)) continue;
+  seen.add(l.mls); homes.push({ ...l, area: t.name, areaHref: `/minnesota-homes-for-sale/${t.slug}` });
+}
+for (const [slug, g] of Object.entries((lakes as any).groups ?? {}) as [string, any][]) {
+  const info = groupInfo.get(slug);
+  if (!info) continue; // Wisconsin lakes stay off a Minnesota page
+  for (const l of g.active ?? []) {
+    if (l.type === 'land' || seen.has(l.mls) || !CABIN.test(`${l.style} ${l.description}`)) continue;
+    seen.add(l.mls); homes.push({ ...l, area: info.name, areaHref: info.href });
+  }
+}
+homes.sort((a, b) => a.price - b.price);
+const money = (n: number | null | undefined) => (n == null ? '—' : `$${Math.round(n).toLocaleString('en-US')}`);
+const day = towns.at ? new Date(towns.at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }) : '';
+const prices = homes.map((l) => l.price);
+const lakefront = homes.filter((l) => l.lakefront);
+const byArea = [...new Set(homes.map((l) => l.area))].map((a) => { const list = homes.filter((l) => l.area === a); return { label: a, href: list[0].areaHref, n: list.length, med: median(list.map((l) => l.price)) }; }).sort((a, b) => b.n - a.n);
+const BANDS: [string, number, number][] = [['Under $100,000', 0, 100000], ['$100,000 to $200,000', 100000, 200000], ['$200,000 to $300,000', 200000, 300000], ['$300,000 to $500,000', 300000, 500000], ['$500,000 and up', 500000, Infinity]];
+const byPrice = BANDS.map(([label, lo, hi]) => { const list = homes.filter((l) => l.price >= lo && l.price < hi); return { label, n: list.length, med: median(list.map((l) => l.price)) }; }).filter((r) => r.n);
+const under200 = homes.filter((l) => l.price < 200000).length;
+const top = byArea.slice(0, 3).map((r) => `${r.label} (${r.n})`);
+const answer = live && homes.length
+  ? `${homes.length.toLocaleString('en-US')} cabins are listed for sale in NorthstarMLS across the Minnesota lake country and Greater Minnesota towns we track, as of ${day}, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices))}. ${lakefront.length} are lakefront${top.length ? `; the most are in ${top.join(', ')}` : ''}.`
+  : '';
+const shown = homes.length <= 48 ? homes : [...lakefront.slice(0, 24), ...homes.filter((l) => !l.lakefront)].filter((_, i, a) => a.length <= 48 || i < 24 || (i - 24) % Math.ceil((a.length - 24) / 24) === 0).slice(0, 48).sort((a, b) => a.price - b.price);
+const faq = [
+  ...(answer ? [{ q: 'How many cabins are for sale in Minnesota right now?', a: answer }] : []),
+  ...(live && homes.length ? [{ q: 'Are there cabins for sale in Minnesota under $200,000?', a: under200 ? `Yes: ${under200} of the cabins listed now are under $200,000, as of ${day}. Lower prices usually mean off-lake, smaller or seasonal cabins; check whether the cabin is winterized and how the road is maintained.` : `None of the cabins listed now are under $200,000, as of ${day}. Off-lake and seasonal cabins come up most often at lower prices; ask a local agent to watch for one.` }] : []),
+  { q: 'What should I check before buying a cabin?', a: 'Whether it is winterized and usable year-round; the well and septic system (many Minnesota counties require a septic compliance inspection when a property sells); the road and who plows it; shoreland rules for docks, decks and tree cutting if it is on a lake; internet and cell service; and insurance, which can cost more for a seasonal or remote place.' },
+  { q: 'Can I get a mortgage on a cabin?', a: 'Usually, as a second home, with a down payment that is often higher than for a primary home. Lenders look at whether the cabin is year-round, its access and its condition. Some rustic or seasonal cabins need a local bank or a land loan. Talk to a lender early.' },
+  { q: 'Can Huerkamp Home Group help me buy a cabin?', a: `Yes. We sell cabins and lake homes on the Brainerd lakes (the Gull Lake Chain, Pelican Lake and the Whitefish Chain) ourselves. Elsewhere up north we connect you with a trusted local agent who works that lake country every day, at no cost to you. If you're selling a Twin Cities home to buy the cabin, we'll handle that side ourselves. Call or text ${site.phone}.` },
+];
+const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
+const id = 'cab';
+---
+<Base breadcrumbs={[{ name: 'Minnesota homes for sale', href: '/minnesota-homes-for-sale' }, { name: 'Cabins for sale', href: '/cabins-for-sale-mn' }]}
+  title={`Cabins for Sale in MN${homes.length ? ` (${homes.length})` : ''}: Lake Cabins Up North by Area & Price | ${site.name}`}
+  description={(answer || 'Cabins for sale in Minnesota lake country and Greater Minnesota towns, from NorthstarMLS, by area and price, with lakefront cabins counted.').slice(0, 300)}
+  noindex={towns.mode !== 'live' || !homes.length}>
+  <script slot="head" type="application/ld+json" set:html={ld} />
+
+  <section class="nhead">
+    <div class="wrap">
+      <p class="eyebrow">Minnesota lake country</p>
+      <h1>Cabins for sale in Minnesota</h1>
+      {answer && <p class="answer">{answer}</p>}
+      <p class="lede">{day ? `Updated ${day} from NorthstarMLS: listings that call themselves a cabin, log home or cottage, in Ely, Crosslake, Walker, Park Rapids, Grand Rapids, the Brainerd lakes and more. ` : ''}We sell cabins on the Brainerd lakes ourselves; elsewhere up north, we'll connect you with a trusted local agent at no cost to you.</p>
+      <p class="hero-btns"><a class="btn" href="#ask">Tell us what you're looking for</a> <a class="btn btn--ghost" href={site.phoneHref}>Call or text {site.phone}</a></p>
+    </div>
+  </section>
+
+  {live && homes.length > 0 && (
+    <section class="section section--paper">
+      <div class="wrap twocol">
+        {[{ h: 'By area', col: 'Area', rows: byArea }, { h: 'By price', col: 'List price', rows: byPrice }].map((tb) => (
+          <div>
+            <h2 class="h3">{tb.h}</h2>
+            <div class="table-scroll"><table class="data">
+              <thead><tr><th scope="col">{tb.col}</th><th scope="col" class="num">For sale</th><th scope="col" class="num">Median price</th></tr></thead>
+              <tbody>{tb.rows.map((r: any) => <tr><th scope="row">{r.href ? <a href={r.href}>{r.label}</a> : r.label}</th><td class="num">{r.n}</td><td class="num">{money(r.med)}</td></tr>)}</tbody>
+            </table></div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {live && (
+    <section class="section" aria-labelledby="sale-title">
+      <div class="wrap">
+        <div class="head"><p class="eyebrow">For sale now</p><h2 id="sale-title">Cabins for sale, lakefront first</h2>
+          {homes.length > shown.length && <p>{shown.length} of {homes.length} cabins, lowest price first. Pick an area above for all of its homes.</p>}
+          <p class="source">Homes listed in NorthstarMLS. Some cabins up north are listed only in another MLS; a local agent sees them all.</p></div>
+        <div data-idx>
+          {shown.length ? <ul class="lcards">{shown.map((l) => <ListingCard l={l} href={`/homes/listing?mls=${encodeURIComponent(l.mls)}`} />)}</ul>
+            : <p>None right now. <a href="#ask">Tell us what you're looking for</a> and we'll have a local agent watch for it.</p>}
+        </div>
+      </div>
+    </section>
+  )}
+  {live && <section class="section"><div class="wrap"><IdxDisclosure at={towns.at} /></div></section>}
+
+  <section class="section section--dark" id="ask" aria-labelledby="ask-title">
+    <div class="wrap split">
+      <div class="prose">
+        <p class="eyebrow">Looking for a cabin?</p>
+        <h2 id="ask-title">Tell us about <em>your cabin.</em></h2>
+        <p>Tell us the lake or area, your budget and whether you need it year-round. On the Brainerd lakes we'll help you ourselves; anywhere else, we'll introduce you to an experienced local agent, at no cost to you. Selling a Twin Cities home to buy it? We'll handle that side ourselves.</p>
+        <p>Call or text <a href={site.phoneHref}>{site.phone}</a>.</p>
+      </div>
+      <form class="form" data-lead="mn-referral">
+        <input type="hidden" name="community" value="Cabin up north" />
+        <div class="form__row">
+          <div class="field"><label for={`${id}-first`}>First name</label><input id={`${id}-first`} name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for={`${id}-last`}>Last name</label><input id={`${id}-last`} name="lastName" autocomplete="family-name" required /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for={`${id}-email`}>Email</label><input id={`${id}-email`} name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for={`${id}-phone`}>Phone</label><input id={`${id}-phone`} name="phone" type="tel" autocomplete="tel" required pattern="[^0-9]*([0-9][^0-9]*){10,}" title="Please enter your phone number, including area code." /></div>
+        </div>
+        <div class="field">
+          <label for={`${id}-goal`}>I'm looking to</label>
+          <select id={`${id}-goal`} name="goal"><option value="">Choose one</option><option>Buy a cabin</option><option>Sell a cabin</option><option>Sell in the Twin Cities and buy a cabin</option></select>
+        </div>
+        <div class="field"><label for={`${id}-msg`}>Lake or area, price range, timing (optional)</label><textarea id={`${id}-msg`} name="message" rows="3"></textarea></div>
+        <button class="btn" type="submit">Connect me</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="faq-title">
+    <div class="wrap faq">
+      <div class="head"><p class="eyebrow">Quick answers</p><h2 id="faq-title">Buying a cabin in Minnesota</h2></div>
+      {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="wrap">
+      <h2 class="h3">More up north</h2>
+      <ul class="chips">
+        {[...groupInfo.values()].map((g) => <li><a href={g.href}>{g.name} homes</a></li>)}
+        {['ely', 'crosslake', 'walker', 'park-rapids', 'grand-rapids', 'nisswa', 'aitkin', 'detroit-lakes', 'alexandria', 'bemidji', 'grand-marais'].map((s) => { const t = mnTowns.find((x) => x.slug === s); return t && <li><a href={`/minnesota-homes-for-sale/${s}`}>{t.name}</a></li>; })}
+        <li><a href="/minnesota-homes-for-sale">All Greater Minnesota towns</a></li>
+        <li><a href="/lake-homes">Twin Cities lake homes</a></li>
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nhead { padding: clamp(2.5rem, 6vw, 4.5rem) 0 clamp(2rem, 4vw, 3rem); background: var(--night); color: var(--on-dark); }
+  .nhead h1 { font: 500 clamp(2.2rem, 5vw, 3.6rem)/1.05 var(--serif-display); color: #fff; }
+  .nhead .eyebrow { color: var(--rose); }
+  .answer { max-width: 52rem; margin: .9rem 0 .4rem; color: #fff; font: 500 clamp(1.05rem, 2.2vw, 1.25rem)/1.5 var(--ui); }
+  .lede { color: var(--on-dark); max-width: 52rem; }
+  .hero-btns { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.25rem; }
+  .head { margin-bottom: 1.25rem; }
+  .twocol { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: 2rem; }
+  .h3 { margin: 0 0 .8rem; font: 500 1.35rem/1.2 var(--serif); }
+  .source { margin-top: .8rem; font-size: .9rem; color: var(--text-soft); }
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+  .split .prose a { color: #fff; font-weight: 700; }
+  .split :global(em) { font-style: italic; }
+  .faq { display: grid; gap: .75rem; max-width: 52rem; }
+  .faq details { padding: 1rem 1.2rem; background: var(--paper); border: 1px solid var(--line); }
+  .faq summary { cursor: pointer; font: 600 1.15rem/1.3 var(--serif); }
+  .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+  .chips a { display: inline-block; padding: .5rem .8rem; border: 1px solid var(--line); background: #fff; color: var(--text); font: 500 .88rem/1.2 var(--ui); text-decoration: none; }
+  .chips a:hover { border-color: var(--crimson); color: var(--crimson); }
+</style>
