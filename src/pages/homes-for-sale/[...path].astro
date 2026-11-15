@@ -21,6 +21,7 @@ import { hasMarket, marketFor, latest, monthLabel, money as mMoney, count, signe
 import { origin } from '../../data/schema';
 import { site } from '../../data/site';
 import { developmentsData } from '../../data/developments';
+import { subdivisionsData } from '../../data/subdivisions';
 
 export async function getStaticPaths() {
   const data = await listingsData;
@@ -41,6 +42,8 @@ const area = c?.area;
 const place = area?.place ?? 'the Twin Cities';
 const st = c ? stats(c.listings) : stats(data.listings);
 // New-construction developments in this city (src/data/developments.ts), linked from its new-construction page.
+// Subdivisions with homes for sale in this city (src/data/subdivisions.ts), on the city's main page only.
+const subsHere = c?.area.kind === 'community' && !c.facet ? (await subdivisionsData).list.filter((x) => x.community === c.area.key) : [];
 const devsHere = c?.area.kind === 'community' && c.facet?.slug === 'new-construction' ? (await developmentsData).list.filter((x) => x.community === c.area.key) : [];
 const h1 = c ? (c.facet ? c.facet.title(place) : `${place} homes for sale`) : 'Twin Cities homes for sale';
 const titleText = c ? (c.facet ? `${c.facet.title(place)}${st.count > 1 ? ` (${st.count.toLocaleString("en-US")})` : ""}` : st.count > 1 ? `${place} Homes for Sale (${st.count.toLocaleString("en-US")})` : `${place} Homes for Sale`) : "Twin Cities Homes for Sale by City";
@@ -181,6 +184,12 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() },
               <>
                 <h3 class="sub">Homes for sale by neighborhood</h3>
                 <ul class="chips">{cityHoods.map(({ h, k }) => <li><a href={homesHref(k!.path)}>{h.name} <em>{k!.listings.length}</em></a></li>)}</ul>
+              </>
+            )}
+            {subsHere.length > 0 && (
+              <>
+                <h3 class="sub">Homes for sale by subdivision</h3>
+                <ul class="chips">{subsHere.slice(0, 30).map((x) => <li><a href={`/subdivisions/${x.path}`}>{x.name} <em>{x.listings.length}</em></a></li>)}{subsHere.length > 30 && <li><a href={`/subdivisions/${area!.key}`}>All {subsHere.length} subdivisions</a></li>}</ul>
               </>
             )}
           </div>

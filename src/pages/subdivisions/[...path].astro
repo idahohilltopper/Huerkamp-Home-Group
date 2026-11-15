@@ -1,0 +1,90 @@
+---
+// Subdivisions with homes for sale (src/data/subdivisions.ts): /subdivisions (every city), /subdivisions/<city> (that
+// city's subdivisions) and /subdivisions/<city>/<subdivision> (its homes for sale), rebuilt from the live MLS feed at
+// every build, so a subdivision appears while it has at least 3 homes for sale. Listings sit inside the I AGREE block
+// with the MLS disclosures (FeedTopicPage). Fair housing: listing facts only, nothing about who lives there.
+import Base from '../../layouts/Base.astro';
+import FeedTopicPage from '../../components/FeedTopicPage.astro';
+import { subdivisionsData, MIN_HOMES, type Subdivision } from '../../data/subdivisions';
+import { homesHref, money, median, TYPE_LABEL, listingsData } from '../../data/listings';
+import { communities } from '../../data/areas';
+import { site } from '../../data/site';
+
+export async function getStaticPaths() {
+  const { list, mode } = await subdivisionsData;
+  if (mode === 'off') return [];
+  const cities = [...new Set(list.map((s) => s.community))];
+  return [
+    { params: { path: undefined }, props: { s: null, city: null } },
+    ...cities.map((c) => ({ params: { path: c }, props: { s: null, city: c } })),
+    ...list.map((s) => ({ params: { path: s.path }, props: { s, city: s.community } })),
+  ];
+}
+const { s, city } = Astro.props as { s: Subdivision | null; city: string | null };
+const { list, at, preview, devs } = await subdivisionsData;
+const feed = await listingsData;
+const day = at ? new Date(at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }) : '';
+const cityName = (slug: string) => communities.find((c) => c.slug === slug)?.name ?? slug;
+const cityPage = (slug: string, facet = '') => (feed.collections.some((k) => k.path === `${slug}${facet}`) ? homesHref(`${slug}${facet}`) : homesHref(slug));
+const span = (r: [number, number] | null, unit: string, fmt = (n: number) => n.toLocaleString('en-US')) => (r ? (r[0] === r[1] ? `${fmt(r[0])} ${unit}` : `${fmt(r[0])} to ${fmt(r[1])} ${unit}`) : '');
+const kinds = (x: Subdivision) => x.types.map(([t, k]) => { const l = TYPE_LABEL[t] ?? t; return `${k} ${k === 1 ? l.replace(/s$/, '') : l}`; }).join(', ');
+const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const n = (k: number) => `${k} ${k === 1 ? 'home' : 'homes'}`;
+
+// One subdivision
+const others = s ? list.filter((x) => x.community === s.community && x.slug !== s.slug).slice(0, 12) : [];
+const answer = s ? `${n(s.listings.length)} ${s.listings.length === 1 ? 'is' : 'are'} for sale in ${s.name}, ${s.city}, MN as of ${day}${s.listings.length > 1 ? `, from ${money(s.min)} to ${money(s.max)}, with a median list price of ${money(s.median)}` : `, listed at ${money(s.min)}`}: ${kinds(s)}.` : '';
+const facts = s ? [
+  s.beds && `Bedrooms: ${span(s.beds, '')}`.trim(),
+  s.sqft && `Finished square feet: ${span(s.sqft, '')}`.trim(),
+  s.built && `Year built: ${span(s.built, '', String)}`.trim(),
+  s.hoa && `Median association fee: ${money(s.hoa)} a month, as listed`,
+].filter(Boolean) as string[] : [];
+const byType = s ? s.types.map(([t]) => { const l = s.listings.filter((x) => x.type === t); return { label: (TYPE_LABEL[t] ?? t).replace(/^./, (c) => c.toUpperCase()), n: l.length, med: median(l.map((x) => x.price)) }; }) : [];
+const faq = s ? [
+  { q: `How many homes are for sale in ${s.name}?`, a: answer },
+  ...(facts.length ? [{ q: `What are the homes like in ${s.name}?`, a: `${facts.join('. ')}. From the listings for sale now in NorthstarMLS; older or newer homes may sell here too.` }] : []),
+  { q: `How do I get new ${s.name} listings first?`, a: `Tell us below and we'll email you the moment a home in ${s.name} hits the MLS, including ones our agents hear about before they're listed. Or call or text ${site.phone}.` },
+  { q: `What city and county is ${s.name} in?`, a: `${s.city}, Minnesota. See all ${s.city} homes for sale and the ${s.city} market report for prices and sales across the city.` },
+] : [];
+---
+{s ? (
+  <FeedTopicPage path={`/subdivisions/${s.path}`} crumb={`${s.name}, ${s.city}`} at={at} noindex={!!preview}
+    title={`${s.name} Homes for Sale (${s.listings.length}) in ${s.city}, MN | ${site.name}`}
+    description={answer}
+    eyebrow={`${s.city} subdivision`} h1={`${s.name} homes for sale`} answer={answer}
+    lede={`Every home for sale in the ${esc(s.name)} subdivision in ${s.city}, from NorthstarMLS, updated ${day}. ${facts.length ? esc(facts.join(' · ')) + '.' : ''} See <a href="${cityPage(s.community)}">all ${s.city} homes for sale</a>.`}
+    tables={[{ h: 'By home type', col: 'Type', rows: byType }, { h: `More ${s.city} subdivisions`, col: 'Subdivision', rows: others.map((o) => ({ label: o.name, n: o.listings.length, med: o.median, href: `/subdivisions/${o.path}` })) }]}
+    note={`Subdivision names as entered in the MLS, with plat phases ("2nd Addition") combined. Updated ${day}.`}
+    shown={s.listings.slice(0, 48)} shownH={`Homes for sale in ${s.name}`}
+    ask={{ eyebrow: `Watching ${s.name}?`, h2: `Get ${esc(s.name)} listings <em>first.</em>`, p: `We'll email you new ${esc(s.name)} homes the moment they're listed, and tell you about the ones we hear of before they hit the websites.`, interest: `${s.name}, ${s.city}`, msg: 'Price range, bedrooms, timing (optional)' }}
+    faq={faq} faqH={`${s.name} homes for sale`}
+    links={[[`${s.city} homes for sale`, cityPage(s.community)], [`${s.city} townhomes`, cityPage(s.community, '/townhomes')], [`${s.city} market report`, `/market/${s.community}`], [`All ${s.city} subdivisions`, `/subdivisions/${s.community}`], ['What is my home worth?', '/home-estimate']]} />
+) : (
+  <Base breadcrumbs={[{ name: 'Homes for sale', href: '/homes-for-sale' }, { name: 'Subdivisions', href: '/subdivisions' }, ...(city ? [{ name: cityName(city), href: `/subdivisions/${city}` }] : [])]}
+    title={city ? `${cityName(city)}, MN Subdivisions With Homes for Sale | ${site.name}` : `Twin Cities Subdivisions With Homes for Sale | ${site.name}`}
+    description={city ? `Subdivisions in ${cityName(city)}, MN with ${MIN_HOMES} or more homes for sale now, with counts and median prices, from NorthstarMLS.` : `Twin Cities subdivisions with ${MIN_HOMES} or more homes for sale now, by city, from NorthstarMLS.`}
+    noindex={!!preview}>
+    <section class="section">
+      <div class="wrap">
+        <p class="eyebrow">Subdivisions</p>
+        <h1>{city ? `${cityName(city)} subdivisions with homes for sale` : 'Twin Cities subdivisions with homes for sale'}</h1>
+        <p class="lede">Subdivisions with {MIN_HOMES} or more homes for sale now, from NorthstarMLS, updated {day}. Builders' new neighborhoods are under <a href="/new-construction">new construction</a>.</p>
+        {[...new Set(list.filter((x) => !city || x.community === city).map((x) => x.community))].map((c) => (
+          <>
+            {!city && <h2 class="grp"><a href={`/subdivisions/${c}`}>{cityName(c)}</a></h2>}
+            <div class="table-scroll"><table class="data">
+              <thead><tr><th scope="col">Subdivision</th><th scope="col" class="num">For sale</th><th scope="col" class="num">Median price</th></tr></thead>
+              <tbody>{list.filter((x) => x.community === c).map((x) => <tr><th scope="row"><a href={`/subdivisions/${x.path}`}>{x.name}</a></th><td class="num">{x.listings.length}</td><td class="num">{money(x.median)}</td></tr>)}
+                {devs.filter((d) => d.community === c).map((d) => <tr><th scope="row"><a href={`/new-construction/${d.path}`}>{d.name}</a> <small>(new construction)</small></th><td class="num">{d.listings.length}</td><td class="num">{money(d.median)}</td></tr>)}</tbody>
+            </table></div>
+          </>
+        ))}
+      </div>
+    </section>
+  </Base>
+)}
+
+<style>
+  .grp { margin: 2rem 0 .6rem; font: 500 1.35rem/1.2 var(--serif); }
+</style>
