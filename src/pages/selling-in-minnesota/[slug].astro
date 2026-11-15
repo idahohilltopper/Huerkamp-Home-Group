@@ -1,0 +1,77 @@
+---
+// One page per city in src/data/sale-rules.ts: what that city requires before a home sale (Truth in Sale of Housing,
+// time-of-sale, sewer/I&I, or a repealed program). Added Nov 15, 2026: "what inspections are required to sell a house in
+// Minneapolis" is asked of ChatGPT, Gemini, Perplexity and Google's AI answers, and none of them cited the all-cities page.
+// A page per city gives each one a single, specific answer to cite. Every fact comes from the city's own website (the
+// data file says when it was checked); nothing here is invented.
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { saleRules, statewide, CHECKED, type SaleRule } from '../../data/sale-rules';
+import communities from '../../data/communities.json';
+import { hasMarket } from '../../data/market';
+import { site } from '../../data/site';
+
+export function getStaticPaths() {
+  return saleRules.map((r) => ({ params: { slug: r.slug }, props: { r } }));
+}
+const { r } = Astro.props as { r: SaleRule };
+const name = new Map(communities.communities.map((c) => [c.slug, c.name]));
+const city = name.get(r.slug) ?? r.slug;
+const checked = new Date(`${CHECKED}T12:00:00`).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+const kindWord = r.kind === 'sewer' ? 'sewer inspection' : 'point-of-sale inspection';
+const title = r.kind === 'repealed'
+  ? `Does ${city}, MN Require an Inspection to Sell a House? | ${site.name}`
+  : `${city}, MN ${r.kind === 'sewer' ? 'Sewer Inspection' : 'Point-of-Sale Inspection'} When You Sell: ${r.program.replace(/ \(.*\)$/, '')} | ${site.name}`;
+const heading = r.kind === 'repealed' ? `Does ${city} require an inspection to sell a house?` : `Selling a house in ${city}: the ${kindWord}`;
+const answer = r.kind === 'repealed'
+  ? `No, not anymore. ${r.summary}`
+  : `Yes. ${r.summary} The city's program: ${r.program}.`;
+const others = saleRules.filter((x) => x.slug !== r.slug && x.kind === r.kind);
+const faq = [
+  { q: `What inspections are required to sell a house in ${city}, MN?`, a: `${answer} ${r.kind !== 'repealed' ? r.details.slice(0, 2).join(' ') + ' ' : ''}Every Minnesota seller also owes the state disclosures (property condition, wells, septic, radon, lead-based paint for homes built before 1978). Confirm current rules with the city${r.contact ? ` (${r.contact})` : ''} before you list.` },
+  ...(r.kind === 'repealed' ? [] : [{ q: `When does the ${city} ${kindWord} have to be done?`, a: r.summary }]),
+  { q: 'Does Minnesota require a home inspection to sell a house?', a: 'No. Minnesota has no statewide pre-sale inspection. Some cities have their own programs (Minneapolis, Saint Paul, Bloomington, Richfield and others), some require a sewer inspection, and some counties require a septic inspection. Buyers usually order their own home inspection too.' },
+];
+const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
+---
+<Base breadcrumbs={[{ name: 'Sell', href: '/sell' }, { name: 'Selling in Minnesota', href: '/selling-in-minnesota' }, { name: city, href: `/selling-in-minnesota/${r.slug}` }]}
+  title={title}
+  description={`${answer} From the City of ${city}'s own website, checked ${checked}, plus the disclosures every Minnesota seller owes.`.slice(0, 300)}>
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <PageHero eyebrow="Selling in Minnesota" title={heading} lede={answer} />
+
+  <section class="section">
+    <div class="wrap prose narrowish">
+      <h2>{r.program}</h2>
+      <p>{r.summary}</p>
+      {r.details.length > 0 && <ul>{r.details.map((d) => <li>{d}</li>)}</ul>}
+      <p class="src">Source: <a href={r.url} rel="noopener">City of {city}</a>{r.contact && <>, {r.contact}</>}. Checked {checked}. Cities change these rules, so confirm with the city before you list. We handle this for our sellers as part of every listing.</p>
+
+      <h2>What every Minnesota seller owes</h2>
+      <ul>{statewide.map((s) => <li><strong>{s.title}.</strong> {s.text} <a href={s.url} rel="noopener">{s.cite}</a></li>)}</ul>
+      <p class="src">General information, not legal advice. Your purchase agreement, title company and attorney have the final word.</p>
+
+      <h2>Common questions</h2>
+      <div class="faq">{faq.map((f, i) => <details open={i === 0}><summary>{f.q}</summary><p>{f.a}</p></details>)}</div>
+
+      <h2>Selling in {city}</h2>
+      <p>
+        <a class="link-arrow" href="/home-estimate">What's my {city} home worth?</a>
+        {hasMarket(r.slug) && <a class="link-arrow" href={`/market/${r.slug}`}>{city} housing market</a>}
+        <a class="link-arrow" href="/calculators/seller-net-proceeds">Net proceeds calculator</a>
+        <a class="link-arrow" href={`/communities/${r.slug}`}>{city} community guide</a>
+        <a class="link-arrow" href="/sell">Sell with us</a>
+      </p>
+      {others.length > 0 && <p class="others">Other cities with a {kindWord}: {others.map((o, i) => <>{i > 0 && ', '}<a href={`/selling-in-minnesota/${o.slug}`}>{name.get(o.slug)}</a></>)}. <a href="/selling-in-minnesota">All cities</a>.</p>}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .narrowish { max-width: 52rem; }
+  .src { font-size: .9rem; color: var(--text-soft); }
+  .faq details { border-bottom: 1px solid var(--line); padding: .9rem 0; }
+  .faq summary { cursor: pointer; font-weight: 700; }
+  .link-arrow { display: inline-block; margin: 0 1.25rem .5rem 0; }
+  .others { margin-top: 1.25rem; font-size: .95rem; }
+</style>

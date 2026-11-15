@@ -45,7 +45,7 @@ const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage'
       <div class="head"><h2 id="h-title">Cities that require a housing evaluation or inspection</h2><p>Truth in Sale of Housing, Time of Sale or Point of Sale programs.</p></div>
       <div class="rules">{housing.map((r) => (
         <article class="rule" id={r.slug}>
-          <h3><a href={`/communities/${r.slug}`}>{name.get(r.slug)}</a></h3>
+          <h3><a href={`/selling-in-minnesota/${r.slug}`}>{name.get(r.slug)}</a></h3>
           <p class="rule__prog">{r.program}</p>
           <p>{r.summary}</p>
           {r.details.length > 0 && <ul>{r.details.map((d) => <li>{d}</li>)}</ul>}
@@ -60,7 +60,7 @@ const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage'
       <div class="head"><h2 id="s-title">Cities that require a sewer (I/I) inspection</h2><p>Inflow and infiltration programs check the private sewer line, sump pump and roof drains so clear water stays out of the sanitary sewer.</p></div>
       <div class="rules">{sewer.map((r) => (
         <article class="rule" id={r.slug}>
-          <h3><a href={`/communities/${r.slug}`}>{name.get(r.slug)}</a></h3>
+          <h3><a href={`/selling-in-minnesota/${r.slug}`}>{name.get(r.slug)}</a></h3>
           <p class="rule__prog">{r.program}</p>
           <p>{r.summary}</p>
           {r.details.length > 0 && <ul>{r.details.map((d) => <li>{d}</li>)}</ul>}

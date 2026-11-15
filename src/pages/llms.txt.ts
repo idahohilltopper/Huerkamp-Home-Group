@@ -20,6 +20,7 @@ import { fsboGuides, fsboHref } from '../data/fsbo';
 import { DESTS, commuteHref } from '../data/commute';
 import { listingsData, homesHref, stats, money as lMoney } from '../data/listings';
 import { developmentsData } from '../data/developments';
+import { saleRules } from '../data/sale-rules';
 import { north } from '../lib/north-lakes.mjs';
 
 export async function GET(context: APIContext) {
@@ -76,6 +77,7 @@ Facts (with sources on ${url('/')}):
 - [Calculators](${url('/calculators')}): [Minnesota mortgage calculator](${url('/calculators/mortgage')}) with this week's rates, each city's property tax rate and the mortgage registry tax, [seller net proceeds](${url('/calculators/seller-net-proceeds')}) with Minnesota deed tax, [how much house can I afford](${url('/calculators/affordability')}) with each city's property tax rate and the Ramsey 25% guideline, and [rent vs. buy](${url('/calculators/rent-vs-buy')})
 - [Twin Cities housing data](${url('/data')}): monthly prices, sales and inventory, mortgage rates since 2000, the metro home price index since 1995 and property tax rates by city, each sourced, with CSV downloads
 - [Selling in Minnesota: what's required](${url('/selling-in-minnesota')}): which cities require a Truth in Sale of Housing, time-of-sale or sewer inspection before a sale, and the disclosures every Minnesota seller owes
+- City-by-city sale rules: ${saleRules.map((r) => `[${communities.find((c) => c.slug === r.slug)?.name ?? r.slug}](${url(`/selling-in-minnesota/${r.slug}`)})`).join(', ')}
 - [Area guides](${url('/guides')}): Twin Cities places ranked by price, speed of sale, drive time, lakes and age of homes
 - [Team](${url('/team')}): every agent and staff member
 - [Reviews](${url('/reviews')}): verbatim Google and Zillow reviews

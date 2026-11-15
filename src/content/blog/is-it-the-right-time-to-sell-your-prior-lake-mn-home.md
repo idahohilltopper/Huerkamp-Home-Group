@@ -124,4 +124,4 @@ If you are thinking about selling in Prior Lake, the market is still giving prep
 
 ## What month is best to sell in Minnesota?
 
-- See [the best time to sell a house in the Twin Cities, month by month](/when-to-sell), from Minneapolis Area REALTORS® monthly data, and [what your Prior Lake home is worth](/sell#value).
+- See [the best time to sell a house in the Twin Cities, month by month](/blog/best-time-to-sell-a-house-in-minnesota), from Minneapolis Area REALTORS® monthly data, and [what your Prior Lake home is worth](/sell#value).

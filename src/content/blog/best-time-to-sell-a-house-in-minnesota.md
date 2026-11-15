@@ -57,6 +57,6 @@ Plan ahead for the things that take time before you list: some cities require a 
 
 ## Check your own numbers
 
-These are region-wide medians; your city and price range can move differently. See the [Twin Cities market by city](/market), get a [free home value estimate](/home-estimate), or work out what you'd walk away with using the [seller net proceeds calculator](/calculators/seller-net-proceeds). When you're ready to talk timing for your home, [we can help you sell](/sell).
+These are region-wide medians; your city and price range can move differently. For the latest month added as soon as it is published, see [sell now or wait until spring](/when-to-sell). See the [Twin Cities market by city](/market), get a [free home value estimate](/home-estimate), or work out what you'd walk away with using the [seller net proceeds calculator](/calculators/seller-net-proceeds). When you're ready to talk timing for your home, [we can help you sell](/sell).
 
 *Source: Minneapolis Area REALTORS® Local Market Update, 16-County Twin Cities Region, October 2025 through September 2026 reports (each with the same month a year earlier), data from NorthstarMLS, produced by ShowingTime Plus. The reports do not account for seller concessions.*
