@@ -129,6 +129,9 @@ if (taxRow && !capped(taxRow.medianValue)) lead.push({ q: `What are property tax
   a: `Owners of ${c.name} homes paid a median of $${fmt(taxRow.medianTax)} a year in real estate taxes, about ${taxRow.rate}% of a median home value of $${fmt(taxRow.medianValue)} (Census Bureau, 2020–2024 American Community Survey). Your own bill depends on the home's assessed value, the tax rates where it sits and homestead status; ${countyName} sends each property's statement.` });
 // "What county is Eagan MN in?" (880 searches a month for Eagan and for Maple Grove; Open SEO, Nov 2026).
 lead.push({ q: `What county is ${c.name}, MN in?`, a: `${c.name} is in ${countyName}, Minnesota (the county that covers most of the city). ${countyName} keeps the property records and sends the property tax statements${taxCounty ? '; due dates and how to pay are on our ' + countyName + ' property taxes page' : ''}.` });
+// ZIP code searches ("zip code for Woodbury MN", 4,400 a month; Open SEO, Nov 2026): answered right after the price questions.
+if (d.zips.length) lead.push({ q: d.zips.length === 1 ? `What is the ZIP code for ${c.name}, MN?` : `What are the ZIP codes for ${c.name}, MN?`,
+  a: `${c.name}, MN ${d.zips.length === 1 ? 'is covered by ZIP code' : 'is covered by ZIP codes'} ${list(d.zips.map((z: any) => zipWithTown(z.zip)))}${d.zips.some((z: any) => otherTown(z.zip)) ? ' (post office town in parentheses)' : ''}.${!ownZip && d.zips.some((z: any) => town(z.zip)) ? ` None of them is named for ${c.name}: ZIP codes follow post office routes, not city limits, so many ${c.name} addresses carry the post office town's name.` : ''} ZIP code areas and city limits don't match exactly, so check the city on the property record.` });
 const cw = walkFor('community', c.slug), cwr = walkRank('community', c.slug);
 const faqs = [
   ...lead,
@@ -154,8 +157,6 @@ const faqs = [
     const near = nearestSpot(c.center[1], c.center[0], 30);
     return near ? [{ q: `What's the closest Diners, Drive-Ins and Dives restaurant to ${c.name}?`, a: `${near.s.name} (${near.s.street}), about ${Math.round(near.mi)} miles from the middle of ${c.name} in a straight line, is the closest Twin Cities spot from the Food Network show that's still open.` }] : [];
   })(),
-  ...(d.zips.length ? [{ q: `What ZIP codes are in ${c.name}?`,
-    a: `${list(d.zips.map((z: any) => zipWithTown(z.zip)))} ${d.zips.length === 1 ? 'covers' : 'cover'} most of the city${d.zips.some((z: any) => otherTown(z.zip)) ? ' (post office town in parentheses)' : ''}.${!ownZip && d.zips.some((z: any) => town(z.zip)) ? ` None of them is named for ${c.name}: ZIP codes follow post office routes, not city limits, so many ${c.name} addresses carry the post office town's name.` : ''} ZIP code areas and city limits don't match exactly, so check the city on the property record.` }] : []),
   // DNR lakes (official names and acreage) when the city has any; the Census water map's names are rougher ("Battle Cr Lake").
   ...(cityLakes.length ? [{ q: `What lakes are in ${c.name}?`,
     a: `The largest lakes in or touching ${c.name} are ${list([...cityLakes].sort((x, y) => y.acres - x.acres).slice(0, 4).map((l) => `${l.name} (${fmt(l.acres)} acres)`))}, by Minnesota DNR records. Each has a page with its lakefront homes for sale.` }]

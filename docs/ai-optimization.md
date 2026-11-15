@@ -90,3 +90,8 @@ Don't retitle community pages back to "homes for sale"; strengthen the homes-for
 - **Keyword volumes (US, monthly):** home for sale mn 18,100; land for sale mn 6,600 (KD 2); homes for sale lakeville mn
   5,400; minnesota lake homes for sale 4,400 (KD 2); first time home buyer minnesota 1,600. Our pages for each already
   carry those words in the title; ranking now depends on authority (links, the old-domain redirect), not wording.
+
+## 2026-11-15: city priority: Woodbury (ZIP answer moved up, shared template); next city: lakeville
+- **Checked:** /communities/woodbury has sourced data for price, days on market, property tax, county, commute. ZIPs are 55125 and 55129 (Census ZCTA data; post office town Saint Paul for both, GeoNames). Woodbury isn't in src/data/sale-rules.ts, so the "we haven't confirmed a city inspection requirement" wording stays.
+- **Changed (shared template, every city):** the ZIP question now sits right after the price, days-on-market, tax and county answers, worded "What are the ZIP codes for <City>, MN?" (singular for one-ZIP cities) with the answer opening "<City>, MN is covered by ZIP codes ...". Visible FAQ and FAQPage markup come from the same list. Targets "zip code for Woodbury MN" (4,400 searches a month, #58) and the same query for every city. Page: src/pages/communities/[slug].astro.
+- **Sources:** none new; same Census and GeoNames data as before.
