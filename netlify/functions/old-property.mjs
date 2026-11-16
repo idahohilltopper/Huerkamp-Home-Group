@@ -18,10 +18,30 @@ function slugFor(mls) {
   return row ? (Array.isArray(row) ? row[iS] : row.slug) : null;
 }
 
+// Old Ylopo listing pages (/home-search/listings/<Ylopo id>-<street>, e.g. 8557196039825622466-1060-230th-Street-W): no MLS
+// number in the address, so match the street against homes for sale now (Search Console, Nov 16, 2026: these still show
+// in Google for street-address searches and all went to the plain home search).
+const ABBR = { street: 'st', avenue: 'ave', drive: 'dr', road: 'rd', lane: 'ln', court: 'ct', circle: 'cir', place: 'pl',
+  boulevard: 'blvd', parkway: 'pkwy', terrace: 'ter', trail: 'trl', way: 'way', north: 'n', south: 's', east: 'e', west: 'w',
+  northeast: 'ne', northwest: 'nw', southeast: 'se', southwest: 'sw', point: 'pt', highway: 'hwy', curve: 'curv', crossing: 'xing' };
+export const streetKey = (s) => String(s ?? '').toLowerCase().replace(/[#.,]/g, ' ').replace(/\b(unit|apt|apartment|suite|ste)\b/g, ' ')
+  .split(/[\s-]+/).filter(Boolean).map((w) => ABBR[w] ?? w).join(' ');
+function slugForStreet(street) {
+  slugFor('');
+  const cols = index?.fields ?? [];
+  const iS = cols.indexOf('slug'), iT = cols.indexOf('street');
+  const want = streetKey(street);
+  if (!want || !/^\d/.test(want)) return null;
+  const row = (index?.rows ?? []).find((r) => streetKey(Array.isArray(r) ? r[iT] : r.street) === want);
+  return row ? (Array.isArray(row) ? row[iS] : row.slug) : null;
+}
+
 /** Where an old /properties/... path should go now. */
 export function target(path) {
   const p = decodeURIComponent(String(path ?? '')).toLowerCase().replace(/^\/+|\/+$/g, '');
   if (p === 'sale' || p === 'featured') return '/home-search?team=1';
+  const ylopo = p.match(/^listings\/\d+-(.+)$/)?.[1];
+  if (ylopo !== undefined) { const slug = slugForStreet(ylopo); return slug ? `/homes/${slug}` : '/home-search'; }
   const mls = p.match(/(?:^|-)(?:nst)?(\d{6,8})$/)?.[1];
   const slug = mls ? slugFor(mls) : null;
   if (slug) return `/homes/${slug}`;
