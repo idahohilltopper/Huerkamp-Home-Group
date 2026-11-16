@@ -8,6 +8,8 @@ import { communities } from '../../data/areas';
 import { communitySearch } from '../../data/ylopo';
 import { business, origin } from '../../data/schema';
 import { site } from '../../data/site';
+import teamClosings from '../../data/team-closings.json';
+import { ruleFor } from '../../data/sale-rules';
 import { listingsData, homesHref, median as lmedian, FACETS } from '../../data/listings';
 import {
   source, latest, asOf, REGION, marketFor, hasMarket, history, monthLabel, money, moneyK, count, change, signed, SMALL_SAMPLE,
@@ -206,7 +208,7 @@ const ld = JSON.stringify([
   <section class="section section--paper" aria-labelledby="more-title">
     <div class="wrap">
       <div class="head"><p class="eyebrow">Keep exploring</p><h2 id="more-title">More about {c.name}</h2></div>
-      <p class="links"><a class="link-arrow" href={`/communities/${c.slug}`}>{c.name} community guide</a> <a class="link-arrow" href={page(c.slug) ?? communitySearch(c.slug)}>{c.name} homes for sale</a> <a class="link-arrow" href="/home-estimate">What's my {c.name} home worth?</a> <a class="link-arrow" href="/when-to-sell">Sell now or wait for spring?</a> <a class="link-arrow" href="/selling-in-minnesota">What {c.name} requires before you sell</a> <a class="link-arrow" href="/market">Twin Cities market report</a></p>
+      <p class="links"><a class="link-arrow" href={`/communities/${c.slug}`}>{c.name} community guide</a> <a class="link-arrow" href={page(c.slug) ?? communitySearch(c.slug)}>{c.name} homes for sale</a> <a class="link-arrow" href="/home-estimate">What's my {c.name} home worth?</a> <a class="link-arrow" href="/when-to-sell">Sell now or wait for spring?</a> <a class="link-arrow" href={ruleFor(c.slug) ? `/selling-in-minnesota/${c.slug}` : '/selling-in-minnesota'}>What {c.name} requires before you sell</a>{((teamClosings.cities as Record<string, { n: number }>)[c.slug]?.n ?? 0) >= 5 && <> <a class="link-arrow" href={`/real-estate-agents/${c.slug}-mn`}>{c.name} real estate agents</a></>} <a class="link-arrow" href="/market">Twin Cities market report</a></p>
       {past.length > 0 && (
         <>
           <h3 class="nearby-title">Past {c.name} reports</h3>

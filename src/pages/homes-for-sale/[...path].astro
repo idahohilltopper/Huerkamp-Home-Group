@@ -22,6 +22,7 @@ import { origin } from '../../data/schema';
 import { site } from '../../data/site';
 import { developmentsData } from '../../data/developments';
 import { subdivisionsData } from '../../data/subdivisions';
+import teamClosings from '../../data/team-closings.json';
 
 export async function getStaticPaths() {
   const data = await listingsData;
@@ -172,6 +173,7 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() },
             <div class="local">
               {area!.guide && <a href={area!.guide}><strong>{area!.name} {area!.kind === 'hood' ? 'neighborhood' : 'community'} guide</strong><span>Schools, commutes, home values, things to do and local stories.</span></a>}
               {mk && <a href={area!.kind === 'community' ? `/market/${area!.key}` : `${area!.guide}#market`}><strong>{area!.name} housing market, {monthLabel(latest)}</strong><span>{mMoney(mk.medianPrice?.r12[1])} median sale price ({signed(mk.medianPrice?.r12[2])}), {count(mk.daysOnMarket?.r12[1])} days on market, over 12 months.</span></a>}
+              {area!.kind === 'community' && ((teamClosings.cities as Record<string, { n: number }>)[area!.key]?.n ?? 0) >= 5 && <a href={`/real-estate-agents/${area!.key}-mn`}><strong>{area!.name} real estate agents</strong><span>Our team closed {(teamClosings.cities as Record<string, { n: number }>)[area!.key].n} {area!.name} home sales in the last 3 years. Reviews and how we work.</span></a>}
               {area!.kind === 'hood' && <a href={homesHref(area!.communitySlug!)}><strong>All of {CITY_NAME[area!.communitySlug!]}</strong><span>Every home for sale in the city.</span></a>}
             </div>
             {areaLakes.length > 0 && (
