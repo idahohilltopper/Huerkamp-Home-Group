@@ -1,0 +1,85 @@
+---
+// Resources: the partners the team works with (Jason, Nov 16, 2026: Stone Arch Title in Burnsville, Ken Rife's Rife Group
+// at Mutual of Omaha Mortgage, Jess Gyllen with Goosehead Insurance), plus the site's own tools and guides.
+// Partner facts only from verifiable sources: Ken Rife's wording is the verbatim bio already on /buy (from the old site);
+// Stone Arch Title's description, address and phone are from stonearchtitle.com (checked Nov 16, 2026); Jess Gyllen's
+// role is from the team's own video and blog post with her. Links: Stone Arch Title's own site; Mutual of Omaha's Mendota
+// Heights office page (Ken's office address) until Jason sends Ken's direct link; Goosehead's main site until Jason sends
+// Jess's agency link. RESPA: no fees or referral payments are mentioned or implied, and the page says clients choose freely.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site';
+
+const partners = [
+  {
+    kind: 'Mortgage', name: 'Ken Rife, The Rife Group', org: 'Mutual of Omaha Mortgage',
+    text: 'Ken Rife, Regional Vice President at Mutual of Omaha Mortgage, is dedicated to helping clients achieve their homeownership goals. With a deep understanding of various loan programs—including conventional, FHA, VA, USDA, and jumbo loans—Ken works closely with each client to identify mortgage solutions that align with their financial objectives.',
+    details: ['NMLS #784496', '800 South Plaza Drive, Mendota Heights, MN 55120', '(651) 272-7232 · krife@mutualmortgage.com'],
+    site: { href: 'https://www.mutualmortgage.com/about-us/locations/mendota-heights-mn', label: 'Mutual of Omaha Mortgage, Mendota Heights' },
+    more: [['Have Ken contact me', '/buy#lender'], ["This week's mortgage rates", '/mortgage-rates-minnesota']],
+  },
+  {
+    kind: 'Title and closing', name: 'Stone Arch Title', org: 'Burnsville, Minnesota',
+    text: 'Stone Arch Title is a licensed title agency serving Minnesota, in the same Burnsville building as our office.',
+    details: ['14300 Nicollet Ct, Suite 105, Burnsville, MN 55306', '612-216-4610 · info@stonearchtitle.com'],
+    site: { href: 'https://www.stonearchtitle.com', label: 'stonearchtitle.com' },
+    more: [['Protecting your home from title and deed fraud (with Stone Arch Title)', '/blog/minnesota-land-title-fraud-protection']],
+  },
+  {
+    kind: 'Homeowners insurance', name: 'Jess Gyllen', org: 'Goosehead Insurance',
+    text: 'Jess Gyllen owns a Goosehead Insurance franchise. Get a homeowners insurance quote on the home you are buying before you make an offer: premiums depend on the home itself.',
+    details: [],
+    site: { href: 'https://www.goosehead.com', label: 'goosehead.com' },
+    more: [['5 things that raise your home insurance premium (with Jess Gyllen)', '/blog/minnesota-home-insurance-premiums-tips']],
+  },
+];
+const tools = [
+  ['Mortgage calculator', '/calculators/mortgage'], ['Affordability calculator', '/calculators/affordability'], ['Seller net proceeds', '/calculators/seller-net-proceeds'],
+  ['Rent vs. buy', '/calculators/rent-vs-buy'], ['Mortgage rates in Minnesota', '/mortgage-rates-minnesota'], ['First-time buyer programs', '/first-time-home-buyer-minnesota'],
+  ['Down payment assistance', '/down-payment-assistance-minnesota'], ['What every Minnesota seller must do', '/selling-in-minnesota'], ['Property taxes by city', '/property-taxes'],
+  ['Homestead in Minnesota', '/property-taxes/minnesota-homestead'], ['Twin Cities housing data', '/data'], ['Market reports by city', '/market'],
+];
+---
+<Base breadcrumbs={[{ name: 'Resources', href: '/resources' }]}
+  title={`Resources: Our Lender, Title and Insurance Partners | ${site.name}`}
+  description="The mortgage, title and insurance partners Huerkamp Home Group works with: Ken Rife at Mutual of Omaha Mortgage, Stone Arch Title in Burnsville and Jess Gyllen with Goosehead Insurance, plus our calculators and guides.">
+  <PageHero eyebrow="Resources" title="People and tools we trust"
+    lede="The lender, title company and insurance agent our clients work with most, and the calculators and guides on this site." />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="cards">{partners.map((p) => (
+        <article class="card">
+          <p class="kind">{p.kind}</p>
+          <h2>{p.name}</h2>
+          <p class="org">{p.org}</p>
+          <p>{p.text}</p>
+          {p.details.length > 0 && <ul class="det">{p.details.map((d) => <li>{d}</li>)}</ul>}
+          <p><a class="btn btn--ghost" href={p.site.href} rel="noopener" target="_blank">Visit {p.site.label}</a></p>
+          <ul class="more">{p.more.map(([t, h]) => <li><a class="link-arrow" href={h}>{t}</a></li>)}</ul>
+        </article>
+      ))}</div>
+      <p class="note">You're always free to choose your own lender, title company and insurance agent. These are partners we work with often; ask us about anyone you're considering.</p>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="wrap">
+      <h2>Calculators and guides</h2>
+      <ul class="tools">{tools.map(([t, h]) => <li><a href={h}>{t}</a></li>)}</ul>
+      <p style="margin-top:1.5rem">Questions? Call or text <a href={site.phoneHref}>{site.phone}</a> or <a href="/contact">send us a note</a>.</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: 1.25rem; }
+  .card { border: 1px solid var(--line); background: var(--paper); padding: 1.4rem 1.5rem; display: flex; flex-direction: column; gap: .4rem; }
+  .card h2 { font: 500 1.6rem/1.15 var(--serif); margin: 0; }
+  .kind { font: 700 .72rem/1.3 var(--ui); letter-spacing: .08em; text-transform: uppercase; color: var(--crimson); margin: 0; }
+  .org { color: var(--text-soft); margin: 0 0 .4rem; font-weight: 600; }
+  .det { list-style: none; padding: 0; margin: .2rem 0 .6rem; font-size: .95rem; color: var(--text-soft); }
+  .more { list-style: none; padding: 0; margin: .6rem 0 0; display: grid; gap: .3rem; }
+  .note { font-size: .95rem; color: var(--text-soft); margin-top: 1.25rem; max-width: 52rem; }
+  .tools { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: .5rem 1.5rem; list-style: none; padding: 0; }
+</style>
