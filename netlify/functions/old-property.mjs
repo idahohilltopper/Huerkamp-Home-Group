@@ -40,7 +40,7 @@ function slugForStreet(street) {
 export function target(path) {
   const p = decodeURIComponent(String(path ?? '')).toLowerCase().replace(/^\/+|\/+$/g, '');
   if (p === 'sale' || p === 'featured') return '/home-search?team=1';
-  const ylopo = p.match(/^listings\/\d+-(.+)$/)?.[1];
+  const ylopo = p.match(/^(?:home-search\/)?listings\/\d+-(.+)$/)?.[1]; // req.url keeps the visitor's address after a rewrite
   if (ylopo !== undefined) { const slug = slugForStreet(ylopo); return slug ? `/homes/${slug}` : '/home-search'; }
   const mls = p.match(/(?:^|-)(?:nst)?(\d{6,8})$/)?.[1];
   const slug = mls ? slugFor(mls) : null;
