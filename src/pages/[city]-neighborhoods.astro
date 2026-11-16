@@ -1,0 +1,176 @@
+---
+// Every Minneapolis neighborhood (84) and Saint Paul planning district (17), side by side: /minneapolis-neighborhoods and
+// /saint-paul-neighborhoods. Open SEO, Nov 16, 2026: "minneapolis neighborhoods" 1,600 searches a month (KD 6),
+// "minneapolis mn neighborhoods" 1,600, "best neighborhoods in minneapolis" 880 (KD 0), "minneapolis-st paul
+// neighborhoods" 480; the site had a page per neighborhood but no page that compares them.
+// Numbers only, about homes and places: Census median home value (ACS 5-year, src/data/neighborhoods.json), homes for
+// sale now and their median list price (live MLS feed, src/data/listings.ts), the share of homes built before 1940 and
+// of single-family homes (Census), and everyday walkability (src/data/walkability.json). Fair housing: nothing about who
+// lives anywhere (no income, age, education, household make-up, safety or schools), and no "best" ranking of our own.
+import Base from '../layouts/Base.astro';
+import { hoods, hoodHref, hoodKey, hoodGroup, hoodSources, CITY_NAME, type Hood } from '../data/neighborhoods';
+import { listingsData, homesHref, median } from '../data/listings';
+import walk from '../data/walkability.json';
+import { site } from '../data/site';
+
+export function getStaticPaths() {
+  return [{ params: { city: 'minneapolis' } }, { params: { city: 'saint-paul' } }];
+}
+const { city } = Astro.params as { city: 'minneapolis' | 'saint-paul' };
+const cityName = CITY_NAME[city];
+const unit = city === 'minneapolis' ? 'neighborhood' : 'planning district';
+const units = `${unit}s`;
+const W = (walk as any).hoods as Record<string, { score: number }>;
+const data = await listingsData;
+const coll = new Map(data.collections.map((k) => [k.path, k]));
+const money = (n: number | null | undefined) => (n == null ? '—' : `$${Math.round(n).toLocaleString('en-US')}`);
+const rows = hoods.filter((h) => h.city === city).map((h) => {
+  const k = coll.get(`${h.city}/${h.slug}`);
+  const forSale = k ? k.listings.length : 0;
+  const c = (h as any).census ?? {};
+  return {
+    h, group: hoodGroup(h), value: c.medianHomeValue ?? null, valueTop: !!c.medianHomeValueTop, forSale, listMed: k && forSale ? median(k.listings.map((l) => l.price)) : null,
+    homesHref: k && k.index ? homesHref(k.path) : null, walk: W[hoodKey(h)]?.score ?? null,
+    old: c.builtBefore1940Pct ?? null, single: c.housing?.singleFamily ?? null,
+  };
+}).sort((a, b) => a.h.name.localeCompare(b.h.name));
+const groups = [...new Set(rows.map((r) => r.group))];
+const top = (list: typeof rows, by: (r: (typeof rows)[number]) => number, n = 5) => [...list].sort((a, b) => by(a) - by(b)).slice(0, n);
+const valued = rows.filter((r) => r.value != null);
+const lowValue = top(valued, (r) => r.value!);
+const walkable = top(rows.filter((r) => r.walk != null), (r) => -r.walk!);
+const mostForSale = top(rows.filter((r) => r.forSale > 0), (r) => -r.forSale);
+const oldest = top(rows.filter((r) => r.old != null), (r) => -r.old!);
+const lo = lowValue[0], hi = [...valued].sort((a, b) => b.value! - a.value!)[0];
+const totalForSale = rows.reduce((n, r) => n + r.forSale, 0);
+const day = data.at ? new Date(data.at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }) : '';
+const names = (l: typeof rows, f: (r: (typeof rows)[number]) => string) => l.map((r) => `${r.h.name} (${f(r)})`).join(', ');
+const answer = `${cityName} has ${rows.length} ${units}${city === 'minneapolis' ? `, grouped into ${groups.length} communities` : ''}. Census median home values run from ${money(lo?.value)} in ${lo?.h.name} to ${money(hi?.value)}${hi?.valueTop ? ' or more' : ''} in ${hi?.h.name}${totalForSale ? `, and ${totalForSale.toLocaleString('en-US')} homes are for sale across the city as of ${day}` : ''}. Sort the table by price, homes for sale, walkability or the age of the homes.`;
+const faq = [
+  { q: `How many ${units} are in ${cityName}?`, a: city === 'minneapolis' ? `${rows.length} official neighborhoods, grouped by the city into ${groups.length} communities: ${groups.map((g) => g.replace(/ community$/, '')).join(', ')}.` : `Saint Paul is divided into ${rows.length} planning districts, each with its own district council. Many have well-known neighborhood names inside them.` },
+  { q: `What are the best neighborhoods in ${cityName}?`, a: `It depends on what you need, so here are the facts to compare. Most everyday errands on foot: ${names(walkable, (r) => `${r.walk}/100`)}. Lowest Census median home value: ${names(lowValue, (r) => money(r.value))}. Most homes for sale right now: ${names(mostForSale, (r) => String(r.forSale))}. Tell us your budget and must-haves and we'll suggest a few that fit.` },
+  { q: `Where are homes least expensive in ${cityName}?`, a: `By Census median home value (owner estimates, American Community Survey 5-year): ${names(lowValue, (r) => money(r.value))}. Asking prices today are in the table under "Median list price".` },
+  { q: `Which ${cityName} ${units} are most walkable?`, a: `By our everyday walkability score (groceries, coffee, restaurants, pharmacies, parks and transit within a walk): ${names(walkable, (r) => `${r.walk}/100`)}.` },
+  { q: `Where are the oldest homes in ${cityName}?`, a: `By the share of homes built before 1940 (Census): ${names(oldest, (r) => `${r.old}%`)}.` },
+];
+const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
+const other = city === 'minneapolis' ? ['Saint Paul neighborhoods', '/saint-paul-neighborhoods'] : ['Minneapolis neighborhoods', '/minneapolis-neighborhoods'];
+---
+<Base breadcrumbs={[{ name: 'Communities', href: '/communities' }, { name: cityName, href: `/communities/${city}` }, { name: `${cityName} ${units}`, href: `/${city}-neighborhoods` }]}
+  title={`${cityName} Neighborhoods: All ${rows.length} Compared by Home Price & Walkability | ${site.name}`} description={answer}>
+  <script slot="head" type="application/ld+json" set:html={ld} />
+  <section class="nhead">
+    <div class="wrap">
+      <p class="eyebrow">{cityName}, MN</p>
+      <h1>{cityName} {units}, compared</h1>
+      <p class="answer">{answer}</p>
+      <p class="lede">Numbers only, about homes and places: what homes are worth, what's for sale, how old the homes are and how many errands you can do on foot.</p>
+      <p class="hero-btns"><a class="btn" href="#ask">Help me pick a {unit}</a> <a class="btn btn--ghost" href={homesHref(city)}>{cityName} homes for sale</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="picks">
+        <div><h2 class="h3">Most errands on foot</h2><ol>{walkable.map((r) => <li><a href={hoodHref(r.h)}>{r.h.name}</a> <span>{r.walk}/100</span></li>)}</ol></div>
+        <div><h2 class="h3">Lowest median home value</h2><ol>{lowValue.map((r) => <li><a href={hoodHref(r.h)}>{r.h.name}</a> <span>{money(r.value)}</span></li>)}</ol></div>
+        {mostForSale.length > 0 && <div><h2 class="h3">Most homes for sale now</h2><ol>{mostForSale.map((r) => <li><a href={r.homesHref ?? hoodHref(r.h)}>{r.h.name}</a> <span>{r.forSale}</span></li>)}</ol></div>}
+        <div><h2 class="h3">Most homes built before 1940</h2><ol>{oldest.map((r) => <li><a href={hoodHref(r.h)}>{r.h.name}</a> <span>{r.old}%</span></li>)}</ol></div>
+      </div>
+
+      <div class="head" style="margin-top:2.5rem"><h2>All {rows.length} {cityName} {units}</h2>
+        <p><label for="nb-sort">Sort by </label><select id="nb-sort"><option value="name">Name</option><option value="value">Median home value</option><option value="sale">Homes for sale</option><option value="list">Median list price</option><option value="walk">Walkability</option><option value="old">Built before 1940</option></select></p></div>
+      <div class="table-scroll">
+        <table class="data" id="nb-table">
+          <thead><tr><th scope="col">{unit === 'neighborhood' ? 'Neighborhood' : 'District'}</th><th scope="col">{city === 'minneapolis' ? 'Community' : 'District no.'}</th><th scope="col" class="num">Median home value</th><th scope="col" class="num">For sale now</th><th scope="col" class="num">Median list price</th><th scope="col" class="num">Walkability</th><th scope="col" class="num">Built before 1940</th><th scope="col" class="num">Single-family</th></tr></thead>
+          <tbody>{rows.map((r) => (
+            <tr data-name={r.h.name} data-value={r.value ?? ''} data-sale={r.forSale} data-list={r.listMed ?? ''} data-walk={r.walk ?? ''} data-old={r.old ?? ''}>
+              <th scope="row"><a href={hoodHref(r.h)}>{r.h.name}</a></th>
+              <td>{city === 'minneapolis' ? r.group.replace(/ community$/, '') : (r.h as any).district ?? '—'}</td>
+              <td class="num">{r.value ? `${money(r.value)}${r.valueTop ? '+' : ''}` : '—'}</td>
+              <td class="num">{r.homesHref ? <a href={r.homesHref}>{r.forSale}</a> : r.forSale}</td>
+              <td class="num">{money(r.listMed)}</td>
+              <td class="num">{r.walk ?? '—'}</td>
+              <td class="num">{r.old != null ? `${r.old}%` : '—'}</td>
+              <td class="num">{r.single != null ? `${r.single}%` : '—'}</td>
+            </tr>))}</tbody>
+        </table>
+      </div>
+      <p class="source">Median home value, homes built before 1940 and single-family share: {hoodSources.census}. Homes for sale and median list price: NorthstarMLS, {day || 'updated with each site build'}. Walkability: our score of everyday places within a walk ({(walk as any).places.places}; {(walk as any).places.transit}). Boundaries: {hoodSources.boundaries}.</p>
+    </div>
+  </section>
+
+  <section class="section section--dark" id="ask" aria-labelledby="ask-title">
+    <div class="wrap split">
+      <div class="prose">
+        <p class="eyebrow">Looking in {cityName}?</p>
+        <h2 id="ask-title">Tell us your budget and must-haves. <em>We'll narrow it down.</em></h2>
+        <p>Where you work, what you want to spend, house or condo, walkable or quiet. We'll suggest a few {units} that fit, send you homes there, and show you around.</p>
+        <p>Call or text <a href={site.phoneHref}>{site.phone}</a>.</p>
+      </div>
+      <form class="form" data-lead="compare">
+        <input type="hidden" name="topic" value={`${cityName} ${units}`} />
+        <div class="form__row">
+          <div class="field"><label for="nb-first">First name</label><input id="nb-first" name="firstName" autocomplete="given-name" required /></div>
+          <div class="field"><label for="nb-last">Last name</label><input id="nb-last" name="lastName" autocomplete="family-name" required /></div>
+        </div>
+        <div class="form__row">
+          <div class="field"><label for="nb-email">Email</label><input id="nb-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="nb-phone">Phone</label><input id="nb-phone" name="phone" type="tel" autocomplete="tel" required pattern="[^0-9]*([0-9][^0-9]*){10,}" title="Please enter your phone number, including area code." /></div>
+        </div>
+        <div class="field"><label for="nb-msg">Budget, timing, must-haves (optional)</label><textarea id="nb-msg" name="message" rows="3"></textarea></div>
+        <button class="btn" type="submit">Send</button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap faq">
+      <div class="head"><p class="eyebrow">Quick answers</p><h2>{cityName} {units}: questions</h2></div>
+      {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+      <p class="links"><a class="link-arrow" href={`/communities/${city}`}>Living in {cityName}</a><a class="link-arrow" href={homesHref(city)}>{cityName} homes for sale</a><a class="link-arrow" href={`/market/${city}`}>{cityName} market report</a><a class="link-arrow" href={other[1]}>{other[0]}</a><a class="link-arrow" href="/minneapolis-suburbs">Minneapolis suburbs compared</a><a class="link-arrow" href="/walkability">Walkability</a></p>
+    </div>
+  </section>
+
+  <script>
+    const sel = document.getElementById('nb-sort') as HTMLSelectElement | null;
+    const body = document.querySelector('#nb-table tbody');
+    sel?.addEventListener('change', () => {
+      const k = sel.value, rowsEl = [...(body?.querySelectorAll('tr') ?? [])] as HTMLTableRowElement[];
+      const v = (r: HTMLTableRowElement) => r.dataset[k] ?? '';
+      const desc = ['sale', 'walk', 'old'].includes(k);
+      rowsEl.sort((a, b) => {
+        if (k === 'name') return v(a).localeCompare(v(b));
+        const x = v(a) === '' ? null : Number(v(a)), y = v(b) === '' ? null : Number(v(b));
+        if (x == null) return 1; if (y == null) return -1;
+        return desc ? y - x : x - y;
+      });
+      rowsEl.forEach((r) => body?.appendChild(r));
+    });
+  </script>
+</Base>
+
+<style>
+  .nhead { padding: clamp(2.5rem, 6vw, 4.5rem) 0 clamp(2rem, 4vw, 3rem); background: var(--night); color: var(--on-dark); }
+  .nhead h1 { font: 500 clamp(2.2rem, 5vw, 3.6rem)/1.05 var(--serif-display); color: #fff; }
+  .nhead .eyebrow { color: var(--rose); }
+  .answer { max-width: 52rem; margin: .9rem 0 .4rem; color: #fff; font: 500 clamp(1.05rem, 2.2vw, 1.25rem)/1.5 var(--ui); }
+  .lede { color: var(--on-dark); max-width: 52rem; }
+  .hero-btns { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.25rem; }
+  .head { margin-bottom: 1.25rem; }
+  .h3 { margin: 0 0 .7rem; font: 500 1.3rem/1.2 var(--serif); }
+  .picks { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 1.25rem; }
+  .picks > div { padding: 1.1rem 1.25rem; background: var(--paper); border: 1px solid var(--line); }
+  .picks ol { margin: 0; padding-left: 1.2rem; display: grid; gap: .35rem; }
+  .picks span { color: var(--text-soft); font-size: .9rem; }
+  .source { margin-top: .8rem; font-size: .9rem; color: var(--text-soft); }
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+  .split .prose a { color: #fff; font-weight: 700; }
+  .split :global(em) { font-style: italic; }
+  .faq { display: grid; gap: .75rem; max-width: 52rem; }
+  .faq details { padding: 1rem 1.2rem; background: var(--paper); border: 1px solid var(--line); }
+  .faq summary { cursor: pointer; font: 600 1.15rem/1.3 var(--serif); }
+  .links { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: 1rem; }
+</style>

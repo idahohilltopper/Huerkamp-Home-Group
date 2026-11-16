@@ -388,7 +388,7 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
         <div class="head">
           <p class="eyebrow">{cityHoods.length} {c.slug === 'saint-paul' ? 'planning districts' : 'neighborhoods'}</p>
           <h2 id="hoods-title">{c.name} neighborhoods</h2>
-          <p>Each guide has its own monthly market report, Census facts, homes for sale and the neighborhoods next door. Hover the map or pick one below.</p>
+          <p>Each guide has its own monthly market report, Census facts, homes for sale and the neighborhoods next door. Hover the map or pick one below, or <a href={`/${c.slug}-neighborhoods`}>compare all {cityHoods.length} side by side</a>.</p>
         </div>
         <AreaMap src={hoodGeoUrl} info={hoodInfo(c.slug)} label={`Hover a ${c.name} neighborhood`} height="520px" />
         <div class="hoods">
