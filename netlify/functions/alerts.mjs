@@ -195,7 +195,7 @@ export default async (req, _ctx, f = fetch) => {
     }
     if (req.method !== 'POST') return json(405, { ok: false, error: 'method' });
     const origin = req.headers.get('origin');
-    if (origin && !ALLOWED.test(origin)) return json(403, { ok: false, error: 'Forbidden' });
+    if (!origin || !ALLOWED.test(origin)) return json(403, { ok: false, error: 'Forbidden' }); // browsers always send Origin on a POST
     const b = await req.json().catch(() => ({}));
     // The team's address belongs to the agent record; Repliers refuses a client with the same email (409).
     if (String(b.email ?? '').trim().toLowerCase() === TEAM.email) return json(400, { ok: false, error: `${TEAM.email} is our team inbox, so it can't be used for alerts. Please use your own email address.` });
