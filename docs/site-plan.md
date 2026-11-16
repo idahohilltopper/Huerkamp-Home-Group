@@ -927,3 +927,10 @@ listings. Details in docs/ai-optimization.md.
   /downsizing, /expired-listing, /for-sale-by-owner) as `activity-seller`, once per page per day.
 - Lead Tracker's Jlopo → Likely sellers ranks leads by these plus every Seller Inquiry. Anonymous visitors are never
   identified. /cookies says so. Site check step "Known visitor: seller signals".
+
+## Google Maps (local pack) check, 2026-11-16 (Open SEO)
+
+- Profile: Huerkamp Home Group, Real estate agency (+ agent, consultant), 5.0 stars from 830 reviews, 1,320 photos, claimed, open 24 hours.
+- Maps rank for "realtor" on a 5x5 grid, 7 km apart, centered on Lakeville: #1 around Burnsville and Savage; #4-7 in Eagan, Apple Valley and central Lakeville; #11-18 around Farmington, Rosemount and south Lakeville; not in the top 20 in Bloomington, Edina, Shakopee and the east metro (14 of 25 points found, average #8.2). The office building has 20+ Keller Williams agent profiles; ours ranks first among them near the office.
+- Website: the RealEstateAgent schema (src/data/schema.ts) now carries the profile's map point and 24-hour hours.
+- For Jason in the Google Business Profile (business.google.com): (1) phone: make (612) 502-7653 the primary number to match the website, keep (612) 843-9620 as an additional number; (2) the "contact" link still points to huerkamphomegroup.com/contact-us: change it to https://www.huerkamphomes.com/contact; (3) description says "780+ Google reviews": now 830; (4) service areas: add Lakeville, Apple Valley, Eagan, Savage, Prior Lake, Rosemount, Farmington, Bloomington, Edina, Shakopee (up to 20); (5) post weekly (a new listing, an open house, a market update or a new video) and add products/services (Buying, Selling, Home valuation, Lake homes, New construction); (6) when asking for reviews, ask clients to mention the town they bought or sold in (never script the wording).

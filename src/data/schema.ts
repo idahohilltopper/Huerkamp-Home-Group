@@ -17,6 +17,10 @@ export const business = {
   email: site.email,
   address: { '@type': 'PostalAddress', streetAddress: site.street, addressLocality: 'Burnsville', addressRegion: 'MN', postalCode: '55306', addressCountry: 'US' },
   hasMap: site.mapsUrl,
+  // The office's map point and hours exactly as the Google Business Profile shows them (Open SEO, Nov 16, 2026: open 24 hours,
+  // pin at 44.74408, -93.28182), so Google sees the website and the profile as the same place.
+  geo: { '@type': 'GeoCoordinates', latitude: 44.74408, longitude: -93.28182 },
+  openingHoursSpecification: { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], opens: '00:00', closes: '23:59' },
   // Every city that has a community guide on this site (same list as /communities), then the metro as a whole.
   areaServed: [
     ...communityData.communities.map((c) => ({ '@type': 'City', name: c.name, containedInPlace: { '@type': 'State', name: 'Minnesota' } })),
@@ -27,7 +31,7 @@ export const business = {
   parentOrganization: { '@type': 'Organization', name: site.brokerage },
   award: [site.rankings.realtrends.text, site.rankings.agentPronto.text],
   // What the team is known for, in plain words (AI assistants use this to decide whom to name for a question).
-  knowsAbout: ['Twin Cities real estate', 'Buying a home in Minnesota', 'Selling a home in Minnesota', 'Minnesota lake homes',
+  knowsAbout: ['Twin Cities real estate', 'Western Wisconsin real estate', 'Minnesota cabins and lake homes', 'Buying a home in Minnesota', 'Selling a home in Minnesota', 'Minnesota lake homes',
     'New construction homes in the Twin Cities', 'Minnesota point-of-sale and time-of-sale inspections', 'Twin Cities housing market data'],
   // The team's own profiles elsewhere (site.profiles, from Jason), so search engines and AI tools know they're the same business.
   sameAs: [site.facebookUrl, site.youtubeUrl, reviewData.summary.google.url, site.rankings.realtrends.url,
