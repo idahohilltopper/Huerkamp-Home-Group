@@ -208,6 +208,113 @@
      ]
     }
    ]
+  },
+  {
+   "date": "2026-11-16",
+   "engine": "Web search (Claude's search tool, US results)",
+   "note": "Site still not in results. Ramsey's Minnesota city pages came up, but no name of ours was visible in the search summary; the Living in Minneapolis channel did not show up.",
+   "results": [
+    {
+     "query": "best real estate agent Burnsville MN",
+     "ourSite": false,
+     "mentioned": null,
+     "topResults": [
+      "agentpronto.com",
+      "biggerpockets.com",
+      "homelight.com"
+     ]
+    },
+    {
+     "query": "Lakeville MN realtor",
+     "ourSite": false,
+     "mentioned": null,
+     "topResults": [
+      "luxuryhomemarketing.com",
+      "agentpronto.com",
+      "homelight.com"
+     ]
+    },
+    {
+     "query": "Twin Cities real estate team",
+     "ourSite": false,
+     "mentioned": null,
+     "topResults": [
+      "realtrends.com",
+      "kw.com",
+      "provenexpert.com"
+     ]
+    },
+    {
+     "query": "Dave Ramsey endorsed local provider real estate agent Minneapolis",
+     "ourSite": false,
+     "mentioned": null,
+     "topResults": [
+      "ramseysolutions.com",
+      "realestatewitch.com",
+      "daveramsey.com"
+     ]
+    },
+    {
+     "query": "sell my house Burnsville MN",
+     "ourSite": false,
+     "mentioned": null,
+     "topResults": [
+      "homelight.com",
+      "agentpronto.com",
+      "homes.com"
+     ]
+    },
+    {
+     "query": "Lake Minnetonka lakefront homes for sale realtor",
+     "ourSite": false,
+     "mentioned": null,
+     "topResults": [
+      "lakeplace.com",
+      "homes.com",
+      "themlsonline.com"
+     ]
+    },
+    {
+     "query": "best Minneapolis suburbs to live in",
+     "ourSite": false,
+     "mentioned": null,
+     "topResults": [
+      "homesnacks.com",
+      "stacker.com",
+      "newhomesource.com"
+     ]
+    },
+    {
+     "query": "Apple Valley MN real estate agent",
+     "ourSite": false,
+     "mentioned": null,
+     "topResults": [
+      "experience.com",
+      "biggerpockets.com",
+      "homelight.com"
+     ]
+    },
+    {
+     "query": "Eagan MN realtor reviews",
+     "ourSite": false,
+     "mentioned": null,
+     "topResults": [
+      "biggerpockets.com",
+      "experience.com",
+      "ratemyagent.com"
+     ]
+    },
+    {
+     "query": "moving to Minneapolis real estate YouTube",
+     "ourSite": false,
+     "mentioned": null,
+     "topResults": [
+      "themlsonline.com",
+      "lofty.com",
+      "storagecafe.com"
+     ]
+    }
+   ]
   }
  ],
  "social": [
@@ -299,6 +406,15 @@
    "followers": 3150,
    "views": 755972,
    "posts": 314,
+   "source": "YouTube channel page (rounded)"
+  },
+  {
+   "date": "2026-11-16",
+   "platform": "YouTube",
+   "account": "@livinginminneapolis",
+   "followers": 3160,
+   "views": 764539,
+   "posts": 319,
    "source": "YouTube channel page (rounded)"
   }
  ],
@@ -512,6 +628,211 @@
    "date": "2026-11-09",
    "engine": "Web search (Claude's search tool, US results, first 10)",
    "note": "Our site is still not in the first 10 anywhere (new site not indexed yet). Homes.com now shows on all 10 'homes for sale' searches (was 4) and is first on Lakeville, Prior Lake lakefront and Linden Hills; Redfin is still first on 5. Zillow appears on Burnsville housing market (5th) and Burnsville real estate (10th). Redfin fell from 1st to 4th on Burnsville housing market and rose from 9th to 5th on Burnsville real estate.",
+   "results": [
+    {
+     "query": "Burnsville MN homes for sale",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": 4,
+      "realtor": null,
+      "redfin": 1
+     },
+     "first": "redfin.com"
+    },
+    {
+     "query": "Lakeville MN homes for sale",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": 1,
+      "realtor": null,
+      "redfin": 2
+     },
+     "first": "homes.com"
+    },
+    {
+     "query": "Apple Valley MN homes for sale",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": 7,
+      "realtor": null,
+      "redfin": 2
+     },
+     "first": "century21.com"
+    },
+    {
+     "query": "Eagan MN homes for sale",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": 5,
+      "realtor": null,
+      "redfin": 1
+     },
+     "first": "redfin.com"
+    },
+    {
+     "query": "Prior Lake MN homes for sale",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": 4,
+      "realtor": null,
+      "redfin": 1
+     },
+     "first": "redfin.com"
+    },
+    {
+     "query": "Savage MN homes for sale",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": 3,
+      "realtor": null,
+      "redfin": 1
+     },
+     "first": "redfin.com"
+    },
+    {
+     "query": "Lake Minnetonka homes for sale",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": 4,
+      "realtor": null,
+      "redfin": null
+     },
+     "first": "lakeplace.com"
+    },
+    {
+     "query": "Prior Lake lakefront homes for sale",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": 1,
+      "realtor": null,
+      "redfin": 4
+     },
+     "first": "homes.com"
+    },
+    {
+     "query": "Linden Hills Minneapolis homes for sale",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": 1,
+      "realtor": null,
+      "redfin": 2
+     },
+     "first": "homes.com"
+    },
+    {
+     "query": "Minneapolis homes for sale under 400k",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": 10,
+      "realtor": null,
+      "redfin": 1
+     },
+     "first": "redfin.com"
+    },
+    {
+     "query": "Burnsville MN housing market",
+     "ranks": {
+      "ours": null,
+      "zillow": 5,
+      "homes": null,
+      "realtor": null,
+      "redfin": 4
+     },
+     "first": "rockethomes.com"
+    },
+    {
+     "query": "Lakeville MN housing market 2026",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": null,
+      "realtor": null,
+      "redfin": null
+     },
+     "first": "houzeo.com"
+    },
+    {
+     "query": "Twin Cities housing market",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": null,
+      "realtor": null,
+      "redfin": null
+     },
+     "first": "kw.com"
+    },
+    {
+     "query": "Burnsville MN real estate",
+     "ranks": {
+      "ours": null,
+      "zillow": 10,
+      "homes": null,
+      "realtor": null,
+      "redfin": 5
+     },
+     "first": "attomdata.com"
+    },
+    {
+     "query": "Lakeville MN real estate agent",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": null,
+      "realtor": null,
+      "redfin": null
+     },
+     "first": "agentpronto.com"
+    },
+    {
+     "query": "Lakeville vs Apple Valley MN",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": null,
+      "realtor": null,
+      "redfin": null
+     },
+     "first": "si.com"
+    },
+    {
+     "query": "Eagan vs Burnsville MN",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": null,
+      "realtor": null,
+      "redfin": null
+     },
+     "first": "maxpreps.com"
+    },
+    {
+     "query": "Edina vs Minnetonka",
+     "ranks": {
+      "ours": null,
+      "zillow": null,
+      "homes": null,
+      "realtor": null,
+      "redfin": null
+     },
+     "first": "si.com"
+    }
+   ]
+  },
+  {
+   "date": "2026-11-16",
+   "engine": "Web search (Claude's search tool, US results, first 10)",
+   "note": "No change this week: our site is still not in the first 10 anywhere. Homes.com still shows on all 10 'homes for sale' searches (first on Lakeville, Prior Lake lakefront and Linden Hills); Redfin is first on 5 of 10. Zillow only appears on Burnsville housing market (5th) and Burnsville real estate (10th). Realtor.com is absent everywhere.",
    "results": [
     {
      "query": "Burnsville MN homes for sale",
