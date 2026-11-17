@@ -1,0 +1,788 @@
+{
+ "note": "Condo buildings for /condo-buildings (one page each). Name, address, map point and website from each building's Google Business Profile, pulled through Open SEO (search_local_businesses: condominium_complex near downtown Minneapolis and downtown Saint Paul, plus 'Condo' and 'Residences' name searches, Nov 17, 2026). Left out: rental apartment buildings that Google also tags as condominium complexes, student housing, vacation rentals, duplicates and senior care. Some names say which tower(s) and addresses: an address 'A-B Street' covers every house number from A to B. Open SEO searches a month (Nov 17, 2026): the legacy condos 1,600, skyscape 1,300, riverstation 1,000, la rive 880, cobalt 480, carlyle 70, riverwest 70, grant park 40, city walk (Saint Paul) 40.",
+ "buildings": [
+  {
+   "slug": "the-legacy",
+   "name": "The Legacy Condominiums",
+   "city": "Minneapolis",
+   "addresses": [
+    "1240 S 2nd St"
+   ],
+   "lat": 44.9762649,
+   "lng": -93.249816,
+   "url": "http://thelegacyminneapolis.com/"
+  },
+  {
+   "slug": "skyscape",
+   "name": "Skyscape Condominiums",
+   "city": "Minneapolis",
+   "addresses": [
+    "929 Portland Ave"
+   ],
+   "lat": 44.9710652,
+   "lng": -93.2658191,
+   "url": null
+  },
+  {
+   "slug": "riverstation",
+   "name": "RiverStation Condos",
+   "city": "Minneapolis",
+   "addresses": [
+    "560 N 2nd St"
+   ],
+   "lat": 44.9876812,
+   "lng": -93.2737863,
+   "url": null
+  },
+  {
+   "slug": "la-rive",
+   "name": "La Rive Condos",
+   "city": "Minneapolis",
+   "addresses": [
+    "110 Bank St SE"
+   ],
+   "lat": 44.9860035,
+   "lng": -93.257429,
+   "url": null
+  },
+  {
+   "slug": "cobalt",
+   "name": "Cobalt Condominiums",
+   "city": "Minneapolis",
+   "addresses": [
+    "45 University Ave SE"
+   ],
+   "lat": 44.9872282,
+   "lng": -93.2551475,
+   "url": null
+  },
+  {
+   "slug": "riverwest",
+   "name": "Riverwest Condominiums",
+   "city": "Minneapolis",
+   "addresses": [
+    "401 S 1st St"
+   ],
+   "lat": 44.9806874,
+   "lng": -93.2601362,
+   "url": "http://riverwestliving.com/"
+  },
+  {
+   "slug": "river-towers",
+   "name": "The River Towers Condominiums",
+   "city": "Minneapolis",
+   "addresses": [
+    "15 S 1st St"
+   ],
+   "lat": 44.9832529,
+   "lng": -93.2664612,
+   "url": null
+  },
+  {
+   "slug": "grant-park",
+   "name": "Grant Park Condo",
+   "city": "Minneapolis",
+   "addresses": [
+    "500 E Grant St"
+   ],
+   "lat": 44.9700361,
+   "lng": -93.2681533,
+   "url": null
+  },
+  {
+   "slug": "carlyle",
+   "name": "The Carlyle",
+   "city": "Minneapolis",
+   "addresses": [
+    "100 3rd Ave S"
+   ],
+   "lat": 44.9816848,
+   "lng": -93.2628533,
+   "url": null
+  },
+  {
+   "slug": "the-ivy",
+   "name": "The Ivy Residences",
+   "city": "Minneapolis",
+   "addresses": [
+    "201 S 11th St"
+   ],
+   "lat": 44.9713172,
+   "lng": -93.272789,
+   "url": null
+  },
+  {
+   "slug": "eleven-on-the-river",
+   "name": "Eleven on the River",
+   "city": "Minneapolis",
+   "addresses": [
+    "1111 W River Pkwy"
+   ],
+   "lat": 44.9771319,
+   "lng": -93.2500776,
+   "url": "https://elevenontheriver.com/"
+  },
+  {
+   "slug": "falls-and-pinnacle",
+   "name": "The Falls and Pinnacle",
+   "city": "Minneapolis",
+   "addresses": [
+    "20 2nd St NE",
+    "110 1st Ave NE"
+   ],
+   "lat": 44.9878028,
+   "lng": -93.2586356,
+   "url": "https://fallsandpinnacle.connectresident.com/"
+  },
+  {
+   "slug": "crossings",
+   "name": "The Crossings Condominiums",
+   "city": "Minneapolis",
+   "addresses": [
+    "121 Washington Ave S"
+   ],
+   "lat": 44.9801483,
+   "lng": -93.2663574,
+   "url": "http://www.thecrossingscondo.org/"
+  },
+  {
+   "slug": "bridgewater-lofts",
+   "name": "Bridgewater Lofts",
+   "city": "Minneapolis",
+   "addresses": [
+    "215 10th Ave S"
+   ],
+   "lat": 44.976555,
+   "lng": -93.2537786,
+   "url": "http://bridgewaterloftsminneapolis.com/"
+  },
+  {
+   "slug": "stonebridge-lofts",
+   "name": "Stonebridge Lofts",
+   "city": "Minneapolis",
+   "addresses": [
+    "1120 S 2nd St"
+   ],
+   "lat": 44.9765949,
+   "lng": -93.251233,
+   "url": null
+  },
+  {
+   "slug": "sexton-lofts",
+   "name": "Sexton Lofts",
+   "city": "Minneapolis",
+   "addresses": [
+    "521 S 7th St"
+   ],
+   "lat": 44.9734781,
+   "lng": -93.2645713,
+   "url": null
+  },
+  {
+   "slug": "portland-tower",
+   "name": "Portland Tower",
+   "city": "Minneapolis",
+   "addresses": [
+    "740 Portland Ave"
+   ],
+   "lat": 44.9728069,
+   "lng": -93.2650752,
+   "url": null
+  },
+  {
+   "slug": "summit-house",
+   "name": "Summit House Condominiums",
+   "city": "Minneapolis",
+   "addresses": [
+    "410 Groveland Ave"
+   ],
+   "lat": 44.9663163,
+   "lng": -93.2857197,
+   "url": null
+  },
+  {
+   "slug": "301-oak-grove",
+   "name": "301 Oak Grove",
+   "city": "Minneapolis",
+   "addresses": [
+    "301 Oak Grove St"
+   ],
+   "lat": 44.966624,
+   "lng": -93.282986,
+   "url": null
+  },
+  {
+   "slug": "loring-green-west",
+   "name": "Loring Green West",
+   "city": "Minneapolis",
+   "addresses": [
+    "1235 Yale Pl"
+   ],
+   "lat": 44.9715739,
+   "lng": -93.2799603,
+   "url": null
+  },
+  {
+   "slug": "loring-green-east",
+   "name": "Loring Green East",
+   "city": "Minneapolis",
+   "addresses": [
+    "1201 Yale Pl"
+   ],
+   "lat": 44.972689,
+   "lng": -93.2787273,
+   "url": null
+  },
+  {
+   "slug": "loring-way",
+   "name": "Loring Way Condominium",
+   "city": "Minneapolis",
+   "addresses": [
+    "210 W Grant St"
+   ],
+   "lat": 44.9703547,
+   "lng": -93.2813648,
+   "url": null
+  },
+  {
+   "slug": "groveland-terrace",
+   "name": "Groveland Terrace",
+   "city": "Minneapolis",
+   "addresses": [
+    "48 Groveland Ter"
+   ],
+   "lat": 44.9687004,
+   "lng": -93.2909317,
+   "url": null
+  },
+  {
+   "slug": "mount-curve",
+   "name": "Mount Curve Condominiums",
+   "city": "Minneapolis",
+   "addresses": [
+    "1770 Bryant Ave S"
+   ],
+   "lat": 44.9660832,
+   "lng": -93.2907259,
+   "url": null
+  },
+  {
+   "slug": "kenwood-isles",
+   "name": "Kenwood Isles Condominiums",
+   "city": "Minneapolis",
+   "addresses": [
+    "1425 W 28th St"
+   ],
+   "lat": 44.9517644,
+   "lng": -93.2993984,
+   "url": "https://www.kenwoodislescondo.com/"
+  },
+  {
+   "slug": "5th-avenue-lofts",
+   "name": "5th Avenue Lofts",
+   "city": "Minneapolis",
+   "addresses": [
+    "401 N 2nd St"
+   ],
+   "lat": 44.9863583,
+   "lng": -93.273265,
+   "url": null
+  },
+  {
+   "slug": "730-lofts",
+   "name": "730 Lofts",
+   "city": "Minneapolis",
+   "addresses": [
+    "730 N 4th St"
+   ],
+   "lat": 44.9869303,
+   "lng": -93.2799337,
+   "url": null
+  },
+  {
+   "slug": "720-lofts",
+   "name": "720 Lofts",
+   "city": "Minneapolis",
+   "addresses": [
+    "720 N 4th St"
+   ],
+   "lat": 44.9864415,
+   "lng": -93.2795503,
+   "url": null
+  },
+  {
+   "slug": "itasca-lofts",
+   "name": "Itasca Lofts",
+   "city": "Minneapolis",
+   "addresses": [
+    "712-844 N 1st St"
+   ],
+   "lat": 44.9899407,
+   "lng": -93.2752277,
+   "url": null
+  },
+  {
+   "slug": "winslow-house",
+   "name": "Winslow House",
+   "city": "Minneapolis",
+   "addresses": [
+    "100 2nd St SE"
+   ],
+   "lat": 44.9853042,
+   "lng": -93.2551908,
+   "url": null
+  },
+  {
+   "slug": "riverview-tower",
+   "name": "Riverview Tower",
+   "city": "Minneapolis",
+   "addresses": [
+    "1920 S 1st St"
+   ],
+   "lat": 44.9759712,
+   "lng": -93.2448982,
+   "url": null
+  },
+  {
+   "slug": "metroplace",
+   "name": "MetroPlace Condominiums",
+   "city": "Minneapolis",
+   "addresses": [
+    "2425 E Franklin Ave"
+   ],
+   "lat": 44.9625524,
+   "lng": -93.2367488,
+   "url": null
+  },
+  {
+   "slug": "arches-at-arts",
+   "name": "Arches at Arts Condominiums",
+   "city": "Minneapolis",
+   "addresses": [
+    "2525 3rd Ave S"
+   ],
+   "lat": 44.956466,
+   "lng": -93.2725009,
+   "url": null
+  },
+  {
+   "slug": "home-cw-lofts",
+   "name": "Home CW Lofts",
+   "city": "Minneapolis",
+   "addresses": [
+    "730 Stinson Blvd NE"
+   ],
+   "lat": 44.9981702,
+   "lng": -93.2281522,
+   "url": null
+  },
+  {
+   "slug": "bremer-way",
+   "name": "Bremer Way Condominiums",
+   "city": "Minneapolis",
+   "addresses": [
+    "3232 Fremont Ave N"
+   ],
+   "lat": 45.0144723,
+   "lng": -93.2949617,
+   "url": null
+  },
+  {
+   "slug": "hiawatha-square",
+   "name": "Hiawatha Square Condominiums",
+   "city": "Minneapolis",
+   "addresses": [
+    "3801 S 28th Ave"
+   ],
+   "lat": 44.9340146,
+   "lng": -93.2318202,
+   "url": null
+  },
+  {
+   "slug": "3120-hennepin",
+   "name": "3120 Hennepin",
+   "city": "Minneapolis",
+   "addresses": [
+    "3120 Hennepin Ave"
+   ],
+   "lat": 44.945703,
+   "lng": -93.298684,
+   "url": null
+  },
+  {
+   "slug": "the-pointe-of-st-paul",
+   "name": "The Pointe of St. Paul",
+   "city": "Saint Paul",
+   "addresses": [
+    "78 10th St E"
+   ],
+   "lat": 44.9502404,
+   "lng": -93.0957436,
+   "url": null
+  },
+  {
+   "slug": "gallery-towers",
+   "name": "Gallery Towers",
+   "city": "Saint Paul",
+   "addresses": [
+    "26 W 10th St"
+   ],
+   "lat": 44.949349,
+   "lng": -93.0992364,
+   "url": null
+  },
+  {
+   "slug": "rossmor-lofts",
+   "name": "The Rossmor Building Lofts",
+   "city": "Saint Paul",
+   "addresses": [
+    "500 Robert St N"
+   ],
+   "lat": 44.9510662,
+   "lng": -93.0940955,
+   "url": null
+  },
+  {
+   "slug": "lowry-lofts",
+   "name": "The Lowry",
+   "city": "Saint Paul",
+   "addresses": [
+    "350 St Peter St"
+   ],
+   "lat": 44.9447797,
+   "lng": -93.0951457,
+   "url": null
+  },
+  {
+   "slug": "blair-arcade",
+   "name": "Blair Arcade",
+   "city": "Saint Paul",
+   "addresses": [
+    "165 Western Ave N"
+   ],
+   "lat": 44.9463649,
+   "lng": -93.1165964,
+   "url": null
+  },
+  {
+   "slug": "fitzgerald",
+   "name": "Fitzgerald Condos",
+   "city": "Saint Paul",
+   "addresses": [
+    "488 Wabasha St N"
+   ],
+   "lat": 44.9488872,
+   "lng": -93.097317,
+   "url": null
+  },
+  {
+   "slug": "market-house",
+   "name": "Market House Condominiums",
+   "city": "Saint Paul",
+   "addresses": [
+    "289 5th St E"
+   ],
+   "lat": 44.950282,
+   "lng": -93.0855598,
+   "url": null
+  },
+  {
+   "slug": "great-northern-lofts",
+   "name": "Great Northern Lofts",
+   "city": "Saint Paul",
+   "addresses": [
+    "300 Wall St"
+   ],
+   "lat": 44.9485826,
+   "lng": -93.0841413,
+   "url": null
+  },
+  {
+   "slug": "commodore",
+   "name": "The Commodore Condominium",
+   "city": "Saint Paul",
+   "addresses": [
+    "79 Western Ave N"
+   ],
+   "lat": 44.9436418,
+   "lng": -93.116503,
+   "url": null
+  },
+  {
+   "slug": "river-park-lofts",
+   "name": "River Park Lofts",
+   "city": "Saint Paul",
+   "addresses": [
+    "406 Wacouta St"
+   ],
+   "lat": 44.9504143,
+   "lng": -93.0878399,
+   "url": null
+  },
+  {
+   "slug": "dakota-on-the-park",
+   "name": "Dakota on the Park",
+   "city": "Saint Paul",
+   "addresses": [
+    "209 8th St E"
+   ],
+   "lat": 44.9512884,
+   "lng": -93.0901554,
+   "url": null
+  },
+  {
+   "slug": "lot-270",
+   "name": "Lot 270 Lofts",
+   "city": "Saint Paul",
+   "addresses": [
+    "270 4th St E"
+   ],
+   "lat": 44.9488523,
+   "lng": -93.0852028,
+   "url": null
+  },
+  {
+   "slug": "riverfront-flats",
+   "name": "Riverfront Flats",
+   "city": "Saint Paul",
+   "addresses": [
+    "284 Spring St"
+   ],
+   "lat": 44.9391334,
+   "lng": -93.1012769,
+   "url": null
+  },
+  {
+   "slug": "mississippi-flats",
+   "name": "Mississippi Flats",
+   "city": "Saint Paul",
+   "addresses": [
+    "240 Spring St"
+   ],
+   "lat": 44.939725,
+   "lng": -93.0998953,
+   "url": null
+  },
+  {
+   "slug": "airye",
+   "name": "Airye Condominium",
+   "city": "Saint Paul",
+   "addresses": [
+    "168 6th St E"
+   ],
+   "lat": 44.9488801,
+   "lng": -93.0899316,
+   "url": null
+  },
+  {
+   "slug": "printers-row",
+   "name": "Printers Row Condos",
+   "city": "Saint Paul",
+   "addresses": [
+    "490 N Temperance St"
+   ],
+   "lat": 44.9521166,
+   "lng": -93.0916796,
+   "url": null
+  },
+  {
+   "slug": "park-towers",
+   "name": "Park Towers Condos",
+   "city": "Saint Paul",
+   "addresses": [
+    "59 W 4th St"
+   ],
+   "lat": 44.9444128,
+   "lng": -93.0954103,
+   "url": null
+  },
+  {
+   "slug": "essex-on-the-park",
+   "name": "Essex on the Park",
+   "city": "Saint Paul",
+   "addresses": [
+    "445 Wacouta St"
+   ],
+   "lat": 44.9511863,
+   "lng": -93.089519,
+   "url": null
+  },
+  {
+   "slug": "9th-street-lofts",
+   "name": "9th Street Lofts",
+   "city": "Saint Paul",
+   "addresses": [
+    "225 9th St E"
+   ],
+   "lat": 44.9522546,
+   "lng": -93.0907472,
+   "url": null
+  },
+  {
+   "slug": "minisota",
+   "name": "Minisota",
+   "city": "Saint Paul",
+   "addresses": [
+    "211 7th St E"
+   ],
+   "lat": 44.950915,
+   "lng": -93.0893462,
+   "url": null
+  },
+  {
+   "slug": "oxford-hill",
+   "name": "Oxford Hill Condominiums",
+   "city": "Saint Paul",
+   "addresses": [
+    "1060 Grand Ave"
+   ],
+   "lat": 44.9398567,
+   "lng": -93.1447583,
+   "url": "https://oxfordhillcondos.com/"
+  },
+  {
+   "slug": "union-on-grand",
+   "name": "Union on Grand",
+   "city": "Saint Paul",
+   "addresses": [
+    "1174 Grand Ave"
+   ],
+   "lat": 44.9397677,
+   "lng": -93.1499031,
+   "url": "http://unionongrand.com/"
+  },
+  {
+   "slug": "western-row",
+   "name": "Western Row Condos",
+   "city": "Saint Paul",
+   "addresses": [
+    "80 Western Ave N"
+   ],
+   "lat": 44.9439995,
+   "lng": -93.1156287,
+   "url": "https://western-row.com/"
+  },
+  {
+   "slug": "wilder-park",
+   "name": "Wilder Park",
+   "city": "Saint Paul",
+   "addresses": [
+    "1181 Edgcumbe Rd"
+   ],
+   "lat": 44.9316709,
+   "lng": -93.1492433,
+   "url": null
+  },
+  {
+   "slug": "the-aberdeen",
+   "name": "The Aberdeen",
+   "city": "Saint Paul",
+   "addresses": [
+    "366-378 Marshall Ave"
+   ],
+   "lat": 44.9480128,
+   "lng": -93.1154653,
+   "url": null
+  },
+  {
+   "slug": "selby-commons",
+   "name": "Selby Commons",
+   "city": "Saint Paul",
+   "addresses": [
+    "665 Selby Ave"
+   ],
+   "lat": 44.9466809,
+   "lng": -93.1282457,
+   "url": null
+  },
+  {
+   "slug": "tareyton",
+   "name": "Tareyton Condominiums",
+   "city": "Saint Paul",
+   "addresses": [
+    "383 Grand Ave"
+   ],
+   "lat": 44.9404873,
+   "lng": -93.1163882,
+   "url": null
+  },
+  {
+   "slug": "616-summit",
+   "name": "616 Summit",
+   "city": "Saint Paul",
+   "addresses": [
+    "616 Summit Ave"
+   ],
+   "lat": 44.9409114,
+   "lng": -93.1259724,
+   "url": null
+  },
+  {
+   "slug": "geneva-flats",
+   "name": "Geneva Flats",
+   "city": "Saint Paul",
+   "addresses": [
+    "110 St Albans St N"
+   ],
+   "lat": 44.9446179,
+   "lng": -93.1286651,
+   "url": null
+  },
+  {
+   "slug": "glen-terrace",
+   "name": "Glen Terrace",
+   "city": "Saint Paul",
+   "addresses": [
+    "1111 Elway St"
+   ],
+   "lat": 44.909611,
+   "lng": -93.1476391,
+   "url": null
+  },
+  {
+   "slug": "skyline",
+   "name": "Skyline Condominium",
+   "city": "Saint Paul",
+   "addresses": [
+    "633 S Robert St"
+   ],
+   "lat": 44.9269239,
+   "lng": -93.081258,
+   "url": null
+  },
+  {
+   "slug": "living-choice",
+   "name": "Living Choice Condominiums",
+   "city": "Saint Paul",
+   "addresses": [
+    "1600 Arundel St"
+   ],
+   "lat": 44.9894381,
+   "lng": -93.1182,
+   "url": null
+  },
+  {
+   "slug": "york-condo",
+   "name": "York Condominiums",
+   "city": "Edina",
+   "addresses": [
+    "7200 York Ave S",
+    "7220 York Ave S"
+   ],
+   "lat": 44.8728622,
+   "lng": -93.3238336,
+   "url": null
+  },
+  {
+   "slug": "galleria",
+   "name": "Galleria Residences",
+   "city": "Edina",
+   "addresses": [
+    "3201 Galleria"
+   ],
+   "lat": 44.8775725,
+   "lng": -93.3224969,
+   "url": null
+  }
+ ]
+}
