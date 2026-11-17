@@ -39,7 +39,7 @@ const faq = b ? [
 // Hub
 const all = list.flatMap((x) => x.units);
 const byCity = [...new Set(list.map((x) => x.community))].map((c) => { const l = list.filter((x) => x.community === c).flatMap((x) => x.units); return { label: cityName(c), n: l.length, med: median(l.map((u) => u.price)), href: page(`${c}/condos`) }; }).sort((p, q) => q.n - p.n);
-const hubAnswer = `${list.length} Minneapolis, Saint Paul and Edina condo buildings have units for sale as of ${day}: ${n(all.length)} in all${all.length ? `, median list price ${money(median(all.map((u) => u.price)))}` : ''}, from NorthstarMLS.`;
+const hubAnswer = `${list.length} Twin Cities condo buildings have units for sale as of ${day}: ${n(all.length)} in all${all.length ? `, median list price ${money(median(all.map((u) => u.price)))}` : ''}, from NorthstarMLS.`;
 ---
 {b ? (
   <FeedTopicPage path={`${base}/${b.slug}`} crumb={b.name} at={at} noindex={!!preview}
@@ -55,7 +55,7 @@ const hubAnswer = `${list.length} Minneapolis, Saint Paul and Edina condo buildi
     links={[['All condo buildings', base], ...(page(`${b.community}/condos`) ? [[`${cityName(b.community)} condos for sale`, page(`${b.community}/condos`)!] as [string, string]] : []), ['Condos for sale in the Twin Cities', '/condos-for-sale-mn'], ['What is my condo worth?', '/home-estimate']]} />
 ) : (
   <FeedTopicPage path={base} crumb="Condo buildings" at={at} noindex={!!preview}
-    title={`Minneapolis & St. Paul Condo Buildings With Units for Sale (${list.length}) | ${site.name}`}
+    title={`Twin Cities Condo Buildings With Units for Sale (${list.length}) | ${site.name}`}
     description={hubAnswer}
     eyebrow="Condo buildings" h1="Condo buildings with units for sale" answer={hubAnswer}
     lede={`Only buildings with a condo listed for sale right now, updated ${day}. Pick a building to see its units, prices and association fees.`}
