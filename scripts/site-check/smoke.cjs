@@ -633,7 +633,11 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
   // What visitors' browsers hit in the last 7 days (netlify/functions/client-error.mjs).
   await step('Visitor errors (7 days)', async () => {
     const r = await (await fetch('https://www.huerkamphomes.com/api/client-error')).json();
-    r.total = (r.errors ?? []).filter((g) => !['map-flat', 'stale'].includes(g.kind) && !/MetaMask|ethereum|web3|_AutofillCallbackHandler/i.test(g.msg)).reduce((n, g) => n + g.count, 0); // the backup map working as designed isn't an error; MetaMask (a wallet extension) and _AutofillCallbackHandler (Facebook/Instagram's in-app browser on iPhone, Nov 12, 2026) are other people's scripts
+    // A page opened just as a new version deployed reports 'stale' plus 'script' (its old script files are gone): same cause.
+    // "self.<random> is not a function" is code a crawler or extension injects (Nov 17, 2026: a crawler posing as Chrome
+    // opened ~30 pages seconds apart right after two deploys); the site has no such names.
+    const stalePages = new Set((r.errors ?? []).filter((g) => g.kind === 'stale').map((g) => g.page));
+    r.total = (r.errors ?? []).filter((g) => !['map-flat', 'stale'].includes(g.kind) && !(g.kind === 'script' && stalePages.has(g.page)) && !/^Uncaught TypeError: self\.[a-z0-9]{8,} is not a function/.test(g.msg) && !/MetaMask|ethereum|web3|_AutofillCallbackHandler/i.test(g.msg)).reduce((n, g) => n + g.count, 0); // the backup map working as designed isn't an error; MetaMask (a wallet extension) and _AutofillCallbackHandler (Facebook/Instagram's in-app browser on iPhone, Nov 12, 2026) are other people's scripts
     const top = (r.errors ?? []).slice(0, 5).map((g) => `${g.count}× ${g.kind} "${g.msg.slice(0, 70)}" on ${g.page}`).join(' | ');
     ok('Visitor errors (7 days)', (r.total ?? 0) <= 20, `${r.total ?? 0} reported${top ? `: ${top}` : ''}`);
   });
