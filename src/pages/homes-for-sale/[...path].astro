@@ -186,6 +186,7 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() },
               <>
                 <h3 class="sub">Homes for sale by neighborhood</h3>
                 <ul class="chips">{cityHoods.map(({ h, k }) => <li><a href={homesHref(k!.path)}>{h.name} <em>{k!.listings.length}</em></a></li>)}</ul>
+                {area!.key === 'minneapolis' && <p class="parts">By part of the city: <a href="/northeast-minneapolis-homes-for-sale">Northeast</a> · <a href="/north-minneapolis-homes-for-sale">North</a> · <a href="/south-minneapolis-homes-for-sale">South</a> · <a href="/southwest-minneapolis-homes-for-sale">Southwest</a></p>}
               </>
             )}
             {subsHere.length > 0 && (
@@ -265,6 +266,7 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() },
   .local span { font-size: .92rem; color: var(--text-soft); }
   .local a:hover strong { color: var(--crimson); }
   .sub { margin: 2rem 0 .75rem; font: 700 .75rem/1.3 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--text-soft); }
+  .parts { margin-top: .9rem; }
   .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
   .chips a { display: inline-block; padding: .45rem .75rem; border: 1px solid var(--line); background: var(--paper); color: var(--text); text-decoration: none; font-size: .9rem; }
   .chips a:hover { border-color: var(--crimson); color: var(--crimson); }

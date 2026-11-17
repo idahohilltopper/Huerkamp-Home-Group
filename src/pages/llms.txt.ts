@@ -78,6 +78,7 @@ Facts (with sources on ${url('/')}):
 - [Twin Cities housing data](${url('/data')}): monthly prices, sales and inventory, mortgage rates since 2000, the metro home price index since 1995 and property tax rates by city, each sourced, with CSV downloads
 - [Selling in Minnesota: what's required](${url('/selling-in-minnesota')}): which cities require a Truth in Sale of Housing, time-of-sale or sewer inspection before a sale, and the disclosures every Minnesota seller owes
 - [Minneapolis neighborhoods compared](${url('/minneapolis-neighborhoods')}) and [Saint Paul planning districts compared](${url('/saint-paul-neighborhoods')}): every neighborhood by Census home value, homes for sale, walkability and housing age
+- Homes for sale by part of Minneapolis (the city's official communities): [Northeast](${url('/northeast-minneapolis-homes-for-sale')}), [North](${url('/north-minneapolis-homes-for-sale')}), [South](${url('/south-minneapolis-homes-for-sale')}), [Southwest](${url('/southwest-minneapolis-homes-for-sale')})
 - [Western Wisconsin homes for sale](${url('/wisconsin-homes-for-sale')}): Hudson, River Falls, New Richmond, Prescott, Somerset and more, from NorthstarMLS, by town, type and price
 - [Cabins for sale in Minnesota](${url('/cabins-for-sale-mn')}): cabins, log homes and cottages listed in NorthstarMLS up north, by area and price (we refer these to local agents)
 - City-by-city sale rules: ${saleRules.map((r) => `[${communities.find((c) => c.slug === r.slug)?.name ?? r.slug}](${url(`/selling-in-minnesota/${r.slug}`)})`).join(', ')}

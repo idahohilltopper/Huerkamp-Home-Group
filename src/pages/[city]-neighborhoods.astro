@@ -129,7 +129,7 @@ const other = city === 'minneapolis' ? ['Saint Paul neighborhoods', '/saint-paul
     <div class="wrap faq">
       <div class="head"><p class="eyebrow">Quick answers</p><h2>{cityName} {units}: questions</h2></div>
       {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
-      <p class="links"><a class="link-arrow" href={`/communities/${city}`}>Living in {cityName}</a><a class="link-arrow" href={homesHref(city)}>{cityName} homes for sale</a><a class="link-arrow" href={`/market/${city}`}>{cityName} market report</a><a class="link-arrow" href={other[1]}>{other[0]}</a><a class="link-arrow" href="/minneapolis-suburbs">Minneapolis suburbs compared</a><a class="link-arrow" href="/walkability">Walkability</a></p>
+      <p class="links"><a class="link-arrow" href={`/communities/${city}`}>Living in {cityName}</a><a class="link-arrow" href={homesHref(city)}>{cityName} homes for sale</a><a class="link-arrow" href={`/market/${city}`}>{cityName} market report</a><a class="link-arrow" href={other[1]}>{other[0]}</a>{city === 'minneapolis' && ['northeast', 'north', 'south', 'southwest'].map((a) => <a class="link-arrow" href={`/${a}-minneapolis-homes-for-sale`}>{a[0].toUpperCase() + a.slice(1)} Minneapolis homes for sale</a>)}<a class="link-arrow" href="/minneapolis-suburbs">Minneapolis suburbs compared</a><a class="link-arrow" href="/walkability">Walkability</a></p>
     </div>
   </section>
 

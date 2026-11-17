@@ -633,6 +633,118 @@
    "county": "Pine",
    "region": "exurb",
    "searches": 480
+  },
+  {
+   "slug": "maple-lake",
+   "name": "Maple Lake",
+   "mlsCity": "Maple Lake",
+   "county": "Wright",
+   "region": "exurb",
+   "searches": 1300
+  },
+  {
+   "slug": "eagle-lake",
+   "name": "Eagle Lake",
+   "mlsCity": "Eagle Lake",
+   "county": "Blue Earth",
+   "region": "sc",
+   "searches": 880
+  },
+  {
+   "slug": "madison-lake",
+   "name": "Madison Lake",
+   "mlsCity": "Madison Lake",
+   "county": "Blue Earth",
+   "region": "sc",
+   "searches": 720
+  },
+  {
+   "slug": "howard-lake",
+   "name": "Howard Lake",
+   "mlsCity": "Howard Lake",
+   "county": "Wright",
+   "region": "exurb",
+   "searches": 590
+  },
+  {
+   "slug": "moose-lake",
+   "name": "Moose Lake",
+   "mlsCity": "Moose Lake",
+   "county": "Carlton",
+   "region": "north",
+   "searches": 590
+  },
+  {
+   "slug": "battle-lake",
+   "name": "Battle Lake",
+   "mlsCity": "Battle Lake",
+   "county": "Otter Tail",
+   "region": "lakes",
+   "searches": 480
+  },
+  {
+   "slug": "minnesota-lake",
+   "name": "Minnesota Lake",
+   "mlsCity": "Minnesota Lake",
+   "county": "Faribault",
+   "region": "sc",
+   "searches": 480
+  },
+  {
+   "slug": "clear-lake",
+   "name": "Clear Lake",
+   "mlsCity": "Clear Lake",
+   "county": "Sherburne",
+   "region": "central",
+   "searches": 480
+  },
+  {
+   "slug": "silver-lake",
+   "name": "Silver Lake",
+   "mlsCity": "Silver Lake",
+   "county": "McLeod",
+   "region": "exurb",
+   "searches": 390
+  },
+  {
+   "slug": "sturgeon-lake",
+   "name": "Sturgeon Lake",
+   "mlsCity": "Sturgeon Lake",
+   "county": "Pine",
+   "region": "exurb",
+   "searches": 390
+  },
+  {
+   "slug": "cass-lake",
+   "name": "Cass Lake",
+   "mlsCity": "Cass Lake",
+   "county": "Cass",
+   "region": "lakes",
+   "searches": 320
+  },
+  {
+   "slug": "elbow-lake",
+   "name": "Elbow Lake",
+   "mlsCity": "Elbow Lake",
+   "county": "Grant",
+   "region": "sw",
+   "searches": 320
+  },
+  {
+   "slug": "mountain-lake",
+   "name": "Mountain Lake",
+   "mlsCity": "Mountain Lake",
+   "county": "Cottonwood",
+   "region": "sw",
+   "searches": 170
+  },
+  {
+   "slug": "buffalo-lake",
+   "name": "Buffalo Lake",
+   "mlsCity": "Buffalo Lake",
+   "county": "Renville",
+   "region": "sw",
+   "searches": 170
   }
  ]
 }

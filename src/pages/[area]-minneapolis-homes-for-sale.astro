@@ -1,0 +1,56 @@
+---
+// Homes for sale by part of Minneapolis: /northeast-minneapolis-homes-for-sale, /south-…, /north-…, /southwest-….
+// Open SEO, Nov 17, 2026 (monthly Google searches, keyword difficulty 0 to 9): "homes for sale in northeast minneapolis"
+// 720, "south minneapolis homes for sale" 590, "homes for sale in north minneapolis" 260, "homes for sale in southwest
+// minneapolis" 110. Each part is a set of the city's official communities (the neighborhood data's `community` field),
+// so the boundaries are the City of Minneapolis's own, and the page says which neighborhoods it covers. Listings are the
+// neighborhood listings already in the MLS feed (Listing.hood). Fair housing: listing facts only.
+import FeedTopicPage from '../components/FeedTopicPage.astro';
+import { listingsData, homesHref, money, median, TYPE_LABEL } from '../data/listings';
+import { hoods, hoodKey, hoodHref } from '../data/neighborhoods';
+import { site } from '../data/site';
+
+export function getStaticPaths() {
+  const AREAS = [
+  { slug: 'northeast', name: 'Northeast Minneapolis', communities: ['Northeast'], also: 'Northeast, or "Nordeast," is the city\'s Northeast community, east of the Mississippi and north of Hennepin Avenue and the University community.' },
+  { slug: 'south', name: 'South Minneapolis', communities: ['Powderhorn', 'Nokomis', 'Longfellow', 'Phillips', 'Southwest', 'Calhoun-Isles'], also: 'South Minneapolis here means the six city communities south of downtown: Calhoun-Isles, Southwest, Powderhorn, Phillips, Longfellow and Nokomis.' },
+  { slug: 'north', name: 'North Minneapolis', communities: ['Camden', 'Near North'], also: 'North Minneapolis is the city\'s Camden and Near North communities, west of the Mississippi and north of downtown.' },
+  { slug: 'southwest', name: 'Southwest Minneapolis', communities: ['Southwest', 'Calhoun-Isles'], also: 'Southwest Minneapolis here means the city\'s Southwest community plus Calhoun-Isles, the neighborhoods around Bde Maka Ska, Lake of the Isles and Lake Harriet.' },
+];
+  return AREAS.map((A) => ({ params: { area: A.slug }, props: { A, other: AREAS.filter((a) => a.slug !== A.slug) } }));
+}
+type Part = { slug: string; name: string; communities: string[]; also: string };
+const { A, other } = Astro.props as { A: Part; other: Part[] };
+const data = await listingsData;
+const areaHoods = hoods.filter((h) => h.city === 'minneapolis' && A.communities.includes(h.community ?? ''));
+const keys = new Set(areaHoods.map(hoodKey));
+const homes = data.listings.filter((l) => l.hood && keys.has(l.hood)).sort((a, b) => a.price - b.price);
+const day = data.at ? new Date(data.at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }) : '';
+const med = median(homes.map((l) => l.price));
+const hoodPage = (k: string) => (data.collections.some((c) => c.path === k) ? homesHref(k) : null);
+const byHood = areaHoods.map((h) => { const l = homes.filter((x) => x.hood === hoodKey(h)); return { label: h.name, n: l.length, med: median(l.map((x) => x.price)), href: hoodPage(hoodKey(h)) ?? hoodHref(h) }; })
+  .filter((r) => r.n).sort((a, b) => b.n - a.n);
+const types = [...new Set(homes.map((l) => l.type))].map((t) => { const l = homes.filter((x) => x.type === t); return { label: (TYPE_LABEL[t] ?? t).replace(/^./, (c) => c.toUpperCase()), n: l.length, med: median(l.map((x) => x.price)) }; }).sort((a, b) => b.n - a.n);
+const under = (cap: number) => homes.filter((l) => l.price < cap).length;
+const answer = homes.length
+  ? `${homes.length.toLocaleString('en-US')} homes are for sale in ${A.name} as of ${day}, from ${money(homes[0].price)} to ${money(homes[homes.length - 1].price)}, with a median list price of ${money(med)}. ${under(300000)} are listed under $300,000.`
+  : `No homes in ${A.name} are in the MLS feed right now. Tell us what you're looking for and we'll send new listings the day they hit the market.`;
+const names = areaHoods.map((h) => h.name).sort();
+const faq = [
+  { q: `How many homes are for sale in ${A.name}?`, a: answer },
+  { q: `Which neighborhoods are in ${A.name}?`, a: `${A.also} That covers ${names.length} neighborhoods: ${names.join(', ')}.` },
+  ...(byHood.length > 1 ? [{ q: `Which ${A.name} neighborhoods have the most homes for sale?`, a: `${byHood.slice(0, 3).map((r) => `${r.label} (${r.n}${r.med ? `, median ${money(r.med)}` : ''})`).join(', ')}, from NorthstarMLS on ${day}.` }] : []),
+  { q: `How do I hear about new ${A.name} listings first?`, a: `Tell us below and we'll email new ${A.name} homes the moment they're listed, including ones our agents hear about before they hit the websites. Or call or text ${site.phone}.` },
+];
+---
+<FeedTopicPage path={`/${A.slug}-minneapolis-homes-for-sale`} crumb={A.name} at={data.at} noindex={data.preview}
+  title={`${A.name} Homes for Sale${homes.length ? ` (${homes.length})` : ''}, by Neighborhood | ${site.name}`}
+  description={answer}
+  eyebrow="Minneapolis" h1={`${A.name} homes for sale`} answer={answer}
+  lede={`Every home for sale in ${A.name}'s ${names.length} neighborhoods, from NorthstarMLS, updated ${day}. ${A.also} See <a href="/minneapolis-neighborhoods">all Minneapolis neighborhoods compared</a> or <a href="${homesHref('minneapolis')}">every Minneapolis home for sale</a>.`}
+  tables={[{ h: 'By neighborhood', col: 'Neighborhood', rows: byHood }, { h: 'By home type', col: 'Type', rows: types }]}
+  note={`Neighborhood and community boundaries are the City of Minneapolis's. Listings from NorthstarMLS, updated ${day}.`}
+  shown={homes.slice().sort((a, b) => String(b.listed ?? '').localeCompare(String(a.listed ?? ''))).slice(0, 48)} shownH={`Newest homes for sale in ${A.name}`}
+  ask={{ eyebrow: `Looking in ${A.name}?`, h2: `Get ${A.name} listings <em>first.</em>`, p: `We'll email you new ${A.name} homes the moment they're listed, and tell you about the ones we hear of before they hit the websites.`, interest: A.name, msg: 'Neighborhoods, price range, timing (optional)' }}
+  faq={faq} faqH={`${A.name} homes for sale`}
+  links={[...other.map((o) => [`${o.name} homes for sale`, `/${o.slug}-minneapolis-homes-for-sale`] as [string, string]), ['Minneapolis neighborhoods compared', '/minneapolis-neighborhoods'], ['Minneapolis market report', '/market/minneapolis'], ['What is my home worth?', '/home-estimate']]} />
