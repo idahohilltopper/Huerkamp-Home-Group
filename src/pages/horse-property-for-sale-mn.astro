@@ -1,0 +1,52 @@
+---
+// Horse property for sale in Minnesota (/horse-property-for-sale-mn): every listing on an acre or more whose own description
+// mentions horses, stalls, paddocks or an arena, from the live MLS feed (Twin Cities communities) and the Greater Minnesota
+// towns (src/lib/mn-cities.mjs). Open SEO, Nov 17, 2026: "horse property for sale mn" 210 searches a month, "horse farms
+// for sale mn" 210, "horse property for sale minnesota" 210, all keyword difficulty 0, with page one held by land sites and
+// small brokers (no Zillow). Listing facts only. Rebuilt with every build.
+import FeedTopicPage from '../components/FeedTopicPage.astro';
+import { listingsData, median, money } from '../data/listings';
+import { communities } from '../data/areas';
+import { loadMnCities, mnTowns } from '../lib/mn-cities.mjs';
+import { site } from '../data/site';
+
+const RE = /\b(horses?|equestrian|equine|paddocks?|box stalls?|horse (barn|stalls?|farm|property|pasture|set[- ]?up)|tack room|riding arena|(indoor|outdoor) arena)\b/i;
+const ARENA = /\b(riding arena|(indoor|outdoor) arena)\b/i;
+const ok = (l: any) => l.price > 1000 && l.type !== 'condo' && l.type !== 'townhome' && (l.lotAcres ?? 0) >= 1 && RE.test(l.description ?? '');
+const data = await listingsData;
+const mn = await loadMnCities();
+const metro = data.mode === 'off' ? [] : data.listings.filter(ok);
+const towns = Object.values(mn.towns).flat().filter(ok) as any[];
+const seen = new Set(metro.map((l) => l.mls));
+const homes = [...metro, ...towns.filter((l) => !seen.has(l.mls))];
+const day = data.at ? new Date(data.at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }) : '';
+const placeOf = (l: any) => (l.mnTown ? mnTowns.find((t) => t.slug === l.mnTown)?.name : communities.find((c) => c.slug === l.community)?.name) ?? l.city;
+const prices = homes.map((l) => l.price);
+const row = (label: string, list: typeof homes) => ({ label, n: list.length, med: median(list.map((l) => l.price)) });
+const byPlace = [...new Set(homes.map(placeOf))].map((p) => row(p, homes.filter((l) => placeOf(l) === p))).sort((a, b) => b.n - a.n);
+const BANDS: [string, number, number][] = [['1 to 5 acres', 1, 5], ['5 to 10 acres', 5, 10], ['10 to 20 acres', 10, 20], ['20 to 40 acres', 20, 40], ['40 acres or more', 40, Infinity]];
+const byAcres = BANDS.map(([label, lo, hi]) => row(label, homes.filter((l) => l.lotAcres >= lo && l.lotAcres < hi))).filter((r) => r.n);
+const arena = homes.filter((l) => ARENA.test(l.description ?? '')).length;
+const land = homes.filter((l) => l.type === 'land').length;
+const answer = homes.length
+  ? `${homes.length} horse properties are for sale in Minnesota in NorthstarMLS as of ${day}: listings on an acre or more whose description mentions horses, stalls, paddocks or an arena. Prices run from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, median ${money(median(prices)!)}.${arena ? ` ${arena} mention a riding arena.` : ''}${land ? ` ${land} ${land === 1 ? 'is' : 'are'} land without a house.` : ''}`
+  : '';
+const shown = [...homes].sort((a, b) => Number(ARENA.test(b.description ?? '')) - Number(ARENA.test(a.description ?? '')) || a.price - b.price).slice(0, 48);
+const faq = [
+  ...(answer ? [{ q: 'How many horse properties are for sale in Minnesota?', a: answer }] : []),
+  { q: 'How many horses can I keep per acre in Minnesota?', a: 'There is no single statewide number: each city, township and county sets its own limit, usually in "animal units" per acre, along with how far barns, paddocks and manure storage must be from wells, neighbors and water. Some suburbs don\'t allow horses at all. Ask the zoning office about the specific parcel before you buy; we can help you find out.' },
+  { q: 'What should I check before buying a horse property?', a: 'The zoning and animal-unit limits, the condition of the barn, stalls, fencing and any arena, the well and septic system, how the pasture drains, easements and the survey, and whether any land is wetland or floodplain. Ask how hay and manure are handled now, and check insurance early: barns and arenas can change what a policy costs.' },
+  { q: 'How do I hear about new horse properties first?', a: `Tell us below where you're looking and how many acres you need, and we'll email you new horse properties the moment they're listed, including ones our agents hear about before they hit the websites. Or call or text ${site.phone}.` },
+];
+---
+<FeedTopicPage path="/horse-property-for-sale-mn" crumb="Horse property" at={data.at} noindex={data.preview || !homes.length}
+  title={`Horse Property for Sale in MN${homes.length ? ` (${homes.length})` : ''}: Horse Farms by City & Acreage | ${site.name}`}
+  description={answer || 'Horse properties and horse farms for sale in Minnesota, from NorthstarMLS, by city and acreage.'}
+  eyebrow="Horse property" h1="Horse property for sale in Minnesota" answer={answer}
+  lede={`Every listing in NorthstarMLS on an acre or more whose description mentions horses, stalls, paddocks or an arena, in the Twin Cities and <a href="/minnesota-homes-for-sale">Greater Minnesota towns</a>, updated ${day}. Homes with a riding arena come first. Want acreage without the horse setup? See <a href="/hobby-farms-for-sale-mn">hobby farms</a> and <a href="/land-for-sale">land for sale</a>.`}
+  tables={[{ h: 'By city', col: 'City', rows: byPlace }, { h: 'By acreage', col: 'Acres', rows: byAcres }]}
+  note={`Listings whose own description mentions horses, stalls, paddocks or an arena; read each listing for what's there. Updated ${day}.`}
+  shown={shown} shownH="Horse properties for sale"
+  ask={{ eyebrow: 'Looking for a horse property?', h2: 'Get horse properties <em>first.</em>', p: "Tell us the area, acres and barn you need. We'll email new horse properties the moment they're listed and check the zoning with you before you write an offer.", interest: 'Horse property', msg: 'Area, acres, stalls or arena, budget (optional)' }}
+  faq={faq} faqH="Horse property in Minnesota"
+  links={[['Hobby farms and acreage', '/hobby-farms-for-sale-mn'], ['Barndominiums', '/barndominiums-for-sale-mn'], ['Land for sale', '/land-for-sale'], ['Greater Minnesota homes for sale', '/minnesota-homes-for-sale']]} />

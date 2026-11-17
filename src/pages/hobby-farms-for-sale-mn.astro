@@ -48,7 +48,7 @@ const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage'
       <p class="eyebrow">Hobby farms and acreage</p>
       <h1>Hobby farms and homes on acreage for sale in Minnesota</h1>
       {answer && <p class="answer">{answer}</p>}
-      <p class="lede">Homes on {MIN_ACRES}+ acres in our communities around the Twin Cities, from NorthstarMLS. Looking for bare land? See <a href="/land-for-sale">land and lots for sale</a>.</p>
+      <p class="lede">Homes on {MIN_ACRES}+ acres in our communities around the Twin Cities, from NorthstarMLS. Looking for bare land? See <a href="/land-for-sale">land and lots for sale</a>. Need room for horses? See <a href="/horse-property-for-sale-mn">horse properties</a>.</p>
       <p class="hero-btns"><a class="btn" href="#ask">Tell us what you're looking for</a> <a class="btn btn--ghost" href={site.phoneHref}>Call or text {site.phone}</a></p>
     </div>
   </section>
@@ -118,7 +118,7 @@ const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage'
     <div class="wrap faq">
       <div class="head"><p class="eyebrow">Quick answers</p><h2 id="faq-title">Buying a hobby farm in Minnesota</h2></div>
       {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
-      <p class="links"><a class="link-arrow" href="/land-for-sale">Land and lots for sale</a> <a class="link-arrow" href="/lake-homes">Minnesota lake homes</a> <a class="link-arrow" href="/new-construction">New construction</a></p>
+      <p class="links"><a class="link-arrow" href="/horse-property-for-sale-mn">Horse property for sale</a> <a class="link-arrow" href="/land-for-sale">Land and lots for sale</a> <a class="link-arrow" href="/lake-homes">Minnesota lake homes</a> <a class="link-arrow" href="/new-construction">New construction</a></p>
     </div>
   </section>
 </Base>

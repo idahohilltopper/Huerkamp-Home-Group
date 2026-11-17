@@ -1,0 +1,56 @@
+---
+// Homes with an in-law suite for sale in Minnesota (/homes-with-in-law-suite-mn): every listing whose own description
+// mentions an in-law (mother-in-law) suite or apartment, an accessory dwelling unit (ADU), a guest house, a second kitchen or
+// separate living quarters, from the live MLS feed (Twin Cities communities) and the Greater Minnesota towns.
+// Open SEO, Nov 17, 2026: "homes with in law suites" 2,900 searches a month and "homes with mother in law suites" 2,400
+// (United States), keyword difficulty 0; in Minneapolis, page one shows Zillow's and Redfin's "in law suite" filter pages.
+// Fair housing: describe the space, never who should live in it. Listing facts only. Rebuilt with every build.
+import FeedTopicPage from '../components/FeedTopicPage.astro';
+import { listingsData, median, money } from '../data/listings';
+import { communities } from '../data/areas';
+import { loadMnCities, mnTowns } from '../lib/mn-cities.mjs';
+import { site } from '../data/site';
+
+const SUITE = /\b(in[- ]?law (suite|apartment|apt|quarters|unit|space|set[- ]?up)|mother[- ]in[- ]law|accessory dwelling|guest (house|apartment|quarters|cottage)|second(ary)? kitchen|2nd kitchen|separate (living quarters|apartment|living space)|multi[- ]?generational|dual[- ]living)\b/i;
+const ADU = /\bADUs?\b/;
+const KITCHEN = /\b(second(ary)? kitchen|2nd kitchen|kitchenette)\b/i;
+const ENTRANCE = /\b(separate|private|own) entrance\b/i;
+const ok = (l: any) => l.price > 1000 && l.type !== 'land' && l.type !== 'multi-family' && (SUITE.test(l.description ?? '') || ADU.test(l.description ?? ''));
+const data = await listingsData;
+const mn = await loadMnCities();
+const metro = data.mode === 'off' ? [] : data.listings.filter(ok);
+const towns = Object.values(mn.towns).flat().filter(ok) as any[];
+const seen = new Set(metro.map((l) => l.mls));
+const homes = [...metro, ...towns.filter((l) => !seen.has(l.mls))];
+const day = data.at ? new Date(data.at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }) : '';
+const placeOf = (l: any) => (l.mnTown ? mnTowns.find((t) => t.slug === l.mnTown)?.name : communities.find((c) => c.slug === l.community)?.name) ?? l.city;
+const prices = homes.map((l) => l.price);
+const row = (label: string, list: typeof homes) => ({ label, n: list.length, med: median(list.map((l) => l.price)) });
+const byPlace = [...new Set(homes.map(placeOf))].map((p) => row(p, homes.filter((l) => placeOf(l) === p))).sort((a, b) => b.n - a.n);
+const BANDS: [string, number, number][] = [['Under $400,000', 0, 400000], ['$400,000 to $600,000', 400000, 600000], ['$600,000 to $900,000', 600000, 900000], ['$900,000 and up', 900000, Infinity]];
+const byPrice = BANDS.map(([label, lo, hi]) => row(label, homes.filter((l) => l.price >= lo && l.price < hi))).filter((r) => r.n);
+const kitchen = homes.filter((l) => KITCHEN.test(l.description ?? '')).length;
+const entrance = homes.filter((l) => ENTRANCE.test(l.description ?? '')).length;
+const mpls = homes.filter((l) => l.community === 'minneapolis').length;
+const answer = homes.length
+  ? `${homes.length} homes for sale in Minnesota mention an in-law suite, accessory dwelling unit, guest house or second kitchen in their NorthstarMLS listing as of ${day}, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, median ${money(median(prices)!)}.${kitchen ? ` ${kitchen} mention a second kitchen or kitchenette` : ''}${kitchen && entrance ? ` and ${entrance} a separate entrance.` : kitchen ? '.' : entrance ? ` ${entrance} mention a separate entrance.` : ''}${mpls ? ` ${mpls} ${mpls === 1 ? 'is' : 'are'} in Minneapolis.` : ''}`
+  : '';
+const shown = [...homes].sort((a, b) => Number(ENTRANCE.test(b.description ?? '')) - Number(ENTRANCE.test(a.description ?? '')) || a.price - b.price).slice(0, 48);
+const faq = [
+  ...(answer ? [{ q: 'How many homes with an in-law suite are for sale in Minnesota?', a: answer }] : []),
+  { q: 'What counts as an in-law suite?', a: 'A separate living area inside or beside a home, usually with its own bedroom, bathroom and living space, and often a kitchenette and a private entrance. Listings call it an in-law or mother-in-law suite, an accessory dwelling unit (ADU), a guest house or a second kitchen. This page counts every listing whose own description uses one of those terms, so read each listing (or ask us) for what\'s actually there.' },
+  { q: 'Can I rent out an in-law suite or ADU?', a: 'It depends on the city. Some Twin Cities cities allow accessory dwelling units and set rules on size, parking and rental; others don\'t allow a second unit at all. A suite that was built without permits may not be a legal second unit. Ask the city about the specific address before you count on rental income. Our tiny homes page lists where Twin Cities cities allow backyard cottages and ADUs.' },
+  { q: 'How do I hear about new homes with an in-law suite first?', a: `Tell us below where you're looking, and we'll email you new homes with an in-law suite or second kitchen the moment they're listed. Or call or text ${site.phone}.` },
+];
+---
+<FeedTopicPage path="/homes-with-in-law-suite-mn" crumb="Homes with an in-law suite" at={data.at} noindex={data.preview || !homes.length}
+  title={`Homes With In-Law Suites for Sale in MN${homes.length ? ` (${homes.length})` : ''}: Mother-in-Law Apartments & ADUs | ${site.name}`}
+  description={answer || 'Homes with an in-law suite, mother-in-law apartment, ADU or second kitchen for sale in Minnesota, from NorthstarMLS.'}
+  eyebrow="In-law suites" h1="Homes with an in-law suite for sale in Minnesota" answer={answer}
+  lede={`Every home in NorthstarMLS whose listing mentions an in-law (mother-in-law) suite or apartment, an accessory dwelling unit, a guest house or a second kitchen, in the Twin Cities and <a href="/minnesota-homes-for-sale">Greater Minnesota towns</a>, updated ${day}. Homes that mention a separate entrance come first. Want two full units instead? See <a href="/duplexes-for-sale-mn">duplexes and multi-family homes</a>.`}
+  tables={[{ h: 'By city', col: 'City', rows: byPlace }, { h: 'By price', col: 'List price', rows: byPrice }]}
+  note={`Listings whose own description uses one of these terms; read each listing for what's there. Updated ${day}.`}
+  shown={shown} shownH="Homes with an in-law suite for sale"
+  ask={{ eyebrow: 'Need a second living space?', h2: 'Get in-law suite homes <em>first.</em>', p: "Tell us the area and what the second space needs (bathroom, kitchenette, its own entrance). We'll email matching homes the moment they're listed.", interest: 'Home with in-law suite', msg: 'Area, what the suite needs, budget (optional)' }}
+  faq={faq} faqH="Homes with an in-law suite"
+  links={[['Duplexes and multi-family', '/duplexes-for-sale-mn'], ['Tiny homes and backyard cottages', '/tiny-homes-for-sale-mn'], ['Homes for sale by city', '/homes-for-sale'], ['What is my home worth?', '/home-estimate']]} />
