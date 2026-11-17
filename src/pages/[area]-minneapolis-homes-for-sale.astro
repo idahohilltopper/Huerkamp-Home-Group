@@ -24,7 +24,7 @@ const { A, other } = Astro.props as { A: Part; other: Part[] };
 const data = await listingsData;
 const areaHoods = hoods.filter((h) => h.city === 'minneapolis' && A.communities.includes(h.community ?? ''));
 const keys = new Set(areaHoods.map(hoodKey));
-const homes = data.listings.filter((l) => l.hood && keys.has(l.hood)).sort((a, b) => a.price - b.price);
+const homes = data.listings.filter((l) => l.hood && keys.has(l.hood) && l.price > 1000).sort((a, b) => a.price - b.price);
 const day = data.at ? new Date(data.at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }) : '';
 const med = median(homes.map((l) => l.price));
 const hoodPage = (k: string) => (data.collections.some((c) => c.path === k) ? homesHref(k) : null);
