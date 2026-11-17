@@ -32,6 +32,7 @@ const pairOf = (a: Community, b: Community) => pairs.find((p) => p.kind === 'com
 const ordinal = (n: number) => { const s = ['th', 'st', 'nd', 'rd'], r = n % 100; return n + (s[(r - 20) % 10] || s[r] || s[0]); };
 const priced = (list: Community[]) => list.filter((c) => sales(c) >= MIN_SALES && median(c));
 /** What people type: "to minneapolis", "to st paul" (not "downtown"). */
+const TITLE_TEST = new Set(['downtown-saint-paul/lakeville', 'downtown-saint-paul/shakopee', 'downtown-saint-paul/burnsville', 'downtown-saint-paul/fridley', 'downtown-minneapolis/hopkins', 'downtown-saint-paul/edina', 'downtown-saint-paul/rogers', 'downtown-minneapolis/arden-hills', 'downtown-minneapolis/wayzata', 'downtown-saint-paul/chaska']);
 const PLAIN: Record<string, string> = { downtownMinneapolis: 'Minneapolis', downtownSaintPaul: 'St. Paul' };
 const note = 'Drive times are light-traffic estimates from each city’s center (OpenStreetMap routing). Your trip depends on your address and the time of day; allow more at rush hour.';
 
@@ -58,6 +59,10 @@ if (c && d) {
   const to = PLAIN[d.key] ?? d.name;
   h1 = `${c.name} to ${to}: about ${mins} minutes by car`;
   title = [`${c.name}, MN to ${to}: ${mins}-Minute Drive & Home Prices`, `${c.name} to ${to}: ${mins}-Minute Drive & Home Prices`, `${c.name} to ${to}: ${mins}-Minute Drive`].find((t) => t.length <= 60) ?? `${c.name} to ${to}: ${mins}-Minute Drive`;
+  // Title test (Nov 17, 2026): Search Console showed 2,623 appearances a week for commute pages at position ~8 and zero
+  // clicks: the title answered the question ("43-Minute Drive") and Google shows directions anyway. These 10 pages (the
+  // most-shown) lead with living there instead; compare their clicks with the rest after 2-3 weeks, then keep the winner.
+  if (TITLE_TEST.has(`${d.slug}/${c.slug}`)) title = [`Living in ${c.name}, Working in ${to}: Homes & Commute`, `Living in ${c.name}, Working in ${to}`].find((t) => t.length <= 60) ?? `Living in ${c.name}, Commuting to ${to}`;
   eyebrow = `Commute · ${d.name}`;
   lede = `${c.name} is about ${mins} minutes from ${d.short} by car in light traffic, the ${ordinal(rank)} shortest drive of the ${list.length} cities in our guides.${price && sales(c) >= 10 ? ` Homes there sold for a median ${money(price)} over the 12 months through ${month}.` : ''}`;
   description = `${lede} Shorter drives at a similar price, drive times to other job centers, and ${c.name} homes for sale.`;

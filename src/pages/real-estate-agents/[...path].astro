@@ -12,6 +12,12 @@ import { communities } from '../../data/areas';
 import { origin } from '../../data/schema';
 import { site } from '../../data/site';
 import reviewData from '../../data/reviews.json';
+import { golfData } from '../../data/golf';
+import { buildingsData } from '../../data/condo-buildings';
+import { subdivisionsData } from '../../data/subdivisions';
+import { lakesTouching, lakeHref } from '../../data/lakes';
+import { listingsData, homesHref } from '../../data/listings';
+import { hasMarket } from '../../data/market';
 
 type City = { n: number; buyer: number; seller: number; median: number; years: Record<string, number> };
 const MIN = 5;
@@ -33,6 +39,17 @@ const thisYear = closings.through.slice(0, 4);
 
 // ----- one city -----
 const c = slug ? communities.find((x) => x.slug === slug) : undefined;
+// Local depth next to the sales record (Nov 17, 2026): AI answers for "best realtor in <city>" lean on pages that show
+// knowing the place. Only pages that exist in this build: homes for sale, golf courses, lakes, subdivisions, condo buildings.
+const feedNow = await listingsData;
+const knowLinks: [string, string][] = c ? [
+  ...(feedNow.collections.some((k) => k.path === c.slug && k.index) ? [[`${c.name} homes for sale`, homesHref(c.slug)] as [string, string]] : []),
+  ...(hasMarket(c.slug) ? [[`${c.name} housing market`, `/market/${c.slug}`] as [string, string]] : []),
+  ...(await golfData).list.filter((g) => g.community === c.slug).slice(0, 4).map((g) => [`Homes near ${g.name}`, `/golf-course-homes-for-sale-mn/${g.slug}`] as [string, string]),
+  ...lakesTouching(c.slug).sort((a, b) => b.acres - a.acres).slice(0, 3).map((l) => [`${l.name} homes`, lakeHref(l)] as [string, string]),
+  ...((await subdivisionsData).list.some((x) => x.community === c.slug) ? [[`${c.name} subdivisions with homes for sale`, `/subdivisions/${c.slug}`] as [string, string]] : []),
+  ...((await buildingsData).list.some((x) => x.community === c.slug) ? [[`${c.name} condo buildings`, '/condo-buildings'] as [string, string]] : []),
+] : [];
 const d = slug ? C[slug] : undefined;
 const isRtCity = !!c && c.name.toLowerCase() === rt.cityName.toLowerCase();
 const rank = isRtCity ? `RealTrends ranks the team #${rt.city} in ${rt.cityName} and #${rt.state} in Minnesota (${rt.year} sales)` : `RealTrends ranks the team #${rt.state} in Minnesota (${rt.year} sales)`;
@@ -89,6 +106,7 @@ const crumbs = [{ name: 'Our sales by city', href: base }, ...(c ? [{ name: c.na
             <h2 class="h3">How we can help</h2>
             <p>Selling? Start with what your home is worth today. Buying? We'll show you {c.name} homes, including ones that come up before they hit the websites.</p>
             <p><a class="link-arrow" href={`/communities/${c.slug}`}>Living in {c.name}</a></p>
+            {knowLinks.length > 0 && <><h3 class="h4">Know {c.name}</h3><ul class="know">{knowLinks.map(([t, h]) => <li><a href={h}>{t}</a></li>)}</ul></>}
           </div>
         </div>
         <p class="source">Sales: Huerkamp Home Group closing records, buyer and seller sides closed since {sinceText}, through {through}; homes referred to other agents aren't counted{d.buyer + d.seller < d.n ? '; some 2023 records don\'t say which side' : ''}. Ranking: <a href={rt.url} rel="noopener">{rt.source}</a>, {rt.year} sales. Reviews: <a href={google.url} rel="noopener">Google</a>, as of {fmtDay(google.asOf)}.</p>
@@ -185,4 +203,5 @@ const crumbs = [{ name: 'Our sales by city', href: base }, ...(c ? [{ name: c.na
   .faq details { padding: 1rem 1.2rem; background: var(--paper); border: 1px solid var(--line); }
   .faq summary { cursor: pointer; font: 600 1.15rem/1.3 var(--serif); }
   .links { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: 1rem; }
+  .know { list-style: none; padding: 0; margin: .4rem 0 0; display: grid; gap: .3rem; }
 </style>
