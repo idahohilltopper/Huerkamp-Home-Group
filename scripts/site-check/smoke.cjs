@@ -20,7 +20,7 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
   const b = await engine.launch();
   // Never send our own test visits to Meta Pixel or Google Analytics: their hits are answered here and go nowhere
   // (until Nov 10, 2026 every check run showed up in Google Analytics as ~60 visitors).
-  { const nc = b.newContext.bind(b); b.newContext = async (o) => { const c = await nc(o); await c.route(/facebook\.com\/tr|google-analytics\.com\/g\/collect|analytics\.google\.com\/g\/collect/, (r) => r.fulfill({ status: 200, body: "" })); return c; }; }
+  { const nc = b.newContext.bind(b); b.newContext = async (o) => { const c = await nc(o); await c.route(/facebook\.com\/tr|google-analytics\.com\/g\/collect|analytics\.google\.com\/g\/collect/, (r) => r.fulfill({ status: 200, body: "" })); await c.addInitScript(() => { try { if (localStorage.getItem("hhg-resume-test") !== "1") sessionStorage.setItem("hhg-resumed", "1"); } catch {} }); return c; }; }
   const ctx = await b.newContext({ viewport: { width: 1366, height: 900 } });
   await ctx.addInitScript(() => { try { sessionStorage.setItem('idx-eula', '1'); } catch {} });
   const leads = [];
@@ -498,7 +498,7 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     const b2 = await pw.chromium.launch({ args: ['--disable-webgl', '--disable-3d-apis'] });
     // Never send our own test visits to Meta Pixel or Google Analytics: their hits are answered here and go nowhere
   // (until Nov 10, 2026 every check run showed up in Google Analytics as ~60 visitors).
-    { const nc = b2.newContext.bind(b2); b2.newContext = async (o) => { const c = await nc(o); await c.route(/facebook\.com\/tr|google-analytics\.com\/g\/collect|analytics\.google\.com\/g\/collect/, (r) => r.fulfill({ status: 200, body: "" })); return c; }; }
+    { const nc = b2.newContext.bind(b2); b2.newContext = async (o) => { const c = await nc(o); await c.route(/facebook\.com\/tr|google-analytics\.com\/g\/collect|analytics\.google\.com\/g\/collect/, (r) => r.fulfill({ status: 200, body: "" })); await c.addInitScript(() => { try { if (localStorage.getItem("hhg-resume-test") !== "1") sessionStorage.setItem("hhg-resumed", "1"); } catch {} }); return c; }; }
     const c2 = await b2.newContext({ viewport: { width: 1366, height: 900 } });
     await c2.addInitScript(() => { try { sessionStorage.setItem('idx-eula', '1'); } catch {} });
     await c2.route('**/api/client-error', (r) => r.fulfill({ status: 202, body: '{}' })); // don't count our own test as a visitor error
@@ -631,6 +631,55 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     } finally { await mc.close(); }
   });
   // What visitors' browsers hit in the last 7 days (netlify/functions/client-error.mjs).
+  // Phone search, app-style (Nov 17, 2026): top bar with filters button, full-screen map, "homes for sale" sheet that
+  // opens the list, floating Save search, tab bar; the site header is hidden on this page on phones.
+  await step('Phone search layout', async () => {
+    const pc = await b.newContext({ ...PHONE });
+    await pc.addInitScript(() => { try { sessionStorage.setItem('idx-eula', '1'); } catch {} });
+    await pc.route('**/api/client-error', (r) => r.fulfill({ status: 202, body: '{}' }));
+    const m = await pc.newPage();
+    try {
+      await m.goto(BASE + '/home-search?place=lakeville&view=map', { waitUntil: 'domcontentloaded' });
+      await m.waitForFunction(() => !!window.__hsMap, null, { timeout: 25000 });
+      const st = await m.evaluate(() => {
+        const vis = (q) => { const e = document.querySelector(q); if (!e) return false; const r = e.getBoundingClientRect(); return getComputedStyle(e).display !== 'none' && r.width > 0 && r.height > 0; };
+        const mapH = document.querySelector('.hs-map').getBoundingClientRect().height;
+        return { header: vis('header.nav'), tabs: vis('.hs-tabs'), sheet: vis('.hs-sheet'), save: vis('.hs-save'), filters: vis('[data-filters]'), sheetText: document.querySelector('[data-sheet-count]')?.textContent ?? '', mapShare: mapH / innerHeight };
+      });
+      if (st.header) throw new Error('the site header still shows above the phone search');
+      if (!st.tabs || !st.sheet || !st.save || !st.filters) throw new Error(`missing: ${['tabs', 'sheet', 'save', 'filters'].filter((k) => !st[k]).join(', ')}`);
+      if (st.mapShare < .6) throw new Error(`the map fills only ${Math.round(st.mapShare * 100)}% of the screen`);
+      await m.click('[data-filters]');
+      await m.waitForSelector('[data-filters-done]', { state: 'visible', timeout: 4000 });
+      await m.click('[data-filters-done]');
+      await m.waitForSelector('[data-filters-done]', { state: 'hidden', timeout: 4000 });
+      await m.click('[data-sheet]');
+      await m.waitForSelector('[data-results] .lcard', { state: 'visible', timeout: 10000 });
+      if (m.url().includes('view=map')) throw new Error('tapping the sheet did not open the list');
+      ok('Phone search layout', true, `map ${Math.round(st.mapShare * 100)}% of the screen; sheet "${st.sheetText.trim()}"; filters open and close; sheet opens the list`);
+    } finally { await pc.close(); }
+  });
+  // Pick up where you left off: on a phone, coming back to the home page goes to the last page (here, a map search).
+  await step('Phone: back where you left off', async () => {
+    const pc = await b.newContext({ ...PHONE });
+    await pc.addInitScript(() => { try { sessionStorage.setItem('idx-eula', '1'); localStorage.setItem('hhg-resume-test', '1'); } catch {} });
+    await pc.route('**/api/client-error', (r) => r.fulfill({ status: 202, body: '{}' }));
+    try {
+      const p1 = await pc.newPage();
+      await p1.goto(BASE + '/home-search?place=lakeville&view=map', { waitUntil: 'domcontentloaded' });
+      await p1.waitForTimeout(1500);
+      await p1.close({ runBeforeUnload: true });
+      const p2 = await pc.newPage();
+      await p2.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
+      await p2.waitForURL(/\/home-search\?/, { timeout: 10000 }).catch(() => {});
+      const back = p2.url();
+      if (!/\/home-search\?.*place=lakeville/.test(back)) throw new Error(`the home page stayed put (${back.replace(BASE, '')}) instead of going back to the Lakeville map search`);
+      const p3 = await pc.newPage();
+      await p3.goto(BASE + '/?home=1', { waitUntil: 'domcontentloaded' }); await p3.waitForTimeout(1000);
+      if (new URL(p3.url()).pathname !== '/') throw new Error('?home=1 did not keep the home page');
+      ok('Phone: back where you left off', true, `returned to ${back.replace(BASE, '')}`);
+    } finally { await pc.close(); }
+  });
   await step('Visitor errors (7 days)', async () => {
     const r = await (await fetch('https://www.huerkamphomes.com/api/client-error')).json();
     // A page opened just as a new version deployed reports 'stale' plus 'script' (its old script files are gone): same cause.

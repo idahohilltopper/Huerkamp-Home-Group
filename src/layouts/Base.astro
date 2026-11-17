@@ -105,6 +105,27 @@ const pageTitle = title.length > 60 && title.endsWith(brandEnd) ? title.slice(0,
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <!-- A listing opened inside the map search's panel (src/scripts/home-search.ts) shows without the site's header and footer. -->
   <script is:inline>if (/[?&]embed=1\b/.test(location.search) && window.top !== window.self) document.documentElement.classList.add('is-embed');</script>
+  <!-- Pick up where you left off (Jason, Nov 17, 2026): the site remembers the last page a visitor was on (hhg-last-page,
+       browser storage, 30 days; never account, sign-in or legal pages). On a phone, someone who comes back to the home
+       page from outside the site (not by clicking our own logo) is taken straight back to that page, map view and filters
+       included, once per visit. ?home=1 always shows the home page. -->
+  <script is:inline>(function(){try{
+    var K='hhg-last-page',p=location.pathname,ss=sessionStorage,ls=localStorage;
+    if(window.top!==window.self)return;
+    if(p==='/'){
+      var own=document.referrer&&document.referrer.indexOf(location.origin)===0;
+      if(!ss.getItem('hhg-resumed')&&!own&&!/[?&]home=1\b/.test(location.search)&&matchMedia('(max-width: 900px)').matches){
+        ss.setItem('hhg-resumed','1');
+        var v=JSON.parse(ls.getItem(K)||'null');
+        if(v&&v.u&&v.u.charAt(0)==='/'&&v.u!=='/'&&Date.now()-v.t<30*864e5){location.replace(v.u);return;}
+      }
+      ss.setItem('hhg-resumed','1');return;
+    }
+    ss.setItem('hhg-resumed','1');
+    if(/^\/(account|profile|unsubscribe|license-agreement|cookies|privacy|sms-terms|open-house|presentations|flyers|report|404)/.test(p))return;
+    var save=function(){try{var u=new URL(location.href);['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid','gclid','embed'].forEach(function(k){u.searchParams.delete(k)});ls.setItem(K,JSON.stringify({u:u.pathname+u.search,t:Date.now()}))}catch(e){}};
+    save();addEventListener('pagehide',save);document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')save()});
+  }catch(e){}})();</script>
   <!-- Error reporting (netlify/functions/client-error.mjs): errors visitors' browsers hit on our own scripts are sent
        (message, page path, browser family; nothing personal), at most 5 per page view. A page left open across a deploy
        asks for script files that no longer exist; that page reloads itself once instead of half-working. -->
