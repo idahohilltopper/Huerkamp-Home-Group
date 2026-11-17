@@ -1,0 +1,25 @@
+---
+// "Own here? See what yours is worth" for owners who land on a building, golf course or neighborhood page: the asking prices
+// of homes listed there now (never a value we make up) and a link to the home-estimate page with their address filled in.
+interface Props { eyebrow: string; title: string; text: string; address?: string; zip?: string }
+const P = Astro.props;
+const href = `/home-estimate${P.address ? `?${new URLSearchParams({ address: P.address, ...(P.zip ? { zip: P.zip } : {}) })}` : ''}`;
+---
+<section class="section seller-ask" aria-label={P.title}>
+  <div class="wrap seller-ask__in">
+    <div>
+      <p class="eyebrow">{P.eyebrow}</p>
+      <h2 set:html={P.title} />
+      <p>{P.text}</p>
+    </div>
+    <p class="seller-ask__btns"><a class="btn" href={href}>What's mine worth?</a> <a class="btn btn--ghost" href="/sell">How we sell</a></p>
+  </div>
+</section>
+
+<style>
+  .seller-ask { border-top: 1px solid var(--line); }
+  .seller-ask__in { display: grid; grid-template-columns: minmax(0, 1.4fr) auto; gap: 1.5rem 3rem; align-items: center; }
+  .seller-ask h2 { font: 500 clamp(1.5rem, 3vw, 2rem)/1.15 var(--serif); margin: .2rem 0 .5rem; }
+  .seller-ask__btns { display: flex; flex-wrap: wrap; gap: .6rem; }
+  @media (max-width: 760px) { .seller-ask__in { grid-template-columns: 1fr; } }
+</style>

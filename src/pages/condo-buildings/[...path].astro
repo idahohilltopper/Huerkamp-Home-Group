@@ -3,6 +3,8 @@
 // /condo-buildings/<building> (its units for sale). Data: src/data/condo-buildings.ts. Only buildings with a unit for sale
 // get a page (Jason, Nov 17, 2026), so the list follows the MLS feed at every build.
 import FeedTopicPage from '../../components/FeedTopicPage.astro';
+import SellerAsk from '../../components/SellerAsk.astro';
+import SoldHomes from '../../components/SoldHomes.astro';
 import { buildingsData, type Building } from '../../data/condo-buildings';
 import { homesHref, money, median, listingsData } from '../../data/listings';
 import { hoodByKey, CITY_NAME } from '../../data/neighborhoods';
@@ -52,7 +54,10 @@ const hubAnswer = `${list.length} Twin Cities condo buildings have units for sal
     shown={b.units.slice(0, 48)} shownH={`Condos for sale at ${b.name}`}
     ask={{ eyebrow: `Watching ${b.name}?`, h2: `Get ${b.name} listings <em>first.</em>`, p: `We'll email you new units at ${b.name} the moment they're listed.`, interest: `Condo building: ${b.name}`, msg: 'Bedrooms, price range, timing (optional)' }}
     faq={faq} faqH={`${b.name} condos`}
-    links={[['All condo buildings', base], ...(page(`${b.community}/condos`) ? [[`${cityName(b.community)} condos for sale`, page(`${b.community}/condos`)!] as [string, string]] : []), ['Condos for sale in the Twin Cities', '/condos-for-sale-mn'], ['What is my condo worth?', '/home-estimate']]} />
+    links={[['All condo buildings', base], ...(page(`${b.community}/condos`) ? [[`${cityName(b.community)} condos for sale`, page(`${b.community}/condos`)!] as [string, string]] : []), ['Condos for sale in the Twin Cities', '/condos-for-sale-mn'], ['What is my condo worth?', '/home-estimate']]} >
+    <SellerAsk eyebrow={`Own at ${b.name}?`} title={`What's your condo at ${b.name} <em>worth?</em>`} text={`${n(b.units.length)} ${b.units.length === 1 ? 'is' : 'are'} listed here now${b.units.length > 1 ? `, asking ${money(b.units[0].price)} to ${money(b.units[b.units.length - 1].price)}` : `, asking ${money(b.units[0].price)}`}. Asking prices aren't sale prices: tell us your unit and we'll show you what similar units actually sold for.`} address={`${b.addresses[0]}, ${b.city}`} />
+    {b.named && <SoldHomes place={`condo:${b.slug}`} name={b.name} months={36} />}
+  </FeedTopicPage>
 ) : (
   <FeedTopicPage path={base} crumb="Condo buildings" at={at} noindex={!!preview}
     title={`Twin Cities Condo Buildings With Units for Sale (${list.length}) | ${site.name}`}

@@ -10,17 +10,8 @@ import data from './condo-buildings.json';
 export interface BuildingInfo { slug: string; name: string; city: string; addresses: string[]; lat: number; lng: number; url: string | null }
 export const MIN_UNNAMED = 3;
 
-const ABBR: Record<string, string> = { street: 'st', avenue: 'ave', drive: 'dr', road: 'rd', lane: 'ln', court: 'ct', circle: 'cir', place: 'pl', boulevard: 'blvd', parkway: 'pkwy', terrace: 'ter', trail: 'trl', mall: 'mall', north: 'n', south: 's', east: 'e', west: 'w', northeast: 'ne', northwest: 'nw', southeast: 'se', southwest: 'sw', saint: 'st' };
-const DIRS = new Set(['n', 's', 'e', 'w', 'ne', 'nw', 'se', 'sw']);
-/** "20 NE 2nd St" and "20 2nd Street NE #1203" both → { num: 20, key: "2nd st|ne" }. */
-export function addrKey(street: string) {
-  const s = street.toLowerCase().replace(/#.*$/, '').replace(/\b(unit|apt|suite|ste)\b.*$/, '').replace(/[.,]/g, ' ').trim();
-  const m = s.match(/^(\d+)(?:-(\d+))?\s+(.+)$/);
-  if (!m) return null;
-  const words = m[3].split(/\s+/).map((w) => ABBR[w] ?? w);
-  const dirs = words.filter((w) => DIRS.has(w)).sort(), rest = words.filter((w) => !DIRS.has(w));
-  return { lo: +m[1], hi: m[2] ? +m[2] : +m[1], key: `${rest.join(' ')}|${dirs.join(' ')}` };
-}
+import { addrKey } from '../lib/addr-key.mjs';
+export { addrKey };
 const slugify = (s: string) => s.toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const title = (street: string) => street.replace(/#.*$/, '').trim();
 

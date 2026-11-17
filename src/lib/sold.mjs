@@ -19,6 +19,8 @@ import { parsePoly } from './poly.mjs';
 import cities from '../data/ylopo-cities.json' with { type: 'json' };
 import mnTowns from '../data/mn-cities.json' with { type: 'json' };
 import team from '../data/team.json' with { type: 'json' };
+import condos from '../data/condo-buildings.json' with { type: 'json' };
+import { atAddress } from './addr-key.mjs';
 
 export const MAX_MONTHS = 36;
 /** west, south, east, north: the Twin Cities area (matches TWIN_CITIES in src/scripts/search-map.ts). */
@@ -39,6 +41,9 @@ const ownBrokerage = (b) => /keller williams preferred/i.test(b ?? '');
 const AGENT = Object.fromEntries(team.members.map((m) => [m.profileUrl.split('/').pop(), m.name]));
 const CITY = Object.fromEntries(Object.entries(cities.communities).filter(([, w]) => w.city).map(([slug, w]) => [slug, w.city]));
 // Greater Minnesota towns (/minnesota-homes-for-sale/<town>): place "mn:<slug>", searched by the MLS city name.
+// Condo buildings (/condo-buildings/<slug>): place "condo:<slug>", condo sales in a small box around the building, then
+// only those at the building's own address(es) (inPlace), since a downtown block holds several buildings.
+const CONDO = Object.fromEntries(condos.buildings.map((b) => [b.slug, b]));
 const MN_TOWN = Object.fromEntries(mnTowns.cities.map((t) => [`mn:${t.slug}`, t.mlsCity]));
 
 /** Why soldCard() would leave this listing out (for the counts-only check at /api/sold?why=1), or null if shown. */
@@ -115,6 +120,7 @@ export function soldQuery(sp, now = new Date()) {
   else if (CITY[place]) q.city = CITY[place];
   else if (MN_TOWN[place]) q.city = MN_TOWN[place];
   else if (/^lake:[a-z0-9-]{2,60}$/.test(place) && shores[place.slice(5)]) q.lake = place.slice(5);
+  else if (/^condo:[a-z0-9-]{2,60}$/.test(place) && CONDO[place.slice(6)]) { const b = CONDO[place.slice(6)]; q.condo = b.slug; q.bbox = [b.lng - 0.0015, b.lat - 0.0011, b.lng + 0.0015, b.lat + 0.0011]; }
   else if (place) q.unsupported = place;
   const agent = text(sp.get('agent')).toLowerCase();
   if (AGENT[agent]) q.agentName = AGENT[agent];
@@ -144,6 +150,7 @@ export function repliersParams(q, { pageSize = PAGE, page = q.page, fields = FIE
   if (q.city) p.city = q.city;
   if (q.zip) p.zip = q.zip;
   if (q.agentName) p.agent = q.agentName;
+  if (q.condo) p.class = 'condo';
   if (q.min) p.minSoldPrice = q.min;
   if (q.max) p.maxSoldPrice = q.max;
   if (q.beds) p.minBedrooms = q.beds;
@@ -170,3 +177,7 @@ function lakeRings(slug) {
 }
 /** False for a raw Repliers listing that a lake query should leave out (not marked lakefront). */
 export const onLake = (q, l) => !q.lake || isLakefront(l);
+/** False for a raw Repliers listing a building's query should leave out (not at the building's address). */
+export const onBuilding = (q, l) => { if (!q.condo) return true; const a = l.address ?? {}; return atAddress([a.streetNumber, a.streetDirectionPrefix, a.streetName, a.streetSuffix, a.streetDirection].map(text).filter(Boolean).join(' '), CONDO[q.condo].addresses); };
+/** The lake and building filters together: what a place's sold list keeps. */
+export const inPlace = (q, l) => onLake(q, l) && onBuilding(q, l);

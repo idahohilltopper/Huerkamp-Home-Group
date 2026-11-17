@@ -3,6 +3,7 @@
 // course and city) and /golf-course-homes-for-sale-mn/<course> (homes within a mile of one course). Data: src/data/golf.ts.
 // Course facts (name, city, public/private, website) are only what the course's Google Business Profile says.
 import FeedTopicPage from '../../components/FeedTopicPage.astro';
+import SellerAsk from '../../components/SellerAsk.astro';
 import { golfData, MIN_INDEX, type CourseHomes } from '../../data/golf';
 import { homesHref, money, median, TYPE_LABEL, listingsData } from '../../data/listings';
 import { communities } from '../../data/areas';
@@ -61,7 +62,9 @@ const hubFaq = [
     shown={c.homes.slice(0, 48)} shownH={`Homes for sale near ${c.name}`}
     ask={{ eyebrow: `Want a home on ${c.name}?`, h2: `Get ${c.name} listings <em>first.</em>`, p: `We'll email you new homes near ${c.name} the moment they're listed, and tell you about the ones we hear of before they hit the websites.`, interest: `Golf course home: ${c.name}`, msg: 'On the course or nearby, price range, timing (optional)' }}
     faq={faq} faqH={`Homes near ${c.name}`}
-    links={[['All golf course homes', base], ...(c.community && cityPage(c.community) ? [[`${cityName(c.community)} homes for sale`, cityPage(c.community)!] as [string, string]] : []), ...(c.community ? [[`${cityName(c.community)} market report`, `/market/${c.community}`] as [string, string]] : []), ['What is my home worth?', '/home-estimate']]} />
+    links={[['All golf course homes', base], ...(c.community && cityPage(c.community) ? [[`${cityName(c.community)} homes for sale`, cityPage(c.community)!] as [string, string]] : []), ...(c.community ? [[`${cityName(c.community)} market report`, `/market/${c.community}`] as [string, string]] : []), ['What is my home worth?', '/home-estimate']]} >
+    <SellerAsk eyebrow={`Own near ${c.name}?`} title={`What's your home near ${c.name} <em>worth?</em>`} text={`Homes within a mile of the course are listed at a median ${money(c.median)} right now${on.length ? `, and ${on.length} of them say they sit on or overlook the course` : ''}. Asking prices aren't sale prices: tell us your address and we'll show you what nearby homes actually sold for.`} />
+  </FeedTopicPage>
 ) : (
   <FeedTopicPage path={base} crumb="Golf course homes" at={at} noindex={!!preview}
     title={`Golf Course Homes for Sale in Minnesota (${homes.length}), by Course | ${site.name}`}

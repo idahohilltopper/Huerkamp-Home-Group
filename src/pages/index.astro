@@ -18,9 +18,30 @@ import team from '../data/team.json';
 import reviewData from '../data/reviews.json';
 import closings from '../data/team-closings.json';
 import { communities, communityGeoUrl, communityInfo, regions } from '../data/areas';
+import { listingsData, homesHref } from '../data/listings';
+import { buildingsData } from '../data/condo-buildings';
+import { golfData } from '../data/golf';
 
 const google = reviewData.summary.google;
 const latest = (await getPosts()).slice(0, 3);
+// Popular local searches (Open SEO, Nov 2026; monthly Google searches in the comment): links from the page Google visits
+// most, so it finds the neighborhood, building and course pages sooner. Only pages that exist in this build are linked.
+const feedNow = await listingsData, condoNow = await buildingsData, golfNow = await golfData;
+const hasPage = (path: string) => feedNow.collections.some((k) => k.path === path && k.index);
+const localSearches = ([
+  ['Northeast Minneapolis', '/northeast-minneapolis-homes-for-sale', true], // 720
+  ['South Minneapolis', '/south-minneapolis-homes-for-sale', true], // 590
+  ['South St. Paul', homesHref('south-st-paul'), hasPage('south-st-paul')], // 880
+  ['Highland Park, St. Paul', homesHref('saint-paul/highland-park'), hasPage('saint-paul/highland-park')], // 480
+  ['Como Park, St. Paul', homesHref('saint-paul/como-park'), hasPage('saint-paul/como-park')], // 320
+  ['North Minneapolis', '/north-minneapolis-homes-for-sale', true], // 260
+  ['Lake of the Isles', '/lake-homes/lake-of-isles', true], // 170
+  ['St. Anthony Park, St. Paul', homesHref('saint-paul/st-anthony-park'), hasPage('saint-paul/st-anthony-park')], // 90
+  ['The Legacy condos', '/condo-buildings/the-legacy', condoNow.list.some((b) => b.slug === 'the-legacy')], // 1,600
+  ['Skyscape condos', '/condo-buildings/skyscape', condoNow.list.some((b) => b.slug === 'skyscape')], // 1,300
+  ['Condo buildings', '/condo-buildings', condoNow.list.length > 0],
+  ['Golf course homes', '/golf-course-homes-for-sale-mn', golfNow.list.length > 0],
+] as [string, string, boolean][]).filter(([, , ok]) => ok);
 const members = team.members;
 
 // Complete 5-star reviews short enough for a card; the first is the featured quote.
@@ -234,6 +255,16 @@ const ld = JSON.stringify({
       </div>
     </div>
   </section>
+
+  {localSearches.length > 0 && (
+    <section class="section popular" aria-labelledby="popular-title">
+      <div class="wrap">
+        <p class="eyebrow">Popular local searches</p>
+        <h2 id="popular-title">Homes for sale, <em>block by block</em></h2>
+        <ul class="popular__list">{localSearches.map(([t, h]) => <li><a href={h}>{t}</a></li>)}</ul>
+      </div>
+    </section>
+  )}
 
   <!-- Sell with confidence -->
   <section class="section" aria-labelledby="sell-title">
@@ -554,6 +585,10 @@ const ld = JSON.stringify({
   @media (max-width: 960px) { .where { grid-template-columns: 1fr; } }
   .where__copy { display: grid; gap: 1rem; }
   .where__copy > p:not(.eyebrow) { color: var(--text-soft); }
+  .popular { padding-top: 0; }
+  .popular__list { list-style: none; padding: 0; margin: 1rem 0 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+  .popular__list a { display: inline-block; padding: .5rem .9rem; border: 1px solid var(--line); background: var(--paper); text-decoration: none; font-weight: 600; }
+  .popular__list a:hover { border-color: var(--crimson); }
   .areas { list-style: none; margin: .5rem 0 0; padding: 0; border-top: 1px solid var(--line); }
   .areas a { display: flex; justify-content: space-between; align-items: baseline; padding: .9rem 0; border-bottom: 1px solid var(--line); text-decoration: none; }
   .areas strong { font: 500 1.35rem/1.2 var(--serif); }

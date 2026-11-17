@@ -10,8 +10,9 @@ import IdxDisclosure from './IdxDisclosure.astro';
 interface Props { place?: string; name: string; agent?: string; months?: number }
 const { place, name, agent, months } = Astro.props;
 const lake = place?.startsWith('lake:');
+const condo = place?.startsWith('condo:');
 // Greater Minnesota towns ("mn:<slug>") aren't in the map search, so they get no "see every sale" link.
-const all = place && !place.startsWith('mn:') ? `${ownSearchHref({ places: [place] })}${ownSearchHref({ places: [place] }).includes('?') ? '&' : '?'}status=sold&view=map` : null;
+const all = place && !place.startsWith('mn:') && !condo ? `${ownSearchHref({ places: [place] })}${ownSearchHref({ places: [place] }).includes('?') ? '&' : '?'}status=sold&view=map` : null;
 // An agent's page: their own sales over 12 months. A community page: everything sold there in the last 6 months.
 const query = agent ? `agent=${encodeURIComponent(agent)}&months=12` : `place=${encodeURIComponent(place ?? '')}${months ? `&months=${months}` : ''}`;
 ---
@@ -22,6 +23,8 @@ const query = agent ? `agent=${encodeURIComponent(agent)}&months=12` : `place=${
         <p class="eyebrow">Recently sold</p>
         {agent
           ? <><h2 id="sold-title">Homes <em>{name}</em> sold</h2><p>{name}'s listings that sold in the last 12 months, from NorthstarMLS.</p></>
+          : condo
+            ? <><h2 id="sold-title">What did condos at {name} <em>sell for?</em></h2><p>Condos sold at {name} in the last {months ?? DEFAULT_MONTHS} months, from NorthstarMLS.</p></>
           : lake
             ? <><h2 id="sold-title">What did homes on {name} <em>sell for?</em></h2><p>Lakefront homes sold on {name} in the last {months ?? DEFAULT_MONTHS} months, from NorthstarMLS: homes the MLS marks as lakefront, inside 200 meters of the DNR shoreline.</p></>
             : <><h2 id="sold-title">What did homes in {name} <em>sell for?</em></h2><p>Homes sold in {name} in the last {months ?? DEFAULT_MONTHS} months, from NorthstarMLS.</p></>}

@@ -39,6 +39,9 @@ to_utm = Transformer.from_crs('EPSG:4326', 'EPSG:26915', always_xy=True).transfo
 nad_utm = Transformer.from_crs('EPSG:4269', 'EPSG:26915', always_xy=True).transform
 to_ll = Transformer.from_crs('EPSG:26915', 'EPSG:4326', always_xy=True).transform
 RENAMED = {'Lake Calhoun': 'Bde Maka Ska'}  # official names the Census map hasn't caught up with
+# Names as people say and search them, shown on the pages; the slug stays the DNR name's (lake-of-isles) so URLs don't move.
+# Open SEO, Nov 17, 2026: "lake of the isles minneapolis homes for sale" 170 searches a month.
+DISPLAY = {'Lake of Isles': 'Lake of the Isles'}
 
 
 def nice(name):
@@ -126,6 +129,7 @@ for l in sorted(lakes, key=lambda l: -l['acres']):
         slug, n = f'{base}-{n}', n + 1
     used.add(slug)
     l['slug'] = slug
+    l['name'] = DISPLAY.get(l['name'], l['name'])
 
 lakes.sort(key=lambda l: -l['acres'])
 features = [{'type': 'Feature', 'properties': {'slug': l['slug']},

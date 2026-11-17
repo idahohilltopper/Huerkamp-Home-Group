@@ -5,7 +5,7 @@
 // Needs REPLIERS_API_KEY in Netlify (Functions scope); never sends it, or any error text, to the browser.
 import { repliers } from '../../src/lib/repliers.mjs';
 import { secretFrom, verify } from '../../src/lib/session.mjs';
-import { onLake, soldCard, soldDropReason, thumbnail, soldQuery, repliersParams, PAGE, MAX_PINS, SOLD_DISCLAIMER } from '../../src/lib/sold.mjs';
+import { inPlace, soldCard, soldDropReason, thumbnail, soldQuery, repliersParams, PAGE, MAX_PINS, SOLD_DISCLAIMER } from '../../src/lib/sold.mjs';
 
 const env = (k) => (globalThis.Netlify?.env?.get(k) ?? process.env[k] ?? '').trim();
 const VARY = 'query=mls|place|agent|months|min|max|beds|baths|bbox|poly|page|pins|why,header=x-idx-eula|x-account';
@@ -34,11 +34,11 @@ export default async (req, _ctx, call = repliers) => {
   if (q.unsupported) return json(200, { ok: true, total: 0, page: 1, pages: 1, results: [], pins: [], unsupported: true, disclaimer: SOLD_DISCLAIMER }, true);
   try {
     // A lake: one page of up to 100 sales, then only the lakefront ones (onLake), so the count is what's shown.
-    const { params, body } = repliersParams(q, q.lake ? { pageSize: 100, page: 1 } : undefined);
+    const { params, body } = repliersParams(q, q.lake || q.condo ? { pageSize: 100, page: 1 } : undefined);
     const r = await call(key, '/listings', params, body);
-    if (r.data && q.lake) r.data.listings = (r.data.listings ?? []).filter((l) => onLake(q, l));
+    if (r.data && (q.lake || q.condo)) r.data.listings = (r.data.listings ?? []).filter((l) => inPlace(q, l));
     if (!r.data) { console.error('Repliers sold', r.status, r.error); return json(502, { ok: false, error: 'mls-error' }); }
-    const total = q.lake ? (r.data.listings ?? []).length : r.data.count ?? 0;
+    const total = q.lake || q.condo ? (r.data.listings ?? []).length : r.data.count ?? 0;
     // An agent's sales: only homes they listed (NorthstarMLS doesn't allow the selling agent to be shown on sold homes).
     const mine = (c) => !q.agentName || (c.ownBrokerage && String(c.agent ?? '').toLowerCase() === q.agentName.toLowerCase());
     const results = (r.data.listings ?? []).map(card).filter((c) => c && mine(c)).map(thumbnail);
@@ -61,10 +61,10 @@ export default async (req, _ctx, call = repliers) => {
         all.push(...list);
         if (list.length < 100) break;
       }
-      pins = all.filter((l) => onLake(q, l)).map(card).filter((c) => c && c.lat != null)
+      pins = all.filter((l) => inPlace(q, l)).map(card).filter((c) => c && c.lat != null)
         .map((c) => [c.lat, c.lng, c.soldPrice ?? 0, c.mls, c.photo, c.street ? `${c.street}, ${c.city}` : `${c.city}, MN ${c.zip}`, c.office, c.ownBrokerage, c.soldDate]);
     }
-    return json(200, { ok: true, total, page: q.page, pages: q.lake ? 1 : Math.max(1, Math.ceil(total / PAGE)), months: q.months, results, pins, signedIn, signInFor, disclaimer: SOLD_DISCLAIMER }, !signedIn);
+    return json(200, { ok: true, total, page: q.page, pages: q.lake || q.condo ? 1 : Math.max(1, Math.ceil(total / PAGE)), months: q.months, results, pins, signedIn, signInFor, disclaimer: SOLD_DISCLAIMER }, !signedIn);
   } catch (e) {
     console.error('sold', e.message);
     return json(502, { ok: false, error: 'mls-error' });

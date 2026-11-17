@@ -22,6 +22,7 @@ import { origin } from '../../data/schema';
 import { site } from '../../data/site';
 import { developmentsData } from '../../data/developments';
 import { golfData } from '../../data/golf';
+import { buildingsData } from '../../data/condo-buildings';
 import { subdivisionsData } from '../../data/subdivisions';
 import teamClosings from '../../data/team-closings.json';
 
@@ -45,6 +46,7 @@ const place = area?.place ?? 'the Twin Cities';
 const st = c ? stats(c.listings) : stats(data.listings);
 // New-construction developments in this city (src/data/developments.ts), linked from its new-construction page.
 // Subdivisions with homes for sale in this city (src/data/subdivisions.ts), on the city's main page only.
+const condosHere = c?.area.kind === 'community' && c.facet?.slug === 'condos' ? (await buildingsData).list.filter((x) => x.community === c.area.key) : [];
 const golfHere = c?.area.kind === 'community' && !c.facet ? (await golfData).list.filter((x) => x.community === c.area.key) : [];
 const subsHere = c?.area.kind === 'community' && !c.facet ? (await subdivisionsData).list.filter((x) => x.community === c.area.key) : [];
 const devsHere = c?.area.kind === 'community' && c.facet?.slug === 'new-construction' ? (await developmentsData).list.filter((x) => x.community === c.area.key) : [];
@@ -189,6 +191,12 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() },
                 <h3 class="sub">Homes for sale by neighborhood</h3>
                 <ul class="chips">{cityHoods.map(({ h, k }) => <li><a href={homesHref(k!.path)}>{h.name} <em>{k!.listings.length}</em></a></li>)}</ul>
                 {area!.key === 'minneapolis' && <p class="parts">By part of the city: <a href="/northeast-minneapolis-homes-for-sale">Northeast</a> · <a href="/north-minneapolis-homes-for-sale">North</a> · <a href="/south-minneapolis-homes-for-sale">South</a> · <a href="/southwest-minneapolis-homes-for-sale">Southwest</a></p>}
+              </>
+            )}
+            {condosHere.length > 0 && (
+              <>
+                <h3 class="sub">Condo buildings with units for sale</h3>
+                <ul class="chips">{condosHere.slice(0, 40).map((x) => <li><a href={`/condo-buildings/${x.slug}`}>{x.name} <em>{x.units.length}</em></a></li>)}{condosHere.length > 40 && <li><a href="/condo-buildings">All condo buildings</a></li>}</ul>
               </>
             )}
             {golfHere.length > 0 && (
