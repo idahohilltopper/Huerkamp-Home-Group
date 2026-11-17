@@ -1,0 +1,77 @@
+---
+// Golf course homes for sale: /golf-course-homes-for-sale-mn (every listing that says it's on or overlooks a course, by
+// course and city) and /golf-course-homes-for-sale-mn/<course> (homes within a mile of one course). Data: src/data/golf.ts.
+// Course facts (name, city, public/private, website) are only what the course's Google Business Profile says.
+import FeedTopicPage from '../../components/FeedTopicPage.astro';
+import { golfData, MIN_INDEX, type CourseHomes } from '../../data/golf';
+import { homesHref, money, median, TYPE_LABEL, listingsData } from '../../data/listings';
+import { communities } from '../../data/areas';
+import { site } from '../../data/site';
+
+export async function getStaticPaths() {
+  const { list, mode } = await golfData;
+  if (mode === 'off') return [];
+  return [{ params: { path: undefined }, props: { c: null } }, ...list.map((c) => ({ params: { path: c.slug }, props: { c } }))];
+}
+const { c } = Astro.props as { c: CourseHomes | null };
+const { list, golfHomes, onCourse, at, preview } = await golfData;
+const feed = await listingsData;
+const day = at ? new Date(at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }) : '';
+const cityName = (slug: string) => communities.find((x) => x.slug === slug)?.name ?? slug;
+const cityPage = (slug: string) => (feed.collections.some((k) => k.path === slug) ? homesHref(slug) : null);
+const n = (k: number) => `${k} ${k === 1 ? 'home' : 'homes'}`;
+const base = '/golf-course-homes-for-sale-mn';
+const where = (x: CourseHomes) => `${x.city}, ${x.state}`;
+
+// One course
+const on = c ? c.homes.filter((l) => onCourse.has(l.mls)) : [];
+const types = c ? [...new Set(c.homes.map((l) => l.type))].map((t) => { const l = c.homes.filter((x) => x.type === t); return { label: (TYPE_LABEL[t] ?? t).replace(/^./, (s) => s.toUpperCase()), n: l.length, med: median(l.map((x) => x.price)) }; }).sort((a, b) => b.n - a.n) : [];
+const nearby = c ? list.filter((x) => x.slug !== c.slug).map((x) => ({ x, d: Math.hypot(x.lat - c.lat, (x.lng - c.lng) * 0.71) })).sort((a, b) => a.d - b.d).slice(0, 8).map(({ x }) => ({ label: `${x.name} (${x.city})`, n: x.homes.length, med: x.median, href: `${base}/${x.slug}` })) : [];
+const prices = c ? c.homes.map((l) => l.price).sort((a, b) => a - b) : [];
+const answer = c
+  ? `${n(c.homes.length)} ${c.homes.length === 1 ? 'is' : 'are'} for sale within a mile of ${c.name} in ${where(c)} as of ${day}${prices.length > 1 ? `, from ${money(prices[0])} to ${money(prices[prices.length - 1])}, median ${money(c.median)}` : `, listed at ${money(prices[0])}`}. ${on.length ? `${on.length} ${on.length === 1 ? 'listing says it sits' : 'listings say they sit'} on or overlook${on.length === 1 ? 's' : ''} the course.` : 'None of the listings says it sits on the course itself.'}`
+  : '';
+const faq = c ? [
+  { q: `How many homes are for sale near ${c.name}?`, a: answer },
+  { q: `Is ${c.name} public or private?`, a: c.access ? `Google lists ${c.name} as a ${c.access.toLowerCase()}.${c.url ? ' Check the course\'s own website for memberships and tee times.' : ''} Buying a home next to a course doesn't come with a membership unless the listing or the club says so.` : `${c.name}'s Google listing doesn't say. Check with the course${c.url ? ' on its website' : ''}. Buying a home next to a course doesn't come with a membership unless the listing or the club says so.` },
+  { q: 'What should I check before buying a home on a golf course?', a: 'Which way the home faces the fairway (stray balls), any easement or cart path behind the lot, association rules and fees, and whether the course has a long-term plan. Ask for the plat and survey, and ask the club about any changes coming to the course.' },
+  { q: `How do I hear about new homes near ${c.name} first?`, a: `Tell us below and we'll email you the moment a home near ${c.name} hits the MLS, including ones our agents hear about before they're listed. Or call or text ${site.phone}.` },
+] : [];
+
+// Hub
+const homes = golfHomes.map((g) => g.l).sort((a, b) => String(b.listed ?? '').localeCompare(String(a.listed ?? '')));
+const byCourse = list.map((x) => ({ label: `${x.name} (${x.city})`, n: x.homes.length, med: x.median, href: `${base}/${x.slug}` })).sort((a, b) => b.n - a.n);
+const cities = [...new Set(homes.map((l) => l.community).filter(Boolean))].map((s) => { const l = homes.filter((x) => x.community === s); return { label: cityName(s), n: l.length, med: median(l.map((x) => x.price)), href: cityPage(s) }; }).sort((a, b) => b.n - a.n);
+const hubAnswer = `${n(homes.length)} for sale in the Twin Cities and western Wisconsin describe themselves as on or overlooking a golf course as of ${day}${homes.length ? `, median list price ${money(median(homes.map((l) => l.price)))}` : ''}. Below: every course with homes for sale within a mile, from NorthstarMLS.`;
+const hubFaq = [
+  { q: 'How many golf course homes are for sale in Minnesota?', a: hubAnswer },
+  { q: 'Which golf courses have the most homes for sale nearby?', a: byCourse.slice(0, 3).map((r) => `${r.label}: ${r.n}`).join('; ') + `, within a mile of the course, from NorthstarMLS on ${day}.` },
+  { q: 'What counts as a golf course home here?', a: 'A listing whose own description says it is on, overlooks or backs up to a golf course or fairway, or names the course. Homes that are only "close to golf" are not counted. Each course page also shows every home within a mile.' },
+  { q: 'Do you help buyers looking for a golf course home?', a: `Yes. Our office is in Burnsville, a short drive from Birnamwood, Crystal Lake, Brackett's Crossing, Heritage Links, The Wilds and Legends. Tell us below which courses you like, or call or text ${site.phone}.` },
+];
+---
+{c ? (
+  <FeedTopicPage path={`${base}/${c.slug}`} crumb={c.name} at={at} noindex={!!preview || c.homes.length < MIN_INDEX}
+    title={`Homes for Sale Near ${c.name} (${c.homes.length}), ${where(c)} | ${site.name}`}
+    description={answer}
+    eyebrow={`Golf course homes · ${where(c)}`} h1={`Homes for sale near ${c.name}`} answer={answer}
+    lede={`Every home for sale within a mile of ${c.name}${c.access ? ` (${c.access.toLowerCase()})` : ''} in ${where(c)}, from NorthstarMLS, updated ${day}. Homes whose listing says they're on or overlook the course come first.${c.url ? ` Course website: <a href="${c.url}" rel="noopener" target="_blank">${new URL(c.url).hostname.replace(/^www\./, '')}</a>.` : ''}`}
+    tables={[{ h: 'By home type', col: 'Type', rows: types }, { h: 'Golf courses nearby', col: 'Course', rows: nearby }]}
+    note={`"Within a mile" is measured from the course's Google Maps pin. Updated ${day}.`}
+    shown={c.homes.slice(0, 48)} shownH={`Homes for sale near ${c.name}`}
+    ask={{ eyebrow: `Want a home on ${c.name}?`, h2: `Get ${c.name} listings <em>first.</em>`, p: `We'll email you new homes near ${c.name} the moment they're listed, and tell you about the ones we hear of before they hit the websites.`, interest: `Golf course home: ${c.name}`, msg: 'On the course or nearby, price range, timing (optional)' }}
+    faq={faq} faqH={`Homes near ${c.name}`}
+    links={[['All golf course homes', base], ...(c.community && cityPage(c.community) ? [[`${cityName(c.community)} homes for sale`, cityPage(c.community)!] as [string, string]] : []), ...(c.community ? [[`${cityName(c.community)} market report`, `/market/${c.community}`] as [string, string]] : []), ['What is my home worth?', '/home-estimate']]} />
+) : (
+  <FeedTopicPage path={base} crumb="Golf course homes" at={at} noindex={!!preview}
+    title={`Golf Course Homes for Sale in Minnesota (${homes.length}), by Course | ${site.name}`}
+    description={hubAnswer}
+    eyebrow="Golf course homes" h1="Golf course homes for sale" answer={hubAnswer}
+    lede={`Homes on and around ${list.length} Twin Cities and western Wisconsin golf courses, from NorthstarMLS, updated ${day}. Pick a course for every home within a mile of it.`}
+    tables={[{ h: 'By course (homes within a mile)', col: 'Course', rows: byCourse }, { h: 'Golf course homes by city', col: 'City', rows: cities }]}
+    note={`Courses from their Google Business Profiles. Updated ${day}.`}
+    shown={homes.slice(0, 48)} shownH="Newest golf course homes for sale"
+    ask={{ eyebrow: 'Looking for a golf course home?', h2: 'Get golf course listings <em>first.</em>', p: "Tell us the courses or cities you like and we'll email new golf course homes the moment they're listed.", interest: 'Golf course home', msg: 'Courses or cities, price range, timing (optional)' }}
+    faq={hubFaq} faqH="Golf course homes"
+    links={[['Lake homes', '/lake-homes'], ['Luxury homes ($1M+)', '/luxury-homes-for-sale-mn'], ['Townhomes', '/townhomes-for-sale-mn'], ['What is my home worth?', '/home-estimate']]} />
+)}

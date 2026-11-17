@@ -80,6 +80,7 @@ Facts (with sources on ${url('/')}):
 - [Minneapolis neighborhoods compared](${url('/minneapolis-neighborhoods')}) and [Saint Paul planning districts compared](${url('/saint-paul-neighborhoods')}): every neighborhood by Census home value, homes for sale, walkability and housing age
 - Homes for sale by part of Minneapolis (the city's official communities): [Northeast](${url('/northeast-minneapolis-homes-for-sale')}), [North](${url('/north-minneapolis-homes-for-sale')}), [South](${url('/south-minneapolis-homes-for-sale')}), [Southwest](${url('/southwest-minneapolis-homes-for-sale')})
 - [Western Wisconsin homes for sale](${url('/wisconsin-homes-for-sale')}): Hudson, River Falls, New Richmond, Prescott, Somerset and more, from NorthstarMLS, by town, type and price
+- [Golf course homes for sale](${url('/golf-course-homes-for-sale-mn')}): listings on or overlooking Twin Cities and western Wisconsin golf courses, plus every home within a mile of each course (e.g. ${url('/golf-course-homes-for-sale-mn/crystal-lake')})
 - [Cabins for sale in Minnesota](${url('/cabins-for-sale-mn')}): cabins, log homes and cottages listed in NorthstarMLS up north, by area and price (we refer these to local agents)
 - City-by-city sale rules: ${saleRules.map((r) => `[${communities.find((c) => c.slug === r.slug)?.name ?? r.slug}](${url(`/selling-in-minnesota/${r.slug}`)})`).join(', ')}
 - [Area guides](${url('/guides')}): Twin Cities places ranked by price, speed of sale, drive time, lakes and age of homes

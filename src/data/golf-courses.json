@@ -1,0 +1,925 @@
+{
+ "note": "Golf courses in and around the Twin Cities for /golf-course-homes-for-sale-mn. Every name, city, map point (Google Maps pin, usually the clubhouse) and website is from Google Business Profile data pulled through Open SEO (search_local_businesses, golf_course / golf_club / 'Country Club', Nov 17, 2026). access is set only when Google's listing says so: 'Public course' (category Public golf course, or the course's own description says public), 'Private club' (category Private golf course, or the description says private or members-only), 'Country club' (category Country club, nothing more said); null when the listing doesn't say. Indoor simulators, mini golf, driving ranges and maintenance buildings were left out.",
+ "courses": [
+  {
+   "slug": "crystal-lake",
+   "name": "Crystal Lake Golf Club",
+   "city": "Lakeville",
+   "state": "MN",
+   "lat": 44.7047958,
+   "lng": -93.2529067,
+   "url": "https://www.crystallakegolfcourse.com/",
+   "access": null
+  },
+  {
+   "slug": "bracketts-crossing",
+   "name": "Brackett's Crossing Country Club",
+   "city": "Lakeville",
+   "state": "MN",
+   "lat": 44.690324,
+   "lng": -93.3159586,
+   "url": "https://www.brackettscrossingcc.com/",
+   "access": "Private club"
+  },
+  {
+   "slug": "heritage-links",
+   "name": "Heritage Links Golf Club",
+   "city": "Lakeville",
+   "state": "MN",
+   "lat": 44.6345481,
+   "lng": -93.3584747,
+   "url": "http://heritagelinks.com/",
+   "access": null
+  },
+  {
+   "slug": "birnamwood",
+   "name": "Birnamwood Golf Course",
+   "city": "Burnsville",
+   "state": "MN",
+   "lat": 44.7787647,
+   "lng": -93.2599431,
+   "url": "https://www.burnsvillemn.gov/golf",
+   "access": "Public course"
+  },
+  {
+   "slug": "the-wilds",
+   "name": "The Wilds Golf Club",
+   "city": "Prior Lake",
+   "state": "MN",
+   "lat": 44.7370024,
+   "lng": -93.4578251,
+   "url": "http://www.golfthewilds.com/",
+   "access": null
+  },
+  {
+   "slug": "legends",
+   "name": "Legends Golf Club",
+   "city": "Prior Lake",
+   "state": "MN",
+   "lat": 44.6699651,
+   "lng": -93.3440147,
+   "url": "http://www.legendsgc.com/",
+   "access": "Public course"
+  },
+  {
+   "slug": "cleary-lake",
+   "name": "Cleary Lake Golf Course",
+   "city": "Prior Lake",
+   "state": "MN",
+   "lat": 44.6884155,
+   "lng": -93.3870315,
+   "url": "http://www.threeriversparks.org/location/cleary-lake-golf-course",
+   "access": null
+  },
+  {
+   "slug": "the-meadows-at-mystic-lake",
+   "name": "The Meadows at Mystic Lake",
+   "city": "Prior Lake",
+   "state": "MN",
+   "lat": 44.7292068,
+   "lng": -93.4805016,
+   "url": "https://www.golfthemeadows.com/",
+   "access": "Public course"
+  },
+  {
+   "slug": "stonebrooke",
+   "name": "Stonebrooke Golf Club",
+   "city": "Shakopee",
+   "state": "MN",
+   "lat": 44.7505563,
+   "lng": -93.5198455,
+   "url": "https://www.stonebrooke.com/",
+   "access": "Public course"
+  },
+  {
+   "slug": "valleywood",
+   "name": "Valleywood Golf Course",
+   "city": "Apple Valley",
+   "state": "MN",
+   "lat": 44.7717419,
+   "lng": -93.1593195,
+   "url": "http://valleywoodgolf.com/",
+   "access": "Public course"
+  },
+  {
+   "slug": "southern-hills",
+   "name": "Southern Hills Golf Course",
+   "city": "Farmington",
+   "state": "MN",
+   "lat": 44.6741333,
+   "lng": -93.1339416,
+   "url": "http://www.southernhillsgolfcourse.com/",
+   "access": "Public course"
+  },
+  {
+   "slug": "fountain-valley",
+   "name": "Fountain Valley Golf Club",
+   "city": "Farmington",
+   "state": "MN",
+   "lat": 44.6285896,
+   "lng": -93.122322,
+   "url": null,
+   "access": null
+  },
+  {
+   "slug": "lost-spur",
+   "name": "Lost Spur Golf and Event Center",
+   "city": "Eagan",
+   "state": "MN",
+   "lat": 44.8584401,
+   "lng": -93.1747994,
+   "url": "http://www.lostspurgolf.com/",
+   "access": null
+  },
+  {
+   "slug": "mendakota",
+   "name": "Mendakota Country Club",
+   "city": "Mendota Heights",
+   "state": "MN",
+   "lat": 44.8808193,
+   "lng": -93.1342163,
+   "url": "http://www.mendakotacc.com/",
+   "access": "Private club"
+  },
+  {
+   "slug": "somerset",
+   "name": "Somerset Country Club",
+   "city": "Mendota Heights",
+   "state": "MN",
+   "lat": 44.901471,
+   "lng": -93.110356,
+   "url": "http://www.somersetcountryclub.org/",
+   "access": "Country club"
+  },
+  {
+   "slug": "southview",
+   "name": "Southview Country Club",
+   "city": "West St. Paul",
+   "state": "MN",
+   "lat": 44.8846054,
+   "lng": -93.0738068,
+   "url": "http://www.southviewcc.com/",
+   "access": "Private club"
+  },
+  {
+   "slug": "inver-wood",
+   "name": "Inver Wood Golf Course",
+   "city": "Inver Grove Heights",
+   "state": "MN",
+   "lat": 44.8460231,
+   "lng": -93.0697787,
+   "url": "http://www.inverwood.org/",
+   "access": null
+  },
+  {
+   "slug": "arbor-pointe",
+   "name": "Arbor Pointe Golf Club",
+   "city": "Inver Grove Heights",
+   "state": "MN",
+   "lat": 44.8199794,
+   "lng": -93.0410583,
+   "url": "http://www.arborpointegolfclub.com/",
+   "access": null
+  },
+  {
+   "slug": "boulder-pointe",
+   "name": "Boulder Pointe Golf Club",
+   "city": "Elko New Market",
+   "state": "MN",
+   "lat": 44.5586909,
+   "lng": -93.328779,
+   "url": "http://www.boulderpointegolf.com/",
+   "access": null
+  },
+  {
+   "slug": "dwan",
+   "name": "Dwan Golf Course",
+   "city": "Bloomington",
+   "state": "MN",
+   "lat": 44.804067,
+   "lng": -93.321905,
+   "url": "https://blm.mn/dwan",
+   "access": "Public course"
+  },
+  {
+   "slug": "hyland-greens",
+   "name": "Hyland Greens Golf Course",
+   "city": "Bloomington",
+   "state": "MN",
+   "lat": 44.820681,
+   "lng": -93.354404,
+   "url": "https://www.threeriversparks.org/location/hyland-greens-golf-course",
+   "access": "Public course"
+  },
+  {
+   "slug": "minnesota-valley",
+   "name": "Minnesota Valley Country Club",
+   "city": "Bloomington",
+   "state": "MN",
+   "lat": 44.7930721,
+   "lng": -93.3625879,
+   "url": "http://www.mvccgolf.com/",
+   "access": "Country club"
+  },
+  {
+   "slug": "braemar",
+   "name": "Braemar Golf Course",
+   "city": "Edina",
+   "state": "MN",
+   "lat": 44.867232,
+   "lng": -93.3839665,
+   "url": "http://www.braemargolf.com/",
+   "access": "Public course"
+  },
+  {
+   "slug": "edina-country-club",
+   "name": "Edina Country Club",
+   "city": "Edina",
+   "state": "MN",
+   "lat": 44.9107672,
+   "lng": -93.3395294,
+   "url": "http://www.edinacountryclub.org/",
+   "access": "Private club"
+  },
+  {
+   "slug": "interlachen",
+   "name": "Interlachen Country Club",
+   "city": "Edina",
+   "state": "MN",
+   "lat": 44.9151934,
+   "lng": -93.3799899,
+   "url": "http://www.interlachencc.org/",
+   "access": "Country club"
+  },
+  {
+   "slug": "olympic-hills",
+   "name": "Olympic Hills Golf Club",
+   "city": "Eden Prairie",
+   "state": "MN",
+   "lat": 44.83147,
+   "lng": -93.4128373,
+   "url": "http://olympichills.com/",
+   "access": "Private club"
+  },
+  {
+   "slug": "bearpath",
+   "name": "Bearpath Golf & Country Club",
+   "city": "Eden Prairie",
+   "state": "MN",
+   "lat": 44.8423092,
+   "lng": -93.5065803,
+   "url": "http://www.bearpathgolf.com/",
+   "access": "Private club"
+  },
+  {
+   "slug": "bent-creek",
+   "name": "Bent Creek Golf Club",
+   "city": "Eden Prairie",
+   "state": "MN",
+   "lat": 44.8712886,
+   "lng": -93.4615794,
+   "url": "http://www.bentcreekgolfclub.com/",
+   "access": "Private club"
+  },
+  {
+   "slug": "hazeltine",
+   "name": "Hazeltine National Golf Club",
+   "city": "Chaska",
+   "state": "MN",
+   "lat": 44.833729,
+   "lng": -93.5908194,
+   "url": "http://www.hazeltinenational.com/",
+   "access": "Private club"
+  },
+  {
+   "slug": "bluff-creek",
+   "name": "Bluff Creek Golf Course",
+   "city": "Chaska",
+   "state": "MN",
+   "lat": 44.8215408,
+   "lng": -93.5465011,
+   "url": "http://www.bluffcreek.com/",
+   "access": "Public course"
+  },
+  {
+   "slug": "dahlgreen",
+   "name": "Dahlgreen Golf Club",
+   "city": "Chaska",
+   "state": "MN",
+   "lat": 44.7697077,
+   "lng": -93.6993665,
+   "url": "http://www.dahlgreen.com/",
+   "access": "Public course"
+  },
+  {
+   "slug": "deer-run",
+   "name": "Deer Run Golf Club",
+   "city": "Victoria",
+   "state": "MN",
+   "lat": 44.8473674,
+   "lng": -93.6571353,
+   "url": "http://www.deerrungolf.com/",
+   "access": "Public course"
+  },
+  {
+   "slug": "island-view",
+   "name": "Island View Golf Club",
+   "city": "Waconia",
+   "state": "MN",
+   "lat": 44.8631658,
+   "lng": -93.7550443,
+   "url": "http://www.islandviewgolfclub.com/",
+   "access": null
+  },
+  {
+   "slug": "ridges-at-sand-creek",
+   "name": "Ridges at Sand Creek",
+   "city": "Jordan",
+   "state": "MN",
+   "lat": 44.633998,
+   "lng": -93.6126707,
+   "url": "http://www.ridgesatsandcreek.com/",
+   "access": null
+  },
+  {
+   "slug": "oak-ridge",
+   "name": "Oak Ridge Country Club",
+   "city": "Hopkins",
+   "state": "MN",
+   "lat": 44.9358907,
+   "lng": -93.4062888,
+   "url": "https://www.oakridgecountryclub.net/",
+   "access": "Private club"
+  },
+  {
+   "slug": "minneapolis-golf-club",
+   "name": "Minneapolis Golf Club",
+   "city": "St. Louis Park",
+   "state": "MN",
+   "lat": 44.9641436,
+   "lng": -93.3952761,
+   "url": "http://www.minneapolisgolfclub.com/",
+   "access": null
+  },
+  {
+   "slug": "brookview",
+   "name": "Brookview Golf Course",
+   "city": "Golden Valley",
+   "state": "MN",
+   "lat": 44.9755637,
+   "lng": -93.3861433,
+   "url": "http://www.brookviewgolf.com/",
+   "access": null
+  },
+  {
+   "slug": "theodore-wirth",
+   "name": "Theodore Wirth Golf Course",
+   "city": "Minneapolis",
+   "state": "MN",
+   "lat": 44.9923833,
+   "lng": -93.3233417,
+   "url": "https://www.minneapolisparks.org/golf/courses/theodore_wirth_golf_club/",
+   "access": "Public course"
+  },
+  {
+   "slug": "hiawatha",
+   "name": "Hiawatha Golf Course",
+   "city": "Minneapolis",
+   "state": "MN",
+   "lat": 44.9200448,
+   "lng": -93.2450997,
+   "url": "https://www.minneapolisparks.org/golf/courses/hiawatha_golf_club/",
+   "access": "Public course"
+  },
+  {
+   "slug": "columbia",
+   "name": "Columbia Golf Club",
+   "city": "Minneapolis",
+   "state": "MN",
+   "lat": 45.028132,
+   "lng": -93.2484121,
+   "url": "http://www.minneapolisparks.org/golf/courses/columbia_golf_club",
+   "access": null
+  },
+  {
+   "slug": "gross-national",
+   "name": "Gross National Golf Club",
+   "city": "Minneapolis",
+   "state": "MN",
+   "lat": 45.0099105,
+   "lng": -93.2125473,
+   "url": "https://www.minneapolisparks.org/golf/courses/gross_national_golf_club/",
+   "access": "Public course"
+  },
+  {
+   "slug": "highland-national",
+   "name": "Highland National Golf Course",
+   "city": "Saint Paul",
+   "state": "MN",
+   "lat": 44.9131284,
+   "lng": -93.1580852,
+   "url": "http://stpaul.golf/highland-national-gc/",
+   "access": null
+  },
+  {
+   "slug": "como-park",
+   "name": "Como Park Golf Course",
+   "city": "Saint Paul",
+   "state": "MN",
+   "lat": 44.984169,
+   "lng": -93.146137,
+   "url": "https://stpaul.golf/como-gc",
+   "access": "Public course"
+  },
+  {
+   "slug": "phalen-park",
+   "name": "Phalen Park Golf Course",
+   "city": "Saint Paul",
+   "state": "MN",
+   "lat": 44.9891667,
+   "lng": -93.0627778,
+   "url": "http://stpaul.golf/phalen-park-gc/",
+   "access": null
+  },
+  {
+   "slug": "town-and-country",
+   "name": "The Town & Country Club",
+   "city": "Saint Paul",
+   "state": "MN",
+   "lat": 44.9495244,
+   "lng": -93.198472,
+   "url": "http://www.tcc-club.com/",
+   "access": "Private club"
+  },
+  {
+   "slug": "keller",
+   "name": "Keller Golf Course",
+   "city": "Maplewood",
+   "state": "MN",
+   "lat": 45.0064581,
+   "lng": -93.055677,
+   "url": "https://www.ramseycounty.us/residents/parks-recreation/golf/golf-courses/keller-golf-course",
+   "access": null
+  },
+  {
+   "slug": "goodrich",
+   "name": "Goodrich Golf Course",
+   "city": "Maplewood",
+   "state": "MN",
+   "lat": 44.9962043,
+   "lng": -93.0216979,
+   "url": "https://www.ramseycounty.us/residents/parks-recreation/golf/golf-courses/goodrich-golf-course",
+   "access": null
+  },
+  {
+   "slug": "ponds-at-battle-creek",
+   "name": "Ponds at Battle Creek",
+   "city": "Maplewood",
+   "state": "MN",
+   "lat": 44.9249509,
+   "lng": -92.9869148,
+   "url": "http://pondsatbattlecreek.com",
+   "access": null
+  },
+  {
+   "slug": "manitou-ridge",
+   "name": "Manitou Ridge Golf Course",
+   "city": "White Bear Lake",
+   "state": "MN",
+   "lat": 45.0387496,
+   "lng": -93.0015716,
+   "url": "https://www.ramseycounty.us/residents/parks-recreation/golf/golf-courses/manitou-ridge-golf-course",
+   "access": "Public course"
+  },
+  {
+   "slug": "dellwood",
+   "name": "Dellwood Country Club",
+   "city": "Dellwood",
+   "state": "MN",
+   "lat": 45.096124,
+   "lng": -92.975664,
+   "url": "https://www.dellwoodcountryclub.com/",
+   "access": "Private club"
+  },
+  {
+   "slug": "oneka-ridge",
+   "name": "Oneka Ridge Golf Course",
+   "city": "White Bear Township",
+   "state": "MN",
+   "lat": 45.12794,
+   "lng": -92.9911604,
+   "url": "http://www.onekaridgegc.com/",
+   "access": null
+  },
+  {
+   "slug": "north-oaks",
+   "name": "North Oaks Golf Club",
+   "city": "North Oaks",
+   "state": "MN",
+   "lat": 45.084529,
+   "lng": -93.0946133,
+   "url": "http://www.northoaksgolfclub.com/",
+   "access": "Private club"
+  },
+  {
+   "slug": "island-lake",
+   "name": "Island Lake Golf Course",
+   "city": "Shoreview",
+   "state": "MN",
+   "lat": 45.0566031,
+   "lng": -93.1424138,
+   "url": "https://www.islandlakegolf.com/",
+   "access": null
+  },
+  {
+   "slug": "prestwick",
+   "name": "Prestwick Golf Club",
+   "city": "Woodbury",
+   "state": "MN",
+   "lat": 44.8976369,
+   "lng": -92.9125753,
+   "url": "http://www.prestwick.com/",
+   "access": null
+  },
+  {
+   "slug": "eagle-valley",
+   "name": "Eagle Valley Golf Course",
+   "city": "Woodbury",
+   "state": "MN",
+   "lat": 44.9113441,
+   "lng": -92.8986402,
+   "url": "https://www.eaglevalleygc.com/",
+   "access": "Public course"
+  },
+  {
+   "slug": "oak-marsh",
+   "name": "Oak Marsh Golf Course",
+   "city": "Oakdale",
+   "state": "MN",
+   "lat": 44.9552574,
+   "lng": -92.9371249,
+   "url": "http://www.oakmarshgolf.com/",
+   "access": "Public course"
+  },
+  {
+   "slug": "stoneridge",
+   "name": "StoneRidge Golf Club",
+   "city": "Stillwater",
+   "state": "MN",
+   "lat": 44.9522478,
+   "lng": -92.8296812,
+   "url": "https://www.stoneridgegc.com/",
+   "access": null
+  },
+  {
+   "slug": "oak-glen",
+   "name": "Oak Glen Golf Course",
+   "city": "Stillwater",
+   "state": "MN",
+   "lat": 45.070027,
+   "lng": -92.831479,
+   "url": "http://www.oakglengolf.com/",
+   "access": "Public course"
+  },
+  {
+   "slug": "stillwater-country-club",
+   "name": "Stillwater Country Club",
+   "city": "Stillwater",
+   "state": "MN",
+   "lat": 45.0685157,
+   "lng": -92.8114929,
+   "url": "http://www.sccgolf.com/",
+   "access": "Country club"
+  },
+  {
+   "slug": "river-oaks",
+   "name": "River Oaks Golf Course",
+   "city": "Cottage Grove",
+   "state": "MN",
+   "lat": 44.7897782,
+   "lng": -92.8852854,
+   "url": "http://www.riveroaksmunigolf.com/",
+   "access": "Public course"
+  },
+  {
+   "slug": "hastings-golf-club",
+   "name": "Hastings Golf Club",
+   "city": "Hastings",
+   "state": "MN",
+   "lat": 44.725995,
+   "lng": -92.875254,
+   "url": "http://www.hastingsgolfclub.com/",
+   "access": null
+  },
+  {
+   "slug": "hidden-greens",
+   "name": "Hidden Greens Golf Course",
+   "city": "Hastings",
+   "state": "MN",
+   "lat": 44.6594848,
+   "lng": -92.8434982,
+   "url": "http://www.hiddengreensgolf.com/",
+   "access": null
+  },
+  {
+   "slug": "tpc-twin-cities",
+   "name": "TPC Twin Cities",
+   "city": "Blaine",
+   "state": "MN",
+   "lat": 45.1771625,
+   "lng": -93.2131857,
+   "url": "https://tpc.com/twincities/",
+   "access": "Private club"
+  },
+  {
+   "slug": "victory-links",
+   "name": "Victory Links Golf Course",
+   "city": "Blaine",
+   "state": "MN",
+   "lat": 45.15725,
+   "lng": -93.220183,
+   "url": "http://victorylinks.nscsports.org/",
+   "access": null
+  },
+  {
+   "slug": "bunker-hills",
+   "name": "Bunker Hills Golf Club",
+   "city": "Coon Rapids",
+   "state": "MN",
+   "lat": 45.202561,
+   "lng": -93.2884974,
+   "url": "http://www.bunkerhillsgolf.com/",
+   "access": null
+  },
+  {
+   "slug": "majestic-oaks",
+   "name": "Majestic Oaks Golf Club",
+   "city": "Ham Lake",
+   "state": "MN",
+   "lat": 45.2222653,
+   "lng": -93.2523319,
+   "url": "https://www.majesticoaksgolfclub.com/",
+   "access": "Public course"
+  },
+  {
+   "slug": "the-refuge",
+   "name": "The Refuge Golf Club",
+   "city": "Oak Grove",
+   "state": "MN",
+   "lat": 45.3549236,
+   "lng": -93.2991386,
+   "url": "http://www.refugegolfclub.com/",
+   "access": "Public course"
+  },
+  {
+   "slug": "edinburgh-usa",
+   "name": "Edinburgh USA",
+   "city": "Brooklyn Park",
+   "state": "MN",
+   "lat": 45.1122663,
+   "lng": -93.326914,
+   "url": "http://www.edinburghusa.com/",
+   "access": "Public course"
+  },
+  {
+   "slug": "links-at-northfork",
+   "name": "Links at Northfork",
+   "city": "Ramsey",
+   "state": "MN",
+   "lat": 45.2527752,
+   "lng": -93.5041665,
+   "url": "http://www.golfthelinks.com/",
+   "access": "Public course"
+  },
+  {
+   "slug": "rum-river-hills",
+   "name": "Rum River Hills Golf Club",
+   "city": "Ramsey",
+   "state": "MN",
+   "lat": 45.2733448,
+   "lng": -93.4147155,
+   "url": "http://www.rumriverhills.com/",
+   "access": null
+  },
+  {
+   "slug": "chomonix",
+   "name": "Chomonix Golf Course",
+   "city": "Lino Lakes",
+   "state": "MN",
+   "lat": 45.1608641,
+   "lng": -93.1038629,
+   "url": "http://www.chomonix.com/",
+   "access": null
+  },
+  {
+   "slug": "tanners-brook",
+   "name": "Tanners Brook Golf Course",
+   "city": "Forest Lake",
+   "state": "MN",
+   "lat": 45.2268101,
+   "lng": -92.9895928,
+   "url": "https://tannersbrook.com/",
+   "access": "Public course"
+  },
+  {
+   "slug": "forest-hills",
+   "name": "Forest Hills Golf Club",
+   "city": "Forest Lake",
+   "state": "MN",
+   "lat": 45.2542853,
+   "lng": -92.953851,
+   "url": "http://www.foresthillsgc.com/",
+   "access": "Private club"
+  },
+  {
+   "slug": "medina",
+   "name": "Medina Golf & Country Club",
+   "city": "Medina",
+   "state": "MN",
+   "lat": 45.049185,
+   "lng": -93.534617,
+   "url": "https://www.clubcorp.com/Clubs/Medina-Golf-Country-Club",
+   "access": "Private club"
+  },
+  {
+   "slug": "baker-national",
+   "name": "Baker National Golf Course",
+   "city": "Medina",
+   "state": "MN",
+   "lat": 45.0312377,
+   "lng": -93.6070303,
+   "url": "https://www.threeriversparks.org/location/baker-national-golf-course",
+   "access": "Public course"
+  },
+  {
+   "slug": "wayzata-country-club",
+   "name": "Wayzata Country Club",
+   "city": "Wayzata",
+   "state": "MN",
+   "lat": 44.9781947,
+   "lng": -93.531503,
+   "url": "http://wayzatacc.com/",
+   "access": "Country club"
+  },
+  {
+   "slug": "woodhill",
+   "name": "Woodhill Country Club",
+   "city": "Wayzata",
+   "state": "MN",
+   "lat": 44.975223,
+   "lng": -93.5455549,
+   "url": "http://www.woodhillcc.com/",
+   "access": "Country club"
+  },
+  {
+   "slug": "burl-oaks",
+   "name": "Burl Oaks Golf Club",
+   "city": "Minnetrista",
+   "state": "MN",
+   "lat": 44.9733649,
+   "lng": -93.665015,
+   "url": "https://www.burloaksgolfclub.com/",
+   "access": "Private club"
+  },
+  {
+   "slug": "windsong-farm",
+   "name": "Windsong Farm Golf Club",
+   "city": "Independence",
+   "state": "MN",
+   "lat": 44.9849648,
+   "lng": -93.73718,
+   "url": "http://www.wsfarm.com/",
+   "access": "Private club"
+  },
+  {
+   "slug": "lafayette-club",
+   "name": "Lafayette Club",
+   "city": "Minnetonka Beach",
+   "state": "MN",
+   "lat": 44.9433912,
+   "lng": -93.5934501,
+   "url": "http://www.lafayetteclub.com/",
+   "access": "Private club"
+  },
+  {
+   "slug": "fox-hollow",
+   "name": "Fox Hollow Golf Club",
+   "city": "St. Michael",
+   "state": "MN",
+   "lat": 45.2218385,
+   "lng": -93.5780155,
+   "url": "https://www.foxhollowgolfmn.com/",
+   "access": "Public course"
+  },
+  {
+   "slug": "shamrock",
+   "name": "Shamrock Golf Course",
+   "city": "Corcoran",
+   "state": "MN",
+   "lat": 45.0874615,
+   "lng": -93.5370008,
+   "url": "http://www.shamrockgolfcourse.com/",
+   "access": "Public course"
+  },
+  {
+   "slug": "pheasant-acres",
+   "name": "Pheasant Acres Golf Course",
+   "city": "Rogers",
+   "state": "MN",
+   "lat": 45.1499581,
+   "lng": -93.5443136,
+   "url": "http://www.pheasantacresgolf.com/",
+   "access": null
+  },
+  {
+   "slug": "wild-marsh",
+   "name": "Wild Marsh Golf Club",
+   "city": "Buffalo",
+   "state": "MN",
+   "lat": 45.1510337,
+   "lng": -93.8857831,
+   "url": "http://www.wildmarsh.com/",
+   "access": "Public course"
+  },
+  {
+   "slug": "monticello-country-club",
+   "name": "Monticello Country Club",
+   "city": "Monticello",
+   "state": "MN",
+   "lat": 45.3076057,
+   "lng": -93.8185653,
+   "url": "http://www.montigolf.com/",
+   "access": null
+  },
+  {
+   "slug": "troy-burne",
+   "name": "Troy Burne Golf Club",
+   "city": "Hudson",
+   "state": "WI",
+   "lat": 44.896626,
+   "lng": -92.7408619,
+   "url": "http://www.troyburne.com/",
+   "access": "Public course"
+  },
+  {
+   "slug": "white-eagle",
+   "name": "White Eagle Golf Club",
+   "city": "Hudson",
+   "state": "WI",
+   "lat": 45.0493157,
+   "lng": -92.7395443,
+   "url": "http://whiteeaglegolf.com/",
+   "access": null
+  },
+  {
+   "slug": "st-croix-national",
+   "name": "St. Croix National Golf",
+   "city": "Somerset",
+   "state": "WI",
+   "lat": 45.0932464,
+   "lng": -92.7348556,
+   "url": "https://www.scngolf.com/",
+   "access": "Public course"
+  },
+  {
+   "slug": "river-falls-golf-club",
+   "name": "River Falls Golf Club",
+   "city": "River Falls",
+   "state": "WI",
+   "lat": 44.8631821,
+   "lng": -92.5950489,
+   "url": "http://www.riverfallsgolfclub.com/",
+   "access": null
+  },
+  {
+   "slug": "clifton-hollow",
+   "name": "Clifton Hollow Golf Club",
+   "city": "River Falls",
+   "state": "WI",
+   "lat": 44.8384151,
+   "lng": -92.7444579,
+   "url": "https://www.cliftonhollow.com/",
+   "access": "Public course"
+  },
+  {
+   "slug": "kilkarney-hills",
+   "name": "Kilkarney Hills Golf Course",
+   "city": "River Falls",
+   "state": "WI",
+   "lat": 44.8889798,
+   "lng": -92.6434748,
+   "url": "http://kilkarneyhills.com/",
+   "access": "Public course"
+  },
+  {
+   "slug": "clifton-highlands",
+   "name": "Clifton Highlands Golf Club",
+   "city": "Prescott",
+   "state": "WI",
+   "lat": 44.7893559,
+   "lng": -92.7508112,
+   "url": "http://www.cliftonhighlands.com/",
+   "access": null
+  }
+ ]
+}
