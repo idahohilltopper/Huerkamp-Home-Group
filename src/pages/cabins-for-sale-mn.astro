@@ -147,6 +147,7 @@ const id = 'cab';
         {[...groupInfo.values()].map((g) => <li><a href={g.href}>{g.name} homes</a></li>)}
         {['ely', 'crosslake', 'walker', 'park-rapids', 'grand-rapids', 'nisswa', 'aitkin', 'detroit-lakes', 'alexandria', 'bemidji', 'grand-marais'].map((s) => { const t = mnTowns.find((x) => x.slug === s); return t && <li><a href={`/minnesota-homes-for-sale/${s}`}>{t.name}</a></li>; })}
         <li><a href="/minnesota-homes-for-sale">All Greater Minnesota towns</a></li>
+        <li><a href="/log-homes-for-sale-mn">Log homes for sale in Minnesota</a></li>
         <li><a href="/lake-homes">Twin Cities lake homes</a></li>
       </ul>
     </div>
