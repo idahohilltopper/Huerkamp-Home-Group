@@ -596,9 +596,12 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
           const { kind, map } = window.__hsMap;
           const box = map.getContainer().getBoundingClientRect();
           if (kind === 'main') {
-            const f = map.queryRenderedFeatures({ layers: ['homes', 'homes-tags'].filter((l) => map.getLayer(l)) })[0];
-            if (!f) return null;
-            const q = map.project(f.geometry.coordinates);
+            // The home nearest the middle of the map, as a person would tap: a home at the very edge opens a card that
+            // hangs partly off the screen (Firefox, Nov 18: the arrow was off-screen), which is the map's normal behavior.
+            const fs = map.queryRenderedFeatures({ layers: ['homes', 'homes-tags'].filter((l) => map.getLayer(l)) });
+            if (!fs.length) return null;
+            const c = { x: box.width / 2, y: box.height / 2 };
+            const q = fs.map((f) => map.project(f.geometry.coordinates)).sort((a, b) => Math.hypot(a.x - c.x, a.y - c.y) - Math.hypot(b.x - c.x, b.y - c.y))[0];
             return { x: box.left + q.x, y: box.top + q.y, kind };
           }
           const mk = [...map.__bySlug.values()].find((x) => map.getBounds().contains(x.getLatLng()));
