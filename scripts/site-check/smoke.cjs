@@ -607,7 +607,13 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
             const q = pts.find((p) => p.x >= 135 && p.x <= box.width - 135 && p.y >= 280) ?? pts[0];
             return { x: box.left + q.x, y: box.top + q.y, kind };
           }
-          const mk = [...map.__bySlug.values()].find((x) => map.getBounds().contains(x.getLatLng()));
+          // Backup map (Firefox on GitHub has no 3D graphics): a home a person can see, with room for its card. Until
+          // Nov 18 this took the first home inside the map's bounds, which could sit just off the screen (x 399 on a
+          // 390 px screen), so its card hung off the edge.
+          const vw = Math.min(box.width, innerWidth - box.left), c = { x: vw / 2, y: box.height / 2 };
+          const all = [...map.__bySlug.values()].map((mk) => ({ mk, p: map.latLngToContainerPoint(mk.getLatLng()) })).filter(({ p }) => p.x >= 20 && p.x <= vw - 20 && p.y >= 40 && p.y <= box.height - 40)
+            .sort((a, b) => Math.hypot(a.p.x - c.x, a.p.y - c.y) - Math.hypot(b.p.x - c.x, b.p.y - c.y));
+          const mk = (all.find(({ p }) => p.x >= 135 && p.x <= vw - 135 && p.y >= 280) ?? all[0])?.mk;
           if (!mk) return null;
           const q = map.latLngToContainerPoint(mk.getLatLng());
           return { x: box.left + q.x, y: box.top + q.y, kind };
