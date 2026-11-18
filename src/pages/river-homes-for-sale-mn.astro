@@ -1,0 +1,57 @@
+---
+// River homes for sale in Minnesota (/river-homes-for-sale-mn): listings whose own description puts them on, along or
+// overlooking a named river (Mississippi, St. Croix, Minnesota, Rum, Crow and others), from the live MLS feed (Twin
+// Cities communities) and the Greater Minnesota towns, by river and city. Open SEO, Nov 18, 2026: "homes on the
+// mississippi river for sale" 140 searches a month, "st croix river homes for sale" 90, "homes for sale on mississippi
+// river mn" 20, all keyword difficulty 0. Listing facts only. Rebuilt with every build.
+import FeedTopicPage from '../components/FeedTopicPage.astro';
+import { listingsData, median, money } from '../data/listings';
+import { communities } from '../data/areas';
+import { loadMnCities, mnTowns } from '../lib/mn-cities.mjs';
+import { site } from '../data/site';
+
+const RIVERS = ['Mississippi', 'St. Croix', 'Minnesota', 'Rum', 'Crow', 'Crow Wing', 'Cannon', 'Zumbro', 'Sauk', 'Snake', 'Kettle', 'Root', 'Vermillion', 'Elk', 'Pine', 'Red', 'Rainy', 'Cloquet', 'St. Louis', 'Sunrise', 'Blue Earth', 'Le Sueur', 'Long Prairie', 'Otter Tail', 'Whitewater', 'Straight', 'Chippewa', 'Pomme de Terre'];
+const esc = (r: string) => r.replace(/^St\. /, '(St\\.?|Saint) ').replace(/ /g, '\\s+');
+const riverRe = new RegExp(`\\b(${RIVERS.map(esc).join('|')})\\s+River\\b`, 'ig');
+const ON = /\b(river ?front(age)?|river ?views?|on the (\w+\s+){0,3}river|along the (\w+\s+){0,3}river|banks? of the|river (access|lot|frontage|property|home)|feet of (river )?(frontage|shoreline)|frontage on|overlook(s|ing)? the (\w+\s+){0,3}river|views? of the (\w+\s+){0,3}river|dock on the|backs? (up )?to the (\w+\s+){0,3}river)\b/i;
+const FRONT = /\b(river ?frontage|feet of (river )?(frontage|shoreline)|frontage on|on the (\w+\s+){0,3}river|river (access|lot)|dock)\b/i;
+const norm = (r: string) => { const m = r.replace(/\s+/g, ' ').replace(/^Saint /i, 'St. ').replace(/^St /i, 'St. ').replace(/ river$/i, ''); return RIVERS.find((x) => x.toLowerCase() === m.toLowerCase()) ?? m; };
+const riverOf = (l: any) => { const m = [...(l.description ?? '').matchAll(riverRe)].map((x) => norm(x[1])); return m[0] ?? null; };
+const ok = (l: any) => l.price > 1000 && ON.test(l.description ?? '') && !!riverOf(l);
+const data = await listingsData;
+const mn = await loadMnCities();
+const metro = data.mode === 'off' ? [] : data.listings.filter(ok);
+const towns = Object.values(mn.towns).flat().filter(ok) as any[];
+const seen = new Set(metro.map((l) => l.mls));
+const homes = [...metro, ...towns.filter((l) => !seen.has(l.mls))];
+const day = data.at ? new Date(data.at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }) : '';
+const placeOf = (l: any) => (l.mnTown ? mnTowns.find((t) => t.slug === l.mnTown)?.name : communities.find((c) => c.slug === l.community)?.name) ?? l.city;
+const prices = homes.map((l) => l.price);
+const row = (label: string, list: typeof homes) => ({ label, n: list.length, med: median(list.map((l) => l.price)) });
+const byRiver = [...new Set(homes.map(riverOf))].map((r) => row(`${r} River`, homes.filter((l) => riverOf(l) === r))).sort((a, b) => b.n - a.n);
+const byPlace = [...new Set(homes.map(placeOf))].map((p) => row(p, homes.filter((l) => placeOf(l) === p))).sort((a, b) => b.n - a.n);
+const count = (r: string) => homes.filter((l) => riverOf(l) === r).length;
+const front = homes.filter((l) => FRONT.test(l.description ?? '')).length;
+const condos = homes.filter((l) => l.type === 'condo').length;
+const answer = homes.length
+  ? `${homes.length} homes for sale in Minnesota say in their NorthstarMLS listing that they're on, along or overlooking a river as of ${day}, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, median ${money(median(prices)!)}. ${count('Mississippi')} name the Mississippi River and ${count('St. Croix')} the St. Croix.${front ? ` ${front} mention river frontage, access or a dock.` : ''}${condos ? ` ${condos} are condos.` : ''}`
+  : '';
+const shown = [...homes].sort((a, b) => Number(FRONT.test(b.description ?? '')) - Number(FRONT.test(a.description ?? '')) || a.price - b.price).slice(0, 48);
+const faq = [
+  ...(answer ? [{ q: 'How many river homes are for sale in Minnesota?', a: answer }] : []),
+  { q: 'What should I check before buying a home on a river?', a: 'The flood zone: look the address up on FEMA\'s flood maps, and ask whether flood insurance is required and what it costs. Also check the riverbank\'s condition and any erosion, the shoreland rules for docks, decks and tree cutting (set by the city or county under the Minnesota DNR\'s shoreland program), and whether the St. Croix\'s federal Wild and Scenic River rules apply to the lot.' },
+  { q: 'Can I put a dock on my river lot?', a: 'Usually, within limits. Docks on Minnesota public waters generally don\'t need a DNR permit if they meet size and placement rules, but cities, counties and the St. Croix Riverway have their own limits. Ask the zoning office about the specific lot before you buy.' },
+  { q: 'How do I hear about new river homes first?', a: `Tell us below which river and area you like, and we'll email you new river homes the moment they're listed. Or call or text ${site.phone}.` },
+];
+---
+<FeedTopicPage path="/river-homes-for-sale-mn" crumb="River homes" at={data.at} noindex={data.preview || !homes.length}
+  title={`River Homes for Sale in MN${homes.length ? ` (${homes.length})` : ''}: Mississippi, St. Croix & More | ${site.name}`}
+  description={answer || 'Homes for sale on the Mississippi, St. Croix and other Minnesota rivers, from NorthstarMLS.'}
+  eyebrow="River homes" h1="River homes for sale in Minnesota" answer={answer}
+  lede={`Every listing in NorthstarMLS that says it's on, along or overlooking a named river, in the Twin Cities and <a href="/minnesota-homes-for-sale">Greater Minnesota towns</a>, updated ${day}. Homes that mention river frontage, access or a dock come first. Prefer a lake? See <a href="/lake-homes">Minnesota lake homes</a>.`}
+  tables={[{ h: 'By river', col: 'River', rows: byRiver }, { h: 'By city', col: 'City', rows: byPlace }]}
+  note={`Listings whose own description puts them on, along or overlooking a named river; read each listing for frontage and views. Updated ${day}.`}
+  shown={shown} shownH="River homes for sale"
+  ask={{ eyebrow: 'Looking for a home on the river?', h2: 'Get river homes <em>first.</em>', p: "Tell us the river, the area and whether you need frontage or just the view. We'll email new river homes the moment they're listed.", interest: 'River home', msg: 'River, area, frontage or view, budget (optional)' }}
+  faq={faq} faqH="River homes in Minnesota"
+  links={[['Lake homes', '/lake-homes'], ['Condo buildings', '/condo-buildings'], ['Luxury homes ($1M+)', '/luxury-homes-for-sale-mn'], ['Greater Minnesota homes for sale', '/minnesota-homes-for-sale']]} />

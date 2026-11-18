@@ -1,0 +1,52 @@
+---
+// Cheap houses for sale in Minnesota (/cheap-houses-for-sale-mn): every home (not land) listed under $200,000, from the
+// live MLS feed (Twin Cities communities) and the Greater Minnesota towns (src/lib/mn-cities.mjs), by city and home type.
+// Open SEO, Nov 18, 2026: "cheap houses for sale in minnesota" 480 searches a month, keyword difficulty 0; "fixer upper
+// homes for sale mn" 50. Listing facts only. Rebuilt with every build.
+import FeedTopicPage from '../components/FeedTopicPage.astro';
+import { listingsData, median, money, TYPE_LABEL } from '../data/listings';
+import { communities } from '../data/areas';
+import { loadMnCities, mnTowns } from '../lib/mn-cities.mjs';
+import { site } from '../data/site';
+
+const CAP = 200000;
+const FIXER = /\b(fixer[- ]?upper|handyman|needs (some |a little )?(work|tlc|updating)|tlc|investor special|sold as[- ]is|as[- ]is)\b/i;
+const ok = (l: any) => l.price > 1000 && l.price < CAP && l.type !== 'land';
+const data = await listingsData;
+const mn = await loadMnCities();
+const metro = data.mode === 'off' ? [] : data.listings.filter(ok);
+const towns = Object.values(mn.towns).flat().filter(ok) as any[];
+const seen = new Set(metro.map((l) => l.mls));
+const homes = [...metro, ...towns.filter((l) => !seen.has(l.mls))];
+const day = data.at ? new Date(data.at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }) : '';
+const placeOf = (l: any) => (l.mnTown ? mnTowns.find((t) => t.slug === l.mnTown)?.name : communities.find((c) => c.slug === l.community)?.name) ?? l.city;
+const prices = homes.map((l) => l.price);
+const row = (label: string, list: typeof homes) => ({ label, n: list.length, med: median(list.map((l) => l.price)) });
+const byPlace = [...new Set(homes.map(placeOf))].map((p) => row(p, homes.filter((l) => placeOf(l) === p))).sort((a, b) => b.n - a.n);
+const byType = [...new Set(homes.map((l) => l.type))].map((t) => row((TYPE_LABEL[t] ?? t).replace(/^./, (c: string) => c.toUpperCase()), homes.filter((l) => l.type === t))).sort((a, b) => b.n - a.n);
+const sfh = homes.filter((l) => l.type === 'single-family').length;
+const under100 = homes.filter((l) => l.price < 100000).length;
+const fixer = homes.filter((l) => FIXER.test(l.description ?? '')).length;
+const metroN = metro.length;
+const answer = homes.length
+  ? `${homes.length.toLocaleString('en-US')} homes are listed under ${money(CAP)} in Minnesota in NorthstarMLS as of ${day}, median ${money(median(prices)!)}. ${sfh} are single-family houses, ${under100} are listed under $100,000, and ${metroN} are in the Twin Cities area.${fixer ? ` ${fixer} listings describe the home as a fixer-upper, needing work or sold as-is.` : ''}`
+  : '';
+const shown = [...homes].filter((l) => l.type === 'single-family').sort((a, b) => a.price - b.price).concat([...homes].filter((l) => l.type !== 'single-family').sort((a, b) => a.price - b.price)).slice(0, 48);
+const faq = [
+  ...(answer ? [{ q: 'How many cheap houses are for sale in Minnesota?', a: answer }] : []),
+  { q: 'Where are the least expensive homes in Minnesota?', a: byPlace.length ? `By number of homes listed under ${money(CAP)}: ${byPlace.slice(0, 5).map((r) => `${r.label} (${r.n})`).join(', ')}, from NorthstarMLS on ${day}.` : 'See the table by city above.' },
+  { q: 'What should I watch for with a low-priced home?', a: 'What the price leaves out. A manufactured home in a park usually comes with monthly lot rent; a condo or townhome has association fees; an older home may need a roof, furnace or sewer line soon. Get an inspection, ask for the last two years of utility costs, and check property taxes on the county website. Homes sold as-is can be harder to finance, so talk with a lender before you write an offer.' },
+  { q: 'Is there help with a down payment in Minnesota?', a: 'Yes. Minnesota Housing and several cities and counties offer down payment and closing cost loans, usually with income and price limits. See our down payment assistance page for the current programs, or ask us and we\'ll connect you with a lender who uses them.' },
+];
+---
+<FeedTopicPage path="/cheap-houses-for-sale-mn" crumb="Homes under $200,000" at={data.at} noindex={data.preview || !homes.length}
+  title={`Cheap Houses for Sale in MN${homes.length ? ` (${homes.length.toLocaleString('en-US')})` : ''}: Homes Under $200,000 by City | ${site.name}`}
+  description={answer || 'Homes for sale under $200,000 in Minnesota, by city and home type, from NorthstarMLS.'}
+  eyebrow="Homes under $200,000" h1="Cheap houses for sale in Minnesota" answer={answer}
+  lede={`Every home listed under ${money(CAP)} in NorthstarMLS, in the Twin Cities and <a href="/minnesota-homes-for-sale">Greater Minnesota towns</a>, updated ${day}. Single-family houses first, lowest price first. Buying your first home? See <a href="/down-payment-assistance-minnesota">down payment assistance in Minnesota</a>.`}
+  tables={[{ h: 'By city', col: 'City', rows: byPlace }, { h: 'By home type', col: 'Type', rows: byType }]}
+  note={`List prices from NorthstarMLS, updated ${day}. A list price isn't the whole cost: check association fees, lot rent and taxes in each listing.`}
+  shown={shown} shownH="Homes under $200,000, houses first"
+  ask={{ eyebrow: 'On a budget?', h2: 'Get homes under $200,000 <em>first.</em>', p: "Tell us where you'd live and your top price. We'll email new listings the moment they hit the MLS, and help you sort the good buys from the money pits.", interest: 'Homes under $200,000', msg: 'Area, top price, timing (optional)' }}
+  faq={faq} faqH="Homes under $200,000"
+  links={[['Down payment assistance', '/down-payment-assistance-minnesota'], ['First-time buyer programs', '/first-time-home-buyer-minnesota'], ['Foreclosures & short sales', '/foreclosure/buying-foreclosures'], ['Affordability calculator', '/calculators/affordability']]} />
