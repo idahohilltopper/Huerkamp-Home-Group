@@ -601,7 +601,10 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
             const fs = map.queryRenderedFeatures({ layers: ['homes', 'homes-tags'].filter((l) => map.getLayer(l)) });
             if (!fs.length) return null;
             const c = { x: box.width / 2, y: box.height / 2 };
-            const q = fs.map((f) => map.project(f.geometry.coordinates)).sort((a, b) => Math.hypot(a.x - c.x, a.y - c.y) - Math.hypot(b.x - c.x, b.y - c.y))[0];
+            // Prefer a home with room for its 240 px card on both sides (Firefox, Nov 18: a home right of center opened a
+            // card that spilled 33 px off the right edge; Chrome flips such a card to fit). Jason decides on the map itself.
+            const pts = fs.map((f) => map.project(f.geometry.coordinates)).sort((a, b) => Math.hypot(a.x - c.x, a.y - c.y) - Math.hypot(b.x - c.x, b.y - c.y));
+            const q = pts.find((p) => p.x >= 135 && p.x <= box.width - 135 && p.y >= 280) ?? pts[0];
             return { x: box.left + q.x, y: box.top + q.y, kind };
           }
           const mk = [...map.__bySlug.values()].find((x) => map.getBounds().contains(x.getLatLng()));
