@@ -42,6 +42,18 @@ const localSearches = ([
   ['Condo buildings', '/condo-buildings', condoNow.list.length > 0],
   ['Golf course homes', '/golf-course-homes-for-sale-mn', golfNow.list.length > 0],
 ] as [string, string, boolean][]).filter(([, , ok]) => ok);
+// Townhome and condo pages by city, most-searched first (Open SEO, Nov 18, 2026, monthly Google searches, all keyword
+// difficulty 0): Minneapolis condos 2,400, Saint Paul condos 1,600, Edina condos 1,000, Maple Grove, Plymouth and Woodbury
+// townhomes 1,000 each, Eden Prairie 880, Eagan 720, Apple Valley, Bloomington, Lakeville and Minneapolis 590, Burnsville
+// 390, Shakopee 320, Saint Paul 260. Several were found "noindex" by Google on Nov 4 (preview mode) and not revisited
+// since; a home-page link is the fastest way back. Only pages that exist and are indexable are listed.
+const kindPages = ([
+  ['Minneapolis condos', 'minneapolis/condos'], ['Saint Paul condos', 'saint-paul/condos'], ['Edina condos', 'edina/condos'],
+  ['Maple Grove townhomes', 'maple-grove/townhomes'], ['Plymouth townhomes', 'plymouth/townhomes'], ['Woodbury townhomes', 'woodbury/townhomes'],
+  ['Eden Prairie townhomes', 'eden-prairie/townhomes'], ['Eagan townhomes', 'eagan/townhomes'], ['Apple Valley townhomes', 'apple-valley/townhomes'],
+  ['Bloomington townhomes', 'bloomington/townhomes'], ['Lakeville townhomes', 'lakeville/townhomes'], ['Minneapolis townhomes', 'minneapolis/townhomes'],
+  ['Burnsville townhomes', 'burnsville/townhomes'], ['Shakopee townhomes', 'shakopee/townhomes'], ['Saint Paul townhomes', 'saint-paul/townhomes'],
+] as [string, string][]).filter(([, p]) => hasPage(p)).map(([t, p]) => [t, homesHref(p)] as [string, string]);
 const members = team.members;
 
 // Complete 5-star reviews short enough for a card; the first is the featured quote.
@@ -262,6 +274,8 @@ const ld = JSON.stringify({
         <p class="eyebrow">Popular local searches</p>
         <h2 id="popular-title">Homes for sale, <em>block by block</em></h2>
         <ul class="popular__list">{localSearches.map(([t, h]) => <li><a href={h}>{t}</a></li>)}</ul>
+        {kindPages.length > 0 && <><h3 class="popular__sub">Townhomes and condos by city</h3>
+        <ul class="popular__list">{kindPages.map(([t, h]) => <li><a href={h}>{t}</a></li>)}</ul></>}
       </div>
     </section>
   )}
@@ -589,6 +603,7 @@ const ld = JSON.stringify({
   .popular__list { list-style: none; padding: 0; margin: 1rem 0 0; display: flex; flex-wrap: wrap; gap: .5rem; }
   .popular__list a { display: inline-block; padding: .5rem .9rem; border: 1px solid var(--line); background: var(--paper); text-decoration: none; font-weight: 600; }
   .popular__list a:hover { border-color: var(--crimson); }
+  .popular__sub { margin: 1.75rem 0 0; font-size: 1.1rem; }
   .areas { list-style: none; margin: .5rem 0 0; padding: 0; border-top: 1px solid var(--line); }
   .areas a { display: flex; justify-content: space-between; align-items: baseline; padding: .9rem 0; border-bottom: 1px solid var(--line); text-decoration: none; }
   .areas strong { font: 500 1.35rem/1.2 var(--serif); }
