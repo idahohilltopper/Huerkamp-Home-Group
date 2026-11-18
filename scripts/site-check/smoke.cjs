@@ -617,11 +617,16 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
       const next = m.locator('.hs-mappop__next:visible').first();
       if (await next.count()) {
         const before = await m.locator('.hs-pop-card:visible .hs-pop-card__photo img').first().getAttribute('src');
-        const nb = await next.boundingBox(); await tap(nb.x + nb.width / 2, nb.y + nb.height / 2); await m.waitForTimeout(1200);
+        const nb = await next.boundingBox();
+        // What sits under the arrow when it's pressed (Firefox failed here on Nov 18 while Chrome passed): report it.
+        const under = await m.evaluate(([x, y]) => { const e = document.elementFromPoint(x, y); return e ? `${e.tagName.toLowerCase()}.${String(e.className).split(' ').join('.')}`.slice(0, 60) : 'nothing'; }, [nb.x + nb.width / 2, nb.y + nb.height / 2]);
+        await tap(nb.x + nb.width / 2, nb.y + nb.height / 2);
+        // The first press fetches the home's photo list, so allow a few seconds for the photo to change.
+        await m.waitForFunction((b) => { const i = document.querySelector('.hs-pop-card .hs-pop-card__photo img'); return !i || i.getAttribute('src') !== b || !document.querySelector('.hs-mappop__next'); }, before, { timeout: 5000 }).catch(() => {});
         const after = await m.locator('.hs-pop-card:visible .hs-pop-card__photo img').first().getAttribute('src').catch(() => before);
         if (!m.url().includes('/home-search')) throw new Error('the photo arrow opened a page instead of showing the next photo');
         const gone = !(await m.locator('.hs-mappop__next:visible').count());
-        if (after === before && !gone) throw new Error('the photo arrow did not change the photo');
+        if (after === before && !gone) throw new Error(`the photo arrow did not change the photo (under the arrow: ${under}; count shown: ${await m.locator('.hs-mappop__count:visible').count() > 0})`);
         photos = after !== before ? `arrow showed ${(await m.textContent('.hs-mappop__count').catch(() => '')).trim() || 'the next photo'}` : 'no photo list for this home';
       }
       const img = await m.locator('.hs-pop-card:visible .hs-pop-card__photo').first().boundingBox();
