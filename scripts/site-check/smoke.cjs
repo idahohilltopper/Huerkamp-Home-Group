@@ -578,36 +578,6 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
   });
   // On a phone, tapping a home's dot opens the full card (not the mouse-only preview), and tapping its photo opens the
   // home. Reported Nov 9, 2026: on an iPhone the tap showed the preview, which couldn't be tapped.
-  await step('Phone map: a card near the edge fits on screen', async () => {
-    const mc = await b.newContext(PHONE);
-    await mc.addInitScript(() => { try { sessionStorage.setItem('idx-eula', '1'); } catch {} });
-    await mc.route('**/api/client-error', (r) => r.fulfill({ status: 202, body: '{}' }));
-    const m = await mc.newPage();
-    try {
-      await m.goto(BASE + '/home-search?place=lakeville&view=map', { waitUntil: 'domcontentloaded' });
-      await m.waitForFunction(() => !!window.__hsMap, null, { timeout: 25000 });
-      await m.waitForSelector('[data-results] .lcard', { state: 'attached', timeout: 20000 });
-      await m.waitForTimeout(2500);
-      const tap = (x, y) => (PHONE.hasTouch ? m.touchscreen.tap(x, y) : m.mouse.click(x, y));
-      // The home closest to the right edge of the map (Firefox hung such cards off the screen until Nov 18, 2026).
-      const pt = await m.evaluate(() => {
-        const { kind, map } = window.__hsMap;
-        if (kind !== 'main') return null;
-        const box = map.getContainer().getBoundingClientRect();
-        const pts = map.queryRenderedFeatures({ layers: ['homes', 'homes-tags'].filter((l) => map.getLayer(l)) }).map((f) => map.project(f.geometry.coordinates))
-          .filter((q) => q.x > 20 && q.x < box.width - 20 && q.y > 60 && q.y < box.height - 40).sort((a, c) => c.x - a.x);
-        return pts[0] ? { x: box.left + pts[0].x, y: box.top + pts[0].y } : null;
-      });
-      if (!pt) return ok('Phone map: a card near the edge fits on screen', true, 'skipped: backup map or no home near the edge');
-      await tap(pt.x, pt.y);
-      if (!(await m.waitForSelector('.hs-pop-card', { state: 'visible', timeout: 4000 }).then(() => true, () => false))) return ok('Phone map: a card near the edge fits on screen', true, 'skipped: tap opened no card');
-      await m.waitForTimeout(1500);
-      const r = await m.evaluate(() => { const c = document.querySelector('.hs-mappop')?.getBoundingClientRect(); const mp = window.__hsMap.map.getContainer().getBoundingClientRect(); return c && { l: Math.round(c.left), r: Math.round(c.right), t: Math.round(c.top), b: Math.round(c.bottom), ml: Math.round(mp.left), mr: Math.round(mp.right), mt: Math.round(mp.top), mb: Math.round(mp.bottom) }; });
-      const fits = r && r.l >= r.ml && r.r <= r.mr && r.t >= r.mt && r.b <= r.mb;
-      ok('Phone map: a card near the edge fits on screen', !!fits, `home tapped at x ${Math.round(pt.x)}; card ${r?.l}–${r?.r} x ${r?.t}–${r?.b}, map ${r?.ml}–${r?.mr} x ${r?.mt}–${r?.mb}`);
-    } finally { await mc.close(); }
-  });
-
   await step('Phone map: tap a home, then its photo', async () => {
     const mc = await b.newContext(PHONE);
     await mc.addInitScript(() => { try { sessionStorage.setItem('idx-eula', '1'); } catch {} });

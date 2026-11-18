@@ -89,8 +89,7 @@ export async function createMap(el: HTMLElement, style: string, brThumb: string,
       // NorthstarMLS Rule 12.3(f): like a listing card, the pop-up shows the photo, price, address and listing
       // brokerage, with the Broker Reciprocity thumbnail logo on other brokerages' listings.
       const box = pinCard(p, brThumb);
-      const pop = new maplibregl.Popup({ offset: 12, closeButton: false, maxWidth: '260px', className: 'hs-popup' }).setLngLat(f.geometry.coordinates).setDOMContent(box).addTo(map);
-      fitPopup(map, pop);
+      new maplibregl.Popup({ offset: 12, closeButton: false, maxWidth: '260px', className: 'hs-popup' }).setLngLat(f.geometry.coordinates).setDOMContent(box).addTo(map);
     });
   }
   (window as any).__hsMap = { kind: 'main', map };
@@ -145,7 +144,7 @@ export function showHome(map: any, home: { lat: number; lng: number; street: str
   const pop = new maplibregl.Popup({ offset: 22, closeButton: true, className: 'hs-popup', maxWidth: '240px' }).setDOMContent(box2);
   map.__home = new maplibregl.Marker({ element: el, anchor: 'center' }).setLngLat([home.lng, home.lat]).setPopup(pop).addTo(map);
   if (box?.length === 4) map.fitBounds([[box[0], box[1]], [box[2], box[3]]], { padding: 0, duration: 600 });
-  if (estimateHref) { map.__home.togglePopup(); fitPopup(map, pop); }
+  if (estimateHref) map.__home.togglePopup();
 }
 
 /** "You are here": a blue dot where the browser says the visitor is ("Use my current location"). */
@@ -164,22 +163,3 @@ export function fitBox(map: any, b: number[]) { map.fitBounds([[b[0], b[1]], [b[
 /** A point on the map's screen area (pixels from its top left) as [lng, lat]: the "Draw boundary" pencil. */
 export const toLngLat = (map: any, x: number, y: number): [number, number] => { const p = map.unproject([x, y]); return [p.lng, p.lat]; };
 export const boxOf = (map: any) => { const b = map.getBounds(); return [b.getWest(), b.getSouth(), b.getEast(), b.getNorth()].map((n: number) => n.toFixed(4)).join(','); };
-
-/**
- * Slide the map just enough that an open card fits inside it, like the backup map (Leaflet's autoPan) and Google Maps.
- * MapLibre picks the card's side when it opens, but some browsers (Firefox, Nov 18, 2026) measure the card before its
- * layout settles, so a home near the edge opened a card that hung off the screen with its photo arrows. Jason OK'd this
- * on Nov 18. A move made here isn't the visitor's, so it doesn't start a new search (see the moveend handler).
- */
-function fitPopup(map: any, pop: any) {
-  const fit = () => {
-    const el = pop.getElement?.();
-    if (!el || !pop.isOpen?.()) return;
-    const m = map.getContainer().getBoundingClientRect(), b = el.getBoundingClientRect(), pad = 8;
-    const dx = b.left < m.left + pad ? b.left - m.left - pad : b.right > m.right - pad ? Math.min(b.right - m.right + pad, b.left - m.left - pad) : 0;
-    const dy = b.top < m.top + pad ? b.top - m.top - pad : b.bottom > m.bottom - pad ? Math.min(b.bottom - m.bottom + pad, b.top - m.top - pad) : 0;
-    if (dx || dy) map.panBy([dx, dy], { duration: 250 });
-  };
-  requestAnimationFrame(() => requestAnimationFrame(fit));
-  pop.getElement?.()?.querySelector('img')?.addEventListener('load', fit, { once: true });
-}
