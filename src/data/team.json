@@ -440,7 +440,9 @@
   "notOnWebsite": [
     "Daisy De Lara",
     "Patrick Mauleon",
-    "Gerald Opigal"
+    "Gerald Opigal",
+    "Laurrese Anderson",
+    "Moesha King"
   ],
   "notOnWebsiteNote": "Follow Up Boss users who are staff and do not get a website page; the weekly team check (/api/team-check) skips them (Jason, Nov 19, 2026)."
 }
