@@ -8,7 +8,8 @@ import sites from './agent-sites.json';
 export type Member = (typeof team.members)[number];
 type Review = (typeof reviewData.reviews)[number];
 
-export const members: Member[] = team.members;
+// hidden: true = staff kept off the website (lead routing, team listings and flyers still use the full list).
+export const members: Member[] = team.members.filter((m) => !(m as { hidden?: boolean }).hidden);
 export const slugOf = (m: Member) => m.profileUrl.split('/').pop()!;
 export const agentHref = (m: Member) => `/team/${slugOf(m)}`;
 export const isAgent = (m: Member) => /realtor|broker/i.test(m.title ?? '');

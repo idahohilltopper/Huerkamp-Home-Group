@@ -22,8 +22,9 @@ export async function fubUsers(key, fetcher = fetch) {
 /** Active = not marked inactive/deleted/suspended in the user's status (Follow Up Boss omits it for active users). */
 const active = (u) => !/inactive|deleted|disabled|suspend/i.test(String(u.status ?? 'Active'));
 
-export function compareTeam(members, users) {
-  const live = users.filter(active);
+export function compareTeam(members, users, skip = []) {
+  const skipped = new Set(skip.map(norm));
+  const live = users.filter(active).filter((u) => !skipped.has(norm(u.name ?? `${u.firstName ?? ''} ${u.lastName ?? ''}`)));
   const byEmail = new Map(live.map((u) => [mail(u.email), u]));
   const byName = new Map(live.map((u) => [norm(u.name ?? `${u.firstName ?? ''} ${u.lastName ?? ''}`), u]));
   const matched = new Set();

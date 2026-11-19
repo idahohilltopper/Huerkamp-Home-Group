@@ -550,3 +550,8 @@ https://www.huerkamphomegroup.com/*                                    https://w
 /blog/*                                                                /blog 301
 /sitemap.xml                                                           /sitemap-index.xml 301
 /selling/listing-status-meanings /buying/listing-status-meanings 301!
+# Staff kept off the website (Jason, Nov 19, 2026)
+/team/kat-pap                                                            /team 301
+/team/nicole-kelly                                                       /team 301
+/team/shyanne-comella                                                    /team 301
+/team/leah-petersen                                                      /team 301

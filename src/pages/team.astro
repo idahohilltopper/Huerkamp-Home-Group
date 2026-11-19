@@ -7,7 +7,7 @@ import team from '../data/team.json';
 import { site } from '../data/site';
 import { agentHref } from '../data/agents';
 
-const members = team.members;
+const members = team.members.filter((m) => !(m as { hidden?: boolean }).hidden);
 const founders = members.filter((m) => m.name === 'Jason Huerkamp' || m.name === 'Brooke Huerkamp');
 const rest = members.filter((m) => !founders.includes(m));
 const isAgent = (t: string | null) => !!t && /realtor|broker/i.test(t);

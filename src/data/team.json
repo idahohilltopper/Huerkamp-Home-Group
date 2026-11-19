@@ -1,7 +1,7 @@
 {
   "source": "https://www.huerkamphomegroup.com/team-page",
   "retrieved": "2026-09-26",
-  "note": "Titles, license numbers and bios copied verbatim from each /team/<name> profile page. bio null = profile has no bio.",
+  "note": "Titles, license numbers and bios copied verbatim from each /team/<name> profile page. bio null = profile has no bio. hidden: true = kept for lead routing, team listings and flyers but not shown on the website (Jason, Nov 19, 2026).",
   "members": [
     {
       "name": "Jason Huerkamp",
@@ -45,7 +45,8 @@
       "photo": "/team/kat-pap.png",
       "profileUrl": "https://www.huerkamphomegroup.com/team/kat-pap",
       "license": "40414189",
-      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785259842853-YP0AJEP9HZGSC8FUPP4Z/Kat+Pap.png"
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785259842853-YP0AJEP9HZGSC8FUPP4Z/Kat+Pap.png",
+      "hidden": true
     },
     {
       "name": "Nicole Kelly",
@@ -56,7 +57,8 @@
       "photo": "/team/nicole-kelly.png",
       "profileUrl": "https://www.huerkamphomegroup.com/team/nicole-kelly",
       "license": "40612250",
-      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785264289202-MVPVK0YNL2TTDTK4JLD9/Nicole+Kelly.png"
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785264289202-MVPVK0YNL2TTDTK4JLD9/Nicole+Kelly.png",
+      "hidden": true
     },
     {
       "name": "Shyanne Comella",
@@ -67,7 +69,8 @@
       "photo": "/team/shyanne-comella.png",
       "profileUrl": "https://www.huerkamphomegroup.com/team/shyanne-comella",
       "license": null,
-      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785263457746-ZR7CRJT5HYZCJ9B0ZJXI/83230156_172430981_3a814b3ca57d4efe9c9c441703095863__shyanne.png"
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785263457746-ZR7CRJT5HYZCJ9B0ZJXI/83230156_172430981_3a814b3ca57d4efe9c9c441703095863__shyanne.png",
+      "hidden": true
     },
     {
       "name": "Leah Petersen",
@@ -78,7 +81,8 @@
       "photo": "/team/leah-petersen.png",
       "profileUrl": "https://www.huerkamphomegroup.com/team/leah-petersen",
       "license": "40780230",
-      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785263960596-53P29CX1J3UTIU9MHFCO/83230156_172430981_11e10ce594064a65b5d9cf6428261340__50.png"
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785263960596-53P29CX1J3UTIU9MHFCO/83230156_172430981_11e10ce594064a65b5d9cf6428261340__50.png",
+      "hidden": true
     },
     {
       "name": "Colin Manson",
@@ -432,5 +436,11 @@
       "license": "40715284",
       "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1789061635991-TACR91XFQ928PR4K17OR/Heidi+Locklear.png"
     }
-  ]
+  ],
+  "notOnWebsite": [
+    "Daisy De Lara",
+    "Patrick Mauleon",
+    "Gerald Opigal"
+  ],
+  "notOnWebsiteNote": "Follow Up Boss users who are staff and do not get a website page; the weekly team check (/api/team-check) skips them (Jason, Nov 19, 2026)."
 }

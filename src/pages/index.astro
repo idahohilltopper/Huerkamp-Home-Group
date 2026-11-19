@@ -54,7 +54,7 @@ const kindPages = ([
   ['Bloomington townhomes', 'bloomington/townhomes'], ['Lakeville townhomes', 'lakeville/townhomes'], ['Minneapolis townhomes', 'minneapolis/townhomes'],
   ['Burnsville townhomes', 'burnsville/townhomes'], ['Shakopee townhomes', 'shakopee/townhomes'], ['Saint Paul townhomes', 'saint-paul/townhomes'],
 ] as [string, string][]).filter(([, p]) => hasPage(p)).map(([t, p]) => [t, homesHref(p)] as [string, string]);
-const members = team.members;
+const members = team.members.filter((m) => !(m as { hidden?: boolean }).hidden);
 
 // Complete 5-star reviews short enough for a card; the first is the featured quote.
 const fits = (r: any) => r.textComplete && r.rating === 5 && r.text.length >= 150 && r.text.length <= 380;

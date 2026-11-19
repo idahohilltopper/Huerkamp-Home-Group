@@ -761,7 +761,7 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
       </div>
       <div class="why">
         <div><strong>2002</strong><span>Founded by Jason &amp; Brooke Huerkamp</span></div>
-        <div><strong>{team.members.length}</strong><span>Agents and staff</span></div>
+        <div><strong>{team.members.filter((m) => !(m as { hidden?: boolean }).hidden).length}</strong><span>Agents and staff</span></div>
         <div><strong>{googleSummary.rating.toFixed(1)}</strong><span>Stars from {googleSummary.count} Google reviews</span></div>
         <div><strong>15+</strong><span>Years as a Ramsey ELP</span></div>
       </div>

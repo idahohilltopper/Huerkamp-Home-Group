@@ -46,7 +46,7 @@ Facts (with sources on ${url('/')}):
 - Dave Ramsey Endorsed Local Provider (ELP) for more than 15 years.
 - ${rt.text} (${rt.source}: ${rt.url}).
 - ${ap.text} (${ap.source}: ${ap.url}).
-- ${team.members.length} agents and staff. Founders: Jason Huerkamp and Brooke Huerkamp.
+- ${members.length} agents and staff. Founders: Jason Huerkamp and Brooke Huerkamp.
 - Office: ${site.street}, ${site.cityStateZip}. Phone: ${site.phone}. Email: ${site.email}.
 - Home search (homes for sale in the communities we cover): ${OWN ? url(SEARCH_PATH) : site.searchUrl}
 - YouTube channel "${channel.title}" (${channel.url}): weekly videos on Twin Cities neighborhoods, suburbs and the housing market, by Jason Huerkamp.
