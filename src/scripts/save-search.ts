@@ -2,7 +2,8 @@
 //  - The Save search button opens the alert form in a popup over the map instead of jumping to the bottom of the page.
 //    The form itself (the #alerts section's form, kept up to date with the current search by home-search.ts) is moved
 //    into the popup and back, so it keeps its listeners and its saved-search details.
-//  - A small, closable nudge appears once per visit after 40 seconds of searching or the second search change, for
+//  - A small, closable nudge appears once per visit after 15 seconds of searching (40 until Nov 20, 2026: the average
+//    search visitor is engaged about 19 seconds, so most never saw it) or the second search change, for
 //    visitors who haven't signed up yet. It never blocks the page.
 import { isRegistered } from './register';
 
@@ -52,7 +53,7 @@ export function initSaveSearch() {
   const show = () => { if (!box || isRegistered() || seen() || dlg.open) return; box.hidden = false; mark(); };
   box.querySelector('.ss-nudge__go')!.addEventListener('click', open);
   box.querySelector('.ss-nudge__x')!.addEventListener('click', hideNudge);
-  const timer = setTimeout(show, 40_000);
+  const timer = setTimeout(show, 15_000);
   let changes = 0;
   window.addEventListener('home-searched', () => { if (++changes === 3) { clearTimeout(timer); setTimeout(show, 1500); } }); // the first event is the page's own load
   window.addEventListener('lead-sent', () => { clearTimeout(timer); hideNudge(); });

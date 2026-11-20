@@ -673,7 +673,7 @@ Netlify domains at launch: **www.huerkamphomes.com = primary domain**; huerkamph
 
 - **2026-11-03 launch decision:** huerkamphomegroup.com **stays on Squarespace for now** (Jason). It is not a Netlify alias and its GoDaddy records are unchanged, so the huerkamphomegroup.com rules in public/_redirects do nothing until it is added as an alias later. Live checks of the old Squarespace addresses (`check-launch.mjs --live`) will fail until then; that's expected. The NorthstarMLS/Repliers agreement now names www.huerkamphomes.com only, so MLS data must not be shown on the Squarespace site (the Ylopo search at search.huerkamphomegroup.com has its own license). Note for SEO: the blog posts copied from the Squarespace site now exist on both domains; forwarding huerkamphomegroup.com later (add the two aliases, then the GoDaddy A and www records) lets Google consolidate them on huerkamphomes.com.
 
-## Sign-up wall after 7 homes (2026-11-04)
+## Sign-up wall after 7 homes (2026-11-04; 3 homes since 2026-11-11)
 
 - **What:** a visitor can open 7 different home pages; the 8th asks for first and last name and email (phone optional, call/text consent optional as on every form) before they can keep looking. There's no close button and Esc doesn't close it; "Call or text (612) 843-9620" is offered instead. Change the number in `FREE_VIEWS` (src/data/search.ts).
 - **Lead:** goes to Follow Up Boss as "Registration" (form `register`, tags Buyer lead + Website registration) with the home they were trying to open.

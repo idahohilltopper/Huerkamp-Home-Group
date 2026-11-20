@@ -20,7 +20,7 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
   const b = await engine.launch();
   // Never send our own test visits to Meta Pixel or Google Analytics: their hits are answered here and go nowhere
   // (until Nov 10, 2026 every check run showed up in Google Analytics as ~60 visitors).
-  { const nc = b.newContext.bind(b); b.newContext = async (o) => { const c = await nc(o); await c.route(/facebook\.com\/tr|google-analytics\.com\/g\/collect|analytics\.google\.com\/g\/collect/, (r) => r.fulfill({ status: 200, body: "" })); await c.addInitScript(() => { try { if (localStorage.getItem("hhg-resume-test") !== "1") sessionStorage.setItem("hhg-resumed", "1"); } catch {} }); return c; }; }
+  { const nc = b.newContext.bind(b); b.newContext = async (o) => { const c = await nc(o); await c.route(/facebook\.com\/tr|google-analytics\.com\/g\/collect|analytics\.google\.com\/g\/collect/, (r) => r.fulfill({ status: 200, body: "" })); await c.addInitScript(() => { try { if (localStorage.getItem("hhg-resume-test") !== "1") sessionStorage.setItem("hhg-resumed", "1"); if (localStorage.getItem("hhg-nudge-test") !== "1") sessionStorage.setItem("hhg-ss-nudged", "1"); } catch {} }); return c; }; }
   const ctx = await b.newContext({ viewport: { width: 1366, height: 900 } });
   await ctx.addInitScript(() => { try { sessionStorage.setItem('idx-eula', '1'); } catch {} });
   const leads = [];
@@ -498,7 +498,7 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     const b2 = await pw.chromium.launch({ args: ['--disable-webgl', '--disable-3d-apis'] });
     // Never send our own test visits to Meta Pixel or Google Analytics: their hits are answered here and go nowhere
   // (until Nov 10, 2026 every check run showed up in Google Analytics as ~60 visitors).
-    { const nc = b2.newContext.bind(b2); b2.newContext = async (o) => { const c = await nc(o); await c.route(/facebook\.com\/tr|google-analytics\.com\/g\/collect|analytics\.google\.com\/g\/collect/, (r) => r.fulfill({ status: 200, body: "" })); await c.addInitScript(() => { try { if (localStorage.getItem("hhg-resume-test") !== "1") sessionStorage.setItem("hhg-resumed", "1"); } catch {} }); return c; }; }
+    { const nc = b2.newContext.bind(b2); b2.newContext = async (o) => { const c = await nc(o); await c.route(/facebook\.com\/tr|google-analytics\.com\/g\/collect|analytics\.google\.com\/g\/collect/, (r) => r.fulfill({ status: 200, body: "" })); await c.addInitScript(() => { try { if (localStorage.getItem("hhg-resume-test") !== "1") sessionStorage.setItem("hhg-resumed", "1"); if (localStorage.getItem("hhg-nudge-test") !== "1") sessionStorage.setItem("hhg-ss-nudged", "1"); } catch {} }); return c; }; }
     const c2 = await b2.newContext({ viewport: { width: 1366, height: 900 } });
     await c2.addInitScript(() => { try { sessionStorage.setItem('idx-eula', '1'); } catch {} });
     await c2.route('**/api/client-error', (r) => r.fulfill({ status: 202, body: '{}' })); // don't count our own test as a visitor error
@@ -677,6 +677,24 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
       if (m.url().includes('view=map')) throw new Error('tapping the sheet did not open the list');
       ok('Phone search layout', true, `map ${Math.round(st.mapShare * 100)}% of the screen; sheet "${st.sheetText.trim()}"; filters open and close; sheet opens the list`);
     } finally { await pc.close(); }
+  });
+  // The "Save this search" nudge: a first-time visitor sees it within 15 seconds; it opens the alert form. (Every other
+  // step marks it as already shown, so it can't land on top of what they tap.)
+  await step('Map search: save-search nudge', async () => {
+    const nc = await b.newContext({ ...PHONE });
+    await nc.addInitScript(() => { try { sessionStorage.setItem('idx-eula', '1'); localStorage.setItem('hhg-nudge-test', '1'); sessionStorage.removeItem('hhg-ss-nudged'); } catch {} });
+    await nc.route('**/api/client-error', (r) => r.fulfill({ status: 202, body: '{}' }));
+    try {
+      const np = await nc.newPage();
+      const t0 = Date.now();
+      await np.goto(BASE + '/home-search?place=burnsville', { waitUntil: 'domcontentloaded' });
+      await np.waitForSelector('.ss-nudge:not([hidden])', { state: 'visible', timeout: 25000 });
+      const secs = Math.round((Date.now() - t0) / 1000);
+      await np.click('.ss-nudge__go');
+      await np.waitForSelector('dialog.ss-dlg[open] form[data-lead="community-alert"]', { timeout: 5000 });
+      if (!(await np.isHidden('.ss-nudge'))) throw new Error('the nudge stayed on screen after opening the form');
+      ok('Map search: save-search nudge', true, `showed after ${secs}s; opens the alert form`);
+    } finally { await nc.close(); }
   });
   // Pick up where you left off: on a phone, coming back to the home page goes to the last page (here, a map search).
   await step('Phone: back where you left off', async () => {
