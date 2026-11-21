@@ -34,7 +34,7 @@ const sided = homes.filter((l) => SIDED.test(l.description ?? '')).length;
 const lakefront = homes.filter((l) => l.lakefront).length;
 const acres = homes.filter((l) => (l.lotAcres ?? 0) >= 5).length;
 const answer = homes.length
-  ? `${homes.length} log homes are for sale in Minnesota in NorthstarMLS as of ${day}, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, median ${money(median(prices)!)}.${lakefront ? ` ${lakefront} are lakefront` : ''}${lakefront && acres ? ` and ${acres} sit on 5 acres or more.` : lakefront ? '.' : acres ? ` ${acres} sit on 5 acres or more.` : ''}${sided ? ` ${sided} describe log siding rather than solid log walls.` : ''}`
+  ? `${homes.length} log homes are for sale in Minnesota in NorthstarMLS as of ${day}, by Huerkamp Home Group's count, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, median ${money(median(prices)!)}.${lakefront ? ` ${lakefront} are lakefront` : ''}${lakefront && acres ? ` and ${acres} sit on 5 acres or more.` : lakefront ? '.' : acres ? ` ${acres} sit on 5 acres or more.` : ''}${sided ? ` ${sided} describe log siding rather than solid log walls.` : ''}`
   : '';
 const shown = [...homes].sort((a, b) => Number(SIDED.test(a.description ?? '')) - Number(SIDED.test(b.description ?? '')) || a.price - b.price).slice(0, 48);
 const faq = [

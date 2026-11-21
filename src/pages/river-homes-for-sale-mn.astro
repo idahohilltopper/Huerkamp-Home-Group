@@ -34,7 +34,7 @@ const count = (r: string) => homes.filter((l) => riverOf(l) === r).length;
 const front = homes.filter((l) => FRONT.test(l.description ?? '')).length;
 const condos = homes.filter((l) => l.type === 'condo').length;
 const answer = homes.length
-  ? `${homes.length} homes for sale in Minnesota say in their NorthstarMLS listing that they're on, along or overlooking a river as of ${day}, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, median ${money(median(prices)!)}. ${count('Mississippi')} name the Mississippi River and ${count('St. Croix')} the St. Croix.${front ? ` ${front} mention river frontage, access or a dock.` : ''}${condos ? ` ${condos} are condos.` : ''}`
+  ? `${homes.length} homes for sale in Minnesota say in their NorthstarMLS listing that they're on, along or overlooking a river as of ${day}, by Huerkamp Home Group's count, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, median ${money(median(prices)!)}. ${count('Mississippi')} name the Mississippi River and ${count('St. Croix')} the St. Croix.${front ? ` ${front} mention river frontage, access or a dock.` : ''}${condos ? ` ${condos} are condos.` : ''}`
   : '';
 const shown = [...homes].sort((a, b) => Number(FRONT.test(b.description ?? '')) - Number(FRONT.test(a.description ?? '')) || a.price - b.price).slice(0, 48);
 const faq = [

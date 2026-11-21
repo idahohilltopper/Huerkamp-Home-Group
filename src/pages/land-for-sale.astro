@@ -27,7 +27,7 @@ const byAcres = BANDS.map(([label, lo, hi]) => { const list = land.filter((l) =>
 const prices = land.map((l) => l.price).filter((p) => p > 1000);
 const top = byCity.slice(0, 3).map((c) => `${c.city} (${c.n})`);
 const answer = land.length
-  ? `${land.length.toLocaleString('en-US')} lots and parcels of land are for sale in our Minnesota communities as of ${day}, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices)!)}. The most are in ${top.length > 1 ? `${top.slice(0, -1).join(', ')} and ${top.at(-1)}` : top[0]}.`
+  ? `${land.length.toLocaleString('en-US')} lots and parcels of land are for sale in our Minnesota communities as of ${day}, by Huerkamp Home Group's count of NorthstarMLS listings, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices)!)}. The most are in ${top.length > 1 ? `${top.slice(0, -1).join(', ')} and ${top.at(-1)}` : top[0]}.`
   : '';
 const shown = land.slice(0, 48);
 const faq = [

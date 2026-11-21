@@ -26,7 +26,7 @@ const row = (label: string, list: typeof homes) => ({ label, n: list.length, med
 const byPlace = [...new Set(homes.map(placeOf))].map((p) => row(p, homes.filter((l) => placeOf(l) === p))).sort((a, b) => b.n - a.n);
 const bySize = [['Under 400 sq ft', 0, 400], ['400 to 500 sq ft', 400, 500], ['500 to 600 sq ft', 500, 601]].map(([label, lo, hi]) => row(label as string, homes.filter((l) => (l.sqft ?? 0) >= (lo as number) && (l.sqft ?? 0) < (hi as number)))).filter((r) => r.n);
 const answer = homes.length
-  ? `${homes.length} tiny homes (600 square feet or less, or listed as a tiny home) are for sale in Minnesota in NorthstarMLS as of ${day}, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices)!)}. A tiny house on a foundation can be a legal home anywhere a city allows a one-family house; a tiny house on wheels is usually zoned like an RV.`
+  ? `${homes.length} tiny homes (600 square feet or less, or listed as a tiny home) are for sale in Minnesota in NorthstarMLS as of ${day}, by Huerkamp Home Group's count, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices)!)}. A tiny house on a foundation can be a legal home anywhere a city allows a one-family house; a tiny house on wheels is usually zoned like an RV.`
   : '';
 const shown = [...homes].sort((a, b) => a.price - b.price).slice(0, 48);
 const SP = 'https://www.stpaul.gov/departments/safety-inspections/building-and-construction/construction-permits-and-inspections/building-permits-inspections/accessory-dwelling-units';

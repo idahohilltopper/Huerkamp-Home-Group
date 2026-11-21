@@ -33,7 +33,7 @@ const byHood = areaHoods.map((h) => { const l = homes.filter((x) => x.hood === h
 const types = [...new Set(homes.map((l) => l.type))].map((t) => { const l = homes.filter((x) => x.type === t); return { label: (TYPE_LABEL[t] ?? t).replace(/^./, (c) => c.toUpperCase()), n: l.length, med: median(l.map((x) => x.price)) }; }).sort((a, b) => b.n - a.n);
 const under = (cap: number) => homes.filter((l) => l.price < cap).length;
 const answer = homes.length
-  ? `${homes.length.toLocaleString('en-US')} homes are for sale in ${A.name} as of ${day}, from ${money(homes[0].price)} to ${money(homes[homes.length - 1].price)}, with a median list price of ${money(med)}. ${under(300000)} are listed under $300,000.`
+  ? `${homes.length.toLocaleString('en-US')} homes are for sale in ${A.name} as of ${day}, by Huerkamp Home Group's count of NorthstarMLS listings, from ${money(homes[0].price)} to ${money(homes[homes.length - 1].price)}, with a median list price of ${money(med)}. ${under(300000)} are listed under $300,000.`
   : `No homes in ${A.name} are in the MLS feed right now. Tell us what you're looking for and we'll send new listings the day they hit the market.`;
 const names = areaHoods.map((h) => h.name).sort();
 const faq = [

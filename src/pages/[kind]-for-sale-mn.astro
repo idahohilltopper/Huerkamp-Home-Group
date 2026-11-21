@@ -30,7 +30,7 @@ const feeMed = median(fees);
 const oneLevel = homes.filter((l) => /one stor|1 stor|rambler|one level|single level|ranch/i.test(l.style)).length;
 const top = byCity.slice(0, 3).map((r) => `${r.label} (${r.n})`);
 const answer = homes.length
-  ? `${homes.length.toLocaleString('en-US')} ${T.plural} are for sale in our Minnesota communities as of ${day}, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices)!)}.${top.length ? ` The most are in ${top.join(', ')}.` : ''}${feeMed ? ` The median association fee listed is ${money(feeMed)} a month.` : ''}`
+  ? `${homes.length.toLocaleString('en-US')} ${T.plural} are for sale in our Minnesota communities as of ${day}, by Huerkamp Home Group's count of NorthstarMLS listings, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices)!)}.${top.length ? ` The most are in ${top.join(', ')}.` : ''}${feeMed ? ` The median association fee listed is ${money(feeMed)} a month.` : ''}`
   : '';
 const shown = [...homes].sort((a, b) => a.price - b.price).filter((_, i, a) => a.length <= 48 || i % Math.ceil(a.length / 48) === 0).slice(0, 48);
 const faq = kind === 'townhomes' ? [

@@ -39,7 +39,7 @@ for (const l of homes.slice(0, c ? 200 : 60)) { const d = next(l)!.date; days.se
 const dayName = (d: string) => new Date(`${d}T12:00:00`).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
 const cities = !c ? communities.map((x) => ({ x, n: all.filter((l) => l.community === x.slug).length })).filter((r) => r.n).sort((a, b) => b.n - a.n) : [];
 const answer = homes.length
-  ? `${homes.length} ${homes.length === 1 ? 'home has' : 'homes have'} a public open house coming up in ${place}, as of ${updatedDay}. The next one is ${formatOpenHouse(next(homes[0])!, { long: true })}.`
+  ? `${homes.length} ${homes.length === 1 ? 'home has' : 'homes have'} a public open house coming up in ${place}, as of ${updatedDay}, by Huerkamp Home Group's count of NorthstarMLS listings. The next one is ${formatOpenHouse(next(homes[0])!, { long: true })}.`
   : `No public open houses are scheduled in ${place} right now. New ones are added every hour.`;
 const title = c ? `Open Houses in ${c.name}, MN This Weekend` : 'Open Houses in the Twin Cities This Weekend';
 const crumbs = [{ name: 'Open houses', href: '/open-houses' }, ...(c ? [{ name: c.name, href: `/open-houses/${c.slug}` }] : [])];

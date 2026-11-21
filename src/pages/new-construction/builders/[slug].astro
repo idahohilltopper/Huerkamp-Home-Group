@@ -18,7 +18,7 @@ const { at, preview, list } = await buildersData;
 const day = at ? new Date(at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }) : '';
 const join = (a: string[]) => (a.length < 2 ? a.join('') : `${a.slice(0, -1).join(', ')} and ${a.at(-1)}`);
 const n = b.listings.length;
-const answer = `${n} new ${n === 1 ? 'home' : 'homes'} by ${b.name} ${n === 1 ? 'is' : 'are'} for sale in the Twin Cities as of ${day}, from ${money(b.min)} to ${money(b.max)} (median ${money(b.median!)})${b.devs.length ? `, in ${b.devs.length} ${b.devs.length === 1 ? 'development' : 'developments'}` : ''}${b.cities.length === 1 ? ` in ${b.cities[0]}` : ` across ${b.cities.length} cities`}.`;
+const answer = `${n} new ${n === 1 ? 'home' : 'homes'} by ${b.name} ${n === 1 ? 'is' : 'are'} for sale in the Twin Cities as of ${day}, by Huerkamp Home Group's count of NorthstarMLS listings, from ${money(b.min)} to ${money(b.max)} (median ${money(b.median!)})${b.devs.length ? `, in ${b.devs.length} ${b.devs.length === 1 ? 'development' : 'developments'}` : ''}${b.cities.length === 1 ? ` in ${b.cities[0]}` : ` across ${b.cities.length} cities`}.`;
 const faq = [
   { q: `How much is a new ${b.name} home in the Twin Cities?`, a: answer },
   { q: `Where is ${b.name} building in Minnesota?`, a: `${b.name} homes are for sale in ${join(b.cities.slice(0, 12))}${b.cities.length > 12 ? ` and ${b.cities.length - 12} more cities` : ''}${b.devs.length ? `, including ${join(b.devs.slice(0, 5).map((d) => `${d.name} in ${d.city}`))}` : ''}.` },

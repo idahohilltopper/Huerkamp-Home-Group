@@ -33,7 +33,7 @@ const n = (k: number) => `${k} ${k === 1 ? 'home' : 'homes'}`;
 
 // One subdivision
 const others = s ? list.filter((x) => x.community === s.community && x.slug !== s.slug).slice(0, 12) : [];
-const answer = s ? `${n(s.listings.length)} ${s.listings.length === 1 ? 'is' : 'are'} for sale in ${s.name}, ${s.city}, MN as of ${day}${s.listings.length > 1 ? `, from ${money(s.min)} to ${money(s.max)}, with a median list price of ${money(s.median)}` : `, listed at ${money(s.min)}`}: ${kinds(s)}.` : '';
+const answer = s ? `${n(s.listings.length)} ${s.listings.length === 1 ? 'is' : 'are'} for sale in ${s.name}, ${s.city}, MN as of ${day}, by Huerkamp Home Group's count of NorthstarMLS listings${s.listings.length > 1 ? `, from ${money(s.min)} to ${money(s.max)}, with a median list price of ${money(s.median)}` : `, listed at ${money(s.min)}`}: ${kinds(s)}.` : '';
 const facts = s ? [
   s.beds && `Bedrooms: ${span(s.beds, '')}`.trim(),
   s.sqft && `Finished square feet: ${span(s.sqft, '')}`.trim(),

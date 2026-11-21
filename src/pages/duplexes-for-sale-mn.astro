@@ -24,7 +24,7 @@ const byCity = [...new Set(homes.map((l) => l.community))].map((s) => row(name(s
 const byKind = [...KINDS.map(([k]) => k), 'Other or not stated'].map((k) => row(k, homes.filter((l) => kindOf(l) === k))).filter((r) => r.n);
 const duplexes = homes.filter((l) => kindOf(l) === KINDS[0][0]).length;
 const answer = homes.length
-  ? `${homes.length.toLocaleString('en-US')} duplexes and other multi-family homes are for sale in our Minnesota communities as of ${day}, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices)!)}.${duplexes ? ` ${duplexes} of the listings describe the home as a duplex or two units.` : ''}`
+  ? `${homes.length.toLocaleString('en-US')} duplexes and other multi-family homes are for sale in our Minnesota communities as of ${day}, by Huerkamp Home Group's count of NorthstarMLS listings, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices)!)}.${duplexes ? ` ${duplexes} of the listings describe the home as a duplex or two units.` : ''}`
   : '';
 const order = KINDS.map(([k]) => k);
 const shown = [...homes].sort((a, b) => (order.indexOf(kindOf(a)) + 9) % 9 - (order.indexOf(kindOf(b)) + 9) % 9 || a.price - b.price).slice(0, 48);

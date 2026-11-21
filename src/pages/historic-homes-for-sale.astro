@@ -27,7 +27,7 @@ const byCity = [...new Set(homes.map((l) => l.community))].map((s) => row(name(s
 const byStyle = [...STYLES.map(([k]) => k), 'Other or not stated'].map((k) => row(k, homes.filter((l) => styleOf(l) === k))).filter((r) => r.n);
 const old1900 = homes.filter((l) => l.yearBuilt! < 1900).length;
 const answer = homes.length
-  ? `${homes.length.toLocaleString('en-US')} homes built before ${BEFORE} are for sale in our Minnesota communities as of ${day}, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices)!)}.${old1900 ? ` ${old1900} of them were built before 1900.` : ''}`
+  ? `${homes.length.toLocaleString('en-US')} homes built before ${BEFORE} are for sale in our Minnesota communities as of ${day}, by Huerkamp Home Group's count of NorthstarMLS listings, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices)!)}.${old1900 ? ` ${old1900} of them were built before 1900.` : ''}`
   : '';
 const score = (l: { description: string }) => (styleOf(l) !== 'Other or not stated' ? 2 : 0) + (HIST.test(l.description) ? 1 : 0);
 const shown = [...homes].sort((a, b) => score(b) - score(a) || a.yearBuilt! - b.yearBuilt!).slice(0, 48);

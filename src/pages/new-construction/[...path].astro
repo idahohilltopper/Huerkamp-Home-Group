@@ -29,7 +29,7 @@ const cityNew = (slug: string) => (feed.collections.some((k) => k.path === `${sl
 
 // One development
 const answer = d ? [
-  `${plural(d.listings.length, 'home')} ${d.listings.length === 1 ? 'is' : 'are'} for sale in ${d.name}, ${d.city}, as of ${day}`,
+  `${plural(d.listings.length, 'home')} ${d.listings.length === 1 ? 'is' : 'are'} for sale in ${d.name}, ${d.city}, as of ${day}, by Huerkamp Home Group's count of NorthstarMLS listings`,
   d.min === d.max ? `, at ${money(d.min)}.` : `, from ${money(d.min)} to ${money(d.max)} (median ${money(d.median!)}).`,
   ` ${d.newCount === d.listings.length ? 'All are' : `${d.newCount} are`} new construction, built ${year - 1} or later.`,
   d.beds ? ` They have ${span(d.beds, 'bedrooms')}` : '', d.beds && d.sqft ? ` and ${span(d.sqft, 'finished square feet')}.` : d.beds ? '.' : '',

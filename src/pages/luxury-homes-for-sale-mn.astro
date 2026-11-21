@@ -24,7 +24,7 @@ const top = [...homes].sort((a, b) => b.price - a.price);
 const first = top[0];
 const where = (l: (typeof homes)[number]) => `${l.city}`;
 const answer = homes.length
-  ? `${homes.length.toLocaleString('en-US')} homes priced at $1 million or more are for sale in our Minnesota communities as of ${day}, with a median list price of ${money(median(prices)!)}. The most expensive is listed at ${money(first.price)} in ${where(first)}. ${byCity.slice(0, 3).map((r) => r.label).join(', ')} have the most${lakefront ? `, and ${lakefront.toLocaleString('en-US')} of the homes are lakefront` : ''}.`
+  ? `${homes.length.toLocaleString('en-US')} homes priced at $1 million or more are for sale in our Minnesota communities as of ${day}, by Huerkamp Home Group's count of NorthstarMLS listings, with a median list price of ${money(median(prices)!)}. The most expensive is listed at ${money(first.price)} in ${where(first)}. ${byCity.slice(0, 3).map((r) => r.label).join(', ')} have the most${lakefront ? `, and ${lakefront.toLocaleString('en-US')} of the homes are lakefront` : ''}.`
   : '';
 const faq = [
   ...(answer ? [{ q: 'What are the most expensive homes for sale in Minnesota right now?', a: `The highest-priced homes for sale in our Twin Cities communities as of ${day}: ${top.slice(0, 5).map((l) => `${money(l.price)} in ${where(l)}`).join('; ')}. The full list, most expensive first, is on this page and updates several times a day from NorthstarMLS.` }] : []),

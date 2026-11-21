@@ -27,7 +27,7 @@ const BANDS: [string, number, number][] = [['Under $400,000', 0, 400000], ['$400
 const byPrice = BANDS.map(([label, lo, hi]) => row(label, homes.filter((l) => l.price >= lo && l.price < hi))).filter((r) => r.n);
 const acres = homes.filter((l) => (l.lotAcres ?? 0) >= 5).length;
 const answer = homes.length
-  ? `${homes.length} barndominiums and post-frame homes are for sale in Minnesota in NorthstarMLS as of ${day}, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices)!)}.${acres ? ` ${acres} sit on 5 acres or more.` : ''} Barndominiums are legal in Minnesota: they're built to the same state residential code as any house, and local zoning decides where they can go and whether metal siding is allowed.`
+  ? `${homes.length} barndominiums and post-frame homes are for sale in Minnesota in NorthstarMLS as of ${day}, by Huerkamp Home Group's count, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices)!)}.${acres ? ` ${acres} sit on 5 acres or more.` : ''} Barndominiums are legal in Minnesota: they're built to the same state residential code as any house, and local zoning decides where they can go and whether metal siding is allowed.`
   : '';
 const shown = [...homes].sort((a, b) => a.price - b.price).slice(0, 48);
 const faq = [

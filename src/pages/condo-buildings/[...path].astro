@@ -30,7 +30,7 @@ const label = (x: Building) => (x.named ? `${x.name} (${x.addresses.join(' & ')}
 const hood = b?.hood ? hoodByKey(b.hood) : undefined;
 const beds = b ? [...new Set(b.units.map((u) => u.beds ?? 0))].sort((x, y) => x - y).map((k) => { const l = b.units.filter((u) => (u.beds ?? 0) === k); return { label: k ? `${k} bedroom${k > 1 ? 's' : ''}` : 'Studio', n: l.length, med: median(l.map((u) => u.price)) }; }) : [];
 const nearby = b ? list.filter((x) => x.slug !== b.slug).map((x) => ({ x, d: Math.hypot(x.lat - b.lat, (x.lng - b.lng) * 0.71) })).sort((p, q) => p.d - q.d).slice(0, 8).map(({ x }) => ({ label: x.name, n: x.units.length, med: x.median, href: `${base}/${x.slug}` })) : [];
-const answer = b ? `${n(b.units.length)} ${b.units.length === 1 ? 'is' : 'are'} for sale at ${b.name}${b.named ? `, ${b.addresses.join(' and ')}` : ''} in ${b.city}, MN as of ${day}${b.units.length > 1 ? `, from ${money(b.units[0].price)} to ${money(b.units[b.units.length - 1].price)}, median ${money(b.median)}` : `, listed at ${money(b.units[0].price)}`}.${b.hoa ? ` Median association fee: ${money(b.hoa)} a month, as listed.` : ''}` : '';
+const answer = b ? `${n(b.units.length)} ${b.units.length === 1 ? 'is' : 'are'} for sale at ${b.name}${b.named ? `, ${b.addresses.join(' and ')}` : ''} in ${b.city}, MN as of ${day}, by Huerkamp Home Group's count of NorthstarMLS listings${b.units.length > 1 ? `, from ${money(b.units[0].price)} to ${money(b.units[b.units.length - 1].price)}, median ${money(b.median)}` : `, listed at ${money(b.units[0].price)}`}.${b.hoa ? ` Median association fee: ${money(b.hoa)} a month, as listed.` : ''}` : '';
 const faq = b ? [
   { q: `How many condos are for sale at ${b.name}?`, a: answer },
   ...(b.hoa ? [{ q: `What are the association fees at ${b.name}?`, a: `The units listed now show a median association fee of ${money(b.hoa)} a month. What the fee covers (heat, water, parking, amenities) is in each listing and the association's documents; ask us and we'll pull them.` }] : []),
@@ -41,7 +41,7 @@ const faq = b ? [
 // Hub
 const all = list.flatMap((x) => x.units);
 const byCity = [...new Set(list.map((x) => x.community))].map((c) => { const l = list.filter((x) => x.community === c).flatMap((x) => x.units); return { label: cityName(c), n: l.length, med: median(l.map((u) => u.price)), href: page(`${c}/condos`) }; }).sort((p, q) => q.n - p.n);
-const hubAnswer = `${list.length} Twin Cities condo buildings have units for sale as of ${day}: ${n(all.length)} in all${all.length ? `, median list price ${money(median(all.map((u) => u.price)))}` : ''}, from NorthstarMLS.`;
+const hubAnswer = `${list.length} Twin Cities condo buildings have units for sale as of ${day}, by Huerkamp Home Group's count of NorthstarMLS listings: ${n(all.length)} in all${all.length ? `, median list price ${money(median(all.map((u) => u.price)))}` : ''}, from NorthstarMLS.`;
 ---
 {b ? (
   <FeedTopicPage path={`${base}/${b.slug}`} crumb={b.name} at={at} noindex={!!preview}

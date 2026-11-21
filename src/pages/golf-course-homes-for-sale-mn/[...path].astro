@@ -30,7 +30,7 @@ const types = c ? [...new Set(c.homes.map((l) => l.type))].map((t) => { const l 
 const nearby = c ? list.filter((x) => x.slug !== c.slug).map((x) => ({ x, d: Math.hypot(x.lat - c.lat, (x.lng - c.lng) * 0.71) })).sort((a, b) => a.d - b.d).slice(0, 8).map(({ x }) => ({ label: `${x.name} (${x.city})`, n: x.homes.length, med: x.median, href: `${base}/${x.slug}` })) : [];
 const prices = c ? c.homes.map((l) => l.price).sort((a, b) => a - b) : [];
 const answer = c
-  ? `${n(c.homes.length)} ${c.homes.length === 1 ? 'is' : 'are'} for sale within a mile of ${c.name} in ${where(c)} as of ${day}${prices.length > 1 ? `, from ${money(prices[0])} to ${money(prices[prices.length - 1])}, median ${money(c.median)}` : `, listed at ${money(prices[0])}`}. ${on.length ? `${on.length} ${on.length === 1 ? 'listing says it sits' : 'listings say they sit'} on or overlook${on.length === 1 ? 's' : ''} the course.` : 'None of the listings says it sits on the course itself.'}`
+  ? `${n(c.homes.length)} ${c.homes.length === 1 ? 'is' : 'are'} for sale within a mile of ${c.name} in ${where(c)} as of ${day}, by Huerkamp Home Group's count of NorthstarMLS listings${prices.length > 1 ? `, from ${money(prices[0])} to ${money(prices[prices.length - 1])}, median ${money(c.median)}` : `, listed at ${money(prices[0])}`}. ${on.length ? `${on.length} ${on.length === 1 ? 'listing says it sits' : 'listings say they sit'} on or overlook${on.length === 1 ? 's' : ''} the course.` : 'None of the listings says it sits on the course itself.'}`
   : '';
 const faq = c ? [
   { q: `How many homes are for sale near ${c.name}?`, a: answer },
@@ -43,7 +43,7 @@ const faq = c ? [
 const homes = golfHomes.map((g) => g.l).sort((a, b) => String(b.listed ?? '').localeCompare(String(a.listed ?? '')));
 const byCourse = list.map((x) => ({ label: `${x.name} (${x.city})`, n: x.homes.length, med: x.median, href: `${base}/${x.slug}` })).sort((a, b) => b.n - a.n);
 const cities = [...new Set(homes.map((l) => l.community).filter(Boolean))].map((s) => { const l = homes.filter((x) => x.community === s); return { label: cityName(s), n: l.length, med: median(l.map((x) => x.price)), href: cityPage(s) }; }).sort((a, b) => b.n - a.n);
-const hubAnswer = `${n(homes.length)} for sale in the Twin Cities and western Wisconsin describe themselves as on or overlooking a golf course as of ${day}${homes.length ? `, median list price ${money(median(homes.map((l) => l.price)))}` : ''}. Below: every course with homes for sale within a mile, from NorthstarMLS.`;
+const hubAnswer = `${n(homes.length)} for sale in the Twin Cities and western Wisconsin describe themselves as on or overlooking a golf course as of ${day}, by Huerkamp Home Group's count of NorthstarMLS listings${homes.length ? `, median list price ${money(median(homes.map((l) => l.price)))}` : ''}. Below: every course with homes for sale within a mile, from NorthstarMLS.`;
 const hubFaq = [
   { q: 'How many golf course homes are for sale in Minnesota?', a: hubAnswer },
   { q: 'Which golf courses have the most homes for sale nearby?', a: byCourse.slice(0, 3).map((r) => `${r.label}: ${r.n}`).join('; ') + `, within a mile of the course, from NorthstarMLS on ${day}.` },

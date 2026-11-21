@@ -41,8 +41,8 @@ const land = homes.length - houses.length;
 const prices = houses.map((l) => l.price);
 const nearby = t ? mnTowns.filter((x) => x.region === t.region && x.slug !== t.slug) : [];
 const answer = !t || !live || failed(t.slug) ? '' : houses.length
-  ? `${houses.length.toLocaleString('en-US')} ${houses.length === 1 ? 'home is' : 'homes are'} listed for sale in ${t.name}, MN in NorthstarMLS as of ${day}${houses.length > 1 ? `, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices))}` : ` at ${money(prices[0])}`}${land ? `, plus ${land} ${land === 1 ? 'lot or land listing' : 'lots and land listings'}` : ''}. ${t.name} is in ${t.county} County.`
-  : `No homes are listed for sale in ${t.name}, MN in NorthstarMLS as of ${day}${land ? ` (${land} ${land === 1 ? 'lot or land listing' : 'lots and land listings'})` : ''}. ${t.name} is in ${t.county} County.`;
+  ? `${houses.length.toLocaleString('en-US')} ${houses.length === 1 ? 'home is' : 'homes are'} listed for sale in ${t.name}, MN in NorthstarMLS as of ${day}, by Huerkamp Home Group's count${houses.length > 1 ? `, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices))}` : ` at ${money(prices[0])}`}${land ? `, plus ${land} ${land === 1 ? 'lot or land listing' : 'lots and land listings'}` : ''}. ${t.name} is in ${t.county} County.`
+  : `No homes are listed for sale in ${t.name}, MN in NorthstarMLS as of ${day}, by Huerkamp Home Group's count${land ? ` (${land} ${land === 1 ? 'lot or land listing' : 'lots and land listings'})` : ''}. ${t.name} is in ${t.county} County.`;
 const byType = TYPES.map(([k, label]) => ({ label, list: homes.filter((l) => l.type === k) })).filter((r) => r.list.length);
 const byPrice = BANDS.map(([label, lo, hi]) => ({ label, list: homes.filter((l) => l.price >= lo && l.price < hi) })).filter((r) => r.list.length);
 const beds3 = homes.filter((l) => l.type !== 'land' && (l.beds ?? 0) >= 3);
@@ -59,7 +59,7 @@ const faq = t ? [
 // ----- hub -----
 const hubRows = Object.entries(mnRegions).map(([key, name]) => ({ name, towns: mnTowns.filter((x) => x.region === key).map((x) => ({ x, list: homesOf(x.slug) })) })).filter((g) => g.towns.length);
 const total = mnTowns.reduce((n, x) => n + homesOf(x.slug).filter((l) => l.type !== 'land').length, 0);
-const hubAnswer = live && total ? `${total.toLocaleString('en-US')} homes (not counting land) are listed for sale across these ${mnTowns.length} Greater Minnesota towns in NorthstarMLS as of ${day}. Pick a town for its homes, prices and recent sales.` : '';
+const hubAnswer = live && total ? `${total.toLocaleString('en-US')} homes (not counting land) are listed for sale across these ${mnTowns.length} Greater Minnesota towns in NorthstarMLS as of ${day}, by Huerkamp Home Group's count. Pick a town for its homes, prices and recent sales.` : '';
 
 const title = t ? `${t.name}, MN Homes for Sale${houses.length ? ` (${houses.length})` : ''}: Prices & Recent Sales` : 'Homes for Sale in Greater Minnesota by Town';
 const description = (t ? answer : hubAnswer) || (t ? `Homes for sale in ${t.name}, MN (${t.county} County) from NorthstarMLS, by price and type, with recent sales.` : 'Homes for sale in Duluth, Rochester, Mankato, St. Cloud and other Greater Minnesota towns, from NorthstarMLS.');

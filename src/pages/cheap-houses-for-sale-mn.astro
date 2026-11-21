@@ -29,7 +29,7 @@ const under100 = homes.filter((l) => l.price < 100000).length;
 const fixer = homes.filter((l) => FIXER.test(l.description ?? '')).length;
 const metroN = metro.length;
 const answer = homes.length
-  ? `${homes.length.toLocaleString('en-US')} homes are listed under ${money(CAP)} in Minnesota in NorthstarMLS as of ${day}, median ${money(median(prices)!)}. ${sfh.toLocaleString('en-US')} are single-family houses, ${under100.toLocaleString('en-US')} are listed under $100,000, and ${metroN.toLocaleString('en-US')} are in the Twin Cities area.${fixer ? ` ${fixer} listings describe the home as a fixer-upper, needing work or sold as-is.` : ''}`
+  ? `${homes.length.toLocaleString('en-US')} homes are listed under ${money(CAP)} in Minnesota in NorthstarMLS as of ${day}, by Huerkamp Home Group's count, median ${money(median(prices)!)}. ${sfh.toLocaleString('en-US')} are single-family houses, ${under100.toLocaleString('en-US')} are listed under $100,000, and ${metroN.toLocaleString('en-US')} are in the Twin Cities area.${fixer ? ` ${fixer} listings describe the home as a fixer-upper, needing work or sold as-is.` : ''}`
   : '';
 const shown = [...homes].filter((l) => l.type === 'single-family').sort((a, b) => a.price - b.price).concat([...homes].filter((l) => l.type !== 'single-family').sort((a, b) => a.price - b.price)).slice(0, 48);
 const faq = [

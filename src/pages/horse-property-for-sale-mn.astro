@@ -29,7 +29,7 @@ const byAcres = BANDS.map(([label, lo, hi]) => row(label, homes.filter((l) => l.
 const arena = homes.filter((l) => ARENA.test(l.description ?? '')).length;
 const land = homes.filter((l) => l.type === 'land').length;
 const answer = homes.length
-  ? `${homes.length} horse properties are for sale in Minnesota in NorthstarMLS as of ${day}: listings on an acre or more whose description mentions horses, stalls, paddocks or an arena. Prices run from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, median ${money(median(prices)!)}.${arena ? ` ${arena} mention a riding arena.` : ''}${land ? ` ${land} ${land === 1 ? 'is' : 'are'} land without a house.` : ''}`
+  ? `${homes.length} horse properties are for sale in Minnesota in NorthstarMLS as of ${day}, by Huerkamp Home Group's count: listings on an acre or more whose description mentions horses, stalls, paddocks or an arena. Prices run from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, median ${money(median(prices)!)}.${arena ? ` ${arena} mention a riding arena.` : ''}${land ? ` ${land} ${land === 1 ? 'is' : 'are'} land without a house.` : ''}`
   : '';
 const shown = [...homes].sort((a, b) => Number(ARENA.test(b.description ?? '')) - Number(ARENA.test(a.description ?? '')) || a.price - b.price).slice(0, 48);
 const faq = [

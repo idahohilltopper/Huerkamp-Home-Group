@@ -27,7 +27,7 @@ const byCity = [...new Set(homes.map((l) => l.community))].map((slug) => {
 const BANDS: [string, number, number][] = [['5 to 10 acres', 5, 10], ['10 to 20 acres', 10, 20], ['20 to 40 acres', 20, 40], ['40 acres or more', 40, Infinity]];
 const byAcres = BANDS.map(([label, lo, hi]) => { const list = homes.filter((l) => l.lotAcres! >= lo && l.lotAcres! < hi); return { label, n: list.length, med: median(list.map((l) => l.price)) }; }).filter((r) => r.n);
 const answer = homes.length
-  ? `${homes.length.toLocaleString('en-US')} homes on ${MIN_ACRES} acres or more are for sale in our Minnesota communities as of ${day}, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices)!)}. ${withBarn.length} of the listings mention a barn or outbuilding, and ${horse.length} mention horses or pasture.`
+  ? `${homes.length.toLocaleString('en-US')} homes on ${MIN_ACRES} acres or more are for sale in our Minnesota communities as of ${day}, by Huerkamp Home Group's count of NorthstarMLS listings, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, with a median list price of ${money(median(prices)!)}. ${withBarn.length} of the listings mention a barn or outbuilding, and ${horse.length} mention horses or pasture.`
   : '';
 const shown = [...homes].sort((a, b) => Number(BARN.test(b.description) || HORSE.test(b.description)) - Number(BARN.test(a.description) || HORSE.test(a.description))).slice(0, 48);
 const faq = [

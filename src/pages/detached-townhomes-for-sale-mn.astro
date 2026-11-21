@@ -30,7 +30,7 @@ const one = homes.filter((l) => ONE.test(`${l.description ?? ''} ${l.style ?? ''
 const nc = homes.filter((l) => l.newConstruction).length;
 const fees = homes.map((l) => l.hoa).filter((h): h is number => !!h && h > 0 && h < 5000);
 const answer = homes.length
-  ? `${homes.length} detached townhomes and villas are for sale in Minnesota in NorthstarMLS as of ${day}, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, median ${money(median(prices)!)}.${one ? ` ${one} describe one-level living or a rambler layout.` : ''}${nc ? ` ${nc} are new construction.` : ''}${fees.length ? ` The median association fee is ${money(median(fees)!)} a month, as listed.` : ''}`
+  ? `${homes.length} detached townhomes and villas are for sale in Minnesota in NorthstarMLS as of ${day}, by Huerkamp Home Group's count, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, median ${money(median(prices)!)}.${one ? ` ${one} describe one-level living or a rambler layout.` : ''}${nc ? ` ${nc} are new construction.` : ''}${fees.length ? ` The median association fee is ${money(median(fees)!)} a month, as listed.` : ''}`
   : '';
 const shown = [...homes].sort((a, b) => Number(ONE.test(b.description ?? '')) - Number(ONE.test(a.description ?? '')) || a.price - b.price).slice(0, 48);
 const faq = [

@@ -33,7 +33,7 @@ const kitchen = homes.filter((l) => KITCHEN.test(l.description ?? '')).length;
 const entrance = homes.filter((l) => ENTRANCE.test(l.description ?? '')).length;
 const mpls = homes.filter((l) => l.community === 'minneapolis').length;
 const answer = homes.length
-  ? `${homes.length} homes for sale in Minnesota mention an in-law suite, accessory dwelling unit, guest house or second kitchen in their NorthstarMLS listing as of ${day}, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, median ${money(median(prices)!)}.${kitchen ? ` ${kitchen} mention a second kitchen or kitchenette` : ''}${kitchen && entrance ? ` and ${entrance} a separate entrance.` : kitchen ? '.' : entrance ? ` ${entrance} mention a separate entrance.` : ''}${mpls ? ` ${mpls} ${mpls === 1 ? 'is' : 'are'} in Minneapolis.` : ''}`
+  ? `${homes.length} homes for sale in Minnesota mention an in-law suite, accessory dwelling unit, guest house or second kitchen in their NorthstarMLS listing as of ${day}, by Huerkamp Home Group's count, from ${money(Math.min(...prices))} to ${money(Math.max(...prices))}, median ${money(median(prices)!)}.${kitchen ? ` ${kitchen} mention a second kitchen or kitchenette` : ''}${kitchen && entrance ? ` and ${entrance} a separate entrance.` : kitchen ? '.' : entrance ? ` ${entrance} mention a separate entrance.` : ''}${mpls ? ` ${mpls} ${mpls === 1 ? 'is' : 'are'} in Minneapolis.` : ''}`
   : '';
 const shown = [...homes].sort((a, b) => Number(ENTRANCE.test(b.description ?? '')) - Number(ENTRANCE.test(a.description ?? '')) || a.price - b.price).slice(0, 48);
 const faq = [
