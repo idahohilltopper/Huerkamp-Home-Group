@@ -92,6 +92,10 @@ const footerCols = [
   { title: 'Sell', links: [['Sell your home', '/sell'], ['Free home valuation', '/sell#value'], ['Get a cash offer', '/cash-offer'], ['Listing expired?', '/expired-listing'], ['Downsizing & 55+', '/downsizing'], ['Selling a parent’s home', '/downsizing/selling-a-parents-home'], ['Sell now or wait for spring?', '/when-to-sell'], ['Cost to sell in Minnesota', '/selling/cost-to-sell-a-house-in-minnesota'], ['Cash offer or list?', '/selling/cash-offer-vs-listing'], ['Selling in probate', '/downsizing/selling-a-house-in-probate-minnesota'], ['What’s required to sell', '/selling-in-minnesota'], ['Sell by owner (FSBO)', '/for-sale-by-owner'], ['Short sales & foreclosure', '/foreclosure']] },
   { title: 'Company', links: [['Our team', '/team'], ['Our sales by city', '/real-estate-agents'], ['Join our team: agent careers', site.joinUrl], ['Ramsey ELP', '/ramsey'], ['Reviews', '/reviews'], ['Videos', '/videos'], ['Blog', '/blog'], ['Resources & partners', '/resources'], ['Contact', '/contact']] },
 ];
+// "Homes for sale by city" row at the bottom of every page (Jason, Nov 23, 2026): links from every page tell Google
+// these city pages matter. Our busiest cities first (team closings, src/data/team-closings.json); only cities whose
+// page exists in this build.
+const cityHomes = homesForSale ? [['lakeville', 'Lakeville'], ['burnsville', 'Burnsville'], ['apple-valley', 'Apple Valley'], ['eagan', 'Eagan'], ['savage', 'Savage'], ['prior-lake', 'Prior Lake'], ['farmington', 'Farmington'], ['rosemount', 'Rosemount'], ['shakopee', 'Shakopee'], ['bloomington', 'Bloomington'], ['inver-grove-heights', 'Inver Grove Heights'], ['woodbury', 'Woodbury'], ['eden-prairie', 'Eden Prairie'], ['minneapolis', 'Minneapolis'], ['saint-paul', 'Saint Paul']].filter(([slug]) => homesData.collections.some((k) => k.path === slug)) : [];
 const isExternal = (href: string) => href.startsWith('http');
 // Google shows about 60 characters of a title. A longer one drops the " | Huerkamp Home Group" ending (the brand is
 // still in the page, the logo and the structured data) so the words that describe the page stay visible.
@@ -340,6 +344,12 @@ const pageTitle = title.length > 60 && title.endsWith(brandEnd) ? title.slice(0,
         </div>
       ))}
     </div>
+    {cityHomes.length > 0 && (
+      <nav class="wrap footer__cities" aria-label="Homes for sale by city">
+        <p class="footer__title">Homes for sale by city</p>
+        <ul>{cityHomes.map(([slug, name]) => <li><a href={`/homes-for-sale/${slug}`}>{name} homes for sale</a></li>)}</ul>
+      </nav>
+    )}
     <div class="wrap footer__legal">
       <p>© {year} {site.name}. {site.brokerage}. Each office independently owned and operated. Licensed in {LICENSED_IN}.</p>
       <p><svg class="eho" viewBox="0 0 32 32" width="22" height="22" role="img" aria-label="Equal Housing Opportunity logo"><path d="M16 3 2 13.5h3.5V29h21V13.5H30z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="miter"/><path d="M10.5 16.5h11M10.5 22h11" stroke="currentColor" stroke-width="3"/></svg> Equal Housing Opportunity. Skyline photo: <a href="https://commons.wikimedia.org/wiki/File:Downtown_Minneapolis_skyline_across_the_Mississippi_River.jpg">Guywelch2000</a>, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, power lines removed. Home page photo: <a href="https://commons.wikimedia.org/wiki/File:Minneapolis_Sunset.jpg">BpA9543</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. <a href={site.facebookUrl} rel="noopener">Facebook</a> · <a href={site.youtubeUrl} rel="noopener">YouTube</a> · <a href={site.profiles.instagram} rel="noopener">Instagram</a> · <a href={site.profiles.zillow} rel="noopener">Zillow reviews</a> · <a href={site.profiles.linkedin} rel="noopener">LinkedIn</a> · <a href={site.privacyUrl}>Privacy policy</a> · <a href="/cookies">Manage cookies</a> · <a href="/sms-terms">SMS terms</a>{OWN && <> · <a href={EULA_PATH}>Listing license agreement</a></>}</p>
@@ -569,6 +579,8 @@ const pageTitle = title.length > 60 && title.endsWith(brandEnd) ? title.slice(0,
   .footer__col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .55rem; }
   .footer a { color: var(--on-dark-soft); text-decoration: none; }
   .footer a:hover { color: #fff; }
+  .footer__cities { padding-block: 0 2rem; }
+  .footer__cities ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; }
   .footer__legal { display: grid; gap: .4rem; padding-block: 1.5rem 2rem; border-top: 1px solid rgba(255,255,255,.1); font-size: .82rem; }
   .footer__legal a { text-decoration: underline; }
 </style>
