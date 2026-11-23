@@ -49,9 +49,18 @@ const st = c ? stats(c.listings) : stats(data.listings);
 const condosHere = c?.area.kind === 'community' && c.facet?.slug === 'condos' ? (await buildingsData).list.filter((x) => x.community === c.area.key) : [];
 const golfHere = c?.area.kind === 'community' && !c.facet ? (await golfData).list.filter((x) => x.community === c.area.key) : [];
 const subsHere = c?.area.kind === 'community' && !c.facet ? (await subdivisionsData).list.filter((x) => x.community === c.area.key) : [];
+// Townhome communities (MLS subdivisions with 2+ townhomes for sale) on a city's townhome page (Nov 23, 2026): the
+// pages outranking ours for "townhomes for sale <city>" are mostly pages about one townhome association.
+const thSubs = c?.area.kind === 'community' && c.facet?.slug === 'townhomes'
+  ? (await subdivisionsData).list.filter((x) => x.community === c.area.key).map((x) => ({ x, n: x.listings.filter((l) => l.type === 'townhome').length })).filter((r) => r.n >= 2).sort((a, b) => b.n - a.n)
+  : [];
 const devsHere = c?.area.kind === 'community' && c.facet?.slug === 'new-construction' ? (await developmentsData).list.filter((x) => x.community === c.area.key) : [];
 const h1 = c ? (c.facet ? c.facet.title(place) : `${place} homes for sale`) : 'Twin Cities homes for sale';
 const titleText = c ? (c.facet ? `${c.facet.title(place)}${st.count > 1 ? ` (${st.count.toLocaleString("en-US")})` : ""}` : st.count > 1 ? `${place} Homes for Sale (${st.count.toLocaleString("en-US")})` : `${place} Homes for Sale`) : "Twin Cities Homes for Sale by City";
+// Townhome pages say "Townhomes & Townhouses" in the title when it fits 60 characters (Zillow's and Realtor.com's
+// wording for the same search; Nov 23, 2026).
+const thTitle = c?.facet?.slug === 'townhomes' ? `Townhomes & Townhouses for Sale in ${place}${st.count > 1 ? ` (${st.count.toLocaleString('en-US')})` : ''}` : '';
+const pageTitle = thTitle && thTitle.length <= 60 ? thTitle : titleText;
 // The live count is in the title, as the portals show it ("385 Homes for Sale in Lakeville, MN"); the "| Huerkamp
 // Home Group" ending drops on its own when the title runs long (Base.astro).
 const facetLower = c?.facet ? c.facet.label.charAt(0).toLowerCase() + c.facet.label.slice(1) : '';
@@ -117,9 +126,16 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() },
   ...(area ? [{ name: area.name, href: homesHref(area.path) }] : []),
   ...(c?.facet ? [{ name: c.facet.label, href: homesHref(c.path) }] : [])];
 ---
-<Base breadcrumbs={crumbs} title={`${titleText} | ${site.name}`} description={description} noindex={c ? !c.index : data.preview}>
+<Base breadcrumbs={crumbs} title={`${pageTitle} | ${site.name}`} description={description} noindex={c ? !c.index : data.preview}>
   {ld && <script slot="head" type="application/ld+json" set:html={ld} />}
   <PageHero eyebrow={`Homes for sale · updated ${updatedDay}`} title={h1} lede={`${answer}${attachedMore}`} />
+  {attachedKind && area && (() => {
+    const other = [['townhomes', 'townhomes'], ['condos', 'condos'], ['single-family-homes', 'single-family homes']]
+      .filter(([f]) => f !== c?.facet?.slug)
+      .map(([f, label]) => ({ k: data.collections.find((k) => k.path === `${area.path}/${f}` && k.index), label }))
+      .filter((o) => o.k && o.k.listings.length > 0);
+    return other.length > 0 && <p class="wrap attached-other">Also in {place}: {other.map((o, i) => <>{i > 0 && ' · '}<a href={homesHref(o.k!.path)}>{o.k!.listings.length} {o.label} for sale</a></>)}</p>;
+  })()}
 
   {!c && (
     <section class="section">
@@ -191,6 +207,12 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() },
                 <h3 class="sub">Homes for sale by neighborhood</h3>
                 <ul class="chips">{cityHoods.map(({ h, k }) => <li><a href={homesHref(k!.path)}>{h.name} <em>{k!.listings.length}</em></a></li>)}</ul>
                 {area!.key === 'minneapolis' && <p class="parts">By part of the city: <a href="/northeast-minneapolis-homes-for-sale">Northeast</a> · <a href="/north-minneapolis-homes-for-sale">North</a> · <a href="/south-minneapolis-homes-for-sale">South</a> · <a href="/southwest-minneapolis-homes-for-sale">Southwest</a></p>}
+              </>
+            )}
+            {thSubs.length > 0 && (
+              <>
+                <h3 class="sub">Townhome communities with townhomes for sale</h3>
+                <ul class="chips">{thSubs.slice(0, 30).map(({ x, n }) => <li><a href={`/subdivisions/${x.path}`}>{x.name} <em>{n}</em></a></li>)}</ul>
               </>
             )}
             {condosHere.length > 0 && (
@@ -283,6 +305,7 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() },
   .local a:hover strong { color: var(--crimson); }
   .sub { margin: 2rem 0 .75rem; font: 700 .75rem/1.3 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--text-soft); }
   .parts { margin-top: .9rem; }
+  .attached-other { margin-block: 1rem 0; font: 600 .95rem/1.5 var(--ui); }
   .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
   .chips a { display: inline-block; padding: .45rem .75rem; border: 1px solid var(--line); background: var(--paper); color: var(--text); text-decoration: none; font-size: .9rem; }
   .chips a:hover { border-color: var(--crimson); color: var(--crimson); }
