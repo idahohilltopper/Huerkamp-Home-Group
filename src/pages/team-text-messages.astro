@@ -1,0 +1,57 @@
+---
+// The team text-message program: texts from our own tools (Lead Tracker, Lead Claimer) to the licensed agents on our team, never to
+// the public. This page is the opt-in proof for the carrier registration (Twilio toll-free verification), so it must stay public and
+// match what the app really does: the opt-in screen shown is the real one in Lead Tracker (src/app/consent-notice.tsx there).
+// Not for buyers or sellers: their call/text consent is the box on our forms (src/lib/consent.mjs) and /sms-terms.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site';
+const updated = 'November 24, 2026';
+---
+<Base breadcrumbs={[{ name: 'Team text messages', href: '/team-text-messages' }]} noindex={true} title={`Team Text Message Program | ${site.name}`}
+  description={`How the licensed agents of ${site.name} (H2 Corporation) agree to receive team text messages, what the messages say, and how to stop them.`}>
+  <PageHero eyebrow="Our team" title="Team text message program" lede={`H2 Corporation, doing business as ${site.name}. Last updated ${updated}.`} />
+  <section class="section">
+    <div class="wrap prose legal">
+      <h2>Who receives these texts</h2>
+      <p>We send text messages from our own team systems <strong>only to the licensed real estate agents who work on our team</strong>. They are never sent to the public, to home buyers or sellers, or for marketing. The texts help our agents respond quickly to the people who ask us for help.</p>
+
+      <h2>What the texts are about</h2>
+      <ul>
+        <li>A new lead is available for an agent to claim.</li>
+        <li>One of the agent's leads needs a follow-up.</li>
+        <li>One of the agent's leads is very active online right now and should be called.</li>
+        <li>A reminder to record how an appointment went (the agent replies with a number).</li>
+      </ul>
+
+      <h2>How an agent opts in</h2>
+      <p>Each agent opts in themselves. In our internal Lead Tracker tool they save their own mobile number, tick <strong>"Text me"</strong> and press Save, directly under the consent wording shown below. An agent can also ask a team administrator to record their consent. Texts are sent only to numbers opted in this way.</p>
+      <p><img class="optin" src="/brand/team-text-opt-in.png" width="760" height="608" loading="lazy"
+        alt="The Lead Tracker opt-in screen: the Huerkamp Home Group logo, a mobile number field, the Text me box ticked, and the consent wording: By ticking Text me and saving, I agree to receive text messages from H2 Corporation (Huerkamp Home Group) about new leads, lead follow-ups, hot-lead alerts and appointment reminders. Message frequency varies. Message and data rates may apply. Reply STOP to opt out at any time, HELP for help." /></p>
+
+      <h2>Example messages</h2>
+      <blockquote>Huerkamp Home Group: Hot lead, Kim: Maria L. - Saved 3 properties in the last 24 hours. Reach out now: https://app.followupboss.com/2/people/view/12345 Reply STOP to opt out.</blockquote>
+      <blockquote>Huerkamp Home Group: Hi Kim, how did your appointment with Maria Lopez (Tue 2:00 PM) go? Reply with a number: 1 Met, 2 No Show, 3 Rescheduled. Reply STOP to opt out.</blockquote>
+
+      <h2>Frequency, cost, stopping and help</h2>
+      <ul>
+        <li><strong>Frequency:</strong> message frequency varies with lead activity, typically several a day during working hours (8 a.m. to 8 p.m. Central).</li>
+        <li><strong>Cost:</strong> message and data rates may apply, depending on the agent's mobile plan.</li>
+        <li><strong>Stop:</strong> reply <strong>STOP</strong> to any message at any time and no more texts will be sent. Reply <strong>START</strong> to resume.</li>
+        <li><strong>Help:</strong> reply <strong>HELP</strong>, or contact us at <a href={`mailto:${site.email}`}>{site.email}</a> or <a href={site.phoneHref}>{site.phone}</a>.</li>
+      </ul>
+
+      <h2>Your information</h2>
+      <p>An agent's mobile number is used only to send these team messages. It is not sold or shared with third parties for their marketing, and text-message consent information is not shared with third parties. See our <a href={site.privacyUrl}>privacy policy</a> and <a href="/sms-terms">SMS terms</a>.</p>
+      <p>{site.name} · {site.brokerage} · {site.street}, {site.cityStateZip}</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .legal { max-width: 48rem; }
+  .legal h2 { margin-top: 2rem; font: 500 1.5rem/1.2 var(--serif); }
+  .legal li { margin-bottom: .5rem; }
+  .legal blockquote { margin: 1rem 0; }
+  .optin { display: block; max-width: 100%; height: auto; border-radius: 10px; }
+</style>
