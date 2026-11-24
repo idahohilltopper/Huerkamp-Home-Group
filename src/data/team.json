@@ -269,7 +269,8 @@
       "photo": "/team/amanda-johnson-white.jpg",
       "profileUrl": "https://www.huerkamphomegroup.com/team/amanda-johnson-white",
       "license": "40919531",
-      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1736472917787-WH36M3CC4F79T105BBZX/83230156_172430981_quicyamandakatjavier_headshot.png"
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1736472917787-WH36M3CC4F79T105BBZX/83230156_172430981_quicyamandakatjavier_headshot.png",
+      "hidden": true
     },
     {
       "name": "Freddy Juarez",
@@ -423,7 +424,8 @@
       "photo": "/team/ella-bovee.png",
       "profileUrl": "https://www.huerkamphomegroup.com/team/ella-bovee",
       "license": null,
-      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785261159097-KV23UAVW68VB7OKWZVR0/172430981_aa1d96bc-91ae-4586-86e1-17181b0f5f80__ella.png"
+      "photoSource": "https://images.squarespace-cdn.com/content/v1/635ad72fd597e63875f3c724/1785261159097-KV23UAVW68VB7OKWZVR0/172430981_aa1d96bc-91ae-4586-86e1-17181b0f5f80__ella.png",
+      "hidden": true
     },
     {
       "name": "Heidi Locklear",

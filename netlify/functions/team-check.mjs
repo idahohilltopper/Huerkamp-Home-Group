@@ -11,7 +11,11 @@ export default async () => {
   const key = env('FUB_API_KEY');
   if (!key) return json(503, { ok: false, error: 'Follow Up Boss key missing' });
   try {
-    const r = compareTeam(team.members, await fubUsers(key), team.notOnWebsite ?? []);
+    // People marked "hidden" are off the website on purpose: they don't count as on the site, and if they're still in
+    // Follow Up Boss they aren't reported as new either.
+    const shown = team.members.filter((m) => !m.hidden);
+    const skip = [...(team.notOnWebsite ?? []), ...team.members.filter((m) => m.hidden).map((m) => m.name)];
+    const r = compareTeam(shown, await fubUsers(key), skip);
     return json(200, { ok: true, checked: new Date().toISOString(), ...r }, 'public, max-age=0, s-maxage=3600');
   } catch (e) {
     console.error('team-check', e?.message);
