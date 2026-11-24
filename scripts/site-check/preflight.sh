@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Pre-push check: test a change BEFORE it goes live (every push to the live branch deploys within minutes).
+#   0. the unit tests (tests/*.test.mjs, npm test)
 #   1. build the site with made-up sample homes (make-fixture.mjs; Netlify never uses them)
 #   2. the launch checks (old addresses, broken internal links: scripts/check-launch.mjs)
 #   3. serve the build on localhost (serve-dist.mjs; /api/* goes to the live site) and run the full site check on it
@@ -9,6 +10,12 @@ set -u
 cd "$(dirname "$0")/../.."
 PORT=4471
 fail=0
+mkdir -p .cache
+echo "== 0/3 unit tests"
+if ! node --test tests/*.test.mjs > .cache/preflight-tests.log 2>&1; then
+  echo "FAIL  unit tests — see .cache/preflight-tests.log"; grep -E "^not ok|# (pass|fail)" .cache/preflight-tests.log; exit 1
+fi
+grep -E "^# (pass|fail)" .cache/preflight-tests.log | tr '\n' ' '; echo
 echo "== 1/3 build with sample homes"
 node scripts/site-check/make-fixture.mjs .cache/sample-listings.json >/dev/null 2>&1
 if ! MLS_FIXTURE=.cache/sample-listings.json npx astro build > .cache/preflight-build.log 2>&1; then

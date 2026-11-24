@@ -27,11 +27,34 @@ export function sales(pr = {}) {
   return { last, prior: prior && (!last || prior.date < last.date) ? prior : null };
 }
 
-/** The parcel whose street address matches, from a /locations answer; null if none (or more than one) matches. */
-export function pickParcel(locations, street) {
+const UNIT = /\s*(?:#|\b(?:APT|APARTMENT|UNIT|STE|SUITE|NO)\b\.?)\s*#?\s*([A-Z0-9-]+)\s*$/i;
+
+/** "204", "#0204", "Unit 204" -> "204"; blank -> "". */
+export function normUnit(u) {
+  return String(u ?? '').toUpperCase().replace(/[^A-Z0-9]/g, '').replace(/^0+(?=.)/, '');
+}
+
+/** A typed address split into street and unit: "1500 Main St #204, Burnsville" -> { street: "1500 Main St", unit: "204" }. */
+export function splitUnit(address) {
+  const [first, ...rest] = String(address ?? '').split(',');
+  const m = first.match(UNIT);
+  return { street: (m ? first.slice(0, m.index) : first).trim() + (rest.length ? `,${rest.join(',')}` : ''), unit: m ? normUnit(m[1]) : '' };
+}
+
+/** A county record's unit, from its own field or the end of its street address. */
+const parcelUnit = (x) => normUnit(x?.address?.unitNumber) || splitUnit(x?.address?.streetAddress).unit;
+
+/** The parcel whose street address (and unit, for condos and townhomes) matches, from a /locations answer; null if
+ * none matches, or if more than one does and the unit can't tell them apart. */
+export function pickParcel(locations, street, unit = '') {
   const want = normStreet(street);
   if (!/^\d+[A-Z]? \S/.test(want)) return null;
   const hits = (locations ?? []).filter((x) => normStreet(x?.address?.streetAddress) === want);
+  const u = normUnit(unit);
+  if (u && hits.some(parcelUnit)) {
+    const same = hits.filter((x) => parcelUnit(x) === u);
+    return same.length === 1 ? same[0] : null;
+  }
   return hits.length === 1 ? hits[0] : null;
 }
 
