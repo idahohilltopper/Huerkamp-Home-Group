@@ -70,6 +70,7 @@ export default function AgentJobs() {
         <p className="eyebrow dark">Who we are looking for</p>
         <h2>Licensed or getting licensed, we want to talk</h2>
         <ul className="plain narrow-list">{who.map((x) => <li key={x}>{x}</li>)}</ul>
+        <p className="sub">New to the career? See <a href="/day-in-the-life-of-a-real-estate-agent">a day in the life of an agent</a>, whether you can <a href="/part-time-real-estate-agent">start part-time</a>, or <a href="/how-do-real-estate-agents-get-paid">how agents get paid</a>.</p>
       </section>
 
       <section className="section alt">
