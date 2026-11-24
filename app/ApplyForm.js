@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { track } from './analytics';
 
 const LOOKING = ['Warm leads', 'Hands-on training', 'Mentorship', 'Better split', 'Team culture', 'Tech & marketing', 'Room to grow', 'Transaction support'];
 const initial = { name: '', email: '', phone: '', licensed: '', experience: '', message: '', website: '' };
@@ -27,6 +28,7 @@ export default function ApplyForm() {
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || 'Something went wrong.');
       setStatus('done');
+      track('generate_lead', { lead_source: 'apply_form' });
       setForm(initial);
       setLooking([]);
     } catch (err) {

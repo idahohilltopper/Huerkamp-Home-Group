@@ -1,6 +1,8 @@
 import './globals.css';
 import { Poppins } from 'next/font/google';
+import Script from 'next/script';
 import JsonLd from './JsonLd';
+import { GA_ID } from './analytics';
 import { orgJsonLd } from './seo';
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '600', '700', '800'], display: 'swap', variable: '--font-poppins' });
@@ -30,6 +32,8 @@ export default function RootLayout({ children }) {
     <html lang="en" className={poppins.variable}>
       <body>
         <JsonLd data={orgJsonLd} />
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
+        <Script id="ga4-init" strategy="afterInteractive">{`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`}</Script>
         {children}
       </body>
     </html>
