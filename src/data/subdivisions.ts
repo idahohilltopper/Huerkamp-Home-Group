@@ -9,6 +9,9 @@ import { developmentsData, devName } from './developments';
 import { communities } from './areas';
 
 export const MIN_HOMES = 3;
+// MLS shorthand in subdivision names, spelled out for readers ("Itokah Valley Twnhms" → "Itokah Valley Townhomes").
+// Only the shown name changes: the page address still comes from the MLS name, so existing links keep working.
+export const prettyName = (n: string) => n.replace(/\b(Twnhms?|Twnhmes|Twnhs|Twnhse?s|Townhms|Townhs|Twn ?Homes|Th)\b\.?/gi, 'Townhomes').replace(/\bTownhomes Townhomes\b/i, 'Townhomes');
 const slugify = (s: string) => s.toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
 export interface Subdivision {
@@ -40,7 +43,7 @@ export const subdivisionsData = (async () => {
     const prices = g.list.map((l) => l.price);
     const fees = g.list.map((l) => l.hoa).filter((h): h is number => !!h && h > 0 && h < 5000);
     seen.set(path, {
-      name: g.name, slug, community: g.community, city: c.name, path, listings: g.list.slice().sort((a, b) => a.price - b.price),
+      name: prettyName(g.name), slug, community: g.community, city: c.name, path, listings: g.list.slice().sort((a, b) => a.price - b.price),
       median: median(prices), min: Math.min(...prices), max: Math.max(...prices), types: [...types].sort((a, b) => b[1] - a[1]),
       beds: range(g.list.map((l) => l.beds)), sqft: range(g.list.map((l) => l.sqft)), built: range(g.list.map((l) => l.yearBuilt)),
       hoa: fees.length ? median(fees) : null,

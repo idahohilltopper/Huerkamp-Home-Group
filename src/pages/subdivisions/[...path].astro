@@ -31,7 +31,11 @@ const kinds = (x: Subdivision) => x.types.map(([t, k]) => { const l = TYPE_LABEL
 const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const n = (k: number) => `${k} ${k === 1 ? 'home' : 'homes'}`;
 
-// One subdivision
+// One subdivision. Mostly townhomes (60%+ of the homes for sale) → worded as a townhome community (Nov 24, 2026): the
+// pages outranking ours for "townhomes for sale <city>" are pages about one townhome association.
+const th = !!s && s.types[0]?.[0] === 'townhome' && s.types[0][1] / s.listings.length >= 0.6;
+const thName = s ? (/townhome/i.test(s.name) ? s.name : `${s.name} townhomes`) : '';
+const oneLevel = s ? s.listings.filter((l) => /one stor|1 stor|rambler|one level|single level|ranch/i.test(l.style ?? '')).length : 0;
 const others = s ? list.filter((x) => x.community === s.community && x.slug !== s.slug).slice(0, 12) : [];
 const answer = s ? `${n(s.listings.length)} ${s.listings.length === 1 ? 'is' : 'are'} for sale in ${s.name}, ${s.city}, MN as of ${day}, by Huerkamp Home Group's count of NorthstarMLS listings${s.listings.length > 1 ? `, from ${money(s.min)} to ${money(s.max)}, with a median list price of ${money(s.median)}` : `, listed at ${money(s.min)}`}: ${kinds(s)}.` : '';
 const facts = s ? [
@@ -44,15 +48,17 @@ const byType = s ? s.types.map(([t]) => { const l = s.listings.filter((x) => x.t
 const faq = s ? [
   { q: `How many homes are for sale in ${s.name}?`, a: answer },
   ...(facts.length ? [{ q: `What are the homes like in ${s.name}?`, a: `${facts.join('. ')}. From the listings for sale now in NorthstarMLS; older or newer homes may sell here too.` }] : []),
+  ...(th && s.hoa ? [{ q: `What is the HOA fee in ${s.name}?`, a: `The median association fee among the ${s.listings.length} homes for sale in ${s.name} is ${money(s.hoa)} a month, as listed in NorthstarMLS on ${day}. Each listing and the association's documents say exactly what the fee covers; for townhomes it often includes exterior maintenance, lawn care and snow removal.` }] : []),
+  ...(th ? [{ q: `Are there one-level townhomes in ${s.name}?`, a: oneLevel ? `Yes: ${oneLevel} of the ${s.listings.length} homes for sale in ${s.name} ${oneLevel === 1 ? 'is' : 'are'} listed as one-level or rambler style (${day}).` : `None of the homes for sale in ${s.name} right now is listed as one-level. Ask us to watch for one, or see one-level homes across ${s.city}.` }] : []),
   { q: `How do I get new ${s.name} listings first?`, a: `Tell us below and we'll email you the moment a home in ${s.name} hits the MLS, including ones our agents hear about before they're listed. Or call or text ${site.phone}.` },
   { q: `What city and county is ${s.name} in?`, a: `${s.city}, Minnesota. See all ${s.city} homes for sale and the ${s.city} market report for prices and sales across the city.` },
 ] : [];
 ---
 {s ? (
   <FeedTopicPage path={`/subdivisions/${s.path}`} crumb={`${s.name}, ${s.city}`} at={at} noindex={!!preview}
-    title={`${s.name} Homes for Sale (${s.listings.length}) in ${s.city}, MN | ${site.name}`}
+    title={th ? `${thName.replace(/^./, (c) => c.toUpperCase()).replace(/ townhomes$/, ' Townhomes')} for Sale in ${s.city}, MN (${s.listings.length}) | ${site.name}` : `${s.name} Homes for Sale (${s.listings.length}) in ${s.city}, MN | ${site.name}`}
     description={answer}
-    eyebrow={`${s.city} subdivision`} h1={`${s.name} homes for sale`} answer={answer}
+    eyebrow={th ? `${s.city} townhome community` : `${s.city} subdivision`} h1={th ? `${thName} for sale` : `${s.name} homes for sale`} answer={answer}
     lede={`Every home for sale in the ${esc(s.name)} subdivision in ${s.city}, from NorthstarMLS, updated ${day}. ${facts.length ? esc(facts.join(' · ')) + '.' : ''} See <a href="${cityPage(s.community)}">all ${s.city} homes for sale</a>.`}
     tables={[{ h: 'By home type', col: 'Type', rows: byType }, { h: `More ${s.city} subdivisions`, col: 'Subdivision', rows: others.map((o) => ({ label: o.name, n: o.listings.length, med: o.median, href: `/subdivisions/${o.path}` })) }]}
     note={`Subdivision names as entered in the MLS, with plat phases ("2nd Addition") combined. Updated ${day}.`}
