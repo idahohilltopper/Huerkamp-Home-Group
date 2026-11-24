@@ -23,7 +23,7 @@ export default function OurTeam() {
       <Stats />
       <YouTubeBanner />
       <section className="section split team" id="team">
-        <img src="/team-photo.jpg" alt="The Huerkamp Home Group team at our annual planning retreat" className="team-img" />
+        <img src="/team-photo.jpg" alt="The Huerkamp Home Group team at our annual planning retreat" className="team-img" width="1200" height="1600" />
         <div>
           <p className="eyebrow dark">Meet the team</p>
           <h2>People who want you to win</h2>
@@ -38,7 +38,7 @@ export default function OurTeam() {
           <h2>We give back together</h2>
           <p className="sub left">Every year the team rolls up its sleeves for Keller Williams Red Day, a day of service for neighbors in our community. Work hard, make a difference, and have fun doing it.</p>
         </div>
-        <img src="/red-day.jpg" alt="HHG team members in red shirts volunteering on Keller Williams Red Day" className="team-img wide" />
+        <img src="/red-day.jpg" alt="HHG team members in red shirts volunteering on Keller Williams Red Day" className="team-img wide" width="1200" height="688" loading="lazy" />
       </section>
 
       <section className="section" id="life">

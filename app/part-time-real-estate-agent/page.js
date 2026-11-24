@@ -41,6 +41,7 @@ export default function PartTime() {
       </PageHero>
 
       <section className="section">
+        <h2>What works and what gets in the way</h2>
         <div className="grid two">
           <div className="card"><h3>What helps part-time agents</h3><ul className="plain">{works.map((x) => <li key={x}>{x}</li>)}</ul></div>
           <div className="card"><h3>What makes it hard</h3><ul className="plain">{hard.map((x) => <li key={x}>{x}</li>)}</ul></div>

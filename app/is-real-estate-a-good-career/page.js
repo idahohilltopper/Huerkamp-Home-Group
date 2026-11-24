@@ -7,7 +7,7 @@ import { breadcrumbs, faqJsonLd } from '../seo';
 
 export const metadata = {
   title: 'Is Real Estate a Good Career?',
-  description: 'An honest look at whether real estate is a good career: the upsides, the hard parts, who tends to succeed, and how a team changes the picture in the Twin Cities.',
+  description: 'An honest look at whether real estate is a good career: the upsides, the hard parts, who tends to succeed, and how a team changes things.',
   alternates: { canonical: '/is-real-estate-a-good-career' },
 };
 
