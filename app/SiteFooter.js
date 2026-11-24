@@ -26,7 +26,7 @@ const links = [
 export default function SiteFooter() {
   return (
     <footer className="footer">
-      <img src="/hhg-logo.png" alt="Huerkamp Home Group" className="logo-img foot" />
+      <img src="/hhg-logo.png" alt="Huerkamp Home Group" className="logo-img foot" width="144" height="70" loading="lazy" />
       <nav aria-label="Footer" className="footnav">
         {links.map(([href, label]) => <Link key={href} href={href}>{label}</Link>)}
       </nav>
