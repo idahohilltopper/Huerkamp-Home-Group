@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { track } from '../analytics';
 
 const LICENSED = ['Yes, active license', 'In progress', 'Not yet, but interested'];
 const EXPERIENCE = ['New to real estate', '1–3 years', '4–10 years', '10+ years'];
@@ -60,7 +61,7 @@ export default function Quiz() {
 
   const choose = (opt) => setA({ ...a, [step.id]: { label: opt[0], points: opt[1] } });
   const toggle = (w) => setA({ ...a, wants: a.wants.includes(w) ? a.wants.filter((x) => x !== w) : [...a.wants, w] });
-  const next = () => (i === steps.length - 1 ? setDone(true) : setI(i + 1));
+  const next = () => (i === steps.length - 1 ? (track('quiz_complete'), setDone(true)) : setI(i + 1));
   const restart = () => { setI(0); setA({ wants: [] }); setDone(false); setStatus('idle'); setError(''); };
 
   const notLicensed = a.licensed?.label !== 'Yes, active license';
@@ -89,6 +90,7 @@ export default function Quiz() {
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || 'Something went wrong.');
       setStatus('done');
+      track('generate_lead', { lead_source: 'career_quiz' });
     } catch (err) { setError(err.message); setStatus('error'); }
   }
 
