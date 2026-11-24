@@ -8,6 +8,8 @@ const links = [
   ['/real-estate-career-quiz', 'Free career quiz'],
   ['/is-real-estate-a-good-career', 'Is real estate a good career?'],
   ['/how-do-real-estate-agents-get-paid', 'How agents get paid'],
+  ['/day-in-the-life-of-a-real-estate-agent', 'A day in the life'],
+  ['/part-time-real-estate-agent', 'Part-time agents'],
   ['/real-estate-commission-splits', 'Commission splits explained'],
   ['/why-hhg', 'Why HHG'],
   ['/income-guarantee', 'Income guarantee'],

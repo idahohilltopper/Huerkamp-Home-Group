@@ -20,6 +20,7 @@ const faqs = [
   ['Can I get licensed without a broker?', 'No. By law you cannot be licensed as a real estate salesperson in Minnesota without first being associated with an actively licensed real estate broker. The broker submits your application for you.'],
   ['Can I work with two brokers at once?', 'No. A Minnesota salesperson may not be licensed to act on behalf of more than one broker during the same period of time.'],
   ['How old do I have to be?', 'You must be at least 18 years old.'],
+  ['What is the difference between a salesperson and a broker license in Minnesota?', 'A salesperson works on behalf of a licensed broker and cannot act independently. A broker can act independently and can hold salespeople. To become a broker, Minnesota law generally requires three years of experience as a licensed salesperson within the previous five years, a 30-hour broker course, and passing the broker exam. Most people start as a salesperson.'],
 ];
 
 export default function BecomeAnAgent() {
@@ -63,6 +64,11 @@ export default function BecomeAnAgent() {
         <h2>Step 4: Your application and background questions</h2>
         <p>The license application asks about criminal history. If something on your background needs explaining, the Commerce Department requires official documents showing what happened and how it was resolved. Read the details in the Commerce Department&rsquo;s licensing guide before you apply so nothing delays you.</p>
 
+        <h2>Salesperson vs. broker license in Minnesota</h2>
+        <p>Minnesota has two main license levels. Almost everyone starts as a <strong>salesperson</strong>, which is the license this guide covers. A salesperson acts on behalf of a licensed broker and cannot act independently. A <strong>broker</strong> can act independently, and a broker is responsible for the acts of the salespeople licensed under them.</p>
+        <p>Under Minnesota law, a broker applicant generally needs about three years of experience as a licensed salesperson within the previous five years, a 30-hour broker course completed within 12 months before applying, and a passing score of 75 percent on both parts of the broker exam. The law lets the Commerce Department waive the experience requirement in some cases, such as for a real estate degree or a licensed attorney whose practice involves real estate law. Rules and fees can change, so check the current requirements with the Commerce Department before you plan.</p>
+        <p>Many agents never become brokers. You can build a full career as a salesperson on a team.</p>
+
         <h2>Minnesota real estate license cost</h2>
         <p>According to the Commerce Department&rsquo;s licensing guide, the initial salesperson license fee is $100 plus the current technology surcharge, which includes $30 for the real estate education, research and recovery fund. The renewal fee is $60 plus the surcharge, which includes $20 for that fund. Course tuition and the exam fee are set by the school and by PSI, so compare them before you buy. Please confirm current amounts with the Commerce Department.</p>
 
@@ -96,6 +102,8 @@ export default function BecomeAnAgent() {
         <h2>Official sources</h2>
         <ul>
           <li><a href="https://mn.gov/commerce-stat/pdfs/re-license-guide.pdf" target="_blank" rel="noopener noreferrer">Minnesota Department of Commerce Guide to Real Estate Licensing (PDF)</a></li>
+          <li><a href="https://www.revisor.mn.gov/statutes/cite/82.59" target="_blank" rel="noopener noreferrer">Minnesota Statutes section 82.59: license requirements</a></li>
+          <li><a href="https://www.revisor.mn.gov/statutes/cite/82.55" target="_blank" rel="noopener noreferrer">Minnesota Statutes section 82.55: definitions of broker and salesperson</a></li>
           <li><a href="https://test-takers.psiexams.com/mnre" target="_blank" rel="noopener noreferrer">PSI Services: Minnesota real estate exam registration</a></li>
         </ul>
       </article>
