@@ -21,6 +21,7 @@ const pages = [
   ['/faq', 0.6],
   ['/apply', 0.8],
   ['/terms', 0.3],
+  ['/privacy', 0.3],
 ];
 
 export default function sitemap() {
