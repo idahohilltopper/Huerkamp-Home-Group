@@ -18,6 +18,7 @@ const links = [
   ['/faq', 'FAQ'],
   ['/apply', 'Apply'],
   ['/terms', 'Terms and conditions'],
+  ['/privacy', 'Privacy policy'],
 ];
 
 export default function SiteFooter() {
