@@ -15,7 +15,7 @@ _Status: Step 3 — home page approved 2026-09-26; Buy, Sell, Invest, Ramsey ELP
 ## Business facts (confirm before launch)
 
 - Use 2002 as the founding year (the year Jason and Brooke joined forces; Jason started in 2001). Confirmed by Jason, 2026-09-26; Keller Williams Preferred Realty
-- 14300 Nicollet Ct, Ste 208, Burnsville, MN 55306 · (612) 502-7653 (612-502-SOLD; main number on the site since 2026-11-05, per Jason. The Google Business Profile still listed (612) 843-9620 at that time; update it to match.)
+- 14300 Nicollet Ct, Ste 208, Burnsville, MN 55306 · (612) 502-7653 (612-502-SOLD; main number on the site since 2026-11-05, per Jason. The Google Business Profile still listed (612) 843-9620 at that time.) **Jason, 2026-11-24:** (612) 843-9620 is the Google call-tracking number and stays as the profile's primary phone on purpose; 502-7653 is the real number, added to the profile as an additional phone. Don't flag the profile/website phone difference as a mismatch.
 - Serves Minneapolis, St. Paul, the 13-county Twin Cities metro and Western Wisconsin
 - Dave Ramsey Endorsed Local Provider (15+ years)
 - Agent count, closings, sales volume and review count: **need current numbers**
