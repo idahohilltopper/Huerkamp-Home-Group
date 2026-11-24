@@ -316,6 +316,9 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     ok('Market page: home value box', true, `opened ${new URL(p.url()).pathname} with the address filled in`);
   });
   await step('Instant home estimate', async () => {
+    // The county-records box (Nov 24, 2026) gets a stand-in answer, so this step doesn't depend on one home's records;
+    // the real lookup is checked hourly by services.mjs.
+    await p.route('**/api/public-record**', (r) => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, last: { price: 335000, date: '2012-09-24' }, prior: null, source: 'Public Record Data' }) }));
     await p.goto(BASE + '/home-estimate?address=17000+Kenwood+Trail%2C+Lakeville&zip=55044', { waitUntil: 'domcontentloaded' });
     // Step 1: the home's details show the range with no contact details (Nov 12, 2026).
     const f = p.locator('[data-estimate-form]');
@@ -324,6 +327,9 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     await f.locator('button[type=submit]').click();
     await p.waitForSelector('.est__range', { timeout: 30000 });
     const range = (await p.textContent('.est__range')).trim();
+    await p.waitForSelector('[data-est-record]:not([hidden])', { timeout: 10000 });
+    const rec = (await p.textContent('[data-est-record]')).replace(/\s+/g, ' ');
+    if (!/\$335,000 in September 2012/.test(rec) || !/Source: Public Record Data/.test(rec)) throw new Error(`county records box said: ${rec.slice(0, 120)}`);
     // Step 2: name, email and phone unlock the sales behind the number (the lead is intercepted, never sent).
     const lead = p.locator('[data-est-lead]');
     await lead.waitFor({ state: 'visible', timeout: 10000 });
@@ -332,7 +338,7 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     await lead.locator('button[type=submit]').click();
     await p.waitForSelector('[data-est-comps]:not([hidden]) .est__mailed', { timeout: 15000 });
     const comps = await p.locator('.est-comp').count();
-    ok('Instant home estimate', comps > 0, `${range}; full report showed ${comps} sales`);
+    ok('Instant home estimate', comps > 0, `${range}; county records box shown; full report showed ${comps} sales`);
   });
   for (const [path, form] of [['/contact', 'contact'], ['/cash-offer', 'cash-offer'], ['/expired-listing', 'expired'], ['/sell', null],
     // Lead forms added 2026-11-07/08: lake report, new construction (hub and a builder page), land, hobby farms, first-time buyer.

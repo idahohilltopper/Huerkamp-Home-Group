@@ -3,6 +3,7 @@
 //   - homes for sale: /api/search answers with homes; the last MLS download (/mls-status.json) is recent and complete
 //   - sold homes: /api/sold answers (Repliers)
 //   - address suggestions: /api/address-suggest answers (Google Places)
+//   - county records: /api/public-record finds a known Burnsville home's last sale (Repliers Public Record add-on)
 //   - lead form endpoint: /api/lead is up (asked with GET, which it refuses; nothing is sent to Follow Up Boss)
 //   - visitor errors: no sudden jump in the last hour (netlify/functions/client-error.mjs)
 // Exit code 1 when anything fails. Usage: node scripts/site-check/services.mjs
@@ -49,6 +50,12 @@ await check('Address suggestions (Google)', async () => {
   const { r, ms } = await get(`${SITE}/api/address-suggest?q=${encodeURIComponent('14300 Nicollet')}`);
   const a = await r.json();
   ok('Address suggestions (Google)', r.ok && (a.suggestions ?? []).length > 0, `${(a.suggestions ?? []).length} suggestions in ${ms} ms`);
+});
+await check('County records (/api/public-record)', async () => {
+  // 13000 Nicollet Ave, Burnsville: a home whose recorded sales (2012) won't change unless it sells again.
+  const { r, ms } = await get(`${SITE}/api/public-record?address=${encodeURIComponent('13000 Nicollet Ave')}&zip=55337`);
+  const a = await r.json();
+  ok('County records (/api/public-record)', r.ok && a.ok && a.last?.price > 0, a.ok ? `last sale on file ${a.last.date} in ${ms} ms` : `answered ${r.status} ${a.error ?? ''}`);
 });
 await check('Lead form endpoint', async () => {
   const { r, ms } = await get(`${SITE}/api/lead`);

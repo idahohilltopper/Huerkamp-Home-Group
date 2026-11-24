@@ -39,6 +39,8 @@ import { SOLD_DISCLAIMER } from '../lib/sold.mjs';
           <div data-est-out><p>Working out your estimate…</p></div>
           <div class="est__comps" data-est-comps hidden></div>
         </div>
+        <!-- County records (src/lib/public-record.mjs): its own box and label, never mixed with the MLS estimate above. -->
+        <div class="est__record" data-est-record hidden></div>
         <form class="form est__lead" data-lead="home-value" data-est-lead hidden>
           <h3>Get the full report, free</h3>
           <p>See the recent sales behind this number, get a copy by email, and have one of our agents send you an exact value for your home's updates and condition. No obligation.</p>
@@ -97,6 +99,7 @@ import { SOLD_DISCLAIMER } from '../lib/sold.mjs';
     out.innerHTML = '<p>Working out your estimate…</p>';
     compsBox.hidden = true; compsBox.innerHTML = '';
     box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    record(f);
     const r = await fetch('/api/estimate', { method: 'POST', headers: { 'content-type': 'application/json', 'x-idx-eula': 'agreed' },
       body: JSON.stringify({ zip: f.zip, type: f.homeType, beds: f.beds, baths: f.baths, sqft: f.sqft }) }).catch(() => null);
     const a = r ? await r.json().catch(() => ({})) : {};
@@ -118,6 +121,20 @@ import { SOLD_DISCLAIMER } from '../lib/sold.mjs';
       + `<p class="est__mid">Middle of the range: <strong>${money(a.mid)}</strong></p>`
       + `<p>Based on ${a.n} similar homes that sold in ZIP ${esc(a.zip)} in the last ${a.months} months, using their ${esc(a.method)}${a.method === 'price per square foot' ? ` and your ${Number(String(f.sqft).replace(/\D/g, '')).toLocaleString('en-US')} square feet` : ''}.</p>`;
     h.textContent = `See the ${a.n} sales behind this number`;
+  }
+  // "County records: last sold for $X in Month Year" for the address, when the county has a sale on file.
+  const recBox = box.querySelector<HTMLElement>('[data-est-record]')!;
+  const monthYear = (d: string) => new Date(`${d}T12:00:00`).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  async function record(f: Record<string, string>) {
+    recBox.hidden = true; recBox.innerHTML = '';
+    const q = new URLSearchParams({ address: f.address ?? '', zip: f.zip ?? '' });
+    const r = await fetch(`/api/public-record?${q}`).catch(() => null);
+    const a = r?.ok ? await r.json().catch(() => ({})) : {};
+    if (!a.ok || !a.last) return;
+    recBox.innerHTML = `<p class="eyebrow">County records</p>`
+      + `<p>This home last sold for <strong>${money(a.last.price)}</strong> in ${monthYear(a.last.date)}${a.prior ? `, and before that for ${money(a.prior.price)} in ${monthYear(a.prior.date)}` : ''}.</p>`
+      + `<p class="est__src">Source: Public Record Data. County sale records, updated every few months; not from the MLS.</p>`;
+    recBox.hidden = false;
   }
   function unlock(fields: Record<string, string>) {
     lead.hidden = true;
@@ -151,6 +168,9 @@ import { SOLD_DISCLAIMER } from '../lib/sold.mjs';
   .est__result :global(.est__range) { margin: .25rem 0; font: 600 clamp(2rem, 6vw, 3rem)/1.1 var(--serif); color: var(--crimson); }
   .est__result :global(.est__mid) { margin: 0 0 1rem; font-size: 1.1rem; }
   .est__note { font-size: .95rem; color: var(--text-soft); }
+  .est__record { margin-top: 1.25rem; padding: 1rem 1.25rem; border-left: 3px solid var(--line); background: #fff; }
+  .est__record :global(p) { margin: 0 0 .4rem; }
+  .est__record :global(.est__src) { margin: 0; font-size: .85rem; color: var(--text-soft); }
   .est__free { margin: .5rem 0 0; font-size: .95rem; color: var(--text-soft); }
   .est__lead { margin: 1.5rem 0; padding: 1.25rem; border: 2px solid var(--crimson); background: #fff; }
   .est__lead h3 { margin: 0 0 .35rem; font-size: 1.3rem; }
