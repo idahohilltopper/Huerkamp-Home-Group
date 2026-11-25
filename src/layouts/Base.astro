@@ -240,6 +240,19 @@ const pageTitle = title.length > 60 && title.endsWith(brandEnd) ? title.slice(0,
       });
     }
   </script>}
+  {site.metricool && <script is:inline define:vars={{ mc: site.metricool, kiosk }}>
+    // Metricool's website tracker (Metricool shows site visits next to the social accounts). Same rules as Google
+    // Analytics: live domains only, off for the /cookies switch or Global Privacy Control, loaded after the page.
+    let mcOff = navigator.globalPrivacyControl === true || kiosk;
+    try { mcOff = mcOff || localStorage.getItem('hhg-analytics') === 'denied'; } catch (e) {}
+    if (!mcOff && /(^|\.)huerkamphome(group|s)\.com$/.test(location.hostname)) {
+      addEventListener('load', () => setTimeout(() => {
+        const s = document.createElement('script'); s.async = true; s.src = 'https://tracker.metricool.com/resources/be.js';
+        s.onload = () => { try { beTracker.t({ hash: mc }); } catch (e) {} };
+        document.head.append(s);
+      }, 1500));
+    }
+  </script>}
   <slot name="head" />
 </head>
 <body data-privacy={site.privacyUrl} data-consent={consentText()} data-submit-notice={submitNotice}>

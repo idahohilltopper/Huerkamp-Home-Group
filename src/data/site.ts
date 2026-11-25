@@ -39,6 +39,8 @@ export const site = {
   ga4: 'G-YY1H36L83S',
   /** Meta (Facebook/Instagram) Pixel for ad measurement; same on/off rules as Google Analytics (src/layouts/Base.astro). */
   metaPixel: '2726990550925323',
+  /** Metricool website tracker (visits shown in Metricool next to the social accounts); same on/off rules. Public id, not a secret. */
+  metricool: '30a60fd64ad9b09a8890d134eb52f950',
   // Track record shown on the home page (hero proof line, red strip, "The record" cards). Update these by hand.
   // Confirmed by Jason 2026-11-05: over $1 billion sold, 341 five-star Zillow reviews (shown as a 5.0★ rating like Google), 3,850 homes sold.
   proof: { soldVolume: '$1 billion+', soldVolumeShort: '$1B+', homesSold: '3,850+', zillowFiveStar: 341, zillowRating: 5.0, asOf: '2026-11' },
