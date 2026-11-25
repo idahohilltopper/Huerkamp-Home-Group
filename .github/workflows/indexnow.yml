@@ -1,0 +1,33 @@
+# IndexNow for joinhhg.com (scripts/indexnow.mjs): after a push to main that changes app/, wait for the deploy,
+# then tell Bing which pages are new or changed. Run it by hand (Actions tab > IndexNow > Run workflow) to send
+# every page. Only pages that are live (answer 200) are sent. A failed run emails the repository owner.
+name: IndexNow
+on:
+  push:
+    branches: [main]
+    paths: ['app/**']
+  workflow_dispatch:
+concurrency:
+  group: indexnow
+  cancel-in-progress: false
+jobs:
+  indexnow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Wait for the deploy
+        if: github.event_name == 'push'
+        run: sleep 300
+      - name: Send changed pages
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            node scripts/indexnow.mjs "${{ github.event.before }}" "${{ github.sha }}"
+          else
+            node scripts/indexnow.mjs --all
+          fi

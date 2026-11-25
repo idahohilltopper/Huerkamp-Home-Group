@@ -1,3 +1,6 @@
+import { execFileSync } from 'node:child_process';
+import { existsSync, readFileSync } from 'node:fs';
+
 const SITE = 'https://joinhhg.com';
 const pages = [
   ['', 1.0],
@@ -24,7 +27,31 @@ const pages = [
   ['/privacy', 0.3],
 ];
 
+// Each page's real last-changed date: the last commit that touched its folder under app/.
+// Google re-reads pages whose date moved, so a date that changes on every build (or never) is worse than none.
+// Hosts like Vercel build from a shallow clone. There, a file older than the clone shows the clone's oldest
+// commit instead of its own, which would be a made-up date, so those pages are listed without one.
+const git = (...args) => {
+  try {
+    return execFileSync('git', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+  } catch {
+    return '';
+  }
+};
+const shallowRoots = new Set(
+  existsSync('.git/shallow') ? readFileSync('.git/shallow', 'utf8').split('\n').filter(Boolean) : []
+);
+
+function lastChanged(path) {
+  const file = path ? `app${path}/page.js` : 'app/page.js';
+  const [hash, date] = git('log', '-1', '--format=%H %cI', '--', file).split(' ');
+  if (!hash || shallowRoots.has(hash)) return undefined;
+  return new Date(date);
+}
+
 export default function sitemap() {
-  const lastModified = new Date('2026-11-08');
-  return pages.map(([path, priority]) => ({ url: SITE + path, lastModified, priority }));
+  return pages.map(([path, priority]) => {
+    const lastModified = lastChanged(path);
+    return { url: SITE + path, ...(lastModified && { lastModified }), priority };
+  });
 }
