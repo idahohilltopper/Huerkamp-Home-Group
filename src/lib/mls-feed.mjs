@@ -151,8 +151,12 @@ export async function download(key, box) {
       const r = await repliers(key, '/listings', { status: 'A', type: 'Sale', resultsPerPage: 100, pageNum: page, fields }, { map: tile }).catch((err) => ({ status: 0, data: null, error: String(err?.message ?? err) }));
       if (r.data) return r.data;
       if (r.status === 400 && fields !== FIELDS) { fields = FIELDS; stats.noOriginalPrice = true; attempt--; continue; }
-      if (attempt >= 3 || r.status === 401 || r.status === 403) throw new Error(`Repliers ${r.status}: ${r.error}`);
-      await new Promise((ok) => setTimeout(ok, 1500 * attempt));
+      // 429 = Repliers' rate limit: wait out its window (about a minute) and try again, up to 4 times. On Nov 25, 2026
+      // a build gave up after two short waits and published 1,572 of about 10,900 homes.
+      const limited = r.status === 429;
+      if (attempt >= (limited ? 5 : 3) || r.status === 401 || r.status === 403) throw new Error(`Repliers ${r.status}: ${r.error}`);
+      if (limited) stats.rateLimited = (stats.rateLimited ?? 0) + 1;
+      await new Promise((ok) => setTimeout(ok, limited ? 65000 : 1500 * attempt));
     }
   };
   const one = async (tile) => {
@@ -207,6 +211,9 @@ export function loadFeed() {
 
       const started = Date.now();
       const { listings: raw, stats } = await download(key, box);
+      // A download with missing pieces must not go live: on Netlify, stop the build so the last complete deploy stays up
+      // (the 4-a-day rebuild tries again; the site check flags a stale download). Elsewhere, build with what came.
+      if (stats.failedTiles > 0 && process.env.NETLIFY === 'true') throw Object.assign(new Error(`MLS feed incomplete: ${stats.failedTiles} of ${stats.tiles} map tiles failed (${stats.errors[0] ?? ''})`), { fatal: true });
       const now = new Date();
       const listings = [];
       const dropped = { incomplete: 0, outside: 0 };
@@ -231,7 +238,9 @@ export function loadFeed() {
       writeFileSync(CACHE, JSON.stringify(out));
       return out;
     } catch (err) {
-      // Never fail the whole site over the listings: build without them and say why.
+      // On Netlify a failed or incomplete download stops the build, so the last complete deploy stays live instead of a
+      // site with missing or no homes. Locally (preflight, tests), build without listings and say why.
+      if (process.env.NETLIFY === 'true') { console.error(`MLS feed: ${err.message}. Stopping the build; the last deploy stays live.`); throw err; }
       console.error(`MLS feed: download failed, building without listing pages: ${err.message}`);
       return { mode: 'off', at: null, listings: [], status: { env, reason: 'download failed', error: String(err.message).slice(0, 300) } };
     }
