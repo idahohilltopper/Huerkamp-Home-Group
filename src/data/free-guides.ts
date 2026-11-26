@@ -263,7 +263,7 @@ export const freeGuides: FreeGuide[] = [
       'Paying the home off early, and selling the Ramsey way',
     ],
     pages: 6, pdf: '/free-guides/the-ramsey-way-to-buy-a-home.pdf', cover: '/free-guides/the-ramsey-way-to-buy-a-home',
-    added: '2026-11-26', draft: true,
+    added: '2026-11-26',
   },
   {
     slug: 'investing-in-a-duplex-or-rental',
@@ -278,7 +278,7 @@ export const freeGuides: FreeGuide[] = [
       'Minnesota landlord basics: deposits, fair housing, insurance and records',
     ],
     pages: 6, pdf: '/free-guides/investing-in-a-duplex-or-rental.pdf', cover: '/free-guides/investing-in-a-duplex-or-rental',
-    added: '2026-11-26', draft: true,
+    added: '2026-11-26',
   },
   {
     slug: 'va-loans-in-minnesota',
@@ -293,7 +293,7 @@ export const freeGuides: FreeGuide[] = [
       "Minnesota's Disabled Veterans' Market Value Exclusion",
     ],
     pages: 6, pdf: '/free-guides/va-loans-in-minnesota.pdf', cover: '/free-guides/va-loans-in-minnesota',
-    added: '2026-11-26', draft: true,
+    added: '2026-11-26',
   },
   {
     slug: 'first-year-homeowner-checklist',
@@ -308,7 +308,7 @@ export const freeGuides: FreeGuide[] = [
       'Radon, property taxes, insurance and saving for repairs',
     ],
     pages: 7, pdf: '/free-guides/first-year-homeowner-checklist.pdf', cover: '/free-guides/first-year-homeowner-checklist',
-    added: '2026-11-26', draft: true,
+    added: '2026-11-26',
   },
   {
     slug: 'real-estate-terms-explained',
@@ -323,7 +323,7 @@ export const freeGuides: FreeGuide[] = [
       "Closing, Minnesota's deed and mortgage registry taxes, and homestead",
     ],
     pages: 6, pdf: '/free-guides/real-estate-terms-explained.pdf', cover: '/free-guides/real-estate-terms-explained',
-    added: '2026-11-26', draft: true,
+    added: '2026-11-26',
   },
 ];
 
