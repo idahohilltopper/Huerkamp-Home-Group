@@ -472,7 +472,16 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     await c4.route('**/api/client-error', (r) => r.fulfill({ status: 202, body: '{}' }));
     const hits = [];
     const ids = [];
-    c4.on('request', (r) => { const u = r.url(); if (/facebook\.com\/tr/.test(u)) { const q = new URL(u).searchParams; hits.push(q.get('ev')); if (q.get('ev') === 'ViewContent' && q.get('cd[content_ids]')) ids.push(q.get('cd[content_ids]')); } });
+    // Meta's script sends some events in the web address and others as a form POST (since about Nov 26, 2026), so both
+    // are read.
+    c4.on('request', (r) => {
+      const u = r.url(); if (!/facebook\.com\/tr/.test(u)) return;
+      const q = new URL(u).searchParams;
+      const body = r.postData() ?? '';
+      const field = (n) => q.get(n) ?? (body.match(new RegExp(`name="${n.replace(/[[\]]/g, '\\$&')}"\\r?\\n\\r?\\n([^\\r\\n]*)`)) ?? [])[1] ?? null;
+      const ev = field('ev'); hits.push(ev);
+      if (ev === 'ViewContent' && field('cd[content_ids]')) ids.push(field('cd[content_ids]'));
+    });
     const m = await c4.newPage();
     // 'domcontentloaded', not 'load': 'load' also waits for Meta's own script, which sometimes answers the test machine
     // slowly (two 30 s timeouts on Nov 12, 2026); the loops below wait for the events themselves.

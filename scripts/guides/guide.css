@@ -1,39 +1,46 @@
-/* Shared look for the free-guide PDFs (scripts/guides/*.html). */
+/* Shared look for the free-guide PDFs (scripts/guides/*.html), in the website's own colors and fonts
+   (src/styles/global.css: --crimson #d40000, --night #1f1b1c, --cream #f9f6f1, --sand #f2ebe3, --line #e6ded3,
+   --ink #1b1819, --ink-soft #5d5658, --charcoal #4c4d4f; Cormorant Garamond headings, Figtree text). Jason, Nov 26,
+   2026: "colors that match our current website", never pink. */
+@font-face { font-family: "Figtree"; font-weight: 300 900; src: url("../../node_modules/@fontsource-variable/figtree/files/figtree-latin-wght-normal.woff2") format("woff2"); }
+@font-face { font-family: "Cormorant Garamond"; font-weight: 400; src: url("../../node_modules/@fontsource/cormorant-garamond/files/cormorant-garamond-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Cormorant Garamond"; font-weight: 500; src: url("../../node_modules/@fontsource/cormorant-garamond/files/cormorant-garamond-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "Cormorant Garamond"; font-weight: 500; font-style: italic; src: url("../../node_modules/@fontsource/cormorant-garamond/files/cormorant-garamond-latin-500-italic.woff2") format("woff2"); }
   @page { size: Letter; margin: 0.7in 0.75in 0.8in; }
   @page :first { margin: 0; }
-  :root { --crimson: #b00000; --ink: #1d1a1b; --soft: #5d5658; --line: #e4dcd4; --paper: #f8f4ef; }
+  :root { --crimson: #d40000; --night: #1f1b1c; --ink: #1b1819; --soft: #5d5658; --charcoal: #4c4d4f; --line: #e6ded3; --cream: #f9f6f1; --sand: #f2ebe3; }
   * { box-sizing: border-box; }
-  body { margin: 0; font: 10.5pt/1.5 "Helvetica Neue", Arial, sans-serif; color: var(--ink); }
-  h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; font-weight: 400; margin: 0; }
-  .cover { width: 8.5in; height: 11in; position: relative; overflow: hidden; page-break-after: always; background: #2b2f36; }
-  .cover__title { position: absolute; left: 0.75in; right: 0.9in; top: 3.2in; color: #fff; }
-  .cover__title > p:first-child { font: 700 10pt/1 Arial, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #ffb3b3; margin: 0 0 14pt; }
-  .cover__title h1 { font: 700 44pt/1.05 Arial, sans-serif; text-transform: uppercase; letter-spacing: .01em; }
-  .cover__title span { display: block; width: 1.4in; height: 8pt; background: var(--crimson); margin: 22pt 0 18pt; }
-  .cover__sub { font: 15pt/1.45 Arial, sans-serif; color: #e8e4e0; max-width: 5.2in; margin: 0; }
+  body { margin: 0; font: 10.5pt/1.55 "Figtree", Arial, sans-serif; color: var(--ink); }
+  h1, h2, h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 500; margin: 0; }
+  .cover { width: 8.5in; height: 11in; position: relative; overflow: hidden; page-break-after: always; background: var(--night); }
   .cover__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .cover::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,18,19,.55) 0%, rgba(20,18,19,.78) 45%, rgba(20,18,19,.9) 100%); }
+  .cover::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(31,27,28,.45) 0%, rgba(31,27,28,.72) 45%, rgba(31,27,28,.9) 100%); }
   .cover > :not(.cover__photo) { z-index: 1; }
-  .cover__brand { position: absolute; left: 0.75in; top: 0.7in; color: #fff; font: 700 11pt/1 Arial, sans-serif; letter-spacing: .18em; text-transform: uppercase; }
-  .cover__foot { position: absolute; left: 0; right: 0; bottom: 0; background: var(--crimson); color: #fff; padding: 0.35in 0.75in; font: 11pt/1.4 Arial, sans-serif; }
+  .cover__brand { position: absolute; left: 0.75in; top: 0.7in; color: #fff; font: 600 11pt/1 "Figtree", Arial, sans-serif; letter-spacing: .2em; text-transform: uppercase; }
+  .cover__title { position: absolute; left: 0.75in; right: 0.9in; top: 3.1in; color: #fff; }
+  .cover__title > p:first-child { display: inline-block; font: 700 9.5pt/1 "Figtree", Arial, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #fff; background: var(--crimson); padding: 6pt 10pt; margin: 0 0 16pt; }
+  .cover__title h1 { font: 500 50pt/1.02 "Cormorant Garamond", Georgia, serif; }
+  .cover__title span { display: block; width: 1.4in; height: 5pt; background: var(--crimson); margin: 22pt 0 18pt; }
+  .cover__sub { font: 400 14pt/1.5 "Figtree", Arial, sans-serif; color: #f6f1ea; max-width: 5.2in; margin: 0; }
+  .cover__foot { position: absolute; left: 0; right: 0; bottom: 0; background: var(--crimson); color: #fff; padding: 0.35in 0.75in; font: 11pt/1.4 "Figtree", Arial, sans-serif; }
   .cover__foot strong { font-size: 13pt; }
   .intro { page-break-after: always; }
-  .eyebrow { font: 700 8.5pt/1 Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; color: var(--crimson); margin: 0 0 8pt; }
-  .intro h1 { font-size: 30pt; line-height: 1.1; margin-bottom: 14pt; }
+  .eyebrow { font: 700 8.5pt/1 "Figtree", Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; color: var(--crimson); margin: 0 0 8pt; }
+  .intro h1 { font-size: 34pt; line-height: 1.05; margin-bottom: 14pt; }
   .intro p { font-size: 11.5pt; max-width: 6.2in; }
-  .toc { margin-top: 18pt; padding: 14pt 16pt; background: var(--paper); border-left: 4px solid var(--crimson); }
+  .toc { margin-top: 18pt; padding: 14pt 16pt; background: var(--cream); border-left: 4px solid var(--crimson); }
   .toc ol { margin: 6pt 0 0; padding-left: 16pt; columns: 2; column-gap: 22pt; font-size: 9.5pt; }
-  .part { font: 700 9pt/1 Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; color: var(--crimson); border-bottom: 2px solid var(--crimson); padding-bottom: 5pt; margin: 22pt 0 10pt; }
+  .part { font: 700 9pt/1 "Figtree", Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; color: var(--crimson); border-bottom: 2px solid var(--crimson); padding-bottom: 5pt; margin: 22pt 0 10pt; }
   .keep { break-inside: avoid; page-break-inside: avoid; }
   .keep:first-of-type .part { margin-top: 0; }
   .tip { display: grid; grid-template-columns: 0.55in 1fr; gap: 0 10pt; padding: 9pt 0 10pt; border-bottom: 1px solid var(--line); break-inside: avoid; }
-  .tip__n { font: 400 24pt/1 Georgia, serif; color: var(--crimson); }
-  .tip h3 { font-size: 13.5pt; line-height: 1.25; margin-bottom: 3pt; }
-  .tip p { margin: 0; color: #2e2a2b; }
-  .tip a, .sources a { color: var(--crimson); }
+  .tip__n { font: 500 26pt/1 "Cormorant Garamond", Georgia, serif; color: var(--crimson); }
+  .tip h3 { font-size: 15pt; line-height: 1.2; margin-bottom: 3pt; }
+  .tip p { margin: 0; color: var(--ink); }
+  .tip a, .sources a, .card a { color: var(--crimson); }
   .close { break-before: page; }
-  .close h2 { font-size: 22pt; margin-bottom: 8pt; }
-  .card { margin: 14pt 0; padding: 14pt 16pt; background: var(--paper); }
+  .close h2 { font-size: 26pt; margin-bottom: 8pt; }
+  .card { margin: 14pt 0; padding: 14pt 16pt; background: var(--cream); border-top: 3px solid var(--crimson); }
   .sources { font-size: 8.5pt; color: var(--soft); }
   .sources li { margin-bottom: 3pt; }
   .legal { font-size: 8pt; color: var(--soft); margin-top: 14pt; }
