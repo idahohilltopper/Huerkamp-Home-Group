@@ -26,6 +26,12 @@
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-cache
 
+# Free-guide PDFs (src/data/free-guides.ts): reached through each guide's form, so search engines don't list the files.
+/free-guides/*.pdf
+  X-Robots-Tag: noindex, nofollow
+/free-guides/*.webp
+  Cache-Control: public, max-age=604800
+
 # Facebook catalog feed (src/pages/feeds/meta-home-listings.csv.ts): for Meta only, not for Google.
 /feeds/*
   X-Robots-Tag: noindex

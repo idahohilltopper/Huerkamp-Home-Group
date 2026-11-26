@@ -356,6 +356,23 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
       ok(`Form ${path}`, leads.length > before, (await f.locator('.form__status').textContent().catch(() => '')).trim().slice(0, 60));
     });
   }
+  // Free guides (Nov 26, 2026): the list links to a guide; its form (name, email, phone) sends a "free-guide" lead with
+  // the guide's tag and then shows the PDF download, which must load.
+  await step('Free guide download', async () => {
+    await p.goto(BASE + '/free-guides', { waitUntil: 'domcontentloaded' });
+    await p.locator('.fg-list a').first().click();
+    await p.waitForSelector('form[data-lead="free-guide"]', { timeout: 10000 });
+    const f = p.locator('form[data-lead="free-guide"]');
+    for (const [n, v] of [['firstName', 'Test'], ['lastName', 'Smoke'], ['email', 'smoke@example.com'], ['phone', '6125550100']]) await f.locator(`[name=${n}]`).fill(v);
+    const before = leads.length; await f.locator('button[type=submit]').click();
+    await p.waitForSelector('[data-guide-done]:not([hidden])', { timeout: 10000 });
+    const sent = leads.slice(before).find((l) => l.form === 'free-guide');
+    if (!sent?.fields?.guide) throw new Error('the lead did not carry the guide name');
+    const href = await p.locator('[data-guide-pdf]').getAttribute('href');
+    const r = await p.request.get(new URL(href, BASE).href);
+    const type = r.headers()['content-type'] ?? '';
+    ok('Free guide download', r.ok() && /pdf/.test(type), `lead tagged "${sent.fields.guide}"; ${href} ${r.status()} ${type}`);
+  });
   // Open house sign-in (Jlopo, Nov 13, 2026): a tablet page for a team listing, no site menus, the lead goes to the host,
   // and the page forgets the visitor before the next one signs in.
   await step('Open house sign-in', async () => {

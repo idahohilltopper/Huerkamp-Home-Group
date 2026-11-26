@@ -1,0 +1,45 @@
+---
+// Free guides for buyers and sellers (Jason, Nov 26, 2026: "have a guide section, this the first one; I'll build out
+// others"). Each guide is in src/data/free-guides.ts and has its own page with the download form.
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { freeGuides } from '../../data/free-guides';
+---
+<Base breadcrumbs={[{ name: 'Free guides', href: '/free-guides' }]}
+  title="Free Home Buying & Selling Guides | Huerkamp Home Group"
+  description="Free guides for Twin Cities home buyers and sellers from Huerkamp Home Group: practical tips from experienced local agents, with the Minnesota rules that matter.">
+  <PageHero eyebrow="Free guides" title="Free guides for buyers and sellers"
+    lede="Practical, local advice from agents who have helped Twin Cities buyers and sellers since 2002. Download any guide free." />
+  <section class="section">
+    <div class="wrap">
+      <ul class="fg-list">
+        {freeGuides.map((g) => (
+          <li>
+            <a href={`/free-guides/${g.slug}`}>
+              <picture>
+                <source type="image/webp" srcset={`${g.cover}-600.webp 600w, ${g.cover}-1200.webp 1200w`} sizes="(max-width: 700px) 100vw, 22rem" />
+                <img src={`${g.cover}-1200.jpg`} alt="" width="600" height="600" loading="lazy" />
+              </picture>
+              <span class="fg-list__aud">For {g.audience.toLowerCase()} · {g.pages} pages</span>
+              <strong>{g.title}</strong>
+              <span>{g.blurb}</span>
+              <span class="link-arrow">Get the free guide</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p class="fg-more">More guides are on the way. Have a question now? Call or text us at <a href="tel:+16125027653">(612) 502-7653</a>.</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .fg-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); gap: 1.75rem; }
+  .fg-list a { display: grid; gap: .45rem; height: 100%; padding-bottom: 1.25rem; border: 1px solid var(--line); background: var(--surface); color: var(--text); text-decoration: none; }
+  .fg-list a > :not(picture) { padding-inline: 1.1rem; }
+  .fg-list img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; }
+  .fg-list strong { font: 500 1.45rem/1.2 var(--serif); }
+  .fg-list__aud { margin-top: .6rem; font: 700 .7rem/1 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--crimson); }
+  .fg-list a:hover strong { color: var(--crimson); }
+  .fg-more { margin-top: 2rem; color: var(--text-soft); }
+</style>

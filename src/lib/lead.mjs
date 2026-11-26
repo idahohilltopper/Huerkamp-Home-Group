@@ -36,6 +36,8 @@ export const FORMS = {
   'lender':            { type: 'General Inquiry', label: 'Lender request (Ken Rife)', tags: ['Buyer lead', 'Lender referral'] },
   'agent':             { type: 'General Inquiry', label: 'Agent page form',        tags: ['Agent page'] },
   'guide':             { type: 'General Inquiry', label: 'Area guide form',       tags: ['Area guide'] },
+  // Free guides (/free-guides): the guide's own tag is added from its "guide" field (src/data/free-guides.ts).
+  'free-guide':        { type: 'General Inquiry', label: 'Free guide download',   tags: ['Free guide'], freeGuide: true },
   'downsizing':        { type: 'Seller Inquiry',  label: 'Downsizing plan request', tags: ['Downsizing', 'Seller lead'] },
   'fsbo':              { type: 'Seller Inquiry',  label: 'FSBO second opinion',    tags: ['FSBO', 'Seller lead'] },
   'foreclosure':       { type: 'Seller Inquiry',  label: 'Short sale / foreclosure help', tags: ['Pre-foreclosure', 'Seller lead'] },
@@ -160,6 +162,7 @@ export function buildEvent(input, meta = {}) {
   if (consented) { tags.add('Call/text consent'); tags.add('SMS consent'); }
   else if (f.phone) tags.add('No call/text consent');
   if (f.lake) tags.add(f.lake);
+  if (cfg.freeGuide && f.guide) tags.add(`Guide: ${clean(f.guide, 60)}`);
   // Open house: the host gets the lead (unless it came through an agent's site), and the agent sees what to ask about.
   const host = cfg.openHouse ? AGENTS[String(f.host ?? '').toLowerCase()] : null;
   if (cfg.openHouse) {
