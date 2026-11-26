@@ -188,7 +188,7 @@ export const freeGuides: FreeGuide[] = [
       'Getting ready for photo day and keeping up with showings',
     ],
     pages: 7, pdf: '/free-guides/home-staging-on-a-budget.pdf', cover: '/free-guides/home-staging-on-a-budget',
-    added: '2026-11-26', draft: true,
+    added: '2026-11-26',
   },
   {
     slug: 'pricing-your-home-right',
@@ -203,7 +203,7 @@ export const freeGuides: FreeGuide[] = [
       'Comparing offers by what you net',
     ],
     pages: 6, pdf: '/free-guides/pricing-your-home-right.pdf', cover: '/free-guides/pricing-your-home-right',
-    added: '2026-11-26', draft: true,
+    added: '2026-11-26',
   },
   {
     slug: 'minnesota-time-of-sale-inspections',
@@ -218,7 +218,7 @@ export const freeGuides: FreeGuide[] = [
       'Statewide disclosures every Minnesota seller makes',
     ],
     pages: 7, pdf: '/free-guides/minnesota-time-of-sale-inspections.pdf', cover: '/free-guides/minnesota-time-of-sale-inspections',
-    added: '2026-11-26', draft: true,
+    added: '2026-11-26',
   },
   {
     slug: 'selling-an-inherited-or-probate-home',
@@ -233,7 +233,7 @@ export const freeGuides: FreeGuide[] = [
       'Stepped-up basis and property taxes, in plain English',
     ],
     pages: 6, pdf: '/free-guides/selling-an-inherited-or-probate-home.pdf', cover: '/free-guides/selling-an-inherited-or-probate-home',
-    added: '2026-11-26', draft: true,
+    added: '2026-11-26',
   },
   {
     slug: 'home-inspection-guide',
@@ -248,7 +248,7 @@ export const freeGuides: FreeGuide[] = [
       'Sorting the report and asking for repairs or a credit',
     ],
     pages: 6, pdf: '/free-guides/home-inspection-guide.pdf', cover: '/free-guides/home-inspection-guide',
-    added: '2026-11-26', draft: true,
+    added: '2026-11-26',
   },
 ];
 
