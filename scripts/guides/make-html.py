@@ -8,6 +8,7 @@ from pathlib import Path
 from guides_content import GUIDES
 from guides_content2 import GUIDES2
 from guides_content3 import GUIDES3
+from guides_content4 import GUIDES4
 
 HERE = Path(__file__).resolve().parent
 FOOT = '<strong>Huerkamp Home Group</strong> · Keller Williams Preferred Realty<br>(612) 502-7653 · huerkamphomes.com'
@@ -67,6 +68,6 @@ def page(g):
 
 
 if __name__ == '__main__':
-    for g in GUIDES + GUIDES2 + GUIDES3:
+    for g in GUIDES + GUIDES2 + GUIDES3 + GUIDES4:
         (HERE / f"{g['slug']}.html").write_text(page(g))
         print('wrote', g['slug'], sum(len(t) for _, t in g['parts']), 'tips')
