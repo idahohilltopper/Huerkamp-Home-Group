@@ -113,7 +113,7 @@ export const freeGuides: FreeGuide[] = [
       'The step-by-step path from homebuyer class to closing',
     ],
     pages: 7, pdf: '/free-guides/minnesota-down-payment-assistance.pdf', cover: '/free-guides/minnesota-down-payment-assistance',
-    added: '2026-11-26', draft: true,
+    added: '2026-11-26',
   },
   {
     slug: 'buying-new-construction',
@@ -128,7 +128,7 @@ export const freeGuides: FreeGuide[] = [
       "Minnesota's 1-, 2- and 10-year new home warranties",
     ],
     pages: 6, pdf: '/free-guides/buying-new-construction.pdf', cover: '/free-guides/buying-new-construction',
-    added: '2026-11-26', draft: true,
+    added: '2026-11-26',
   },
   {
     slug: 'buying-a-lake-home-or-cabin',
@@ -143,7 +143,7 @@ export const freeGuides: FreeGuide[] = [
       'Second-home financing, insurance and the costs of lake life',
     ],
     pages: 6, pdf: '/free-guides/buying-a-lake-home-or-cabin.pdf', cover: '/free-guides/buying-a-lake-home-or-cabin',
-    added: '2026-11-26', draft: true,
+    added: '2026-11-26',
   },
   {
     slug: 'townhome-and-condo-buyers-guide',
@@ -158,7 +158,7 @@ export const freeGuides: FreeGuide[] = [
       'Financing approval and what helps resale',
     ],
     pages: 6, pdf: '/free-guides/townhome-and-condo-buyers-guide.pdf', cover: '/free-guides/townhome-and-condo-buyers-guide',
-    added: '2026-11-26', draft: true,
+    added: '2026-11-26',
   },
   {
     slug: 'selling-and-buying-at-the-same-time',
@@ -173,7 +173,7 @@ export const freeGuides: FreeGuide[] = [
       'How to make the move smooth, and the tax rules on your sale',
     ],
     pages: 6, pdf: '/free-guides/selling-and-buying-at-the-same-time.pdf', cover: '/free-guides/selling-and-buying-at-the-same-time',
-    added: '2026-11-26', draft: true,
+    added: '2026-11-26',
   },
 ];
 
