@@ -1,14 +1,16 @@
 ---
 import Skyline from './Skyline.astro';
-interface Props { eyebrow: string; title: string; lede?: string; }
-const { eyebrow, title, lede } = Astro.props;
+import type { HeroPhoto } from '../data/hero-photos';
+interface Props { eyebrow: string; title: string; lede?: string; photo?: HeroPhoto }
+const { eyebrow, title, lede, photo } = Astro.props;
 ---
 <section class="page-hero">
-  <Skyline class="page-hero__photo" />
+  <Skyline class="page-hero__photo" photo={photo} />
   <div class="wrap">
     <p class="eyebrow">{eyebrow}</p>
     <h1>{title}</h1>
     {lede && <p>{lede}</p>}
     <slot />
   </div>
+  {photo?.credit && <p class="page-hero__credit">Photo: <a href={photo.credit.source} rel="noopener">{photo.credit.author}</a>, <a href={photo.credit.licenseUrl} rel="noopener">{photo.credit.license}</a></p>}
 </section>

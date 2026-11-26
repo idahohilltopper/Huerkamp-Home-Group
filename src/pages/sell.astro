@@ -1,23 +1,50 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
+import { teamPhoto } from '../data/hero-photos';
 import Quotes from '../components/Quotes.astro';
 import { site } from '../data/site';
 import closings from '../data/team-closings.json';
 import { communities } from '../data/areas';
+import reviewData from '../data/reviews.json';
 
 // Our closings by city (src/data/team-closings.json), the cities with the most, for the "sold where you live" strip.
 const topCities = Object.entries(closings.cities as Record<string, { n: number; seller: number }>)
   .filter(([, v]) => v.n >= 5).sort((a, b) => b[1].n - a[1].n).slice(0, 12)
   .map(([s, v]) => ({ s, v, name: communities.find((c) => c.slug === s)?.name })).filter((x) => x.name);
 
+// Trust strip under the hero (Jason, Nov 26, 2026: design review): the founders, the Google rating and one seller's
+// review, word for word from src/data/reviews.json (never edited).
+const google = reviewData.summary.google;
+const sellerQuote = (reviewData.reviews as any[]).find((r) => r.reviewer === 'David Haynes' && r.textComplete);
 ---
 <Base
   breadcrumbs={[{ name: 'Sell', href: '/sell' }]}
   title="Sell Your Home in the Twin Cities | Huerkamp Home Group"
   description="Find out what your Twin Cities home is worth and how Huerkamp Home Group markets it to buyers.">
-  <PageHero eyebrow="Selling" title="Sell Your Twin Cities Home"
+  <PageHero photo={teamPhoto} eyebrow="Selling" title="Sell Your Twin Cities Home"
     lede="Start with a free, local estimate of what your home is worth, then get a plan to sell it." />
+
+  <section class="sell-proof" aria-label="Who sells your home">
+    <div class="wrap sell-proof__inner">
+      <div class="sell-proof__who">
+        <picture class="sell-proof__faces">
+          <img src="/team/jason-huerkamp-320.webp" alt="Jason Huerkamp" width="64" height="64" loading="eager" />
+        </picture>
+        <picture class="sell-proof__faces">
+          <img src="/team/brooke-huerkamp-320.webp" alt="Brooke Huerkamp" width="64" height="64" loading="eager" />
+        </picture>
+        <p><strong>Jason &amp; Brooke Huerkamp</strong><span>and team · {site.proof.homesSold} homes sold since 2002</span></p>
+      </div>
+      <p class="sell-proof__rating"><strong>{google.rating.toFixed(1)}<span aria-hidden="true">★</span></strong><span>{google.count} Google reviews</span></p>
+      {sellerQuote && (
+        <figure class="sell-proof__quote">
+          <blockquote>“{sellerQuote.text}”</blockquote>
+          <figcaption>{sellerQuote.reviewer}, Google review</figcaption>
+        </figure>
+      )}
+    </div>
+  </section>
 
   <section class="section" id="value" aria-labelledby="value-title">
     <div class="wrap split-2">
@@ -151,4 +178,20 @@ const topCities = Object.entries(closings.cities as Record<string, { n: number; 
   .cash__btns { display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem; margin: 0; }
   .cash { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2rem; }
   .links { display: flex; flex-wrap: wrap; gap: 1rem 2rem; }
+</style>
+
+<style>
+  .sell-proof { background: var(--paper); border-bottom: 1px solid var(--line); padding-block: 1.5rem; }
+  .sell-proof__inner { display: grid; grid-template-columns: auto auto minmax(0, 1fr); gap: 1.25rem 2.5rem; align-items: center; }
+  @media (max-width: 900px) { .sell-proof__inner { grid-template-columns: 1fr; } }
+  .sell-proof__who { display: flex; align-items: center; gap: .6rem; }
+  .sell-proof__faces img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; object-position: top; border: 2px solid var(--surface); }
+  .sell-proof__faces + .sell-proof__faces { margin-left: -1.2rem; }
+  .sell-proof__who p, .sell-proof__rating { margin: 0; display: grid; gap: .1rem; font: 500 .95rem/1.3 var(--ui); }
+  .sell-proof__who span, .sell-proof__rating span { color: var(--text-soft); font-size: .88rem; }
+  .sell-proof__rating strong { font: 500 1.7rem/1 var(--serif); }
+  .sell-proof__rating strong span { color: var(--crimson); font-size: 1.2rem; margin-left: .15rem; }
+  .sell-proof__quote { margin: 0; display: grid; gap: .3rem; }
+  .sell-proof__quote blockquote { margin: 0; font: italic 500 1.08rem/1.4 var(--serif); }
+  .sell-proof__quote figcaption { font: 600 .72rem/1 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--text-soft); }
 </style>

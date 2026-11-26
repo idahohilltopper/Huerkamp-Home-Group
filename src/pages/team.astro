@@ -2,6 +2,7 @@
 // Team page: everyone on huerkamphomegroup.com/team-page, titles and bios verbatim from their profiles.
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
+import { teamPhoto } from '../data/hero-photos';
 import TeamPhoto from '../components/TeamPhoto.astro';
 import team from '../data/team.json';
 import { site } from '../data/site';
@@ -28,7 +29,7 @@ const ld = JSON.stringify({
 <Base
   breadcrumbs={[{ name: 'Our team', href: '/team' }]} title="Our Team | Huerkamp Home Group" description={`Meet the ${members.length} agents and staff of Huerkamp Home Group, a Twin Cities real estate team at ${site.brokerage} since 2002.`}>
   <script slot="head" type="application/ld+json" set:html={ld} />
-  <PageHero eyebrow="Meet the team" title={`${members.length} people. One team.`}
+  <PageHero photo={teamPhoto} eyebrow="Meet the team" title={`${members.length} people. One team.`}
     lede={`Licensed REALTORS® and client-care staff at ${site.brokerage} in Burnsville, led by founders Jason and Brooke Huerkamp since 2002.`} />
 
   <section class="section" aria-labelledby="founders-title">

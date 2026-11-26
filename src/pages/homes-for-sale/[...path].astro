@@ -11,6 +11,7 @@ import IdxDisclosure from '../../components/IdxDisclosure.astro';
 import { homeSearchHref } from '../../data/search';
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
+import { cityPhotos } from '../../data/hero-photos';
 import ListingCard from '../../components/ListingCard.astro';
 import { listingsData, homesHref, facetsFor, stats, money, median, SHOW, MIN_INDEX, TYPE_LABEL, type Collection } from '../../data/listings';
 import { communities, regions, nearby } from '../../data/areas';
@@ -134,7 +135,8 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() },
 ---
 <Base breadcrumbs={crumbs} title={`${pageTitle} | ${site.name}`} description={description} noindex={c ? !c.index : data.preview}>
   {ld && <script slot="head" type="application/ld+json" set:html={ld} />}
-  <PageHero eyebrow={`Homes for sale · updated ${updatedDay}`} title={h1} lede={`${answer}${attachedMore}`} />
+  <PageHero eyebrow={`Homes for sale · updated ${updatedDay}`} title={h1} lede={`${answer}${attachedMore}`}
+    photo={area && area.kind !== 'zip' ? cityPhotos[area.communitySlug ?? area.key] : undefined} />
   {attachedKind && area && (() => {
     const other = [['townhomes', 'townhomes'], ['condos', 'condos'], ['single-family-homes', 'single-family homes']]
       .filter(([f]) => f !== c?.facet?.slug)
@@ -301,6 +303,17 @@ const crumbs = [{ name: 'Homes for sale', href: homesHref() },
   .filters__group > span { width: 6.5rem; font: 700 .68rem/1.3 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--text-soft); }
   .filters__group a { padding: .3rem .6rem; border: 1px solid var(--line); color: var(--text); text-decoration: none; font-size: .85rem; white-space: nowrap; }
   .filters__group a:hover, .filters__group a[aria-current] { border-color: var(--crimson); color: var(--crimson); }
+  /* Phones: homes start on the first screen or just below it (Jason, Nov 26, 2026: design review). Each filter group is
+     one sideways-scrolling row instead of wrapping onto many lines, and the facts take less room. */
+  @media (max-width: 700px) {
+    .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: 1rem; }
+    .facts div { padding: .55rem .7rem; }
+    .facts dd { font-size: 1.15rem; }
+    .filters { gap: .45rem; padding: .7rem .8rem; margin-bottom: 1.25rem; }
+    .filters__group { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: .1rem; }
+    .filters__group::-webkit-scrollbar { display: none; }
+    .filters__group > span { flex: 0 0 4.6rem; width: auto; }
+  }
   .filters em, .chips em { font-style: normal; color: var(--text-soft); font-size: .8em; }
   .more { margin-top: 1.5rem; text-align: center; }
   .notice { margin-top: 1.5rem; font-size: .75rem; line-height: 1.5; color: var(--text-soft); }

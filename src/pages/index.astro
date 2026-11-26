@@ -122,10 +122,10 @@ const ld = JSON.stringify({
         <h1>Twin Cities real estate, <em>since&nbsp;2002.</em></h1>
         <HeroSearch />
         <div class="hero__ctas">
+          <!-- One main action (Jason, Nov 26, 2026: design review); "Sell Your Home" went to nearly the same place. -->
           <a class="btn" href="/home-estimate">Get Your Home's Value</a>
-          <a class="btn" href="/sell">Sell Your Home</a>
-          <a class="btn" href={homeSearchHref}>Find a Home</a>
-          <a class="btn" href={mapSearchHref}>Map Search</a>
+          <a class="btn btn--ghost" href={homeSearchHref}>Find a Home</a>
+          <a class="btn btn--ghost" href={mapSearchHref}>Map Search</a>
         </div>
         <ul class="hero__proof" aria-label="Our track record">
           <li><strong>#{rt.state}</strong> team in Minnesota</li>
@@ -164,6 +164,31 @@ const ld = JSON.stringify({
     </div>
   </section>
 
+  <!-- Reviews -->
+  <section class="section" id="reviews" aria-labelledby="reviews-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Client stories</p>
+        <h2 id="reviews-title">{google.rating.toFixed(1)} stars on Google across <em>{google.count} reviews.</em></h2>
+        <p>Quoted word for word from Google and Zillow.</p>
+      </div>
+      <figure class="feature-quote">
+        <blockquote>“{featured.text}”</blockquote>
+        <figcaption><strong>{featured.reviewer}</strong> · Google review</figcaption>
+      </figure>
+      <div class="quotes">
+        {cards.map((r: any) => (
+          <figure class="quote">
+            <p class="quote__stars" aria-label={`${r.rating} out of 5 stars`}>{'★'.repeat(r.rating)}</p>
+            <blockquote>{r.text}</blockquote>
+            <figcaption><strong>{r.reviewer}</strong><span>{r.source === 'Zillow' ? `Zillow review · worked with ${r.agent}` : 'Google review'}</span></figcaption>
+          </figure>
+        ))}
+      </div>
+      <p class="more"><a class="link-arrow" href={google.url} rel="noopener">Read all {google.count} reviews on Google</a></p>
+    </div>
+  </section>
+
   <!-- Who we are, in one band -->
   <!-- Home value spotlight: starts the instant estimate (/home-estimate) with the address and ZIP filled in. -->
   <section class="valuespot" aria-labelledby="valuespot-title">
@@ -180,21 +205,6 @@ const ld = JSON.stringify({
         <input id="vs-zip" name="zip" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" autocomplete="postal-code" placeholder="ZIP" required title="Your 5-digit ZIP code" />
         <button class="btn" type="submit">Get my estimate</button>
       </form>
-    </div>
-  </section>
-
-  <section class="trust" aria-label="About Huerkamp Home Group">
-    <div class="wrap trust__inner">
-      <p class="trust__lede">A family-led Keller Williams team of {members.length} agents and staff, rated {google.rating.toFixed(1)} stars across {google.count} Google reviews, and a Dave Ramsey Endorsed Local Provider for more than 15 years.</p>
-      <blockquote class="trust__quote">
-        <p>“They exceeded our expectations for sale price and service.”</p>
-        <cite>{featured.reviewer}, Google review</cite>
-      </blockquote>
-      <dl class="trust__stats">
-        <div><dt>{google.count} Google reviews</dt><dd><span class="star" aria-hidden="true">★</span> {google.rating.toFixed(1)} / 5</dd></div>
-        <div><dt>Founded</dt><dd>2002</dd></div>
-        <div><dt>Ramsey ELP</dt><dd>15+ years</dd></div>
-      </dl>
     </div>
   </section>
 
@@ -324,31 +334,6 @@ const ld = JSON.stringify({
         <li><strong>Precise demographic targeting</strong><span>so your home reaches likely buyers</span></li>
         <li><strong>Proactive customer support</strong><span>from lead to closing, you're kept informed</span></li>
       </ul>
-    </div>
-  </section>
-
-  <!-- Reviews -->
-  <section class="section" id="reviews" aria-labelledby="reviews-title">
-    <div class="wrap">
-      <div class="head">
-        <p class="eyebrow">Client stories</p>
-        <h2 id="reviews-title">{google.rating.toFixed(1)} stars on Google across <em>{google.count} reviews.</em></h2>
-        <p>Quoted word for word from Google and Zillow.</p>
-      </div>
-      <figure class="feature-quote">
-        <blockquote>“{featured.text}”</blockquote>
-        <figcaption><strong>{featured.reviewer}</strong> · Google review</figcaption>
-      </figure>
-      <div class="quotes">
-        {cards.map((r: any) => (
-          <figure class="quote">
-            <p class="quote__stars" aria-label={`${r.rating} out of 5 stars`}>{'★'.repeat(r.rating)}</p>
-            <blockquote>{r.text}</blockquote>
-            <figcaption><strong>{r.reviewer}</strong><span>{r.source === 'Zillow' ? `Zillow review · worked with ${r.agent}` : 'Google review'}</span></figcaption>
-          </figure>
-        ))}
-      </div>
-      <p class="more"><a class="link-arrow" href={google.url} rel="noopener">Read all {google.count} reviews on Google</a></p>
     </div>
   </section>
 
@@ -554,17 +539,6 @@ const ld = JSON.stringify({
   .newest :global(.lcard a) { border-radius: 8px; overflow: hidden; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
 
   /* Trust band */
-  .trust { background: var(--paper); border-block: 1px solid var(--line); padding-block: clamp(1.75rem, 3vw, 2.5rem); }
-  .trust__inner { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) auto; gap: 1.5rem 2.5rem; align-items: center; }
-  @media (max-width: 1000px) { .trust__inner { grid-template-columns: 1fr; } }
-  .trust__lede { margin: 0; font-size: 1.08rem; }
-  .trust__quote { margin: 0; display: grid; gap: .3rem; }
-  .trust__quote p { margin: 0; font: italic 500 clamp(1.2rem, 1.8vw, 1.45rem)/1.3 var(--serif); }
-  .trust__quote cite { font: 600 .72rem/1 var(--ui); letter-spacing: .14em; text-transform: uppercase; font-style: normal; color: var(--text-soft); }
-  .trust__stats { display: flex; gap: 2rem; margin: 0; }
-  .trust__stats div { display: flex; flex-direction: column-reverse; gap: .35rem; }
-  .trust__stats dd { margin: 0; font: 500 1.6rem/1 var(--serif); }
-  .trust__stats dt { font: 600 .68rem/1 var(--ui); letter-spacing: .14em; text-transform: uppercase; color: var(--text-soft); }
 
   /* Record */
   .record__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); background: var(--paper); }

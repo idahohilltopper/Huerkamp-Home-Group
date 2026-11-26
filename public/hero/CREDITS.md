@@ -19,3 +19,18 @@
 - Requirement: visible credit with links to the license and source (done in the site footer). Changes: resized only.
 - Jason chose it Nov 14, 2026 from three mockups ("go with 1"). It replaced the aerial from the team's listing
   MLS 7109462 (Nov 12-14), which was a 1600-pixel MLS photo and looked soft full-width.
+
+# City photos (since Nov 26, 2026)
+
+City pages show a photo of that city (src/data/hero-photos.ts); each is credited on the photo itself. Made with
+scripts/make-place-hero.py (cropped to 3:2 and resized only).
+
+- `lakeville-*`: Lakeville City Hall. Allmightyduck, CC BY-SA 3.0, https://creativecommons.org/licenses/by-sa/3.0/,
+  source https://commons.wikimedia.org/wiki/File:Lakeville-City-Hall.jpg
+- Picked but not yet downloaded (Wikimedia rate-limited this server, Nov 26): Bloomington File:Normandale_Lake.jpg
+  (Tyler Vigen, CC BY 4.0); Woodbury File:Powers_Lake_Woodbury_MN.jpg (EricWoodbury8301, CC BY 4.0); Prior Lake
+  File:Priorlakebridge.jpg (Jeanqueq, CC BY-SA 4.0); Eden Prairie File:Purgatory_Creek_Park,_Eden_Prairie,_MN_Aug_2023_01.jpg
+  (Thomson200, CC0); Savage File:Credit_River_Savage.jpg (Tim Kiser, CC BY-SA 2.5); Farmington
+  File:The_Rambling_River_-_panoramio.jpg (Jayesh Naithani, CC BY-SA 3.0); Inver Grove Heights
+  File:Mississippi_River_Greenway_-_Inver_Grove_Heights_-_Minnesota.jpg (Tony Webster, CC BY-SA 2.0). Each must be
+  looked at before use. No usable free photo found yet: Burnsville, Shakopee, Apple Valley, Eagan, Rosemount, Saint Paul.

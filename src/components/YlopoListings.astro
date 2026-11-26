@@ -73,8 +73,10 @@ const ownMore = q ? ownSearchHref({ ...q, limit: undefined } as OwnQuery) : more
 
 <style is:global>
   /* The site's own listings (feed on) */
-  .lcards--scroll { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: .75rem; }
-  .lcards--scroll > li { flex: 0 0 min(85%, 19rem); scroll-snap-align: start; }
+  /* .lcards.lcards--scroll: ListingCard's .lcards grid rule loads later with the same weight and used to win, so the
+     "scroll" rows stacked every home straight down (16 + 24 homes on the home page; Nov 26, 2026). */
+  .lcards.lcards--scroll { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: .75rem; }
+  .lcards.lcards--scroll > li { flex: 0 0 min(85%, 19rem); scroll-snap-align: start; }
   @media (max-width: 700px) { .lcards--own { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: .75rem; } .lcards--own > li { flex: 0 0 85%; scroll-snap-align: start; } }
   .olist__none { padding: 2rem 0; color: var(--text-soft); }
   /* Ylopo widget, restyled to match the site */
