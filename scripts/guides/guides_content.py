@@ -105,7 +105,7 @@ GUIDES = [
                  'recent sales that support your price to share with the appraiser. If the appraisal comes in low, your '
                  'options depend on the terms of the purchase agreement.'),
                 ('Don\'t forget the deed tax and the payoff',
-                 'In Minnesota the seller typically pays the state deed tax, which is 0.33% of the sale price. Your '
+                 'In Minnesota the seller typically pays the state deed tax: 0.33% of the sale price, plus 0.01% in Hennepin and Ramsey counties. Your '
                  'title company will also order the exact payoff of your mortgage and any home equity line; make sure a '
                  'line of credit is closed, not just paid down.'),
                 ('Know how the sale affects your taxes',
