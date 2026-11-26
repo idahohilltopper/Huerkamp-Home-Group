@@ -370,8 +370,9 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
     if (!sent?.fields?.guide) throw new Error('the lead did not carry the guide name');
     const href = await p.locator('[data-guide-pdf]').getAttribute('href');
     const r = await p.request.get(new URL(href, BASE).href);
-    const type = r.headers()['content-type'] ?? '';
-    ok('Free guide download', r.ok() && /pdf/.test(type), `lead tagged "${sent.fields.guide}"; ${href} ${r.status()} ${type}`);
+    // The file itself must be a PDF (Netlify labels it application/pdf; the local test server may not label it).
+    const isPdf = (await r.body()).subarray(0, 5).toString() === '%PDF-';
+    ok('Free guide download', r.ok() && isPdf, `lead tagged "${sent.fields.guide}"; ${href} ${r.status()}${isPdf ? ', a PDF' : ', not a PDF'}`);
   });
   // Open house sign-in (Jlopo, Nov 13, 2026): a tablet page for a team listing, no site menus, the lead goes to the host,
   // and the page forgets the visitor before the next one signs in.
