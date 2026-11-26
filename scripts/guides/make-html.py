@@ -6,6 +6,7 @@ import html
 from pathlib import Path
 
 from guides_content import GUIDES
+from guides_content2 import GUIDES2
 
 HERE = Path(__file__).resolve().parent
 FOOT = '<strong>Huerkamp Home Group</strong> · Keller Williams Preferred Realty<br>(612) 502-7653 · huerkamphomes.com'
@@ -23,6 +24,9 @@ def page(g):
             n += 1
             tip = f'<div class="tip"><span class="tip__n">{n}</span><div>\n  <h3>{e(h)}</h3>\n  <p>{p}</p>\n</div></div>'
             body.append(f'<div class="keep"><p class="part">{e(part)}</p>\n{tip}</div>' if i == 0 else tip)
+            if n in g.get('figures', {}):
+                src, cap = g['figures'][n]
+                body.append(f'<figure class="fig"><img src="photos/{src}" alt=""><figcaption>{e(cap)}</figcaption></figure>')
     sources = ''.join(f'<li>{e(s)}</li>' for s in g['sources'])
     intro = ''.join(f'<p>{p}</p>' for p in g['intro'])
     return f'''<!doctype html>
@@ -62,6 +66,6 @@ def page(g):
 
 
 if __name__ == '__main__':
-    for g in GUIDES:
+    for g in GUIDES + GUIDES2:
         (HERE / f"{g['slug']}.html").write_text(page(g))
         print('wrote', g['slug'], sum(len(t) for _, t in g['parts']), 'tips')

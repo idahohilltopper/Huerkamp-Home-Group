@@ -53,7 +53,7 @@ export const freeGuides: FreeGuide[] = [
       'How to compare offers, handle the inspection and appraisal, and plan your move',
     ],
     pages: 7, pdf: '/free-guides/selling-your-home-in-minnesota.pdf', cover: '/free-guides/selling-your-home-in-minnesota',
-    added: '2026-11-26', draft: true,
+    added: '2026-11-26',
   },
   {
     slug: 'first-time-home-buyer-guide-minnesota',
@@ -67,8 +67,8 @@ export const freeGuides: FreeGuide[] = [
       'Down payment help in Minnesota and homebuyer education',
       'Every step from pre-approval to closing day, plus Minnesota\'s homestead application',
     ],
-    pages: 6, pdf: '/free-guides/first-time-home-buyer-guide-minnesota.pdf', cover: '/free-guides/first-time-home-buyer-guide-minnesota',
-    added: '2026-11-26', draft: true,
+    pages: 7, pdf: '/free-guides/first-time-home-buyer-guide-minnesota.pdf', cover: '/free-guides/first-time-home-buyer-guide-minnesota',
+    added: '2026-11-26',
   },
   {
     slug: 'moving-to-the-twin-cities',
@@ -83,7 +83,7 @@ export const freeGuides: FreeGuide[] = [
       'Settling in: licenses, homestead, snow rules and utilities',
     ],
     pages: 6, pdf: '/free-guides/moving-to-the-twin-cities.pdf', cover: '/free-guides/moving-to-the-twin-cities',
-    added: '2026-11-26', draft: true,
+    added: '2026-11-26',
   },
   {
     slug: 'downsizing-made-simple',
@@ -98,7 +98,7 @@ export const freeGuides: FreeGuide[] = [
       'Selling the family home, including for a parent or an estate',
     ],
     pages: 6, pdf: '/free-guides/downsizing-made-simple.pdf', cover: '/free-guides/downsizing-made-simple',
-    added: '2026-11-26', draft: true,
+    added: '2026-11-26',
   },
 ];
 

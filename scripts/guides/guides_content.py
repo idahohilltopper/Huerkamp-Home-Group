@@ -12,7 +12,8 @@ def a(path, text):
 GUIDES = [
     {
         'slug': 'selling-your-home-in-minnesota',
-        'photo_credit': 'Cover photo: Collov Home Design on Unsplash (unsplash.com/photos/NTaF5rBmlyE)',
+        'photo_credit': 'Cover photo: Collov Home Design; inside: Spacejoy and Jessica Anderson, all on Unsplash.',
+        'figures': {7: ('sell-1.jpg', 'Fresh paint, clean floors and good light usually pay off more than a big remodel.'), 14: ('sell-2.jpg', 'Homes sell all year in Minnesota; keep walks clear and the home bright.')},
         'title': 'Selling Your Home in Minnesota: 20 Ways to Net More',
         'sub': 'How Twin Cities sellers price right, prepare smart, meet Minnesota\'s rules and keep more at closing.',
         'eyebrow': 'Free guide for Twin Cities home sellers',
@@ -128,7 +129,8 @@ GUIDES = [
     },
     {
         'slug': 'first-time-home-buyer-guide-minnesota',
-        'photo_credit': 'Cover photo: Jakub Żerdzicki on Unsplash (unsplash.com/photos/bqUZEAeWuok)',
+        'photo_credit': 'Cover photo: Jakub Żerdzicki; inside: Puscas Adryan and Victor Meza, all on Unsplash.',
+        'figures': {13: ('ftb-1.jpg', 'Paint and furniture are easy to change; layout and systems are not.'), 15: ('ftb-2.jpg', 'Go to the inspection and ask questions.')},
         'title': 'First-Time Home Buyer\'s Guide to Minnesota',
         'sub': 'From your first budget to your first set of keys: the steps, the costs and the help available in Minnesota.',
         'eyebrow': 'Free guide for first-time buyers',
@@ -233,7 +235,8 @@ GUIDES = [
     },
     {
         'slug': 'moving-to-the-twin-cities',
-        'photo_credit': 'Cover photo: Guywelch2000, Wikimedia Commons, CC BY 4.0 (power lines removed)',
+        'photo_credit': 'Cover photo: Guywelch2000, Wikimedia Commons, CC BY 4.0 (power lines removed); inside: Point3D Commercial Imaging Ltd. and Jessica Anderson on Unsplash.',
+        'figures': {4: ('mov-1.jpg', 'Know which home style you want: it narrows the search.'), 14: ('mov-2.jpg', 'Check your city\'s snow rules before the first storm.')},
         'title': 'Moving to the Twin Cities: A Relocation Guide',
         'sub': 'How to choose where to live, buy from out of state and settle in to Minneapolis, Saint Paul and the suburbs.',
         'eyebrow': 'Free guide for people moving to Minnesota',
@@ -313,7 +316,8 @@ GUIDES = [
     },
     {
         'slug': 'downsizing-made-simple',
-        'photo_credit': 'Cover photo: Alicia Christin Gerald on Unsplash (unsplash.com/photos/bV7WI-AeiTA)',
+        'photo_credit': 'Cover photo: Alicia Christin Gerald; inside: Kara Eads and Matt Adams, all on Unsplash.',
+        'figures': {2: ('down-1.jpg', 'Compare your options side by side before you choose.'), 13: ('down-2.jpg', 'Ask which repairs will pay for themselves.')},
         'title': 'Downsizing Made Simple',
         'sub': 'A calm, step-by-step plan for selling the family home, choosing what\'s next and moving with less stress.',
         'eyebrow': 'Free guide for homeowners ready to downsize',
