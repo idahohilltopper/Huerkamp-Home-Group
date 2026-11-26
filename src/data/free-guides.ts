@@ -9,7 +9,7 @@ export interface FreeGuide {
   tag: string;
   audience: 'Buyers' | 'Sellers' | 'Everyone';
   /** "buy" or "sell": also tags the lead as a buyer or seller lead */
-  interest: 'buy' | 'sell' | '';
+  interest: 'buy' | 'sell' | 'buy and sell' | '';
   blurb: string;
   points: string[];
   pages: number;
@@ -99,6 +99,81 @@ export const freeGuides: FreeGuide[] = [
     ],
     pages: 6, pdf: '/free-guides/downsizing-made-simple.pdf', cover: '/free-guides/downsizing-made-simple',
     added: '2026-11-26',
+  },
+  {
+    slug: 'minnesota-down-payment-assistance',
+    title: 'Minnesota Down Payment Assistance, Explained',
+    tag: 'Down Payment Assistance Guide',
+    audience: 'Buyers', interest: 'buy',
+    blurb: 'How down payment and closing cost help works in Minnesota: the programs, who qualifies and the steps to apply.',
+    points: [
+      "How assistance loans work, and when they're repaid",
+      'Minnesota Housing, city, county and nonprofit programs',
+      'Gifts, seller-paid closing costs and lender credits, with the limits for each loan type',
+      'The step-by-step path from homebuyer class to closing',
+    ],
+    pages: 7, pdf: '/free-guides/minnesota-down-payment-assistance.pdf', cover: '/free-guides/minnesota-down-payment-assistance',
+    added: '2026-11-26', draft: true,
+  },
+  {
+    slug: 'buying-new-construction',
+    title: 'Buying New Construction in the Twin Cities',
+    tag: 'New Construction Guide',
+    audience: 'Buyers', interest: 'buy',
+    blurb: "How to choose a builder, what the base price leaves out and how Minnesota's new home warranty protects you.",
+    points: [
+      'Spec, to-be-built or custom: the three ways to buy new',
+      'Lot premiums, options and builder incentives, decoded',
+      'Builder contracts and inspections before drywall and before closing',
+      "Minnesota's 1-, 2- and 10-year new home warranties",
+    ],
+    pages: 6, pdf: '/free-guides/buying-new-construction.pdf', cover: '/free-guides/buying-new-construction',
+    added: '2026-11-26', draft: true,
+  },
+  {
+    slug: 'buying-a-lake-home-or-cabin',
+    title: 'Buying a Lake Home or Cabin in Minnesota',
+    tag: 'Lake Home Guide',
+    audience: 'Buyers', interest: 'buy',
+    blurb: 'Shoreline, septic, wells, water quality and winter roads: what to check before you buy on the water.',
+    points: [
+      'How to research a lake before you look at houses',
+      'Minnesota shoreland rules, docks and short-term rentals',
+      'Septic, well water and year-round living',
+      'Second-home financing, insurance and the costs of lake life',
+    ],
+    pages: 6, pdf: '/free-guides/buying-a-lake-home-or-cabin.pdf', cover: '/free-guides/buying-a-lake-home-or-cabin',
+    added: '2026-11-26', draft: true,
+  },
+  {
+    slug: 'townhome-and-condo-buyers-guide',
+    title: "Townhome & Condo Buyer's Guide",
+    tag: 'Townhome and Condo Guide',
+    audience: 'Buyers', interest: 'buy',
+    blurb: 'Association fees, documents, insurance and financing: how to buy a townhome or condo with your eyes open.',
+    points: [
+      'What the association covers, and the rules to read first',
+      'The resale disclosure certificate, budget and reserves',
+      'Fees, special assessments and condo insurance',
+      'Financing approval and what helps resale',
+    ],
+    pages: 6, pdf: '/free-guides/townhome-and-condo-buyers-guide.pdf', cover: '/free-guides/townhome-and-condo-buyers-guide',
+    added: '2026-11-26', draft: true,
+  },
+  {
+    slug: 'selling-and-buying-at-the-same-time',
+    title: 'Selling and Buying at the Same Time',
+    tag: 'Sell and Buy Guide',
+    audience: 'Everyone', interest: 'buy and sell',
+    blurb: 'How to time two closings, pay for the next home and move only once.',
+    points: [
+      'What your home will net, and pre-approval for both scenarios',
+      'Sell first, buy first, contingent offers or same-day closings',
+      'Rent-backs, bridge loans and home equity lines',
+      'How to make the move smooth, and the tax rules on your sale',
+    ],
+    pages: 6, pdf: '/free-guides/selling-and-buying-at-the-same-time.pdf', cover: '/free-guides/selling-and-buying-at-the-same-time',
+    added: '2026-11-26', draft: true,
   },
 ];
 
