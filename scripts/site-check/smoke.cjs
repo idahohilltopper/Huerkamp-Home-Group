@@ -358,6 +358,14 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
   }
   // Free guides (Nov 26, 2026): the list links to a guide; its form (name, email, phone) sends a "free-guide" lead with
   // the guide's tag and then shows the PDF download, which must load.
+  // Guide boxes (Nov 27, 2026): pages show the free guides that fit them; a box link opens that guide's form.
+  await step('Free guide box on a page', async () => {
+    await p.goto(BASE + '/sell', { waitUntil: 'domcontentloaded' });
+    const links = await p.locator('.gpromo__list a').count();
+    await p.locator('.gpromo__list a').first().click();
+    await p.waitForSelector('form[data-lead="free-guide"]', { timeout: 10000 });
+    ok('Free guide box on a page', links > 0, `${links} guides on /sell; opened ${new URL(p.url()).pathname}`);
+  });
   await step('Free guide download', async () => {
     await p.goto(BASE + '/free-guides', { waitUntil: 'domcontentloaded' });
     await p.locator('.fg-list a').first().click();

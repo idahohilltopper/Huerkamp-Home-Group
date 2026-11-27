@@ -5,6 +5,7 @@
 // own page, opened Nov 10, 2026 (SOURCES). Amounts and funding change, and some funds run out mid-year: re-check them.
 // The state's Start Up details live on /first-time-home-buyer-minnesota; this page lists them in one row and links there.
 import Base from '../layouts/Base.astro';
+import GuidePromo from '../components/GuidePromo.astro';
 import { site } from '../data/site';
 
 const CHECKED = 'November 10, 2026';
@@ -89,6 +90,7 @@ const ld = JSON.stringify([
       <p class="links"><a class="link-arrow" href="/first-time-home-buyer-minnesota">First-time buyer programs</a><a class="link-arrow" href="/mortgage-rates-minnesota">Mortgage rates</a><a class="link-arrow" href="/cheap-houses-for-sale-mn">Homes under $200,000</a><a class="link-arrow" href="/calculators/affordability">How much can I afford?</a><a class="link-arrow" href="/property-taxes/minnesota-homestead">Homestead after you buy</a></p>
     </div>
   </section>
+  <GuidePromo slugs={['minnesota-down-payment-assistance', 'first-time-home-buyer-guide-minnesota']} />
 </Base>
 
 <style>

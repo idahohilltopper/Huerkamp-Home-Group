@@ -3,6 +3,7 @@
 // counts by city and by a second breakdown, the homes, a lead form (community-alert with the topic as its interest)
 // and quick answers. Used by src/pages/duplexes-for-sale-mn.astro and src/pages/mid-century-modern-homes-for-sale.astro.
 import Base from '../layouts/Base.astro';
+import GuidePromo from './GuidePromo.astro';
 import ListingCard from './ListingCard.astro';
 import IdxDisclosure from './IdxDisclosure.astro';
 import { money, type Listing } from '../data/listings';
@@ -10,6 +11,8 @@ import { site } from '../data/site';
 
 type Row = { label: string; n: number; med: number | null; href?: string | null };
 interface Props {
+  /** Free guides that fit this page (src/components/GuidePromo.astro). */
+  guides?: string[];
   path: string; crumb: string; title: string; description: string; noindex: boolean; at: string | null;
   eyebrow: string; h1: string; answer: string; lede: string;
   tables: { h: string; col: string; rows: Row[] }[]; note: string;
@@ -97,6 +100,7 @@ const id = P.path.replace(/\W+/g, '').slice(0, 6);
       <p class="links">{P.links.map(([t, h]) => <a class="link-arrow" href={h}>{t}</a>)}</p>
     </div>
   </section>
+  <GuidePromo slugs={P.guides ?? []} />
 </Base>
 
 <style>

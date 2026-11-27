@@ -2,6 +2,7 @@
 // Lake homes: every named lake of 10 acres or more touching one of our communities (Minnesota DNR lakes), and the
 // lakefront homes for sale on them (Ylopo's MLS "Lakefront" filter). Each lake has its own page.
 import Base from '../../layouts/Base.astro';
+import GuidePromo from '../../components/GuidePromo.astro';
 import PageHero from '../../components/PageHero.astro';
 import AreaMap from '../../components/AreaMap.astro';
 import YlopoListings from '../../components/YlopoListings.astro';
@@ -201,6 +202,7 @@ const ld = JSON.stringify([
       </form>
     </div>
   </section>
+  <GuidePromo slugs={['buying-a-lake-home-or-cabin']} />
 </Base>
 
 <script>

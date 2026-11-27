@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import GuidePromo from '../components/GuidePromo.astro';
 import PageHero from '../components/PageHero.astro';
 import { teamPhoto } from '../data/hero-photos';
 import Quotes from '../components/Quotes.astro';
@@ -165,6 +166,7 @@ const sellerQuote = (reviewData.reviews as any[]).find((r) => r.reviewer === 'Da
       <Quotes reviewers={['Erin Johnson', 'Stephanie Peterson', 'Lauren Hughes']} />
     </div>
   </section>
+  <GuidePromo slugs={['selling-your-home-in-minnesota', 'pricing-your-home-right', 'home-staging-on-a-budget']} />
 </Base>
 
 <style>

@@ -9,6 +9,7 @@ import { buildEvent, FORMS } from '../../src/lib/lead.mjs';
 import { leadEmail } from '../../src/lib/notify.mjs';
 import { sendMail, mailReady } from '../../src/lib/mail.mjs';
 import { estimateLeadEmail } from './estimate.mjs';
+import { sendGuideEmail } from '../../src/lib/guide-email.mjs';
 import { capiEvent, sendCapi } from '../../src/lib/meta.mjs';
 
 const FUB_URL = 'https://api.followupboss.com/v1/events';
@@ -109,6 +110,11 @@ export default async (req, ctx, mail = sendMail, fetcher = fetch, homeValueEmail
   // Home value requests: email the homeowner their estimate. Finishes after the answer (waitUntil) so the page isn't kept waiting.
   if (input.form === 'home-value') {
     const job = homeValueEmail(input.fields ?? {}).then((r) => { if (!r?.sent) console.error('Home value email not sent', r?.why ?? ''); }).catch((e) => console.error('Home value email', e?.message));
+    if (ctx?.waitUntil) ctx.waitUntil(job); else await job;
+  }
+  // Free guides: email the person a copy of the guide they downloaded (src/lib/guide-email.mjs).
+  if (input.form === 'free-guide') {
+    const job = sendGuideEmail(input.fields ?? {}, mail).then((r) => { if (!r.sent) console.error('Guide email not sent', r.why ?? ''); }).catch((e) => console.error('Guide email', e?.message));
     if (ctx?.waitUntil) ctx.waitUntil(job); else await job;
   }
   // Facebook/Instagram: the same lead from the server (Conversions API), for retargeting and ad optimization.

@@ -2,6 +2,7 @@
 // Downsizing & 55+ hub: every guide, the printable checklist, Jason's retirement videos, the team's
 // downsizing posts, and the free downsizing plan form.
 import Base from '../../layouts/Base.astro';
+import GuidePromo from '../../components/GuidePromo.astro';
 import PageHero from '../../components/PageHero.astro';
 import PostCard from '../../components/PostCard.astro';
 import DownsizingForm from '../../components/DownsizingForm.astro';
@@ -67,6 +68,7 @@ const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage'
   </section>
 
   <DownsizingForm topic="Downsizing hub" />
+  <GuidePromo slugs={['downsizing-made-simple', 'selling-an-inherited-or-probate-home']} />
 </Base>
 
 <style>

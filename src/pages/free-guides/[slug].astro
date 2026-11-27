@@ -31,7 +31,7 @@ const { g } = Astro.props;
       <div class="fg__side">
         <form class="form" data-lead="free-guide" id="guide-form">
           <h2>Get the free guide</h2>
-          <p class="form__note">Tell us where to send it. The download opens right away.</p>
+          <p class="form__note">The download opens right away, and we'll email you a copy too.</p>
           <input type="hidden" name="guide" value={g.tag} />
           {g.interest && <input type="hidden" name="interest" value={g.interest} />}
           <div class="form__row">
@@ -45,7 +45,7 @@ const { g } = Astro.props;
         </form>
         <div class="fg__done" data-guide-done hidden>
           <h2>Your guide is ready</h2>
-          <p>Thanks! Here's your copy of {g.title}. An agent may reach out in case you have questions.</p>
+          <p>Thanks! Here's your copy of {g.title}. We also emailed a copy to <strong data-guide-to></strong>, and an agent may reach out in case you have questions.</p>
           <a class="btn" href={g.pdf} target="_blank" rel="noopener" data-guide-pdf>Download the guide (PDF)</a>
           <p class="fg__more"><a class="link-arrow" href="/free-guides">See all free guides</a></p>
         </div>
@@ -62,6 +62,8 @@ const { g } = Astro.props;
     const form = document.getElementById('guide-form');
     const done = document.querySelector<HTMLElement>('[data-guide-done]');
     if (!form || !done) return;
+    const to = done.querySelector<HTMLElement>('[data-guide-to]');
+    if (to) to.textContent = String((d.fields || {}).email || 'your inbox');
     form.hidden = true;
     done.hidden = false;
     done.querySelector<HTMLElement>('[data-guide-pdf]')?.focus();

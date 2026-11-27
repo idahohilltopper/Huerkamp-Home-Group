@@ -3,6 +3,7 @@
 // Every figure comes from src/data (Census, TIGER, OSRM). Listings open in the team's
 // Ylopo home search (src/data/ylopo.ts).
 import { OWN } from '../../data/search';
+import GuidePromo from '../../components/GuidePromo.astro';
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import { cityPhotos } from '../../data/hero-photos';
@@ -836,6 +837,7 @@ const priceDefault = a.medianHomeValue ? Math.round(a.medianHomeValue / 1000) * 
       )}
     </div>
   </section>
+  <GuidePromo slugs={['moving-to-the-twin-cities', '25-insider-secrets-on-home-buying', 'selling-your-home-in-minnesota']} />
 </Base>
 
 <script>

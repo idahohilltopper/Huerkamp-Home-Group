@@ -55,5 +55,5 @@ const otherKind = kind === 'townhomes' ? ['Condos for sale', '/condos-for-sale-m
   note={`Association fees as listed in the MLS; check each listing. Updated ${day}.`}
   shown={shown} shownH={`${T.Plural} across the price range`}
   ask={{ eyebrow: `Looking for a ${T.one}?`, h2: `Tell us what you need <em>in a ${T.one}.</em>`, p: `Area, budget, one level or not, the fee you're comfortable with. We'll watch for it, including homes that come up before they hit the websites, and read the association papers with you before you write an offer.`, interest: T.interest, msg: 'Area, budget, bedrooms, one level, fee limit (optional)' }}
-  faq={faq} faqH={`Buying a ${T.one} in Minnesota`}
+  faq={faq} faqH={`Buying a ${T.one} in Minnesota`} guides={['townhome-and-condo-buyers-guide']}
   links={[[otherKind[0], otherKind[1]], ...(kind === 'condos' ? [['Condo buildings with units for sale', '/condo-buildings'] as [string, string]] : [['Detached townhomes', '/detached-townhomes-for-sale-mn'] as [string, string]]), ['First-time buyer programs', '/first-time-home-buyer-minnesota'], ['Mortgage rates', '/mortgage-rates-minnesota'], ['Homes for sale by city', '/homes-for-sale']]} />

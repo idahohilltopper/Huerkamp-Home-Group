@@ -2,6 +2,7 @@
 // One downsizing / 55+ guide (src/data/downsizing.ts): direct answer first, then the steps, quick answers,
 // sources, Jason's videos, related posts, and the free downsizing plan form.
 import Base from '../../layouts/Base.astro';
+import GuidePromo from '../../components/GuidePromo.astro';
 import PageHero from '../../components/PageHero.astro';
 import PostCard from '../../components/PostCard.astro';
 import DownsizingForm from '../../components/DownsizingForm.astro';
@@ -82,6 +83,7 @@ const ld = JSON.stringify([
   )}
 
   <DownsizingForm topic={g.topic} />
+  <GuidePromo slugs={(['selling-a-parents-home', 'selling-a-house-in-probate-minnesota'].includes(g.slug) ? ['selling-an-inherited-or-probate-home', 'downsizing-made-simple'] : ['buy-before-you-sell', 'pay-cash-for-your-next-home'].includes(g.slug) ? ['selling-and-buying-at-the-same-time', 'downsizing-made-simple'] : ['downsizing-made-simple'])} />
 </Base>
 
 <style>

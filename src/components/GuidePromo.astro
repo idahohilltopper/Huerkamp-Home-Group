@@ -1,0 +1,44 @@
+---
+// "Free guides" box: the guides that fit the page it's on (src/data/free-guides.ts), each linking to its download
+// page. Jason, Nov 27, 2026: put the guides in front of people on the pages where they fit.
+import { publishedGuides } from '../data/free-guides';
+interface Props { slugs: string[]; title?: string }
+const { slugs, title = 'Free guides for you' } = Astro.props;
+const list = slugs.map((s) => publishedGuides.find((g) => g.slug === s)).filter((g): g is NonNullable<typeof g> => !!g);
+---
+{list.length > 0 && (
+  <section class="section section--tight gpromo" aria-labelledby="gpromo-title">
+    <div class="wrap">
+      <div class="gpromo__head">
+        <p class="eyebrow">Free download</p>
+        <h2 id="gpromo-title">{title}</h2>
+      </div>
+      <ul class="gpromo__list">
+        {list.map((g) => (
+          <li>
+            <a href={`/free-guides/${g.slug}`}>
+              <img src={`${g.cover}-600.webp`} alt="" width="120" height="120" loading="lazy" decoding="async" />
+              <span><strong>{g.title}</strong><span>{g.pages}-page PDF · free</span><span class="link-arrow">Get the guide</span></span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p class="gpromo__all"><a href="/free-guides">See all {publishedGuides.length} free guides</a></p>
+    </div>
+  </section>
+)}
+
+<style>
+  .gpromo { background: var(--sand); border-block: 1px solid var(--line); }
+  .gpromo__head h2 { font: 500 clamp(1.6rem, 3vw, 2.1rem)/1.15 var(--serif); margin: 0 0 1rem; }
+  .gpromo__head .eyebrow { margin-bottom: .4rem; }
+  .gpromo__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr)); gap: 1rem; }
+  .gpromo__list a { display: grid; grid-template-columns: 96px 1fr; gap: .9rem; align-items: center; padding: .75rem; background: var(--surface); border: 1px solid var(--line); color: var(--text); text-decoration: none; height: 100%; }
+  .gpromo__list a:hover strong { color: var(--crimson); }
+  .gpromo__list img { width: 96px; height: 96px; object-fit: cover; display: block; }
+  .gpromo__list a > span { display: grid; gap: .2rem; }
+  .gpromo__list strong { font: 500 1.15rem/1.2 var(--serif); }
+  .gpromo__list span span:not(.link-arrow) { font-size: .85rem; color: var(--text-soft); }
+  .gpromo__all { margin: 1rem 0 0; font-size: .95rem; }
+  .gpromo__all a { color: var(--crimson); }
+</style>

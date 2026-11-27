@@ -5,6 +5,7 @@
 // A page per city gives each one a single, specific answer to cite. Every fact comes from the city's own website (the
 // data file says when it was checked); nothing here is invented.
 import Base from '../../layouts/Base.astro';
+import GuidePromo from '../../components/GuidePromo.astro';
 import PageHero from '../../components/PageHero.astro';
 import { saleRules, statewide, CHECKED, type SaleRule } from '../../data/sale-rules';
 import communities from '../../data/communities.json';
@@ -65,6 +66,7 @@ const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage'
       {others.length > 0 && <p class="others">Other cities with a {kindWord}: {others.map((o, i) => <>{i > 0 && ', '}<a href={`/selling-in-minnesota/${o.slug}`}>{name.get(o.slug)}</a></>)}. <a href="/selling-in-minnesota">All cities</a>.</p>}
     </div>
   </section>
+  <GuidePromo slugs={['minnesota-time-of-sale-inspections', 'selling-your-home-in-minnesota']} />
 </Base>
 
 <style>

@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import GuidePromo from '../components/GuidePromo.astro';
 import PageHero from '../components/PageHero.astro';
 import TeamPhoto from '../components/TeamPhoto.astro';
 import team from '../data/team.json';
@@ -80,6 +81,7 @@ const services = [
       </form>
     </div>
   </section>
+  <GuidePromo slugs={['investing-in-a-duplex-or-rental']} />
 </Base>
 
 <style>

@@ -4,6 +4,7 @@
 // its builder is selling and drops off when it sells out. Listings sit inside the I AGREE block with the MLS
 // disclosures, like every listing display on the site.
 import Base from '../../layouts/Base.astro';
+import GuidePromo from '../../components/GuidePromo.astro';
 import ListingCard from '../../components/ListingCard.astro';
 import IdxDisclosure from '../../components/IdxDisclosure.astro';
 import { developmentsData, type Development } from '../../data/developments';
@@ -138,6 +139,7 @@ const byCity = [...new Set(list.map((x) => x.community))].map((slug) => ({ slug,
       {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
     </div>
   </section>
+  <GuidePromo slugs={['buying-new-construction']} />
 </Base>
 
 <style>

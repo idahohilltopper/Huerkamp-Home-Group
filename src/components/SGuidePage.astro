@@ -3,6 +3,7 @@
 // src/pages/buying/[slug].astro (buyer guides): direct answer first, the details, quick answers, sources,
 // and a lead form (seller guides: a seller lead with the guide as its topic; buyer guides: a buyer lead).
 import Base from '../layouts/Base.astro';
+import GuidePromo from './GuidePromo.astro';
 import PageHero from './PageHero.astro';
 import { sguides, sguideHref, type SGuide } from '../data/sellguides';
 import { business, origin } from '../data/schema';
@@ -82,6 +83,7 @@ const ld = JSON.stringify([
       </form>
     </div>
   </section>
+  <GuidePromo slugs={({ 'veterans-and-military-home-buyers-minnesota': ['va-loans-in-minnesota'], 'listing-status-meanings': ['25-insider-secrets-on-home-buying', 'home-inspection-guide'], 'cash-offer-vs-listing': ['selling-your-home-in-minnesota', 'selling-and-buying-at-the-same-time'], 'cost-to-sell-a-house-in-minnesota': ['selling-your-home-in-minnesota', 'pricing-your-home-right'] } as Record<string, string[]>)[g.slug] ?? (g.lead === 'buyer-guide' ? ['25-insider-secrets-on-home-buying'] : ['selling-your-home-in-minnesota'])} />
 </Base>
 
 <style>

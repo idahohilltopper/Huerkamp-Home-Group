@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import GuidePromo from '../components/GuidePromo.astro';
 import PageHero from '../components/PageHero.astro';
 import { site } from '../data/site';
 
@@ -65,6 +66,7 @@ import { site } from '../data/site';
       </form>
     </div>
   </section>
+  <GuidePromo slugs={['the-ramsey-way-to-buy-a-home']} />
 </Base>
 
 <style>

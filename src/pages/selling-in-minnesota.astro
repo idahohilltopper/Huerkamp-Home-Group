@@ -2,6 +2,7 @@
 // "Selling a home in Minnesota: what's required" — statewide disclosures plus the city-by-city inspection
 // rules in src/data/sale-rules.ts (each from the city's own website).
 import Base from '../layouts/Base.astro';
+import GuidePromo from '../components/GuidePromo.astro';
 import PageHero from '../components/PageHero.astro';
 import { saleRules, statewide, CHECKED } from '../data/sale-rules';
 import communities from '../data/communities.json';
@@ -89,6 +90,7 @@ const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage'
       <p style="margin-top:1.5rem">Next: <a href="/calculators/seller-net-proceeds">Estimate your net proceeds</a> · <a href="/sell">Sell with us</a> · <a href="/downsizing/selling-a-longtime-home">Selling a longtime home</a></p>
     </div>
   </section>
+  <GuidePromo slugs={['minnesota-time-of-sale-inspections', 'selling-your-home-in-minnesota']} />
 </Base>
 
 <style>

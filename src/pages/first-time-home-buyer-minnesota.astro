@@ -3,6 +3,7 @@
 // 2026-11-08, see SOURCES); limits change, so re-check them each year (Minnesota Housing usually updates limits mid-year).
 // Programs that are closed are named as closed. No county or city programs are listed until checked on their own sites.
 import Base from '../layouts/Base.astro';
+import GuidePromo from '../components/GuidePromo.astro';
 import { site } from '../data/site';
 
 const CHECKED = 'November 8, 2026';
@@ -122,6 +123,7 @@ const ld = JSON.stringify([
       </div>
     </div>
   </section>
+  <GuidePromo slugs={['first-time-home-buyer-guide-minnesota', 'minnesota-down-payment-assistance', '25-insider-secrets-on-home-buying']} />
 </Base>
 
 <style>

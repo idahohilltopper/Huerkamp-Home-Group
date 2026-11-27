@@ -8,6 +8,7 @@
 //     carrying the home's details from step 1. It's an ESTIMATE, never an appraisal, CMA or home
 // valuation; the sales shown follow the NorthstarMLS sold rules (src/lib/sold.mjs) and appear only after I AGREE.
 import Base from '../layouts/Base.astro';
+import GuidePromo from '../components/GuidePromo.astro';
 import PageHero from '../components/PageHero.astro';
 import IdxDisclosure from '../components/IdxDisclosure.astro';
 import { site } from '../data/site';
@@ -67,6 +68,7 @@ import { SOLD_DISCLAIMER } from '../lib/sold.mjs';
       </div>
     </div>
   </section>
+  <GuidePromo slugs={['selling-your-home-in-minnesota', 'pricing-your-home-right', 'selling-and-buying-at-the-same-time']} />
 </Base>
 
 <script>
