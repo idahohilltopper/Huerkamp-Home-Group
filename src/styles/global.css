@@ -113,6 +113,10 @@ p { margin: 0; }
    whole photo, so they get an even, lighter shade instead. */
 .page-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(21,18,19,.74) 0%, rgba(21,18,19,.42) 50%, rgba(21,18,19,.08) 100%); }
 @media (max-width: 700px) { .page-hero::after { background: linear-gradient(180deg, rgba(21,18,19,.38) 0%, rgba(21,18,19,.62) 100%); } }
+/* Bright photos (the team photo): a narrow, lighter shade only behind the words, plus a stronger text shadow. */
+.page-hero--light::after { background: linear-gradient(90deg, rgba(21,18,19,.68) 0%, rgba(21,18,19,.5) 30%, rgba(21,18,19,.18) 52%, rgba(21,18,19,0) 66%); }
+.page-hero--light h1, .page-hero--light p:not(.eyebrow) { text-shadow: 0 2px 14px rgba(0,0,0,.7), 0 1px 3px rgba(0,0,0,.6); }
+@media (max-width: 700px) { .page-hero--light::after { background: linear-gradient(180deg, rgba(21,18,19,.5) 0%, rgba(21,18,19,.3) 55%, rgba(21,18,19,.15) 100%); } }
 
 .page-hero .wrap { position: relative; z-index: 2; display: grid; gap: 1rem; justify-items: start; text-align: left; }
 .page-hero .eyebrow { color: var(--rose); }

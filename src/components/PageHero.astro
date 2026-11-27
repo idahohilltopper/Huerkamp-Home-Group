@@ -4,7 +4,7 @@ import type { HeroPhoto } from '../data/hero-photos';
 interface Props { eyebrow: string; title: string; lede?: string; photo?: HeroPhoto }
 const { eyebrow, title, lede, photo } = Astro.props;
 ---
-<section class="page-hero">
+<section class:list={["page-hero", photo?.shade === "light" && "page-hero--light"]}>
   <Skyline class="page-hero__photo" photo={photo} />
   <div class="wrap">
     <p class="eyebrow">{eyebrow}</p>
