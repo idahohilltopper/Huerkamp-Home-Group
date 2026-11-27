@@ -15,7 +15,7 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').repl
 export function youtubeHtml(id, title = 'Video', opts = {}) {
   const href = opts.short ? `https://www.youtube.com/shorts/${id}` : `https://www.youtube.com/watch?v=${id}`;
   const img = opts.eager
-    ? `<img src="https://i.ytimg.com/vi/${id}/hq720.jpg" alt="" width="1280" height="720" fetchpriority="high" decoding="async" />`
+    ? `<img src="https://i.ytimg.com/vi/${id}/hq720.jpg" alt="" width="1280" height="720" fetchpriority="high" decoding="async" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${id}/hqdefault.jpg'" />`
     : `<img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async" />`;
   return `<div class="yt${opts.short ? ' yt--short' : ''}" data-yt="${id}" data-title="${esc(title)}">` +
     `<a class="yt__link" href="${href}" aria-label="Play video: ${esc(title)}">` + img +

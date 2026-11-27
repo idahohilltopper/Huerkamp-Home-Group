@@ -1,6 +1,7 @@
 ---
 // A full-length video: thumbnail, length, title, date and views. Opens its watch page on this site
-// (or YouTube for older videos that don't have one yet).
+// (or YouTube for older videos that don't have one yet). Some videos have no large hq720 thumbnail (6 of 328 on
+// Nov 27, 2026), so a missing image falls back to hqdefault instead of showing broken on sharp screens.
 import { videoHref, clock, views, type Video } from '../data/youtube';
 interface Props { video: Video }
 const { video: v } = Astro.props;
@@ -11,7 +12,8 @@ const date = v.published ? new Date(v.published).toLocaleDateString('en-US', { m
 <article class="vcard">
   <a class="vcard__thumb" href={href} rel={external ? 'noopener' : undefined} tabindex="-1" aria-hidden="true">
     <img src={`https://i.ytimg.com/vi/${v.id}/mqdefault.jpg`} srcset={`https://i.ytimg.com/vi/${v.id}/mqdefault.jpg 320w, https://i.ytimg.com/vi/${v.id}/hq720.jpg 1280w`}
-      sizes="(max-width: 700px) 90vw, 360px" alt="" width="320" height="180" loading="lazy" decoding="async" />
+      sizes="(max-width: 700px) 90vw, 360px" alt="" width="320" height="180" loading="lazy" decoding="async"
+      onerror="this.onerror=null;this.removeAttribute('srcset');this.src=this.src.replace(/[^/]+$/,'hqdefault.jpg')" />
     <span class="vcard__play" aria-hidden="true"></span>
     {v.seconds && <span class="vcard__time">{clock(v.seconds)}</span>}
   </a>
