@@ -129,6 +129,7 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
             <p class="hs-count" aria-live="polite" data-count>{total.toLocaleString('en-US')} homes for sale</p>
             <a class="hs-guide" data-guide hidden></a>
           </div>
+          <button class="hs-mapbtn" type="button" data-map-inline><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4zm0 0v14m6-12v14" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Map</button>
           <div class="hs-sort" data-sale-only><label for="hs-sort">Sort</label><select id="hs-sort" name="sort" form="hs-form">{Object.entries(SORTS).map(([v, l]) => <option value={v}>{l}</option>)}</select></div>
         </div>
         <ul class="lcards" data-results>{first.map((l, i) => <ListingCard l={l} eager={i < 4} />)}</ul>
@@ -201,6 +202,8 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
     const sheet = root.querySelector<HTMLButtonElement>('[data-sheet]')!;
     const toList = () => { if (root.classList.contains('is-map')) toggle.click(); window.scrollTo(0, 0); };
     sheet.addEventListener('click', toList);
+    // A plain "Map" button at the top of the list too (Jason, Nov 27, 2026: the floating one is easy to miss).
+    root.querySelector('[data-map-inline]')?.addEventListener('click', () => { if (!root.classList.contains('is-map')) toggle.click(); window.scrollTo(0, 0); });
     let y0 = 0;
     sheet.addEventListener('touchstart', (e) => { y0 = e.touches[0].clientY; }, { passive: true });
     sheet.addEventListener('touchmove', (e) => { if (y0 && y0 - e.touches[0].clientY > 30) { y0 = 0; toList(); } }, { passive: true });
@@ -304,12 +307,15 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
   .hs-panel .lcard a { border-radius: 8px; overflow: hidden; background: #fff; box-shadow: 0 2px 8px rgba(0, 0, 0, .08); transition: box-shadow .15s; }
   .hs-panel .lcard a:hover, .hs-panel .lcard.is-hot a { box-shadow: 0 6px 18px rgba(0, 0, 0, .18); }
   .hs-toggle { display: none; }
+  .hs-mapbtn { display: none; }
   @media (max-width: 900px) {
     .hs-split { display: block; }
     .hs-map { display: none; height: 72vh; top: 0; position: relative; }
     .hs.is-map .hs-map { display: block; }
     .hs.is-map .hs-panel { display: none; }
     .hs-panel { border-left: 0; }
+    .hs-mapbtn { display: inline-flex; align-items: center; gap: .45rem; align-self: end; padding: .6rem 1.1rem; border: 0; border-radius: 999px; background: var(--ink, #151213); color: #fff; font: 700 .95rem/1 var(--ui); cursor: pointer; }
+    .hs-mapbtn svg { width: 1.1rem; height: 1.1rem; }
     .hs-toggle { position: fixed; left: 50%; bottom: 1.2rem; z-index: 15; transform: translateX(-50%); display: inline-flex; padding: .75rem 1.4rem; border: 0; border-radius: 999px; background: var(--ink, #151213); color: #fff; font: 700 .95rem/1 var(--ui); box-shadow: 0 6px 18px rgba(0, 0, 0, .3); cursor: pointer; }
     .hs-map__follow { top: 3.4rem; bottom: auto; left: .9rem; transform: none; }
     .hs-pop { position: fixed; top: auto; left: .75rem; right: .75rem; bottom: .75rem; min-width: 0; }

@@ -690,6 +690,22 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
       ok('Phone map: tap a home, then its photo', true, `${kind} map, ${photos}: opened ${new URL(m.url()).pathname.slice(0, 70)}`);
     } finally { await mc.close(); }
   });
+  // Phones: a "Map" button at the top of the list opens the map (Jason, Nov 27, 2026).
+  await step('Phone list: Map button at the top', async () => {
+    const mc = await b.newContext(PHONE);
+    await mc.addInitScript(() => { try { sessionStorage.setItem('idx-eula', '1'); } catch {} });
+    await mc.route('**/api/client-error', (r) => r.fulfill({ status: 202, body: '{}' }));
+    const m = await mc.newPage();
+    try {
+      await m.goto(BASE + '/home-search?place=lakeville', { waitUntil: 'domcontentloaded' });
+      if (await m.evaluate(() => document.querySelector('.hs')?.classList.contains('is-map'))) await m.locator('[data-sheet]').click();
+      const btn = m.locator('[data-map-inline]');
+      await btn.waitFor({ state: 'visible', timeout: 15000 });
+      await btn.click();
+      await m.waitForFunction(() => document.querySelector('.hs')?.classList.contains('is-map'), null, { timeout: 5000 });
+      ok('Phone list: Map button at the top', true, 'tapped "Map"; the map opened');
+    } finally { await mc.close(); }
+  });
   // What visitors' browsers hit in the last 7 days (netlify/functions/client-error.mjs).
   // Phone search, app-style (Nov 17, 2026): top bar with filters button, full-screen map, "homes for sale" sheet that
   // opens the list, floating Save search, tab bar; the site header is hidden on this page on phones.
