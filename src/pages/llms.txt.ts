@@ -13,6 +13,7 @@ import reviews from '../data/reviews.json';
 import { getPosts, postUrl } from '../data/blog';
 import { watchable, channel } from '../data/youtube';
 import { guides, guideHref } from '../data/guides';
+import { publishedGuides } from '../data/free-guides';
 import { pairs, compareHref } from '../data/compare';
 import { dguides, dguideHref } from '../data/downsizing';
 import { fguides, fguideHref } from '../data/foreclosure';
@@ -85,6 +86,7 @@ Facts (with sources on ${url('/')}):
 - [Cabins for sale in Minnesota](${url('/cabins-for-sale-mn')}): cabins, log homes and cottages listed in NorthstarMLS up north, by area and price (we refer these to local agents)
 - City-by-city sale rules: ${saleRules.map((r) => `[${communities.find((c) => c.slug === r.slug)?.name ?? r.slug}](${url(`/selling-in-minnesota/${r.slug}`)})`).join(', ')}
 - [Area guides](${url('/guides')}): Twin Cities places ranked by price, speed of sale, drive time, lakes and age of homes
+- [Free guides](${url('/free-guides')}): ${publishedGuides.length} free PDF guides for Minnesota buyers and sellers (a short form unlocks each download): ${publishedGuides.map((g) => `[${g.title}](${url(`/free-guides/${g.slug}`)})`).join('; ')}
 - [Team](${url('/team')}): every agent and staff member
 - [Reviews](${url('/reviews')}): verbatim Google and Zillow reviews
 - [Ramsey ELP](${url('/ramsey')}): working with a Ramsey Endorsed Local Provider
