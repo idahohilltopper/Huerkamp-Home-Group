@@ -57,6 +57,31 @@ const ld = JSON.stringify({
     </div>
   </section>
 
+  <section class="section" aria-labelledby="together-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Together</p>
+        <h2 id="together-title">One team, <em>all year.</em></h2>
+      </div>
+      <div class="together">
+        <figure>
+          <picture>
+            <source type="image/webp" srcset="/team-photos/retreat-plaid-600.webp 600w, /team-photos/retreat-plaid-1000.webp 1000w" sizes="(max-width: 760px) 100vw, 60vw" />
+            <img src="/team-photos/retreat-plaid-1000.jpg" alt="The Huerkamp Home Group team in matching plaid jackets by a lake" width="1000" height="750" loading="lazy" decoding="async" />
+          </picture>
+          <figcaption>The team at our retreat, in matching plaid.</figcaption>
+        </figure>
+        <figure>
+          <picture>
+            <source type="image/webp" srcset="/team-photos/advance-2027-600.webp 600w, /team-photos/advance-2027-1000.webp 1000w" sizes="(max-width: 760px) 100vw, 35vw" />
+            <img src="/team-photos/advance-2027-1000.jpg" alt="The Huerkamp Home Group team in front of a screen reading 2027 Advance" width="1000" height="1333" loading="lazy" decoding="async" />
+          </picture>
+          <figcaption>Planning the year ahead at our 2027 Advance.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
   {[{ title: 'Our agents', id: 'agents', list: agents }, { title: 'Leadership and client care', id: 'staff', list: staff }].map((group) => (
     <section class="section section--paper" aria-labelledby={`${group.id}-title`}>
       <div class="wrap">
@@ -112,6 +137,12 @@ const ld = JSON.stringify({
   .person h3 a, .founder h3 a { color: var(--text); text-decoration: none; }
   .person h3 a:hover, .founder h3 a:hover { color: var(--crimson); }
   .profile-link { font: 700 .8rem/1 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--ink); margin-top: .25rem; }
+
+  .together { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 1.5rem; align-items: start; }
+  @media (max-width: 760px) { .together { grid-template-columns: 1fr; } }
+  .together figure { margin: 0; }
+  .together img { width: 100%; height: auto; display: block; }
+  .together figcaption { margin-top: .6rem; font-size: .9rem; color: var(--text-soft); }
 
   .join { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2rem; }
 </style>

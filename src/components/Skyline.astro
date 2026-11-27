@@ -11,5 +11,5 @@ const w = photo?.width ?? 1920, h = photo?.height ?? 1280;
 ---
 <picture>
   <source type="image/webp" srcset={widths.map((x) => `/hero/${name}-${x}.webp ${x}w`).join(', ')} sizes="100vw" />
-  <img class={cls} src={`/hero/${name}-1920.jpg`} alt={photo?.alt ?? ''} width={w} height={h} fetchpriority="high" decoding="async" />
+  <img class={cls} src={`/hero/${name}-1920.jpg`} alt={photo?.alt ?? ''} width={w} height={h} fetchpriority="high" decoding="async" style={photo?.position ? `object-position: ${photo.position}` : undefined} />
 </picture>

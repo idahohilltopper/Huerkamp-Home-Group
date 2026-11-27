@@ -12,6 +12,8 @@ export interface HeroPhoto {
   width: number;
   height: number;
   alt: string;
+  /** CSS object-position when the default (50% 40%) would crop out the subject. */
+  position?: string;
   credit?: { author: string; license: string; licenseUrl: string; source: string };
 }
 
@@ -27,7 +29,7 @@ export const cityPhotos: Record<string, HeroPhoto> = {
   },
 };
 
-/** The team photo for Team and Sell, once Jason sends it (public/hero/team-*.webp). */
+/** The team photo for Team and Sell (Jason, Nov 27, 2026: the team on a lakeside lawn). */
 export const teamPhoto: HeroPhoto | undefined = existsSync('public/hero/team-1920.jpg')
-  ? { name: 'team', widths: [640, 960, 1280, 1920], width: 1920, height: 1280, alt: 'The Huerkamp Home Group team' }
+  ? { name: 'team', widths: [640, 960, 1280, 1920], width: 1920, height: 1083, alt: 'The Huerkamp Home Group team together on a lakeside lawn', position: '50% 78%' }
   : undefined;
