@@ -9,7 +9,8 @@ import { buildEvent, FORMS } from '../../src/lib/lead.mjs';
 import { leadEmail } from '../../src/lib/notify.mjs';
 import { sendMail, mailReady } from '../../src/lib/mail.mjs';
 import { estimateLeadEmail } from './estimate.mjs';
-import { sendGuideEmail } from '../../src/lib/guide-email.mjs';
+import { sendGuideEmail, guideFor, guideEmail } from '../../src/lib/guide-email.mjs';
+import { rq, agentId, clientFor } from './alerts.mjs';
 import { capiEvent, sendCapi } from '../../src/lib/meta.mjs';
 
 const FUB_URL = 'https://api.followupboss.com/v1/events';
@@ -114,7 +115,7 @@ export default async (req, ctx, mail = sendMail, fetcher = fetch, homeValueEmail
   }
   // Free guides: email the person a copy of the guide they downloaded (src/lib/guide-email.mjs).
   if (input.form === 'free-guide') {
-    const job = sendGuideEmail(input.fields ?? {}, mail).then((r) => { if (!r.sent) console.error('Guide email not sent', r.why ?? ''); }).catch((e) => console.error('Guide email', e?.message));
+    const job = guideEmailJob(input.fields ?? {}, mail, fetcher).then((r) => { if (!r.sent) console.error('Guide email not sent', r.why ?? ''); }).catch((e) => console.error('Guide email', e?.message));
     if (ctx?.waitUntil) ctx.waitUntil(job); else await job;
   }
   // Facebook/Instagram: the same lead from the server (Conversions API), for retargeting and ad optimization.
@@ -126,6 +127,26 @@ export default async (req, ctx, mail = sendMail, fetcher = fetch, homeValueEmail
   console.error('Follow Up Boss error', res.status, (await res.text()).slice(0, 500));
   return json(502, { ok: false, error: 'Could not send' });
 };
+
+// The free-guide email goes through Resend when RESEND_API_KEY is set; otherwise as a Repliers message from the team
+// agent, the same way the home value email goes out (netlify/functions/estimate.mjs).
+async function guideEmailJob(fields, mail, f) {
+  if (mailReady() || mail !== sendMail) return sendGuideEmail(fields, mail);
+  const g = guideFor(fields?.guide);
+  const key = (process.env.REPLIERS_API_KEY ?? '').trim();
+  const person = { email: String(fields?.email ?? '').trim().toLowerCase(), firstName: String(fields?.firstName ?? '').trim().slice(0, 60), lastName: String(fields?.lastName ?? '').trim().slice(0, 60), phone: String(fields?.phone ?? '').trim().slice(0, 30) };
+  if (!g) return { sent: false, why: 'unknown-guide' };
+  if (!key || !person.email) return { sent: false, why: 'not-configured' };
+  const found = ((await rq(key, 'GET', '/clients', { params: { email: person.email } }, f)).data?.clients ?? []).find((c) => String(c.email ?? '').toLowerCase() === person.email);
+  if (found && (found.preferences?.unsubscribe || found.status === false)) return { sent: false, why: 'unsubscribed' };
+  const agent = await agentId(key, f);
+  const clientId = found?.clientId ?? (agent ? await clientFor(key, f, person, agent) : null);
+  if (!agent || !clientId) return { sent: false, why: 'no-client' };
+  const e = guideEmail(fields, g);
+  const message = e.text.split('\n\n').slice(0, 3).join(' ').replace(/\s+/g, ' ');
+  const r = await rq(key, 'POST', '/messages', { body: { sender: 'agent', agentId: agent, clientId, content: { subject: e.subject, message, links: [`https://www.huerkamphomes.com${g.pdf}`] } } }, f);
+  return { sent: r.ok, via: 'repliers', why: r.ok ? undefined : `repliers ${r.status}` };
+}
 
 // At most 10 requests a minute from one visitor (Netlify rate limiting), so a bot can't flood it.
 export const config = { path: '/api/lead', rateLimit: { windowLimit: 10, windowSize: 60, aggregateBy: ['ip', 'domain'] } };
