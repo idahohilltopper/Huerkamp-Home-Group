@@ -347,7 +347,9 @@ const names = Object.fromEntries(groups.flatMap((g) => g.items.map((i) => [i.v, 
     /* The map fills the screen between the top bar and the sheet. */
     .hs.is-map .hs-map { position: fixed; top: var(--bar); left: 0; right: 0; bottom: calc(var(--tabs) + var(--sheet)); height: auto; min-height: 0; }
     .hs.is-map .hs-toggle { display: none; }
-    .hs-toggle { left: .8rem; bottom: calc(var(--tabs) + .8rem); transform: none; }
+    /* The floating Map button is hidden (Jason, Nov 27, 2026): the Map button at the top of the list replaces it. It stays
+       in the page because the top button and the sheet use it to switch views. */
+    .hs-toggle { display: none; }
     .hs.is-map .hs-sheet { position: fixed; left: 0; right: 0; bottom: var(--tabs); z-index: 17; display: grid; justify-items: center; gap: .35rem; height: var(--sheet); padding: .45rem 1rem 0; border: 0; border-radius: 16px 16px 0 0; background: #fff; box-shadow: 0 -4px 16px rgba(0, 0, 0, .14); font: 700 1.15rem/1.2 var(--ui); color: var(--text); cursor: pointer; }
     .hs-sheet__grab { width: 2.6rem; height: .3rem; border-radius: 999px; background: #c9c4c5; }
     .hs-tabs { position: fixed; left: 0; right: 0; bottom: 0; z-index: 18; display: grid; grid-template-columns: repeat(5, 1fr); height: var(--tabs); padding-bottom: env(safe-area-inset-bottom, 0px); border-top: 1px solid var(--line); background: #fff; }

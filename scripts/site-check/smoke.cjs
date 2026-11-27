@@ -701,9 +701,10 @@ const ok = (name, pass, info = '') => { results.push(`${pass ? 'PASS' : 'FAIL'} 
       if (await m.evaluate(() => document.querySelector('.hs')?.classList.contains('is-map'))) await m.locator('[data-sheet]').click();
       const btn = m.locator('[data-map-inline]');
       await btn.waitFor({ state: 'visible', timeout: 15000 });
+      if (await m.locator('[data-toggle]').isVisible()) throw new Error('the floating Map button is showing again (Jason asked to remove it, Nov 27)');
       await btn.click();
       await m.waitForFunction(() => document.querySelector('.hs')?.classList.contains('is-map'), null, { timeout: 5000 });
-      ok('Phone list: Map button at the top', true, 'tapped "Map"; the map opened');
+      ok('Phone list: Map button at the top', true, 'no floating Map button; tapped "Map"; the map opened');
     } finally { await mc.close(); }
   });
   // What visitors' browsers hit in the last 7 days (netlify/functions/client-error.mjs).
