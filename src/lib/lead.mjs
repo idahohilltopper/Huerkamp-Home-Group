@@ -33,7 +33,7 @@ export const FORMS = {
   'north-lake':        { type: 'General Inquiry', label: 'Up-north lake home question', tags: ['Lake homes', 'Up north'] },
   'investing':         { type: 'General Inquiry', label: 'Investment form',        tags: ['Investor'] },
   'ramsey':            { type: 'General Inquiry', label: 'Ramsey ELP form',        tags: ['Ramsey ELP'] },
-  'lender':            { type: 'General Inquiry', label: 'Lender request (Ken Rife)', tags: ['Buyer lead', 'Lender referral'] },
+  'lender':            { type: 'General Inquiry', label: 'Lender intro request (agent connects them with Ken Rife)', tags: ['Buyer lead', 'Lender referral'] },
   'agent':             { type: 'General Inquiry', label: 'Agent page form',        tags: ['Agent page'] },
   'guide':             { type: 'General Inquiry', label: 'Area guide form',       tags: ['Area guide'] },
   // Free guides (/free-guides): the guide's own tag is added from its "guide" field (src/data/free-guides.ts).
