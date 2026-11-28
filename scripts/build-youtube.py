@@ -23,7 +23,7 @@ CHANNEL = {'id': 'UCQrRaA9zK3E-NhBLgXVSGhg', 'handle': '@livinginminneapolis', '
 
 # Lines that appear on every video (contact details, subscribe pitch, license block, link lists).
 BOILER = re.compile(
-    r'(https?://|www\.|@|☎|📨|🌐|📱|📋|📩|📍|🚨|👇|🔗|▶|call/text|call or text|email:|instagram|app store|licensed since|license number|'
+    r'(https?://|www\.|@|☎|📨|🌐|📱|📋|📩|📍|🚨|👇|🔗|▶|call/text|call or text|email:|i.m jason huerkamp with|i.ve been licensed|our goal is to help local|stay informed about the twin cities|keller williams preferred realty:|instagram|app store|licensed since|license number|'
     r'keller williams preferred realty \d|brokered by|subscribe|thinking (about|of) (buying|moving)|living in minneapolis, minnesota \(|'
     r'if you are considering buying|call, text, or email|reach out day|video suggestion|learn more about the twin cities|find us on google|'
     r"don.t forget to like|jason & brooke huerkamp, licensed|^jason huerkamp$|we.d love to help|^#|webinar|goes here\]|go here\]|"
